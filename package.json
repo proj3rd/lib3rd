@@ -1,0 +1,22 @@
+{
+  "name": "3gpp",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gsongsong/3gpp.git"
+  },
+  "author": "Seokseong Jeon",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/gsongsong/3gpp/issues"
+  },
+  "homepage": "https://github.com/gsongsong/3gpp#readme",
+  "devDependencies": {
+    "@types/node": "^11.11.3"
+  }
+}
