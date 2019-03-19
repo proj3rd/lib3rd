@@ -22,6 +22,16 @@ This function supports the followings:
 
 ### utils
 
+#### `utils.numbering.versionFromString(str)`
+
+- Input
+  - `str`: `string`
+- Output
+  - `{major, technical, editorial}`
+  - `major`, `technical`, `editorial`: integer
+
+Returns a *version* object from a version string used in a file name. e.g. `f30` is converted to `{major: 15, technical: 3, editorial: 0}`
+
 #### `utils.text.sanitize(text)`
 
 - Input
