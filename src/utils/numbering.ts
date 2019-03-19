@@ -1,4 +1,4 @@
-interface IVersion {
+export interface IVersion {
   major: number;
   technical: number;
   editorial: number;
@@ -6,23 +6,23 @@ interface IVersion {
 
 /*
  * Version Numbering Scheme
- *  http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme
+ * http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme
  */
-export function versionFromString(str: string): IVersion {
-  if (str.length === 3) {
+export function versionFromString(versionStr: string): IVersion {
+  if (versionStr.length === 3) {
     return {
-      major: numberFromAlpha(str[0]),
-      technical: numberFromAlpha(str[1]),
-      editorial: numberFromAlpha(str[2]),
+      major: numberFromAlpha(versionStr[0]),
+      technical: numberFromAlpha(versionStr[1]),
+      editorial: numberFromAlpha(versionStr[2]),
     };
-  } else if (str.length === 6) {
+  } else if (versionStr.length === 6) {
     return {
-      major: parseInt(str.substring(0, 2), 10),
-      technical: parseInt(str.substring(2, 4), 10),
-      editorial: parseInt(str.substring(4, 6), 10),
+      major: parseInt(versionStr.substring(0, 2), 10),
+      technical: parseInt(versionStr.substring(2, 4), 10),
+      editorial: parseInt(versionStr.substring(4, 6), 10),
     };
   }
-  throw Error(`Malformed version string (${str})`);
+  throw Error(`Malformed version string (${versionStr})`);
 }
 
 function numberFromAlpha(char: string): number {
@@ -31,4 +31,8 @@ function numberFromAlpha(char: string): number {
   } else {
     return parseInt(char, 10);
   }
+}
+
+export function seriesFromString(specNumStr: string): string {
+  return specNumStr.split('.')[0];
 }

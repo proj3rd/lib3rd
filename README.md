@@ -4,6 +4,18 @@ Tools to improve productivity for designing cellular network
 
 ## APIs
 
+### Types
+
+#### *version*
+
+`{major, technical, editorial}`
+
+- `major`, `technical`, `editorial`: integer
+
+Corresponds to 3GPP specification [version numbering scheme]
+
+[version numbering scheme]: http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme
+
 ### ASN.1
 
 #### `asn1.extract(text)`
@@ -22,13 +34,21 @@ This function supports the followings:
 
 ### utils
 
-#### `utils.numbering.versionFromString(str)`
+#### `utils.numbering.seriesFromString(specNumStr)`
 
 - Input
-  - `str`: `string`
+  - `specNumStr`: `string`
 - Output
-  - `{major, technical, editorial}`
-  - `major`, `technical`, `editorial`: integer
+  - `string`
+
+Returns a series number (in a string). e.g. `38.331` returns `38`
+
+#### `utils.numbering.versionFromString(versionStr)`
+
+- Input
+  - `versionStr`: `string`
+- Output
+  - *version* object
 
 Returns a *version* object from a version string used in a file name. e.g. `f30` is converted to `{major: 15, technical: 3, editorial: 0}`
 
@@ -42,3 +62,17 @@ Returns a *version* object from a version string used in a file name. e.g. `f30`
 Returns a *sanitized* string. Sanitization includes the followings:
 
 - Removes `\uFFFD` (Unicode REPLACEMENT CHARACTER)
+
+### web
+
+#### `web.specs.list(specNumStr)`
+
+- Input
+  - `specNumStr`: `string`
+- Output
+  - `Array` of `{type, name, size, date, rights, owner, group, target, sticky, version, url}`
+    - `version`: *version* object
+    - `url`: `string`
+    - The others: Refer `ftp.ListingElement` of [npm/ftp]
+
+[npm/ftp]: https://www.npmjs.com/package/ftp
