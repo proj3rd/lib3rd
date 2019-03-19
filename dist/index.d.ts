@@ -1,2 +1,3 @@
+import * as asn1 from './asn1';
 import * as util from './utils';
-export { util };
+export { asn1, util, };
