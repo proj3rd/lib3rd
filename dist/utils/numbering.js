@@ -30,3 +30,7 @@ function numberFromAlpha(char) {
         return parseInt(char, 10);
     }
 }
+function seriesFromString(specNumStr) {
+    return specNumStr.split('.')[0];
+}
+exports.seriesFromString = seriesFromString;

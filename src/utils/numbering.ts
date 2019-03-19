@@ -32,3 +32,7 @@ function numberFromAlpha(char: string): number {
     return parseInt(char, 10);
   }
 }
+
+export function seriesFromString(specNumStr: string): string {
+  return specNumStr.split('.')[0];
+}

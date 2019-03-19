@@ -34,13 +34,21 @@ This function supports the followings:
 
 ### utils
 
-#### `utils.numbering.versionFromString(str)`
+#### `utils.numbering.seriesFromString(specNumStr)`
 
 - Input
-  - `str`: `string`
+  - `specNumStr`: `string`
 - Output
-  - `{major, technical, editorial}`
-  - `major`, `technical`, `editorial`: integer
+  - `string`
+
+Returns a series number (in a string). e.g. `38.331` returns `38`
+
+#### `utils.numbering.versionFromString(versionStr)`
+
+- Input
+  - `versionStr`: `string`
+- Output
+  - *version* object
 
 Returns a *version* object from a version string used in a file name. e.g. `f30` is converted to `{major: 15, technical: 3, editorial: 0}`
 
