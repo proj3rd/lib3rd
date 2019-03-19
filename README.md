@@ -4,6 +4,18 @@ Tools to improve productivity for designing cellular network
 
 ## APIs
 
+### Types
+
+#### *version*
+
+`{major, technical, editorial}`
+
+- `major`, `technical`, `editorial`: integer
+
+Corresponds to 3GPP specification [version numbering scheme]
+
+[version numbering scheme]: http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme
+
 ### ASN.1
 
 #### `asn1.extract(text)`

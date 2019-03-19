@@ -1,4 +1,4 @@
-interface IVersion {
+export interface IVersion {
     major: number;
     technical: number;
     editorial: number;
