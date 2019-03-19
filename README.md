@@ -11,9 +11,9 @@ Tools to improve productivity for designing cellular network
 - Input
   - `text`: `string`
 - Output
-  - `string` or `null`
+  - `string`
 
-Returns a string which only contains ASN.1. For an unexpected case, returns `null`.
+Returns a string which only contains ASN.1
 
 This function supports the followings:
 
@@ -21,6 +21,16 @@ This function supports the followings:
 - NR RRC protocol (38.331)
 
 ### utils
+
+#### `utils.numbering.versionFromString(str)`
+
+- Input
+  - `str`: `string`
+- Output
+  - `{major, technical, editorial}`
+  - `major`, `technical`, `editorial`: integer
+
+Returns a *version* object from a version string used in a file name. e.g. `f30` is converted to `{major: 15, technical: 3, editorial: 0}`
 
 #### `utils.text.sanitize(text)`
 

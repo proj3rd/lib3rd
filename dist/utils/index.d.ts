@@ -1,2 +1,3 @@
+import * as numbering from './numbering';
 import * as text from './text';
-export { text, };
+export { numbering, text, };

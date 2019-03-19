@@ -15,8 +15,7 @@ function extract(text, protocol) {
         }
         var matchEnd = tokens[protocol].end.exec(text);
         if (matchEnd === null) {
-            // Unexpected case: start token is found but end token is not
-            return null;
+            throw Error('Start token is found but end token is not');
         }
         extractedTexts.push(text.substring(matchStart.index + matchStart[0].length, matchEnd.index));
     }
