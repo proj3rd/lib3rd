@@ -1,5 +1,9 @@
 "use strict";
 exports.__esModule = true;
+function seriesFromString(specNumStr) {
+    return specNumStr.split('.')[0];
+}
+exports.seriesFromString = seriesFromString;
 /*
  * Version Numbering Scheme
  * http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme
@@ -30,7 +34,3 @@ function numberFromAlpha(char) {
         return parseInt(char, 10);
     }
 }
-function seriesFromString(specNumStr) {
-    return specNumStr.split('.')[0];
-}
-exports.seriesFromString = seriesFromString;

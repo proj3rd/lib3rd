@@ -4,6 +4,10 @@ export interface IVersion {
   editorial: number;
 }
 
+export function seriesFromString(specNumStr: string): string {
+  return specNumStr.split('.')[0];
+}
+
 /*
  * Version Numbering Scheme
  * http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme
@@ -31,8 +35,4 @@ function numberFromAlpha(char: string): number {
   } else {
     return parseInt(char, 10);
   }
-}
-
-export function seriesFromString(specNumStr: string): string {
-  return specNumStr.split('.')[0];
 }

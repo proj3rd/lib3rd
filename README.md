@@ -2,6 +2,18 @@
 
 Tools to improve productivity for designing cellular network
 
+- [APIs](#apis)
+  - [Types](#types)
+    - [*version*](#version)
+  - [ASN.1](#asn1)
+    - [`asn1.extract(text)`](#asn1extracttext)
+  - [utils](#utils)
+    - [`utils.numbering.seriesFromString(specNumStr)`](#utilsnumberingseriesfromstringspecnumstr)
+    - [`utils.numbering.versionFromString(versionStr)`](#utilsnumberingversionfromstringversionstr)
+    - [`utils.text.sanitize(text)`](#utilstextsanitizetext)
+  - [web](#web)
+    - [`web.specs.list(specNumStr)`](#webspecslistspecnumstr)
+
 ## APIs
 
 ### Types
@@ -32,7 +44,7 @@ This function supports the followings:
 - E-UTRA RRC protocol (36.331)
 - NR RRC protocol (38.331)
 
-### utils
+### Utilities
 
 #### `utils.numbering.seriesFromString(specNumStr)`
 
@@ -63,16 +75,20 @@ Returns a *sanitized* string. Sanitization includes the followings:
 
 - Removes `\uFFFD` (Unicode REPLACEMENT CHARACTER)
 
-### web
+### 3GPP Web Support
 
-#### `web.specs.list(specNumStr)`
+#### `web.specs.list(specNumStr, cb, ...args)`
 
 - Input
   - `specNumStr`: `string`
-- Output
-  - `Array` of `{type, name, size, date, rights, owner, group, target, sticky, version, url}`
+- `cb(e, specFiles, ...args)`
+  - `e`: `Error`
+  - `specFiles`: Output `Array` of `{type, name, size, date, rights, owner, group, target, sticky, version, url}`
     - `version`: *version* object
     - `url`: `string`
     - The others: Refer `ftp.ListingElement` of [npm/ftp]
+  - `...args`: additional arguments
 
 [npm/ftp]: https://www.npmjs.com/package/ftp
+
+Gets list of specification files and calls a callback `cb(null, specFiles, args)` if successful, otherwise `cb(e, null, args)`
