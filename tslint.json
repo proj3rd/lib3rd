@@ -6,7 +6,9 @@
     "jsRules": {},
     "rules": {
         "typedef": [true, "call-signature"],
-        "quotemark": [true, "single"]
+        "object-literal-sort-keys": false,
+        "quotemark": [true, "single"],
+        "no-console": false
     },
     "rulesDirectory": []
 }
