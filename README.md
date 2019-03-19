@@ -11,9 +11,9 @@ Tools to improve productivity for designing cellular network
 - Input
   - `text`: `string`
 - Output
-  - `string` or `null`
+  - `string`
 
-Returns a string which only contains ASN.1. For an unexpected case, returns `null`.
+Returns a string which only contains ASN.1
 
 This function supports the followings:
 
