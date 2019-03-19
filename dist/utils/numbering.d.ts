@@ -3,5 +3,5 @@ export interface IVersion {
     technical: number;
     editorial: number;
 }
-export declare function versionFromString(str: string): IVersion;
+export declare function versionFromString(versionStr: string): IVersion;
 export declare function seriesFromString(specNumStr: string): string;
