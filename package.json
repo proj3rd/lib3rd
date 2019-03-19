@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/gsongsong/3gpp#readme",
   "devDependencies": {
+    "@types/ftp": "^0.3.29",
     "@types/node": "^11.11.3"
+  },
+  "dependencies": {
+    "ftp": "^0.3.10"
   }
 }

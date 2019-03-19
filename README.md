@@ -62,3 +62,17 @@ Returns a *version* object from a version string used in a file name. e.g. `f30`
 Returns a *sanitized* string. Sanitization includes the followings:
 
 - Removes `\uFFFD` (Unicode REPLACEMENT CHARACTER)
+
+### web
+
+#### `web.specs.list(specNumStr)`
+
+- Input
+  - `specNumStr`: `string`
+- Output
+  - `Array` of `{type, name, size, date, rights, owner, group, target, sticky, version, url}`
+    - `version`: *version* object
+    - `url`: `string`
+    - The others: Refer `ftp.ListingElement` of [npm/ftp]
+
+[npm/ftp]: https://www.npmjs.com/package/ftp
