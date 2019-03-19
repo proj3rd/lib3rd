@@ -1,6 +1,5 @@
-import * as text from './utils/text';
+import * as util from './utils';
 
 export {
-  text
+  util
 };
-
