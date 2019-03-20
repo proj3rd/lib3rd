@@ -14,7 +14,7 @@ const techBodyKeyVal: ITechBodyKeyVal = {
 };
 const techBodies = Object.keys(techBodyKeyVal);
 
-interface ICalQuery {
+export interface ICalQuery {
   techBodyStr: string;
   includeSub?: boolean;
   from?: Date;
