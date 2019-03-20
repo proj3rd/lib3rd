@@ -14,12 +14,12 @@ export function extract(text: string, protocol: string): string {
   const extractedTexts: string[] = [];
   while (true) {
     const matchStart = tokens[protocol].start.exec(text);
-    if (matchStart === null) {
+    if (!matchStart) {
       break;
     }
 
     const matchEnd = tokens[protocol].end.exec(text);
-    if (matchEnd === null) {
+    if (!matchEnd) {
       throw Error('Start token is found but end token is not');
     }
 

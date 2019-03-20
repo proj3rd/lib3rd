@@ -26,22 +26,27 @@ function list(specNumStr, cb) {
         var specDir = baseDir + "/" + series + "_series/" + specNumStr;
         ftpClient.list(specDir, function (e, l) {
             ftpClient.end();
-            if (e && cb) {
-                return cb(e, null, args);
+            if (e) {
+                if (cb) {
+                    cb(e, null, args);
+                }
+                return;
             }
             var specFiles = [];
             l.forEach(function (el) {
                 var versionString = el.name.split('-').slice(-1)[0].split('.')[0];
                 specFiles.push(__assign({}, el, { version: numbering_1.versionFromString(versionString), url: "ftp://" + host + "/" + specDir + "/" + el.name }));
             });
-            cb(null, specFiles, args);
+            if (cb) {
+                cb(null, specFiles, args);
+            }
         });
-        return;
     });
     ftpClient.on('error', function (e) {
-        cb(e, null, args);
+        if (cb) {
+            cb(e, null, args);
+        }
     });
     ftpClient.connect({ host: host });
-    return;
 }
 exports.list = list;

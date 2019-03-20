@@ -18,8 +18,11 @@ export function list(specNumStr: string,
     const specDir = `${baseDir}/${series}_series/${specNumStr}`;
     ftpClient.list(specDir, (e: Error, l: ftp.ListingElement[]) => {
       ftpClient.end();
-      if (e && cb) {
-        return cb(e, null, args);
+      if (e) {
+        if (cb) {
+          cb(e, null, args);
+        }
+        return;
       }
       const specFiles: ISpecFile[] = [];
       l.forEach((el: ftp.ListingElement) => {
@@ -30,13 +33,15 @@ export function list(specNumStr: string,
           url: `ftp://${host}/${specDir}/${el.name}`,
         });
       });
-      cb(null, specFiles, args);
+      if (cb) {
+        cb(null, specFiles, args);
+      }
     });
-    return;
   });
   ftpClient.on('error', (e: Error) => {
-    cb(e, null, args);
+    if (cb) {
+      cb(e, null, args);
+    }
   });
   ftpClient.connect({host});
-  return;
 }

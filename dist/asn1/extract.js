@@ -10,11 +10,11 @@ function extract(text, protocol) {
     var extractedTexts = [];
     while (true) {
         var matchStart = tokens[protocol].start.exec(text);
-        if (matchStart === null) {
+        if (!matchStart) {
             break;
         }
         var matchEnd = tokens[protocol].end.exec(text);
-        if (matchEnd === null) {
+        if (!matchEnd) {
             throw Error('Start token is found but end token is not');
         }
         extractedTexts.push(text.substring(matchStart.index + matchStart[0].length, matchEnd.index));
