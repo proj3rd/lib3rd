@@ -1,4 +1,4 @@
-interface ICalQuery {
+export interface ICalQuery {
     techBodyStr: string;
     includeSub?: boolean;
     from?: Date;
@@ -6,4 +6,3 @@ interface ICalQuery {
     detail?: boolean;
 }
 export declare function get(calQuery: ICalQuery, cb: (e: Error, cal: any, ...args: any[]) => void, ...args: any[]): void;
-export {};

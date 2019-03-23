@@ -22,7 +22,7 @@
     }
   },
   "lint-staged": {
-    "*.ts": "tslint"
+    "*.ts,!*.d.ts": "tslint"
   },
   "devDependencies": {
     "@types/ftp": "^0.3.29",
