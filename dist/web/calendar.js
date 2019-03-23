@@ -43,7 +43,6 @@ function get(calQuery, cb) {
         ]);
     }
     var calUrl = calUrlElems.join('&');
-    console.log(calUrl);
     ical.fromURL(calUrl, {}, function (e, cal) {
         if (e) {
             if (cb) {
@@ -55,9 +54,3 @@ function get(calQuery, cb) {
     });
 }
 exports.get = get;
-get({ techBodyStr: 'RAN' }, function (e, cal) {
-    if (e) {
-        return console.log('Error:', e);
-    }
-    console.log(cal);
-});
