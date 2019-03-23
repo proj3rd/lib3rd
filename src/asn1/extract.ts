@@ -21,6 +21,7 @@ export function extract(text: string, protocol: string): string {
       break;
     }
 
+    tokens[protocol].end.lastIndex = matchStart.index;
     const matchEnd = tokens[protocol].end.exec(text);
     if (!matchEnd) {
       throw Error('Start token is found but end token is not');
