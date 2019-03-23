@@ -7,8 +7,7 @@
     "rules": {
         "typedef": [true, "call-signature"],
         "object-literal-sort-keys": false,
-        "quotemark": [true, "single"],
-        "no-console": false
+        "quotemark": [true, "single"]
     },
     "rulesDirectory": []
 }
