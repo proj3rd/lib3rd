@@ -2,6 +2,8 @@
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
 var ASNListener = require('./ASNListener').ASNListener;
+var ASNVisitor = require('./ASNVisitor').ASNVisitor;
+
 var grammarFileName = "ASN.g4";
 
 
@@ -1235,6 +1237,14 @@ ModulesContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ModulesContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitModules(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -1384,6 +1394,14 @@ ModuleDefinitionContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ModuleDefinitionContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitModuleDefinition(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -1497,6 +1515,14 @@ TagDefaultContext.prototype.exitRule = function(listener) {
 	}
 };
 
+TagDefaultContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitTagDefault(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -1577,6 +1603,14 @@ ExtensionDefaultContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ExtensionDefaultContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionDefault(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -1652,6 +1686,14 @@ ModuleBodyContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitModuleBody(this);
 	}
+};
+
+ModuleBodyContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitModuleBody(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -1737,6 +1779,14 @@ ExportsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ExportsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExports(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -1815,6 +1865,14 @@ SymbolsExportedContext.prototype.exitRule = function(listener) {
 	}
 };
 
+SymbolsExportedContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSymbolsExported(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -1890,6 +1948,14 @@ ImportsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ImportsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitImports(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -1959,6 +2025,14 @@ SymbolsImportedContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitSymbolsImported(this);
 	}
+};
+
+SymbolsImportedContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSymbolsImported(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -2033,6 +2107,14 @@ SymbolsFromModuleListContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitSymbolsFromModuleList(this);
 	}
+};
+
+SymbolsFromModuleListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSymbolsFromModuleList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -2114,6 +2196,14 @@ SymbolsFromModuleContext.prototype.exitRule = function(listener) {
 	}
 };
 
+SymbolsFromModuleContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSymbolsFromModule(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -2182,6 +2272,14 @@ GlobalModuleReferenceContext.prototype.exitRule = function(listener) {
 	}
 };
 
+GlobalModuleReferenceContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitGlobalModuleReference(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -2239,6 +2337,14 @@ AssignedIdentifierContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitAssignedIdentifier(this);
 	}
+};
+
+AssignedIdentifierContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitAssignedIdentifier(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -2317,6 +2423,14 @@ SymbolListContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitSymbolList(this);
 	}
+};
+
+SymbolListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSymbolList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -2400,6 +2514,14 @@ SymbolContext.prototype.exitRule = function(listener) {
 	}
 };
 
+SymbolContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSymbol(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -2476,6 +2598,14 @@ AssignmentListContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitAssignmentList(this);
 	}
+};
+
+AssignmentListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitAssignmentList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -2563,6 +2693,14 @@ AssignmentContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitAssignment(this);
 	}
+};
+
+AssignmentContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitAssignment(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -2670,6 +2808,14 @@ SequenceTypeContext.prototype.exitRule = function(listener) {
 	}
 };
 
+SequenceTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSequenceType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -2752,6 +2898,14 @@ ExtensionAndExceptionContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ExtensionAndExceptionContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionAndException(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -2823,6 +2977,14 @@ OptionalExtensionMarkerContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitOptionalExtensionMarker(this);
 	}
+};
+
+OptionalExtensionMarkerContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitOptionalExtensionMarker(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -2927,6 +3089,14 @@ ComponentTypeListsContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitComponentTypeLists(this);
 	}
+};
+
+ComponentTypeListsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitComponentTypeLists(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -3056,6 +3226,14 @@ RootComponentTypeListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+RootComponentTypeListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitRootComponentTypeList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -3133,6 +3311,14 @@ ComponentTypeListContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitComponentTypeList(this);
 	}
+};
+
+ComponentTypeListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitComponentTypeList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -3232,6 +3418,14 @@ ComponentTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitComponentType(this);
 	}
+};
+
+ComponentTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitComponentType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -3336,6 +3530,14 @@ ExtensionAdditionsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ExtensionAdditionsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionAdditions(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -3423,6 +3625,14 @@ ExtensionAdditionListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ExtensionAdditionListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionAdditionList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -3500,6 +3710,14 @@ ExtensionAdditionContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitExtensionAddition(this);
 	}
+};
+
+ExtensionAdditionContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionAddition(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -3588,6 +3806,14 @@ ExtensionAdditionGroupContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ExtensionAdditionGroupContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionAdditionGroup(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -3656,6 +3882,14 @@ VersionNumberContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitVersionNumber(this);
 	}
+};
+
+VersionNumberContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitVersionNumber(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -3753,6 +3987,14 @@ SequenceOfTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitSequenceOfType(this);
 	}
+};
+
+SequenceOfTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSequenceOfType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -3861,6 +4103,14 @@ SizeConstraintContext.prototype.exitRule = function(listener) {
 	}
 };
 
+SizeConstraintContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSizeConstraint(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -3953,6 +4203,14 @@ ParameterizedAssignmentContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitParameterizedAssignment(this);
 	}
+};
+
+ParameterizedAssignmentContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitParameterizedAssignment(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -4102,6 +4360,14 @@ ParameterListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ParameterListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitParameterList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -4187,6 +4453,14 @@ ParameterContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ParameterContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitParameter(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -4259,6 +4533,14 @@ ParamGovernorContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitParamGovernor(this);
 	}
+};
+
+ParamGovernorContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitParamGovernor(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -4339,6 +4621,14 @@ GovernorContext.prototype.exitRule = function(listener) {
 	}
 };
 
+GovernorContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitGovernor(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -4417,6 +4707,14 @@ ObjectClassAssignmentContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ObjectClassAssignmentContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectClassAssignment(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -4481,6 +4779,14 @@ ObjectClassContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitObjectClass(this);
 	}
+};
+
+ObjectClassContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectClass(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -4578,6 +4884,14 @@ DefinedObjectClassContext.prototype.exitRule = function(listener) {
 	}
 };
 
+DefinedObjectClassContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitDefinedObjectClass(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -4670,6 +4984,14 @@ UsefulObjectClassReferenceContext.prototype.exitRule = function(listener) {
 	}
 };
 
+UsefulObjectClassReferenceContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitUsefulObjectClassReference(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -4748,6 +5070,14 @@ ExternalObjectClassReferenceContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitExternalObjectClassReference(this);
 	}
+};
+
+ExternalObjectClassReferenceContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExternalObjectClassReference(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -4849,6 +5179,14 @@ ObjectClassDefnContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ObjectClassDefnContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectClassDefn(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -4944,6 +5282,14 @@ WithSyntaxSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+WithSyntaxSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitWithSyntaxSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -5023,6 +5369,14 @@ SyntaxListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+SyntaxListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSyntaxList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -5098,6 +5452,14 @@ TokenOrGroupSpecContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitTokenOrGroupSpec(this);
 	}
+};
+
+TokenOrGroupSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitTokenOrGroupSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -5190,6 +5552,14 @@ OptionalGroupContext.prototype.exitRule = function(listener) {
 	}
 };
 
+OptionalGroupContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitOptionalGroup(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -5265,6 +5635,14 @@ RequiredTokenContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitRequiredToken(this);
 	}
+};
+
+RequiredTokenContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitRequiredToken(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -5345,6 +5723,14 @@ LiteralContext.prototype.exitRule = function(listener) {
 	}
 };
 
+LiteralContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitLiteral(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -5415,6 +5801,14 @@ PrimitiveFieldNameContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitPrimitiveFieldName(this);
 	}
+};
+
+PrimitiveFieldNameContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitPrimitiveFieldName(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -5533,6 +5927,14 @@ FieldSpecContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitFieldSpec(this);
 	}
+};
+
+FieldSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitFieldSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -5735,6 +6137,14 @@ TypeFieldSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+TypeFieldSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitTypeFieldSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -5812,6 +6222,14 @@ TypeOptionalitySpecContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitTypeOptionalitySpec(this);
 	}
+};
+
+TypeOptionalitySpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitTypeOptionalitySpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -5905,6 +6323,14 @@ FixedTypeValueFieldSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+FixedTypeValueFieldSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitFixedTypeValueFieldSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -5994,6 +6420,14 @@ ValueOptionalitySpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ValueOptionalitySpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitValueOptionalitySpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -6081,6 +6515,14 @@ VariableTypeValueFieldSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+VariableTypeValueFieldSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitVariableTypeValueFieldSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -6166,6 +6608,14 @@ FixedTypeValueSetFieldSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+FixedTypeValueSetFieldSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitFixedTypeValueSetFieldSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -6247,6 +6697,14 @@ ValueSetOptionalitySpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ValueSetOptionalitySpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitValueSetOptionalitySpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -6324,6 +6782,14 @@ ObjectContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitObject(this);
 	}
+};
+
+ObjectContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObject(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -6404,6 +6870,14 @@ ParameterizedObjectContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ParameterizedObjectContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitParameterizedObject(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -6468,6 +6942,14 @@ DefinedObjectContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitDefinedObject(this);
 	}
+};
+
+DefinedObjectContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitDefinedObject(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -6545,6 +7027,14 @@ ObjectSetContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitObjectSet(this);
 	}
+};
+
+ObjectSetContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectSet(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -6629,6 +7119,14 @@ ObjectSetSpecContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitObjectSetSpec(this);
 	}
+};
+
+ObjectSetSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectSetSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -6780,6 +7278,14 @@ FieldNameContext.prototype.exitRule = function(listener) {
 	}
 };
 
+FieldNameContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitFieldName(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -6863,6 +7369,14 @@ ValueSetContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitValueSet(this);
 	}
+};
+
+ValueSetContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitValueSet(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -6949,6 +7463,14 @@ ElementSetSpecsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ElementSetSpecsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitElementSetSpecs(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -7030,6 +7552,14 @@ RootElementSetSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+RootElementSetSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitRootElementSetSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -7088,6 +7618,14 @@ AdditionalElementSetSpecContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitAdditionalElementSetSpec(this);
 	}
+};
+
+AdditionalElementSetSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitAdditionalElementSetSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -7156,6 +7694,14 @@ ElementSetSpecContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitElementSetSpec(this);
 	}
+};
+
+ElementSetSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitElementSetSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -7263,6 +7809,14 @@ UnionsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+UnionsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitUnions(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -7338,6 +7892,14 @@ ExclusionsContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitExclusions(this);
 	}
+};
+
+ExclusionsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExclusions(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -7420,6 +7982,14 @@ IntersectionsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+IntersectionsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitIntersections(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -7497,6 +8067,14 @@ UnionMarkContext.prototype.exitRule = function(listener) {
 	}
 };
 
+UnionMarkContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitUnionMark(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -7569,6 +8147,14 @@ IntersectionMarkContext.prototype.exitRule = function(listener) {
 	}
 };
 
+IntersectionMarkContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitIntersectionMark(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -7637,6 +8223,14 @@ ElementsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ElementsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitElements(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -7699,6 +8293,14 @@ ObjectSetElementsContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitObjectSetElements(this);
 	}
+};
+
+ObjectSetElementsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectSetElements(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -7777,6 +8379,14 @@ IntersectionElementsContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitIntersectionElements(this);
 	}
+};
+
+IntersectionElementsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitIntersectionElements(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -7885,6 +8495,14 @@ SubtypeElementsContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitSubtypeElements(this);
 	}
+};
+
+SubtypeElementsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSubtypeElements(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -8050,6 +8668,14 @@ VariableTypeValueSetFieldSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+VariableTypeValueSetFieldSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitVariableTypeValueSetFieldSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -8135,6 +8761,14 @@ ObjectFieldSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ObjectFieldSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectFieldSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -8214,6 +8848,14 @@ ObjectOptionalitySpecContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitObjectOptionalitySpec(this);
 	}
+};
+
+ObjectOptionalitySpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectOptionalitySpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -8303,6 +8945,14 @@ ObjectSetFieldSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ObjectSetFieldSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectSetFieldSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -8384,6 +9034,14 @@ ObjectSetOptionalitySpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ObjectSetOptionalitySpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectSetOptionalitySpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -8463,6 +9121,14 @@ TypeAssignmentContext.prototype.exitRule = function(listener) {
 	}
 };
 
+TypeAssignmentContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitTypeAssignment(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -8531,6 +9197,14 @@ ValueAssignmentContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitValueAssignment(this);
 	}
+};
+
+ValueAssignmentContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitValueAssignment(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -8610,6 +9284,14 @@ AsnTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitAsnType(this);
 	}
+};
+
+AsnTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitAsnType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -8744,6 +9426,14 @@ BuiltinTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitBuiltinType(this);
 	}
+};
+
+BuiltinTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitBuiltinType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -8894,6 +9584,14 @@ ObjectClassFieldTypeContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ObjectClassFieldTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectClassFieldType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -8976,6 +9674,14 @@ SetTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitSetType(this);
 	}
+};
+
+SetTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSetType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -9076,6 +9782,14 @@ SetOfTypeContext.prototype.exitRule = function(listener) {
 	}
 };
 
+SetOfTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSetOfType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -9169,6 +9883,14 @@ ReferencedTypeContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ReferencedTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitReferencedType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -9243,6 +9965,14 @@ DefinedTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitDefinedType(this);
 	}
+};
+
+DefinedTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitDefinedType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -9336,6 +10066,14 @@ ConstraintContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ConstraintContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitConstraint(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -9411,6 +10149,14 @@ ConstraintSpecContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitConstraintSpec(this);
 	}
+};
+
+ConstraintSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitConstraintSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -9522,6 +10268,14 @@ UserDefinedConstraintContext.prototype.exitRule = function(listener) {
 	}
 };
 
+UserDefinedConstraintContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitUserDefinedConstraint(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -9609,6 +10363,14 @@ GeneralConstraintContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitGeneralConstraint(this);
 	}
+};
+
+GeneralConstraintContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitGeneralConstraint(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -9711,6 +10473,14 @@ UserDefinedConstraintParameterContext.prototype.exitRule = function(listener) {
 	}
 };
 
+UserDefinedConstraintParameterContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitUserDefinedConstraintParameter(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -9793,6 +10563,14 @@ TableConstraintContext.prototype.exitRule = function(listener) {
 	}
 };
 
+TableConstraintContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitTableConstraint(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -9851,6 +10629,14 @@ SimpleTableConstraintContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitSimpleTableConstraint(this);
 	}
+};
+
+SimpleTableConstraintContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSimpleTableConstraint(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -9947,6 +10733,14 @@ ContentsConstraintContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitContentsConstraint(this);
 	}
+};
+
+ContentsConstraintContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitContentsConstraint(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -10080,6 +10874,14 @@ ComponentPresenceListsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ComponentPresenceListsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitComponentPresenceLists(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -10211,6 +11013,14 @@ ComponentPresenceListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ComponentPresenceListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitComponentPresenceList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -10294,6 +11104,14 @@ ComponentPresenceContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ComponentPresenceContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitComponentPresence(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -10364,6 +11182,14 @@ SubtypeConstraintContext.prototype.exitRule = function(listener) {
 	}
 };
 
+SubtypeConstraintContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSubtypeConstraint(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -10422,6 +11248,14 @@ ValueContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitValue(this);
 	}
+};
+
+ValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -10506,6 +11340,14 @@ BuiltinValueContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitBuiltinValue(this);
 	}
+};
+
+BuiltinValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitBuiltinValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -10620,6 +11462,14 @@ ObjectIdentifierValueContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ObjectIdentifierValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectIdentifierValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -10689,6 +11539,14 @@ ObjIdComponentsListContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitObjIdComponentsList(this);
 	}
+};
+
+ObjIdComponentsListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjIdComponentsList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -10776,6 +11634,14 @@ ObjIdComponentsContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitObjIdComponents(this);
 	}
+};
+
+ObjIdComponentsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjIdComponents(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -10887,6 +11753,14 @@ IntegerValueContext.prototype.exitRule = function(listener) {
 	}
 };
 
+IntegerValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitIntegerValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -10969,6 +11843,14 @@ ChoiceValueContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ChoiceValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitChoiceValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -11033,6 +11915,14 @@ EnumeratedValueContext.prototype.exitRule = function(listener) {
 	}
 };
 
+EnumeratedValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitEnumeratedValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -11095,6 +11985,14 @@ SignedNumberContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitSignedNumber(this);
 	}
+};
+
+SignedNumberContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSignedNumber(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -11176,6 +12074,14 @@ ChoiceTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitChoiceType(this);
 	}
+};
+
+ChoiceTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitChoiceType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -11260,6 +12166,14 @@ AlternativeTypeListsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+AlternativeTypeListsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitAlternativeTypeLists(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -11337,6 +12251,14 @@ ExtensionAdditionAlternativesContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitExtensionAdditionAlternatives(this);
 	}
+};
+
+ExtensionAdditionAlternativesContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionAdditionAlternatives(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -11426,6 +12348,14 @@ ExtensionAdditionAlternativesListContext.prototype.exitRule = function(listener)
 	}
 };
 
+ExtensionAdditionAlternativesListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionAdditionAlternativesList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -11503,6 +12433,14 @@ ExtensionAdditionAlternativeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitExtensionAdditionAlternative(this);
 	}
+};
+
+ExtensionAdditionAlternativeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionAdditionAlternative(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -11590,6 +12528,14 @@ ExtensionAdditionAlternativesGroupContext.prototype.exitRule = function(listener
 	}
 };
 
+ExtensionAdditionAlternativesGroupContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExtensionAdditionAlternativesGroup(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -11654,6 +12600,14 @@ RootAlternativeTypeListContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitRootAlternativeTypeList(this);
 	}
+};
+
+RootAlternativeTypeListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitRootAlternativeTypeList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -11735,6 +12689,14 @@ AlternativeTypeListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+AlternativeTypeListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitAlternativeTypeList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -11814,6 +12776,14 @@ NamedTypeContext.prototype.exitRule = function(listener) {
 	}
 };
 
+NamedTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitNamedType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -11886,6 +12856,14 @@ EnumeratedTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitEnumeratedType(this);
 	}
+};
+
+EnumeratedTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitEnumeratedType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -11978,6 +12956,14 @@ EnumerationsContext.prototype.exitRule = function(listener) {
 	}
 };
 
+EnumerationsContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitEnumerations(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -12067,6 +13053,14 @@ RootEnumerationContext.prototype.exitRule = function(listener) {
 	}
 };
 
+RootEnumerationContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitRootEnumeration(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -12144,6 +13138,14 @@ EnumerationContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitEnumeration(this);
 	}
+};
+
+EnumerationContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitEnumeration(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -12227,6 +13229,14 @@ EnumerationItemContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitEnumerationItem(this);
 	}
+};
+
+EnumerationItemContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitEnumerationItem(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -12325,6 +13335,14 @@ NamedNumberContext.prototype.exitRule = function(listener) {
 	}
 };
 
+NamedNumberContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitNamedNumber(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -12404,6 +13422,14 @@ DefinedValueContext.prototype.exitRule = function(listener) {
 	}
 };
 
+DefinedValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitDefinedValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -12466,6 +13492,14 @@ ParameterizedValueContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitParameterizedValue(this);
 	}
+};
+
+ParameterizedValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitParameterizedValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -12547,6 +13581,14 @@ SimpleDefinedValueContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitSimpleDefinedValue(this);
 	}
+};
+
+SimpleDefinedValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitSimpleDefinedValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -12647,6 +13689,14 @@ ActualParameterListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ActualParameterListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitActualParameterList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -12728,6 +13778,14 @@ ActualParameterContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ActualParameterContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitActualParameter(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -12806,6 +13864,14 @@ ExceptionSpecContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ExceptionSpecContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExceptionSpec(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -12882,6 +13948,14 @@ ExceptionIdentificationContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitExceptionIdentification(this);
 	}
+};
+
+ExceptionIdentificationContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitExceptionIdentification(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -12968,6 +14042,14 @@ AdditionalEnumerationContext.prototype.exitRule = function(listener) {
 	}
 };
 
+AdditionalEnumerationContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitAdditionalEnumeration(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -13038,6 +14120,14 @@ IntegerTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitIntegerType(this);
 	}
+};
+
+IntegerTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitIntegerType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -13131,6 +14221,14 @@ NamedNumberListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+NamedNumberListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitNamedNumberList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -13206,6 +14304,14 @@ ObjectidentifiertypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitObjectidentifiertype(this);
 	}
+};
+
+ObjectidentifiertypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitObjectidentifiertype(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -13329,6 +14435,14 @@ ComponentRelationConstraintContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ComponentRelationConstraintContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitComponentRelationConstraint(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -13441,6 +14555,14 @@ AtNotationContext.prototype.exitRule = function(listener) {
 	}
 };
 
+AtNotationContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitAtNotation(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -13519,6 +14641,14 @@ LevelContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitLevel(this);
 	}
+};
+
+LevelContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitLevel(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -13610,6 +14740,14 @@ ComponentIdListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+ComponentIdListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitComponentIdList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -13685,6 +14823,14 @@ OctetStringTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitOctetStringType(this);
 	}
+};
+
+OctetStringTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitOctetStringType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -13763,6 +14909,14 @@ BitStringTypeContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitBitStringType(this);
 	}
+};
+
+BitStringTypeContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitBitStringType(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -13858,6 +15012,14 @@ NamedBitListContext.prototype.exitRule = function(listener) {
 	}
 };
 
+NamedBitListContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitNamedBitList(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
 
 
 
@@ -13945,6 +15107,14 @@ NamedBitContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitNamedBit(this);
 	}
+};
+
+NamedBitContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitNamedBit(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 
@@ -14035,6 +15205,14 @@ BooleanValueContext.prototype.exitRule = function(listener) {
     if(listener instanceof ASNListener ) {
         listener.exitBooleanValue(this);
 	}
+};
+
+BooleanValueContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof ASNVisitor ) {
+        return visitor.visitBooleanValue(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
 };
 
 

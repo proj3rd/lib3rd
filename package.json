@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "antlr": "antlr4 src/asn1/ASN.g4 -o dist/asn1 -Dlanguage=JavaScript",
+    "antlr": "antlr4 src/asn1/ASN.g4 -o dist/asn1 -Dlanguage=JavaScript -visitor",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
