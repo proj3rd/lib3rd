@@ -34,6 +34,6 @@ if (require.main === module) {
         if (err) {
             throw err;
         }
-        process.stdout.write(extract(text, protocol_1));
+        process.stdout.write(extract(text, protocol_1) + '\n');
     });
 }
