@@ -8,7 +8,7 @@ import { ModulesVisitor } from './visitor/modules';
 
 import { sanitize } from '../utils/text';
 
-export function parse(text: string): any /* TODO */ {
+export function parse(text: string): any {
   const chars = new antlr4.InputStream(text);
   const lexer = new ASNLexer(chars);
   const tokens = new antlr4.CommonTokenStream(lexer);
