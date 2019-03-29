@@ -16,7 +16,7 @@ Tools to improve productivity for designing cellular network
     - [`web.calendar.get(calQuery, cb, ...args)`](#webcalendargetcalquery-cb-args)
     - [`web.specs.list(specNumStr, cb, ...args)`](#webspecslistspecnumstr-cb-args)
 
-## APIs
+## API
 
 ### Types (TypeScript Interface)
 
@@ -116,3 +116,15 @@ Returns a *sanitized* string. Sanitization includes the followings:
 [npm/ftp]: https://www.npmjs.com/package/ftp
 
 Gets list of specification files and calls a callback `cb(null, specFiles, args)` if successful, otherwise `cb(e, null, args)`
+
+## CLI
+
+### Extract ASN.1
+
+```sh
+node dist/asn1/extract.js <protocol> <text file>
+```
+
+Extract ASN.1 from `<text file>` and prints to the standard output
+
+Currenlty only `RRC` protocol is supported
