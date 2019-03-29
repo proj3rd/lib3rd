@@ -1,8 +1,9 @@
 "use strict";
 exports.__esModule = true;
+var cheerio = require("cheerio");
 var fs_1 = require("fs");
 function parse(html) {
-    // TODO
+    var $ = cheerio.load(html);
 }
 exports.parse = parse;
 if (require.main === module) {

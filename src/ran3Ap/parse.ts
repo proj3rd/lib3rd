@@ -2,7 +2,7 @@ import * as cheerio from 'cheerio';
 import { readFile } from 'fs';
 
 export function parse(html: string): any {
-  // TODO
+  const $ = cheerio.load(html);
 }
 
 if (require.main === module) {
