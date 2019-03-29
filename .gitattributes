@@ -1,1 +1,6 @@
 dist/* linguist-generated=true
+
+# ANTLR4 grammar and TypeScript workarounds
+*.g4 linguist-vendored=true
+src/asn1/ASNLexer.js linguist-detectable=false
+src/asn1/ASNParser.js linguist-detectable=false
