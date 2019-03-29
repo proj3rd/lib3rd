@@ -14,6 +14,9 @@ const tokens: { [protocol: string]: IToken} = {
 
 export function extract(text: string, protocol: string): string {
   protocol = protocol.toUpperCase();
+  if (!tokens[protocol]) {
+    throw Error('Protocol is not supported');
+  }
   const extractedTexts: string[] = [];
   while (true) {
     const matchStart = tokens[protocol].start.exec(text);

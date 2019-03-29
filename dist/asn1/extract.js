@@ -9,6 +9,9 @@ var tokens = {
 };
 function extract(text, protocol) {
     protocol = protocol.toUpperCase();
+    if (!tokens[protocol]) {
+        throw Error('Protocol is not supported');
+    }
     var extractedTexts = [];
     while (true) {
         var matchStart = tokens[protocol].start.exec(text);
