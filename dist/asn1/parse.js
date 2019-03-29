@@ -4,7 +4,6 @@ var fs_1 = require("fs");
 var antlr4 = require("antlr4");
 var ASNLexer_1 = require("./ASNLexer");
 var ASNParser_1 = require("./ASNParser");
-var modules_1 = require("./visitor/modules");
 var text_1 = require("../utils/text");
 function parse(text) {
     var chars = new antlr4.InputStream(text);

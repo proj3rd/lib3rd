@@ -2,9 +2,7 @@ import { readFile } from 'fs';
 
 import * as antlr4 from 'antlr4';
 import { ASNLexer } from './ASNLexer';
-import { ASNListener } from './ASNListener';
 import { ASNParser } from './ASNParser';
-import { ModulesVisitor } from './visitor/modules';
 
 import { sanitize } from '../utils/text';
 
