@@ -11,6 +11,9 @@ if (require.main === module) {
         throw Error('Requires 1 argument, filePath');
     }
     fs_1.readFile(filePath, 'utf8', function (err, html) {
-        process.stdout.write(parse(html));
+        if (err) {
+            throw err;
+        }
+        process.stdout.write(JSON.stringify(parse(html), null, 2));
     });
 }
