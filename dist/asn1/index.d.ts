@@ -1,2 +1,3 @@
 import { extract } from './extract';
-export { extract, };
+import { parse } from './parse';
+export { extract, parse, };
