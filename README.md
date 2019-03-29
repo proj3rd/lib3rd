@@ -2,7 +2,7 @@
 
 Tools to improve productivity for designing cellular network
 
-- [APIs](#apis)
+- [API](#api)
   - [Types (TypeScript Interface)](#types-typescript-interface)
     - [`IVersion`](#iversion)
     - [`ICalQuery`](#icalquery)
@@ -15,6 +15,8 @@ Tools to improve productivity for designing cellular network
   - [3GPP Web Support](#3gpp-web-support)
     - [`web.calendar.get(calQuery, cb, ...args)`](#webcalendargetcalquery-cb-args)
     - [`web.specs.list(specNumStr, cb, ...args)`](#webspecslistspecnumstr-cb-args)
+- [CLI](#cli)
+  - [Extract ASN.1](#extract-asn1)
 
 ## API
 
