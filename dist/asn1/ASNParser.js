@@ -1,7 +1,6 @@
 // Generated from src/asn1/ASN.g4 by ANTLR 4.7.2
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
-var ASNListener = require('./ASNListener').ASNListener;
 var ASNVisitor = require('./ASNVisitor').ASNVisitor;
 
 var grammarFileName = "ASN.g4";
@@ -1225,18 +1224,6 @@ ModulesContext.prototype.moduleDefinition = function(i) {
     }
 };
 
-ModulesContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterModules(this);
-	}
-};
-
-ModulesContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitModules(this);
-	}
-};
-
 ModulesContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitModules(this);
@@ -1382,18 +1369,6 @@ ModuleDefinitionContext.prototype.R_PARAN = function(i) {
 };
 
 
-ModuleDefinitionContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterModuleDefinition(this);
-	}
-};
-
-ModuleDefinitionContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitModuleDefinition(this);
-	}
-};
-
 ModuleDefinitionContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitModuleDefinition(this);
@@ -1503,18 +1478,6 @@ TagDefaultContext.prototype.AUTOMATIC_LITERAL = function() {
     return this.getToken(ASNParser.AUTOMATIC_LITERAL, 0);
 };
 
-TagDefaultContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterTagDefault(this);
-	}
-};
-
-TagDefaultContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitTagDefault(this);
-	}
-};
-
 TagDefaultContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitTagDefault(this);
@@ -1591,18 +1554,6 @@ ExtensionDefaultContext.prototype.IMPLIED_LITERAL = function() {
     return this.getToken(ASNParser.IMPLIED_LITERAL, 0);
 };
 
-ExtensionDefaultContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionDefault(this);
-	}
-};
-
-ExtensionDefaultContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionDefault(this);
-	}
-};
-
 ExtensionDefaultContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitExtensionDefault(this);
@@ -1674,18 +1625,6 @@ ModuleBodyContext.prototype.imports = function() {
 
 ModuleBodyContext.prototype.assignmentList = function() {
     return this.getTypedRuleContext(AssignmentListContext,0);
-};
-
-ModuleBodyContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterModuleBody(this);
-	}
-};
-
-ModuleBodyContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitModuleBody(this);
-	}
 };
 
 ModuleBodyContext.prototype.accept = function(visitor) {
@@ -1767,18 +1706,6 @@ ExportsContext.prototype.ALL_LITERAL = function() {
     return this.getToken(ASNParser.ALL_LITERAL, 0);
 };
 
-ExportsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExports(this);
-	}
-};
-
-ExportsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExports(this);
-	}
-};
-
 ExportsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitExports(this);
@@ -1853,18 +1780,6 @@ SymbolsExportedContext.prototype.symbolList = function() {
     return this.getTypedRuleContext(SymbolListContext,0);
 };
 
-SymbolsExportedContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSymbolsExported(this);
-	}
-};
-
-SymbolsExportedContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSymbolsExported(this);
-	}
-};
-
 SymbolsExportedContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitSymbolsExported(this);
@@ -1936,18 +1851,6 @@ ImportsContext.prototype.SEMI_COLON = function() {
     return this.getToken(ASNParser.SEMI_COLON, 0);
 };
 
-ImportsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterImports(this);
-	}
-};
-
-ImportsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitImports(this);
-	}
-};
-
 ImportsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitImports(this);
@@ -2013,18 +1916,6 @@ SymbolsImportedContext.prototype.constructor = SymbolsImportedContext;
 
 SymbolsImportedContext.prototype.symbolsFromModuleList = function() {
     return this.getTypedRuleContext(SymbolsFromModuleListContext,0);
-};
-
-SymbolsImportedContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSymbolsImported(this);
-	}
-};
-
-SymbolsImportedContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSymbolsImported(this);
-	}
 };
 
 SymbolsImportedContext.prototype.accept = function(visitor) {
@@ -2095,18 +1986,6 @@ SymbolsFromModuleListContext.prototype.symbolsFromModule = function(i) {
     } else {
         return this.getTypedRuleContext(SymbolsFromModuleContext,i);
     }
-};
-
-SymbolsFromModuleListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSymbolsFromModuleList(this);
-	}
-};
-
-SymbolsFromModuleListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSymbolsFromModuleList(this);
-	}
 };
 
 SymbolsFromModuleListContext.prototype.accept = function(visitor) {
@@ -2184,18 +2063,6 @@ SymbolsFromModuleContext.prototype.globalModuleReference = function() {
     return this.getTypedRuleContext(GlobalModuleReferenceContext,0);
 };
 
-SymbolsFromModuleContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSymbolsFromModule(this);
-	}
-};
-
-SymbolsFromModuleContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSymbolsFromModule(this);
-	}
-};
-
 SymbolsFromModuleContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitSymbolsFromModule(this);
@@ -2260,18 +2127,6 @@ GlobalModuleReferenceContext.prototype.assignedIdentifier = function() {
     return this.getTypedRuleContext(AssignedIdentifierContext,0);
 };
 
-GlobalModuleReferenceContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterGlobalModuleReference(this);
-	}
-};
-
-GlobalModuleReferenceContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitGlobalModuleReference(this);
-	}
-};
-
 GlobalModuleReferenceContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitGlobalModuleReference(this);
@@ -2326,18 +2181,6 @@ function AssignedIdentifierContext(parser, parent, invokingState) {
 AssignedIdentifierContext.prototype = Object.create(antlr4.ParserRuleContext.prototype);
 AssignedIdentifierContext.prototype.constructor = AssignedIdentifierContext;
 
-
-AssignedIdentifierContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterAssignedIdentifier(this);
-	}
-};
-
-AssignedIdentifierContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitAssignedIdentifier(this);
-	}
-};
 
 AssignedIdentifierContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
@@ -2412,18 +2255,6 @@ SymbolListContext.prototype.COMMA = function(i) {
     }
 };
 
-
-SymbolListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSymbolList(this);
-	}
-};
-
-SymbolListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSymbolList(this);
-	}
-};
 
 SymbolListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
@@ -2502,18 +2333,6 @@ SymbolContext.prototype.R_BRACE = function() {
     return this.getToken(ASNParser.R_BRACE, 0);
 };
 
-SymbolContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSymbol(this);
-	}
-};
-
-SymbolContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSymbol(this);
-	}
-};
-
 SymbolContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitSymbol(this);
@@ -2586,18 +2405,6 @@ AssignmentListContext.prototype.assignment = function(i) {
     } else {
         return this.getTypedRuleContext(AssignmentContext,i);
     }
-};
-
-AssignmentListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterAssignmentList(this);
-	}
-};
-
-AssignmentListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitAssignmentList(this);
-	}
 };
 
 AssignmentListContext.prototype.accept = function(visitor) {
@@ -2681,18 +2488,6 @@ AssignmentContext.prototype.parameterizedAssignment = function() {
 
 AssignmentContext.prototype.objectClassAssignment = function() {
     return this.getTypedRuleContext(ObjectClassAssignmentContext,0);
-};
-
-AssignmentContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterAssignment(this);
-	}
-};
-
-AssignmentContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitAssignment(this);
-	}
 };
 
 AssignmentContext.prototype.accept = function(visitor) {
@@ -2796,18 +2591,6 @@ SequenceTypeContext.prototype.componentTypeLists = function() {
     return this.getTypedRuleContext(ComponentTypeListsContext,0);
 };
 
-SequenceTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSequenceType(this);
-	}
-};
-
-SequenceTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSequenceType(this);
-	}
-};
-
 SequenceTypeContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitSequenceType(this);
@@ -2886,18 +2669,6 @@ ExtensionAndExceptionContext.prototype.exceptionSpec = function() {
     return this.getTypedRuleContext(ExceptionSpecContext,0);
 };
 
-ExtensionAndExceptionContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionAndException(this);
-	}
-};
-
-ExtensionAndExceptionContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionAndException(this);
-	}
-};
-
 ExtensionAndExceptionContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitExtensionAndException(this);
@@ -2965,18 +2736,6 @@ OptionalExtensionMarkerContext.prototype.COMMA = function() {
 
 OptionalExtensionMarkerContext.prototype.ELLIPSIS = function() {
     return this.getToken(ASNParser.ELLIPSIS, 0);
-};
-
-OptionalExtensionMarkerContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterOptionalExtensionMarker(this);
-	}
-};
-
-OptionalExtensionMarkerContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitOptionalExtensionMarker(this);
-	}
 };
 
 OptionalExtensionMarkerContext.prototype.accept = function(visitor) {
@@ -3077,18 +2836,6 @@ ComponentTypeListsContext.prototype.optionalExtensionMarker = function() {
 
 ComponentTypeListsContext.prototype.EXTENSTIONENDMARKER = function() {
     return this.getToken(ASNParser.EXTENSTIONENDMARKER, 0);
-};
-
-ComponentTypeListsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterComponentTypeLists(this);
-	}
-};
-
-ComponentTypeListsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitComponentTypeLists(this);
-	}
 };
 
 ComponentTypeListsContext.prototype.accept = function(visitor) {
@@ -3214,18 +2961,6 @@ RootComponentTypeListContext.prototype.componentTypeList = function() {
     return this.getTypedRuleContext(ComponentTypeListContext,0);
 };
 
-RootComponentTypeListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterRootComponentTypeList(this);
-	}
-};
-
-RootComponentTypeListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitRootComponentTypeList(this);
-	}
-};
-
 RootComponentTypeListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitRootComponentTypeList(this);
@@ -3300,18 +3035,6 @@ ComponentTypeListContext.prototype.COMMA = function(i) {
     }
 };
 
-
-ComponentTypeListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterComponentTypeList(this);
-	}
-};
-
-ComponentTypeListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitComponentTypeList(this);
-	}
-};
 
 ComponentTypeListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
@@ -3406,18 +3129,6 @@ ComponentTypeContext.prototype.OF_LITERAL = function() {
 
 ComponentTypeContext.prototype.asnType = function() {
     return this.getTypedRuleContext(AsnTypeContext,0);
-};
-
-ComponentTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterComponentType(this);
-	}
-};
-
-ComponentTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitComponentType(this);
-	}
 };
 
 ComponentTypeContext.prototype.accept = function(visitor) {
@@ -3518,18 +3229,6 @@ ExtensionAdditionsContext.prototype.extensionAdditionList = function() {
     return this.getTypedRuleContext(ExtensionAdditionListContext,0);
 };
 
-ExtensionAdditionsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionAdditions(this);
-	}
-};
-
-ExtensionAdditionsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionAdditions(this);
-	}
-};
-
 ExtensionAdditionsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitExtensionAdditions(this);
@@ -3613,18 +3312,6 @@ ExtensionAdditionListContext.prototype.COMMA = function(i) {
 };
 
 
-ExtensionAdditionListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionAdditionList(this);
-	}
-};
-
-ExtensionAdditionListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionAdditionList(this);
-	}
-};
-
 ExtensionAdditionListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitExtensionAdditionList(this);
@@ -3698,18 +3385,6 @@ ExtensionAdditionContext.prototype.componentType = function() {
 
 ExtensionAdditionContext.prototype.extensionAdditionGroup = function() {
     return this.getTypedRuleContext(ExtensionAdditionGroupContext,0);
-};
-
-ExtensionAdditionContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionAddition(this);
-	}
-};
-
-ExtensionAdditionContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionAddition(this);
-	}
 };
 
 ExtensionAdditionContext.prototype.accept = function(visitor) {
@@ -3794,18 +3469,6 @@ ExtensionAdditionGroupContext.prototype.DOUBLE_R_BRACKET = function() {
     return this.getToken(ASNParser.DOUBLE_R_BRACKET, 0);
 };
 
-ExtensionAdditionGroupContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionAdditionGroup(this);
-	}
-};
-
-ExtensionAdditionGroupContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionAdditionGroup(this);
-	}
-};
-
 ExtensionAdditionGroupContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitExtensionAdditionGroup(this);
@@ -3870,18 +3533,6 @@ VersionNumberContext.prototype.NUMBER = function() {
 
 VersionNumberContext.prototype.COLON = function() {
     return this.getToken(ASNParser.COLON, 0);
-};
-
-VersionNumberContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterVersionNumber(this);
-	}
-};
-
-VersionNumberContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitVersionNumber(this);
-	}
 };
 
 VersionNumberContext.prototype.accept = function(visitor) {
@@ -3975,18 +3626,6 @@ SequenceOfTypeContext.prototype.constraint = function() {
 
 SequenceOfTypeContext.prototype.sizeConstraint = function() {
     return this.getTypedRuleContext(SizeConstraintContext,0);
-};
-
-SequenceOfTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSequenceOfType(this);
-	}
-};
-
-SequenceOfTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSequenceOfType(this);
-	}
 };
 
 SequenceOfTypeContext.prototype.accept = function(visitor) {
@@ -4091,18 +3730,6 @@ SizeConstraintContext.prototype.constraint = function() {
     return this.getTypedRuleContext(ConstraintContext,0);
 };
 
-SizeConstraintContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSizeConstraint(this);
-	}
-};
-
-SizeConstraintContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSizeConstraint(this);
-	}
-};
-
 SizeConstraintContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitSizeConstraint(this);
@@ -4191,18 +3818,6 @@ ParameterizedAssignmentContext.prototype.objectClass = function() {
 
 ParameterizedAssignmentContext.prototype.objectSet = function() {
     return this.getTypedRuleContext(ObjectSetContext,0);
-};
-
-ParameterizedAssignmentContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterParameterizedAssignment(this);
-	}
-};
-
-ParameterizedAssignmentContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitParameterizedAssignment(this);
-	}
 };
 
 ParameterizedAssignmentContext.prototype.accept = function(visitor) {
@@ -4348,18 +3963,6 @@ ParameterListContext.prototype.COMMA = function(i) {
 };
 
 
-ParameterListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterParameterList(this);
-	}
-};
-
-ParameterListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitParameterList(this);
-	}
-};
-
 ParameterListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitParameterList(this);
@@ -4441,18 +4044,6 @@ ParameterContext.prototype.COLON = function() {
     return this.getToken(ASNParser.COLON, 0);
 };
 
-ParameterContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterParameter(this);
-	}
-};
-
-ParameterContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitParameter(this);
-	}
-};
-
 ParameterContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitParameter(this);
@@ -4521,18 +4112,6 @@ ParamGovernorContext.prototype.governor = function() {
 
 ParamGovernorContext.prototype.IDENTIFIER = function() {
     return this.getToken(ASNParser.IDENTIFIER, 0);
-};
-
-ParamGovernorContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterParamGovernor(this);
-	}
-};
-
-ParamGovernorContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitParamGovernor(this);
-	}
 };
 
 ParamGovernorContext.prototype.accept = function(visitor) {
@@ -4609,18 +4188,6 @@ GovernorContext.prototype.definedObjectClass = function() {
     return this.getTypedRuleContext(DefinedObjectClassContext,0);
 };
 
-GovernorContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterGovernor(this);
-	}
-};
-
-GovernorContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitGovernor(this);
-	}
-};
-
 GovernorContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitGovernor(this);
@@ -4695,18 +4262,6 @@ ObjectClassAssignmentContext.prototype.objectClass = function() {
     return this.getTypedRuleContext(ObjectClassContext,0);
 };
 
-ObjectClassAssignmentContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectClassAssignment(this);
-	}
-};
-
-ObjectClassAssignmentContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectClassAssignment(this);
-	}
-};
-
 ObjectClassAssignmentContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitObjectClassAssignment(this);
@@ -4767,18 +4322,6 @@ ObjectClassContext.prototype.definedObjectClass = function() {
 
 ObjectClassContext.prototype.objectClassDefn = function() {
     return this.getTypedRuleContext(ObjectClassDefnContext,0);
-};
-
-ObjectClassContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectClass(this);
-	}
-};
-
-ObjectClassContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectClass(this);
-	}
 };
 
 ObjectClassContext.prototype.accept = function(visitor) {
@@ -4872,18 +4415,6 @@ DefinedObjectClassContext.prototype.ABSTRACT_SYNTAX_LITERAL = function() {
     return this.getToken(ASNParser.ABSTRACT_SYNTAX_LITERAL, 0);
 };
 
-DefinedObjectClassContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterDefinedObjectClass(this);
-	}
-};
-
-DefinedObjectClassContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitDefinedObjectClass(this);
-	}
-};
-
 DefinedObjectClassContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitDefinedObjectClass(this);
@@ -4972,18 +4503,6 @@ UsefulObjectClassReferenceContext.prototype.ABSTRACT_SYNTAX_LITERAL = function()
     return this.getToken(ASNParser.ABSTRACT_SYNTAX_LITERAL, 0);
 };
 
-UsefulObjectClassReferenceContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterUsefulObjectClassReference(this);
-	}
-};
-
-UsefulObjectClassReferenceContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitUsefulObjectClassReference(this);
-	}
-};
-
 UsefulObjectClassReferenceContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitUsefulObjectClassReference(this);
@@ -5058,18 +4577,6 @@ ExternalObjectClassReferenceContext.prototype.IDENTIFIER = function(i) {
 
 ExternalObjectClassReferenceContext.prototype.DOT = function() {
     return this.getToken(ASNParser.DOT, 0);
-};
-
-ExternalObjectClassReferenceContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExternalObjectClassReference(this);
-	}
-};
-
-ExternalObjectClassReferenceContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExternalObjectClassReference(this);
-	}
 };
 
 ExternalObjectClassReferenceContext.prototype.accept = function(visitor) {
@@ -5167,18 +4674,6 @@ ObjectClassDefnContext.prototype.withSyntaxSpec = function() {
     return this.getTypedRuleContext(WithSyntaxSpecContext,0);
 };
 
-ObjectClassDefnContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectClassDefn(this);
-	}
-};
-
-ObjectClassDefnContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectClassDefn(this);
-	}
-};
-
 ObjectClassDefnContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitObjectClassDefn(this);
@@ -5270,18 +4765,6 @@ WithSyntaxSpecContext.prototype.syntaxList = function() {
     return this.getTypedRuleContext(SyntaxListContext,0);
 };
 
-WithSyntaxSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterWithSyntaxSpec(this);
-	}
-};
-
-WithSyntaxSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitWithSyntaxSpec(this);
-	}
-};
-
 WithSyntaxSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitWithSyntaxSpec(this);
@@ -5357,18 +4840,6 @@ SyntaxListContext.prototype.tokenOrGroupSpec = function(i) {
     }
 };
 
-SyntaxListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSyntaxList(this);
-	}
-};
-
-SyntaxListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSyntaxList(this);
-	}
-};
-
 SyntaxListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitSyntaxList(this);
@@ -5440,18 +4911,6 @@ TokenOrGroupSpecContext.prototype.requiredToken = function() {
 
 TokenOrGroupSpecContext.prototype.optionalGroup = function() {
     return this.getTypedRuleContext(OptionalGroupContext,0);
-};
-
-TokenOrGroupSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterTokenOrGroupSpec(this);
-	}
-};
-
-TokenOrGroupSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitTokenOrGroupSpec(this);
-	}
 };
 
 TokenOrGroupSpecContext.prototype.accept = function(visitor) {
@@ -5540,18 +4999,6 @@ OptionalGroupContext.prototype.tokenOrGroupSpec = function(i) {
     }
 };
 
-OptionalGroupContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterOptionalGroup(this);
-	}
-};
-
-OptionalGroupContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitOptionalGroup(this);
-	}
-};
-
 OptionalGroupContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitOptionalGroup(this);
@@ -5623,18 +5070,6 @@ RequiredTokenContext.prototype.literal = function() {
 
 RequiredTokenContext.prototype.primitiveFieldName = function() {
     return this.getTypedRuleContext(PrimitiveFieldNameContext,0);
-};
-
-RequiredTokenContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterRequiredToken(this);
-	}
-};
-
-RequiredTokenContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitRequiredToken(this);
-	}
 };
 
 RequiredTokenContext.prototype.accept = function(visitor) {
@@ -5711,18 +5146,6 @@ LiteralContext.prototype.COMMA = function() {
     return this.getToken(ASNParser.COMMA, 0);
 };
 
-LiteralContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterLiteral(this);
-	}
-};
-
-LiteralContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitLiteral(this);
-	}
-};
-
 LiteralContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitLiteral(this);
@@ -5789,18 +5212,6 @@ PrimitiveFieldNameContext.prototype.AMPERSAND = function() {
 
 PrimitiveFieldNameContext.prototype.IDENTIFIER = function() {
     return this.getToken(ASNParser.IDENTIFIER, 0);
-};
-
-PrimitiveFieldNameContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterPrimitiveFieldName(this);
-	}
-};
-
-PrimitiveFieldNameContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitPrimitiveFieldName(this);
-	}
 };
 
 PrimitiveFieldNameContext.prototype.accept = function(visitor) {
@@ -5915,18 +5326,6 @@ FieldSpecContext.prototype.objectSet = function() {
 
 FieldSpecContext.prototype.object = function() {
     return this.getTypedRuleContext(ObjectContext,0);
-};
-
-FieldSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterFieldSpec(this);
-	}
-};
-
-FieldSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitFieldSpec(this);
-	}
 };
 
 FieldSpecContext.prototype.accept = function(visitor) {
@@ -6125,18 +5524,6 @@ TypeFieldSpecContext.prototype.typeOptionalitySpec = function() {
     return this.getTypedRuleContext(TypeOptionalitySpecContext,0);
 };
 
-TypeFieldSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterTypeFieldSpec(this);
-	}
-};
-
-TypeFieldSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitTypeFieldSpec(this);
-	}
-};
-
 TypeFieldSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitTypeFieldSpec(this);
@@ -6210,18 +5597,6 @@ TypeOptionalitySpecContext.prototype.DEFAULT_LITERAL = function() {
 
 TypeOptionalitySpecContext.prototype.asnType = function() {
     return this.getTypedRuleContext(AsnTypeContext,0);
-};
-
-TypeOptionalitySpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterTypeOptionalitySpec(this);
-	}
-};
-
-TypeOptionalitySpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitTypeOptionalitySpec(this);
-	}
 };
 
 TypeOptionalitySpecContext.prototype.accept = function(visitor) {
@@ -6311,18 +5686,6 @@ FixedTypeValueFieldSpecContext.prototype.valueOptionalitySpec = function() {
     return this.getTypedRuleContext(ValueOptionalitySpecContext,0);
 };
 
-FixedTypeValueFieldSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterFixedTypeValueFieldSpec(this);
-	}
-};
-
-FixedTypeValueFieldSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitFixedTypeValueFieldSpec(this);
-	}
-};
-
 FixedTypeValueFieldSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitFixedTypeValueFieldSpec(this);
@@ -6408,18 +5771,6 @@ ValueOptionalitySpecContext.prototype.value = function() {
     return this.getTypedRuleContext(ValueContext,0);
 };
 
-ValueOptionalitySpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterValueOptionalitySpec(this);
-	}
-};
-
-ValueOptionalitySpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitValueOptionalitySpec(this);
-	}
-};
-
 ValueOptionalitySpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitValueOptionalitySpec(this);
@@ -6503,18 +5854,6 @@ VariableTypeValueFieldSpecContext.prototype.valueOptionalitySpec = function() {
     return this.getTypedRuleContext(ValueOptionalitySpecContext,0);
 };
 
-VariableTypeValueFieldSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterVariableTypeValueFieldSpec(this);
-	}
-};
-
-VariableTypeValueFieldSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitVariableTypeValueFieldSpec(this);
-	}
-};
-
 VariableTypeValueFieldSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitVariableTypeValueFieldSpec(this);
@@ -6596,18 +5935,6 @@ FixedTypeValueSetFieldSpecContext.prototype.valueSetOptionalitySpec = function()
     return this.getTypedRuleContext(ValueSetOptionalitySpecContext,0);
 };
 
-FixedTypeValueSetFieldSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterFixedTypeValueSetFieldSpec(this);
-	}
-};
-
-FixedTypeValueSetFieldSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitFixedTypeValueSetFieldSpec(this);
-	}
-};
-
 FixedTypeValueSetFieldSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitFixedTypeValueSetFieldSpec(this);
@@ -6685,18 +6012,6 @@ ValueSetOptionalitySpecContext.prototype.valueSet = function() {
     return this.getTypedRuleContext(ValueSetContext,0);
 };
 
-ValueSetOptionalitySpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterValueSetOptionalitySpec(this);
-	}
-};
-
-ValueSetOptionalitySpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitValueSetOptionalitySpec(this);
-	}
-};
-
 ValueSetOptionalitySpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitValueSetOptionalitySpec(this);
@@ -6770,18 +6085,6 @@ ObjectContext.prototype.definedObject = function() {
 
 ObjectContext.prototype.parameterizedObject = function() {
     return this.getTypedRuleContext(ParameterizedObjectContext,0);
-};
-
-ObjectContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObject(this);
-	}
-};
-
-ObjectContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObject(this);
-	}
 };
 
 ObjectContext.prototype.accept = function(visitor) {
@@ -6858,18 +6161,6 @@ ParameterizedObjectContext.prototype.actualParameterList = function() {
     return this.getTypedRuleContext(ActualParameterListContext,0);
 };
 
-ParameterizedObjectContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterParameterizedObject(this);
-	}
-};
-
-ParameterizedObjectContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitParameterizedObject(this);
-	}
-};
-
 ParameterizedObjectContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitParameterizedObject(this);
@@ -6930,18 +6221,6 @@ DefinedObjectContext.prototype.IDENTIFIER = function() {
 
 DefinedObjectContext.prototype.DOT = function() {
     return this.getToken(ASNParser.DOT, 0);
-};
-
-DefinedObjectContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterDefinedObject(this);
-	}
-};
-
-DefinedObjectContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitDefinedObject(this);
-	}
 };
 
 DefinedObjectContext.prototype.accept = function(visitor) {
@@ -7015,18 +6294,6 @@ ObjectSetContext.prototype.objectSetSpec = function() {
 
 ObjectSetContext.prototype.R_BRACE = function() {
     return this.getToken(ASNParser.R_BRACE, 0);
-};
-
-ObjectSetContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectSet(this);
-	}
-};
-
-ObjectSetContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectSet(this);
-	}
 };
 
 ObjectSetContext.prototype.accept = function(visitor) {
@@ -7107,18 +6374,6 @@ ObjectSetSpecContext.prototype.ELLIPSIS = function() {
 
 ObjectSetSpecContext.prototype.additionalElementSetSpec = function() {
     return this.getTypedRuleContext(AdditionalElementSetSpecContext,0);
-};
-
-ObjectSetSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectSetSpec(this);
-	}
-};
-
-ObjectSetSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectSetSpec(this);
-	}
 };
 
 ObjectSetSpecContext.prototype.accept = function(visitor) {
@@ -7266,18 +6521,6 @@ FieldNameContext.prototype.DOT = function(i) {
 };
 
 
-FieldNameContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterFieldName(this);
-	}
-};
-
-FieldNameContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitFieldName(this);
-	}
-};
-
 FieldNameContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitFieldName(this);
@@ -7357,18 +6600,6 @@ ValueSetContext.prototype.elementSetSpecs = function() {
 
 ValueSetContext.prototype.R_BRACE = function() {
     return this.getToken(ASNParser.R_BRACE, 0);
-};
-
-ValueSetContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterValueSet(this);
-	}
-};
-
-ValueSetContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitValueSet(this);
-	}
 };
 
 ValueSetContext.prototype.accept = function(visitor) {
@@ -7451,18 +6682,6 @@ ElementSetSpecsContext.prototype.additionalElementSetSpec = function() {
     return this.getTypedRuleContext(AdditionalElementSetSpecContext,0);
 };
 
-ElementSetSpecsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterElementSetSpecs(this);
-	}
-};
-
-ElementSetSpecsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitElementSetSpecs(this);
-	}
-};
-
 ElementSetSpecsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitElementSetSpecs(this);
@@ -7540,18 +6759,6 @@ RootElementSetSpecContext.prototype.elementSetSpec = function() {
     return this.getTypedRuleContext(ElementSetSpecContext,0);
 };
 
-RootElementSetSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterRootElementSetSpec(this);
-	}
-};
-
-RootElementSetSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitRootElementSetSpec(this);
-	}
-};
-
 RootElementSetSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitRootElementSetSpec(this);
@@ -7606,18 +6813,6 @@ AdditionalElementSetSpecContext.prototype.constructor = AdditionalElementSetSpec
 
 AdditionalElementSetSpecContext.prototype.elementSetSpec = function() {
     return this.getTypedRuleContext(ElementSetSpecContext,0);
-};
-
-AdditionalElementSetSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterAdditionalElementSetSpec(this);
-	}
-};
-
-AdditionalElementSetSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitAdditionalElementSetSpec(this);
-	}
 };
 
 AdditionalElementSetSpecContext.prototype.accept = function(visitor) {
@@ -7682,18 +6877,6 @@ ElementSetSpecContext.prototype.ALL_LITERAL = function() {
 
 ElementSetSpecContext.prototype.exclusions = function() {
     return this.getTypedRuleContext(ExclusionsContext,0);
-};
-
-ElementSetSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterElementSetSpec(this);
-	}
-};
-
-ElementSetSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitElementSetSpec(this);
-	}
 };
 
 ElementSetSpecContext.prototype.accept = function(visitor) {
@@ -7797,18 +6980,6 @@ UnionsContext.prototype.unionMark = function(i) {
     }
 };
 
-UnionsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterUnions(this);
-	}
-};
-
-UnionsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitUnions(this);
-	}
-};
-
 UnionsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitUnions(this);
@@ -7880,18 +7051,6 @@ ExclusionsContext.prototype.EXCEPT_LITERAL = function() {
 
 ExclusionsContext.prototype.elements = function() {
     return this.getTypedRuleContext(ElementsContext,0);
-};
-
-ExclusionsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExclusions(this);
-	}
-};
-
-ExclusionsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExclusions(this);
-	}
 };
 
 ExclusionsContext.prototype.accept = function(visitor) {
@@ -7970,18 +7129,6 @@ IntersectionsContext.prototype.intersectionMark = function(i) {
     }
 };
 
-IntersectionsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterIntersections(this);
-	}
-};
-
-IntersectionsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitIntersections(this);
-	}
-};
-
 IntersectionsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitIntersections(this);
@@ -8055,18 +7202,6 @@ UnionMarkContext.prototype.UNION_LITERAL = function() {
     return this.getToken(ASNParser.UNION_LITERAL, 0);
 };
 
-UnionMarkContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterUnionMark(this);
-	}
-};
-
-UnionMarkContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitUnionMark(this);
-	}
-};
-
 UnionMarkContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitUnionMark(this);
@@ -8135,18 +7270,6 @@ IntersectionMarkContext.prototype.INTERSECTION_LITERAL = function() {
     return this.getToken(ASNParser.INTERSECTION_LITERAL, 0);
 };
 
-IntersectionMarkContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterIntersectionMark(this);
-	}
-};
-
-IntersectionMarkContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitIntersectionMark(this);
-	}
-};
-
 IntersectionMarkContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitIntersectionMark(this);
@@ -8211,18 +7334,6 @@ ElementsContext.prototype.subtypeElements = function() {
     return this.getTypedRuleContext(SubtypeElementsContext,0);
 };
 
-ElementsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterElements(this);
-	}
-};
-
-ElementsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitElements(this);
-	}
-};
-
 ElementsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitElements(this);
@@ -8281,18 +7392,6 @@ ObjectSetElementsContext.prototype.object = function() {
 
 ObjectSetElementsContext.prototype.definedObject = function() {
     return this.getTypedRuleContext(DefinedObjectContext,0);
-};
-
-ObjectSetElementsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectSetElements(this);
-	}
-};
-
-ObjectSetElementsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectSetElements(this);
-	}
 };
 
 ObjectSetElementsContext.prototype.accept = function(visitor) {
@@ -8367,18 +7466,6 @@ IntersectionElementsContext.prototype.elements = function() {
 
 IntersectionElementsContext.prototype.exclusions = function() {
     return this.getTypedRuleContext(ExclusionsContext,0);
-};
-
-IntersectionElementsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterIntersectionElements(this);
-	}
-};
-
-IntersectionElementsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitIntersectionElements(this);
-	}
 };
 
 IntersectionElementsContext.prototype.accept = function(visitor) {
@@ -8483,18 +7570,6 @@ SubtypeElementsContext.prototype.sizeConstraint = function() {
 
 SubtypeElementsContext.prototype.PATTERN_LITERAL = function() {
     return this.getToken(ASNParser.PATTERN_LITERAL, 0);
-};
-
-SubtypeElementsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSubtypeElements(this);
-	}
-};
-
-SubtypeElementsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSubtypeElements(this);
-	}
 };
 
 SubtypeElementsContext.prototype.accept = function(visitor) {
@@ -8656,18 +7731,6 @@ VariableTypeValueSetFieldSpecContext.prototype.valueSetOptionalitySpec = functio
     return this.getTypedRuleContext(ValueSetOptionalitySpecContext,0);
 };
 
-VariableTypeValueSetFieldSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterVariableTypeValueSetFieldSpec(this);
-	}
-};
-
-VariableTypeValueSetFieldSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitVariableTypeValueSetFieldSpec(this);
-	}
-};
-
 VariableTypeValueSetFieldSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitVariableTypeValueSetFieldSpec(this);
@@ -8749,18 +7812,6 @@ ObjectFieldSpecContext.prototype.objectOptionalitySpec = function() {
     return this.getTypedRuleContext(ObjectOptionalitySpecContext,0);
 };
 
-ObjectFieldSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectFieldSpec(this);
-	}
-};
-
-ObjectFieldSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectFieldSpec(this);
-	}
-};
-
 ObjectFieldSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitObjectFieldSpec(this);
@@ -8836,18 +7887,6 @@ ObjectOptionalitySpecContext.prototype.DEFAULT_LITERAL = function() {
 
 ObjectOptionalitySpecContext.prototype.object = function() {
     return this.getTypedRuleContext(ObjectContext,0);
-};
-
-ObjectOptionalitySpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectOptionalitySpec(this);
-	}
-};
-
-ObjectOptionalitySpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectOptionalitySpec(this);
-	}
 };
 
 ObjectOptionalitySpecContext.prototype.accept = function(visitor) {
@@ -8933,18 +7972,6 @@ ObjectSetFieldSpecContext.prototype.objectSetOptionalitySpec = function() {
     return this.getTypedRuleContext(ObjectSetOptionalitySpecContext,0);
 };
 
-ObjectSetFieldSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectSetFieldSpec(this);
-	}
-};
-
-ObjectSetFieldSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectSetFieldSpec(this);
-	}
-};
-
 ObjectSetFieldSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitObjectSetFieldSpec(this);
@@ -9022,18 +8049,6 @@ ObjectSetOptionalitySpecContext.prototype.objectSet = function() {
     return this.getTypedRuleContext(ObjectSetContext,0);
 };
 
-ObjectSetOptionalitySpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectSetOptionalitySpec(this);
-	}
-};
-
-ObjectSetOptionalitySpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectSetOptionalitySpec(this);
-	}
-};
-
 ObjectSetOptionalitySpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitObjectSetOptionalitySpec(this);
@@ -9109,18 +8124,6 @@ TypeAssignmentContext.prototype.asnType = function() {
     return this.getTypedRuleContext(AsnTypeContext,0);
 };
 
-TypeAssignmentContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterTypeAssignment(this);
-	}
-};
-
-TypeAssignmentContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitTypeAssignment(this);
-	}
-};
-
 TypeAssignmentContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitTypeAssignment(this);
@@ -9185,18 +8188,6 @@ ValueAssignmentContext.prototype.ASSIGN_OP = function() {
 
 ValueAssignmentContext.prototype.value = function() {
     return this.getTypedRuleContext(ValueContext,0);
-};
-
-ValueAssignmentContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterValueAssignment(this);
-	}
-};
-
-ValueAssignmentContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitValueAssignment(this);
-	}
 };
 
 ValueAssignmentContext.prototype.accept = function(visitor) {
@@ -9272,18 +8263,6 @@ AsnTypeContext.prototype.constraint = function(i) {
     } else {
         return this.getTypedRuleContext(ConstraintContext,i);
     }
-};
-
-AsnTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterAsnType(this);
-	}
-};
-
-AsnTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitAsnType(this);
-	}
 };
 
 AsnTypeContext.prototype.accept = function(visitor) {
@@ -9414,18 +8393,6 @@ BuiltinTypeContext.prototype.BOOLEAN_LITERAL = function() {
 
 BuiltinTypeContext.prototype.NULL_LITERAL = function() {
     return this.getToken(ASNParser.NULL_LITERAL, 0);
-};
-
-BuiltinTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterBuiltinType(this);
-	}
-};
-
-BuiltinTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitBuiltinType(this);
-	}
 };
 
 BuiltinTypeContext.prototype.accept = function(visitor) {
@@ -9572,18 +8539,6 @@ ObjectClassFieldTypeContext.prototype.fieldName = function() {
     return this.getTypedRuleContext(FieldNameContext,0);
 };
 
-ObjectClassFieldTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectClassFieldType(this);
-	}
-};
-
-ObjectClassFieldTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectClassFieldType(this);
-	}
-};
-
 ObjectClassFieldTypeContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitObjectClassFieldType(this);
@@ -9662,18 +8617,6 @@ SetTypeContext.prototype.optionalExtensionMarker = function() {
 
 SetTypeContext.prototype.componentTypeLists = function() {
     return this.getTypedRuleContext(ComponentTypeListsContext,0);
-};
-
-SetTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSetType(this);
-	}
-};
-
-SetTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSetType(this);
-	}
 };
 
 SetTypeContext.prototype.accept = function(visitor) {
@@ -9770,18 +8713,6 @@ SetOfTypeContext.prototype.sizeConstraint = function() {
     return this.getTypedRuleContext(SizeConstraintContext,0);
 };
 
-SetOfTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSetOfType(this);
-	}
-};
-
-SetOfTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSetOfType(this);
-	}
-};
-
 SetOfTypeContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitSetOfType(this);
@@ -9871,18 +8802,6 @@ ReferencedTypeContext.prototype.definedType = function() {
     return this.getTypedRuleContext(DefinedTypeContext,0);
 };
 
-ReferencedTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterReferencedType(this);
-	}
-};
-
-ReferencedTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitReferencedType(this);
-	}
-};
-
 ReferencedTypeContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitReferencedType(this);
@@ -9953,18 +8872,6 @@ DefinedTypeContext.prototype.DOT = function() {
 
 DefinedTypeContext.prototype.actualParameterList = function() {
     return this.getTypedRuleContext(ActualParameterListContext,0);
-};
-
-DefinedTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterDefinedType(this);
-	}
-};
-
-DefinedTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitDefinedType(this);
-	}
 };
 
 DefinedTypeContext.prototype.accept = function(visitor) {
@@ -10054,18 +8961,6 @@ ConstraintContext.prototype.exceptionSpec = function() {
     return this.getTypedRuleContext(ExceptionSpecContext,0);
 };
 
-ConstraintContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterConstraint(this);
-	}
-};
-
-ConstraintContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitConstraint(this);
-	}
-};
-
 ConstraintContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitConstraint(this);
@@ -10137,18 +9032,6 @@ ConstraintSpecContext.prototype.generalConstraint = function() {
 
 ConstraintSpecContext.prototype.subtypeConstraint = function() {
     return this.getTypedRuleContext(SubtypeConstraintContext,0);
-};
-
-ConstraintSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterConstraintSpec(this);
-	}
-};
-
-ConstraintSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitConstraintSpec(this);
-	}
 };
 
 ConstraintSpecContext.prototype.accept = function(visitor) {
@@ -10256,18 +9139,6 @@ UserDefinedConstraintContext.prototype.COMMA = function(i) {
 };
 
 
-UserDefinedConstraintContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterUserDefinedConstraint(this);
-	}
-};
-
-UserDefinedConstraintContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitUserDefinedConstraint(this);
-	}
-};
-
 UserDefinedConstraintContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitUserDefinedConstraint(this);
@@ -10351,18 +9222,6 @@ GeneralConstraintContext.prototype.tableConstraint = function() {
 
 GeneralConstraintContext.prototype.contentsConstraint = function() {
     return this.getTypedRuleContext(ContentsConstraintContext,0);
-};
-
-GeneralConstraintContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterGeneralConstraint(this);
-	}
-};
-
-GeneralConstraintContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitGeneralConstraint(this);
-	}
 };
 
 GeneralConstraintContext.prototype.accept = function(visitor) {
@@ -10461,18 +9320,6 @@ UserDefinedConstraintParameterContext.prototype.objectSet = function() {
     return this.getTypedRuleContext(ObjectSetContext,0);
 };
 
-UserDefinedConstraintParameterContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterUserDefinedConstraintParameter(this);
-	}
-};
-
-UserDefinedConstraintParameterContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitUserDefinedConstraintParameter(this);
-	}
-};
-
 UserDefinedConstraintParameterContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitUserDefinedConstraintParameter(this);
@@ -10551,18 +9398,6 @@ TableConstraintContext.prototype.componentRelationConstraint = function() {
     return this.getTypedRuleContext(ComponentRelationConstraintContext,0);
 };
 
-TableConstraintContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterTableConstraint(this);
-	}
-};
-
-TableConstraintContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitTableConstraint(this);
-	}
-};
-
 TableConstraintContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitTableConstraint(this);
@@ -10617,18 +9452,6 @@ SimpleTableConstraintContext.prototype.constructor = SimpleTableConstraintContex
 
 SimpleTableConstraintContext.prototype.objectSet = function() {
     return this.getTypedRuleContext(ObjectSetContext,0);
-};
-
-SimpleTableConstraintContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSimpleTableConstraint(this);
-	}
-};
-
-SimpleTableConstraintContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSimpleTableConstraint(this);
-	}
 };
 
 SimpleTableConstraintContext.prototype.accept = function(visitor) {
@@ -10721,18 +9544,6 @@ ContentsConstraintContext.prototype.componentPresenceLists = function() {
 
 ContentsConstraintContext.prototype.R_BRACE = function() {
     return this.getToken(ASNParser.R_BRACE, 0);
-};
-
-ContentsConstraintContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterContentsConstraint(this);
-	}
-};
-
-ContentsConstraintContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitContentsConstraint(this);
-	}
 };
 
 ContentsConstraintContext.prototype.accept = function(visitor) {
@@ -10862,18 +9673,6 @@ ComponentPresenceListsContext.prototype.ELLIPSIS = function() {
     return this.getToken(ASNParser.ELLIPSIS, 0);
 };
 
-ComponentPresenceListsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterComponentPresenceLists(this);
-	}
-};
-
-ComponentPresenceListsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitComponentPresenceLists(this);
-	}
-};
-
 ComponentPresenceListsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitComponentPresenceLists(this);
@@ -11001,18 +9800,6 @@ ComponentPresenceListContext.prototype.COMMA = function(i) {
 };
 
 
-ComponentPresenceListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterComponentPresenceList(this);
-	}
-};
-
-ComponentPresenceListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitComponentPresenceList(this);
-	}
-};
-
 ComponentPresenceListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitComponentPresenceList(this);
@@ -11092,18 +9879,6 @@ ComponentPresenceContext.prototype.PRESENT_LITERAL = function() {
     return this.getToken(ASNParser.PRESENT_LITERAL, 0);
 };
 
-ComponentPresenceContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterComponentPresence(this);
-	}
-};
-
-ComponentPresenceContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitComponentPresence(this);
-	}
-};
-
 ComponentPresenceContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitComponentPresence(this);
@@ -11170,18 +9945,6 @@ SubtypeConstraintContext.prototype.elementSetSpecs = function() {
     return this.getTypedRuleContext(ElementSetSpecsContext,0);
 };
 
-SubtypeConstraintContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSubtypeConstraint(this);
-	}
-};
-
-SubtypeConstraintContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSubtypeConstraint(this);
-	}
-};
-
 SubtypeConstraintContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitSubtypeConstraint(this);
@@ -11236,18 +9999,6 @@ ValueContext.prototype.constructor = ValueContext;
 
 ValueContext.prototype.builtinValue = function() {
     return this.getTypedRuleContext(BuiltinValueContext,0);
-};
-
-ValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterValue(this);
-	}
-};
-
-ValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitValue(this);
-	}
 };
 
 ValueContext.prototype.accept = function(visitor) {
@@ -11328,18 +10079,6 @@ BuiltinValueContext.prototype.CSTRING = function() {
 
 BuiltinValueContext.prototype.BSTRING = function() {
     return this.getToken(ASNParser.BSTRING, 0);
-};
-
-BuiltinValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterBuiltinValue(this);
-	}
-};
-
-BuiltinValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitBuiltinValue(this);
-	}
 };
 
 BuiltinValueContext.prototype.accept = function(visitor) {
@@ -11450,18 +10189,6 @@ ObjectIdentifierValueContext.prototype.R_BRACE = function() {
     return this.getToken(ASNParser.R_BRACE, 0);
 };
 
-ObjectIdentifierValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectIdentifierValue(this);
-	}
-};
-
-ObjectIdentifierValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectIdentifierValue(this);
-	}
-};
-
 ObjectIdentifierValueContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitObjectIdentifierValue(this);
@@ -11527,18 +10254,6 @@ ObjIdComponentsListContext.prototype.objIdComponents = function(i) {
     } else {
         return this.getTypedRuleContext(ObjIdComponentsContext,i);
     }
-};
-
-ObjIdComponentsListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjIdComponentsList(this);
-	}
-};
-
-ObjIdComponentsListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjIdComponentsList(this);
-	}
 };
 
 ObjIdComponentsListContext.prototype.accept = function(visitor) {
@@ -11622,18 +10337,6 @@ ObjIdComponentsContext.prototype.R_PARAN = function() {
 
 ObjIdComponentsContext.prototype.definedValue = function() {
     return this.getTypedRuleContext(DefinedValueContext,0);
-};
-
-ObjIdComponentsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjIdComponents(this);
-	}
-};
-
-ObjIdComponentsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjIdComponents(this);
-	}
 };
 
 ObjIdComponentsContext.prototype.accept = function(visitor) {
@@ -11741,18 +10444,6 @@ IntegerValueContext.prototype.IDENTIFIER = function() {
     return this.getToken(ASNParser.IDENTIFIER, 0);
 };
 
-IntegerValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterIntegerValue(this);
-	}
-};
-
-IntegerValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitIntegerValue(this);
-	}
-};
-
 IntegerValueContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitIntegerValue(this);
@@ -11831,18 +10522,6 @@ ChoiceValueContext.prototype.value = function() {
     return this.getTypedRuleContext(ValueContext,0);
 };
 
-ChoiceValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterChoiceValue(this);
-	}
-};
-
-ChoiceValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitChoiceValue(this);
-	}
-};
-
 ChoiceValueContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitChoiceValue(this);
@@ -11903,18 +10582,6 @@ EnumeratedValueContext.prototype.IDENTIFIER = function() {
     return this.getToken(ASNParser.IDENTIFIER, 0);
 };
 
-EnumeratedValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterEnumeratedValue(this);
-	}
-};
-
-EnumeratedValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitEnumeratedValue(this);
-	}
-};
-
 EnumeratedValueContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitEnumeratedValue(this);
@@ -11973,18 +10640,6 @@ SignedNumberContext.prototype.NUMBER = function() {
 
 SignedNumberContext.prototype.MINUS = function() {
     return this.getToken(ASNParser.MINUS, 0);
-};
-
-SignedNumberContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSignedNumber(this);
-	}
-};
-
-SignedNumberContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSignedNumber(this);
-	}
 };
 
 SignedNumberContext.prototype.accept = function(visitor) {
@@ -12062,18 +10717,6 @@ ChoiceTypeContext.prototype.alternativeTypeLists = function() {
 
 ChoiceTypeContext.prototype.R_BRACE = function() {
     return this.getToken(ASNParser.R_BRACE, 0);
-};
-
-ChoiceTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterChoiceType(this);
-	}
-};
-
-ChoiceTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitChoiceType(this);
-	}
 };
 
 ChoiceTypeContext.prototype.accept = function(visitor) {
@@ -12154,18 +10797,6 @@ AlternativeTypeListsContext.prototype.optionalExtensionMarker = function() {
     return this.getTypedRuleContext(OptionalExtensionMarkerContext,0);
 };
 
-AlternativeTypeListsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterAlternativeTypeLists(this);
-	}
-};
-
-AlternativeTypeListsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitAlternativeTypeLists(this);
-	}
-};
-
 AlternativeTypeListsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitAlternativeTypeLists(this);
@@ -12239,18 +10870,6 @@ ExtensionAdditionAlternativesContext.prototype.COMMA = function() {
 
 ExtensionAdditionAlternativesContext.prototype.extensionAdditionAlternativesList = function() {
     return this.getTypedRuleContext(ExtensionAdditionAlternativesListContext,0);
-};
-
-ExtensionAdditionAlternativesContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionAdditionAlternatives(this);
-	}
-};
-
-ExtensionAdditionAlternativesContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionAdditionAlternatives(this);
-	}
 };
 
 ExtensionAdditionAlternativesContext.prototype.accept = function(visitor) {
@@ -12336,18 +10955,6 @@ ExtensionAdditionAlternativesListContext.prototype.COMMA = function(i) {
 };
 
 
-ExtensionAdditionAlternativesListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionAdditionAlternativesList(this);
-	}
-};
-
-ExtensionAdditionAlternativesListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionAdditionAlternativesList(this);
-	}
-};
-
 ExtensionAdditionAlternativesListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitExtensionAdditionAlternativesList(this);
@@ -12421,18 +11028,6 @@ ExtensionAdditionAlternativeContext.prototype.extensionAdditionAlternativesGroup
 
 ExtensionAdditionAlternativeContext.prototype.namedType = function() {
     return this.getTypedRuleContext(NamedTypeContext,0);
-};
-
-ExtensionAdditionAlternativeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionAdditionAlternative(this);
-	}
-};
-
-ExtensionAdditionAlternativeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionAdditionAlternative(this);
-	}
 };
 
 ExtensionAdditionAlternativeContext.prototype.accept = function(visitor) {
@@ -12516,18 +11111,6 @@ ExtensionAdditionAlternativesGroupContext.prototype.DOUBLE_R_BRACKET = function(
     return this.getToken(ASNParser.DOUBLE_R_BRACKET, 0);
 };
 
-ExtensionAdditionAlternativesGroupContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExtensionAdditionAlternativesGroup(this);
-	}
-};
-
-ExtensionAdditionAlternativesGroupContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExtensionAdditionAlternativesGroup(this);
-	}
-};
-
 ExtensionAdditionAlternativesGroupContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitExtensionAdditionAlternativesGroup(this);
@@ -12588,18 +11171,6 @@ RootAlternativeTypeListContext.prototype.constructor = RootAlternativeTypeListCo
 
 RootAlternativeTypeListContext.prototype.alternativeTypeList = function() {
     return this.getTypedRuleContext(AlternativeTypeListContext,0);
-};
-
-RootAlternativeTypeListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterRootAlternativeTypeList(this);
-	}
-};
-
-RootAlternativeTypeListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitRootAlternativeTypeList(this);
-	}
 };
 
 RootAlternativeTypeListContext.prototype.accept = function(visitor) {
@@ -12677,18 +11248,6 @@ AlternativeTypeListContext.prototype.COMMA = function(i) {
 };
 
 
-AlternativeTypeListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterAlternativeTypeList(this);
-	}
-};
-
-AlternativeTypeListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitAlternativeTypeList(this);
-	}
-};
-
 AlternativeTypeListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitAlternativeTypeList(this);
@@ -12764,18 +11323,6 @@ NamedTypeContext.prototype.asnType = function() {
     return this.getTypedRuleContext(AsnTypeContext,0);
 };
 
-NamedTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterNamedType(this);
-	}
-};
-
-NamedTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitNamedType(this);
-	}
-};
-
 NamedTypeContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitNamedType(this);
@@ -12844,18 +11391,6 @@ EnumeratedTypeContext.prototype.enumerations = function() {
 
 EnumeratedTypeContext.prototype.R_BRACE = function() {
     return this.getToken(ASNParser.R_BRACE, 0);
-};
-
-EnumeratedTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterEnumeratedType(this);
-	}
-};
-
-EnumeratedTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitEnumeratedType(this);
-	}
 };
 
 EnumeratedTypeContext.prototype.accept = function(visitor) {
@@ -12944,18 +11479,6 @@ EnumerationsContext.prototype.additionalEnumeration = function() {
     return this.getTypedRuleContext(AdditionalEnumerationContext,0);
 };
 
-EnumerationsContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterEnumerations(this);
-	}
-};
-
-EnumerationsContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitEnumerations(this);
-	}
-};
-
 EnumerationsContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitEnumerations(this);
@@ -13041,18 +11564,6 @@ RootEnumerationContext.prototype.enumeration = function() {
     return this.getTypedRuleContext(EnumerationContext,0);
 };
 
-RootEnumerationContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterRootEnumeration(this);
-	}
-};
-
-RootEnumerationContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitRootEnumeration(this);
-	}
-};
-
 RootEnumerationContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitRootEnumeration(this);
@@ -13127,18 +11638,6 @@ EnumerationContext.prototype.COMMA = function(i) {
     }
 };
 
-
-EnumerationContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterEnumeration(this);
-	}
-};
-
-EnumerationContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitEnumeration(this);
-	}
-};
 
 EnumerationContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
@@ -13217,18 +11716,6 @@ EnumerationItemContext.prototype.namedNumber = function() {
 
 EnumerationItemContext.prototype.value = function() {
     return this.getTypedRuleContext(ValueContext,0);
-};
-
-EnumerationItemContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterEnumerationItem(this);
-	}
-};
-
-EnumerationItemContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitEnumerationItem(this);
-	}
 };
 
 EnumerationItemContext.prototype.accept = function(visitor) {
@@ -13323,18 +11810,6 @@ NamedNumberContext.prototype.definedValue = function() {
     return this.getTypedRuleContext(DefinedValueContext,0);
 };
 
-NamedNumberContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterNamedNumber(this);
-	}
-};
-
-NamedNumberContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitNamedNumber(this);
-	}
-};
-
 NamedNumberContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitNamedNumber(this);
@@ -13410,18 +11885,6 @@ DefinedValueContext.prototype.parameterizedValue = function() {
     return this.getTypedRuleContext(ParameterizedValueContext,0);
 };
 
-DefinedValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterDefinedValue(this);
-	}
-};
-
-DefinedValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitDefinedValue(this);
-	}
-};
-
 DefinedValueContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitDefinedValue(this);
@@ -13480,18 +11943,6 @@ ParameterizedValueContext.prototype.simpleDefinedValue = function() {
 
 ParameterizedValueContext.prototype.actualParameterList = function() {
     return this.getTypedRuleContext(ActualParameterListContext,0);
-};
-
-ParameterizedValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterParameterizedValue(this);
-	}
-};
-
-ParameterizedValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitParameterizedValue(this);
-	}
 };
 
 ParameterizedValueContext.prototype.accept = function(visitor) {
@@ -13569,18 +12020,6 @@ SimpleDefinedValueContext.prototype.IDENTIFIER = function(i) {
 
 SimpleDefinedValueContext.prototype.DOT = function() {
     return this.getToken(ASNParser.DOT, 0);
-};
-
-SimpleDefinedValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterSimpleDefinedValue(this);
-	}
-};
-
-SimpleDefinedValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitSimpleDefinedValue(this);
-	}
 };
 
 SimpleDefinedValueContext.prototype.accept = function(visitor) {
@@ -13677,18 +12116,6 @@ ActualParameterListContext.prototype.COMMA = function(i) {
 };
 
 
-ActualParameterListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterActualParameterList(this);
-	}
-};
-
-ActualParameterListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitActualParameterList(this);
-	}
-};
-
 ActualParameterListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitActualParameterList(this);
@@ -13766,18 +12193,6 @@ ActualParameterContext.prototype.value = function() {
     return this.getTypedRuleContext(ValueContext,0);
 };
 
-ActualParameterContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterActualParameter(this);
-	}
-};
-
-ActualParameterContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitActualParameter(this);
-	}
-};
-
 ActualParameterContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitActualParameter(this);
@@ -13852,18 +12267,6 @@ ExceptionSpecContext.prototype.exceptionIdentification = function() {
     return this.getTypedRuleContext(ExceptionIdentificationContext,0);
 };
 
-ExceptionSpecContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExceptionSpec(this);
-	}
-};
-
-ExceptionSpecContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExceptionSpec(this);
-	}
-};
-
 ExceptionSpecContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitExceptionSpec(this);
@@ -13936,18 +12339,6 @@ ExceptionIdentificationContext.prototype.COLON = function() {
 
 ExceptionIdentificationContext.prototype.value = function() {
     return this.getTypedRuleContext(ValueContext,0);
-};
-
-ExceptionIdentificationContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterExceptionIdentification(this);
-	}
-};
-
-ExceptionIdentificationContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitExceptionIdentification(this);
-	}
 };
 
 ExceptionIdentificationContext.prototype.accept = function(visitor) {
@@ -14030,18 +12421,6 @@ AdditionalEnumerationContext.prototype.enumeration = function() {
     return this.getTypedRuleContext(EnumerationContext,0);
 };
 
-AdditionalEnumerationContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterAdditionalEnumeration(this);
-	}
-};
-
-AdditionalEnumerationContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitAdditionalEnumeration(this);
-	}
-};
-
 AdditionalEnumerationContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitAdditionalEnumeration(this);
@@ -14108,18 +12487,6 @@ IntegerTypeContext.prototype.namedNumberList = function() {
 
 IntegerTypeContext.prototype.R_BRACE = function() {
     return this.getToken(ASNParser.R_BRACE, 0);
-};
-
-IntegerTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterIntegerType(this);
-	}
-};
-
-IntegerTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitIntegerType(this);
-	}
 };
 
 IntegerTypeContext.prototype.accept = function(visitor) {
@@ -14209,18 +12576,6 @@ NamedNumberListContext.prototype.COMMA = function(i) {
 };
 
 
-NamedNumberListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterNamedNumberList(this);
-	}
-};
-
-NamedNumberListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitNamedNumberList(this);
-	}
-};
-
 NamedNumberListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitNamedNumberList(this);
@@ -14292,18 +12647,6 @@ ObjectidentifiertypeContext.prototype.OBJECT_LITERAL = function() {
 
 ObjectidentifiertypeContext.prototype.IDENTIFIER_LITERAL = function() {
     return this.getToken(ASNParser.IDENTIFIER_LITERAL, 0);
-};
-
-ObjectidentifiertypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterObjectidentifiertype(this);
-	}
-};
-
-ObjectidentifiertypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitObjectidentifiertype(this);
-	}
 };
 
 ObjectidentifiertypeContext.prototype.accept = function(visitor) {
@@ -14423,18 +12766,6 @@ ComponentRelationConstraintContext.prototype.COMMA = function(i) {
 };
 
 
-ComponentRelationConstraintContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterComponentRelationConstraint(this);
-	}
-};
-
-ComponentRelationConstraintContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitComponentRelationConstraint(this);
-	}
-};
-
 ComponentRelationConstraintContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitComponentRelationConstraint(this);
@@ -14543,18 +12874,6 @@ AtNotationContext.prototype.level = function() {
     return this.getTypedRuleContext(LevelContext,0);
 };
 
-AtNotationContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterAtNotation(this);
-	}
-};
-
-AtNotationContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitAtNotation(this);
-	}
-};
-
 AtNotationContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitAtNotation(this);
@@ -14629,18 +12948,6 @@ LevelContext.prototype.DOT = function() {
 
 LevelContext.prototype.level = function() {
     return this.getTypedRuleContext(LevelContext,0);
-};
-
-LevelContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterLevel(this);
-	}
-};
-
-LevelContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitLevel(this);
-	}
 };
 
 LevelContext.prototype.accept = function(visitor) {
@@ -14728,18 +13035,6 @@ ComponentIdListContext.prototype.DOT = function(i) {
 };
 
 
-ComponentIdListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterComponentIdList(this);
-	}
-};
-
-ComponentIdListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitComponentIdList(this);
-	}
-};
-
 ComponentIdListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitComponentIdList(this);
@@ -14811,18 +13106,6 @@ OctetStringTypeContext.prototype.OCTET_LITERAL = function() {
 
 OctetStringTypeContext.prototype.STRING_LITERAL = function() {
     return this.getToken(ASNParser.STRING_LITERAL, 0);
-};
-
-OctetStringTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterOctetStringType(this);
-	}
-};
-
-OctetStringTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitOctetStringType(this);
-	}
 };
 
 OctetStringTypeContext.prototype.accept = function(visitor) {
@@ -14897,18 +13180,6 @@ BitStringTypeContext.prototype.namedBitList = function() {
 
 BitStringTypeContext.prototype.R_BRACE = function() {
     return this.getToken(ASNParser.R_BRACE, 0);
-};
-
-BitStringTypeContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterBitStringType(this);
-	}
-};
-
-BitStringTypeContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitBitStringType(this);
-	}
 };
 
 BitStringTypeContext.prototype.accept = function(visitor) {
@@ -15000,18 +13271,6 @@ NamedBitListContext.prototype.COMMA = function(i) {
 };
 
 
-NamedBitListContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterNamedBitList(this);
-	}
-};
-
-NamedBitListContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitNamedBitList(this);
-	}
-};
-
 NamedBitListContext.prototype.accept = function(visitor) {
     if ( visitor instanceof ASNVisitor ) {
         return visitor.visitNamedBitList(this);
@@ -15095,18 +13354,6 @@ NamedBitContext.prototype.NUMBER = function() {
 
 NamedBitContext.prototype.definedValue = function() {
     return this.getTypedRuleContext(DefinedValueContext,0);
-};
-
-NamedBitContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterNamedBit(this);
-	}
-};
-
-NamedBitContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitNamedBit(this);
-	}
 };
 
 NamedBitContext.prototype.accept = function(visitor) {
@@ -15193,18 +13440,6 @@ BooleanValueContext.prototype.TRUE_SMALL_LITERAL = function() {
 
 BooleanValueContext.prototype.FALSE_SMALL_LITERAL = function() {
     return this.getToken(ASNParser.FALSE_SMALL_LITERAL, 0);
-};
-
-BooleanValueContext.prototype.enterRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.enterBooleanValue(this);
-	}
-};
-
-BooleanValueContext.prototype.exitRule = function(listener) {
-    if(listener instanceof ASNListener ) {
-        listener.exitBooleanValue(this);
-	}
 };
 
 BooleanValueContext.prototype.accept = function(visitor) {
