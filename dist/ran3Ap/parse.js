@@ -1,11 +1,23 @@
 "use strict";
 exports.__esModule = true;
-var cheerio = require("cheerio");
+var $ = require("cheerio");
 var fs_1 = require("fs");
 function parse(html) {
-    var $ = cheerio.load(html);
+    var stack = [$(html)];
+    while (stack.length) {
+        var elem = stack.pop();
+        //  TODO
+        stack = pushChildren(stack, elem);
+    }
 }
 exports.parse = parse;
+function pushChildren(stack, parent) {
+    var stackChildren = [];
+    parent.children().each(function (index, child) {
+        stackChildren.push($(child));
+    });
+    return stack.concat(stackChildren.reverse());
+}
 if (require.main === module) {
     var filePath = process.argv[2];
     if (!filePath) {

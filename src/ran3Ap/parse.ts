@@ -1,8 +1,21 @@
-import * as cheerio from 'cheerio';
+import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
 export function parse(html: string): any {
-  const $ = cheerio.load(html);
+  let stack: Cheerio[] = [$(html)];
+  while (stack.length) {
+    const elem = stack.pop();
+    //  TODO
+    stack = pushChildren(stack, elem);
+  }
+}
+
+function pushChildren(stack: Cheerio[], parent: Cheerio): Cheerio[] {
+  const stackChildren: Cheerio[] = [];
+  parent.children().each((index: number, child: CheerioElement) => {
+    stackChildren.push($(child));
+  });
+  return stack.concat(stackChildren.reverse());
 }
 
 if (require.main === module) {
