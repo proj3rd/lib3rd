@@ -10,6 +10,7 @@ export function parse(html: string): any {
   let sectionNumber: string = null;
   let sectionTitle: string = null;
   let direction: string = null;
+
   let stack = selectorToArray($(html)).reverse();
   while (stack.length) {
     const selector = stack.pop();
