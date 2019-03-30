@@ -35,6 +35,7 @@ export function parse(html: string): any {
     }
     if (isMsgIeTable(selector)) {
       continue;
+    }
     stack = stackChildren(stack, selector);
   }
 }
