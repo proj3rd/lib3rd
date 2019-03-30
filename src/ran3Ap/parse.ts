@@ -26,6 +26,7 @@ export function parse(html: string): any {
     //  TODO
     if (isTagHeading(elem)) {
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
+      direction = null;
       continue;
     }
     if (containsDirection(selector)) {

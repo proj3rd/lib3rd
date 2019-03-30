@@ -21,6 +21,7 @@ function parse(html) {
         //  TODO
         if (isTagHeading(elem)) {
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
+            direction = null;
             continue;
         }
         if (containsDirection(selector)) {
