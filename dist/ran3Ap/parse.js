@@ -2,6 +2,13 @@
 exports.__esModule = true;
 var $ = require("cheerio");
 var fs_1 = require("fs");
+var headerTitles = [
+    'ie/group name',
+    'presence',
+    'range',
+    'ie type and reference',
+    'semantics description',
+];
 function parse(html) {
     var _a;
     var sectionNumber = null;
@@ -19,6 +26,8 @@ function parse(html) {
         if (containsDirection(selector)) {
             direction = getDirection(selector);
             continue;
+        }
+        if (isMsgIeTable(selector)) {
         }
         stack = stackChildren(stack, selector);
     }
@@ -43,6 +52,16 @@ function containsDirection(selector) {
 function getDirection(selector) {
     // MS Word converts rightwards arrow to \u00AE (REGISTERED SIGN)
     return normalizeWhitespace(selector.text()).replace(/®/g, '→');
+}
+function isMsgIeTable(selector) {
+    var elem = selector[0];
+    if (!isTag(elem) || elem.name !== 'table') {
+        return false;
+    }
+    var headerTds = selector.find('tr').first().children('td').slice(0, 5);
+    return headerTds.get().reduce(function (prev, curr, currIndex, arr) {
+        return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === headerTitles[currIndex]);
+    }, true);
 }
 function selectorToArray(selector) {
     return selector.map(function (index, elem) {

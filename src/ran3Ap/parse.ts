@@ -6,6 +6,14 @@ interface ISectionInfo {
   sectionTitle: string;
 }
 
+const headerTitles = [
+  'ie/group name',
+  'presence',
+  'range',
+  'ie type and reference',
+  'semantics description',
+];
+
 export function parse(html: string): any {
   let sectionNumber: string = null;
   let sectionTitle: string = null;
@@ -24,6 +32,7 @@ export function parse(html: string): any {
       direction = getDirection(selector);
       continue;
     }
+    if (isMsgIeTable(selector)) {
     stack = stackChildren(stack, selector);
   }
 }
@@ -51,6 +60,17 @@ function containsDirection(selector: Cheerio): boolean {
 function getDirection(selector: Cheerio): string {
   // MS Word converts rightwards arrow to \u00AE (REGISTERED SIGN)
   return normalizeWhitespace(selector.text()).replace(/®/g, '→');
+}
+
+function isMsgIeTable(selector: Cheerio): boolean {
+  const elem = selector[0];
+  if (!isTag(elem) || elem.name !== 'table') {
+    return false;
+  }
+  const headerTds = selector.find('tr').first().children('td').slice(0, 5);
+  return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number, arr: any[]) => {
+    return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === headerTitles[currIndex]);
+  }, true);
 }
 
 function selectorToArray(selector: Cheerio): Cheerio[] {
