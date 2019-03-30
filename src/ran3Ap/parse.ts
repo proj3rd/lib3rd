@@ -2,8 +2,7 @@ import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
 export function parse(html: string): any {
-  const root = $(html);
-  let stack = selectorToArray(root).reverse();
+  let stack = selectorToArray($(html)).reverse();
   while (stack.length) {
     const elem = stack.pop();
     //  TODO
