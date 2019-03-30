@@ -29,6 +29,7 @@ function parse(html) {
             continue;
         }
         if (isMsgIeTable(selector)) {
+            continue;
         }
         stack = stackChildren(stack, selector);
     }
