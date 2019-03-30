@@ -7,16 +7,15 @@ function parse(html) {
     while (stack.length) {
         var elem = stack.pop();
         //  TODO
-        stack = pushChildren(stack, elem);
+        stack = stackChildren(stack, elem);
     }
 }
 exports.parse = parse;
-function pushChildren(stack, parent) {
-    var stackChildren = [];
-    parent.children().each(function (index, child) {
-        stackChildren.push($(child));
-    });
-    return stack.concat(stackChildren.reverse());
+function stackChildren(stack, parent) {
+    var children = parent.children().map(function (index, child) {
+        return $(child);
+    }).get();
+    return stack.concat(children.reverse());
 }
 if (require.main === module) {
     var filePath = process.argv[2];

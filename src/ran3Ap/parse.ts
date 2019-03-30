@@ -6,16 +6,15 @@ export function parse(html: string): any {
   while (stack.length) {
     const elem = stack.pop();
     //  TODO
-    stack = pushChildren(stack, elem);
+    stack = stackChildren(stack, elem);
   }
 }
 
-function pushChildren(stack: Cheerio[], parent: Cheerio): Cheerio[] {
-  const stackChildren: Cheerio[] = [];
-  parent.children().each((index: number, child: CheerioElement) => {
-    stackChildren.push($(child));
-  });
-  return stack.concat(stackChildren.reverse());
+function stackChildren(stack: Cheerio[], parent: Cheerio): Cheerio[] {
+  const children: Cheerio[] = parent.children().map((index: number, child: CheerioElement) => {
+    return $(child);
+  }).get();
+  return stack.concat(children.reverse());
 }
 
 if (require.main === module) {
