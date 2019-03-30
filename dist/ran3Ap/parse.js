@@ -8,6 +8,8 @@ var headerTitles = [
     'range',
     'ie type and reference',
     'semantics description',
+    'criticality',
+    'assigned criticiality',
 ];
 function parse(html) {
     var _a;
@@ -64,6 +66,11 @@ function isMsgIeTable(selector) {
     return headerTds.get().reduce(function (prev, curr, currIndex, arr) {
         return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === headerTitles[currIndex]);
     }, true);
+}
+function parseTable(selector) {
+    var trs = selector.find('tr').slice(1);
+    trs.each(function (index, elem) {
+    });
 }
 function selectorToArray(selector) {
     return selector.map(function (index, elem) {

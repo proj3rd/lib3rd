@@ -12,6 +12,8 @@ const headerTitles = [
   'range',
   'ie type and reference',
   'semantics description',
+  'criticality',
+  'assigned criticiality',
 ];
 
 export function parse(html: string): any {
@@ -74,6 +76,12 @@ function isMsgIeTable(selector: Cheerio): boolean {
   return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number, arr: any[]) => {
     return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === headerTitles[currIndex]);
   }, true);
+}
+
+function parseTable(selector: Cheerio): any {
+  const trs = selector.find('tr').slice(1);
+  trs.each((index, elem) => {
+  });
 }
 
 function selectorToArray(selector: Cheerio): Cheerio[] {
