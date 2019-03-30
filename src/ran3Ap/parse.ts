@@ -9,6 +9,7 @@ interface ISectionInfo {
 export function parse(html: string): any {
   let sectionNumber: string = null;
   let sectionTitle: string = null;
+  let direction: string = null;
   let stack = selectorToArray($(html)).reverse();
   while (stack.length) {
     const selector = stack.pop();
@@ -19,6 +20,7 @@ export function parse(html: string): any {
       continue;
     }
     if (containsDirection(selector)) {
+      direction = getDirection(selector);
       continue;
     }
     stack = stackChildren(stack, selector);
@@ -43,6 +45,11 @@ function sectionInformation(selector: Cheerio): ISectionInfo {
 
 function containsDirection(selector: Cheerio): boolean {
   return normalizeWhitespace(selector.text()).startsWith('Direction:');
+}
+
+function getDirection(selector: Cheerio): string {
+  // MS Word converts rightwards arrow to \u00AE (REGISTERED SIGN)
+  return normalizeWhitespace(selector.text()).replace(/®/g, '→');
 }
 
 function selectorToArray(selector: Cheerio): Cheerio[] {

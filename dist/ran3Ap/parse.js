@@ -6,6 +6,7 @@ function parse(html) {
     var _a;
     var sectionNumber = null;
     var sectionTitle = null;
+    var direction = null;
     var stack = selectorToArray($(html)).reverse();
     while (stack.length) {
         var selector = stack.pop();
@@ -16,6 +17,7 @@ function parse(html) {
             continue;
         }
         if (containsDirection(selector)) {
+            direction = getDirection(selector);
             continue;
         }
         stack = stackChildren(stack, selector);
@@ -37,6 +39,10 @@ function sectionInformation(selector) {
 }
 function containsDirection(selector) {
     return normalizeWhitespace(selector.text()).startsWith('Direction:');
+}
+function getDirection(selector) {
+    // MS Word converts rightwards arrow to \u00AE (REGISTERED SIGN)
+    return normalizeWhitespace(selector.text()).replace(/®/g, '→');
 }
 function selectorToArray(selector) {
     return selector.map(function (index, elem) {
