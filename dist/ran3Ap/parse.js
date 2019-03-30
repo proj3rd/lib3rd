@@ -5,12 +5,19 @@ var fs_1 = require("fs");
 function parse(html) {
     var stack = selectorToArray($(html)).reverse();
     while (stack.length) {
-        var elem = stack.pop();
+        var cheerio_1 = stack.pop();
+        var elem = cheerio_1[0];
         //  TODO
-        stack = stackChildren(stack, elem);
+        stack = stackChildren(stack, cheerio_1);
     }
 }
 exports.parse = parse;
+function isTag(elem) {
+    return elem.type === 'tag';
+}
+function isTagHeading(elem) {
+    return isTag(elem) && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1;
+}
 function selectorToArray(selector) {
     return selector.map(function (index, elem) {
         return $(elem);
@@ -21,6 +28,9 @@ function stackChildren(stack, parent) {
         return $(child);
     }).get();
     return stack.concat(children.reverse());
+}
+function normalizeWhitespace(text) {
+    return text.trim().replace(/\s+/g, ' ');
 }
 if (require.main === module) {
     var filePath = process.argv[2];

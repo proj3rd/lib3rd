@@ -4,10 +4,19 @@ import { readFile } from 'fs';
 export function parse(html: string): any {
   let stack = selectorToArray($(html)).reverse();
   while (stack.length) {
-    const elem = stack.pop();
+    const cheerio = stack.pop();
+    const elem = cheerio[0];
     //  TODO
-    stack = stackChildren(stack, elem);
+    stack = stackChildren(stack, cheerio);
   }
+}
+
+function isTag(elem: CheerioElement): boolean {
+  return elem.type === 'tag';
+}
+
+function isTagHeading(elem: CheerioElement): boolean {
+  return isTag(elem) && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1;
 }
 
 function selectorToArray(selector: Cheerio): Cheerio[] {
@@ -21,6 +30,10 @@ function stackChildren(stack: Cheerio[], parent: Cheerio): Cheerio[] {
     return $(child);
   }).get();
   return stack.concat(children.reverse());
+}
+
+function normalizeWhitespace(text: string): string {
+  return text.trim().replace(/\s+/g, ' ');
 }
 
 if (require.main === module) {
