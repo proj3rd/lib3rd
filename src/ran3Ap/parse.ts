@@ -18,6 +18,9 @@ export function parse(html: string): any {
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
       continue;
     }
+    if (containsDirection(selector)) {
+      continue;
+    }
     stack = stackChildren(stack, selector);
   }
 }
@@ -36,6 +39,10 @@ function sectionInformation(selector: Cheerio): ISectionInfo {
   const sectionNumber = sectionHeading.substring(0, indexDelimiter);
   const sectionTitle = sectionHeading.substring(indexDelimiter + 1);
   return {sectionNumber, sectionTitle};
+}
+
+function containsDirection(selector: Cheerio): boolean {
+  return normalizeWhitespace(selector.text()).startsWith('Direction:');
 }
 
 function selectorToArray(selector: Cheerio): Cheerio[] {

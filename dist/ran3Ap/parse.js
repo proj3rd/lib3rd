@@ -15,6 +15,9 @@ function parse(html) {
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
             continue;
         }
+        if (containsDirection(selector)) {
+            continue;
+        }
         stack = stackChildren(stack, selector);
     }
 }
@@ -31,6 +34,9 @@ function sectionInformation(selector) {
     var sectionNumber = sectionHeading.substring(0, indexDelimiter);
     var sectionTitle = sectionHeading.substring(indexDelimiter + 1);
     return { sectionNumber: sectionNumber, sectionTitle: sectionTitle };
+}
+function containsDirection(selector) {
+    return normalizeWhitespace(selector.text()).startsWith('Direction:');
 }
 function selectorToArray(selector) {
     return selector.map(function (index, elem) {
