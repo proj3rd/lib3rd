@@ -3,21 +3,19 @@ exports.__esModule = true;
 var $ = require("cheerio");
 var fs_1 = require("fs");
 function parse(html) {
+    var _a;
     var sectionNumber = null;
     var sectionTitle = null;
     var stack = selectorToArray($(html)).reverse();
     while (stack.length) {
-        var cheerio_1 = stack.pop();
-        var elem = cheerio_1[0];
+        var selector = stack.pop();
+        var elem = selector[0];
         //  TODO
         if (isTagHeading(elem)) {
-            var sectionHeading = normalizeWhitespace(cheerio_1.text());
-            var indexDelimiter = sectionHeading.indexOf(' ');
-            sectionNumber = sectionHeading.substring(0, indexDelimiter);
-            sectionTitle = sectionHeading.substring(indexDelimiter + 1);
+            (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
             continue;
         }
-        stack = stackChildren(stack, cheerio_1);
+        stack = stackChildren(stack, selector);
     }
 }
 exports.parse = parse;
@@ -27,13 +25,20 @@ function isTag(elem) {
 function isTagHeading(elem) {
     return isTag(elem) && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1;
 }
+function sectionInformation(selector) {
+    var sectionHeading = normalizeWhitespace(selector.text());
+    var indexDelimiter = sectionHeading.indexOf(' ');
+    var sectionNumber = sectionHeading.substring(0, indexDelimiter);
+    var sectionTitle = sectionHeading.substring(indexDelimiter + 1);
+    return { sectionNumber: sectionNumber, sectionTitle: sectionTitle };
+}
 function selectorToArray(selector) {
     return selector.map(function (index, elem) {
         return $(elem);
     }).get();
 }
-function stackChildren(stack, parent) {
-    var children = parent.children().map(function (index, child) {
+function stackChildren(stack, selector) {
+    var children = selector.children().map(function (index, child) {
         return $(child);
     }).get();
     return stack.concat(children.reverse());

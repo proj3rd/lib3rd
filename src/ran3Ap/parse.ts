@@ -1,22 +1,24 @@
 import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
+interface ISectionInfo {
+  sectionNumber: string;
+  sectionTitle: string;
+}
+
 export function parse(html: string): any {
   let sectionNumber: string = null;
   let sectionTitle: string = null;
   let stack = selectorToArray($(html)).reverse();
   while (stack.length) {
-    const cheerio = stack.pop();
-    const elem = cheerio[0];
+    const selector = stack.pop();
+    const elem = selector[0];
     //  TODO
     if (isTagHeading(elem)) {
-      const sectionHeading = normalizeWhitespace(cheerio.text());
-      const indexDelimiter = sectionHeading.indexOf(' ');
-      sectionNumber = sectionHeading.substring(0, indexDelimiter);
-      sectionTitle = sectionHeading.substring(indexDelimiter + 1);
+      ({sectionNumber, sectionTitle} = sectionInformation(selector));
       continue;
     }
-    stack = stackChildren(stack, cheerio);
+    stack = stackChildren(stack, selector);
   }
 }
 
@@ -28,14 +30,22 @@ function isTagHeading(elem: CheerioElement): boolean {
   return isTag(elem) && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1;
 }
 
+function sectionInformation(selector: Cheerio): ISectionInfo {
+  const sectionHeading = normalizeWhitespace(selector.text());
+  const indexDelimiter = sectionHeading.indexOf(' ');
+  const sectionNumber = sectionHeading.substring(0, indexDelimiter);
+  const sectionTitle = sectionHeading.substring(indexDelimiter + 1);
+  return {sectionNumber, sectionTitle};
+}
+
 function selectorToArray(selector: Cheerio): Cheerio[] {
   return selector.map((index, elem) => {
     return $(elem);
   }).get();
 }
 
-function stackChildren(stack: Cheerio[], parent: Cheerio): Cheerio[] {
-  const children: Cheerio[] = parent.children().map((index, child) => {
+function stackChildren(stack: Cheerio[], selector: Cheerio): Cheerio[] {
+  const children: Cheerio[] = selector.children().map((index, child) => {
     return $(child);
   }).get();
   return stack.concat(children.reverse());
