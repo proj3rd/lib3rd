@@ -15,6 +15,7 @@ function parse(html) {
             var indexDelimiter = sectionHeading.indexOf(' ');
             sectionNumber = sectionHeading.substring(0, indexDelimiter);
             sectionTitle = sectionHeading.substring(indexDelimiter + 1);
+            continue;
         }
         stack = stackChildren(stack, cheerio_1);
     }
