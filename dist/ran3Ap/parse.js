@@ -3,7 +3,8 @@ exports.__esModule = true;
 var $ = require("cheerio");
 var fs_1 = require("fs");
 function parse(html) {
-    var stack = [$(html)];
+    var root = $(html);
+    var stack = selectorToArray(root).reverse();
     while (stack.length) {
         var elem = stack.pop();
         //  TODO
@@ -11,6 +12,11 @@ function parse(html) {
     }
 }
 exports.parse = parse;
+function selectorToArray(selector) {
+    return selector.map(function (index, elem) {
+        return $(elem);
+    }).get();
+}
 function stackChildren(stack, parent) {
     var children = parent.children().map(function (index, child) {
         return $(child);

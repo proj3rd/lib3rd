@@ -2,7 +2,8 @@ import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
 export function parse(html: string): any {
-  let stack: Cheerio[] = [$(html)];
+  const root = $(html);
+  let stack = selectorToArray(root).reverse();
   while (stack.length) {
     const elem = stack.pop();
     //  TODO
@@ -10,8 +11,14 @@ export function parse(html: string): any {
   }
 }
 
+function selectorToArray(selector: Cheerio): Cheerio[] {
+  return selector.map((index, elem) => {
+    return $(elem);
+  }).get();
+}
+
 function stackChildren(stack: Cheerio[], parent: Cheerio): Cheerio[] {
-  const children: Cheerio[] = parent.children().map((index: number, child: CheerioElement) => {
+  const children: Cheerio[] = parent.children().map((index, child) => {
     return $(child);
   }).get();
   return stack.concat(children.reverse());
