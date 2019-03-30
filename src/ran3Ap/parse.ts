@@ -2,11 +2,19 @@ import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
 export function parse(html: string): any {
+  let sectionNumber: string = null;
+  let sectionTitle: string = null;
   let stack = selectorToArray($(html)).reverse();
   while (stack.length) {
     const cheerio = stack.pop();
     const elem = cheerio[0];
     //  TODO
+    if (isTagHeading(elem)) {
+      const sectionHeading = normalizeWhitespace(cheerio.text());
+      const indexDelimiter = sectionHeading.indexOf(' ');
+      sectionNumber = sectionHeading.substring(0, indexDelimiter);
+      sectionTitle = sectionHeading.substring(indexDelimiter + 1);
+    }
     stack = stackChildren(stack, cheerio);
   }
 }
