@@ -91,6 +91,10 @@ function isTagHeading(elem: CheerioElement): boolean {
   return isTag(elem) && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1;
 }
 
+function isTagTable(elem: CheerioElement): boolean {
+  return isTag(elem) && elem.name === 'table';
+}
+
 function sectionInformation(selector: Cheerio): ISectionInfo {
   const sectionHeading = normalizeWhitespace(selector.text());
   const indexDelimiter = sectionHeading.indexOf(' ');
@@ -108,15 +112,15 @@ function getDirection(selector: Cheerio): string {
   return normalizeWhitespace(selector.text()).replace(/®/g, '→');
 }
 
-function isMsgIeTable(selector: Cheerio): boolean {
-  const elem = selector[0];
-  if (!isTag(elem) || elem.name !== 'table') {
-    return false;
-  }
-  const headerTds = selector.find('tr').first().children('td').slice(0, 5);
+function doesHeaderMatch(selector: Cheerio, header: string[], indexEnd: number): boolean {
+  const headerTds = selector.find('tr').first().children('td').slice(0, indexEnd);
   return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number, arr: any[]) => {
-    return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === msgIeTableHeader[currIndex]);
+    return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === header[currIndex]);
   }, true);
+}
+
+function isMsgIeTable(selector: Cheerio): boolean {
+  return isTagTable(selector[0]) && doesHeaderMatch(selector, msgIeTableHeader, 5);
 }
 
 function parseMsgIeTable(selector: Cheerio): IMsgIeDefinitionElem[] {
@@ -141,14 +145,7 @@ function parseMsgIeTable(selector: Cheerio): IMsgIeDefinitionElem[] {
 }
 
 function isRangeTable(selector: Cheerio): boolean {
-  const elem = selector[0];
-  if (!isTag(elem) || elem.name !== 'table') {
-    return false;
-  }
-  const headerTds = selector.find('tr').first().children('td').slice(0, 2);
-  return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number, arr: any[]) => {
-    return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === rangeTableHeader[currIndex]);
-  }, true);
+  return isTagTable(selector[0]) && doesHeaderMatch(selector, rangeTableHeader, 2);
 }
 
 function parseRangeTable(selector: Cheerio): IRangeDefinitionElem[] {
@@ -168,14 +165,7 @@ function parseRangeTable(selector: Cheerio): IRangeDefinitionElem[] {
 }
 
 function isConditionTable(selector: Cheerio): boolean {
-  const elem = selector[0];
-  if (!isTag(elem) || elem.name !== 'table') {
-    return false;
-  }
-  const headerTds = selector.find('tr').first().children('td').slice(0, 2);
-  return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number, arr: any[]) => {
-    return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === conditionTableHeader[currIndex]);
-  }, true);
+  return isTagTable(selector[0]) && doesHeaderMatch(selector, conditionTableHeader, 2);
 }
 
 function parseConditionTable(selector: Cheerio): IConditionDefinitionElem[] {

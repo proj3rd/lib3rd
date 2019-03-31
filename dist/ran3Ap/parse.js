@@ -60,6 +60,9 @@ function isTag(elem) {
 function isTagHeading(elem) {
     return isTag(elem) && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1;
 }
+function isTagTable(elem) {
+    return isTag(elem) && elem.name === 'table';
+}
 function sectionInformation(selector) {
     var sectionHeading = normalizeWhitespace(selector.text());
     var indexDelimiter = sectionHeading.indexOf(' ');
@@ -74,15 +77,14 @@ function getDirection(selector) {
     // MS Word converts rightwards arrow to \u00AE (REGISTERED SIGN)
     return normalizeWhitespace(selector.text()).replace(/®/g, '→');
 }
-function isMsgIeTable(selector) {
-    var elem = selector[0];
-    if (!isTag(elem) || elem.name !== 'table') {
-        return false;
-    }
-    var headerTds = selector.find('tr').first().children('td').slice(0, 5);
+function doesHeaderMatch(selector, header, indexEnd) {
+    var headerTds = selector.find('tr').first().children('td').slice(0, indexEnd);
     return headerTds.get().reduce(function (prev, curr, currIndex, arr) {
-        return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === msgIeTableHeader[currIndex]);
+        return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === header[currIndex]);
     }, true);
+}
+function isMsgIeTable(selector) {
+    return isTagTable(selector[0]) && doesHeaderMatch(selector, msgIeTableHeader, 5);
 }
 function parseMsgIeTable(selector) {
     var trs = selector.find('tr').slice(1);
@@ -105,14 +107,7 @@ function parseMsgIeTable(selector) {
     return msgIeDefinition;
 }
 function isRangeTable(selector) {
-    var elem = selector[0];
-    if (!isTag(elem) || elem.name !== 'table') {
-        return false;
-    }
-    var headerTds = selector.find('tr').first().children('td').slice(0, 2);
-    return headerTds.get().reduce(function (prev, curr, currIndex, arr) {
-        return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === rangeTableHeader[currIndex]);
-    }, true);
+    return isTagTable(selector[0]) && doesHeaderMatch(selector, rangeTableHeader, 2);
 }
 function parseRangeTable(selector) {
     var trs = selector.find('tr').slice(1);
@@ -130,14 +125,7 @@ function parseRangeTable(selector) {
     return rangeDefinition;
 }
 function isConditionTable(selector) {
-    var elem = selector[0];
-    if (!isTag(elem) || elem.name !== 'table') {
-        return false;
-    }
-    var headerTds = selector.find('tr').first().children('td').slice(0, 2);
-    return headerTds.get().reduce(function (prev, curr, currIndex, arr) {
-        return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === conditionTableHeader[currIndex]);
-    }, true);
+    return isTagTable(selector[0]) && doesHeaderMatch(selector, conditionTableHeader, 2);
 }
 function parseConditionTable(selector) {
     var trs = selector.find('tr').slice(1);
