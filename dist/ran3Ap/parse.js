@@ -85,8 +85,9 @@ function containsDirection(selector) {
     return normalizeWhitespace(selector.text()).startsWith('Direction:');
 }
 function getDirection(selector) {
-    // MS Word converts rightwards arrow to \u00AE (REGISTERED SIGN)
-    return normalizeWhitespace(selector.text()).replace(/®/g, '→');
+    return normalizeWhitespace(selector.text()).replace(/^Direction:\s*/, '')
+        // MS Word converts rightwards arrow to \u00AE (REGISTERED SIGN)
+        .replace(/®/g, '→');
 }
 function doesHeaderMatch(selector, header, indexEnd) {
     var headerTds = selector.find('tr').first().children('td').slice(0, indexEnd);

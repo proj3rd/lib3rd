@@ -120,8 +120,9 @@ function containsDirection(selector: Cheerio): boolean {
 }
 
 function getDirection(selector: Cheerio): string {
+  return normalizeWhitespace(selector.text()).replace(/^Direction:\s*/, '')
   // MS Word converts rightwards arrow to \u00AE (REGISTERED SIGN)
-  return normalizeWhitespace(selector.text()).replace(/®/g, '→');
+                                              .replace(/®/g, '→');
 }
 
 function doesHeaderMatch(selector: Cheerio, header: string[], indexEnd: number): boolean {
