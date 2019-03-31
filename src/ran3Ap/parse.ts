@@ -7,13 +7,8 @@ interface ISectionInfo {
 }
 
 const msgIeTableHeader = [
-  'ie/group name',
-  'presence',
-  'range',
-  'ie type and reference',
-  'semantics description',
-  'criticality',
-  'assigned criticiality',
+  'ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
+  'criticality', 'assigned criticiality',
 ];
 
 interface IMsgIeDefinitionElem {
@@ -27,6 +22,24 @@ interface IMsgIeDefinitionElem {
   'depth': number;
 }
 
+const rangeTableHeader = [
+  'range bound', 'explanation',
+];
+
+interface IRangeDefinitionElem {
+  'range bound': string;
+  'explanation': string;
+}
+
+const conditionTableHeader = [
+  'condition', 'explanation',
+];
+
+interface IConditionDefinitionElem {
+  'condition': string;
+  'explanation': string;
+}
+
 const reDepth = /^>+/;
 
 export function parse(html: string): any {
@@ -34,6 +47,8 @@ export function parse(html: string): any {
   let sectionTitle: string = null;
   let direction: string = null;
   let msgIeDefinition: IMsgIeDefinitionElem[] = null;
+  let rangeDefinition: IRangeDefinitionElem[] = null;
+  let conditionDefinition: IConditionDefinitionElem[] = null;
 
   let stack = selectorToArray($(html)).reverse();
   while (stack.length) {
@@ -43,6 +58,9 @@ export function parse(html: string): any {
     if (isTagHeading(elem)) {
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
       direction = null;
+      msgIeDefinition = null;
+      rangeDefinition = null;
+      conditionDefinition = null;
       continue;
     }
     if (containsDirection(selector)) {
@@ -51,6 +69,14 @@ export function parse(html: string): any {
     }
     if (isMsgIeTable(selector)) {
       msgIeDefinition = parseMsgIeTable(selector);
+      continue;
+    }
+    if (isRangeTable(selector)) {
+      rangeDefinition = parseRangeTable(selector);
+      continue;
+    }
+    if (isConditionTable(selector)) {
+      conditionDefinition = parseConditionTable(selector);
       continue;
     }
     stack = stackChildren(stack, selector);
@@ -112,6 +138,60 @@ function parseMsgIeTable(selector: Cheerio): IMsgIeDefinitionElem[] {
     return msgIeDefinitionElem;
   }).get();
   return msgIeDefinition;
+}
+
+function isRangeTable(selector: Cheerio): boolean {
+  const elem = selector[0];
+  if (!isTag(elem) || elem.name !== 'table') {
+    return false;
+  }
+  const headerTds = selector.find('tr').first().children('td').slice(0, 2);
+  return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number, arr: any[]) => {
+    return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === rangeTableHeader[currIndex]);
+  }, true);
+}
+
+function parseRangeTable(selector: Cheerio): IRangeDefinitionElem[] {
+  const trs = selector.find('tr').slice(1);
+  const rangeDefinition = trs.map((indexTr, tr): IRangeDefinitionElem => {
+    const rangeDefinitionElem: IRangeDefinitionElem = {
+      'range bound': null,
+      'explanation': null,
+    };
+    $(tr).find('td').each((indexTd, td): void => {
+      const key = rangeTableHeader[indexTd];
+      rangeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+    });
+    return rangeDefinitionElem;
+  }).get();
+  return rangeDefinition;
+}
+
+function isConditionTable(selector: Cheerio): boolean {
+  const elem = selector[0];
+  if (!isTag(elem) || elem.name !== 'table') {
+    return false;
+  }
+  const headerTds = selector.find('tr').first().children('td').slice(0, 2);
+  return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number, arr: any[]) => {
+    return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === conditionTableHeader[currIndex]);
+  }, true);
+}
+
+function parseConditionTable(selector: Cheerio): IConditionDefinitionElem[] {
+  const trs = selector.find('tr').slice(1);
+  const conditionDefinition = trs.map((indexTr, tr): IConditionDefinitionElem => {
+    const conditionDefinitionElem: IConditionDefinitionElem = {
+      'condition': null,
+      'explanation': null,
+    };
+    $(tr).find('td').each((indexTd, td): void => {
+      const key = conditionTableHeader[indexTd];
+      conditionDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+    });
+    return conditionDefinitionElem;
+  }).get();
+  return conditionDefinition;
 }
 
 function selectorToArray(selector: Cheerio): Cheerio[] {

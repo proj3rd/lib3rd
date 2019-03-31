@@ -3,13 +3,14 @@ exports.__esModule = true;
 var $ = require("cheerio");
 var fs_1 = require("fs");
 var msgIeTableHeader = [
-    'ie/group name',
-    'presence',
-    'range',
-    'ie type and reference',
-    'semantics description',
-    'criticality',
-    'assigned criticiality',
+    'ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
+    'criticality', 'assigned criticiality',
+];
+var rangeTableHeader = [
+    'range bound', 'explanation',
+];
+var conditionTableHeader = [
+    'condition', 'explanation',
 ];
 var reDepth = /^>+/;
 function parse(html) {
@@ -18,6 +19,8 @@ function parse(html) {
     var sectionTitle = null;
     var direction = null;
     var msgIeDefinition = null;
+    var rangeDefinition = null;
+    var conditionDefinition = null;
     var stack = selectorToArray($(html)).reverse();
     while (stack.length) {
         var selector = stack.pop();
@@ -26,6 +29,9 @@ function parse(html) {
         if (isTagHeading(elem)) {
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
             direction = null;
+            msgIeDefinition = null;
+            rangeDefinition = null;
+            conditionDefinition = null;
             continue;
         }
         if (containsDirection(selector)) {
@@ -34,6 +40,14 @@ function parse(html) {
         }
         if (isMsgIeTable(selector)) {
             msgIeDefinition = parseMsgIeTable(selector);
+            continue;
+        }
+        if (isRangeTable(selector)) {
+            rangeDefinition = parseRangeTable(selector);
+            continue;
+        }
+        if (isConditionTable(selector)) {
+            conditionDefinition = parseConditionTable(selector);
             continue;
         }
         stack = stackChildren(stack, selector);
@@ -89,6 +103,56 @@ function parseMsgIeTable(selector) {
         return msgIeDefinitionElem;
     }).get();
     return msgIeDefinition;
+}
+function isRangeTable(selector) {
+    var elem = selector[0];
+    if (!isTag(elem) || elem.name !== 'table') {
+        return false;
+    }
+    var headerTds = selector.find('tr').first().children('td').slice(0, 2);
+    return headerTds.get().reduce(function (prev, curr, currIndex, arr) {
+        return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === rangeTableHeader[currIndex]);
+    }, true);
+}
+function parseRangeTable(selector) {
+    var trs = selector.find('tr').slice(1);
+    var rangeDefinition = trs.map(function (indexTr, tr) {
+        var rangeDefinitionElem = {
+            'range bound': null,
+            'explanation': null
+        };
+        $(tr).find('td').each(function (indexTd, td) {
+            var key = rangeTableHeader[indexTd];
+            rangeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+        });
+        return rangeDefinitionElem;
+    }).get();
+    return rangeDefinition;
+}
+function isConditionTable(selector) {
+    var elem = selector[0];
+    if (!isTag(elem) || elem.name !== 'table') {
+        return false;
+    }
+    var headerTds = selector.find('tr').first().children('td').slice(0, 2);
+    return headerTds.get().reduce(function (prev, curr, currIndex, arr) {
+        return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === conditionTableHeader[currIndex]);
+    }, true);
+}
+function parseConditionTable(selector) {
+    var trs = selector.find('tr').slice(1);
+    var conditionDefinition = trs.map(function (indexTr, tr) {
+        var conditionDefinitionElem = {
+            'condition': null,
+            'explanation': null
+        };
+        $(tr).find('td').each(function (indexTd, td) {
+            var key = conditionTableHeader[indexTd];
+            conditionDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+        });
+        return conditionDefinitionElem;
+    }).get();
+    return conditionDefinition;
 }
 function selectorToArray(selector) {
     return selector.map(function (index, elem) {
