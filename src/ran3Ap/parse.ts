@@ -47,6 +47,7 @@ export function parse(html: string): any {
 
   let sectionNumber: string = null;
   let sectionTitle: string = null;
+  let description: string = null;
   let direction: string = null;
   let msgIeDefinition: IMsgIeDefinitionElem[] = null;
   let rangeDefinition: IRangeDefinitionElem[] = null;
@@ -61,6 +62,7 @@ export function parse(html: string): any {
       if (msgIeDefinition) {
         definitions[sectionNumber] = {
           name: sectionTitle,
+          description,
           direction,
           definition: msgIeDefinition,
           range: rangeDefinition,
@@ -68,6 +70,7 @@ export function parse(html: string): any {
         };
       }
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
+      description = null;
       direction = null;
       msgIeDefinition = null;
       rangeDefinition = null;
@@ -90,6 +93,12 @@ export function parse(html: string): any {
       conditionDefinition = parseConditionTable(selector);
       continue;
     }
+    if (isTagP(elem)) {
+      if (!description) {
+        description = normalizeWhitespace(selector.text());
+      }
+      continue;
+    }
     stack = stackChildren(stack, selector);
   }
   return definitions;
@@ -105,6 +114,10 @@ function isTagHeading(elem: CheerioElement): boolean {
 
 function isTagTable(elem: CheerioElement): boolean {
   return isTag(elem) && elem.name === 'table';
+}
+
+function isTagP(elem: CheerioElement): boolean {
+  return isTag(elem) && elem.name === 'p';
 }
 
 function sectionInformation(selector: Cheerio): ISectionInfo {

@@ -18,6 +18,7 @@ function parse(html) {
     var definitions = {};
     var sectionNumber = null;
     var sectionTitle = null;
+    var description = null;
     var direction = null;
     var msgIeDefinition = null;
     var rangeDefinition = null;
@@ -31,6 +32,7 @@ function parse(html) {
             if (msgIeDefinition) {
                 definitions[sectionNumber] = {
                     name: sectionTitle,
+                    description: description,
                     direction: direction,
                     definition: msgIeDefinition,
                     range: rangeDefinition,
@@ -38,6 +40,7 @@ function parse(html) {
                 };
             }
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
+            description = null;
             direction = null;
             msgIeDefinition = null;
             rangeDefinition = null;
@@ -60,6 +63,12 @@ function parse(html) {
             conditionDefinition = parseConditionTable(selector);
             continue;
         }
+        if (isTagP(elem)) {
+            if (!description) {
+                description = normalizeWhitespace(selector.text());
+            }
+            continue;
+        }
         stack = stackChildren(stack, selector);
     }
     return definitions;
@@ -73,6 +82,9 @@ function isTagHeading(elem) {
 }
 function isTagTable(elem) {
     return isTag(elem) && elem.name === 'table';
+}
+function isTagP(elem) {
+    return isTag(elem) && elem.name === 'p';
 }
 function sectionInformation(selector) {
     var sectionHeading = normalizeWhitespace(selector.text());
