@@ -57,7 +57,6 @@ export function parse(html: string): any {
   while (stack.length) {
     const selector = stack.pop();
     const elem = selector[0];
-    //  TODO
     if (isTagHeading(elem)) {
       if (msgIeDefinition) {
         definitions[sectionNumber] = {
@@ -149,7 +148,7 @@ function isMsgIeTable(selector: Cheerio): boolean {
   return isTagTable(selector[0]) && doesHeaderMatch(selector, msgIeTableHeader, 5);
 }
 
-function parseTable(selector: Cheerio, tableHeader: string[]): any {
+function parseTable(selector: Cheerio, tableHeader: string[]): any[] {
   const trs = selector.find('tr').slice(1);
   const definition = trs.map((indexTr, tr) => {
     const definitionElem: any = {};
@@ -164,8 +163,13 @@ function parseTable(selector: Cheerio, tableHeader: string[]): any {
 
 function parseMsgIeTable(selector: Cheerio): IMsgIeDefinitionElem[] {
   const msgIeDefinition = parseTable(selector, msgIeTableHeader);
-  msgIeDefinition.forEach((msgIeDefinitionElem) => {
+  let depthMin = Infinity;
+  msgIeDefinition.forEach((msgIeDefinitionElem: IMsgIeDefinitionElem) => {
     msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
+    depthMin = Math.min(depthMin, msgIeDefinitionElem.depth);
+  });
+  msgIeDefinition.forEach((msgIeDefinitionElem: IMsgIeDefinitionElem) => {
+    msgIeDefinitionElem.depth -= depthMin;
   });
   return msgIeDefinition;
 }

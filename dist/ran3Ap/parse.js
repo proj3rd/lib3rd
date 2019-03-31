@@ -27,7 +27,6 @@ function parse(html) {
     while (stack.length) {
         var selector = stack.pop();
         var elem = selector[0];
-        //  TODO
         if (isTagHeading(elem)) {
             if (msgIeDefinition) {
                 definitions[sectionNumber] = {
@@ -124,8 +123,13 @@ function parseTable(selector, tableHeader) {
 }
 function parseMsgIeTable(selector) {
     var msgIeDefinition = parseTable(selector, msgIeTableHeader);
+    var depthMin = Infinity;
     msgIeDefinition.forEach(function (msgIeDefinitionElem) {
         msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
+        depthMin = Math.min(depthMin, msgIeDefinitionElem.depth);
+    });
+    msgIeDefinition.forEach(function (msgIeDefinitionElem) {
+        msgIeDefinitionElem.depth -= depthMin;
     });
     return msgIeDefinition;
 }
