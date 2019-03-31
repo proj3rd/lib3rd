@@ -31,6 +31,7 @@ function parse(html) {
             continue;
         }
         if (isMsgIeTable(selector)) {
+            var msgIeDefinition = parseTable(selector);
             continue;
         }
         stack = stackChildren(stack, selector);
@@ -69,8 +70,15 @@ function isMsgIeTable(selector) {
 }
 function parseTable(selector) {
     var trs = selector.find('tr').slice(1);
-    trs.each(function (index, elem) {
-    });
+    var msgIeDefinition = trs.map(function (indexTr, tr) {
+        var msgIeDefinitionElem = {};
+        $(tr).find('td').each(function (indexTd, td) {
+            var key = headerTitles[indexTd];
+            msgIeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+        });
+        return msgIeDefinitionElem;
+    }).get();
+    return msgIeDefinition;
 }
 function selectorToArray(selector) {
     return selector.map(function (index, elem) {
@@ -85,6 +93,10 @@ function stackChildren(stack, selector) {
 }
 function normalizeWhitespace(text) {
     return text.trim().replace(/\s+/g, ' ');
+}
+function htmlToText(html) {
+    return html.replace(/<sup>\s*?(.+?)\s*?<\/sup>/g, '^($1)')
+        .replace(/<sub>\s*?(.+?)\s*?<\/sub>/g, '_($1)');
 }
 if (require.main === module) {
     var filePath = process.argv[2];

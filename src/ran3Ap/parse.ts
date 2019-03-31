@@ -36,6 +36,7 @@ export function parse(html: string): any {
       continue;
     }
     if (isMsgIeTable(selector)) {
+      const msgIeDefinition = parseTable(selector);
       continue;
     }
     stack = stackChildren(stack, selector);
@@ -80,8 +81,15 @@ function isMsgIeTable(selector: Cheerio): boolean {
 
 function parseTable(selector: Cheerio): any {
   const trs = selector.find('tr').slice(1);
-  trs.each((index, elem) => {
-  });
+  const msgIeDefinition = trs.map((indexTr, tr) => {
+    const msgIeDefinitionElem = {};
+    $(tr).find('td').each((indexTd, td) => {
+      const key = headerTitles[indexTd];
+      msgIeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+    });
+    return msgIeDefinitionElem;
+  }).get();
+  return msgIeDefinition;
 }
 
 function selectorToArray(selector: Cheerio): Cheerio[] {
@@ -99,6 +107,11 @@ function stackChildren(stack: Cheerio[], selector: Cheerio): Cheerio[] {
 
 function normalizeWhitespace(text: string): string {
   return text.trim().replace(/\s+/g, ' ');
+}
+
+function htmlToText(html: string): string {
+  return html.replace(/<sup>\s*?(.+?)\s*?<\/sup>/g, '^($1)')
+              .replace(/<sub>\s*?(.+?)\s*?<\/sub>/g , '_($1)');
 }
 
 if (require.main === module) {
