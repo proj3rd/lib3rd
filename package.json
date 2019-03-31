@@ -23,7 +23,7 @@
     }
   },
   "lint-staged": {
-    "*.ts,!*.d.ts": "tslint"
+    "src/**/*.ts": "tslint"
   },
   "devDependencies": {
     "@types/antlr4": "^4.7.0",
