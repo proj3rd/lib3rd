@@ -15,6 +15,7 @@ var conditionTableHeader = [
 var reDepth = /^>+/;
 function parse(html) {
     var _a;
+    var definitions = {};
     var sectionNumber = null;
     var sectionTitle = null;
     var direction = null;
@@ -27,6 +28,15 @@ function parse(html) {
         var elem = selector[0];
         //  TODO
         if (isTagHeading(elem)) {
+            if (msgIeDefinition) {
+                definitions[sectionNumber] = {
+                    name: sectionTitle,
+                    direction: direction,
+                    definition: msgIeDefinition,
+                    range: rangeDefinition,
+                    condition: conditionDefinition
+                };
+            }
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
             direction = null;
             msgIeDefinition = null;
@@ -52,6 +62,7 @@ function parse(html) {
         }
         stack = stackChildren(stack, selector);
     }
+    return definitions;
 }
 exports.parse = parse;
 function isTag(elem) {

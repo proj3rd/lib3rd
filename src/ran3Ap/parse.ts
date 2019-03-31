@@ -43,6 +43,8 @@ interface IConditionDefinitionElem {
 const reDepth = /^>+/;
 
 export function parse(html: string): any {
+  const definitions = {};
+
   let sectionNumber: string = null;
   let sectionTitle: string = null;
   let direction: string = null;
@@ -56,6 +58,15 @@ export function parse(html: string): any {
     const elem = selector[0];
     //  TODO
     if (isTagHeading(elem)) {
+      if (msgIeDefinition) {
+        definitions[sectionNumber] = {
+          name: sectionTitle,
+          direction,
+          definition: msgIeDefinition,
+          range: rangeDefinition,
+          condition: conditionDefinition,
+        };
+      }
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
       direction = null;
       msgIeDefinition = null;
@@ -81,6 +92,7 @@ export function parse(html: string): any {
     }
     stack = stackChildren(stack, selector);
   }
+  return definitions;
 }
 
 function isTag(elem: CheerioElement): boolean {
