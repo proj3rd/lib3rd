@@ -8,6 +8,8 @@ Tools to improve productivity for designing cellular network
     - [`ICalQuery`](#icalquery)
   - [ASN.1](#asn1)
     - [`asn1.extract(text)`](#asn1extracttext)
+  - [RAN3 AP](#ran3-ap)
+    - [`ran3Ap.parse(html)`](#ran3apparsehtml)
   - [Utilities](#utilities)
     - [`utils.numbering.seriesFromString(specNumStr)`](#utilsnumberingseriesfromstringspecnumstr)
     - [`utils.numbering.versionFromString(versionStr)`](#utilsnumberingversionfromstringversionstr)
@@ -58,6 +60,42 @@ This function supports the followings:
 
 - E-UTRA RRC protocol (36.331)
 - NR RRC protocol (38.331)
+
+### RAN3 AP
+
+#### `ran3Ap.parse(html)`
+
+- Input
+  - `html`: `string`
+- Output
+  - `json` object
+
+Parses a RAN3 AP spec document (in an HTML format) and returns `json` object.
+The result has the following format:
+
+```jsonc
+{
+  <section number>: {
+    "name": <section title>,
+    "description": /* Description of section */,
+    "direction": /* Direction of a message, if applicable */,
+    "definition": [
+      {
+        "ie/group name": ,
+        "presence",
+        "range",
+        "ie type and reference",
+        "semantics description",
+        "criticality",
+        "assigned criticiality",
+        "depth": /* Depth of IE, e.g. '>>>' indicates depth 3 */
+      },
+      // omitted followings
+    ]
+  },
+  // omitted followings
+}
+```
 
 ### Utilities
 
