@@ -1,1 +1,5 @@
-export {};
+import { parse } from './parse';
+
+export {
+  parse,
+};
