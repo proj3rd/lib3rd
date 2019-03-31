@@ -123,24 +123,24 @@ function isMsgIeTable(selector: Cheerio): boolean {
   return isTagTable(selector[0]) && doesHeaderMatch(selector, msgIeTableHeader, 5);
 }
 
-function parseMsgIeTable(selector: Cheerio): IMsgIeDefinitionElem[] {
+function parseTable(selector: Cheerio, tableHeader: string[]): any {
   const trs = selector.find('tr').slice(1);
-  const msgIeDefinition = trs.map((indexTr, tr): IMsgIeDefinitionElem => {
-    const msgIeDefinitionElem: IMsgIeDefinitionElem = {
-      'ie/group name': null,
-      'presence': null,
-      'range': null,
-      'ie type and reference': null,
-      'semantics description': null,
-      'depth': null,
-    };
+  const definition = trs.map((indexTr, tr) => {
+    const definitionElem: any = {};
     $(tr).find('td').each((indexTd, td): void => {
-      const key = msgIeTableHeader[indexTd];
-      msgIeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+      const key = tableHeader[indexTd];
+      definitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
     });
-    msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
-    return msgIeDefinitionElem;
+    return definitionElem;
   }).get();
+  return definition;
+}
+
+function parseMsgIeTable(selector: Cheerio): IMsgIeDefinitionElem[] {
+  const msgIeDefinition = parseTable(selector, msgIeTableHeader);
+  msgIeDefinition.forEach((msgIeDefinitionElem) => {
+    msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
+  });
   return msgIeDefinition;
 }
 
@@ -149,19 +149,7 @@ function isRangeTable(selector: Cheerio): boolean {
 }
 
 function parseRangeTable(selector: Cheerio): IRangeDefinitionElem[] {
-  const trs = selector.find('tr').slice(1);
-  const rangeDefinition = trs.map((indexTr, tr): IRangeDefinitionElem => {
-    const rangeDefinitionElem: IRangeDefinitionElem = {
-      'range bound': null,
-      'explanation': null,
-    };
-    $(tr).find('td').each((indexTd, td): void => {
-      const key = rangeTableHeader[indexTd];
-      rangeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
-    });
-    return rangeDefinitionElem;
-  }).get();
-  return rangeDefinition;
+  return parseTable(selector, rangeTableHeader);
 }
 
 function isConditionTable(selector: Cheerio): boolean {
@@ -169,19 +157,7 @@ function isConditionTable(selector: Cheerio): boolean {
 }
 
 function parseConditionTable(selector: Cheerio): IConditionDefinitionElem[] {
-  const trs = selector.find('tr').slice(1);
-  const conditionDefinition = trs.map((indexTr, tr): IConditionDefinitionElem => {
-    const conditionDefinitionElem: IConditionDefinitionElem = {
-      condition: null,
-      explanation: null,
-    };
-    $(tr).find('td').each((indexTd, td): void => {
-      const key = conditionTableHeader[indexTd];
-      conditionDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
-    });
-    return conditionDefinitionElem;
-  }).get();
-  return conditionDefinition;
+  return parseTable(selector, conditionTableHeader);
 }
 
 function selectorToArray(selector: Cheerio): Cheerio[] {

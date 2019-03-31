@@ -86,61 +86,36 @@ function doesHeaderMatch(selector, header, indexEnd) {
 function isMsgIeTable(selector) {
     return isTagTable(selector[0]) && doesHeaderMatch(selector, msgIeTableHeader, 5);
 }
-function parseMsgIeTable(selector) {
+function parseTable(selector, tableHeader) {
     var trs = selector.find('tr').slice(1);
-    var msgIeDefinition = trs.map(function (indexTr, tr) {
-        var msgIeDefinitionElem = {
-            'ie/group name': null,
-            'presence': null,
-            'range': null,
-            'ie type and reference': null,
-            'semantics description': null,
-            'depth': null
-        };
+    var definition = trs.map(function (indexTr, tr) {
+        var definitionElem = {};
         $(tr).find('td').each(function (indexTd, td) {
-            var key = msgIeTableHeader[indexTd];
-            msgIeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+            var key = tableHeader[indexTd];
+            definitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
         });
-        msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
-        return msgIeDefinitionElem;
+        return definitionElem;
     }).get();
+    return definition;
+}
+function parseMsgIeTable(selector) {
+    var msgIeDefinition = parseTable(selector, msgIeTableHeader);
+    msgIeDefinition.forEach(function (msgIeDefinitionElem) {
+        msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
+    });
     return msgIeDefinition;
 }
 function isRangeTable(selector) {
     return isTagTable(selector[0]) && doesHeaderMatch(selector, rangeTableHeader, 2);
 }
 function parseRangeTable(selector) {
-    var trs = selector.find('tr').slice(1);
-    var rangeDefinition = trs.map(function (indexTr, tr) {
-        var rangeDefinitionElem = {
-            'range bound': null,
-            'explanation': null
-        };
-        $(tr).find('td').each(function (indexTd, td) {
-            var key = rangeTableHeader[indexTd];
-            rangeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
-        });
-        return rangeDefinitionElem;
-    }).get();
-    return rangeDefinition;
+    return parseTable(selector, rangeTableHeader);
 }
 function isConditionTable(selector) {
     return isTagTable(selector[0]) && doesHeaderMatch(selector, conditionTableHeader, 2);
 }
 function parseConditionTable(selector) {
-    var trs = selector.find('tr').slice(1);
-    var conditionDefinition = trs.map(function (indexTr, tr) {
-        var conditionDefinitionElem = {
-            condition: null,
-            explanation: null
-        };
-        $(tr).find('td').each(function (indexTd, td) {
-            var key = conditionTableHeader[indexTd];
-            conditionDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
-        });
-        return conditionDefinitionElem;
-    }).get();
-    return conditionDefinition;
+    return parseTable(selector, conditionTableHeader);
 }
 function selectorToArray(selector) {
     return selector.map(function (index, elem) {
