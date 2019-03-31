@@ -143,8 +143,8 @@ function parseConditionTable(selector) {
     var trs = selector.find('tr').slice(1);
     var conditionDefinition = trs.map(function (indexTr, tr) {
         var conditionDefinitionElem = {
-            'condition': null,
-            'explanation': null
+            condition: null,
+            explanation: null
         };
         $(tr).find('td').each(function (indexTd, td) {
             var key = conditionTableHeader[indexTd];

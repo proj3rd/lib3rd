@@ -36,8 +36,8 @@ const conditionTableHeader = [
 ];
 
 interface IConditionDefinitionElem {
-  'condition': string;
-  'explanation': string;
+  condition: string;
+  explanation: string;
 }
 
 const reDepth = /^>+/;
@@ -182,8 +182,8 @@ function parseConditionTable(selector: Cheerio): IConditionDefinitionElem[] {
   const trs = selector.find('tr').slice(1);
   const conditionDefinition = trs.map((indexTr, tr): IConditionDefinitionElem => {
     const conditionDefinitionElem: IConditionDefinitionElem = {
-      'condition': null,
-      'explanation': null,
+      condition: null,
+      explanation: null,
     };
     $(tr).find('td').each((indexTd, td): void => {
       const key = conditionTableHeader[indexTd];
