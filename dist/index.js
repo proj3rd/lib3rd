@@ -2,6 +2,8 @@
 exports.__esModule = true;
 var asn1 = require("./asn1");
 exports.asn1 = asn1;
+var ran3Ap = require("./ran3Ap");
+exports.ran3Ap = ran3Ap;
 var util = require("./utils");
 exports.util = util;
 var web = require("./web");
