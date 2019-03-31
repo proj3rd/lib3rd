@@ -11,6 +11,7 @@ var headerTitles = [
     'criticality',
     'assigned criticiality',
 ];
+var reDepth = /^>+/;
 function parse(html) {
     var _a;
     var sectionNumber = null;
@@ -71,11 +72,19 @@ function isMsgIeTable(selector) {
 function parseTable(selector) {
     var trs = selector.find('tr').slice(1);
     var msgIeDefinition = trs.map(function (indexTr, tr) {
-        var msgIeDefinitionElem = {};
+        var msgIeDefinitionElem = {
+            'ie/group name': null,
+            'presence': null,
+            'range': null,
+            'ie type and reference': null,
+            'semantics description': null,
+            'depth': null
+        };
         $(tr).find('td').each(function (indexTd, td) {
             var key = headerTitles[indexTd];
             msgIeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
         });
+        msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
         return msgIeDefinitionElem;
     }).get();
     return msgIeDefinition;
@@ -97,6 +106,13 @@ function normalizeWhitespace(text) {
 function htmlToText(html) {
     return html.replace(/<sup>\s*?(.+?)\s*?<\/sup>/g, '^($1)')
         .replace(/<sub>\s*?(.+?)\s*?<\/sub>/g, '_($1)');
+}
+function elemDepth(msgIeDefinitionElem) {
+    var matchDepth = msgIeDefinitionElem['ie/group name'].match(reDepth);
+    if (matchDepth) {
+        return matchDepth[0].length;
+    }
+    return 0;
 }
 if (require.main === module) {
     var filePath = process.argv[2];

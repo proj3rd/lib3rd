@@ -16,6 +16,19 @@ const headerTitles = [
   'assigned criticiality',
 ];
 
+interface IMsgIeDefinitionElem {
+  'ie/group name': string;
+  'presence': string;
+  'range': string;
+  'ie type and reference': string;
+  'semantics description': string;
+  'criticality'?: string;
+  'assigned criticiality'?: string;
+  'depth': number;
+}
+
+const reDepth = /^>+/;
+
 export function parse(html: string): any {
   let sectionNumber: string = null;
   let sectionTitle: string = null;
@@ -79,14 +92,22 @@ function isMsgIeTable(selector: Cheerio): boolean {
   }, true);
 }
 
-function parseTable(selector: Cheerio): any {
+function parseTable(selector: Cheerio): IMsgIeDefinitionElem[] {
   const trs = selector.find('tr').slice(1);
-  const msgIeDefinition = trs.map((indexTr, tr) => {
-    const msgIeDefinitionElem = {};
-    $(tr).find('td').each((indexTd, td) => {
+  const msgIeDefinition = trs.map((indexTr, tr): IMsgIeDefinitionElem => {
+    const msgIeDefinitionElem: IMsgIeDefinitionElem = {
+      'ie/group name': null,
+      'presence': null,
+      'range': null,
+      'ie type and reference': null,
+      'semantics description': null,
+      'depth': null,
+    };
+    $(tr).find('td').each((indexTd, td): void => {
       const key = headerTitles[indexTd];
       msgIeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
     });
+    msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
     return msgIeDefinitionElem;
   }).get();
   return msgIeDefinition;
@@ -112,6 +133,14 @@ function normalizeWhitespace(text: string): string {
 function htmlToText(html: string): string {
   return html.replace(/<sup>\s*?(.+?)\s*?<\/sup>/g, '^($1)')
               .replace(/<sub>\s*?(.+?)\s*?<\/sub>/g , '_($1)');
+}
+
+function elemDepth(msgIeDefinitionElem: IMsgIeDefinitionElem): number {
+  const matchDepth = msgIeDefinitionElem['ie/group name'].match(reDepth);
+  if (matchDepth) {
+    return matchDepth[0].length;
+  }
+  return 0;
 }
 
 if (require.main === module) {
