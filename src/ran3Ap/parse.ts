@@ -6,7 +6,7 @@ interface ISectionInfo {
   sectionTitle: string;
 }
 
-const headerTitles = [
+const msgIeTableHeader = [
   'ie/group name',
   'presence',
   'range',
@@ -33,6 +33,7 @@ export function parse(html: string): any {
   let sectionNumber: string = null;
   let sectionTitle: string = null;
   let direction: string = null;
+  let msgIeDefinition: IMsgIeDefinitionElem[] = null;
 
   let stack = selectorToArray($(html)).reverse();
   while (stack.length) {
@@ -49,7 +50,7 @@ export function parse(html: string): any {
       continue;
     }
     if (isMsgIeTable(selector)) {
-      const msgIeDefinition = parseTable(selector);
+      msgIeDefinition = parseMsgIeTable(selector);
       continue;
     }
     stack = stackChildren(stack, selector);
@@ -88,11 +89,11 @@ function isMsgIeTable(selector: Cheerio): boolean {
   }
   const headerTds = selector.find('tr').first().children('td').slice(0, 5);
   return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number, arr: any[]) => {
-    return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === headerTitles[currIndex]);
+    return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === msgIeTableHeader[currIndex]);
   }, true);
 }
 
-function parseTable(selector: Cheerio): IMsgIeDefinitionElem[] {
+function parseMsgIeTable(selector: Cheerio): IMsgIeDefinitionElem[] {
   const trs = selector.find('tr').slice(1);
   const msgIeDefinition = trs.map((indexTr, tr): IMsgIeDefinitionElem => {
     const msgIeDefinitionElem: IMsgIeDefinitionElem = {
@@ -104,7 +105,7 @@ function parseTable(selector: Cheerio): IMsgIeDefinitionElem[] {
       'depth': null,
     };
     $(tr).find('td').each((indexTd, td): void => {
-      const key = headerTitles[indexTd];
+      const key = msgIeTableHeader[indexTd];
       msgIeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
     });
     msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);

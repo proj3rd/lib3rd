@@ -2,7 +2,7 @@
 exports.__esModule = true;
 var $ = require("cheerio");
 var fs_1 = require("fs");
-var headerTitles = [
+var msgIeTableHeader = [
     'ie/group name',
     'presence',
     'range',
@@ -17,6 +17,7 @@ function parse(html) {
     var sectionNumber = null;
     var sectionTitle = null;
     var direction = null;
+    var msgIeDefinition = null;
     var stack = selectorToArray($(html)).reverse();
     while (stack.length) {
         var selector = stack.pop();
@@ -32,7 +33,7 @@ function parse(html) {
             continue;
         }
         if (isMsgIeTable(selector)) {
-            var msgIeDefinition = parseTable(selector);
+            msgIeDefinition = parseMsgIeTable(selector);
             continue;
         }
         stack = stackChildren(stack, selector);
@@ -66,10 +67,10 @@ function isMsgIeTable(selector) {
     }
     var headerTds = selector.find('tr').first().children('td').slice(0, 5);
     return headerTds.get().reduce(function (prev, curr, currIndex, arr) {
-        return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === headerTitles[currIndex]);
+        return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === msgIeTableHeader[currIndex]);
     }, true);
 }
-function parseTable(selector) {
+function parseMsgIeTable(selector) {
     var trs = selector.find('tr').slice(1);
     var msgIeDefinition = trs.map(function (indexTr, tr) {
         var msgIeDefinitionElem = {
@@ -81,7 +82,7 @@ function parseTable(selector) {
             'depth': null
         };
         $(tr).find('td').each(function (indexTd, td) {
-            var key = headerTitles[indexTd];
+            var key = msgIeTableHeader[indexTd];
             msgIeDefinitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
         });
         msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
