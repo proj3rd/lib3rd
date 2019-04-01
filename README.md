@@ -127,6 +127,7 @@ Returns a `IVersion` object from a version string used in a file name. e.g. `f30
 Returns a *sanitized* string. Sanitization includes the followings:
 
 - Removes `\uFFFD` (Unicode REPLACEMENT CHARACTER)
+- Converts `\u3000` (Unicode IDEOGRAPHIC SPACE) into normal space
 
 ### 3GPP Web Support
 
