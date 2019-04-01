@@ -6,6 +6,7 @@
     "jsRules": {},
     "rules": {
         "typedef": [true, "call-signature"],
+        "triple-equals": true,
         "object-literal-sort-keys": false,
         "quotemark": [true, "single"]
     },
