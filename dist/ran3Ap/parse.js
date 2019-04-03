@@ -30,6 +30,7 @@ function parse(html) {
         if (isTagHeading(elem)) {
             if (msgIeDefinition) {
                 definitions[sectionNumber] = {
+                    section: sectionNumber,
                     name: sectionTitle,
                     description: description,
                     direction: direction,
