@@ -1,7 +1,7 @@
 import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
-import { IConditionDefinitionElem, IMsgIeDefinition, IMsgIeDefinitionElem, IRangeDefinitionElem } from './interfaces';
+import { IConditionDefinitionElem, IDefinitions, IMsgIeDefinitionElem, IRangeDefinitionElem } from './interfaces';
 
 interface ISectionInfo {
   sectionNumber: string;
@@ -23,8 +23,8 @@ const conditionTableHeader = [
 
 const reDepth = /^>+/;
 
-export function parse(html: string): any {
-  const definitions: {[sectionNumber: string]: IMsgIeDefinition} = {};
+export function parse(html: string): IDefinitions {
+  const definitions: IDefinitions = {};
 
   let sectionNumber: string = null;
   let sectionTitle: string = null;
@@ -49,6 +49,7 @@ export function parse(html: string): any {
           range: rangeDefinition,
           condition: conditionDefinition,
         };
+        definitions[sectionTitle] = sectionNumber;
       }
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
       description = null;

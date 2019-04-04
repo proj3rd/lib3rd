@@ -1,3 +1,6 @@
+export interface IDefinitions {
+    [sectionNumberOrTitle: string]: IMsgIeDefinition | string;
+}
 export interface IMsgIeDefinition {
     section: string;
     name: string;

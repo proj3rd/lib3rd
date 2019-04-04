@@ -38,6 +38,7 @@ function parse(html) {
                     range: rangeDefinition,
                     condition: conditionDefinition
                 };
+                definitions[sectionTitle] = sectionNumber;
             }
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
             description = null;

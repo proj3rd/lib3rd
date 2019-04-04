@@ -1,3 +1,10 @@
+export interface IDefinitions {
+  // '9.1.1.1': IMsgIeDefinition
+  // Below enables to find sectionNumber with message/IE name
+  // 'RAN3 MESSAGE NAME': '9.1.1.1'
+  [sectionNumberOrTitle: string]: IMsgIeDefinition | string;
+}
+
 export interface IMsgIeDefinition {
   section: string;
   name: string;
