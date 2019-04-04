@@ -138,6 +138,7 @@ function fillDefinition(definition: IMsgIeDefinitionElem[],
   [headerDefinition, ...definition].forEach((msgIeDefinitionElem) => {
     [row, col] = fillRow(msgIeDefinitionElem, ws, row, col, depthMax, formatConfig.order);
   });
+  ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
   return [row, col];
 }
 

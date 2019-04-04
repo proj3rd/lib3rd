@@ -109,6 +109,7 @@ function fillDefinition(definition, ws, row, col, depthMax, formatConfig) {
         var _a;
         _a = fillRow(msgIeDefinitionElem, ws, row, col, depthMax, formatConfig.order), row = _a[0], col = _a[1];
     });
+    ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
     return [row, col];
 }
 function fillRow(elem, ws, row, col, depthMax, order) {
