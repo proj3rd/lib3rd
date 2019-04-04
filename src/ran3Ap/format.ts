@@ -145,32 +145,20 @@ function fillDefinition(definition: IMsgIeDefinitionElem[],
 function fillRow(elem: IMsgIeDefinitionElem, ws: any, row: number, col: number, depthMax: number,
                  order: fieldType[]): number[] {
   order.forEach((field, index): void => {
+    if (index === 0) {
+      ws.cell(row, col).style(styleBorderLeft);
+    }
     switch (field) {
       case 'ie/group name': {
         for (let i = 0; i < elem.depth; i++) {
           ws.column(col).setWidth(3);
           ws.cell(row, col++).style(styleBorderLeft);
         }
-        ws.cell(row, col).string(elem['ie/group name']).style({
-          border: {
-            left: {
-              style: 'thin',
-            },
-            top: {
-              style: 'thin',
-            },
-          },
-        });
+        ws.cell(row, col).string(elem['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
         ws.column(col++).setWidth(3);
         for (let i = elem.depth; i < depthMax; i++) {
           ws.column(col).setWidth(3);
-          ws.cell(row, col++).style({
-            border: {
-              top: {
-                style: 'thin',
-              },
-            },
-          });
+          ws.cell(row, col++).style(styleBorderTop);
         }
         ws.column(col - 1).setWidth(30);
         break;
@@ -193,13 +181,7 @@ function fillRow(elem: IMsgIeDefinitionElem, ws: any, row: number, col: number, 
       }
       case 'criticality': {
         const criticality = elem.criticality || '';
-        ws.cell(row, col++).string(criticality).style({
-          border: {
-            top: {
-              style: 'thin',
-            },
-          },
-        });
+        ws.cell(row, col++).string(criticality).style(styleBorderTop);
         break;
       }
       case 'assigned criticality': {
@@ -221,10 +203,12 @@ function fillRange(range: IRangeDefinitionElem[], ws: any, row: number, col: num
                    formatConfig: IFormatConfig): number[] {
   ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
   [headerRange, ...range].forEach((rangeElem) => {
-    ws.cell(row, col, row).string(rangeElem['range bound']);
+    ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
+    ws.cell(row, col + depthMax + formatConfig.order.length).style(styleBorderLeft);
+    ws.cell(row, col).string(rangeElem['range bound']).style(styleBorderLeft);
     ws.cell(row++, col + depthMax + 1).string(rangeElem.explanation);
-    col = 1;
   });
+  ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
   return [row, col];
 }
 
@@ -232,10 +216,12 @@ function fillCondition(condition: IConditionDefinitionElem[], ws: any, row: numb
                        depthMax: number, formatConfig: IFormatConfig): number[] {
   ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
   [headerCondition, ...condition].forEach((conditionElem) => {
-    ws.cell(row, col).string(conditionElem.condition);
+    ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
+    ws.cell(row, col + depthMax + formatConfig.order.length).style(styleBorderLeft);
+    ws.cell(row, col).string(conditionElem.condition).style(styleBorderLeft);
     ws.cell(row++, col + depthMax + 1).string(conditionElem.explanation);
-    col = 1;
   });
+  ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
   return [row, col];
 }
 

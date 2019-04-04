@@ -114,32 +114,20 @@ function fillDefinition(definition, ws, row, col, depthMax, formatConfig) {
 }
 function fillRow(elem, ws, row, col, depthMax, order) {
     order.forEach(function (field, index) {
+        if (index === 0) {
+            ws.cell(row, col).style(styleBorderLeft);
+        }
         switch (field) {
             case 'ie/group name': {
                 for (var i = 0; i < elem.depth; i++) {
                     ws.column(col).setWidth(3);
                     ws.cell(row, col++).style(styleBorderLeft);
                 }
-                ws.cell(row, col).string(elem['ie/group name']).style({
-                    border: {
-                        left: {
-                            style: 'thin'
-                        },
-                        top: {
-                            style: 'thin'
-                        }
-                    }
-                });
+                ws.cell(row, col).string(elem['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
                 ws.column(col++).setWidth(3);
                 for (var i = elem.depth; i < depthMax; i++) {
                     ws.column(col).setWidth(3);
-                    ws.cell(row, col++).style({
-                        border: {
-                            top: {
-                                style: 'thin'
-                            }
-                        }
-                    });
+                    ws.cell(row, col++).style(styleBorderTop);
                 }
                 ws.column(col - 1).setWidth(30);
                 break;
@@ -162,13 +150,7 @@ function fillRow(elem, ws, row, col, depthMax, order) {
             }
             case 'criticality': {
                 var criticality = elem.criticality || '';
-                ws.cell(row, col++).string(criticality).style({
-                    border: {
-                        top: {
-                            style: 'thin'
-                        }
-                    }
-                });
+                ws.cell(row, col++).string(criticality).style(styleBorderTop);
                 break;
             }
             case 'assigned criticality': {
@@ -188,19 +170,23 @@ function fillRow(elem, ws, row, col, depthMax, order) {
 function fillRange(range, ws, row, col, depthMax, formatConfig) {
     ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
     [headerRange].concat(range).forEach(function (rangeElem) {
-        ws.cell(row, col, row).string(rangeElem['range bound']);
+        ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
+        ws.cell(row, col + depthMax + formatConfig.order.length).style(styleBorderLeft);
+        ws.cell(row, col).string(rangeElem['range bound']).style(styleBorderLeft);
         ws.cell(row++, col + depthMax + 1).string(rangeElem.explanation);
-        col = 1;
     });
+    ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
     return [row, col];
 }
 function fillCondition(condition, ws, row, col, depthMax, formatConfig) {
     ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
     [headerCondition].concat(condition).forEach(function (conditionElem) {
-        ws.cell(row, col).string(conditionElem.condition);
+        ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
+        ws.cell(row, col + depthMax + formatConfig.order.length).style(styleBorderLeft);
+        ws.cell(row, col).string(conditionElem.condition).style(styleBorderLeft);
         ws.cell(row++, col + depthMax + 1).string(conditionElem.explanation);
-        col = 1;
     });
+    ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
     return [row, col];
 }
 if (require.main === module) {
