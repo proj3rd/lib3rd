@@ -43,6 +43,22 @@ const formatConfigDefault: IFormatConfig = {
   },
 };
 
+const styleBorderLeft = {
+  border: {
+    left: {
+      style: 'thin',
+    },
+  },
+};
+
+const styleBorderTop = {
+  border: {
+    top: {
+      style: 'thin',
+    },
+  },
+};
+
 const headerDefinition: IMsgIeDefinitionElem = {
   'ie/group name': 'IE/Group Name',
   'presence': 'Presence',
@@ -127,50 +143,72 @@ function fillDefinition(definition: IMsgIeDefinitionElem[],
 
 function fillRow(elem: IMsgIeDefinitionElem, ws: any, row: number, col: number, depthMax: number,
                  order: fieldType[]): number[] {
-  order.forEach((field): void => {
+  order.forEach((field, index): void => {
     switch (field) {
       case 'ie/group name': {
         for (let i = 0; i < elem.depth; i++) {
-          ws.column(col++).setWidth(3);
+          ws.column(col).setWidth(3);
+          ws.cell(row, col++).style(styleBorderLeft);
         }
-        ws.cell(row, col).string(elem['ie/group name']);
+        ws.cell(row, col).string(elem['ie/group name']).style({
+          border: {
+            left: {
+              style: 'thin',
+            },
+            top: {
+              style: 'thin',
+            },
+          },
+        });
         ws.column(col++).setWidth(3);
         for (let i = elem.depth; i < depthMax; i++) {
-          ws.column(col++).setWidth(3);
+          ws.column(col).setWidth(3);
+          ws.cell(row, col++).style({
+            border: {
+              top: {
+                style: 'thin',
+              },
+            },
+          });
         }
         ws.column(col - 1).setWidth(30);
         break;
       }
       case 'presence': {
-        ws.cell(row, col++).string(elem.presence);
+        ws.cell(row, col++).string(elem.presence).style(styleBorderTop);
         break;
       }
       case 'range': {
-        ws.cell(row, col++).string(elem.range);
+        ws.cell(row, col++).string(elem.range).style(styleBorderTop);
         break;
       }
       case 'ie type and reference': {
-        ws.cell(row, col++).string(elem['ie type and reference']);
+        ws.cell(row, col++).string(elem['ie type and reference']).style(styleBorderTop);
         break;
       }
       case 'semantics description': {
-        ws.cell(row, col++).string(elem['semantics description']);
+        ws.cell(row, col++).string(elem['semantics description']).style(styleBorderTop);
         break;
       }
       case 'criticality': {
-        if (elem.criticality) {
-          ws.cell(row, col).string(elem.criticality);
-        }
-        col++;
+        const criticality = elem.criticality || '';
+        ws.cell(row, col++).string(criticality).style({
+          border: {
+            top: {
+              style: 'thin',
+            },
+          },
+        });
         break;
       }
       case 'assigned criticality': {
-        if (elem['assigned criticiality']) {
-          ws.cell(row, col).string(elem['assigned criticiality']);
-        }
-        col++;
+        const assignedCriticality = elem['assigned criticiality'] || '';
+        ws.cell(row, col++).string(assignedCriticality).style(styleBorderTop);
         break;
       }
+    }
+    if (index === order.length - 1) {
+      ws.cell(row, col).style(styleBorderLeft);
     }
   });
   row++;
