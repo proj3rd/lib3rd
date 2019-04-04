@@ -137,6 +137,9 @@ function parseTable(selector: Cheerio, tableHeader: string[]): any[] {
     const definitionElem: any = {};
     $(tr).find('td').each((indexTd, td): void => {
       const key = tableHeader[indexTd];
+      if (!key) {
+        return;
+      }
       definitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
     });
     return definitionElem;

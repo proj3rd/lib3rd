@@ -117,6 +117,9 @@ function parseTable(selector, tableHeader) {
         var definitionElem = {};
         $(tr).find('td').each(function (indexTd, td) {
             var key = tableHeader[indexTd];
+            if (!key) {
+                return;
+            }
             definitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
         });
         return definitionElem;
