@@ -78,7 +78,7 @@ export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFor
 }
 
 function sheetname(msgIeDefinition: IMsgIeDefinition): string {
-  return (msgIeDefinition.section + msgIeDefinition.name).substr(0, 31);
+  return `${msgIeDefinition.section} ${msgIeDefinition.name}`.substr(0, 31);
 }
 
 function fillDefinition(definition: IMsgIeDefinitionElem[],
@@ -104,12 +104,14 @@ function fillRow(elem: IMsgIeDefinitionElem, ws: any, row: number, col: number, 
     switch (field) {
       case 'ie/group name': {
         for (let i = 0; i < elem.depth; i++) {
-          col++;
+          ws.column(col++).setWidth(3);
         }
-        ws.cell(row, col++).string(elem['ie/group name']);
+        ws.cell(row, col).string(elem['ie/group name']);
+        ws.column(col++).setWidth(3);
         for (let i = elem.depth; i < depthMax; i++) {
-          col++;
+          ws.column(col++).setWidth(3);
         }
+        ws.column(col - 1).setWidth(30);
         break;
       }
       case 'presence': {

@@ -60,7 +60,7 @@ function format(msgIeDefinitions, formatConfig) {
 }
 exports.format = format;
 function sheetname(msgIeDefinition) {
-    return (msgIeDefinition.section + msgIeDefinition.name).substr(0, 31);
+    return (msgIeDefinition.section + " " + msgIeDefinition.name).substr(0, 31);
 }
 function fillDefinition(definition, ws, row, col, formatConfig) {
     var _a;
@@ -82,12 +82,14 @@ function fillRow(elem, ws, row, col, depthMax, order) {
         switch (field) {
             case 'ie/group name': {
                 for (var i = 0; i < elem.depth; i++) {
-                    col++;
+                    ws.column(col++).setWidth(3);
                 }
-                ws.cell(row, col++).string(elem['ie/group name']);
+                ws.cell(row, col).string(elem['ie/group name']);
+                ws.column(col++).setWidth(3);
                 for (var i = elem.depth; i < depthMax; i++) {
-                    col++;
+                    ws.column(col++).setWidth(3);
                 }
+                ws.column(col - 1).setWidth(30);
                 break;
             }
             case 'presence': {
