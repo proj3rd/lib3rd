@@ -51,6 +51,9 @@ export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFor
         summaryBelow: false,
       },
     });
+    const depthMax = msgIeDefinition.definition.reduce((prevDepth: number, currElem) => {
+      return Math.max(prevDepth, currElem.depth);
+    }, 0);
 
     let [row, col] = [1, 1];
     ws.cell(row++, col).string(msgIeDefinition.name);
@@ -62,16 +65,16 @@ export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFor
     }
 
     row++;
-    [row, col] = fillDefinition(msgIeDefinition.definition, ws, row, col, formatConfig);
+    [row, col] = fillDefinition(msgIeDefinition.definition, ws, row, col, depthMax, formatConfig);
 
     if (msgIeDefinition.range && formatConfig.showRange) {
       row++;
-      [row, col] = fillRange(msgIeDefinition.range, ws, row, col);
+      [row, col] = fillRange(msgIeDefinition.range, ws, row, col, depthMax);
     }
 
     if (msgIeDefinition.condition && formatConfig.showCondition) {
       row++;
-      [row, col] = fillCondition(msgIeDefinition.condition, ws, row, col);
+      [row, col] = fillCondition(msgIeDefinition.condition, ws, row, col, depthMax);
     }
   });
   return wb;
@@ -82,11 +85,8 @@ function sheetname(msgIeDefinition: IMsgIeDefinition): string {
 }
 
 function fillDefinition(definition: IMsgIeDefinitionElem[],
-                        ws: any, row: number, col: number,
+                        ws: any, row: number, col: number, depthMax: number,
                         formatConfig: IFormatConfig): number[] {
-  const depthMax = definition.reduce((prevDepth: number, currElem) => {
-    return Math.max(prevDepth, currElem.depth);
-  }, 0);
 
   if (formatConfig.freezeHeader) {
     ws.row(row).freeze();
@@ -151,11 +151,32 @@ function fillRow(elem: IMsgIeDefinitionElem, ws: any, row: number, col: number, 
   return [row, col];
 }
 
-function fillRange(range: IRangeDefinitionElem[], ws: any, row: number, col: number): number[] {
+function fillRange(range: IRangeDefinitionElem[], ws: any, row: number, col: number, depthMax: number): number[] {
+  const header: IRangeDefinitionElem = {
+    'range bound': 'Range bound',
+    'explanation': 'Explanation',
+  };
+  [header, ...range].forEach((rangeElem) => {
+    ws.cell(row, col, row, col + depthMax, true).string(rangeElem['range bound']);
+    ws.cell(row, col + depthMax + 1).string(rangeElem.explanation);
+    row++;
+    col = 1;
+  });
   return [row, col];
 }
 
-function fillCondition(condition: IConditionDefinitionElem[], ws: any, row: number, col: number): number[] {
+function fillCondition(condition: IConditionDefinitionElem[], ws: any, row: number, col: number,
+                       depthMax: number): number[] {
+  const header: IConditionDefinitionElem = {
+    condition: 'Condition',
+    explanation: 'Explanation',
+  };
+  [header, ...condition].forEach((conditionElem) => {
+    ws.cell(row, col, row, col + depthMax, true).string(conditionElem.condition);
+    ws.cell(row, col + depthMax + 1).string(conditionElem.explanation);
+    row++;
+    col = 1;
+  });
   return [row, col];
 }
 

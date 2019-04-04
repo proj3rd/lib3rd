@@ -37,6 +37,9 @@ function format(msgIeDefinitions, formatConfig) {
                 summaryBelow: false
             }
         });
+        var depthMax = msgIeDefinition.definition.reduce(function (prevDepth, currElem) {
+            return Math.max(prevDepth, currElem.depth);
+        }, 0);
         var _d = [1, 1], row = _d[0], col = _d[1];
         ws.cell(row++, col).string(msgIeDefinition.name);
         if (msgIeDefinition.description) {
@@ -46,14 +49,14 @@ function format(msgIeDefinitions, formatConfig) {
             ws.cell(row++, col).string("Direction: " + msgIeDefinition.direction);
         }
         row++;
-        _a = fillDefinition(msgIeDefinition.definition, ws, row, col, formatConfig), row = _a[0], col = _a[1];
+        _a = fillDefinition(msgIeDefinition.definition, ws, row, col, depthMax, formatConfig), row = _a[0], col = _a[1];
         if (msgIeDefinition.range && formatConfig.showRange) {
             row++;
-            _b = fillRange(msgIeDefinition.range, ws, row, col), row = _b[0], col = _b[1];
+            _b = fillRange(msgIeDefinition.range, ws, row, col, depthMax), row = _b[0], col = _b[1];
         }
         if (msgIeDefinition.condition && formatConfig.showCondition) {
             row++;
-            _c = fillCondition(msgIeDefinition.condition, ws, row, col), row = _c[0], col = _c[1];
+            _c = fillCondition(msgIeDefinition.condition, ws, row, col, depthMax), row = _c[0], col = _c[1];
         }
     });
     return wb;
@@ -62,11 +65,8 @@ exports.format = format;
 function sheetname(msgIeDefinition) {
     return (msgIeDefinition.section + " " + msgIeDefinition.name).substr(0, 31);
 }
-function fillDefinition(definition, ws, row, col, formatConfig) {
+function fillDefinition(definition, ws, row, col, depthMax, formatConfig) {
     var _a;
-    var depthMax = definition.reduce(function (prevDepth, currElem) {
-        return Math.max(prevDepth, currElem.depth);
-    }, 0);
     if (formatConfig.freezeHeader) {
         ws.row(row).freeze();
     }
@@ -128,10 +128,30 @@ function fillRow(elem, ws, row, col, depthMax, order) {
     col = 1;
     return [row, col];
 }
-function fillRange(range, ws, row, col) {
+function fillRange(range, ws, row, col, depthMax) {
+    var header = {
+        'range bound': 'Range bound',
+        'explanation': 'Explanation'
+    };
+    [header].concat(range).forEach(function (rangeElem) {
+        ws.cell(row, col, row, col + depthMax, true).string(rangeElem['range bound']);
+        ws.cell(row, col + depthMax + 1).string(rangeElem.explanation);
+        row++;
+        col = 1;
+    });
     return [row, col];
 }
-function fillCondition(condition, ws, row, col) {
+function fillCondition(condition, ws, row, col, depthMax) {
+    var header = {
+        condition: 'Condition',
+        explanation: 'Explanation'
+    };
+    [header].concat(condition).forEach(function (conditionElem) {
+        ws.cell(row, col, row, col + depthMax, true).string(conditionElem.condition);
+        ws.cell(row, col + depthMax + 1).string(conditionElem.explanation);
+        row++;
+        col = 1;
+    });
     return [row, col];
 }
 if (require.main === module) {
