@@ -227,8 +227,11 @@ function fillCondition(condition: IConditionDefinitionElem[], ws: any, row: numb
 
 if (require.main === module) {
   const [filePath, msgIeName, expand] = process.argv.slice(2);
-  if (!filePath || !msgIeName || !expand) {
-    throw Error('Requires 3 arguments, filePath, msgIeName and expand');
+  if (!filePath || !msgIeName) {
+    throw Error('Requires 2 or 3 arguments, filePath, msgIeName and expand');
+  }
+  if (expand) {
+    process.stdout.write('Expanding is not supported currently. Fallback to format as-is\n');
   }
   readFile(filePath, 'utf8', (err: Error, html: string) => {
     if (err) {
