@@ -15,6 +15,10 @@ interface IFormatConfig {
   showCondition: boolean;
   grouping: boolean;
   freezeHeader: boolean;
+  style: {
+    title: any,
+    header: any,
+  };
 }
 
 const formatConfigDefault: IFormatConfig = {
@@ -24,6 +28,19 @@ const formatConfigDefault: IFormatConfig = {
   showCondition: true,
   grouping: true,
   freezeHeader: true,
+  style: {
+    title: {
+      font: {
+        size: 18,
+        bold: true,
+      },
+    },
+    header: {
+      font: {
+        bold: true,
+      },
+    },
+  },
 };
 
 const headerDefinition: IMsgIeDefinitionElem = {
@@ -35,6 +52,16 @@ const headerDefinition: IMsgIeDefinitionElem = {
   'criticality': 'Criticality',
   'assigned criticiality': 'Assigned Criticality',
   'depth': 0,
+};
+
+const headerRange: IRangeDefinitionElem = {
+  'range bound': 'Range bound',
+  'explanation': 'Explanation',
+};
+
+const headerCondition: IConditionDefinitionElem = {
+  condition: 'Condition',
+  explanation: 'Explanation',
 };
 
 export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFormatConfig): any {
@@ -56,12 +83,7 @@ export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFor
     }, 0);
 
     let [row, col] = [1, 1];
-    ws.cell(row++, col).string(msgIeDefinition.name).style({
-      font: {
-        size: 18,
-        bold: true,
-      },
-    });
+    ws.cell(row++, col).string(msgIeDefinition.name).style(formatConfig.style.title);
     if (msgIeDefinition.description) {
       ws.cell(row++, col).string(msgIeDefinition.description);
     }
@@ -74,12 +96,12 @@ export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFor
 
     if (msgIeDefinition.range && formatConfig.showRange) {
       row++;
-      [row, col] = fillRange(msgIeDefinition.range, ws, row, col, depthMax);
+      [row, col] = fillRange(msgIeDefinition.range, ws, row, col, depthMax, formatConfig);
     }
 
     if (msgIeDefinition.condition && formatConfig.showCondition) {
       row++;
-      [row, col] = fillCondition(msgIeDefinition.condition, ws, row, col, depthMax);
+      [row, col] = fillCondition(msgIeDefinition.condition, ws, row, col, depthMax, formatConfig);
     }
   });
   return wb;
@@ -96,6 +118,7 @@ function fillDefinition(definition: IMsgIeDefinitionElem[],
   if (formatConfig.freezeHeader) {
     ws.row(row).freeze();
   }
+  ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [headerDefinition, ...definition].forEach((msgIeDefinitionElem) => {
     [row, col] = fillRow(msgIeDefinitionElem, ws, row, col, depthMax, formatConfig.order);
   });
@@ -155,12 +178,10 @@ function fillRow(elem: IMsgIeDefinitionElem, ws: any, row: number, col: number, 
   return [row, col];
 }
 
-function fillRange(range: IRangeDefinitionElem[], ws: any, row: number, col: number, depthMax: number): number[] {
-  const header: IRangeDefinitionElem = {
-    'range bound': 'Range bound',
-    'explanation': 'Explanation',
-  };
-  [header, ...range].forEach((rangeElem) => {
+function fillRange(range: IRangeDefinitionElem[], ws: any, row: number, col: number, depthMax: number,
+                   formatConfig: IFormatConfig): number[] {
+  ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
+  [headerRange, ...range].forEach((rangeElem) => {
     ws.cell(row, col, row, col + depthMax, true).string(rangeElem['range bound']);
     ws.cell(row, col + depthMax + 1).string(rangeElem.explanation);
     row++;
@@ -170,12 +191,9 @@ function fillRange(range: IRangeDefinitionElem[], ws: any, row: number, col: num
 }
 
 function fillCondition(condition: IConditionDefinitionElem[], ws: any, row: number, col: number,
-                       depthMax: number): number[] {
-  const header: IConditionDefinitionElem = {
-    condition: 'Condition',
-    explanation: 'Explanation',
-  };
-  [header, ...condition].forEach((conditionElem) => {
+                       depthMax: number, formatConfig: IFormatConfig): number[] {
+  ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
+  [headerCondition, ...condition].forEach((conditionElem) => {
     ws.cell(row, col, row, col + depthMax, true).string(conditionElem.condition);
     ws.cell(row, col + depthMax + 1).string(conditionElem.explanation);
     row++;

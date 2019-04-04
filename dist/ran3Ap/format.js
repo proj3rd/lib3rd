@@ -10,7 +10,20 @@ var formatConfigDefault = {
     showRange: true,
     showCondition: true,
     grouping: true,
-    freezeHeader: true
+    freezeHeader: true,
+    style: {
+        title: {
+            font: {
+                size: 18,
+                bold: true
+            }
+        },
+        header: {
+            font: {
+                bold: true
+            }
+        }
+    }
 };
 var headerDefinition = {
     'ie/group name': 'IE/Group Name',
@@ -21,6 +34,14 @@ var headerDefinition = {
     'criticality': 'Criticality',
     'assigned criticiality': 'Assigned Criticality',
     'depth': 0
+};
+var headerRange = {
+    'range bound': 'Range bound',
+    'explanation': 'Explanation'
+};
+var headerCondition = {
+    condition: 'Condition',
+    explanation: 'Explanation'
 };
 function format(msgIeDefinitions, formatConfig) {
     if (!formatConfig) {
@@ -41,12 +62,7 @@ function format(msgIeDefinitions, formatConfig) {
             return Math.max(prevDepth, currElem.depth);
         }, 0);
         var _d = [1, 1], row = _d[0], col = _d[1];
-        ws.cell(row++, col).string(msgIeDefinition.name).style({
-            font: {
-                size: 18,
-                bold: true
-            }
-        });
+        ws.cell(row++, col).string(msgIeDefinition.name).style(formatConfig.style.title);
         if (msgIeDefinition.description) {
             ws.cell(row++, col).string(msgIeDefinition.description);
         }
@@ -57,11 +73,11 @@ function format(msgIeDefinitions, formatConfig) {
         _a = fillDefinition(msgIeDefinition.definition, ws, row, col, depthMax, formatConfig), row = _a[0], col = _a[1];
         if (msgIeDefinition.range && formatConfig.showRange) {
             row++;
-            _b = fillRange(msgIeDefinition.range, ws, row, col, depthMax), row = _b[0], col = _b[1];
+            _b = fillRange(msgIeDefinition.range, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
         }
         if (msgIeDefinition.condition && formatConfig.showCondition) {
             row++;
-            _c = fillCondition(msgIeDefinition.condition, ws, row, col, depthMax), row = _c[0], col = _c[1];
+            _c = fillCondition(msgIeDefinition.condition, ws, row, col, depthMax, formatConfig), row = _c[0], col = _c[1];
         }
     });
     return wb;
@@ -74,6 +90,7 @@ function fillDefinition(definition, ws, row, col, depthMax, formatConfig) {
     if (formatConfig.freezeHeader) {
         ws.row(row).freeze();
     }
+    ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     [headerDefinition].concat(definition).forEach(function (msgIeDefinitionElem) {
         var _a;
         _a = fillRow(msgIeDefinitionElem, ws, row, col, depthMax, formatConfig.order), row = _a[0], col = _a[1];
@@ -131,12 +148,9 @@ function fillRow(elem, ws, row, col, depthMax, order) {
     col = 1;
     return [row, col];
 }
-function fillRange(range, ws, row, col, depthMax) {
-    var header = {
-        'range bound': 'Range bound',
-        'explanation': 'Explanation'
-    };
-    [header].concat(range).forEach(function (rangeElem) {
+function fillRange(range, ws, row, col, depthMax, formatConfig) {
+    ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
+    [headerRange].concat(range).forEach(function (rangeElem) {
         ws.cell(row, col, row, col + depthMax, true).string(rangeElem['range bound']);
         ws.cell(row, col + depthMax + 1).string(rangeElem.explanation);
         row++;
@@ -144,12 +158,9 @@ function fillRange(range, ws, row, col, depthMax) {
     });
     return [row, col];
 }
-function fillCondition(condition, ws, row, col, depthMax) {
-    var header = {
-        condition: 'Condition',
-        explanation: 'Explanation'
-    };
-    [header].concat(condition).forEach(function (conditionElem) {
+function fillCondition(condition, ws, row, col, depthMax, formatConfig) {
+    ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
+    [headerCondition].concat(condition).forEach(function (conditionElem) {
         ws.cell(row, col, row, col + depthMax, true).string(conditionElem.condition);
         ws.cell(row, col + depthMax + 1).string(conditionElem.explanation);
         row++;

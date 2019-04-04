@@ -6,6 +6,10 @@ interface IFormatConfig {
     showCondition: boolean;
     grouping: boolean;
     freezeHeader: boolean;
+    style: {
+        title: any;
+        header: any;
+    };
 }
 export declare function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFormatConfig): any;
 export {};
