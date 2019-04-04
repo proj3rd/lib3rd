@@ -182,9 +182,8 @@ function fillRange(range: IRangeDefinitionElem[], ws: any, row: number, col: num
                    formatConfig: IFormatConfig): number[] {
   ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
   [headerRange, ...range].forEach((rangeElem) => {
-    ws.cell(row, col, row, col + depthMax, true).string(rangeElem['range bound']);
-    ws.cell(row, col + depthMax + 1).string(rangeElem.explanation);
-    row++;
+    ws.cell(row, col, row).string(rangeElem['range bound']);
+    ws.cell(row++, col + depthMax + 1).string(rangeElem.explanation);
     col = 1;
   });
   return [row, col];
@@ -194,9 +193,8 @@ function fillCondition(condition: IConditionDefinitionElem[], ws: any, row: numb
                        depthMax: number, formatConfig: IFormatConfig): number[] {
   ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
   [headerCondition, ...condition].forEach((conditionElem) => {
-    ws.cell(row, col, row, col + depthMax, true).string(conditionElem.condition);
-    ws.cell(row, col + depthMax + 1).string(conditionElem.explanation);
-    row++;
+    ws.cell(row, col).string(conditionElem.condition);
+    ws.cell(row++, col + depthMax + 1).string(conditionElem.explanation);
     col = 1;
   });
   return [row, col];
