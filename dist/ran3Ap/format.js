@@ -66,12 +66,10 @@ function sheetname(msgIeDefinition) {
     return (msgIeDefinition.section + " " + msgIeDefinition.name).substr(0, 31);
 }
 function fillDefinition(definition, ws, row, col, depthMax, formatConfig) {
-    var _a;
     if (formatConfig.freezeHeader) {
         ws.row(row).freeze();
     }
-    _a = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig.order), row = _a[0], col = _a[1];
-    definition.forEach(function (msgIeDefinitionElem) {
+    [headerDefinition].concat(definition).forEach(function (msgIeDefinitionElem) {
         var _a;
         _a = fillRow(msgIeDefinitionElem, ws, row, col, depthMax, formatConfig.order), row = _a[0], col = _a[1];
     });

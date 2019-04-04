@@ -91,8 +91,7 @@ function fillDefinition(definition: IMsgIeDefinitionElem[],
   if (formatConfig.freezeHeader) {
     ws.row(row).freeze();
   }
-  [row, col] = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig.order);
-  definition.forEach((msgIeDefinitionElem) => {
+  [headerDefinition, ...definition].forEach((msgIeDefinitionElem) => {
     [row, col] = fillRow(msgIeDefinitionElem, ws, row, col, depthMax, formatConfig.order);
   });
   return [row, col];
