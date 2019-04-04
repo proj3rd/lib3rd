@@ -7,5 +7,5 @@ interface IFormatConfig {
     grouping: boolean;
     freezeHeader: boolean;
 }
-export declare function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig: IFormatConfig): any;
+export declare function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFormatConfig): any;
 export {};

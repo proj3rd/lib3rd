@@ -1,6 +1,11 @@
+import { readFile } from 'fs';
+import { parse as parsePath } from 'path';
+
 import * as xl from 'excel4node';
 
 import { IConditionDefinitionElem, IMsgIeDefinition, IMsgIeDefinitionElem, IRangeDefinitionElem } from './interfaces';
+import { parse } from './parse';
+
 type fieldType = 'ie/group name' | 'presence' | 'range' | 'ie type and reference' | 'semantics description' |
                 'criticality' | 'assigned criticality';
 
@@ -32,7 +37,7 @@ const headerDefinition: IMsgIeDefinitionElem = {
   'depth': 0,
 };
 
-export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig: IFormatConfig): any {
+export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFormatConfig): any {
   if (!formatConfig) {
     formatConfig = formatConfigDefault;
   }
@@ -124,11 +129,17 @@ function fillRow(elem: IMsgIeDefinitionElem, ws: any, row: number, col: number, 
         break;
       }
       case 'criticality': {
-        ws.cell(row, col++).string(elem.criticality);
+        if (elem.criticality) {
+          ws.cell(row, col).string(elem.criticality);
+        }
+        col++;
         break;
       }
       case 'assigned criticality': {
-        ws.cell(row, col++).string(elem['assigned criticiality']);
+        if (elem['assigned criticiality']) {
+          ws.cell(row, col).string(elem['assigned criticiality']);
+        }
+        col++;
         break;
       }
     }
@@ -144,4 +155,38 @@ function fillRange(range: IRangeDefinitionElem[], ws: any, row: number, col: num
 
 function fillCondition(condition: IConditionDefinitionElem[], ws: any, row: number, col: number): number[] {
   return [row, col];
+}
+
+if (require.main === module) {
+  const [filePath, msgIeName, expand] = process.argv.slice(2);
+  if (!filePath || !msgIeName || !expand) {
+    throw Error('Requires 3 arguments, filePath, msgIeName and expand');
+  }
+  readFile(filePath, 'utf8', (err: Error, html: string) => {
+    if (err) {
+      throw err;
+    }
+    const fileName = parsePath(filePath);
+    const definitions = parse(html);
+    let msgIeDefinitions: IMsgIeDefinition[] = null;
+    let wb = null;
+    let outFileName: string = null;
+    if (msgIeName === 'all') {
+      msgIeDefinitions = Object.keys(definitions).filter((key) => {
+        return typeof definitions[key] !== 'string';
+      }).map((sectionNumber) => {
+        return definitions[sectionNumber] as IMsgIeDefinition;
+      });
+      outFileName = `${fileName.name}.xlsx`;
+    } else {
+      if (!(msgIeName in definitions)) {
+        throw Error(`Definition for a given name ${msgIeName} is not found`);
+      }
+      const sectionNumber  = definitions[msgIeName] as string;
+      msgIeDefinitions = [definitions[sectionNumber] as IMsgIeDefinition];
+      outFileName = `${fileName.name} ${msgIeName}.xlsx`;
+    }
+    wb = format(msgIeDefinitions);
+    wb.write(outFileName);
+  });
 }

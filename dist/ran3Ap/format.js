@@ -1,6 +1,9 @@
 "use strict";
 exports.__esModule = true;
+var fs_1 = require("fs");
+var path_1 = require("path");
 var xl = require("excel4node");
+var parse_1 = require("./parse");
 var formatConfigDefault = {
     order: ['ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
         'criticality', 'assigned criticality'],
@@ -104,11 +107,17 @@ function fillRow(elem, ws, row, col, depthMax, order) {
                 break;
             }
             case 'criticality': {
-                ws.cell(row, col++).string(elem.criticality);
+                if (elem.criticality) {
+                    ws.cell(row, col).string(elem.criticality);
+                }
+                col++;
                 break;
             }
             case 'assigned criticality': {
-                ws.cell(row, col++).string(elem['assigned criticiality']);
+                if (elem['assigned criticiality']) {
+                    ws.cell(row, col).string(elem['assigned criticiality']);
+                }
+                col++;
                 break;
             }
         }
@@ -122,4 +131,38 @@ function fillRange(range, ws, row, col) {
 }
 function fillCondition(condition, ws, row, col) {
     return [row, col];
+}
+if (require.main === module) {
+    var _a = process.argv.slice(2), filePath_1 = _a[0], msgIeName_1 = _a[1], expand = _a[2];
+    if (!filePath_1 || !msgIeName_1 || !expand) {
+        throw Error('Requires 3 arguments, filePath, msgIeName and expand');
+    }
+    fs_1.readFile(filePath_1, 'utf8', function (err, html) {
+        if (err) {
+            throw err;
+        }
+        var fileName = path_1.parse(filePath_1);
+        var definitions = parse_1.parse(html);
+        var msgIeDefinitions = null;
+        var wb = null;
+        var outFileName = null;
+        if (msgIeName_1 === 'all') {
+            msgIeDefinitions = Object.keys(definitions).filter(function (key) {
+                return typeof definitions[key] !== 'string';
+            }).map(function (sectionNumber) {
+                return definitions[sectionNumber];
+            });
+            outFileName = fileName.name + ".xlsx";
+        }
+        else {
+            if (!(msgIeName_1 in definitions)) {
+                throw Error("Definition for a given name " + msgIeName_1 + " is not found");
+            }
+            var sectionNumber = definitions[msgIeName_1];
+            msgIeDefinitions = [definitions[sectionNumber]];
+            outFileName = fileName.name + " " + msgIeName_1 + ".xlsx";
+        }
+        wb = format(msgIeDefinitions);
+        wb.write(outFileName);
+    });
 }
