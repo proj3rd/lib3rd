@@ -41,7 +41,12 @@ function format(msgIeDefinitions, formatConfig) {
             return Math.max(prevDepth, currElem.depth);
         }, 0);
         var _d = [1, 1], row = _d[0], col = _d[1];
-        ws.cell(row++, col).string(msgIeDefinition.name);
+        ws.cell(row++, col).string(msgIeDefinition.name).style({
+            font: {
+                size: 18,
+                bold: true
+            }
+        });
         if (msgIeDefinition.description) {
             ws.cell(row++, col).string(msgIeDefinition.description);
         }

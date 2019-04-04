@@ -56,7 +56,12 @@ export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFor
     }, 0);
 
     let [row, col] = [1, 1];
-    ws.cell(row++, col).string(msgIeDefinition.name);
+    ws.cell(row++, col).string(msgIeDefinition.name).style({
+      font: {
+        size: 18,
+        bold: true,
+      },
+    });
     if (msgIeDefinition.description) {
       ws.cell(row++, col).string(msgIeDefinition.description);
     }
