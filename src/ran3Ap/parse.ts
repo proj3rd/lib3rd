@@ -1,6 +1,8 @@
 import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
+import { IConditionDefinitionElem, IDefinitions, IMsgIeDefinitionElem, IRangeDefinitionElem } from './interfaces';
+
 interface ISectionInfo {
   sectionNumber: string;
   sectionTitle: string;
@@ -11,39 +13,18 @@ const msgIeTableHeader = [
   'criticality', 'assigned criticiality',
 ];
 
-interface IMsgIeDefinitionElem {
-  'ie/group name': string;
-  'presence': string;
-  'range': string;
-  'ie type and reference': string;
-  'semantics description': string;
-  'criticality'?: string;
-  'assigned criticiality'?: string;
-  'depth': number;
-}
-
 const rangeTableHeader = [
   'range bound', 'explanation',
 ];
-
-interface IRangeDefinitionElem {
-  'range bound': string;
-  'explanation': string;
-}
 
 const conditionTableHeader = [
   'condition', 'explanation',
 ];
 
-interface IConditionDefinitionElem {
-  condition: string;
-  explanation: string;
-}
-
 const reDepth = /^>+/;
 
-export function parse(html: string): any {
-  const definitions = {};
+export function parse(html: string): IDefinitions {
+  const definitions: IDefinitions = {};
 
   let sectionNumber: string = null;
   let sectionTitle: string = null;
@@ -60,6 +41,7 @@ export function parse(html: string): any {
     if (isTagHeading(elem)) {
       if (msgIeDefinition) {
         definitions[sectionNumber] = {
+          section: sectionNumber,
           name: sectionTitle,
           description,
           direction,
@@ -67,6 +49,7 @@ export function parse(html: string): any {
           range: rangeDefinition,
           condition: conditionDefinition,
         };
+        definitions[sectionTitle] = sectionNumber;
       }
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
       description = null;
@@ -154,6 +137,9 @@ function parseTable(selector: Cheerio, tableHeader: string[]): any[] {
     const definitionElem: any = {};
     $(tr).find('td').each((indexTd, td): void => {
       const key = tableHeader[indexTd];
+      if (!key) {
+        return;
+      }
       definitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
     });
     return definitionElem;

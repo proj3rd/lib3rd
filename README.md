@@ -3,47 +3,31 @@
 Tools to improve productivity for designing cellular network
 
 - [API](#api)
-  - [Types (TypeScript Interface)](#types-typescript-interface)
-    - [`IVersion`](#iversion)
-    - [`ICalQuery`](#icalquery)
   - [ASN.1](#asn1)
     - [`asn1.extract(text)`](#asn1extracttext)
   - [RAN3 AP](#ran3-ap)
+    - [`IDefinitions`](#idefinitions)
+    - [`IMsgIeDefinition`](#imsgiedefinition)
+    - [`IMsgIeDefinitionElem`](#imsgiedefinitionelem)
+    - [`IRangeDefinitionElem`](#irangedefinitionelem)
+    - [`IConditionDefinitionElem`](#iconditiondefinitionelem)
+    - [`ran3Ap.format(msgIeDefinition[], formatConfig)`](#ran3apformatmsgiedefinition-formatconfig)
     - [`ran3Ap.parse(html)`](#ran3apparsehtml)
   - [Utilities](#utilities)
+    - [`IVersion`](#iversion)
     - [`utils.numbering.seriesFromString(specNumStr)`](#utilsnumberingseriesfromstringspecnumstr)
     - [`utils.numbering.versionFromString(versionStr)`](#utilsnumberingversionfromstringversionstr)
     - [`utils.text.sanitize(text)`](#utilstextsanitizetext)
   - [3GPP Web Support](#3gpp-web-support)
+    - [`ICalQuery`](#icalquery)
     - [`web.calendar.get(calQuery, cb, ...args)`](#webcalendargetcalquery-cb-args)
     - [`web.specs.list(specNumStr, cb, ...args)`](#webspecslistspecnumstr-cb-args)
 - [CLI](#cli)
   - [Extract ASN.1](#extract-asn1)
+  - [Format RAN3 AP Messages/IEs](#format-ran3-ap-messagesies)
+
 
 ## API
-
-### Types (TypeScript Interface)
-
-#### `IVersion`
-
-`{major, technical, editorial}`
-
-- `major`, `technical`, `editorial`: integer
-
-Corresponds to 3GPP specification [version numbering scheme]
-
-[version numbering scheme]: http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme
-
-#### `ICalQuery`
-
-`{techBodyStr, includeSub, from, to, detail}`
-
-- `techBodyStr`: `string`. Technical body name.
-  - Supports `RAN`, `RAN1`, `RAN2`, `RAN3`, `RAN4` currently
-- `includeSub`: `boolean`. Whether to include sub technical bodies. `false` if absent
-- `from`: `Date`. *Today* if absent 
-- `to`: `Date`. *indefinite* if absent
-- `detail`: `boolean`. Whether to request detailed information. `false` if absent
 
 ### ASN.1
 
@@ -63,41 +47,102 @@ This function supports the followings:
 
 ### RAN3 AP
 
+#### `IDefinitions`
+
+```jsonc
+{
+  // '9.1.1.1': IMsgIeDefinition
+  // Below enables to find sectionNumber with message/IE name
+  // 'RAN3 MESSAGE NAME': '9.1.1.1'
+  [sectionNumberOrTitle: string]: IMsgIeDefinition | string;
+}
+```
+
+#### `IMsgIeDefinition`
+
+```jsonc
+{
+  section: string;
+  name: string;
+  description: string;
+  direction: string;
+  definition: IMsgIeDefinitionElem[];
+  range: IRangeDefinitionElem[];
+  condition: IConditionDefinitionElem[];
+}
+```
+
+#### `IMsgIeDefinitionElem`
+
+```jsonc
+{
+  'ie/group name': string;
+  'presence': string;
+  'range': string;
+  'ie type and reference': string;
+  'semantics description': string;
+  'criticality'?: string;
+  'assigned criticiality'?: string;
+  'depth': number;
+}
+```
+
+#### `IRangeDefinitionElem`
+
+```jsonc
+{
+  'range bound': string;
+  'explanation': string;
+}
+```
+
+#### `IConditionDefinitionElem`
+
+```jsonc
+{
+  condition: string;
+  explanation: string;
+}
+```
+
+#### `ran3Ap.format(msgIeDefinition[], formatConfig)`
+
+- Input
+  - `msgIeDefinition`: `IMsgIeDefinition`
+  - `formatConfig`: `json` object (optional)
+- Output
+  - `wb`: [excel4node] workbook object
+
+Generates an excel workbook. Each worksheet renders each item of `definition[]`. `definition`
+
+[excel4node]: https://www.npmjs.com/package/excel4node
+
 #### `ran3Ap.parse(html)`
 
 - Input
   - `html`: `string`
 - Output
-  - `json` object
+  - `IDefinitions`
 
-Parses a RAN3 AP spec document (in an HTML format) and returns `json` object.
-The result has the following format:
+Parses a RAN3 AP spec document (in an HTML format) and returns `IDefinitions` object
+
+### Utilities
+
+#### `IVersion`
 
 ```jsonc
 {
-  <section number>: {
-    "name": <section title>,
-    "description": /* Description of section */,
-    "direction": /* Direction of a message, if applicable */,
-    "definition": [
-      {
-        "ie/group name": ,
-        "presence",
-        "range",
-        "ie type and reference",
-        "semantics description",
-        "criticality",
-        "assigned criticiality",
-        "depth": /* Depth of IE, e.g. '>>>' indicates depth 3 */
-      },
-      // omitted followings
-    ]
-  },
-  // omitted followings
+  major: number;
+  technical: number;
+  editorial: number;
 }
 ```
 
-### Utilities
+- `major`, `technical`, `editorial`: integer
+
+Corresponds to 3GPP specification [version numbering scheme]
+
+[version numbering scheme]: http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme
 
 #### `utils.numbering.seriesFromString(specNumStr)`
 
@@ -130,6 +175,26 @@ Returns a *sanitized* string. Sanitization includes the followings:
 - Converts `\u3000` (Unicode IDEOGRAPHIC SPACE) into normal space
 
 ### 3GPP Web Support
+
+#### `ICalQuery`
+
+```jsonc
+{
+  techBodyStr: string;
+  includeSub?: boolean;
+  from?: Date;
+  to?: Date;
+  detail?: boolean;
+}
+```
+
+
+- `techBodyStr`: `string`. Technical body name.
+  - Supports `RAN`, `RAN1`, `RAN2`, `RAN3`, `RAN4` currently
+- `includeSub`: `boolean`. Whether to include sub technical bodies. `false` if absent
+- `from`: `Date`. *Today* if absent 
+- `to`: `Date`. *indefinite* if absent
+- `detail`: `boolean`. Whether to request detailed information. `false` if absent
 
 #### `web.calendar.get(calQuery, cb, ...args)`
 
@@ -166,6 +231,14 @@ Gets list of specification files and calls a callback `cb(null, specFiles, args)
 node dist/asn1/extract.js <protocol> <text file>
 ```
 
-Extract ASN.1 from `<text file>` and prints to the standard output
+Extracts ASN.1 from `<text file>` and prints to the standard output
 
 Currenlty only `RRC` protocol is supported
+
+### Format RAN3 AP Messages/IEs
+
+```sh
+node dist/ran3Ap/format.js <html file> <msg/IE name> <expand>
+```
+
+Reads a RAN3 AP document from `<html file>`, generates an Excel worksheet for a given `<msg/IE name>` and stores it into a filesystem. If  `<msg/IE name>` is  `all`, it generates worksheets for all messages and IEs. `<expand>` option is not supported currently

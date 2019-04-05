@@ -30,6 +30,7 @@ function parse(html) {
         if (isTagHeading(elem)) {
             if (msgIeDefinition) {
                 definitions[sectionNumber] = {
+                    section: sectionNumber,
                     name: sectionTitle,
                     description: description,
                     direction: direction,
@@ -37,6 +38,7 @@ function parse(html) {
                     range: rangeDefinition,
                     condition: conditionDefinition
                 };
+                definitions[sectionTitle] = sectionNumber;
             }
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
             description = null;
@@ -115,6 +117,9 @@ function parseTable(selector, tableHeader) {
         var definitionElem = {};
         $(tr).find('td').each(function (indexTd, td) {
             var key = tableHeader[indexTd];
+            if (!key) {
+                return;
+            }
             definitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
         });
         return definitionElem;

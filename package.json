@@ -36,6 +36,7 @@
   "dependencies": {
     "antlr4": "^4.7.2",
     "cheerio": "^1.0.0-rc.2",
+    "excel4node": "^1.7.1",
     "ftp": "^0.3.10",
     "node-ical": "^0.9.2"
   }

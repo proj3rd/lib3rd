@@ -1,2 +1,3 @@
+import { format } from './format';
 import { parse } from './parse';
-export { parse, };
+export { format, parse, };
