@@ -1,11 +1,22 @@
 "use strict";
+/**
+ * This module defines some interfaces and functions for 3GPP numbering
+ */
 exports.__esModule = true;
+/**
+ * Find series of a given specification numbering
+ * @param specNumStr Sepcification numbering, e.g. `38.331`
+ * @returns Series of specification, e.g. `38`
+ */
 function seriesFromString(specNumStr) {
     return specNumStr.split('.')[0];
 }
 exports.seriesFromString = seriesFromString;
-/*
- * Version Numbering Scheme
+/**
+ * Convert version string into `IVersion`
+ * @param versionStr Version string
+ *
+ * See 3GPP Version Numbering Scheme
  * http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme
  */
 function versionFromString(versionStr) {

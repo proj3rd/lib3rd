@@ -38,6 +38,9 @@ export interface IMsgIeDefinition {
      */
     condition: IConditionDefinitionElem[];
 }
+/**
+ * Definition of a sub IE
+ */
 export interface IMsgIeDefinitionElem {
     'ie/group name': string;
     'presence': string;
@@ -51,6 +54,9 @@ export interface IMsgIeDefinitionElem {
      */
     'depth': number;
 }
+/**
+ * Definition of a single range bound
+ */
 export interface IRangeDefinitionElem {
     /**
      * Name of range bound
@@ -58,6 +64,9 @@ export interface IRangeDefinitionElem {
     'range bound': string;
     'explanation': string;
 }
+/**
+ * Definition of a single condition
+ */
 export interface IConditionDefinitionElem {
     /**
      * Name of condition
