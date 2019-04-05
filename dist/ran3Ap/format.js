@@ -10,7 +10,7 @@ var formatConfigDefault = {
     showRange: true,
     showCondition: true,
     grouping: true,
-    freezeHeader: true,
+    freezeHeader: false,
     style: {
         title: {
             font: {
@@ -23,7 +23,7 @@ var formatConfigDefault = {
                 bold: true
             }
         },
-        indentWidth: 1.5
+        indentWidth: 3
     }
 };
 var styleBorderLeft = {
