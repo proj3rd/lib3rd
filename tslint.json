@@ -5,6 +5,7 @@
     ],
     "jsRules": {},
     "rules": {
+        "align": [true, "elements", "members", "parameters", "statements"],
         "typedef": [true, "call-signature"],
         "triple-equals": true,
         "object-literal-sort-keys": false,

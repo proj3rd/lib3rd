@@ -24,7 +24,7 @@ interface IFormatConfig {
 
 const formatConfigDefault: IFormatConfig = {
   order: ['ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
-              'criticality', 'assigned criticality'],
+          'criticality', 'assigned criticality'],
   showRange: true,
   showCondition: true,
   grouping: true,
