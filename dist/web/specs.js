@@ -15,6 +15,13 @@ var ftp = require("ftp");
 var numbering_1 = require("../utils/numbering");
 var host = 'ftp.3gpp.org';
 var baseDir = 'Specs/archive';
+/**
+ * Get a collection of spec documents for a given spec number
+ * @param specNumStr Specificaiton number, e.g. `38.331`
+ * @param cb Callback function
+ * @param args Arguments for callback function
+ * @param cb.specFiles[] Collection of spec files
+ */
 function list(specNumStr, cb) {
     var args = [];
     for (var _i = 2; _i < arguments.length; _i++) {
