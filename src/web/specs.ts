@@ -1,7 +1,7 @@
 import * as ftp from 'ftp';
 import { IVersion, seriesFromString, versionFromString } from '../utils/numbering';
 
-interface ISpecFile extends ftp.ListingElement {
+export interface ISpecFile extends ftp.ListingElement {
   version: IVersion;
   url: string;
 }
@@ -9,6 +9,13 @@ interface ISpecFile extends ftp.ListingElement {
 const host = 'ftp.3gpp.org';
 const baseDir = 'Specs/archive';
 
+/**
+ * Get a collection of spec documents for a given spec number
+ * @param specNumStr Specificaiton number, e.g. `38.331`
+ * @param cb Callback function
+ * @param args Arguments for callback function
+ * @param cb.specFiles[] Collection of spec files
+ */
 export function list(specNumStr: string,
                      cb: (e: Error, specFiles: ISpecFile[], ...args: any[]) => void,
                      ...args: any[]): void {

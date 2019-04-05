@@ -9,20 +9,44 @@ import { parse } from './parse';
 type fieldType = 'ie/group name' | 'presence' | 'range' | 'ie type and reference' | 'semantics description' |
                 'criticality' | 'assigned criticality';
 
-interface IFormatConfig {
+/**
+ * Configuration structure for formatting
+ */
+export interface IFormatConfig {
   order: fieldType[];
+  /**
+   * Whether to show collection of range bounds
+   */
   showRange: boolean;
+  /**
+   * Whether to show collection of conditions
+   */
   showCondition: boolean;
+  /**
+   * Whether to group parent-child IEs
+   */
   grouping: boolean;
+  /**
+   * Whether to freeze header of each message or IE
+   */
   freezeHeader: boolean;
+  /**
+   * Custom styling. See [excel4node](https://www.npmjs.com/package/excel4node)
+   */
   style: {
     title: any,
     header: any,
+    /**
+     * Column width for indentation
+     */
     indentWidth: number,
   };
 }
 
-const formatConfigDefault: IFormatConfig = {
+/**
+ * Default configuration for formatting
+ */
+export const formatConfigDefault: IFormatConfig = {
   order: ['ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
           'criticality', 'assigned criticality'],
   showRange: true,
@@ -82,10 +106,14 @@ const headerCondition: IConditionDefinitionElem = {
   explanation: 'Explanation',
 };
 
-export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFormatConfig): any {
-  if (!formatConfig) {
-    formatConfig = formatConfigDefault;
-  }
+/**
+ * Generate an Excel workbook containing message(s) and/or IE(s) in a tabular form
+ * @param msgIeDefinitions Definitions of message(s) and/or IE(s)
+ * @param formatConfig Formatting configuration. TBA
+ * @returns excel4node [`Workbook`](https://www.npmjs.com/package/excel4node) object.
+ * One worksheet is included for one definition
+ */
+export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig: IFormatConfig = formatConfigDefault): any {
   const wb = new xl.Workbook({
     author: '3GPP Utility https://github.com/gsongsong/3gpp',
   });

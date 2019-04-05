@@ -13,6 +13,11 @@ var conditionTableHeader = [
     'condition', 'explanation',
 ];
 var reDepth = /^>+/;
+/**
+ * Parse RAN3 AP messages and IEs
+ * @param html RAN3 AP document in HTML format encoded in UTF-8
+ * @returns Collection of RAN3 AP messages and IEs
+ */
 function parse(html) {
     var _a;
     var definitions = {};

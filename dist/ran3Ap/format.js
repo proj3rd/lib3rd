@@ -4,7 +4,10 @@ var fs_1 = require("fs");
 var path_1 = require("path");
 var xl = require("excel4node");
 var parse_1 = require("./parse");
-var formatConfigDefault = {
+/**
+ * Default configuration for formatting
+ */
+exports.formatConfigDefault = {
     order: ['ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
         'criticality', 'assigned criticality'],
     showRange: true,
@@ -58,10 +61,15 @@ var headerCondition = {
     condition: 'Condition',
     explanation: 'Explanation'
 };
+/**
+ * Generate an Excel workbook containing message(s) and/or IE(s) in a tabular form
+ * @param msgIeDefinitions Definitions of message(s) and/or IE(s)
+ * @param formatConfig Formatting configuration. TBA
+ * @returns excel4node [`Workbook`](https://www.npmjs.com/package/excel4node) object.
+ * One worksheet is included for one definition
+ */
 function format(msgIeDefinitions, formatConfig) {
-    if (!formatConfig) {
-        formatConfig = formatConfigDefault;
-    }
+    if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
     var wb = new xl.Workbook({
         author: '3GPP Utility https://github.com/gsongsong/3gpp'
     });
