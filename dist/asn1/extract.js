@@ -7,6 +7,12 @@ var tokens = {
         end: /^-- ASN1STOP/gm
     }
 };
+/**
+ * Extract ASN.1 from text
+ * @param text Text containing ASN.1 encoded in UTF-8
+ * @param protocol Protocol name, case-insensitive. Only `RRC` protocol is supported currently
+ * @returns Text containing only ASN.1 encoded in UTF-8
+ */
 function extract(text, protocol) {
     protocol = protocol.toUpperCase();
     if (!tokens[protocol]) {

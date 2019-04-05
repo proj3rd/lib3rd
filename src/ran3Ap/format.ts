@@ -82,10 +82,14 @@ const headerCondition: IConditionDefinitionElem = {
   explanation: 'Explanation',
 };
 
-export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFormatConfig): any {
-  if (!formatConfig) {
-    formatConfig = formatConfigDefault;
-  }
+/**
+ * Generate an Excel workbook containing message(s) and/or IE(s) in a tabular form
+ * @param msgIeDefinitions Definitions of message(s) and/or IE(s)
+ * @param formatConfig Formatting configuration. TBA
+ * @returns excel4node [`Workbook`](https://www.npmjs.com/package/excel4node) object.
+ * One worksheet is included for one definition
+ */
+export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig: IFormatConfig = formatConfigDefault): any {
   const wb = new xl.Workbook({
     author: '3GPP Utility https://github.com/gsongsong/3gpp',
   });

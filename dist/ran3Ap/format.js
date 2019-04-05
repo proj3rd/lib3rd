@@ -58,10 +58,14 @@ var headerCondition = {
     condition: 'Condition',
     explanation: 'Explanation'
 };
+/**
+ * Generate an Excel workbook containing message(s) and/or IE(s) in a tabular form
+ * @param msgIeDefinitions
+ * @param formatConfig Formatting configuration. TBA
+ * @returns excel4node [`Workbook`](https://www.npmjs.com/package/excel4node) object
+ */
 function format(msgIeDefinitions, formatConfig) {
-    if (!formatConfig) {
-        formatConfig = formatConfigDefault;
-    }
+    if (formatConfig === void 0) { formatConfig = formatConfigDefault; }
     var wb = new xl.Workbook({
         author: '3GPP Utility https://github.com/gsongsong/3gpp'
     });
