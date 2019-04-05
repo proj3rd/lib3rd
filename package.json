@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "antlr": "antlr4 src/asn1/ASN.g4 -o dist/asn1 -Dlanguage=JavaScript -visitor -no-listener",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typedoc": "typedoc --out docs src --module commonjs --ignoreCompilerErrors --excludeNotExported --readme none"
   },
   "repository": {
     "type": "git",
