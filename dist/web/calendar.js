@@ -10,6 +10,13 @@ var techBodyKeyVal = {
     RAN4: 382
 };
 var techBodies = Object.keys(techBodyKeyVal);
+/**
+ * Get a collection of meeting schedules
+ * @param calQuery Criteria for meeting schedules to be queried
+ * @param cb Callback function
+ * @param args Arguments for callback function
+ * @param cb.cal node-ical [`ical`](https://www.npmjs.com/package/node-ical) object
+ */
 function get(calQuery, cb) {
     var args = [];
     for (var _i = 2; _i < arguments.length; _i++) {
