@@ -9,6 +9,7 @@ interface IFormatConfig {
     style: {
         title: any;
         header: any;
+        indentWidth: number;
     };
 }
 export declare function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig?: IFormatConfig): any;

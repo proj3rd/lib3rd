@@ -22,7 +22,8 @@ var formatConfigDefault = {
             font: {
                 bold: true
             }
-        }
+        },
+        indentWidth: 1.5
     }
 };
 var styleBorderLeft = {
@@ -106,65 +107,60 @@ function fillDefinition(definition, ws, row, col, depthMax, formatConfig) {
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     [headerDefinition].concat(definition).forEach(function (msgIeDefinitionElem) {
-        var _a;
-        _a = fillRow(msgIeDefinitionElem, ws, row, col, depthMax, formatConfig.order), row = _a[0], col = _a[1];
+        formatConfig.order.forEach(function (field, index) {
+            if (index === 0) {
+                ws.cell(row, col).style(styleBorderLeft);
+            }
+            switch (field) {
+                case 'ie/group name': {
+                    for (var i = 0; i < msgIeDefinitionElem.depth; i++) {
+                        ws.column(col).setWidth(formatConfig.style.indentWidth);
+                        ws.cell(row, col++).style(styleBorderLeft);
+                    }
+                    ws.cell(row, col).string(msgIeDefinitionElem['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
+                    ws.column(col++).setWidth(formatConfig.style.indentWidth);
+                    for (var i = msgIeDefinitionElem.depth; i < depthMax; i++) {
+                        ws.column(col).setWidth(formatConfig.style.indentWidth);
+                        ws.cell(row, col++).style(styleBorderTop);
+                    }
+                    ws.column(col - 1).setWidth(30);
+                    break;
+                }
+                case 'presence': {
+                    ws.cell(row, col++).string(msgIeDefinitionElem.presence).style(styleBorderTop);
+                    break;
+                }
+                case 'range': {
+                    ws.cell(row, col++).string(msgIeDefinitionElem.range).style(styleBorderTop);
+                    break;
+                }
+                case 'ie type and reference': {
+                    ws.cell(row, col++).string(msgIeDefinitionElem['ie type and reference']).style(styleBorderTop);
+                    break;
+                }
+                case 'semantics description': {
+                    ws.cell(row, col++).string(msgIeDefinitionElem['semantics description']).style(styleBorderTop);
+                    break;
+                }
+                case 'criticality': {
+                    var criticality = msgIeDefinitionElem.criticality || '';
+                    ws.cell(row, col++).string(criticality).style(styleBorderTop);
+                    break;
+                }
+                case 'assigned criticality': {
+                    var assignedCriticality = msgIeDefinitionElem['assigned criticiality'] || '';
+                    ws.cell(row, col++).string(assignedCriticality).style(styleBorderTop);
+                    break;
+                }
+            }
+            if (index === formatConfig.order.length - 1) {
+                ws.cell(row, col).style(styleBorderLeft);
+            }
+        });
+        row++;
+        col = 1;
     });
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
-    return [row, col];
-}
-function fillRow(elem, ws, row, col, depthMax, order) {
-    order.forEach(function (field, index) {
-        if (index === 0) {
-            ws.cell(row, col).style(styleBorderLeft);
-        }
-        switch (field) {
-            case 'ie/group name': {
-                for (var i = 0; i < elem.depth; i++) {
-                    ws.column(col).setWidth(3);
-                    ws.cell(row, col++).style(styleBorderLeft);
-                }
-                ws.cell(row, col).string(elem['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
-                ws.column(col++).setWidth(3);
-                for (var i = elem.depth; i < depthMax; i++) {
-                    ws.column(col).setWidth(3);
-                    ws.cell(row, col++).style(styleBorderTop);
-                }
-                ws.column(col - 1).setWidth(30);
-                break;
-            }
-            case 'presence': {
-                ws.cell(row, col++).string(elem.presence).style(styleBorderTop);
-                break;
-            }
-            case 'range': {
-                ws.cell(row, col++).string(elem.range).style(styleBorderTop);
-                break;
-            }
-            case 'ie type and reference': {
-                ws.cell(row, col++).string(elem['ie type and reference']).style(styleBorderTop);
-                break;
-            }
-            case 'semantics description': {
-                ws.cell(row, col++).string(elem['semantics description']).style(styleBorderTop);
-                break;
-            }
-            case 'criticality': {
-                var criticality = elem.criticality || '';
-                ws.cell(row, col++).string(criticality).style(styleBorderTop);
-                break;
-            }
-            case 'assigned criticality': {
-                var assignedCriticality = elem['assigned criticiality'] || '';
-                ws.cell(row, col++).string(assignedCriticality).style(styleBorderTop);
-                break;
-            }
-        }
-        if (index === order.length - 1) {
-            ws.cell(row, col).style(styleBorderLeft);
-        }
-    });
-    row++;
-    col = 1;
     return [row, col];
 }
 function fillRange(range, ws, row, col, depthMax, formatConfig) {

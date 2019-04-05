@@ -18,6 +18,7 @@ interface IFormatConfig {
   style: {
     title: any,
     header: any,
+    indentWidth: number,
   };
 }
 
@@ -40,6 +41,7 @@ const formatConfigDefault: IFormatConfig = {
         bold: true,
       },
     },
+    indentWidth: 3,
   },
 };
 
@@ -136,66 +138,60 @@ function fillDefinition(definition: IMsgIeDefinitionElem[],
   }
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [headerDefinition, ...definition].forEach((msgIeDefinitionElem) => {
-    [row, col] = fillRow(msgIeDefinitionElem, ws, row, col, depthMax, formatConfig.order);
-  });
-  ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
-  return [row, col];
-}
-
-function fillRow(elem: IMsgIeDefinitionElem, ws: any, row: number, col: number, depthMax: number,
-                 order: fieldType[]): number[] {
-  order.forEach((field, index): void => {
+  formatConfig.order.forEach((field, index): void => {
     if (index === 0) {
       ws.cell(row, col).style(styleBorderLeft);
     }
     switch (field) {
       case 'ie/group name': {
-        for (let i = 0; i < elem.depth; i++) {
-          ws.column(col).setWidth(3);
+        for (let i = 0; i < msgIeDefinitionElem.depth; i++) {
+          ws.column(col).setWidth(formatConfig.style.indentWidth);
           ws.cell(row, col++).style(styleBorderLeft);
         }
-        ws.cell(row, col).string(elem['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
-        ws.column(col++).setWidth(3);
-        for (let i = elem.depth; i < depthMax; i++) {
-          ws.column(col).setWidth(3);
+        ws.cell(row, col).string(msgIeDefinitionElem['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
+        ws.column(col++).setWidth(formatConfig.style.indentWidth);
+        for (let i = msgIeDefinitionElem.depth; i < depthMax; i++) {
+          ws.column(col).setWidth(formatConfig.style.indentWidth);
           ws.cell(row, col++).style(styleBorderTop);
         }
         ws.column(col - 1).setWidth(30);
         break;
       }
       case 'presence': {
-        ws.cell(row, col++).string(elem.presence).style(styleBorderTop);
+        ws.cell(row, col++).string(msgIeDefinitionElem.presence).style(styleBorderTop);
         break;
       }
       case 'range': {
-        ws.cell(row, col++).string(elem.range).style(styleBorderTop);
+        ws.cell(row, col++).string(msgIeDefinitionElem.range).style(styleBorderTop);
         break;
       }
       case 'ie type and reference': {
-        ws.cell(row, col++).string(elem['ie type and reference']).style(styleBorderTop);
+        ws.cell(row, col++).string(msgIeDefinitionElem['ie type and reference']).style(styleBorderTop);
         break;
       }
       case 'semantics description': {
-        ws.cell(row, col++).string(elem['semantics description']).style(styleBorderTop);
+        ws.cell(row, col++).string(msgIeDefinitionElem['semantics description']).style(styleBorderTop);
         break;
       }
       case 'criticality': {
-        const criticality = elem.criticality || '';
+        const criticality = msgIeDefinitionElem.criticality || '';
         ws.cell(row, col++).string(criticality).style(styleBorderTop);
         break;
       }
       case 'assigned criticality': {
-        const assignedCriticality = elem['assigned criticiality'] || '';
+        const assignedCriticality = msgIeDefinitionElem['assigned criticiality'] || '';
         ws.cell(row, col++).string(assignedCriticality).style(styleBorderTop);
         break;
       }
     }
-    if (index === order.length - 1) {
+    if (index === formatConfig.order.length - 1) {
       ws.cell(row, col).style(styleBorderLeft);
     }
   });
   row++;
   col = 1;
+  });
+  ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
   return [row, col];
 }
 
