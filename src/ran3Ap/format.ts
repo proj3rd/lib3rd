@@ -9,20 +9,44 @@ import { parse } from './parse';
 type fieldType = 'ie/group name' | 'presence' | 'range' | 'ie type and reference' | 'semantics description' |
                 'criticality' | 'assigned criticality';
 
-interface IFormatConfig {
+/**
+ * Configuration structure for formatting
+ */
+export interface IFormatConfig {
   order: fieldType[];
+  /**
+   * Whether to show collection of range bounds
+   */
   showRange: boolean;
+  /**
+   * Whether to show collection of conditions
+   */
   showCondition: boolean;
+  /**
+   * Whether to group parent-child IEs
+   */
   grouping: boolean;
+  /**
+   * Whether to freeze header of each message or IE
+   */
   freezeHeader: boolean;
+  /**
+   * Custom styling. See [excel4node](https://www.npmjs.com/package/excel4node)
+   */
   style: {
     title: any,
     header: any,
+    /**
+     * Column width for indentation
+     */
     indentWidth: number,
   };
 }
 
-const formatConfigDefault: IFormatConfig = {
+/**
+ * Default configuration for formatting
+ */
+export const formatConfigDefault: IFormatConfig = {
   order: ['ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
           'criticality', 'assigned criticality'],
   showRange: true,

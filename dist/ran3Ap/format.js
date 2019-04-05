@@ -4,7 +4,10 @@ var fs_1 = require("fs");
 var path_1 = require("path");
 var xl = require("excel4node");
 var parse_1 = require("./parse");
-var formatConfigDefault = {
+/**
+ * Default configuration for formatting
+ */
+exports.formatConfigDefault = {
     order: ['ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
         'criticality', 'assigned criticality'],
     showRange: true,
@@ -66,7 +69,7 @@ var headerCondition = {
  * One worksheet is included for one definition
  */
 function format(msgIeDefinitions, formatConfig) {
-    if (formatConfig === void 0) { formatConfig = formatConfigDefault; }
+    if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
     var wb = new xl.Workbook({
         author: '3GPP Utility https://github.com/gsongsong/3gpp'
     });
