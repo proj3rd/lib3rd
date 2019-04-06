@@ -3,6 +3,12 @@
     "rootDir": "src",
     "outDir": "dist",
     "declaration": true,
-    "newLine": "LF"
-  }
+    "newLine": "LF",
+  },
+  "typedocOptions": {
+    "exclude": "**/index.ts",
+    "excludeNotExported": true,
+    "out": "docs",
+    "module": "commonjs",
+  },
 }
