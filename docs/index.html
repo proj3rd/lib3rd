@@ -51,7 +51,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="index.html">Globals</a>
+					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
 			<h1> third-gen</h1>
@@ -61,33 +61,33 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
-				<section class="tsd-panel tsd-index-panel">
-					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>External modules</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-external-module"><a href="modules/_asn1_extract_.html" class="tsd-kind-icon">"asn1/extract"</a></li>
-								<li class="tsd-kind-external-module"><a href="modules/_asn1_parse_.html" class="tsd-kind-icon">"asn1/parse"</a></li>
-								<li class="tsd-kind-external-module"><a href="modules/_ran3ap_format_.html" class="tsd-kind-icon">"ran3<wbr>Ap/format"</a></li>
-								<li class="tsd-kind-external-module"><a href="modules/_ran3ap_interfaces_.html" class="tsd-kind-icon">"ran3<wbr>Ap/interfaces"</a></li>
-								<li class="tsd-kind-external-module"><a href="modules/_ran3ap_parse_.html" class="tsd-kind-icon">"ran3<wbr>Ap/parse"</a></li>
-								<li class="tsd-kind-external-module"><a href="modules/_utils_numbering_.html" class="tsd-kind-icon">"utils/numbering"</a></li>
-								<li class="tsd-kind-external-module"><a href="modules/_utils_text_.html" class="tsd-kind-icon">"utils/text"</a></li>
-								<li class="tsd-kind-external-module"><a href="modules/_web_calendar_.html" class="tsd-kind-icon">"web/calendar"</a></li>
-								<li class="tsd-kind-external-module"><a href="modules/_web_specs_.html" class="tsd-kind-icon">"web/specs"</a></li>
-							</ul>
-						</section>
-					</div>
-				</section>
-			</section>
+			<div class="tsd-panel tsd-typography">
+				<h1 id="3gpp">3GPP</h1>
+				<p>Tools to improve productivity for designing cellular network</p>
+				<ul>
+					<li><a href="#api">API</a></li>
+					<li><a href="#cli">CLI</a><ul>
+							<li><a href="#extract-asn1">Extract ASN.1</a></li>
+							<li><a href="#format-ran3-ap-messagesies">Format RAN3 AP Messages/IEs</a></li>
+						</ul>
+					</li>
+				</ul>
+				<h2 id="api">API</h2>
+				<p>See <a href="https://gsongsong.github.io/3gpp">https://gsongsong.github.io/3gpp</a></p>
+				<h2 id="cli">CLI</h2>
+				<h3 id="extract-asn-1">Extract ASN.1</h3>
+				<pre><code class="language-sh">node dist/asn1/extract.js &lt;protocol&gt; &lt;text file&gt;</code></pre>
+				<p>Extracts ASN.1 from <code>&lt;text file&gt;</code> and prints to the standard output. Currenlty only <code>RRC</code> protocol is supported</p>
+				<h3 id="format-ran3-ap-messages-ies">Format RAN3 AP Messages/IEs</h3>
+				<pre><code class="language-sh">node dist/ran3Ap/format.js &lt;html file&gt; &lt;msg/IE name&gt; &lt;expand&gt;</code></pre>
+				<p>Reads a RAN3 AP document from <code>&lt;html file&gt;</code>, generates an Excel worksheet for a given <code>&lt;msg/IE name&gt;</code> and stores it into a filesystem. If  <code>&lt;msg/IE name&gt;</code> is  <code>all</code>, it generates worksheets for all messages and IEs. <code>&lt;expand&gt;</code> option is not supported currently</p>
+			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals current ">
-						<a href="index.html"><em>Globals</em></a>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_asn1_extract_.html">"asn1/extract"</a>
