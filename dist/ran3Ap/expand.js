@@ -11,27 +11,39 @@ function expand(msgIeDefinition, definitions, definitionsExpanded) {
     if (msgIeDefinition.section in definitionsExpanded) {
         return definitionsExpanded[msgIeDefinition.section];
     }
-    var stack = [msgIeDefinition];
-    // Stack length may not be constant. So not using for-of
-    // tslint:disable-next-line:prefer-for-of
-    for (var i = 0; i < stack.length; i++) {
-        var elem = stack[i];
-        elem.definition.forEach(function (definitionElem) {
+    var stackTraversed = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded);
+}
+exports.expand = expand;
+function prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded) {
+    var stackUntraversed = [msgIeDefinition];
+    var stackTraversed = [];
+    var _loop_1 = function (i) {
+        var definition = stackUntraversed[i];
+        if (stackTraversed.findIndex(function (elem) { return elem.section === definition.section; }) !== -1) {
+            return "continue";
+        }
+        definition.definition.forEach(function (definitionElem) {
             var reference = getReference(definitionElem['ie type and reference']);
             if (!reference || (reference in definitionsExpanded) || !(reference in definitions)) {
                 return;
             }
-            var index = stack.findIndex(function (stackElem) {
-                return stackElem.section === reference;
-            });
+            var index = stackTraversed.findIndex(function (elem) { return elem.section === reference; });
             if (index !== -1) {
+                var traversedDefinition = stackTraversed.splice(index, 1)[0];
+                stackTraversed.push(traversedDefinition);
                 return;
             }
-            stack.push(definitions[reference]);
+            stackUntraversed.push(definitions[reference]);
         });
+        stackTraversed.push(definition);
+    };
+    // Stack length may not be constant. So not using for-of
+    // tslint:disable-next-line:prefer-for-of
+    for (var i = 0; i < stackUntraversed.length; i++) {
+        _loop_1(i);
     }
+    return stackTraversed;
 }
-exports.expand = expand;
 function getReference(text) {
     var matchReference = text.match(reReference);
     if (!matchReference) {
