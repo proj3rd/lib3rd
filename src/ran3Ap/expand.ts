@@ -1,5 +1,10 @@
 import { IDefinitions, IMsgIeDefinition } from './interfaces';
 
+interface IDefinitionTreeNode {
+  content: IMsgIeDefinition;
+  level: number;
+}
+
 const reReference = /\d+(\.\d+)+/;
 
 /**
@@ -17,30 +22,39 @@ export function expand(msgIeDefinition: IMsgIeDefinition, definitions: IDefiniti
 }
 
 function prepareExpansionStack(msgIeDefinition: IMsgIeDefinition, definitions: IDefinitions,
-                               definitionsExpanded: IDefinitions): IMsgIeDefinition[] {
-  const stackUntraversed = [msgIeDefinition];
-  const stackTraversed: IMsgIeDefinition[] = [];
+                               definitionsExpanded: IDefinitions): IDefinitionTreeNode[] {
+  const stackUntraversed: IDefinitionTreeNode[] = [{content: msgIeDefinition, level: 0}];
+  const stackTraversed: IDefinitionTreeNode[] = [];
   // Stack length may not be constant. So not using for-of
   // tslint:disable-next-line:prefer-for-of
   for (let i = 0; i < stackUntraversed.length; i++) {
-    const definition = stackUntraversed[i];
-    if (stackTraversed.findIndex((elem) => elem.section === definition.section) !== -1) {
-      continue;
+    const definitionTreeNode = stackUntraversed[i];
+    const level = definitionTreeNode.level;
+
+    const indexTraversed = stackTraversed.findIndex((elem) =>
+      elem.content.section === definitionTreeNode.content.section);
+    if (indexTraversed !== -1) {
+      if (stackTraversed[indexTraversed].level >= level) {
+        continue;
+      }
+      stackTraversed.splice(indexTraversed, 1);
     }
-    definition.definition.forEach((definitionElem) => {
+    stackTraversed.push(definitionTreeNode);
+
+    definitionTreeNode.content.definition.forEach((definitionElem) => {
       const reference = getReference(definitionElem['ie type and reference']);
       if (!reference || (reference in definitionsExpanded) || !(reference in definitions)) {
         return;
       }
-      const index = stackTraversed.findIndex((elem) => elem.section === reference);
-      if (index !== -1) {
-        const traversedDefinition = stackTraversed.splice(index, 1)[0];
-        stackTraversed.push(traversedDefinition);
-        return;
+      const indexSubIeTraversed = stackTraversed.findIndex((elem) => elem.content.section === reference);
+      if (indexSubIeTraversed !== -1) {
+        if (stackTraversed[indexSubIeTraversed].level >= level + 1) {
+          return;
+        }
+        stackTraversed.splice(indexSubIeTraversed, 1);
       }
-      stackUntraversed.push(definitions[reference] as IMsgIeDefinition);
+      stackUntraversed.push({content: definitions[reference] as IMsgIeDefinition, level: level + 1});
     });
-    stackTraversed.push(definition);
   }
   return stackTraversed;
 }

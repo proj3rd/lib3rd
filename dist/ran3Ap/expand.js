@@ -15,27 +15,35 @@ function expand(msgIeDefinition, definitions, definitionsExpanded) {
 }
 exports.expand = expand;
 function prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded) {
-    var stackUntraversed = [msgIeDefinition];
+    var stackUntraversed = [{ content: msgIeDefinition, level: 0 }];
     var stackTraversed = [];
     var _loop_1 = function (i) {
-        var definition = stackUntraversed[i];
-        if (stackTraversed.findIndex(function (elem) { return elem.section === definition.section; }) !== -1) {
-            return "continue";
+        var definitionTreeNode = stackUntraversed[i];
+        var level = definitionTreeNode.level;
+        var indexTraversed = stackTraversed.findIndex(function (elem) {
+            return elem.content.section === definitionTreeNode.content.section;
+        });
+        if (indexTraversed !== -1) {
+            if (stackTraversed[indexTraversed].level >= level) {
+                return "continue";
+            }
+            stackTraversed.splice(indexTraversed, 1);
         }
-        definition.definition.forEach(function (definitionElem) {
+        stackTraversed.push(definitionTreeNode);
+        definitionTreeNode.content.definition.forEach(function (definitionElem) {
             var reference = getReference(definitionElem['ie type and reference']);
             if (!reference || (reference in definitionsExpanded) || !(reference in definitions)) {
                 return;
             }
-            var index = stackTraversed.findIndex(function (elem) { return elem.section === reference; });
-            if (index !== -1) {
-                var traversedDefinition = stackTraversed.splice(index, 1)[0];
-                stackTraversed.push(traversedDefinition);
-                return;
+            var indexSubIeTraversed = stackTraversed.findIndex(function (elem) { return elem.content.section === reference; });
+            if (indexSubIeTraversed !== -1) {
+                if (stackTraversed[indexSubIeTraversed].level >= level + 1) {
+                    return;
+                }
+                stackTraversed.splice(indexSubIeTraversed, 1);
             }
-            stackUntraversed.push(definitions[reference]);
+            stackUntraversed.push({ content: definitions[reference], level: level + 1 });
         });
-        stackTraversed.push(definition);
     };
     // Stack length may not be constant. So not using for-of
     // tslint:disable-next-line:prefer-for-of
