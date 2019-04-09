@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { IDefinitions, IMsgIeDefinition } from './interfaces';
 
 interface IDefinitionTreeNode {
@@ -15,10 +17,13 @@ const reReference = /\d+(\.\d+)+/;
  */
 export function expand(msgIeDefinition: IMsgIeDefinition, definitions: IDefinitions,
                        definitionsExpanded: IDefinitions): IMsgIeDefinition {
-  if (msgIeDefinition.section in definitionsExpanded) {
+  const section = msgIeDefinition.section;
+  if (section in definitionsExpanded) {
     return definitionsExpanded[msgIeDefinition.section] as IMsgIeDefinition;
   }
-  const stackTraversed = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded);
+  const stackUnexpanded = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded);
+  expandStack(stackUnexpanded, definitionsExpanded);
+  return definitionsExpanded[section] as IMsgIeDefinition;
 }
 
 function prepareExpansionStack(msgIeDefinition: IMsgIeDefinition, definitions: IDefinitions,
@@ -57,6 +62,25 @@ function prepareExpansionStack(msgIeDefinition: IMsgIeDefinition, definitions: I
     });
   }
   return stackTraversed;
+}
+
+function expandStack(stackUnexpanded: IDefinitionTreeNode[], definitionsExpanded: IDefinitions): void {
+  while (stackUnexpanded.length) {
+    const msgIeDefinition = _.cloneDeep(stackUnexpanded.pop().content);
+    const section = msgIeDefinition.section;
+    const definition = msgIeDefinition.definition;
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < definition.length; i++) {
+      const reference = getReference(definition[i]['ie type and reference']);
+      if (!reference || !(reference in definitionsExpanded)) {
+        continue;
+      }
+      const subIes = (definitionsExpanded[reference] as IMsgIeDefinition).definition;
+      definition.splice(i, 0, ...subIes);
+      i += subIes.length;
+    }
+    definitionsExpanded[section] = msgIeDefinition;
+  }
 }
 
 function getReference(text: string): string {

@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var _ = require("lodash");
 var reReference = /\d+(\.\d+)+/;
 /**
  *
@@ -8,10 +9,13 @@ var reReference = /\d+(\.\d+)+/;
  * @param definitionsExpanded
  */
 function expand(msgIeDefinition, definitions, definitionsExpanded) {
-    if (msgIeDefinition.section in definitionsExpanded) {
+    var section = msgIeDefinition.section;
+    if (section in definitionsExpanded) {
         return definitionsExpanded[msgIeDefinition.section];
     }
-    var stackTraversed = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded);
+    var stackUnexpanded = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded);
+    expandStack(stackUnexpanded, definitionsExpanded);
+    return definitionsExpanded[section];
 }
 exports.expand = expand;
 function prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded) {
@@ -51,6 +55,24 @@ function prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded
         _loop_1(i);
     }
     return stackTraversed;
+}
+function expandStack(stackUnexpanded, definitionsExpanded) {
+    while (stackUnexpanded.length) {
+        var msgIeDefinition = _.cloneDeep(stackUnexpanded.pop().content);
+        var section = msgIeDefinition.section;
+        var definition = msgIeDefinition.definition;
+        // tslint:disable-next-line:prefer-for-of
+        for (var i = 0; i < definition.length; i++) {
+            var reference = getReference(definition[i]['ie type and reference']);
+            if (!reference || !(reference in definitionsExpanded)) {
+                continue;
+            }
+            var subIes = definitionsExpanded[reference].definition;
+            definition.splice.apply(definition, [i, 0].concat(subIes));
+            i += subIes.length;
+        }
+        definitionsExpanded[section] = msgIeDefinition;
+    }
 }
 function getReference(text) {
     var matchReference = text.match(reReference);
