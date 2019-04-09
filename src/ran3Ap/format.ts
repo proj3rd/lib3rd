@@ -3,6 +3,7 @@ import { parse as parsePath } from 'path';
 
 import * as xl from 'excel4node';
 
+import { expand } from './expand';
 import { IConditionDefinitionElem, IMsgIeDefinition, IMsgIeDefinitionElem, IRangeDefinitionElem } from './interfaces';
 import { parse } from './parse';
 
@@ -250,12 +251,9 @@ function fillCondition(condition: IConditionDefinitionElem[], ws: any, row: numb
 }
 
 if (require.main === module) {
-  const [filePath, msgIeName, expand] = process.argv.slice(2);
+  const [filePath, msgIeName, needExpansion] = process.argv.slice(2);
   if (!filePath || !msgIeName) {
     throw Error('Requires 2 or 3 arguments, filePath, msgIeName and expand');
-  }
-  if (expand) {
-    process.stdout.write('Expanding is not supported currently. Fallback to format as-is\n');
   }
   readFile(filePath, 'utf8', (err: Error, html: string) => {
     if (err) {
@@ -280,6 +278,12 @@ if (require.main === module) {
       const sectionNumber  = definitions[msgIeName] as string;
       msgIeDefinitions = [definitions[sectionNumber] as IMsgIeDefinition];
       outFileName = `${fileName.name} ${msgIeName}.xlsx`;
+    }
+    if (needExpansion === 'expand') {
+      const definitionsExpanded = {};
+      for (let i = 0; i < msgIeDefinitions.length; i++) {
+        msgIeDefinitions[i] = expand(msgIeDefinitions[i], definitions, definitionsExpanded);
+      }
     }
     wb = format(msgIeDefinitions);
     wb.write(outFileName);

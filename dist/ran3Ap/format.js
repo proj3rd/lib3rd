@@ -3,6 +3,7 @@ exports.__esModule = true;
 var fs_1 = require("fs");
 var path_1 = require("path");
 var xl = require("excel4node");
+var expand_1 = require("./expand");
 var parse_1 = require("./parse");
 /**
  * Default configuration for formatting
@@ -194,12 +195,9 @@ function fillCondition(condition, ws, row, col, depthMax, formatConfig) {
     return [row, col];
 }
 if (require.main === module) {
-    var _a = process.argv.slice(2), filePath_1 = _a[0], msgIeName_1 = _a[1], expand = _a[2];
+    var _a = process.argv.slice(2), filePath_1 = _a[0], msgIeName_1 = _a[1], needExpansion_1 = _a[2];
     if (!filePath_1 || !msgIeName_1) {
         throw Error('Requires 2 or 3 arguments, filePath, msgIeName and expand');
-    }
-    if (expand) {
-        process.stdout.write('Expanding is not supported currently. Fallback to format as-is\n');
     }
     fs_1.readFile(filePath_1, 'utf8', function (err, html) {
         if (err) {
@@ -225,6 +223,12 @@ if (require.main === module) {
             var sectionNumber = definitions[msgIeName_1];
             msgIeDefinitions = [definitions[sectionNumber]];
             outFileName = fileName.name + " " + msgIeName_1 + ".xlsx";
+        }
+        if (needExpansion_1 === 'expand') {
+            var definitionsExpanded = {};
+            for (var i = 0; i < msgIeDefinitions.length; i++) {
+                msgIeDefinitions[i] = expand_1.expand(msgIeDefinitions[i], definitions, definitionsExpanded);
+            }
         }
         wb = format(msgIeDefinitions);
         wb.write(outFileName);

@@ -27,4 +27,4 @@ Extracts ASN.1 from `<text file>` and prints to the standard output. Currenlty o
 node dist/ran3Ap/format.js <html file> <msg/IE name> <expand>
 ```
 
-Reads a RAN3 AP document from `<html file>`, generates an Excel worksheet for a given `<msg/IE name>` and stores it into a filesystem. If  `<msg/IE name>` is  `all`, it generates worksheets for all messages and IEs. `<expand>` option is not supported currently
+Reads a RAN3 AP document from `<html file>`, generates an Excel worksheet for a given `<msg/IE name>` and stores it into a filesystem. If  `<msg/IE name>` is  `all`, it generates worksheets for all messages and IEs. If `<needExpand>` is `expand`, it expands sub IEs.
