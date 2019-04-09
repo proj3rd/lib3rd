@@ -3,10 +3,10 @@ exports.__esModule = true;
 var _ = require("lodash");
 var reReference = /\d+(\.\d+)+/;
 /**
- *
- * @param msgIeDefinition
- * @param definitions
- * @param definitionsExpanded
+ * Expand references in definition of message or IE
+ * @param msgIeDefinition Message or IE definition object to be expanded
+ * @param definitions Collection of messages and/or IEs to be referenced
+ * @param definitionsExpanded Collection of already expanded messages and/or IEs to be merged
  */
 function expand(msgIeDefinition, definitions, definitionsExpanded) {
     var section = msgIeDefinition.section;
