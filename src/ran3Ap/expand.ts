@@ -76,8 +76,11 @@ function expandStack(stackUnexpanded: IDefinitionTreeNode[], definitionsExpanded
         continue;
       }
       const subIes = (definitionsExpanded[reference] as IMsgIeDefinition).definition;
-      definition.splice(i, 0, ...subIes);
-      i += subIes.length;
+      definition.splice(i + 1, 0, ...(_.cloneDeep(subIes)));
+      for (let j = 0; j < subIes.length; j++) {
+        definition[i + j + 1].depth += definition[i].depth + 1;
+      }
+      i += subIes.length + 1;
     }
     definitionsExpanded[section] = msgIeDefinition;
   }

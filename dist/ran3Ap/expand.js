@@ -68,8 +68,11 @@ function expandStack(stackUnexpanded, definitionsExpanded) {
                 continue;
             }
             var subIes = definitionsExpanded[reference].definition;
-            definition.splice.apply(definition, [i, 0].concat(subIes));
-            i += subIes.length;
+            definition.splice.apply(definition, [i + 1, 0].concat((_.cloneDeep(subIes))));
+            for (var j = 0; j < subIes.length; j++) {
+                definition[i + j + 1].depth += definition[i].depth + 1;
+            }
+            i += subIes.length + 1;
         }
         definitionsExpanded[section] = msgIeDefinition;
     }
