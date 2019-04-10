@@ -35,7 +35,7 @@ export function parse(html: string): IDefinitions {
   let sectionTitle: string = null;
   let description: string = null;
   let direction: string = null;
-  let msgIeDefinition: IMsgIeDefinitionElem[] = null;
+  let ies: IMsgIeDefinitionElem[] = null;
   let rangeDefinition: IRangeDefinitionElem[] = null;
   let conditionDefinition: IConditionDefinitionElem[] = null;
 
@@ -44,13 +44,13 @@ export function parse(html: string): IDefinitions {
     const selector = stack.pop();
     const elem = selector[0];
     if (isTagHeading(elem)) {
-      if (msgIeDefinition) {
+      if (ies) {
         definitions[sectionNumber] = {
           section: sectionNumber,
           name: sectionTitle,
           description,
           direction,
-          definition: msgIeDefinition,
+          ies,
           range: rangeDefinition,
           condition: conditionDefinition,
         };
@@ -59,7 +59,7 @@ export function parse(html: string): IDefinitions {
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
       description = null;
       direction = null;
-      msgIeDefinition = null;
+      ies = null;
       rangeDefinition = null;
       conditionDefinition = null;
       continue;
@@ -69,7 +69,7 @@ export function parse(html: string): IDefinitions {
       continue;
     }
     if (isMsgIeTable(selector)) {
-      msgIeDefinition = parseMsgIeTable(selector);
+      ies = parseMsgIeTable(selector);
       continue;
     }
     if (isRangeTable(selector)) {

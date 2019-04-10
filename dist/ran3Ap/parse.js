@@ -25,7 +25,7 @@ function parse(html) {
     var sectionTitle = null;
     var description = null;
     var direction = null;
-    var msgIeDefinition = null;
+    var ies = null;
     var rangeDefinition = null;
     var conditionDefinition = null;
     var stack = selectorToArray($(html)).reverse();
@@ -33,13 +33,13 @@ function parse(html) {
         var selector = stack.pop();
         var elem = selector[0];
         if (isTagHeading(elem)) {
-            if (msgIeDefinition) {
+            if (ies) {
                 definitions[sectionNumber] = {
                     section: sectionNumber,
                     name: sectionTitle,
                     description: description,
                     direction: direction,
-                    definition: msgIeDefinition,
+                    ies: ies,
                     range: rangeDefinition,
                     condition: conditionDefinition
                 };
@@ -48,7 +48,7 @@ function parse(html) {
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
             description = null;
             direction = null;
-            msgIeDefinition = null;
+            ies = null;
             rangeDefinition = null;
             conditionDefinition = null;
             continue;
@@ -58,7 +58,7 @@ function parse(html) {
             continue;
         }
         if (isMsgIeTable(selector)) {
-            msgIeDefinition = parseMsgIeTable(selector);
+            ies = parseMsgIeTable(selector);
             continue;
         }
         if (isRangeTable(selector)) {

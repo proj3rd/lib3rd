@@ -82,7 +82,7 @@ function format(msgIeDefinitions, formatConfig) {
                 summaryBelow: false
             }
         });
-        var depthMax = msgIeDefinition.definition.reduce(function (prevDepth, currElem) {
+        var depthMax = msgIeDefinition.ies.reduce(function (prevDepth, currElem) {
             return Math.max(prevDepth, currElem.depth);
         }, 0);
         var _d = [1, 1], row = _d[0], col = _d[1];
@@ -94,7 +94,7 @@ function format(msgIeDefinitions, formatConfig) {
             ws.cell(row++, col).string("Direction: " + msgIeDefinition.direction);
         }
         row++;
-        _a = fillDefinition(msgIeDefinition.definition, ws, row, col, depthMax, formatConfig), row = _a[0], col = _a[1];
+        _a = fillDefinition(msgIeDefinition.ies, ws, row, col, depthMax, formatConfig), row = _a[0], col = _a[1];
         if (msgIeDefinition.range && formatConfig.showRange) {
             row++;
             _b = fillRange(msgIeDefinition.range, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];

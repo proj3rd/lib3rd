@@ -30,7 +30,7 @@ export interface IMsgIeDefinition {
   /**
    * Actual definition. A collection of sub IEs
    */
-  definition: IMsgIeDefinitionElem[];
+  ies: IMsgIeDefinitionElem[];
   /**
    * Collection of range bounds. `null` if no range bound is present
    */

@@ -125,7 +125,7 @@ export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig: IForm
         summaryBelow: false,
       },
     });
-    const depthMax = msgIeDefinition.definition.reduce((prevDepth: number, currElem) => {
+    const depthMax = msgIeDefinition.ies.reduce((prevDepth: number, currElem) => {
       return Math.max(prevDepth, currElem.depth);
     }, 0);
 
@@ -139,7 +139,7 @@ export function format(msgIeDefinitions: IMsgIeDefinition[], formatConfig: IForm
     }
 
     row++;
-    [row, col] = fillDefinition(msgIeDefinition.definition, ws, row, col, depthMax, formatConfig);
+    [row, col] = fillDefinition(msgIeDefinition.ies, ws, row, col, depthMax, formatConfig);
 
     if (msgIeDefinition.range && formatConfig.showRange) {
       row++;
