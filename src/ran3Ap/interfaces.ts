@@ -30,7 +30,7 @@ export interface IMsgIeDefinition {
   /**
    * Actual definition. A collection of sub IEs
    */
-  definition: IMsgIeDefinitionElem[];
+  ies: IIe[];
   /**
    * Collection of range bounds. `null` if no range bound is present
    */
@@ -44,7 +44,7 @@ export interface IMsgIeDefinition {
 /**
  * Definition of a sub IE
  */
-export interface IMsgIeDefinitionElem {
+export interface IIe {
   'ie/group name': string;
   'presence': string;
   'range': string;

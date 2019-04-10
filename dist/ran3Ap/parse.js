@@ -25,7 +25,7 @@ function parse(html) {
     var sectionTitle = null;
     var description = null;
     var direction = null;
-    var msgIeDefinition = null;
+    var ies = null;
     var rangeDefinition = null;
     var conditionDefinition = null;
     var stack = selectorToArray($(html)).reverse();
@@ -33,13 +33,13 @@ function parse(html) {
         var selector = stack.pop();
         var elem = selector[0];
         if (isTagHeading(elem)) {
-            if (msgIeDefinition) {
+            if (ies) {
                 definitions[sectionNumber] = {
                     section: sectionNumber,
                     name: sectionTitle,
                     description: description,
                     direction: direction,
-                    definition: msgIeDefinition,
+                    ies: ies,
                     range: rangeDefinition,
                     condition: conditionDefinition
                 };
@@ -48,7 +48,7 @@ function parse(html) {
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
             description = null;
             direction = null;
-            msgIeDefinition = null;
+            ies = null;
             rangeDefinition = null;
             conditionDefinition = null;
             continue;
@@ -58,7 +58,7 @@ function parse(html) {
             continue;
         }
         if (isMsgIeTable(selector)) {
-            msgIeDefinition = parseMsgIeTable(selector);
+            ies = parseMsgIeTable(selector);
             continue;
         }
         if (isRangeTable(selector)) {
@@ -118,30 +118,30 @@ function isMsgIeTable(selector) {
 }
 function parseTable(selector, tableHeader) {
     var trs = selector.find('tr').slice(1);
-    var definition = trs.map(function (indexTr, tr) {
-        var definitionElem = {};
+    var ies = trs.map(function (indexTr, tr) {
+        var ie = {};
         $(tr).find('td').each(function (indexTd, td) {
             var key = tableHeader[indexTd];
             if (!key) {
                 return;
             }
-            definitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+            ie[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
         });
-        return definitionElem;
+        return ie;
     }).get();
-    return definition;
+    return ies;
 }
 function parseMsgIeTable(selector) {
-    var msgIeDefinition = parseTable(selector, msgIeTableHeader);
+    var ies = parseTable(selector, msgIeTableHeader);
     var depthMin = Infinity;
-    msgIeDefinition.forEach(function (msgIeDefinitionElem) {
-        msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
-        depthMin = Math.min(depthMin, msgIeDefinitionElem.depth);
+    ies.forEach(function (ie) {
+        ie.depth = elemDepth(ie);
+        depthMin = Math.min(depthMin, ie.depth);
     });
-    msgIeDefinition.forEach(function (msgIeDefinitionElem) {
-        msgIeDefinitionElem.depth -= depthMin;
+    ies.forEach(function (ie) {
+        ie.depth -= depthMin;
     });
-    return msgIeDefinition;
+    return ies;
 }
 function isRangeTable(selector) {
     return isTagTable(selector[0]) && doesHeaderMatch(selector, rangeTableHeader, 2);
@@ -173,8 +173,8 @@ function htmlToText(html) {
     return html.replace(/<sup>\s*?(.+?)\s*?<\/sup>/g, '^($1)')
         .replace(/<sub>\s*?(.+?)\s*?<\/sub>/g, '_($1)');
 }
-function elemDepth(msgIeDefinitionElem) {
-    var matchDepth = msgIeDefinitionElem['ie/group name'].match(reDepth);
+function elemDepth(ie) {
+    var matchDepth = ie['ie/group name'].match(reDepth);
     if (matchDepth) {
         return matchDepth[0].length;
     }

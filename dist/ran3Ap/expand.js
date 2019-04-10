@@ -34,8 +34,8 @@ function prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded
             stackTraversed.splice(indexTraversed, 1);
         }
         stackTraversed.push(definitionTreeNode);
-        definitionTreeNode.content.definition.forEach(function (definitionElem) {
-            var reference = getReference(definitionElem['ie type and reference']);
+        definitionTreeNode.content.ies.forEach(function (ie) {
+            var reference = getReference(ie['ie type and reference']);
             if (!reference || (reference in definitionsExpanded) || !(reference in definitions)) {
                 return;
             }
@@ -59,20 +59,21 @@ function prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded
 function expandStack(stackUnexpanded, definitionsExpanded) {
     while (stackUnexpanded.length) {
         var msgIeDefinition = _.cloneDeep(stackUnexpanded.pop().content);
-        var section = msgIeDefinition.section;
-        var definition = msgIeDefinition.definition;
+        var section = msgIeDefinition.section, ies = msgIeDefinition.ies;
+        // ies length may not be constant. So not using for-of
         // tslint:disable-next-line:prefer-for-of
-        for (var i = 0; i < definition.length; i++) {
-            var reference = getReference(definition[i]['ie type and reference']);
+        for (var i = 0; i < ies.length; i++) {
+            var reference = getReference(ies[i]['ie type and reference']);
             if (!reference || !(reference in definitionsExpanded)) {
                 continue;
             }
-            var subIes = definitionsExpanded[reference].definition;
-            definition.splice.apply(definition, [i + 1, 0].concat((_.cloneDeep(subIes))));
+            var depth = ies[i++].depth;
+            var subIes = definitionsExpanded[reference].ies;
+            ies.splice.apply(ies, [i, 0].concat((_.cloneDeep(subIes))));
             for (var j = 0; j < subIes.length; j++) {
-                definition[i + j + 1].depth += definition[i].depth + 1;
+                ies[i + j].depth += depth + 1;
             }
-            i += subIes.length + 1;
+            i += subIes.length;
         }
         definitionsExpanded[section] = msgIeDefinition;
     }

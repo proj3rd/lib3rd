@@ -46,8 +46,8 @@ function prepareExpansionStack(msgIeDefinition: IMsgIeDefinition, definitions: I
     }
     stackTraversed.push(definitionTreeNode);
 
-    definitionTreeNode.content.definition.forEach((definitionElem) => {
-      const reference = getReference(definitionElem['ie type and reference']);
+    definitionTreeNode.content.ies.forEach((ie) => {
+      const reference = getReference(ie['ie type and reference']);
       if (!reference || (reference in definitionsExpanded) || !(reference in definitions)) {
         return;
       }
@@ -67,20 +67,21 @@ function prepareExpansionStack(msgIeDefinition: IMsgIeDefinition, definitions: I
 function expandStack(stackUnexpanded: IDefinitionTreeNode[], definitionsExpanded: IDefinitions): void {
   while (stackUnexpanded.length) {
     const msgIeDefinition = _.cloneDeep(stackUnexpanded.pop().content);
-    const section = msgIeDefinition.section;
-    const definition = msgIeDefinition.definition;
+    const {section, ies} = msgIeDefinition;
+    // ies length may not be constant. So not using for-of
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < definition.length; i++) {
-      const reference = getReference(definition[i]['ie type and reference']);
+    for (let i = 0; i < ies.length; i++) {
+      const reference = getReference(ies[i]['ie type and reference']);
       if (!reference || !(reference in definitionsExpanded)) {
         continue;
       }
-      const subIes = (definitionsExpanded[reference] as IMsgIeDefinition).definition;
-      definition.splice(i + 1, 0, ...(_.cloneDeep(subIes)));
+      const depth = ies[i++].depth;
+      const subIes = (definitionsExpanded[reference] as IMsgIeDefinition).ies;
+      ies.splice(i, 0, ...(_.cloneDeep(subIes)));
       for (let j = 0; j < subIes.length; j++) {
-        definition[i + j + 1].depth += definition[i].depth + 1;
+        ies[i + j].depth += depth + 1;
       }
-      i += subIes.length + 1;
+      i += subIes.length;
     }
     definitionsExpanded[section] = msgIeDefinition;
   }
