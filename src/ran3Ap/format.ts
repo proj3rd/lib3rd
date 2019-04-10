@@ -4,7 +4,7 @@ import { parse as parsePath } from 'path';
 import * as xl from 'excel4node';
 
 import { expand } from './expand';
-import { IConditionDefinitionElem, IMsgIeDefinition, IMsgIeDefinitionElem, IRangeDefinitionElem } from './interfaces';
+import { IConditionDefinitionElem, IIe, IMsgIeDefinition, IRangeDefinitionElem } from './interfaces';
 import { parse } from './parse';
 
 type fieldType = 'ie/group name' | 'presence' | 'range' | 'ie type and reference' | 'semantics description' |
@@ -86,7 +86,7 @@ const styleBorderTop = {
   },
 };
 
-const headerDefinition: IMsgIeDefinitionElem = {
+const headerDefinition: IIe = {
   'ie/group name': 'IE/Group Name',
   'presence': 'Presence',
   'range': 'Range',
@@ -158,28 +158,26 @@ function sheetname(msgIeDefinition: IMsgIeDefinition): string {
   return `${msgIeDefinition.section} ${msgIeDefinition.name}`.substr(0, 31);
 }
 
-function fillDefinition(definition: IMsgIeDefinitionElem[],
-                        ws: any, row: number, col: number, depthMax: number,
+function fillDefinition(ies: IIe[], ws: any, row: number, col: number, depthMax: number,
                         formatConfig: IFormatConfig): number[] {
-
   if (formatConfig.freezeHeader) {
     ws.row(row).freeze();
   }
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
-  [headerDefinition, ...definition].forEach((msgIeDefinitionElem) => {
+  [headerDefinition, ...ies].forEach((ie) => {
     formatConfig.order.forEach((field, index): void => {
       if (index === 0) {
         ws.cell(row, col).style(styleBorderLeft);
       }
       switch (field) {
         case 'ie/group name': {
-          for (let i = 0; i < msgIeDefinitionElem.depth; i++) {
+          for (let i = 0; i < ie.depth; i++) {
             ws.column(col).setWidth(formatConfig.style.indentWidth);
             ws.cell(row, col++).style(styleBorderLeft);
           }
-          ws.cell(row, col).string(msgIeDefinitionElem['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
+          ws.cell(row, col).string(ie['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
           ws.column(col++).setWidth(formatConfig.style.indentWidth);
-          for (let i = msgIeDefinitionElem.depth; i < depthMax; i++) {
+          for (let i = ie.depth; i < depthMax; i++) {
             ws.column(col).setWidth(formatConfig.style.indentWidth);
             ws.cell(row, col++).style(styleBorderTop);
           }
@@ -187,28 +185,28 @@ function fillDefinition(definition: IMsgIeDefinitionElem[],
           break;
         }
         case 'presence': {
-          ws.cell(row, col++).string(msgIeDefinitionElem.presence).style(styleBorderTop);
+          ws.cell(row, col++).string(ie.presence).style(styleBorderTop);
           break;
         }
         case 'range': {
-          ws.cell(row, col++).string(msgIeDefinitionElem.range).style(styleBorderTop);
+          ws.cell(row, col++).string(ie.range).style(styleBorderTop);
           break;
         }
         case 'ie type and reference': {
-          ws.cell(row, col++).string(msgIeDefinitionElem['ie type and reference']).style(styleBorderTop);
+          ws.cell(row, col++).string(ie['ie type and reference']).style(styleBorderTop);
           break;
         }
         case 'semantics description': {
-          ws.cell(row, col++).string(msgIeDefinitionElem['semantics description']).style(styleBorderTop);
+          ws.cell(row, col++).string(ie['semantics description']).style(styleBorderTop);
           break;
         }
         case 'criticality': {
-          const criticality = msgIeDefinitionElem.criticality || '';
+          const criticality = ie.criticality || '';
           ws.cell(row, col++).string(criticality).style(styleBorderTop);
           break;
         }
         case 'assigned criticality': {
-          const assignedCriticality = msgIeDefinitionElem['assigned criticiality'] || '';
+          const assignedCriticality = ie['assigned criticiality'] || '';
           ws.cell(row, col++).string(assignedCriticality).style(styleBorderTop);
           break;
         }

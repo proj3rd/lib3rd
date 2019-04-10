@@ -110,25 +110,25 @@ exports.format = format;
 function sheetname(msgIeDefinition) {
     return (msgIeDefinition.section + " " + msgIeDefinition.name).substr(0, 31);
 }
-function fillDefinition(definition, ws, row, col, depthMax, formatConfig) {
+function fillDefinition(ies, ws, row, col, depthMax, formatConfig) {
     if (formatConfig.freezeHeader) {
         ws.row(row).freeze();
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
-    [headerDefinition].concat(definition).forEach(function (msgIeDefinitionElem) {
+    [headerDefinition].concat(ies).forEach(function (ie) {
         formatConfig.order.forEach(function (field, index) {
             if (index === 0) {
                 ws.cell(row, col).style(styleBorderLeft);
             }
             switch (field) {
                 case 'ie/group name': {
-                    for (var i = 0; i < msgIeDefinitionElem.depth; i++) {
+                    for (var i = 0; i < ie.depth; i++) {
                         ws.column(col).setWidth(formatConfig.style.indentWidth);
                         ws.cell(row, col++).style(styleBorderLeft);
                     }
-                    ws.cell(row, col).string(msgIeDefinitionElem['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
+                    ws.cell(row, col).string(ie['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
                     ws.column(col++).setWidth(formatConfig.style.indentWidth);
-                    for (var i = msgIeDefinitionElem.depth; i < depthMax; i++) {
+                    for (var i = ie.depth; i < depthMax; i++) {
                         ws.column(col).setWidth(formatConfig.style.indentWidth);
                         ws.cell(row, col++).style(styleBorderTop);
                     }
@@ -136,28 +136,28 @@ function fillDefinition(definition, ws, row, col, depthMax, formatConfig) {
                     break;
                 }
                 case 'presence': {
-                    ws.cell(row, col++).string(msgIeDefinitionElem.presence).style(styleBorderTop);
+                    ws.cell(row, col++).string(ie.presence).style(styleBorderTop);
                     break;
                 }
                 case 'range': {
-                    ws.cell(row, col++).string(msgIeDefinitionElem.range).style(styleBorderTop);
+                    ws.cell(row, col++).string(ie.range).style(styleBorderTop);
                     break;
                 }
                 case 'ie type and reference': {
-                    ws.cell(row, col++).string(msgIeDefinitionElem['ie type and reference']).style(styleBorderTop);
+                    ws.cell(row, col++).string(ie['ie type and reference']).style(styleBorderTop);
                     break;
                 }
                 case 'semantics description': {
-                    ws.cell(row, col++).string(msgIeDefinitionElem['semantics description']).style(styleBorderTop);
+                    ws.cell(row, col++).string(ie['semantics description']).style(styleBorderTop);
                     break;
                 }
                 case 'criticality': {
-                    var criticality = msgIeDefinitionElem.criticality || '';
+                    var criticality = ie.criticality || '';
                     ws.cell(row, col++).string(criticality).style(styleBorderTop);
                     break;
                 }
                 case 'assigned criticality': {
-                    var assignedCriticality = msgIeDefinitionElem['assigned criticiality'] || '';
+                    var assignedCriticality = ie['assigned criticiality'] || '';
                     ws.cell(row, col++).string(assignedCriticality).style(styleBorderTop);
                     break;
                 }

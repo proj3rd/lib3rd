@@ -46,8 +46,8 @@ function prepareExpansionStack(msgIeDefinition: IMsgIeDefinition, definitions: I
     }
     stackTraversed.push(definitionTreeNode);
 
-    definitionTreeNode.content.ies.forEach((definitionElem) => {
-      const reference = getReference(definitionElem['ie type and reference']);
+    definitionTreeNode.content.ies.forEach((ie) => {
+      const reference = getReference(ie['ie type and reference']);
       if (!reference || (reference in definitionsExpanded) || !(reference in definitions)) {
         return;
       }

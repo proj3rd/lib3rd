@@ -1,7 +1,7 @@
 import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
-import { IConditionDefinitionElem, IDefinitions, IMsgIeDefinitionElem, IRangeDefinitionElem } from './interfaces';
+import { IConditionDefinitionElem, IDefinitions, IIe, IRangeDefinitionElem } from './interfaces';
 
 interface ISectionInfo {
   sectionNumber: string;
@@ -35,7 +35,7 @@ export function parse(html: string): IDefinitions {
   let sectionTitle: string = null;
   let description: string = null;
   let direction: string = null;
-  let ies: IMsgIeDefinitionElem[] = null;
+  let ies: IIe[] = null;
   let rangeDefinition: IRangeDefinitionElem[] = null;
   let conditionDefinition: IConditionDefinitionElem[] = null;
 
@@ -138,31 +138,31 @@ function isMsgIeTable(selector: Cheerio): boolean {
 
 function parseTable(selector: Cheerio, tableHeader: string[]): any[] {
   const trs = selector.find('tr').slice(1);
-  const definition = trs.map((indexTr, tr) => {
-    const definitionElem: any = {};
+  const ies = trs.map((indexTr, tr) => {
+    const ie: any = {};
     $(tr).find('td').each((indexTd, td): void => {
       const key = tableHeader[indexTd];
       if (!key) {
         return;
       }
-      definitionElem[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
+      ie[key] = normalizeWhitespace($(htmlToText($(td).html())).text());
     });
-    return definitionElem;
+    return ie;
   }).get();
-  return definition;
+  return ies;
 }
 
-function parseMsgIeTable(selector: Cheerio): IMsgIeDefinitionElem[] {
-  const msgIeDefinition = parseTable(selector, msgIeTableHeader);
+function parseMsgIeTable(selector: Cheerio): IIe[] {
+  const ies = parseTable(selector, msgIeTableHeader);
   let depthMin = Infinity;
-  msgIeDefinition.forEach((msgIeDefinitionElem: IMsgIeDefinitionElem) => {
-    msgIeDefinitionElem.depth = elemDepth(msgIeDefinitionElem);
-    depthMin = Math.min(depthMin, msgIeDefinitionElem.depth);
+  ies.forEach((ie: IIe) => {
+    ie.depth = elemDepth(ie);
+    depthMin = Math.min(depthMin, ie.depth);
   });
-  msgIeDefinition.forEach((msgIeDefinitionElem: IMsgIeDefinitionElem) => {
-    msgIeDefinitionElem.depth -= depthMin;
+  ies.forEach((ie: IIe) => {
+    ie.depth -= depthMin;
   });
-  return msgIeDefinition;
+  return ies;
 }
 
 function isRangeTable(selector: Cheerio): boolean {
@@ -203,8 +203,8 @@ function htmlToText(html: string): string {
               .replace(/<sub>\s*?(.+?)\s*?<\/sub>/g , '_($1)');
 }
 
-function elemDepth(msgIeDefinitionElem: IMsgIeDefinitionElem): number {
-  const matchDepth = msgIeDefinitionElem['ie/group name'].match(reDepth);
+function elemDepth(ie: IIe): number {
+  const matchDepth = ie['ie/group name'].match(reDepth);
   if (matchDepth) {
     return matchDepth[0].length;
   }

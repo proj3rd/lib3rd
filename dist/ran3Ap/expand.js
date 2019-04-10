@@ -34,8 +34,8 @@ function prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded
             stackTraversed.splice(indexTraversed, 1);
         }
         stackTraversed.push(definitionTreeNode);
-        definitionTreeNode.content.ies.forEach(function (definitionElem) {
-            var reference = getReference(definitionElem['ie type and reference']);
+        definitionTreeNode.content.ies.forEach(function (ie) {
+            var reference = getReference(ie['ie type and reference']);
             if (!reference || (reference in definitionsExpanded) || !(reference in definitions)) {
                 return;
             }
