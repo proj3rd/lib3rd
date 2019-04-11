@@ -214,6 +214,9 @@ function fillDefinition(ies: IIe[], ws: any, row: number, col: number, depthMax:
       if (index === formatConfig.order.length - 1) {
         ws.cell(row, col).style(styleBorderLeft);
       }
+      if (ie.depth > 0) {
+        ws.row(row).group(Math.min(ie.depth, 7));
+      }
     });
     row++;
     col = 1;
