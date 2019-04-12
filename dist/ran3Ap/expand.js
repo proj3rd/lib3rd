@@ -62,18 +62,17 @@ function expandStack(stackUnexpanded, definitionsExpanded) {
         var section = msgIeDefinition.section, ies = msgIeDefinition.ies;
         // ies length may not be constant. So not using for-of
         // tslint:disable-next-line:prefer-for-of
-        for (var i = 0; i < ies.length; i++) {
+        for (var i = ies.length - 1; i >= 0; i--) {
             var reference = getReference(ies[i]['ie type and reference']);
             if (!reference || !(reference in definitionsExpanded)) {
                 continue;
             }
-            var depth = ies[i++].depth;
+            var depth = ies[i].depth;
             var subIes = definitionsExpanded[reference].ies;
-            ies.splice.apply(ies, [i, 0].concat((_.cloneDeep(subIes))));
+            ies.splice.apply(ies, [i + 1, 0].concat((_.cloneDeep(subIes))));
             for (var j = 0; j < subIes.length; j++) {
-                ies[i + j].depth += depth + 1;
+                ies[i + j + 1].depth += depth + 1;
             }
-            i += subIes.length;
         }
         definitionsExpanded[section] = msgIeDefinition;
     }
