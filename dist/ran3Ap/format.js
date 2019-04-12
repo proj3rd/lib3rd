@@ -210,14 +210,13 @@ if (require.main === module) {
         var definitions = parse_1.parse(html);
         var msgIeDefinitions = null;
         var wb = null;
-        var outFileName = null;
+        var outFileName = fileName.name;
         if (msgIeName_1 === 'all') {
             msgIeDefinitions = Object.keys(definitions).filter(function (key) {
                 return typeof definitions[key] !== 'string';
             }).map(function (sectionNumber) {
                 return definitions[sectionNumber];
             });
-            outFileName = fileName.name + ".xlsx";
         }
         else {
             if (!(msgIeName_1 in definitions)) {
@@ -225,15 +224,16 @@ if (require.main === module) {
             }
             var sectionNumber = definitions[msgIeName_1];
             msgIeDefinitions = [definitions[sectionNumber]];
-            outFileName = fileName.name + " " + msgIeName_1 + ".xlsx";
+            outFileName += " " + msgIeName_1;
         }
         if (needExpansion_1 === 'expand') {
             var definitionsExpanded = {};
             for (var i = 0; i < msgIeDefinitions.length; i++) {
                 msgIeDefinitions[i] = expand_1.expand(msgIeDefinitions[i], definitions, definitionsExpanded);
             }
+            outFileName += " (expanded)";
         }
         wb = format(msgIeDefinitions);
-        wb.write(outFileName);
+        wb.write(outFileName + ".xlsx");
     });
 }

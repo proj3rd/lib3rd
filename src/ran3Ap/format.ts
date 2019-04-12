@@ -264,29 +264,29 @@ if (require.main === module) {
     const definitions = parse(html);
     let msgIeDefinitions: IMsgIeDefinition[] = null;
     let wb = null;
-    let outFileName: string = null;
+    let outFileName: string = fileName.name;
     if (msgIeName === 'all') {
       msgIeDefinitions = Object.keys(definitions).filter((key) => {
         return typeof definitions[key] !== 'string';
       }).map((sectionNumber) => {
         return definitions[sectionNumber] as IMsgIeDefinition;
       });
-      outFileName = `${fileName.name}.xlsx`;
     } else {
       if (!(msgIeName in definitions)) {
         throw Error(`Definition for a given name ${msgIeName} is not found`);
       }
       const sectionNumber  = definitions[msgIeName] as string;
       msgIeDefinitions = [definitions[sectionNumber] as IMsgIeDefinition];
-      outFileName = `${fileName.name} ${msgIeName}.xlsx`;
+      outFileName += ` ${msgIeName}`;
     }
     if (needExpansion === 'expand') {
       const definitionsExpanded = {};
       for (let i = 0; i < msgIeDefinitions.length; i++) {
         msgIeDefinitions[i] = expand(msgIeDefinitions[i], definitions, definitionsExpanded);
       }
+      outFileName += ` (expanded)`;
     }
     wb = format(msgIeDefinitions);
-    wb.write(outFileName);
+    wb.write(`${outFileName}.xlsx`);
   });
 }
