@@ -13,6 +13,9 @@ var rangeTableHeader = [
 var conditionTableHeader = [
     'condition', 'explanation',
 ];
+// In case of section information is not contained in heading tag (h1-h6)
+// Supports form of X.Y.Z and X.Y.Za
+var reSection = /^\d+(\.\d+)*?\.\d+\w?\s+?.+$/;
 var reDepth = /^>+/;
 /**
  * Parse RAN3 AP messages and IEs
@@ -33,7 +36,7 @@ function parse(html) {
     while (stack.length) {
         var selector = stack.pop();
         var elem = selector[0];
-        if (isTagHeading(elem)) {
+        if (containsSection(selector)) {
             if (ies) {
                 definitions[sectionNumber] = {
                     section: sectionNumber,
@@ -85,8 +88,19 @@ exports.parse = parse;
 function isTag(elem) {
     return elem.type === 'tag';
 }
-function isTagHeading(elem) {
-    return isTag(elem) && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1;
+function containsSection(selector) {
+    var elem = selector[0];
+    if (isTag(elem)) {
+        if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1) {
+            return true;
+        }
+        var text = normalizeWhitespace(selector.text());
+        if (text.match(reSection)) {
+            logging_1.log.debug("Section info in non-heading: " + text.substring(0, 32) + "...");
+            return true;
+        }
+    }
+    return false;
 }
 function isTagTable(elem) {
     return isTag(elem) && elem.name === 'table';
