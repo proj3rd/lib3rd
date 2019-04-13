@@ -2,6 +2,7 @@ import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
 import { log } from '../utils/logging';
+import { reSection } from './common';
 import { IConditionDefinitionElem, IDefinitions, IIe, IRangeDefinitionElem } from './interfaces';
 
 interface ISectionInfo {
@@ -22,9 +23,6 @@ const conditionTableHeader = [
   'condition', 'explanation',
 ];
 
-// In case of section information is not contained in heading tag (h1-h6)
-// Supports form of X.Y.Z and X.Y.Za
-const reSection = /^\d+(\.\d+)*?\.\d+\w?\s+?.+$/;
 const reDepth = /^>+/;
 
 /**

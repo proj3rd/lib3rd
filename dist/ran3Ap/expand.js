@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var _ = require("lodash");
-var reReference = /\d+(\.\d+)+/;
+var common_1 = require("./common");
 /**
  * Expand references in definition of message or IE
  * @param msgIeDefinition Message or IE definition object to be expanded
@@ -78,7 +78,7 @@ function expandStack(stackUnexpanded, definitionsExpanded) {
     }
 }
 function getReference(text) {
-    var matchReference = text.match(reReference);
+    var matchReference = text.match(common_1.reReference);
     if (!matchReference) {
         return null;
     }

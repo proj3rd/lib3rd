@@ -1,13 +1,12 @@
 import * as _ from 'lodash';
 
+import { reReference } from './common';
 import { IDefinitions, IMsgIeDefinition } from './interfaces';
 
 interface IDefinitionTreeNode {
   content: IMsgIeDefinition;
   level: number;
 }
-
-const reReference = /\d+(\.\d+)+/;
 
 /**
  * Expand references in definition of message or IE

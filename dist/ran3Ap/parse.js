@@ -3,6 +3,7 @@ exports.__esModule = true;
 var $ = require("cheerio");
 var fs_1 = require("fs");
 var logging_1 = require("../utils/logging");
+var common_1 = require("./common");
 var msgIeTableHeader = [
     'ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
     'criticality', 'assigned criticiality',
@@ -13,9 +14,6 @@ var rangeTableHeader = [
 var conditionTableHeader = [
     'condition', 'explanation',
 ];
-// In case of section information is not contained in heading tag (h1-h6)
-// Supports form of X.Y.Z and X.Y.Za
-var reSection = /^\d+(\.\d+)*?\.\d+\w?\s+?.+$/;
 var reDepth = /^>+/;
 /**
  * Parse RAN3 AP messages and IEs
@@ -95,7 +93,7 @@ function containsSection(selector) {
             return true;
         }
         var text = normalizeWhitespace(selector.text());
-        if (text.match(reSection)) {
+        if (text.match(common_1.reSection)) {
             logging_1.log.debug("Section info in non-heading: " + text.substring(0, 32) + "...");
             return true;
         }
