@@ -2,6 +2,7 @@
 exports.__esModule = true;
 var $ = require("cheerio");
 var fs_1 = require("fs");
+var logging_1 = require("../utils/logging");
 var msgIeTableHeader = [
     'ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
     'criticality', 'assigned criticiality',
@@ -44,6 +45,7 @@ function parse(html) {
                     condition: conditionDefinition
                 };
                 definitions[sectionTitle] = sectionNumber;
+                logging_1.log.debug("Item stored: " + sectionNumber + " " + sectionTitle);
             }
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
             description = null;

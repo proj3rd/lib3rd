@@ -1,6 +1,7 @@
 import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
+import { log } from '../utils/logging';
 import { IConditionDefinitionElem, IDefinitions, IIe, IRangeDefinitionElem } from './interfaces';
 
 interface ISectionInfo {
@@ -55,6 +56,7 @@ export function parse(html: string): IDefinitions {
           condition: conditionDefinition,
         };
         definitions[sectionTitle] = sectionNumber;
+        log.debug(`Item stored: ${sectionNumber} ${sectionTitle}`);
       }
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
       description = null;
