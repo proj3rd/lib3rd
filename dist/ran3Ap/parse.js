@@ -23,10 +23,10 @@ var reDepth = /^>+/;
 function parse(html) {
     var _a;
     var definitions = {};
-    var sectionNumber = null;
-    var sectionTitle = null;
-    var description = null;
-    var direction = null;
+    var sectionNumber = '';
+    var sectionTitle = '';
+    var description = '';
+    var direction = '';
     var ies = null;
     var rangeDefinition = null;
     var conditionDefinition = null;
@@ -48,9 +48,12 @@ function parse(html) {
                 definitions[sectionTitle] = sectionNumber;
                 logging_1.log.debug("Item stored: " + sectionNumber + " " + sectionTitle);
             }
+            else {
+                logging_1.log.debug("Item discarded: " + sectionNumber + " " + sectionTitle.substring(0, 32) + "...");
+            }
             (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
-            description = null;
-            direction = null;
+            description = '';
+            direction = '';
             ies = null;
             rangeDefinition = null;
             conditionDefinition = null;
@@ -109,8 +112,8 @@ function isTagP(elem) {
 function sectionInformation(selector) {
     var sectionHeading = normalizeWhitespace(selector.text());
     var indexDelimiter = sectionHeading.indexOf(' ');
-    var sectionNumber = sectionHeading.substring(0, indexDelimiter);
-    var sectionTitle = sectionHeading.substring(indexDelimiter + 1);
+    var sectionNumber = sectionHeading.substring(0, indexDelimiter) || '';
+    var sectionTitle = sectionHeading.substring(indexDelimiter + 1) || '';
     return { sectionNumber: sectionNumber, sectionTitle: sectionTitle };
 }
 function containsDirection(selector) {

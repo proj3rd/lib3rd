@@ -33,10 +33,10 @@ const reDepth = /^>+/;
 export function parse(html: string): IDefinitions {
   const definitions: IDefinitions = {};
 
-  let sectionNumber: string = null;
-  let sectionTitle: string = null;
-  let description: string = null;
-  let direction: string = null;
+  let sectionNumber: string = '';
+  let sectionTitle: string = '';
+  let description: string = '';
+  let direction: string = '';
   let ies: IIe[] = null;
   let rangeDefinition: IRangeDefinitionElem[] = null;
   let conditionDefinition: IConditionDefinitionElem[] = null;
@@ -58,10 +58,12 @@ export function parse(html: string): IDefinitions {
         };
         definitions[sectionTitle] = sectionNumber;
         log.debug(`Item stored: ${sectionNumber} ${sectionTitle}`);
+      } else {
+        log.debug(`Item discarded: ${sectionNumber} ${sectionTitle.substring(0, 32)}...`);
       }
       ({sectionNumber, sectionTitle} = sectionInformation(selector));
-      description = null;
-      direction = null;
+      description = '';
+      direction = '';
       ies = null;
       rangeDefinition = null;
       conditionDefinition = null;
@@ -124,8 +126,8 @@ function isTagP(elem: CheerioElement): boolean {
 function sectionInformation(selector: Cheerio): ISectionInfo {
   const sectionHeading = normalizeWhitespace(selector.text());
   const indexDelimiter = sectionHeading.indexOf(' ');
-  const sectionNumber = sectionHeading.substring(0, indexDelimiter);
-  const sectionTitle = sectionHeading.substring(indexDelimiter + 1);
+  const sectionNumber = sectionHeading.substring(0, indexDelimiter) || '';
+  const sectionTitle = sectionHeading.substring(indexDelimiter + 1) || '';
   return {sectionNumber, sectionTitle};
 }
 
