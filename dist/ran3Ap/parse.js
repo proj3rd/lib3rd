@@ -95,7 +95,10 @@ function containsSection(selector) {
         if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1) {
             return true;
         }
-        var text = normalizeWhitespace(selector.text());
+        // Do not use normalizeWhitespace() here
+        // Because it removes newline character and concatenates all root and children text
+        // So it leads incorrect parse result
+        var text = selector.text();
         if (text.match(common_1.reSection)) {
             logging_1.log.debug("Section info in non-heading: " + text.substring(0, 32) + "...");
             return true;

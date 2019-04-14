@@ -106,7 +106,10 @@ function containsSection(selector: Cheerio): boolean {
     if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1) {
       return true;
     }
-    const text = normalizeWhitespace(selector.text());
+    // Do not use normalizeWhitespace() here
+    // Because it removes newline character and concatenates all root and children text
+    // So it leads incorrect parse result
+    const text = selector.text();
     if (text.match(reSection)) {
       log.debug(`Section info in non-heading: ${text.substring(0, 32)}...`);
       return true;
