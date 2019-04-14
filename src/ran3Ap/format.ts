@@ -3,8 +3,8 @@ import { parse as parsePath } from 'path';
 
 import * as xl from 'excel4node';
 
+import { IConditionDefinitionElem, IIe, IMsgIeDefinition, IRangeDefinitionElem } from './common';
 import { expand } from './expand';
-import { IConditionDefinitionElem, IIe, IMsgIeDefinition, IRangeDefinitionElem } from './interfaces';
 import { parse } from './parse';
 
 type fieldType = 'ie/group name' | 'presence' | 'range' | 'ie type and reference' | 'semantics description' |

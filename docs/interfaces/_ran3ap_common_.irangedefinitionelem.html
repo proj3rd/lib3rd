@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IIe | third-gen</title>
+	<title>IRangeDefinitionElem | third-gen</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_ran3ap_interfaces_.html">&quot;ran3Ap/interfaces&quot;</a>
+					<a href="../modules/_ran3ap_common_.html">&quot;ran3Ap/common&quot;</a>
 				</li>
 				<li>
-					<a href="_ran3ap_interfaces_.iie.html">IIe</a>
+					<a href="_ran3ap_common_.irangedefinitionelem.html">IRangeDefinitionElem</a>
 				</li>
 			</ul>
-			<h1>Interface IIe</h1>
+			<h1>Interface IRangeDefinitionElem</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Definition of a sub IE</p>
+						<p>Definition of a single range bound</p>
 					</div>
 				</div>
 			</section>
@@ -78,7 +78,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IIe</span>
+						<span class="target">IRangeDefinitionElem</span>
 					</li>
 				</ul>
 			</section>
@@ -89,14 +89,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_interfaces_.iie.html#assigned_criticiality" class="tsd-kind-icon">assigned criticiality</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_interfaces_.iie.html#criticality" class="tsd-kind-icon">criticality</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_interfaces_.iie.html#depth" class="tsd-kind-icon">depth</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_interfaces_.iie.html#ie_type_and_reference" class="tsd-kind-icon">ie type and reference</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_interfaces_.iie.html#ie_group_name" class="tsd-kind-icon">ie/group name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_interfaces_.iie.html#presence" class="tsd-kind-icon">presence</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_interfaces_.iie.html#range" class="tsd-kind-icon">range</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_interfaces_.iie.html#semantics_description" class="tsd-kind-icon">semantics description</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_common_.irangedefinitionelem.html#explanation" class="tsd-kind-icon">explanation</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_ran3ap_common_.irangedefinitionelem.html#range_bound" class="tsd-kind-icon">range bound</a></li>
 							</ul>
 						</section>
 					</div>
@@ -105,89 +99,29 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="assigned_criticiality" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> assigned criticiality</h3>
-					<div class="tsd-signature tsd-kind-icon">assigned criticiality<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="explanation" class="tsd-anchor"></a>
+					<h3>explanation</h3>
+					<div class="tsd-signature tsd-kind-icon">explanation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/29c1802/src/ran3Ap/interfaces.ts#L54">ran3Ap/interfaces.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/3e3759b/src/ran3Ap/common.ts#L65">ran3Ap/common.ts:65</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="criticality" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> criticality</h3>
-					<div class="tsd-signature tsd-kind-icon">criticality<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="range_bound" class="tsd-anchor"></a>
+					<h3>range bound</h3>
+					<div class="tsd-signature tsd-kind-icon">range bound<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/29c1802/src/ran3Ap/interfaces.ts#L53">ran3Ap/interfaces.ts:53</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="depth" class="tsd-anchor"></a>
-					<h3>depth</h3>
-					<div class="tsd-signature tsd-kind-icon">depth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/29c1802/src/ran3Ap/interfaces.ts#L58">ran3Ap/interfaces.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/3e3759b/src/ran3Ap/common.ts#L64">ran3Ap/common.ts:64</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Depth of a sub IE. Corresponds to the number of <code>&gt;</code> in a spec table, e.g. <code>&gt;&gt;&gt; PDCP Count</code> indicates depth of 3</p>
+							<p>Name of range bound</p>
 						</div>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ie_type_and_reference" class="tsd-anchor"></a>
-					<h3>ie type and reference</h3>
-					<div class="tsd-signature tsd-kind-icon">ie type and reference<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/29c1802/src/ran3Ap/interfaces.ts#L51">ran3Ap/interfaces.ts:51</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ie_group_name" class="tsd-anchor"></a>
-					<h3>ie/group name</h3>
-					<div class="tsd-signature tsd-kind-icon">ie/group name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/29c1802/src/ran3Ap/interfaces.ts#L48">ran3Ap/interfaces.ts:48</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="presence" class="tsd-anchor"></a>
-					<h3>presence</h3>
-					<div class="tsd-signature tsd-kind-icon">presence<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/29c1802/src/ran3Ap/interfaces.ts#L49">ran3Ap/interfaces.ts:49</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="range" class="tsd-anchor"></a>
-					<h3>range</h3>
-					<div class="tsd-signature tsd-kind-icon">range<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/29c1802/src/ran3Ap/interfaces.ts#L50">ran3Ap/interfaces.ts:50</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="semantics_description" class="tsd-anchor"></a>
-					<h3>semantics description</h3>
-					<div class="tsd-signature tsd-kind-icon">semantics description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/29c1802/src/ran3Ap/interfaces.ts#L52">ran3Ap/interfaces.ts:52</a></li>
-						</ul>
-					</aside>
 				</section>
 			</section>
 		</div>
@@ -203,14 +137,14 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_asn1_parse_.html">"asn1/parse"</a>
 					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_ran3ap_common_.html">"ran3<wbr>Ap/common"</a>
+					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_ran3ap_expand_.html">"ran3<wbr>Ap/expand"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_ran3ap_format_.html">"ran3<wbr>Ap/format"</a>
-					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_ran3ap_interfaces_.html">"ran3<wbr>Ap/interfaces"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_ran3ap_parse_.html">"ran3<wbr>Ap/parse"</a>
@@ -235,49 +169,37 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_ran3ap_interfaces_.iconditiondefinitionelem.html" class="tsd-kind-icon">ICondition<wbr>Definition<wbr>Elem</a>
+						<a href="_ran3ap_common_.iconditiondefinitionelem.html" class="tsd-kind-icon">ICondition<wbr>Definition<wbr>Elem</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_ran3ap_interfaces_.idefinitions.html" class="tsd-kind-icon">IDefinitions</a>
+						<a href="_ran3ap_common_.idefinitions.html" class="tsd-kind-icon">IDefinitions</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_ran3ap_common_.iie.html" class="tsd-kind-icon">IIe</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_ran3ap_common_.imsgiedefinition.html" class="tsd-kind-icon">IMsg<wbr>IeDefinition</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_ran3ap_interfaces_.iie.html" class="tsd-kind-icon">IIe</a>
+						<a href="_ran3ap_common_.irangedefinitionelem.html" class="tsd-kind-icon">IRange<wbr>Definition<wbr>Elem</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_ran3ap_interfaces_.iie.html#assigned_criticiality" class="tsd-kind-icon">assigned criticiality</a>
+								<a href="_ran3ap_common_.irangedefinitionelem.html#explanation" class="tsd-kind-icon">explanation</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_ran3ap_interfaces_.iie.html#criticality" class="tsd-kind-icon">criticality</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_ran3ap_interfaces_.iie.html#depth" class="tsd-kind-icon">depth</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_ran3ap_interfaces_.iie.html#ie_type_and_reference" class="tsd-kind-icon">ie type and reference</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_ran3ap_interfaces_.iie.html#ie_group_name" class="tsd-kind-icon">ie/group name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_ran3ap_interfaces_.iie.html#presence" class="tsd-kind-icon">presence</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_ran3ap_interfaces_.iie.html#range" class="tsd-kind-icon">range</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_ran3ap_interfaces_.iie.html#semantics_description" class="tsd-kind-icon">semantics description</a>
+								<a href="_ran3ap_common_.irangedefinitionelem.html#range_bound" class="tsd-kind-icon">range bound</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_ran3ap_interfaces_.imsgiedefinition.html" class="tsd-kind-icon">IMsg<wbr>IeDefinition</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_ran3ap_common_.html#rereference" class="tsd-kind-icon">re<wbr>Reference</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_ran3ap_interfaces_.irangedefinitionelem.html" class="tsd-kind-icon">IRange<wbr>Definition<wbr>Elem</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_ran3ap_common_.html#resection" class="tsd-kind-icon">re<wbr>Section</a>
 					</li>
 				</ul>
 			</nav>

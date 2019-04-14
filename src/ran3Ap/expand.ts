@@ -1,7 +1,6 @@
 import * as _ from 'lodash';
 
-import { reReference } from './common';
-import { IDefinitions, IMsgIeDefinition } from './interfaces';
+import { IDefinitions, IMsgIeDefinition, reReference } from './common';
 
 interface IDefinitionTreeNode {
   content: IMsgIeDefinition;

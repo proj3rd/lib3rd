@@ -64,6 +64,44 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_utils_logging_.html#log" class="tsd-kind-icon">log</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
+					<a name="log" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> log</h3>
+					<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DefaultLogger</span><span class="tsd-signature-symbol"> =&nbsp;loglevel</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/3e3759b/src/utils/logging.ts#L27">utils/logging.ts:27</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>It enables logging with loglevel package
+							Other modules can log after importing this module</p>
+							<pre><code><span class="hljs-keyword">import</span> { <span class="hljs-keyword">log</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'logging'</span>;
+<span class="hljs-keyword">log</span>.<span class="hljs-keyword">debug</span>(<span class="hljs-string">'Debug message'</span>);</code></pre><p>You can configure environment variable <code>loglevel</code></p>
+							<ul>
+								<li>Windows<pre><code>&gt; <span class="hljs-builtin-name">set</span> <span class="hljs-attribute">loglevel</span>=debug &amp;&amp; node <span class="hljs-built_in">..</span>.</code></pre></li>
+								<li>Linux/Mac<pre><code>$ <span class="hljs-attr">loglevel=</span>debug <span class="hljs-keyword">node</span> <span class="hljs-title">...</span></code></pre></li>
+							</ul>
+						</div>
+					</div>
+				</section>
+			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
@@ -78,13 +116,13 @@
 						<a href="_asn1_parse_.html">"asn1/parse"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="_ran3ap_common_.html">"ran3<wbr>Ap/common"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="_ran3ap_expand_.html">"ran3<wbr>Ap/expand"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_ran3ap_format_.html">"ran3<wbr>Ap/format"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_ran3ap_interfaces_.html">"ran3<wbr>Ap/interfaces"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_ran3ap_parse_.html">"ran3<wbr>Ap/parse"</a>
@@ -108,6 +146,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="_utils_logging_.html#log" class="tsd-kind-icon">log</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

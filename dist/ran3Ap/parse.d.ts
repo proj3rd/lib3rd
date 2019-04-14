@@ -1,4 +1,4 @@
-import { IDefinitions } from './interfaces';
+import { IDefinitions } from './common';
 /**
  * Parse RAN3 AP messages and IEs
  * @param html RAN3 AP document in HTML format encoded in UTF-8

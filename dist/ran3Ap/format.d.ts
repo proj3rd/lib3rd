@@ -1,4 +1,4 @@
-import { IMsgIeDefinition } from './interfaces';
+import { IMsgIeDefinition } from './common';
 declare type fieldType = 'ie/group name' | 'presence' | 'range' | 'ie type and reference' | 'semantics description' | 'criticality' | 'assigned criticality';
 /**
  * Configuration structure for formatting

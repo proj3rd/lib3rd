@@ -1,4 +1,4 @@
-import { IDefinitions, IMsgIeDefinition } from './interfaces';
+import { IDefinitions, IMsgIeDefinition } from './common';
 /**
  * Expand references in definition of message or IE
  * @param msgIeDefinition Message or IE definition object to be expanded

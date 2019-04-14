@@ -2,8 +2,7 @@ import * as $ from 'cheerio';
 import { readFile } from 'fs';
 
 import { log } from '../utils/logging';
-import { reSection } from './common';
-import { IConditionDefinitionElem, IDefinitions, IIe, IRangeDefinitionElem } from './interfaces';
+import { IConditionDefinitionElem, IDefinitions, IIe, IRangeDefinitionElem, reSection } from './common';
 
 interface ISectionInfo {
   sectionNumber: string;
