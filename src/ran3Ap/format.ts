@@ -280,9 +280,11 @@ if (require.main === module) {
       outFileName += ` ${msgIeName}`;
     }
     if (needExpansion === 'expand') {
-      const definitionsExpanded = {};
+      let definitionsExpanded = {};
+      // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < msgIeDefinitions.length; i++) {
-        msgIeDefinitions[i] = expand(msgIeDefinitions[i], definitions, definitionsExpanded);
+        ({msgIeDefinition: msgIeDefinitions[i], definitionsExpanded} =
+          expand(msgIeDefinitions[i], definitions, definitionsExpanded));
       }
       outFileName += ` (expanded)`;
     }

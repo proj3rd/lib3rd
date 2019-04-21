@@ -7,15 +7,20 @@ var common_1 = require("./common");
  * @param msgIeDefinition Message or IE definition object to be expanded
  * @param definitions Collection of messages and/or IEs to be referenced
  * @param definitionsExpanded Collection of already expanded messages and/or IEs to be merged
+ * @returns Returns expanded definition and collection of expanded definitions
+ * `{msgIeDefinition: IMsgIeDefinition, definitionsExpanded: IDefinitions}`
  */
 function expand(msgIeDefinition, definitions, definitionsExpanded) {
     var section = msgIeDefinition.section;
     if (section in definitionsExpanded) {
-        return definitionsExpanded[msgIeDefinition.section];
+        return { msgIeDefinition: definitionsExpanded[msgIeDefinition.section],
+            definitionsExpanded: definitionsExpanded };
     }
-    var stackUnexpanded = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded);
-    expandStack(stackUnexpanded, definitionsExpanded);
-    return definitionsExpanded[section];
+    var definitionsExpandedClone = _.cloneDeep(definitionsExpanded);
+    var stackUnexpanded = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpandedClone);
+    expandStack(stackUnexpanded, definitionsExpandedClone);
+    return { msgIeDefinition: definitionsExpandedClone[section],
+        definitionsExpanded: definitionsExpandedClone };
 }
 exports.expand = expand;
 function prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded) {

@@ -203,6 +203,7 @@ if (require.main === module) {
         throw Error('Requires 2 or 3 arguments, filePath, msgIeName and expand');
     }
     fs_1.readFile(filePath_1, 'utf8', function (err, html) {
+        var _a;
         if (err) {
             throw err;
         }
@@ -228,8 +229,9 @@ if (require.main === module) {
         }
         if (needExpansion_1 === 'expand') {
             var definitionsExpanded = {};
+            // tslint:disable-next-line: prefer-for-of
             for (var i = 0; i < msgIeDefinitions.length; i++) {
-                msgIeDefinitions[i] = expand_1.expand(msgIeDefinitions[i], definitions, definitionsExpanded);
+                (_a = expand_1.expand(msgIeDefinitions[i], definitions, definitionsExpanded), msgIeDefinitions[i] = _a.msgIeDefinition, definitionsExpanded = _a.definitionsExpanded);
             }
             outFileName += " (expanded)";
         }

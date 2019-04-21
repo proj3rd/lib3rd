@@ -12,16 +12,22 @@ interface IDefinitionTreeNode {
  * @param msgIeDefinition Message or IE definition object to be expanded
  * @param definitions Collection of messages and/or IEs to be referenced
  * @param definitionsExpanded Collection of already expanded messages and/or IEs to be merged
+ * @returns Returns expanded definition and collection of expanded definitions
+ * `{msgIeDefinition: IMsgIeDefinition, definitionsExpanded: IDefinitions}`
  */
 export function expand(msgIeDefinition: IMsgIeDefinition, definitions: IDefinitions,
-                       definitionsExpanded: IDefinitions): IMsgIeDefinition {
+                       definitionsExpanded: IDefinitions):
+                       {msgIeDefinition: IMsgIeDefinition, definitionsExpanded: IDefinitions} {
   const section = msgIeDefinition.section;
   if (section in definitionsExpanded) {
-    return definitionsExpanded[msgIeDefinition.section] as IMsgIeDefinition;
+    return {msgIeDefinition: definitionsExpanded[msgIeDefinition.section] as IMsgIeDefinition,
+            definitionsExpanded};
   }
-  const stackUnexpanded = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded);
-  expandStack(stackUnexpanded, definitionsExpanded);
-  return definitionsExpanded[section] as IMsgIeDefinition;
+  const definitionsExpandedClone = _.cloneDeep(definitionsExpanded);
+  const stackUnexpanded = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpandedClone);
+  expandStack(stackUnexpanded, definitionsExpandedClone);
+  return {msgIeDefinition: definitionsExpandedClone[section] as IMsgIeDefinition,
+          definitionsExpanded: definitionsExpandedClone};
 }
 
 function prepareExpansionStack(msgIeDefinition: IMsgIeDefinition, definitions: IDefinitions,
