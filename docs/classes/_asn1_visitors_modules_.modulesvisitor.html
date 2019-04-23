@@ -3,17 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>third-gen</title>
+	<title>ModulesVisitor | third-gen</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
 <header>
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">third-gen</a>
+					<a href="../index.html" class="title">third-gen</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -51,87 +51,142 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="globals.html">Globals</a>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_asn1_visitors_modules_.html">&quot;asn1/visitors/modules&quot;</a>
+				</li>
+				<li>
+					<a href="_asn1_visitors_modules_.modulesvisitor.html">ModulesVisitor</a>
 				</li>
 			</ul>
-			<h1> third-gen</h1>
+			<h1>Class ModulesVisitor</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<h1 id="3gpp">3GPP</h1>
-				<p>Tools to improve productivity for designing cellular network</p>
-				<ul>
-					<li><a href="#api">API</a></li>
-					<li><a href="#cli">CLI</a><ul>
-							<li><a href="#extract-asn1">Extract ASN.1</a></li>
-							<li><a href="#format-ran3-ap-messagesies">Format RAN3 AP Messages/IEs</a></li>
-						</ul>
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>ANTLR4 grammar</p>
+						<pre><code><span class="hljs-symbol">modules:</span> moduleDefinition+<span class="hljs-comment">;</span></code></pre>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">ModulesVisitor</span>
 					</li>
 				</ul>
-				<h2 id="api">API</h2>
-				<p>See <a href="https://gsongsong.github.io/3gpp">https://gsongsong.github.io/3gpp</a></p>
-				<h2 id="cli">CLI</h2>
-				<h3 id="extract-asn-1">Extract ASN.1</h3>
-				<pre><code class="language-sh">node dist/asn1/extract.js &lt;protocol&gt; &lt;text file&gt;</code></pre>
-				<p>Extracts ASN.1 from <code>&lt;text file&gt;</code> and prints to the standard output. Currenlty only <code>RRC</code> protocol is supported</p>
-				<h3 id="format-ran3-ap-messages-ies">Format RAN3 AP Messages/IEs</h3>
-				<pre><code class="language-sh">node dist/ran3Ap/format.js &lt;html file&gt; &lt;msg/IE name&gt; &lt;expand&gt;</code></pre>
-				<p>Reads a RAN3 AP document from <code>&lt;html file&gt;</code>, generates an Excel worksheet for a given <code>&lt;msg/IE name&gt;</code> and stores it into a filesystem. If  <code>&lt;msg/IE name&gt;</code> is  <code>all</code>, it generates worksheets for all messages and IEs. If <code>&lt;needExpand&gt;</code> is <code>expand</code>, it expands sub IEs.</p>
-			</div>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_visitors_modules_.modulesvisitor.html#visitchildren" class="tsd-kind-icon">visit<wbr>Children</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="visitchildren" class="tsd-anchor"></a>
+					<h3>visit<wbr>Children</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">visit<wbr>Children<span class="tsd-signature-symbol">(</span>modulesCtx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_asn1_visitors_modules_.imodules.html" class="tsd-signature-type">IModules</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/3fd75fa/src/asn1/visitors/modules.ts#L14">asn1/visitors/modules.ts:14</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>modulesCtx: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_asn1_visitors_modules_.imodules.html" class="tsd-signature-type">IModules</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
 					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_asn1_extract_.html">"asn1/extract"</a>
+						<a href="../modules/_asn1_extract_.html">"asn1/extract"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_asn1_parse_.html">"asn1/parse"</a>
+						<a href="../modules/_asn1_parse_.html">"asn1/parse"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_asn1_visitors_moduledefinition_.html">"asn1/visitors/module<wbr>Definition"</a>
+						<a href="../modules/_asn1_visitors_moduledefinition_.html">"asn1/visitors/module<wbr>Definition"</a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_asn1_visitors_modules_.html">"asn1/visitors/modules"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_asn1_visitors_modules_.html">"asn1/visitors/modules"</a>
+						<a href="../modules/_ran3ap_common_.html">"ran3<wbr>Ap/common"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_ran3ap_common_.html">"ran3<wbr>Ap/common"</a>
+						<a href="../modules/_ran3ap_expand_.html">"ran3<wbr>Ap/expand"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_ran3ap_expand_.html">"ran3<wbr>Ap/expand"</a>
+						<a href="../modules/_ran3ap_format_.html">"ran3<wbr>Ap/format"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_ran3ap_format_.html">"ran3<wbr>Ap/format"</a>
+						<a href="../modules/_ran3ap_parse_.html">"ran3<wbr>Ap/parse"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_ran3ap_parse_.html">"ran3<wbr>Ap/parse"</a>
+						<a href="../modules/_utils_logging_.html">"utils/logging"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_logging_.html">"utils/logging"</a>
+						<a href="../modules/_utils_numbering_.html">"utils/numbering"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_numbering_.html">"utils/numbering"</a>
+						<a href="../modules/_utils_text_.html">"utils/text"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_utils_text_.html">"utils/text"</a>
+						<a href="../modules/_web_calendar_.html">"web/calendar"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_web_calendar_.html">"web/calendar"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_web_specs_.html">"web/specs"</a>
+						<a href="../modules/_web_specs_.html">"web/specs"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_asn1_visitors_modules_.modulesvisitor.html" class="tsd-kind-icon">Modules<wbr>Visitor</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_visitors_modules_.modulesvisitor.html#visitchildren" class="tsd-kind-icon">visit<wbr>Children</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_asn1_visitors_modules_.imodules.html" class="tsd-kind-icon">IModules</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -200,7 +255,7 @@
 	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
