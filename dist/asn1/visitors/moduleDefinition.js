@@ -1,5 +1,7 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../../utils/logging");
+var moduleBody_1 = require("./moduleBody");
 /**
  * ANTLR4 grammar
  * ```
@@ -18,9 +20,22 @@ var ModuleDefinitionVisitor = /** @class */ (function () {
     function ModuleDefinitionVisitor() {
     }
     ModuleDefinitionVisitor.prototype.visitChildren = function (moduleDefinitionCtx) {
-        var moduleName = moduleDefinitionCtx.children[0].getText();
-        var definition = {};
-        // TODO
+        var childCtxes = moduleDefinitionCtx.children;
+        var length = childCtxes.length;
+        if (length > 8) {
+            /**
+             * TODO: matches to (L_BRACE (IDENTIFIER L_PARAN NUMBER R_PARAN)* R_BRACE)?
+             * S1AP-PDU-Contents {
+             *   itu-t (0) identified-organization (4) etsi (0) mobileDomain (0)
+             *   eps-Access (21) modules (3) s1ap (1) version1 (1) s1ap-PDU-Contents (1) }
+             * DEFINITIONS AUTOMATIC TAGS ::= ...
+             */
+            logging_1.log.warn('ASN.1 contains DefinitiveIdentification defined in X.680');
+            logging_1.log.warn('This will not be treated in the current version');
+        }
+        var moduleName = childCtxes[0].getText();
+        var moduleBodyCtx = childCtxes[length - 2];
+        var definition = moduleBodyCtx.accept(new moduleBody_1.ModuleBodyVisitor());
         return { moduleName: moduleName, definition: definition };
     };
     return ModuleDefinitionVisitor;

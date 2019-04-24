@@ -12,7 +12,7 @@ export interface IModules {
  */
 export class ModulesVisitor {
   public visitChildren(modulesCtx: any): IModules {
-    const modules = {};
+    const modules: IModules = {};
     for (const moduleDefinitionCtx of modulesCtx.children) {
       const {moduleName, definition} = moduleDefinitionCtx.accept(new ModuleDefinitionVisitor());
       modules[moduleName] = definition;

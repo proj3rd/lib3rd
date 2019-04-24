@@ -1,6 +1,7 @@
+import { IModuleBody } from './moduleBody';
 export interface IModuleDefinition {
     moduleName: string;
-    definition: any;
+    definition: IModuleBody;
 }
 /**
  * ANTLR4 grammar
