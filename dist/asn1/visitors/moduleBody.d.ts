@@ -1,6 +1,7 @@
+import { ISymbolsFromModule } from './symbolsFromModuleList';
 export interface IModuleBody {
-    imports: any;
-    exports: any;
+    exports: string[];
+    imports: ISymbolsFromModule;
     assignments: any;
     constants: any;
 }
