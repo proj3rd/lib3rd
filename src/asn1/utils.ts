@@ -7,6 +7,7 @@ export function getContextName(ctx: any): string {
   return null;
 }
 
-export function warnNotSupportedAsn1(ctx: any): void {
-  log.warn(`Not supported ASN.1:`, ctx.getText().substring(0, 48));
+export function getLogWithAsn1(ctx: any, prefix: string = '', postfix: string = '', length: number = 80): string {
+  const asn1Length = length - prefix.length - postfix.length;
+  return [prefix, ctx.getText().substring(0, asn1Length), postfix].join(' ').trim();
 }

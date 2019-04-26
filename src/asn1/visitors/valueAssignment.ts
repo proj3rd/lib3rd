@@ -1,4 +1,5 @@
-import { getContextName, warnNotSupportedAsn1 } from '../utils';
+import { log } from '../../utils/logging';
+import { getContextName, getLogWithAsn1 } from '../utils';
 
 /**
  * ANTLR4 grammar
@@ -36,19 +37,22 @@ export class ValueAssignmentVisitor {
         return Number(subContext.getText());
       }
       case 'enumeratedValue': {
+        log.warn(getLogWithAsn1(builtinValueCtx, 'EnumeratedValue not supported:'));
         // TODO
-        // break;
+        break;
       }
       case 'choiceValue': {
+        log.warn(getLogWithAsn1(builtinValueCtx, 'ChoiceValue not supported:'));
         // TODO
-        // break;
+        break;
       }
       case 'objectIdentifierValue': {
+        log.warn(getLogWithAsn1(builtinValueCtx, 'ObjectIdentifierValue not supported:'));
         // TODO
-        // break;
+        break;
       }
       default: {
-        warnNotSupportedAsn1(builtinValueCtx);
+        log.warn(getLogWithAsn1(builtinValueCtx, 'Not supported ASN1 in BuiltinValue:'));
       }
     }
   }

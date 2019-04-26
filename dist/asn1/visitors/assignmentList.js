@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var valueAssignment_1 = require("./valueAssignment");
 /**
@@ -36,19 +37,22 @@ var AssignmentListVisitor = /** @class */ (function () {
                     break;
                 }
                 case 'typeAssignment': {
+                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'TypeAssignment not supported:'));
                     // TODO
-                    // break;
+                    break;
                 }
                 case 'parameterizedAssignment': {
+                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'ParameterizedAssignment not supported:'));
                     // TODO
-                    // break;
+                    break;
                 }
                 case 'objectClassAssignment': {
+                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported'));
                     // TODO?
-                    // break;
+                    break;
                 }
                 default: {
-                    utils_1.warnNotSupportedAsn1(assignmentCtx);
+                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'Unsupported ASN1 in Assignment:'));
                 }
             }
         });

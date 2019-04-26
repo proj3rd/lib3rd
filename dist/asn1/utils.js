@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-var logging_1 = require("../utils/logging");
 function getContextName(ctx) {
     if ('ruleIndex' in ctx) {
         return ctx.parser.ruleNames[ctx.ruleIndex];
@@ -8,7 +7,11 @@ function getContextName(ctx) {
     return null;
 }
 exports.getContextName = getContextName;
-function warnNotSupportedAsn1(ctx) {
-    logging_1.log.warn("Not supported ASN.1:", ctx.getText().substring(0, 48));
+function getLogWithAsn1(ctx, prefix, postfix, length) {
+    if (prefix === void 0) { prefix = ''; }
+    if (postfix === void 0) { postfix = ''; }
+    if (length === void 0) { length = 80; }
+    var asn1Length = length - prefix.length - postfix.length;
+    return [prefix, ctx.getText().substring(0, asn1Length), postfix].join(' ').trim();
 }
-exports.warnNotSupportedAsn1 = warnNotSupportedAsn1;
+exports.getLogWithAsn1 = getLogWithAsn1;

@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var moduleBody_1 = require("./moduleBody");
 /**
@@ -29,7 +30,7 @@ var ModuleDefinitionVisitor = /** @class */ (function () {
              *   eps-Access (21) modules (3) s1ap (1) version1 (1) s1ap-PDU-Contents (1) }
              * DEFINITIONS AUTOMATIC TAGS ::= ...
              */
-            utils_1.warnNotSupportedAsn1(moduleDefinitionCtx);
+            logging_1.log.warn(utils_1.getLogWithAsn1(moduleDefinitionCtx, 'DefinitiveIdentification not supported'));
         }
         var moduleName = childCtxes[0].getText();
         var moduleBodyCtx = childCtxes[length - 2];

@@ -1,4 +1,5 @@
-import { getContextName, warnNotSupportedAsn1 } from '../utils';
+import { log } from '../../utils/logging';
+import { getContextName, getLogWithAsn1 } from '../utils';
 
 import { ValueAssignmentVisitor } from './valueAssignment';
 
@@ -34,19 +35,22 @@ export class AssignmentListVisitor {
           break;
         }
         case 'typeAssignment': {
+          log.warn(getLogWithAsn1(assignmentCtx, 'TypeAssignment not supported:'));
           // TODO
-          // break;
+          break;
         }
         case 'parameterizedAssignment': {
+          log.warn(getLogWithAsn1(assignmentCtx, 'ParameterizedAssignment not supported:'));
           // TODO
-          // break;
+          break;
         }
         case 'objectClassAssignment': {
+          log.warn(getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported'));
           // TODO?
-          // break;
+          break;
         }
         default: {
-          warnNotSupportedAsn1(assignmentCtx);
+          log.warn(getLogWithAsn1(assignmentCtx, 'Unsupported ASN1 in Assignment:'));
         }
       }
     });

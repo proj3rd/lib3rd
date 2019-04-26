@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 /**
  * ANTLR4 grammar
@@ -39,19 +40,22 @@ var ValueAssignmentVisitor = /** @class */ (function () {
                 return Number(subContext.getText());
             }
             case 'enumeratedValue': {
+                logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'EnumeratedValue not supported:'));
                 // TODO
-                // break;
+                break;
             }
             case 'choiceValue': {
+                logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'ChoiceValue not supported:'));
                 // TODO
-                // break;
+                break;
             }
             case 'objectIdentifierValue': {
+                logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'ObjectIdentifierValue not supported:'));
                 // TODO
-                // break;
+                break;
             }
             default: {
-                utils_1.warnNotSupportedAsn1(builtinValueCtx);
+                logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'Not supported ASN1 in BuiltinValue:'));
             }
         }
     };

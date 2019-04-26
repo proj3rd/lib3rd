@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 /**
  * exports :   (EXPORTS_LITERAL symbolsExported SEMI_COLON
@@ -11,7 +12,7 @@ var ExportsVisitor = /** @class */ (function () {
     ExportsVisitor.prototype.visitChildren = function (exportsCtx) {
         var exports = [];
         if (exportsCtx.children) {
-            utils_1.warnNotSupportedAsn1(exportsCtx);
+            logging_1.log.warn(utils_1.getLogWithAsn1(exportsCtx, 'Exports not supported'));
         }
         return exports;
     };
