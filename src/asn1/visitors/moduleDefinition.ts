@@ -17,7 +17,6 @@ export interface IModuleDefinition {
  *       BEGIN_LITERAL
  *      moduleBody
  *       END_LITERAL
- *         ;
  * ```
  */
 export class ModuleDefinitionVisitor {
@@ -32,8 +31,8 @@ export class ModuleDefinitionVisitor {
        *   eps-Access (21) modules (3) s1ap (1) version1 (1) s1ap-PDU-Contents (1) }
        * DEFINITIONS AUTOMATIC TAGS ::= ...
        */
-      log.warn('ASN.1 contains DefinitiveIdentification defined in X.680');
-      log.warn('This will not be treated in the current version');
+      log.warn('ASN.1 contains DefinitiveIdentification defined in X.680.' +
+        'This will not be treated in the current version');
     }
     const moduleName = childCtxes[0].getText();
     const moduleBodyCtx = childCtxes[length - 2];

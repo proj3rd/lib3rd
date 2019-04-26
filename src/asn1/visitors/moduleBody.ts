@@ -1,3 +1,4 @@
+import { AssignmentListVisitor} from './assignmentList';
 import { ExportsVisitor } from './exports';
 import { ImportsVisitor } from './imports';
 import { ISymbolsFromModule } from './symbolsFromModuleList';
@@ -27,9 +28,8 @@ export class ModuleBodyVisitor {
     if (childCtx) {
       moduleBody.exports = childCtx[0].accept(new ExportsVisitor());
       moduleBody.imports = childCtx[1].accept(new ImportsVisitor());
-      // TODO
-      // ({assignments: moduleBody.assignments, constants: moduleBody.constants} =
-      //   childCtx[2].accept(new AssignmentListVisitor()));
+      ({assignments: moduleBody.assignments, constants: moduleBody.constants} =
+        childCtx[2].accept(new AssignmentListVisitor()));
     }
     return moduleBody;
   }

@@ -14,7 +14,6 @@ export interface IModuleDefinition {
  *       BEGIN_LITERAL
  *      moduleBody
  *       END_LITERAL
- *         ;
  * ```
  */
 export declare class ModuleDefinitionVisitor {

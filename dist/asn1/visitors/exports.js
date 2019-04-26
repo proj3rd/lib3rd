@@ -11,8 +11,7 @@ var ExportsVisitor = /** @class */ (function () {
     ExportsVisitor.prototype.visitChildren = function (exportsCtx) {
         var exports = [];
         if (exportsCtx.children) {
-            logging_1.log.warn('ASN.1 contains Exports defined in X.680');
-            logging_1.log.warn('This will not be treated in the current version');
+            logging_1.log.warn('ASN.1 contains Exports defined in X.680. This will not be treated in the current version');
         }
         return exports;
     };

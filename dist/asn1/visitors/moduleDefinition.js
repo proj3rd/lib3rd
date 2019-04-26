@@ -13,7 +13,6 @@ var moduleBody_1 = require("./moduleBody");
  *       BEGIN_LITERAL
  *      moduleBody
  *       END_LITERAL
- *         ;
  * ```
  */
 var ModuleDefinitionVisitor = /** @class */ (function () {
@@ -30,8 +29,8 @@ var ModuleDefinitionVisitor = /** @class */ (function () {
              *   eps-Access (21) modules (3) s1ap (1) version1 (1) s1ap-PDU-Contents (1) }
              * DEFINITIONS AUTOMATIC TAGS ::= ...
              */
-            logging_1.log.warn('ASN.1 contains DefinitiveIdentification defined in X.680');
-            logging_1.log.warn('This will not be treated in the current version');
+            logging_1.log.warn('ASN.1 contains DefinitiveIdentification defined in X.680.' +
+                'This will not be treated in the current version');
         }
         var moduleName = childCtxes[0].getText();
         var moduleBodyCtx = childCtxes[length - 2];

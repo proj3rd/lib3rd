@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var assignmentList_1 = require("./assignmentList");
 var exports_1 = require("./exports");
 var imports_1 = require("./imports");
 /**
@@ -12,6 +13,7 @@ var ModuleBodyVisitor = /** @class */ (function () {
     function ModuleBodyVisitor() {
     }
     ModuleBodyVisitor.prototype.visitChildren = function (moduleBodyCtx) {
+        var _a;
         var childCtx = moduleBodyCtx.children;
         var moduleBody = {
             exports: [],
@@ -22,9 +24,7 @@ var ModuleBodyVisitor = /** @class */ (function () {
         if (childCtx) {
             moduleBody.exports = childCtx[0].accept(new exports_1.ExportsVisitor());
             moduleBody.imports = childCtx[1].accept(new imports_1.ImportsVisitor());
-            // TODO
-            // ({assignments: moduleBody.assignments, constants: moduleBody.constants} =
-            //   childCtx[2].accept(new AssignmentListVisitor()));
+            (_a = childCtx[2].accept(new assignmentList_1.AssignmentListVisitor()), moduleBody.assignments = _a.assignments, moduleBody.constants = _a.constants);
         }
         return moduleBody;
     };

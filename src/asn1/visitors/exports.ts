@@ -8,8 +8,7 @@ export class ExportsVisitor {
   public visitChildren(exportsCtx: any): string[] {
     const exports = [];
     if (exportsCtx.children) {
-      log.warn('ASN.1 contains Exports defined in X.680');
-      log.warn('This will not be treated in the current version');
+      log.warn('ASN.1 contains Exports defined in X.680. This will not be treated in the current version');
     }
     return exports;
   }
