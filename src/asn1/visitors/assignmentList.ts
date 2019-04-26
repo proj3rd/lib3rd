@@ -1,5 +1,4 @@
-import { log } from '../../utils/logging';
-import { getContextName } from '../utils';
+import { getContextName, warnNotSupportedAsn1 } from '../utils';
 
 import { ValueAssignmentVisitor } from './valueAssignment';
 
@@ -35,25 +34,19 @@ export class AssignmentListVisitor {
           break;
         }
         case 'typeAssignment': {
-          log.warn('ASN.1 Assignment contains TypeAssignment defined in X.680.' +
-            'This will not be treated in the current version');
           // TODO
           // break;
         }
         case 'parameterizedAssignment': {
-          log.warn('ASN.1 Assignment contains ParameterizedAssignment defined in X.680.' +
-            'This will not be treated in the current version');
           // TODO
           // break;
         }
         case 'objectClassAssignment': {
-          log.warn('ASN.1 Assignment contains ObjectClassAssignment defined in X.680.' +
-            'This will not be treated in the current version');
           // TODO?
           // break;
         }
         default: {
-          log.warn('ASN.1 Assignment contains not supported context. This will not be treated in the current version');
+          warnNotSupportedAsn1(assignmentCtx);
         }
       }
     });

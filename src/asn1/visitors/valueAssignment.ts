@@ -1,5 +1,4 @@
-import { log } from '../../utils/logging';
-import { getContextName } from '../utils';
+import { getContextName, warnNotSupportedAsn1 } from '../utils';
 
 /**
  * ANTLR4 grammar
@@ -37,25 +36,19 @@ export class ValueAssignmentVisitor {
         return Number(subContext.getText());
       }
       case 'enumeratedValue': {
-        log.warn('ASN.1 BuiltinValue contains EnumeratedValue defined in X.680.' +
-          'This will not be treated in the current version');
         // TODO
         // break;
       }
       case 'choiceValue': {
-        log.warn('ASN.1 BuiltinValue contains ChoiceValue defined in X.680.' +
-          'This will not be treated in the current version');
         // TODO
         // break;
       }
       case 'objectIdentifierValue': {
-        log.warn('ASN.1 BuiltinValue contains ObjectIdentifierValue defined in X.680.' +
-          'This will not be treated in the current version');
         // TODO
         // break;
       }
       default: {
-        log.warn('ASN.1 BuiltinValue contains not supported context. This will not be treated in the current version');
+        warnNotSupportedAsn1(builtinValueCtx);
       }
     }
   }

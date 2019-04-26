@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var valueAssignment_1 = require("./valueAssignment");
 /**
@@ -37,25 +36,19 @@ var AssignmentListVisitor = /** @class */ (function () {
                     break;
                 }
                 case 'typeAssignment': {
-                    logging_1.log.warn('ASN.1 Assignment contains TypeAssignment defined in X.680.' +
-                        'This will not be treated in the current version');
                     // TODO
                     // break;
                 }
                 case 'parameterizedAssignment': {
-                    logging_1.log.warn('ASN.1 Assignment contains ParameterizedAssignment defined in X.680.' +
-                        'This will not be treated in the current version');
                     // TODO
                     // break;
                 }
                 case 'objectClassAssignment': {
-                    logging_1.log.warn('ASN.1 Assignment contains ObjectClassAssignment defined in X.680.' +
-                        'This will not be treated in the current version');
                     // TODO?
                     // break;
                 }
                 default: {
-                    logging_1.log.warn('ASN.1 Assignment contains not supported context. This will not be treated in the current version');
+                    utils_1.warnNotSupportedAsn1(assignmentCtx);
                 }
             }
         });

@@ -1,4 +1,4 @@
-import { log } from '../../utils/logging';
+import { warnNotSupportedAsn1 } from '../utils';
 
 /**
  * exports :   (EXPORTS_LITERAL symbolsExported SEMI_COLON
@@ -8,7 +8,7 @@ export class ExportsVisitor {
   public visitChildren(exportsCtx: any): string[] {
     const exports = [];
     if (exportsCtx.children) {
-      log.warn('ASN.1 contains Exports defined in X.680. This will not be treated in the current version');
+      warnNotSupportedAsn1(exportsCtx);
     }
     return exports;
   }

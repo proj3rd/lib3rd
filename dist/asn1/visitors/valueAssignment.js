@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 /**
  * ANTLR4 grammar
@@ -40,25 +39,19 @@ var ValueAssignmentVisitor = /** @class */ (function () {
                 return Number(subContext.getText());
             }
             case 'enumeratedValue': {
-                logging_1.log.warn('ASN.1 BuiltinValue contains EnumeratedValue defined in X.680.' +
-                    'This will not be treated in the current version');
                 // TODO
                 // break;
             }
             case 'choiceValue': {
-                logging_1.log.warn('ASN.1 BuiltinValue contains ChoiceValue defined in X.680.' +
-                    'This will not be treated in the current version');
                 // TODO
                 // break;
             }
             case 'objectIdentifierValue': {
-                logging_1.log.warn('ASN.1 BuiltinValue contains ObjectIdentifierValue defined in X.680.' +
-                    'This will not be treated in the current version');
                 // TODO
                 // break;
             }
             default: {
-                logging_1.log.warn('ASN.1 BuiltinValue contains not supported context. This will not be treated in the current version');
+                utils_1.warnNotSupportedAsn1(builtinValueCtx);
             }
         }
     };
