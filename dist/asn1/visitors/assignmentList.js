@@ -2,6 +2,7 @@
 exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
+var typeAssignment_1 = require("./typeAssignment");
 var valueAssignment_1 = require("./valueAssignment");
 /**
  * ANTLR4 grammar
@@ -37,8 +38,10 @@ var AssignmentListVisitor = /** @class */ (function () {
                     break;
                 }
                 case 'typeAssignment': {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'TypeAssignment not supported:'));
-                    // TODO
+                    var type = rValueContext.accept(new typeAssignment_1.TypeAssignmentVisitor());
+                    if (type) {
+                        assignments[referenceName] = type;
+                    }
                     break;
                 }
                 case 'parameterizedAssignment': {

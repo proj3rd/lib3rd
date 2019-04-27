@@ -1,6 +1,7 @@
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { TypeAssignmentVisitor } from './typeAssignment';
 import { ValueAssignmentVisitor } from './valueAssignment';
 
 /**
@@ -35,8 +36,10 @@ export class AssignmentListVisitor {
           break;
         }
         case 'typeAssignment': {
-          log.warn(getLogWithAsn1(assignmentCtx, 'TypeAssignment not supported:'));
-          // TODO
+          const type = rValueContext.accept(new TypeAssignmentVisitor());
+          if (type) {
+            assignments[referenceName] = type;
+          }
           break;
         }
         case 'parameterizedAssignment': {
