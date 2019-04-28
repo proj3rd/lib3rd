@@ -27,19 +27,20 @@ var BuiltinTypeVisitor = /** @class */ (function () {
     }
     BuiltinTypeVisitor.prototype.visitChildren = function (builtinTypeCtx) {
         var childCtx = builtinTypeCtx.children[0];
+        var builtinType = null;
         switch (utils_1.getContextName(childCtx)) {
             case 'integerType': {
-                return childCtx.accept(new integerType_1.IntegerTypeVisitor());
+                builtinType = childCtx.accept(new integerType_1.IntegerTypeVisitor());
                 break;
             }
             default: {
                 switch (childCtx.getText().toLowerCase()) {
                     case 'boolean': {
-                        return new asnBoolean_1.AsnBoolean();
+                        builtinType = new asnBoolean_1.AsnBoolean();
                         break;
                     }
                     case 'null': {
-                        return new null_1.Null();
+                        builtinType = new null_1.Null();
                         break;
                     }
                     default: {
@@ -51,7 +52,7 @@ var BuiltinTypeVisitor = /** @class */ (function () {
                 break;
             }
         }
-        return null;
+        return builtinType;
     };
     return BuiltinTypeVisitor;
 }());

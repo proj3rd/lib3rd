@@ -25,19 +25,20 @@ import { IntegerTypeVisitor } from './integerType';
 export class BuiltinTypeVisitor {
   public visitChildren(builtinTypeCtx: any): any /* TODO */ {
     const childCtx = builtinTypeCtx.children[0];
+    let builtinType = null;
     switch (getContextName(childCtx)) {
       case 'integerType': {
-        return childCtx.accept(new IntegerTypeVisitor());
+        builtinType = childCtx.accept(new IntegerTypeVisitor());
         break;
       }
       default: {
         switch (childCtx.getText().toLowerCase()) {
           case 'boolean': {
-            return new AsnBoolean();
+            builtinType = new AsnBoolean();
             break;
           }
           case 'null': {
-            return new Null();
+            builtinType = new Null();
             break;
           }
           default: {
@@ -49,6 +50,6 @@ export class BuiltinTypeVisitor {
         break;
       }
     }
-    return null;
+    return builtinType;
   }
 }
