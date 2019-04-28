@@ -50,7 +50,7 @@ var AssignmentListVisitor = /** @class */ (function () {
                     break;
                 }
                 case 'objectClassAssignment': {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported'));
+                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported:'));
                     // TODO?
                     break;
                 }

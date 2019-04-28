@@ -2,6 +2,8 @@
 exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
+var builtinType_1 = require("./builtinType");
+var constraint_1 = require("./constraint");
 var referencedType_1 = require("./referencedType");
 /**
  * ANTLR4 grammar
@@ -20,8 +22,7 @@ var AsnTypeVisitor = /** @class */ (function () {
         var type = null;
         switch (contextName) {
             case 'builtinType': {
-                // TODO
-                logging_1.log.warn(utils_1.getLogWithAsn1(asnTypeCtx, 'BuiltinType not supported:'));
+                type = typeCtx.accept(new builtinType_1.BuiltinTypeVisitor());
                 break;
             }
             case 'referencedType': {
@@ -33,8 +34,10 @@ var AsnTypeVisitor = /** @class */ (function () {
             }
         }
         if (constraintCtx) {
-            // TODO
-            logging_1.log.warn('  Constraint is not supported');
+            var constraint = constraintCtx.accept(new constraint_1.ConstraintVisitor());
+            if (constraint && type && type.setConstraint) {
+                type.setConstraint(constraint);
+            }
         }
         return type;
     };

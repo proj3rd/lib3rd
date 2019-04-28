@@ -33,7 +33,7 @@ export class ModuleDefinitionVisitor {
        *   eps-Access (21) modules (3) s1ap (1) version1 (1) s1ap-PDU-Contents (1) }
        * DEFINITIONS AUTOMATIC TAGS ::= ...
        */
-      log.warn(getLogWithAsn1(moduleDefinitionCtx, 'DefinitiveIdentification not supported'));
+      log.warn(getLogWithAsn1(moduleDefinitionCtx, 'DefinitiveIdentification not supported:'));
     }
     const moduleName = childCtxes[0].getText();
     const moduleBodyCtx = childCtxes[length - 2];

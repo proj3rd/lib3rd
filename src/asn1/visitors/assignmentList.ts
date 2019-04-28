@@ -48,7 +48,7 @@ export class AssignmentListVisitor {
           break;
         }
         case 'objectClassAssignment': {
-          log.warn(getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported'));
+          log.warn(getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported:'));
           // TODO?
           break;
         }

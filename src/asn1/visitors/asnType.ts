@@ -1,6 +1,8 @@
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
-import { DefinedTypeVisitor } from './definedType';
+
+import { BuiltinTypeVisitor } from './builtinType';
+import { ConstraintVisitor } from './constraint';
 import { ReferencedTypeVisitor } from './referencedType';
 
 /**
@@ -18,8 +20,7 @@ export class AsnTypeVisitor {
     let type = null;
     switch (contextName) {
       case 'builtinType': {
-        // TODO
-        log.warn(getLogWithAsn1(asnTypeCtx, 'BuiltinType not supported:'));
+        type = typeCtx.accept(new BuiltinTypeVisitor());
         break;
       }
       case 'referencedType': {
@@ -31,8 +32,10 @@ export class AsnTypeVisitor {
       }
     }
     if (constraintCtx) {
-      // TODO
-      log.warn('  Constraint is not supported');
+      const constraint = constraintCtx.accept(new ConstraintVisitor());
+      if (constraint && type && type.setConstraint) {
+        type.setConstraint(constraint);
+      }
     }
     return type;
   }

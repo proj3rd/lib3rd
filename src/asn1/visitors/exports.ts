@@ -9,7 +9,7 @@ export class ExportsVisitor {
   public visitChildren(exportsCtx: any): string[] {
     const exports = [];
     if (exportsCtx.children) {
-      log.warn(getLogWithAsn1(exportsCtx, 'Exports not supported'));
+      log.warn(getLogWithAsn1(exportsCtx, 'Exports not supported:'));
     }
     return exports;
   }

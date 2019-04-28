@@ -12,7 +12,7 @@ var ExportsVisitor = /** @class */ (function () {
     ExportsVisitor.prototype.visitChildren = function (exportsCtx) {
         var exports = [];
         if (exportsCtx.children) {
-            logging_1.log.warn(utils_1.getLogWithAsn1(exportsCtx, 'Exports not supported'));
+            logging_1.log.warn(utils_1.getLogWithAsn1(exportsCtx, 'Exports not supported:'));
         }
         return exports;
     };

@@ -5,15 +5,6 @@
  *       asnType
  * 	   ASSIGN_OP
  *        value
- * value  :   builtinValue
- * builtinValue :
- *     enumeratedValue
- *   |	integerValue
- *   |	choiceValue
- *   |	objectIdentifierValue
- *   |	booleanValue
- *   |   CSTRING
- *   |   BSTRING
  * ```
  */
 export declare class ValueAssignmentVisitor {

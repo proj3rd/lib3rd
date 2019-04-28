@@ -30,7 +30,7 @@ var ModuleDefinitionVisitor = /** @class */ (function () {
              *   eps-Access (21) modules (3) s1ap (1) version1 (1) s1ap-PDU-Contents (1) }
              * DEFINITIONS AUTOMATIC TAGS ::= ...
              */
-            logging_1.log.warn(utils_1.getLogWithAsn1(moduleDefinitionCtx, 'DefinitiveIdentification not supported'));
+            logging_1.log.warn(utils_1.getLogWithAsn1(moduleDefinitionCtx, 'DefinitiveIdentification not supported:'));
         }
         var moduleName = childCtxes[0].getText();
         var moduleBodyCtx = childCtxes[length - 2];
