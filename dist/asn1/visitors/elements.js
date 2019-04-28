@@ -2,6 +2,7 @@
 exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
+var sizeConstraint_1 = require("./sizeConstraint");
 var value_1 = require("./value");
 /**
  * ANTLR4 grammar
@@ -27,7 +28,8 @@ var ElementsVisitor = /** @class */ (function () {
                 // value
                 switch (utils_1.getContextName(childCtxes[0])) {
                     case 'sizeConstraint': {
-                        logging_1.log.warn(utils_1.getLogWithAsn1(elementsCtx, 'SizeConstraint not supported:'));
+                        var sizeConstraintCtx = childCtxes[0];
+                        elements = sizeConstraintCtx.accept(new sizeConstraint_1.SizeConstraintVisitor());
                         break;
                     }
                     case 'value': {

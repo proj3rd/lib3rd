@@ -1,6 +1,7 @@
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { SizeConstraintVisitor } from './sizeConstraint';
 import { ValueVisitor } from './value';
 
 /**
@@ -25,7 +26,8 @@ export class ElementsVisitor {
         // value
         switch (getContextName(childCtxes[0])) {
           case 'sizeConstraint': {
-            log.warn(getLogWithAsn1(elementsCtx, 'SizeConstraint not supported:'));
+            const sizeConstraintCtx = childCtxes[0];
+            elements = sizeConstraintCtx.accept(new SizeConstraintVisitor());
             break;
           }
           case 'value': {

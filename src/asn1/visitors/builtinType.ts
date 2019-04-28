@@ -3,6 +3,7 @@ import { getContextName, getLogWithAsn1 } from '../utils';
 
 import { AsnBoolean } from '../classes/asnBoolean';
 import { Null } from '../classes/null';
+import { BitStringTypeVisitor } from './bitStringType';
 import { IntegerTypeVisitor } from './integerType';
 
 /**
@@ -27,6 +28,10 @@ export class BuiltinTypeVisitor {
     const childCtx = builtinTypeCtx.children[0];
     let builtinType = null;
     switch (getContextName(childCtx)) {
+      case 'bitStringType': {
+        builtinType = childCtx.accept(new BitStringTypeVisitor());
+        break;
+      }
       case 'integerType': {
         builtinType = childCtx.accept(new IntegerTypeVisitor());
         break;
