@@ -5,7 +5,7 @@ try {
     loglevel.setLevel(process.env.loglevel);
 }
 catch (e) {
-    loglevel.setLevel('SILENT');
+    loglevel.setLevel('WARN');
 }
 /**
  * It enables logging with loglevel package

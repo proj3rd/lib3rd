@@ -3,7 +3,7 @@ import * as loglevel from 'loglevel';
 try {
   loglevel.setLevel(process.env.loglevel as loglevel.LogLevelDesc);
 } catch (e) {
-  loglevel.setLevel('SILENT');
+  loglevel.setLevel('WARN');
 }
 
 /**
