@@ -6,7 +6,11 @@
     "newLine": "LF",
   },
   "typedocOptions": {
-    "exclude": "**/index.ts",
+    "exclude": [
+      "**/index.ts",
+      "**/asn1/utils.ts",
+      "**/asn1/visitors/*.ts"
+    ],
     "excludeNotExported": true,
     "out": "docs",
     "module": "commonjs",
