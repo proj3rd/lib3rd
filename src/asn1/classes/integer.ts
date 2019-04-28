@@ -1,6 +1,3 @@
-import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
-
 export class Integer {
   public namedNumberList: any; // TODO
   public value: number | string;
@@ -24,9 +21,10 @@ export class Integer {
   public expand(): Integer {
     return this;
   }
+
   public toString(): string {
     const valueConstraint = this.value ? `(${this.value})` :
       this.min !== null && this.max !== null ? `(${this.min}..${this.max})` : '';
-    return `INTENGER${valueConstraint}`;
+    return `INTENGER ${valueConstraint}`;
   }
 }

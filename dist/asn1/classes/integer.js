@@ -22,7 +22,7 @@ var Integer = /** @class */ (function () {
     Integer.prototype.toString = function () {
         var valueConstraint = this.value ? "(" + this.value + ")" :
             this.min !== null && this.max !== null ? "(" + this.min + ".." + this.max + ")" : '';
-        return "INTENGER" + valueConstraint;
+        return "INTENGER " + valueConstraint;
     };
     return Integer;
 }());
