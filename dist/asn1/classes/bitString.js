@@ -1,9 +1,11 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../../utils/logging");
 var BitString = /** @class */ (function () {
     function BitString() {
     }
     BitString.prototype.setConstraint = function (constraint) {
+        logging_1.log.info("Boolean constraint " + JSON.stringify(constraint));
         if ('value' in constraint) {
             this.size = constraint.value;
             this.sizeMin = null;

@@ -1,9 +1,11 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../../utils/logging");
 var Integer = /** @class */ (function () {
     function Integer() {
     }
     Integer.prototype.setConstraint = function (constraint) {
+        logging_1.log.info("Integer constraint " + JSON.stringify(constraint));
         if ('value' in constraint) {
             this.value = constraint.value;
             this.min = null;

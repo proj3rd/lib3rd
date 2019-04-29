@@ -29,6 +29,7 @@ if (require.main === module) {
         if (err) {
             throw err;
         }
-        process.stdout.write(JSON.stringify(parse(text), null, 2));
+        var parseResult = parse(text);
+        process.stdout.write(JSON.stringify(parseResult, null, 2));
     });
 }

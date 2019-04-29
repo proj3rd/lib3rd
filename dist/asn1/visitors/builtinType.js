@@ -5,6 +5,7 @@ var utils_1 = require("../utils");
 var asnBoolean_1 = require("../classes/asnBoolean");
 var null_1 = require("../classes/null");
 var bitStringType_1 = require("./bitStringType");
+var enumeratedType_1 = require("./enumeratedType");
 var integerType_1 = require("./integerType");
 /**
  * ANTLR4 grammar
@@ -32,6 +33,10 @@ var BuiltinTypeVisitor = /** @class */ (function () {
         switch (utils_1.getContextName(childCtx)) {
             case 'bitStringType': {
                 builtinType = childCtx.accept(new bitStringType_1.BitStringTypeVisitor());
+                break;
+            }
+            case 'enumeratedType': {
+                builtinType = childCtx.accept(new enumeratedType_1.EnumeratedTypeVisitor());
                 break;
             }
             case 'integerType': {

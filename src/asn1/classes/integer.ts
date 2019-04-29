@@ -1,3 +1,5 @@
+import { log } from '../../utils/logging';
+
 export class Integer {
   public namedNumberList: any; // TODO
   public value: number | string;
@@ -5,6 +7,8 @@ export class Integer {
   public max: number | string;
 
   public setConstraint(constraint: any): Integer {
+    log.info(`Integer constraint ${JSON.stringify(constraint)}`);
+
     if ('value' in constraint) {
       this.value = constraint.value;
       this.min = null;

@@ -1,3 +1,5 @@
+import { log } from '../../utils/logging';
+
 export class BitString {
   public nameBitList: any; // TODO
   public size: number | string;
@@ -5,6 +7,8 @@ export class BitString {
   public sizeMax: number | string;
 
   public setConstraint(constraint: any): BitString {
+    log.info(`Boolean constraint ${JSON.stringify(constraint)}`);
+
     if ('value' in constraint) {
       this.size = constraint.value;
       this.sizeMin = null;
