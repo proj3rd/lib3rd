@@ -15,10 +15,11 @@ var SymbolsFromModuleVisitor = /** @class */ (function () {
         var symbolListCtx = symbolsFromModuleCtx.children[0];
         var symbols = [];
         symbolListCtx.children.forEach(function (symbolCtx, index) {
-            if (index % 2 === 0) {
-                // TODO: Need to implement/use SymbolCtxVisitor class?
-                symbols.push(symbolCtx.children[0].getText());
+            if (index % 2) {
+                return;
             }
+            // TODO: Need to implement/use SymbolCtxVisitor class?
+            symbols.push(symbolCtx.children[0].getText());
         });
         return { moduleName: moduleName, symbols: symbols };
     };

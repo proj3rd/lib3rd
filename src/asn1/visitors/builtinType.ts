@@ -3,7 +3,9 @@ import { getContextName, getLogWithAsn1 } from '../utils';
 
 import { AsnBoolean } from '../classes/asnBoolean';
 import { Null } from '../classes/null';
+
 import { BitStringTypeVisitor } from './bitStringType';
+import { ChoiceTypeVisitor } from './choiceType';
 import { EnumeratedTypeVisitor } from './enumeratedType';
 import { IntegerTypeVisitor } from './integerType';
 
@@ -31,6 +33,10 @@ export class BuiltinTypeVisitor {
     switch (getContextName(childCtx)) {
       case 'bitStringType': {
         builtinType = childCtx.accept(new BitStringTypeVisitor());
+        break;
+      }
+      case 'choiceType': {
+        builtinType = childCtx.accept(new ChoiceTypeVisitor());
         break;
       }
       case 'enumeratedType': {

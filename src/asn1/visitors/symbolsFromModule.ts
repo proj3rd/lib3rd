@@ -11,10 +11,11 @@ export class SymbolsFromModuleVisitor {
     const symbolListCtx = symbolsFromModuleCtx.children[0];
     const symbols: string[] = [];
     symbolListCtx.children.forEach((symbolCtx: any, index: number) => {
-      if (index % 2 === 0) {
-        // TODO: Need to implement/use SymbolCtxVisitor class?
-        symbols.push(symbolCtx.children[0].getText());
+      if (index % 2) {
+        return;
       }
+      // TODO: Need to implement/use SymbolCtxVisitor class?
+      symbols.push(symbolCtx.children[0].getText());
     });
     return {moduleName, symbols};
   }
