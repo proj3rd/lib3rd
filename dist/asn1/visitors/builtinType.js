@@ -8,6 +8,7 @@ var bitStringType_1 = require("./bitStringType");
 var choiceType_1 = require("./choiceType");
 var enumeratedType_1 = require("./enumeratedType");
 var integerType_1 = require("./integerType");
+var octetStringType_1 = require("./octetStringType");
 /**
  * ANTLR4 grammar
  * builtinType :
@@ -46,6 +47,10 @@ var BuiltinTypeVisitor = /** @class */ (function () {
             }
             case 'integerType': {
                 builtinType = childCtx.accept(new integerType_1.IntegerTypeVisitor());
+                break;
+            }
+            case 'octetStringType': {
+                builtinType = childCtx.accept(new octetStringType_1.OctetStringTypeVisitor());
                 break;
             }
             default: {

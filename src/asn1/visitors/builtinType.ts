@@ -8,6 +8,7 @@ import { BitStringTypeVisitor } from './bitStringType';
 import { ChoiceTypeVisitor } from './choiceType';
 import { EnumeratedTypeVisitor } from './enumeratedType';
 import { IntegerTypeVisitor } from './integerType';
+import { OctetStringTypeVisitor } from './octetStringType';
 
 /**
  * ANTLR4 grammar
@@ -45,6 +46,10 @@ export class BuiltinTypeVisitor {
       }
       case 'integerType': {
         builtinType = childCtx.accept(new IntegerTypeVisitor());
+        break;
+      }
+      case 'octetStringType': {
+        builtinType = childCtx.accept(new OctetStringTypeVisitor());
         break;
       }
       default: {
