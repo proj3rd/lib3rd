@@ -1,6 +1,5 @@
-import { log } from '../../utils/logging';
-import { getLogWithAsn1 } from '../utils';
-
+import { ExtensionAdditionAlternativesVisitor } from './extensionAdditionAlternatives';
+import { ExtensionAndExceptionVisitor } from './extensionAndException';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarker';
 import { RootAlternativeTypeListVisitor } from './rootAlternativeTypeList';
 
@@ -19,14 +18,17 @@ export class AlternativeTypeListsVisitor {
     const extensionAdditionAlternativesCtx = childCtxes[3];
     const optionalExtensionMarkerCtx = childCtxes[4];
 
-    const alternativeTypeList = rootAlternativeTypeListCtx.accept(new RootAlternativeTypeListVisitor());
+    const alternativeTypeList: any[] = rootAlternativeTypeListCtx.accept(new RootAlternativeTypeListVisitor());
     if (extensionAndExceptionCtx) {
-      // TODO
-      log.warn(getLogWithAsn1(alternativeTypeListsCtx, 'ExtensionAndException not supported:'));
+      alternativeTypeList.splice(alternativeTypeList.length, 0,
+        ...extensionAndExceptionCtx.accept(new ExtensionAndExceptionVisitor()));
     }
     if (extensionAdditionAlternativesCtx) {
-      // TODO
-      log.warn(getLogWithAsn1(alternativeTypeListsCtx, 'ExtensionAdditionAlternatives not supported:'));
+      const extensionAdditionAlternatives =
+        extensionAdditionAlternativesCtx.accept(new ExtensionAdditionAlternativesVisitor());
+      if (extensionAdditionAlternatives) {
+        alternativeTypeList.splice(alternativeTypeList.length, 0, ...extensionAdditionAlternatives);
+      }
     }
     if (optionalExtensionMarkerCtx) {
       const optionalExtensionMarker = optionalExtensionMarkerCtx.accept(new OptionalExtensionMarkerVisitor());

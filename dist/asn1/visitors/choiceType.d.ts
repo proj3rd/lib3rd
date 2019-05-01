@@ -1,3 +1,4 @@
+import { Choice } from '../classes/choice';
 /**
  * ANTLR4 grammar
  * ```
@@ -5,5 +6,5 @@
  * ```
  */
 export declare class ChoiceTypeVisitor {
-    visitChildren(choiceTypeCtx: any): any;
+    visitChildren(choiceTypeCtx: any): Choice;
 }

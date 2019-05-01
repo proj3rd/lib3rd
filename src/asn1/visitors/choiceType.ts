@@ -1,4 +1,5 @@
 import { Choice } from '../classes/choice';
+
 import { AlternativeTypeListsVisitor } from './alternativeTypeLists';
 
 /**
@@ -8,7 +9,7 @@ import { AlternativeTypeListsVisitor } from './alternativeTypeLists';
  * ```
  */
 export class ChoiceTypeVisitor {
-  public visitChildren(choiceTypeCtx: any): any /* TODO */ {
+  public visitChildren(choiceTypeCtx: any): Choice {
     const alternativeTypeListsCtx = choiceTypeCtx.children[2];
     const alternativeTypeLists = alternativeTypeListsCtx.accept(new AlternativeTypeListsVisitor());
     return new Choice(alternativeTypeLists);
