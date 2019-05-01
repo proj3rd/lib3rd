@@ -1,6 +1,8 @@
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { ExtensionMarker } from '../classes/extensionMarker';
+
 import { AdditionalEnumerationVisitor } from './additionalEnumeration';
 import { RootEnumerationVisitor } from './rootEnumeration';
 
@@ -24,7 +26,7 @@ export class EnumerationsVisitor {
     const additionalEnumerationCtx = getContextName(lastCtx) === 'additionalEnumeration' ? lastCtx : null;
     if (additionalEnumerationCtx) {
       const additionalEnumeration = additionalEnumerationCtx.accept(new AdditionalEnumerationVisitor());
-      enumerations.splice(enumerations.length, 0, '...', ...additionalEnumeration);
+      enumerations.splice(enumerations.length, 0, new ExtensionMarker(), ...additionalEnumeration);
     }
     return enumerations;
   }

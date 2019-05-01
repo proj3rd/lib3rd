@@ -2,6 +2,7 @@
 exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
+var extensionMarker_1 = require("../classes/extensionMarker");
 var additionalEnumeration_1 = require("./additionalEnumeration");
 var rootEnumeration_1 = require("./rootEnumeration");
 /**
@@ -26,7 +27,7 @@ var EnumerationsVisitor = /** @class */ (function () {
         var additionalEnumerationCtx = utils_1.getContextName(lastCtx) === 'additionalEnumeration' ? lastCtx : null;
         if (additionalEnumerationCtx) {
             var additionalEnumeration = additionalEnumerationCtx.accept(new additionalEnumeration_1.AdditionalEnumerationVisitor());
-            enumerations.splice.apply(enumerations, [enumerations.length, 0, '...'].concat(additionalEnumeration));
+            enumerations.splice.apply(enumerations, [enumerations.length, 0, new extensionMarker_1.ExtensionMarker()].concat(additionalEnumeration));
         }
         return enumerations;
     };

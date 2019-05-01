@@ -1,3 +1,4 @@
+import { ExtensionMarker } from '../classes/extensionMarker';
 /**
  * ANTLR4 grammar
  * ```
@@ -5,5 +6,5 @@
  * ```
  */
 export declare class OptionalExtensionMarkerVisitor {
-    visitChildren(optionalExtensionMarkerCtx: any): any;
+    visitChildren(optionalExtensionMarkerCtx: any): ExtensionMarker;
 }

@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var extensionMarker_1 = require("../classes/extensionMarker");
 /**
  * ANTLR4 grammar
  * ```
@@ -10,7 +11,7 @@ var OptionalExtensionMarkerVisitor = /** @class */ (function () {
     function OptionalExtensionMarkerVisitor() {
     }
     OptionalExtensionMarkerVisitor.prototype.visitChildren = function (optionalExtensionMarkerCtx) {
-        return optionalExtensionMarkerCtx.children ? '...' : null;
+        return optionalExtensionMarkerCtx.children ? new extensionMarker_1.ExtensionMarker() : null;
     };
     return OptionalExtensionMarkerVisitor;
 }());
