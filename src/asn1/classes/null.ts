@@ -1,7 +1,7 @@
 import { Base } from './base';
 
 export class Null extends Base {
-  public setConstraint(): Null {
+  public setConstraint(constraint: any): Null {
     return this;
   }
 

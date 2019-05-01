@@ -1,6 +1,6 @@
 import { Base } from './base';
 export declare class AsnBoolean extends Base {
-    setConstraint(): AsnBoolean;
+    setConstraint(constraint: any): AsnBoolean;
     expand(): AsnBoolean;
     toString(depth?: number): string;
 }

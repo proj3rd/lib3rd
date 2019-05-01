@@ -19,7 +19,7 @@ var ExtensionMarker = /** @class */ (function (_super) {
     function ExtensionMarker() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ExtensionMarker.prototype.setConstraint = function () {
+    ExtensionMarker.prototype.setConstraint = function (constraint) {
         return this;
     };
     ExtensionMarker.prototype.expand = function () {

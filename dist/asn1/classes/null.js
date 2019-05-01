@@ -19,7 +19,7 @@ var Null = /** @class */ (function (_super) {
     function Null() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Null.prototype.setConstraint = function () {
+    Null.prototype.setConstraint = function (constraint) {
         return this;
     };
     Null.prototype.expand = function () {

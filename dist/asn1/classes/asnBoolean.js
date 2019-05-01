@@ -19,7 +19,7 @@ var AsnBoolean = /** @class */ (function (_super) {
     function AsnBoolean() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    AsnBoolean.prototype.setConstraint = function () {
+    AsnBoolean.prototype.setConstraint = function (constraint) {
         return this;
     };
     AsnBoolean.prototype.expand = function () {

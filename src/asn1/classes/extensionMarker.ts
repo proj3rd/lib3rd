@@ -1,7 +1,7 @@
 import { Base } from './base';
 
 export class ExtensionMarker extends Base {
-  public setConstraint(): ExtensionMarker {
+  public setConstraint(constraint: any): ExtensionMarker {
     return this;
   }
 

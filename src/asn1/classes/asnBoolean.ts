@@ -1,7 +1,7 @@
 import { Base } from './base';
 
 export class AsnBoolean extends Base {
-  public setConstraint(): AsnBoolean {
+  public setConstraint(constraint: any): AsnBoolean {
     return this;
   }
 
