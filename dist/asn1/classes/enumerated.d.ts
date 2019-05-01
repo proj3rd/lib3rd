@@ -1,7 +1,8 @@
-export declare class Enumerated {
+import { Base } from './base';
+export declare class Enumerated extends Base {
     items: any[];
     constructor(items: any[]);
     setConstraint(constraint: any): Enumerated;
     expand(): Enumerated;
-    toString(): string;
+    toString(depth?: number): string;
 }

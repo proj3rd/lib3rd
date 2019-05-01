@@ -1,9 +1,13 @@
 import { log } from '../../utils/logging';
 
-export class Enumerated {
+import { Base } from './base';
+
+export class Enumerated extends Base {
   public items: any[];
 
   constructor(items: any[]) {
+    super();
+
     this.items = items;
   }
 
@@ -18,7 +22,7 @@ export class Enumerated {
     return this;
   }
 
-  public toString(): string {
+  public toString(depth: number = 0): string {
     return `ENUMERATED {${this.items.join(', ')}}`;
   }
 }

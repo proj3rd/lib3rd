@@ -1,6 +1,8 @@
 import { log } from '../../utils/logging';
 
-export class Integer {
+import { Base } from './base';
+
+export class Integer extends Base {
   public namedNumberList: any; // TODO
   public value: number | string;
   public min: number | string;
@@ -26,7 +28,7 @@ export class Integer {
     return this;
   }
 
-  public toString(): string {
+  public toString(depth: number = 0): string {
     const valueConstraint = this.value ? `(${this.value})` :
       this.min !== null && this.max !== null ? `(${this.min}..${this.max})` : '';
     return `INTENGER ${valueConstraint}`;

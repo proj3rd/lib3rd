@@ -1,7 +1,9 @@
 import { log } from '../../utils/logging';
 
-export class BitString {
-  public nameBitList: any; // TODO
+import { Base } from './base';
+
+export class BitString extends Base {
+  public namedBitList: any; // TODO
   public size: number | string;
   public sizeMin: number | string;
   public sizeMax: number | string;
@@ -26,7 +28,7 @@ export class BitString {
     return this;
   }
 
-  public toString(): string {
+  public toString(depth: number = 0): string {
     const valueConstraint = this.size ? `(SIZE (${this.size}))` :
       this.sizeMin !== null && this.sizeMax !== null ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `BIT STRING ${valueConstraint}`;

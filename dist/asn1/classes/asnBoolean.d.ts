@@ -1,4 +1,6 @@
-export declare class AsnBoolean {
+import { Base } from './base';
+export declare class AsnBoolean extends Base {
+    setConstraint(): AsnBoolean;
     expand(): AsnBoolean;
-    toString(): string;
+    toString(depth?: number): string;
 }

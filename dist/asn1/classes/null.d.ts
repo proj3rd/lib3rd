@@ -1,4 +1,6 @@
-export declare class Null {
+import { Base } from './base';
+export declare class Null extends Base {
+    setConstraint(): Null;
     expand(): Null;
-    toString(): string;
+    toString(depth?: number): string;
 }

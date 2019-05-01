@@ -1,4 +1,6 @@
-export declare class ExtensionMarker {
+import { Base } from './base';
+export declare class ExtensionMarker extends Base {
+    setConstraint(): ExtensionMarker;
     expand(): ExtensionMarker;
-    toString(): string;
+    toString(depth?: number): string;
 }
