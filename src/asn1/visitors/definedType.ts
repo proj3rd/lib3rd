@@ -1,10 +1,7 @@
 import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
 
-export interface IDefinedType {
-  moduleReference: string;
-  typeReference: string;
-}
+import { DefinedType } from '../classes/definedType';
 
 /**
  * ANTLR4 grammar
@@ -16,10 +13,7 @@ export interface IDefinedType {
 export class DefinedTypeVisitor {
   public visitChildren(definedTypeCtx: any): any /* TODO */ {
     const childCtxes = definedTypeCtx.children;
-    const definedType: IDefinedType = {
-      moduleReference: null,
-      typeReference: null,
-    };
+    const definedType = new DefinedType();
     switch (childCtxes.length) {
       case 1: {
         // ITENDIFIER

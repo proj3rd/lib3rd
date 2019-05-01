@@ -2,6 +2,7 @@
 exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
+var definedType_1 = require("../classes/definedType");
 /**
  * ANTLR4 grammar
  * ```
@@ -14,10 +15,7 @@ var DefinedTypeVisitor = /** @class */ (function () {
     }
     DefinedTypeVisitor.prototype.visitChildren = function (definedTypeCtx) {
         var childCtxes = definedTypeCtx.children;
-        var definedType = {
-            moduleReference: null,
-            typeReference: null
-        };
+        var definedType = new definedType_1.DefinedType();
         switch (childCtxes.length) {
             case 1: {
                 // ITENDIFIER

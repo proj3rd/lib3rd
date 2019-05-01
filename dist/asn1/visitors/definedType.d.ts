@@ -1,7 +1,3 @@
-export interface IDefinedType {
-    moduleReference: string;
-    typeReference: string;
-}
 /**
  * ANTLR4 grammar
  * ```
