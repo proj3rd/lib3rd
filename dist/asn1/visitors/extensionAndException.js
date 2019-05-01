@@ -16,7 +16,7 @@ var ExtensionAndExceptionVisitor = /** @class */ (function () {
         var extensionAndException = [new extensionMarker_1.ExtensionMarker()];
         var exceptionSpecCtx = extensionAndExceptionCtx.children[1];
         if (exceptionSpecCtx) {
-            logging_1.log.warn(utils_1.getLogWithAsn1(extensionAndExceptionCtx, 'ExceptionSpec not supported'));
+            logging_1.log.warn(utils_1.getLogWithAsn1(extensionAndExceptionCtx, 'ExceptionSpec not supported:'));
         }
         return extensionAndException;
     };

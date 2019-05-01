@@ -15,7 +15,7 @@ export class OctetString extends Base {
     return this;
   }
 
-  public toString(): string {
+  public toString(depth: number = 0): string {
     // TODO
     return 'OCTET STRING';
   }

@@ -4,5 +4,5 @@ export declare class DefinedType extends Base {
     typeReference: string;
     setConstraint(constraint: any): DefinedType;
     expand(): DefinedType;
-    toString(): string;
+    toString(depth?: number): string;
 }

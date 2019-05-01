@@ -27,7 +27,8 @@ var DefinedType = /** @class */ (function (_super) {
         // TODO
         return this;
     };
-    DefinedType.prototype.toString = function () {
+    DefinedType.prototype.toString = function (depth) {
+        if (depth === void 0) { depth = 0; }
         // TODO
         return null;
     };

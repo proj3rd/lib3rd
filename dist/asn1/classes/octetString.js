@@ -29,7 +29,8 @@ var OctetString = /** @class */ (function (_super) {
         // TODO
         return this;
     };
-    OctetString.prototype.toString = function () {
+    OctetString.prototype.toString = function (depth) {
+        if (depth === void 0) { depth = 0; }
         // TODO
         return 'OCTET STRING';
     };

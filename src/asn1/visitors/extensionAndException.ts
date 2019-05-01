@@ -14,7 +14,7 @@ export class ExtensionAndExceptionVisitor {
     const extensionAndException = [new ExtensionMarker()];
     const exceptionSpecCtx = extensionAndExceptionCtx.children[1];
     if (exceptionSpecCtx) {
-      log.warn(getLogWithAsn1(extensionAndExceptionCtx, 'ExceptionSpec not supported'));
+      log.warn(getLogWithAsn1(extensionAndExceptionCtx, 'ExceptionSpec not supported:'));
     }
     return extensionAndException;
   }
