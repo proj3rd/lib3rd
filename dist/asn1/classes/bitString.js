@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
 var BitString = /** @class */ (function (_super) {
@@ -21,16 +22,21 @@ var BitString = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     BitString.prototype.setConstraint = function (constraint) {
-        logging_1.log.info("BitString constraint " + JSON.stringify(constraint));
         if ('value' in constraint) {
             this.size = constraint.value;
+            delete constraint.value;
             this.sizeMin = null;
             this.sizeMax = null;
         }
         if ('min' in constraint && 'max' in constraint) {
             this.size = null;
             this.sizeMin = constraint.min;
+            delete constraint.min;
             this.sizeMax = constraint.max;
+            delete constraint.max;
+        }
+        if (!lodash_1.isEmpty(constraint)) {
+            logging_1.log.warn("BitString could not handle constraint " + JSON.stringify(constraint));
         }
         return this;
     };

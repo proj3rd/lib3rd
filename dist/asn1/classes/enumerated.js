@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
 var Enumerated = /** @class */ (function (_super) {
@@ -23,8 +24,9 @@ var Enumerated = /** @class */ (function (_super) {
         return _this;
     }
     Enumerated.prototype.setConstraint = function (constraint) {
-        logging_1.log.info("Enumerated constraint " + JSON.stringify(constraint));
-        // TODO
+        if (!lodash_1.isEmpty(constraint)) {
+            logging_1.log.warn("Enumerated could not handle constraint " + JSON.stringify(constraint));
+        }
         return this;
     };
     Enumerated.prototype.expand = function () {

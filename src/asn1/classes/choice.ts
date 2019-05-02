@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash';
+
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
@@ -12,8 +14,9 @@ export class Choice extends Base {
   }
 
   public setConstraint(constraint: any): Choice {
-    log.info(`Choice constraint ${JSON.stringify(constraint)}`);
-
+    if (!isEmpty(constraint)) {
+      log.warn(`Choice constraint ${JSON.stringify(constraint)}`);
+    }
     return this;
   }
 

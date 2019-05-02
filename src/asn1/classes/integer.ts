@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash';
+
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
@@ -9,17 +11,21 @@ export class Integer extends Base {
   public max: number | string;
 
   public setConstraint(constraint: any): Integer {
-    log.info(`Integer constraint ${JSON.stringify(constraint)}`);
-
     if ('value' in constraint) {
       this.value = constraint.value;
+      delete constraint.value;
       this.min = null;
       this.max = null;
     }
     if ('min' in constraint && 'max' in constraint) {
       this.value = null;
       this.min = constraint.min;
+      delete constraint.min;
       this.max = constraint.max;
+      delete constraint.max;
+    }
+    if (!isEmpty(constraint)) {
+      log.warn(`Integer could not handle constraint ${JSON.stringify(constraint)}`);
     }
     return this;
   }

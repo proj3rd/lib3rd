@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash';
+
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
@@ -12,9 +14,9 @@ export class Enumerated extends Base {
   }
 
   public setConstraint(constraint: any): Enumerated {
-    log.info(`Enumerated constraint ${JSON.stringify(constraint)}`);
-
-    // TODO
+    if (!isEmpty(constraint)) {
+      log.warn(`Enumerated could not handle constraint ${JSON.stringify(constraint)}`);
+    }
     return this;
   }
 

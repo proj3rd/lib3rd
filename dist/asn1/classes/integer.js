@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
 var Integer = /** @class */ (function (_super) {
@@ -21,16 +22,21 @@ var Integer = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Integer.prototype.setConstraint = function (constraint) {
-        logging_1.log.info("Integer constraint " + JSON.stringify(constraint));
         if ('value' in constraint) {
             this.value = constraint.value;
+            delete constraint.value;
             this.min = null;
             this.max = null;
         }
         if ('min' in constraint && 'max' in constraint) {
             this.value = null;
             this.min = constraint.min;
+            delete constraint.min;
             this.max = constraint.max;
+            delete constraint.max;
+        }
+        if (!lodash_1.isEmpty(constraint)) {
+            logging_1.log.warn("Integer could not handle constraint " + JSON.stringify(constraint));
         }
         return this;
     };

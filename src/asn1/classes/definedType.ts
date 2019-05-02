@@ -1,3 +1,7 @@
+import { isEmpty } from 'lodash';
+
+import { log } from '../../utils/logging';
+
 import { Base } from './base';
 
 export class DefinedType extends Base {
@@ -5,7 +9,9 @@ export class DefinedType extends Base {
   public typeReference: string;
 
   public setConstraint(constraint: any): DefinedType {
-    // TODO
+    if (!isEmpty(constraint)) {
+      log.warn(`DefinedType could not handle constraint ${JSON.stringify(constraint)}`);
+    }
     return this;
   }
 

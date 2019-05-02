@@ -13,6 +13,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+var lodash_1 = require("lodash");
+var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
 var DefinedType = /** @class */ (function (_super) {
     __extends(DefinedType, _super);
@@ -20,7 +22,9 @@ var DefinedType = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     DefinedType.prototype.setConstraint = function (constraint) {
-        // TODO
+        if (!lodash_1.isEmpty(constraint)) {
+            logging_1.log.warn("DefinedType could not handle constraint " + JSON.stringify(constraint));
+        }
         return this;
     };
     DefinedType.prototype.expand = function () {

@@ -13,6 +13,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+var lodash_1 = require("lodash");
+var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
 var Null = /** @class */ (function (_super) {
     __extends(Null, _super);
@@ -20,6 +22,9 @@ var Null = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Null.prototype.setConstraint = function (constraint) {
+        if (!lodash_1.isEmpty(constraint)) {
+            logging_1.log.warn("Null could not handle constraint " + JSON.stringify(constraint));
+        }
         return this;
     };
     Null.prototype.expand = function () {

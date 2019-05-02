@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash';
+
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
@@ -12,8 +14,9 @@ export class ExtensionAdditionAlternativesGroup extends Base {
   }
 
   public setConstraint(constraint: any): ExtensionAdditionAlternativesGroup {
-    log.info(`Enumerated constraint ${JSON.stringify(constraint)}`);
-
+    if (!isEmpty(constraint)) {
+      log.warn(`ExtensionAdditionAlternativesGroup could not handle constraint ${JSON.stringify(constraint)}`);
+    }
     return this;
   }
 

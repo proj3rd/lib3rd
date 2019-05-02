@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash';
+
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
@@ -12,10 +14,11 @@ export class NamedType extends Base {
     this.name = name;
     this.type = type;
   }
-  public setConstraint(constraint: any): NamedType {
-    log.info(`NamedType constraint ${JSON.stringify(constraint)}`);
 
-    // TODO
+  public setConstraint(constraint: any): NamedType {
+    if (!isEmpty(constraint)) {
+      log.warn(`NamedType could not handle constraint ${JSON.stringify(constraint)}`);
+    }
     return this;
   }
 

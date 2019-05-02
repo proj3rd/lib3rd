@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
+var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
 var Choice = /** @class */ (function (_super) {
@@ -23,7 +24,9 @@ var Choice = /** @class */ (function (_super) {
         return _this;
     }
     Choice.prototype.setConstraint = function (constraint) {
-        logging_1.log.info("Choice constraint " + JSON.stringify(constraint));
+        if (!lodash_1.isEmpty(constraint)) {
+            logging_1.log.warn("Choice constraint " + JSON.stringify(constraint));
+        }
         return this;
     };
     Choice.prototype.expand = function () {
