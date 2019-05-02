@@ -21,7 +21,7 @@ var BitString = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     BitString.prototype.setConstraint = function (constraint) {
-        logging_1.log.info("Boolean constraint " + JSON.stringify(constraint));
+        logging_1.log.info("BitString constraint " + JSON.stringify(constraint));
         if ('value' in constraint) {
             this.size = constraint.value;
             this.sizeMin = null;

@@ -9,7 +9,7 @@ export class BitString extends Base {
   public sizeMax: number | string;
 
   public setConstraint(constraint: any): BitString {
-    log.info(`Boolean constraint ${JSON.stringify(constraint)}`);
+    log.info(`BitString constraint ${JSON.stringify(constraint)}`);
 
     if ('value' in constraint) {
       this.size = constraint.value;
