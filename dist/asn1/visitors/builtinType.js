@@ -9,6 +9,7 @@ var choiceType_1 = require("./choiceType");
 var enumeratedType_1 = require("./enumeratedType");
 var integerType_1 = require("./integerType");
 var octetStringType_1 = require("./octetStringType");
+var sequenceType_1 = require("./sequenceType");
 /**
  * ANTLR4 grammar
  * builtinType :
@@ -51,6 +52,10 @@ var BuiltinTypeVisitor = /** @class */ (function () {
             }
             case 'octetStringType': {
                 builtinType = childCtx.accept(new octetStringType_1.OctetStringTypeVisitor());
+                break;
+            }
+            case 'sequenceType': {
+                builtinType = childCtx.accept(new sequenceType_1.SequenceTypeVisitor());
                 break;
             }
             default: {
