@@ -9,6 +9,7 @@ import { ChoiceTypeVisitor } from './choiceType';
 import { EnumeratedTypeVisitor } from './enumeratedType';
 import { IntegerTypeVisitor } from './integerType';
 import { OctetStringTypeVisitor } from './octetStringType';
+import { SequenceOfTypeVisitor } from './sequenceOfType';
 import { SequenceTypeVisitor } from './sequenceType';
 
 /**
@@ -51,6 +52,10 @@ export class BuiltinTypeVisitor {
       }
       case 'octetStringType': {
         builtinType = childCtx.accept(new OctetStringTypeVisitor());
+        break;
+      }
+      case 'sequenceOfType': {
+        builtinType = childCtx.accept(new SequenceOfTypeVisitor());
         break;
       }
       case 'sequenceType': {
