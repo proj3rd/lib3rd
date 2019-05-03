@@ -11,6 +11,9 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     super();
 
     this.alternativeTypeList = alternativeTypeList;
+    if (versionNumber !== undefined && versionNumber !== null) {
+      log.warn('ExtensionAdditionAlternativesGroup could not handle versionNumber');
+    }
   }
 
   public setConstraint(constraint: any): ExtensionAdditionAlternativesGroup {

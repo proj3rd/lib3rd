@@ -21,6 +21,9 @@ var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
     function ExtensionAdditionAlternativesGroup(alternativeTypeList, versionNumber) {
         var _this = _super.call(this) || this;
         _this.alternativeTypeList = alternativeTypeList;
+        if (versionNumber !== undefined && versionNumber !== null) {
+            logging_1.log.warn('ExtensionAdditionAlternativesGroup could not handle versionNumber');
+        }
         return _this;
     }
     ExtensionAdditionAlternativesGroup.prototype.setConstraint = function (constraint) {
