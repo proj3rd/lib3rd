@@ -34,7 +34,9 @@ export class ContentsConstraintVisitor {
         break;
       }
       case 'with': {
-        log.warn(getLogWithAsn1(contentsConstraintCtx, 'With not supported:'));
+        const componentPresenceListsCtx = childCtxes[3];
+        const componentPresenceLists = componentPresenceListsCtx.accept(new ComponentPresenceListVisitor());
+        contentsConstraint.withComponents = componentPresenceLists;
         break;
       }
       default: {
