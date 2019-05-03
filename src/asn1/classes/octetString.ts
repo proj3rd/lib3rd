@@ -8,20 +8,24 @@ export class OctetString extends Base {
   public size: number | string;
   public sizeMin: number | string;
   public sizeMax: number | string;
+  public containing: any /* TODO */;
 
   public setConstraint(constraint: any): OctetString {
     if ('value' in constraint) {
       this.size = constraint.value;
       delete constraint.value;
-      this.sizeMin = null;
-      this.sizeMax = null;
     }
-    if ('min' in constraint && 'max' in constraint) {
-      this.size = null;
+    if ('min' in constraint) {
       this.sizeMin = constraint.min;
       delete constraint.min;
+    }
+    if ('max' in constraint) {
       this.sizeMax = constraint.max;
       delete constraint.max;
+    }
+    if ('containing' in constraint) {
+      this.containing = constraint.containing;
+      delete constraint.containing;
     }
     if (!isEmpty(constraint)) {
       log.warn(`OctetStringType could not handle constraint ${JSON.stringify(constraint)}`);

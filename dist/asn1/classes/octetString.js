@@ -25,15 +25,18 @@ var OctetString = /** @class */ (function (_super) {
         if ('value' in constraint) {
             this.size = constraint.value;
             delete constraint.value;
-            this.sizeMin = null;
-            this.sizeMax = null;
         }
-        if ('min' in constraint && 'max' in constraint) {
-            this.size = null;
+        if ('min' in constraint) {
             this.sizeMin = constraint.min;
             delete constraint.min;
+        }
+        if ('max' in constraint) {
             this.sizeMax = constraint.max;
             delete constraint.max;
+        }
+        if ('containing' in constraint) {
+            this.containing = constraint.containing;
+            delete constraint.containing;
         }
         if (!lodash_1.isEmpty(constraint)) {
             logging_1.log.warn("OctetStringType could not handle constraint " + JSON.stringify(constraint));
