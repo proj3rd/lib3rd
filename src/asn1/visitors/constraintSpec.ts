@@ -1,6 +1,7 @@
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { GeneralConstraintVisitor } from './generalConstraint';
 import { SubtypeConstraintVisitor } from './subtypeConstraint';
 
 /**
@@ -15,11 +16,15 @@ export class ConstraintSpecVisitor {
     let constraintSpec = null;
     switch (getContextName(childCtx)) {
       case 'generalConstraint': {
-        log.warn(getLogWithAsn1(childCtx, 'GeneralConstraint not supported:'));
+        constraintSpec = childCtx.accept(new GeneralConstraintVisitor());
         break;
       }
       case 'subtypeConstraint': {
         constraintSpec = childCtx.accept(new SubtypeConstraintVisitor());
+        break;
+      }
+      default: {
+        log.warn(getLogWithAsn1(constraintSpecCtx, 'Not supported ASN1:'));
         break;
       }
     }
