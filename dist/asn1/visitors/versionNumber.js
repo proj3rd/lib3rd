@@ -13,7 +13,7 @@ var VersionNumberVisitor = /** @class */ (function () {
     }
     VersionNumberVisitor.prototype.visitChildren = function (versionNumberCtx) {
         var childCtxes = versionNumberCtx.children;
-        if (childCtxes.length) {
+        if (childCtxes) {
             logging_1.log.warn(utils_1.getLogWithAsn1(versionNumberCtx, 'VersionNumber not supported:'));
         }
         return null;
