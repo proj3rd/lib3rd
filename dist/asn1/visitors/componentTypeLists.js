@@ -2,8 +2,10 @@
 exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
+var extensionAdditions_1 = require("./extensionAdditions");
 var extensionAndException_1 = require("./extensionAndException");
 var optionalExtensionMarker_1 = require("./optionalExtensionMarker");
+var rootComponentTypeList_1 = require("./rootComponentTypeList");
 /**
  * ANTRL4 grammar
  * ```
@@ -23,14 +25,14 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
         switch (utils_1.getContextName(childCtxes[0])) {
             case 'rootComponentTypeList': {
                 var rootComponentTypeListCtx = childCtxes[0];
-                componentTypeLists = rootComponentTypeListCtx.accept(new RootComponentTypeListVisitor());
+                componentTypeLists = rootComponentTypeListCtx.accept(new rootComponentTypeList_1.RootComponentTypeListVisitor());
                 var extensionAndExceptionCtx = childCtxes[2];
                 if (extensionAndExceptionCtx) {
                     componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAndExceptionCtx.accept(new extensionAndException_1.ExtensionAndExceptionVisitor())));
                 }
                 var extensionAdditionsCtx = childCtxes[3];
                 if (extensionAdditionsCtx) {
-                    componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAdditionsCtx.accept(new ExtensionAdditionsVisitor())));
+                    componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAdditionsCtx.accept(new extensionAdditions_1.ExtensionAdditionsVisitor())));
                 }
                 switch (childCtxes.length) {
                     case 1: {
@@ -46,7 +48,7 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
                     }
                     case 7: {
                         var extendedRootComponentTypeListCtx = childCtxes[6];
-                        componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extendedRootComponentTypeListCtx.accept(new RootComponentTypeListVisitor())));
+                        componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extendedRootComponentTypeListCtx.accept(new rootComponentTypeList_1.RootComponentTypeListVisitor())));
                         break;
                     }
                     default: {
@@ -61,7 +63,7 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
                 var extensionAndExceptionCtx = childCtxes[0];
                 componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAndExceptionCtx.accept(new extensionAndException_1.ExtensionAndExceptionVisitor())));
                 var extensionAdditionsCtx = childCtxes[1];
-                componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAdditionsCtx.accept(new ExtensionAdditionsVisitor())));
+                componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAdditionsCtx.accept(new extensionAdditions_1.ExtensionAdditionsVisitor())));
                 switch (childCtxes.length) {
                     case 3: {
                         var optionalExtensionMarkerCtx = childCtxes[2];
@@ -73,7 +75,7 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
                     }
                     case 5: {
                         var extendedRootComponentTypeListCtx = childCtxes[4];
-                        componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extendedRootComponentTypeListCtx.accept(new RootComponentTypeListVisitor())));
+                        componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extendedRootComponentTypeListCtx.accept(new rootComponentTypeList_1.RootComponentTypeListVisitor())));
                         break;
                     }
                     default: {

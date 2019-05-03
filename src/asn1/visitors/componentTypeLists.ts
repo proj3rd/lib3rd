@@ -1,8 +1,9 @@
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
-import { ExtensionAdditionAlternativesVisitor } from './extensionAdditionAlternatives';
+import { ExtensionAdditionsVisitor } from './extensionAdditions';
 import { ExtensionAndExceptionVisitor } from './extensionAndException';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarker';
+import { RootComponentTypeListVisitor } from './rootComponentTypeList';
 
 /**
  * ANTRL4 grammar
