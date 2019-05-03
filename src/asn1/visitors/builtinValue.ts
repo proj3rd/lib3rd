@@ -55,6 +55,10 @@ export class BuiltinValueVisitor {
         // TODO
         break;
       }
+      case null: {
+        valueAssignment = subContext.getText();
+        break;
+      }
       default: {
         log.warn(getLogWithAsn1(builtinValueCtx, 'Not supported ASN1 in BuiltinValue:'));
         break;

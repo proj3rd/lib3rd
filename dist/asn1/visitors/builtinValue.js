@@ -57,6 +57,10 @@ var BuiltinValueVisitor = /** @class */ (function () {
                 // TODO
                 break;
             }
+            case null: {
+                valueAssignment = subContext.getText();
+                break;
+            }
             default: {
                 logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'Not supported ASN1 in BuiltinValue:'));
                 break;
