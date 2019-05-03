@@ -22,6 +22,12 @@ var OctetString = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     OctetString.prototype.setConstraint = function (constraint) {
+        if ('value' in constraint) {
+            this.size = constraint.value;
+            delete constraint.value;
+            this.sizeMin = null;
+            this.sizeMax = null;
+        }
         if ('min' in constraint && 'max' in constraint) {
             this.size = null;
             this.sizeMin = constraint.min;
