@@ -22,6 +22,10 @@ var DefinedType = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     DefinedType.prototype.setConstraint = function (constraint) {
+        if ('withComponents' in constraint) {
+            this.withComponents = constraint.withComponents;
+            delete constraint.withComponents;
+        }
         if (!lodash_1.isEmpty(constraint)) {
             logging_1.log.warn("DefinedType could not handle constraint " + JSON.stringify(constraint));
         }

@@ -2,6 +2,7 @@ import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
 
 import { AsnTypeVisitor } from './asnType';
+import { ComponentPresenceListsVisitor } from './componentPresenceLists';
 import { ValueVisitor } from './value';
 
 /**
@@ -35,7 +36,7 @@ export class ContentsConstraintVisitor {
       }
       case 'with': {
         const componentPresenceListsCtx = childCtxes[3];
-        const componentPresenceLists = componentPresenceListsCtx.accept(new ComponentPresenceListVisitor());
+        const componentPresenceLists = componentPresenceListsCtx.accept(new ComponentPresenceListsVisitor());
         contentsConstraint.withComponents = componentPresenceLists;
         break;
       }

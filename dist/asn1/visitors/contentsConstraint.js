@@ -3,6 +3,7 @@ exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var asnType_1 = require("./asnType");
+var componentPresenceLists_1 = require("./componentPresenceLists");
 var value_1 = require("./value");
 /**
  * ANTLR4 grammar
@@ -36,7 +37,9 @@ var ContentsConstraintVisitor = /** @class */ (function () {
                 break;
             }
             case 'with': {
-                logging_1.log.warn(utils_1.getLogWithAsn1(contentsConstraintCtx, 'With not supported:'));
+                var componentPresenceListsCtx = childCtxes[3];
+                var componentPresenceLists = componentPresenceListsCtx.accept(new componentPresenceLists_1.ComponentPresenceListsVisitor());
+                contentsConstraint.withComponents = componentPresenceLists;
                 break;
             }
             default: {
