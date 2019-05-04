@@ -4,8 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "antlr": "antlr4 src/asn1/ASN.g4 -o dist/asn1 -Dlanguage=JavaScript -visitor -no-listener",
-    "test": "tsc && node dist/asn1/parse 36331-f40.asn1 > log 2>&1"
+    "antlr": "antlr4 src/asn1/ASN.g4 -o dist/asn1 -Dlanguage=JavaScript -visitor -no-listener"
   },
   "repository": {
     "type": "git",
