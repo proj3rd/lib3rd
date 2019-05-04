@@ -17,7 +17,6 @@ var AlternativeTypeListVisitor = /** @class */ (function () {
             if (index % 2) {
                 return;
             }
-            // TODO
             alternativeTypeList.push(childCtx.accept(new namedType_1.NamedTypeVisitor()));
         });
         return alternativeTypeList;

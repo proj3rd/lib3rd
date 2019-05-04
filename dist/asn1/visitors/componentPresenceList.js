@@ -15,7 +15,7 @@ var ComponentPresenceListVisitor = /** @class */ (function () {
         var componentPresenceList = [];
         childCtxes.forEach(function (childCtx, index) {
             if (index % 2) {
-                // return;
+                return;
             }
             componentPresenceList.push(childCtx.accept(new componentPresence_1.ComponentPresenceVisitor()));
         });

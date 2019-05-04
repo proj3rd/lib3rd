@@ -1,3 +1,4 @@
+import { NamedType } from '../classes/namedType';
 /**
  * ANTLR4
  * ```
@@ -5,5 +6,5 @@
  * ```
  */
 export declare class NamedTypeVisitor {
-    visitChildren(namedTypeCtx: any): any;
+    visitChildren(namedTypeCtx: any): NamedType;
 }

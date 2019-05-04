@@ -9,7 +9,7 @@ import { AsnTypeVisitor } from './asnType';
  * ```
  */
 export class NamedTypeVisitor {
-  public visitChildren(namedTypeCtx: any): any /* TODO */ {
+  public visitChildren(namedTypeCtx: any): NamedType {
     const childCtxes = namedTypeCtx.children;
     const nameCtx = childCtxes[0];
     const asnTypeCtx = childCtxes[1];

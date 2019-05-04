@@ -12,7 +12,7 @@ export class ComponentPresenceListVisitor {
     const componentPresenceList = [];
     childCtxes.forEach((childCtx: any, index: number) => {
       if (index % 2) {
-        // return;
+        return;
       }
       componentPresenceList.push(childCtx.accept(new ComponentPresenceVisitor()));
     });

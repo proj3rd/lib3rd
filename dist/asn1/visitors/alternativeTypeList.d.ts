@@ -1,3 +1,4 @@
+import { NamedType } from '../classes/namedType';
 /**
  * ANTLR4 grammar
  * ```
@@ -5,5 +6,5 @@
  * ```
  */
 export declare class AlternativeTypeListVisitor {
-    visitChildren(alternativeTypeListCtx: any): any;
+    visitChildren(alternativeTypeListCtx: any): NamedType[];
 }
