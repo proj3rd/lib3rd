@@ -30,8 +30,7 @@ var AsnBoolean = /** @class */ (function (_super) {
     AsnBoolean.prototype.expand = function () {
         return this;
     };
-    AsnBoolean.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    AsnBoolean.prototype.toString = function () {
         return 'BOOLEAN';
     };
     return AsnBoolean;

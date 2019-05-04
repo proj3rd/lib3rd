@@ -16,7 +16,7 @@ export class AsnBoolean extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
+  public toString(): string {
     return 'BOOLEAN';
   }
 }

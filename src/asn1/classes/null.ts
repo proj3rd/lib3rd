@@ -16,7 +16,7 @@ export class Null extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
+  public toString(): string {
     return 'NULL';
   }
 }

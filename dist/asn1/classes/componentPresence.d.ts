@@ -5,5 +5,5 @@ export declare class ComponentPresence extends Base {
     constructor(identifier: string, absentPresent: string);
     setConstraint(constraint: any): ComponentPresence;
     expand(): ComponentPresence;
-    toString(depth?: number): string;
+    toString(): string;
 }

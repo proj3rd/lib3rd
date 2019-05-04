@@ -4,5 +4,5 @@ export declare class ExtensionAdditionGroup extends Base {
     constructor(alternativeTypeList: any, versionNumber: any);
     setConstraint(constraint: any): ExtensionAdditionGroup;
     expand(): ExtensionAdditionGroup;
-    toString(depth?: number): string;
+    toString(): string;
 }

@@ -36,12 +36,12 @@ var ExtensionAdditionGroup = /** @class */ (function (_super) {
         // TODO
         return this;
     };
-    ExtensionAdditionGroup.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    ExtensionAdditionGroup.prototype.toString = function () {
+        var _this = this;
         return [
-            this.indent(depth) + "[["
-        ].concat(this.componentTypeList.map(function (item) { return item.toString(depth + 1); }), [
-            this.indent(depth) + "]]",
+            '[['
+        ].concat(this.componentTypeList.map(function (item) { return _this.indent(item.toString()); }), [
+            ']]',
         ]).join('\n');
     };
     return ExtensionAdditionGroup;

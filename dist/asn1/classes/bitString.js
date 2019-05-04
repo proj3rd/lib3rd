@@ -43,8 +43,7 @@ var BitString = /** @class */ (function (_super) {
     BitString.prototype.expand = function () {
         return this;
     };
-    BitString.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    BitString.prototype.toString = function () {
         var valueConstraint = this.size ? "(SIZE (" + this.size + "))" :
             this.sizeMin !== null && this.sizeMax !== null ? "(SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
         return "BIT STRING " + valueConstraint;

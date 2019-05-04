@@ -1,9 +1,9 @@
 export abstract class Base {
   protected abstract setConstraint(constraint: any): Base;
   protected abstract expand(): Base;
-  protected abstract toString(depth: number): string;
+  protected abstract toString(): string;
 
-  protected indent(depth: number): string {
-    return '  '.repeat(depth);
+  protected indent(text: string): string {
+    return text.replace(/^/gm, '  ');
   }
 }

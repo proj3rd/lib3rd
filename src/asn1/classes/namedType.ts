@@ -27,7 +27,7 @@ export class NamedType extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
-    return `${this.name} ${this.type}`;
+  public toString(): string {
+    return `${this.name.padEnd(32)}    ${this.type}`;
   }
 }

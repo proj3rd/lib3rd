@@ -6,5 +6,5 @@ export declare class OctetString extends Base {
     containing: any;
     setConstraint(constraint: any): OctetString;
     expand(): OctetString;
-    toString(depth?: number): string;
+    toString(): string;
 }

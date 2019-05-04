@@ -26,7 +26,7 @@ export class DefinedType extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
+  public toString(): string {
     // TODO
     return `${this.moduleReference ? this.moduleReference + '.' : ''}${this.typeReference}`;
   }

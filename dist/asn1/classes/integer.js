@@ -43,8 +43,7 @@ var Integer = /** @class */ (function (_super) {
     Integer.prototype.expand = function () {
         return this;
     };
-    Integer.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    Integer.prototype.toString = function () {
         var valueConstraint = this.value ? "(" + this.value + ")" :
             this.min !== null && this.max !== null ? "(" + this.min + ".." + this.max + ")" : '';
         return "INTENGER " + valueConstraint;

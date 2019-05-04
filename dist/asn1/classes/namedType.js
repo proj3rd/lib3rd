@@ -34,9 +34,8 @@ var NamedType = /** @class */ (function (_super) {
         // TODO
         return this;
     };
-    NamedType.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
-        return this.name + " " + this.type;
+    NamedType.prototype.toString = function () {
+        return this.name.padEnd(32) + "    " + this.type;
     };
     return NamedType;
 }(base_1.Base));

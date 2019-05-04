@@ -27,11 +27,11 @@ export class ExtensionAdditionGroup extends Base {
     // TODO
     return this;
   }
-  public toString(depth: number = 0): string {
+  public toString(): string {
     return [
-      `${this.indent(depth)}[[`,
-      ...this.componentTypeList.map((item) => item.toString(depth + 1)),
-      `${this.indent(depth)}]]`,
+      '[[',
+      ...this.componentTypeList.map((item) => this.indent(item.toString())),
+      ']]',
     ].join('\n');
   }
 }

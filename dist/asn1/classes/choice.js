@@ -33,10 +33,10 @@ var Choice = /** @class */ (function (_super) {
         // TODO
         return this;
     };
-    Choice.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    Choice.prototype.toString = function () {
+        var _this = this;
         var contentStrings = this.choices.map(function (choice) {
-            return choice.toString(depth + 1);
+            return _this.indent(choice.toString());
         });
         return "CHOICE " + ['{'].concat(contentStrings, ['}']).join(',\n');
     };
