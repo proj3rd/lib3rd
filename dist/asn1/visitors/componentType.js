@@ -52,7 +52,7 @@ var ComponentTypeVisitor = /** @class */ (function () {
                 break;
             }
         }
-        return componentTypeCtx;
+        return componentType;
     };
     return ComponentTypeVisitor;
 }());

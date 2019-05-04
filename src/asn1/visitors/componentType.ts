@@ -50,6 +50,6 @@ export class ComponentTypeVisitor {
         break;
       }
     }
-    return componentTypeCtx;
+    return componentType;
   }
 }
