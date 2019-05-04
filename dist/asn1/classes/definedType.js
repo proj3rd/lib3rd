@@ -16,6 +16,7 @@ exports.__esModule = true;
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
+var withComponents_1 = require("./withComponents");
 var DefinedType = /** @class */ (function (_super) {
     __extends(DefinedType, _super);
     function DefinedType() {
@@ -23,7 +24,7 @@ var DefinedType = /** @class */ (function (_super) {
     }
     DefinedType.prototype.setConstraint = function (constraint) {
         if ('withComponents' in constraint) {
-            this.withComponents = constraint.withComponents;
+            this.withComponents = new withComponents_1.WithComponents(constraint.withComponents);
             delete constraint.withComponents;
         }
         if (!lodash_1.isEmpty(constraint)) {
@@ -38,7 +39,7 @@ var DefinedType = /** @class */ (function (_super) {
     DefinedType.prototype.toString = function (depth) {
         if (depth === void 0) { depth = 0; }
         // TODO
-        return null;
+        return "" + (this.moduleReference ? this.moduleReference + '.' : '') + this.typeReference;
     };
     return DefinedType;
 }(base_1.Base));

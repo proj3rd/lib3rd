@@ -27,6 +27,6 @@ export class Sequence extends Base {
 
   public toString(depth: number = 0): string {
     // TODO
-    return null;
+    return ['SEQUENCE {', ...this.items.map((item) => item.toString(depth + 1)), '}'].join('\n');
   }
 }

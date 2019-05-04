@@ -28,7 +28,10 @@ export class ExtensionAdditionGroup extends Base {
     return this;
   }
   public toString(depth: number = 0): string {
-    // TODO
-    return null;
+    return [
+      `${this.indent(depth)}[[`,
+      ...this.componentTypeList.map((item) => item.toString(depth + 1)),
+      `${this.indent(depth)}]]`,
+    ].join('\n');
   }
 }

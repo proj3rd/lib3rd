@@ -3,17 +3,16 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
-import { ComponentPresence } from './componentPresence';
-import { ExtensionMarker } from './extensionMarker';
+import { WithComponents } from './withComponents';
 
 export class DefinedType extends Base {
   public moduleReference: string;
   public typeReference: string;
-  public withComponents: Array<ExtensionMarker | ComponentPresence>;
+  public withComponents: WithComponents;
 
   public setConstraint(constraint: any): DefinedType {
     if ('withComponents' in constraint) {
-      this.withComponents = constraint.withComponents;
+      this.withComponents = new WithComponents(constraint.withComponents);
       delete constraint.withComponents;
     }
     if (!isEmpty(constraint)) {
@@ -29,6 +28,6 @@ export class DefinedType extends Base {
 
   public toString(depth: number = 0): string {
     // TODO
-    return null;
+    return `${this.moduleReference ? this.moduleReference + '.' : ''}${this.typeReference}`;
   }
 }

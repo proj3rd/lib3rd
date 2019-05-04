@@ -36,8 +36,7 @@ var NamedType = /** @class */ (function (_super) {
     };
     NamedType.prototype.toString = function (depth) {
         if (depth === void 0) { depth = 0; }
-        // TODO
-        return null;
+        return this.name + " " + this.type;
     };
     return NamedType;
 }(base_1.Base));

@@ -36,7 +36,7 @@ var Sequence = /** @class */ (function (_super) {
     Sequence.prototype.toString = function (depth) {
         if (depth === void 0) { depth = 0; }
         // TODO
-        return null;
+        return ['SEQUENCE {'].concat(this.items.map(function (item) { return item.toString(depth + 1); }), ['}']).join('\n');
     };
     return Sequence;
 }(base_1.Base));

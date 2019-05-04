@@ -38,8 +38,11 @@ var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
     };
     ExtensionAdditionAlternativesGroup.prototype.toString = function (depth) {
         if (depth === void 0) { depth = 0; }
-        // TODO
-        return null;
+        return [
+            this.indent(depth) + "[["
+        ].concat(this.alternativeTypeList.map(function (item) { return item.toString(depth + 1); }), [
+            this.indent(depth) + "]]",
+        ]).join('\n');
     };
     return ExtensionAdditionAlternativesGroup;
 }(base_1.Base));

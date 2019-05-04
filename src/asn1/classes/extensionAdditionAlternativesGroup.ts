@@ -3,9 +3,10 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
+import { NamedType } from './namedType';
 
 export class ExtensionAdditionAlternativesGroup extends Base {
-  public alternativeTypeList: any[] /* TODO */;
+  public alternativeTypeList: NamedType[];
 
   constructor(alternativeTypeList: any, versionNumber: any) {
     super();
@@ -28,7 +29,10 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     return this;
   }
   public toString(depth: number = 0): string {
-    // TODO
-    return null;
+    return [
+      `${this.indent(depth)}[[`,
+      ...this.alternativeTypeList.map((item) => item.toString(depth + 1)),
+      `${this.indent(depth)}]]`,
+    ].join('\n');
   }
 }

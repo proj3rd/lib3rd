@@ -28,7 +28,6 @@ export class NamedType extends Base {
   }
 
   public toString(depth: number = 0): string {
-    // TODO
-    return null;
+    return `${this.name} ${this.type}`;
   }
 }

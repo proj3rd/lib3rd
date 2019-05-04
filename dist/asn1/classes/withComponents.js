@@ -16,27 +16,26 @@ exports.__esModule = true;
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
-var ComponentPresence = /** @class */ (function (_super) {
-    __extends(ComponentPresence, _super);
-    function ComponentPresence(identifier, absentPresent) {
+var WithComponents = /** @class */ (function (_super) {
+    __extends(WithComponents, _super);
+    function WithComponents(components) {
         var _this = _super.call(this) || this;
-        _this.identifier = identifier;
-        _this.absentPresent = absentPresent;
+        _this.components = components;
         return _this;
     }
-    ComponentPresence.prototype.setConstraint = function (constraint) {
+    WithComponents.prototype.setConstraint = function (constraint) {
         if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn("ComponentPresence could not handle constraint " + JSON.stringify(constraint));
+            logging_1.log.warn("WithComponents could not handle constraint " + JSON.stringify(constraint));
         }
         return this;
     };
-    ComponentPresence.prototype.expand = function () {
+    WithComponents.prototype.expand = function () {
         return this;
     };
-    ComponentPresence.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
-        return this.identifier + " " + this.absentPresent;
+    WithComponents.prototype.toString = function () {
+        // TODO
+        return null;
     };
-    return ComponentPresence;
+    return WithComponents;
 }(base_1.Base));
-exports.ComponentPresence = ComponentPresence;
+exports.WithComponents = WithComponents;

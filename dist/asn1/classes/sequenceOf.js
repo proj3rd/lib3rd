@@ -48,8 +48,9 @@ var SequenceOf = /** @class */ (function (_super) {
     };
     SequenceOf.prototype.toString = function (depth) {
         if (depth === void 0) { depth = 0; }
-        // TODO
-        return null;
+        var size = this.size !== null ? "(SIZE (" + this.size + "))" :
+            this.sizeMin !== null && this.sizeMax !== null ? "(SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
+        return "SEQUENCE" + size + " OF " + this.type.toString(depth);
     };
     return SequenceOf;
 }(base_1.Base));
