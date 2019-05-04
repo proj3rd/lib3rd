@@ -33,10 +33,14 @@ var Sequence = /** @class */ (function (_super) {
         // TODO
         return this;
     };
-    Sequence.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    Sequence.prototype.toString = function () {
+        var _this = this;
         // TODO
-        return ['SEQUENCE {'].concat(this.items.map(function (item) { return item.toString(depth + 1); }), ['}']).join('\n');
+        return [
+            'SEQUENCE {'
+        ].concat(this.items.map(function (item) { return _this.indent(item.toString()); }), [
+            '}',
+        ]).join('\n');
     };
     return Sequence;
 }(base_1.Base));

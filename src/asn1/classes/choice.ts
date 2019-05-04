@@ -25,9 +25,9 @@ export class Choice extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
+  public toString(): string {
     const contentStrings = this.choices.map((choice: any) => {
-      return choice.toString(depth + 1);
+      return this.indent(choice.toString());
     });
     return `CHOICE ${['{', ...contentStrings, '}'].join(',\n')}`;
   }

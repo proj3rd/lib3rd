@@ -36,8 +36,7 @@ var DefinedType = /** @class */ (function (_super) {
         // TODO
         return this;
     };
-    DefinedType.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    DefinedType.prototype.toString = function () {
         // TODO
         return "" + (this.moduleReference ? this.moduleReference + '.' : '') + this.typeReference;
     };

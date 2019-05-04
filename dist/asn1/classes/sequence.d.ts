@@ -4,5 +4,5 @@ export declare class Sequence extends Base {
     constructor(items: any[]);
     setConstraint(constraint: any): Sequence;
     expand(): Sequence;
-    toString(depth?: number): string;
+    toString(): string;
 }

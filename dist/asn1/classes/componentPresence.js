@@ -33,8 +33,7 @@ var ComponentPresence = /** @class */ (function (_super) {
     ComponentPresence.prototype.expand = function () {
         return this;
     };
-    ComponentPresence.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    ComponentPresence.prototype.toString = function () {
         return this.identifier + " " + this.absentPresent;
     };
     return ComponentPresence;

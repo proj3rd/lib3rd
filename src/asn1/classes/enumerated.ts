@@ -24,7 +24,7 @@ export class Enumerated extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
+  public toString(): string {
     return `ENUMERATED {${this.items.join(', ')}}`;
   }
 }

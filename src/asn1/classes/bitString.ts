@@ -34,7 +34,7 @@ export class BitString extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
+  public toString(): string {
     const valueConstraint = this.size ? `(SIZE (${this.size}))` :
       this.sizeMin !== null && this.sizeMax !== null ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `BIT STRING ${valueConstraint}`;

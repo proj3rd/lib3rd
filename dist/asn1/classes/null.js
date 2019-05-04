@@ -30,8 +30,7 @@ var Null = /** @class */ (function (_super) {
     Null.prototype.expand = function () {
         return this;
     };
-    Null.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    Null.prototype.toString = function () {
         return 'NULL';
     };
     return Null;

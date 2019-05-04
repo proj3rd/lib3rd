@@ -36,12 +36,12 @@ var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
         // TODO
         return this;
     };
-    ExtensionAdditionAlternativesGroup.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    ExtensionAdditionAlternativesGroup.prototype.toString = function () {
+        var _this = this;
         return [
-            this.indent(depth) + "[["
-        ].concat(this.alternativeTypeList.map(function (item) { return item.toString(depth + 1); }), [
-            this.indent(depth) + "]]",
+            '[['
+        ].concat(this.alternativeTypeList.map(function (item) { return _this.indent(item.toString()); }), [
+            ']]',
         ]).join('\n');
     };
     return ExtensionAdditionAlternativesGroup;

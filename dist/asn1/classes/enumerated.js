@@ -32,8 +32,7 @@ var Enumerated = /** @class */ (function (_super) {
     Enumerated.prototype.expand = function () {
         return this;
     };
-    Enumerated.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
+    Enumerated.prototype.toString = function () {
         return "ENUMERATED {" + this.items.join(', ') + "}";
     };
     return Enumerated;

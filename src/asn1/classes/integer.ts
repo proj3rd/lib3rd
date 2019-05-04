@@ -34,7 +34,7 @@ export class Integer extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
+  public toString(): string {
     const valueConstraint = this.value ? `(${this.value})` :
       this.min !== null && this.max !== null ? `(${this.min}..${this.max})` : '';
     return `INTENGER ${valueConstraint}`;

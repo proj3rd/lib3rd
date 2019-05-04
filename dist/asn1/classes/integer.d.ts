@@ -6,5 +6,5 @@ export declare class Integer extends Base {
     max: number | string;
     setConstraint(constraint: any): Integer;
     expand(): Integer;
-    toString(depth?: number): string;
+    toString(): string;
 }

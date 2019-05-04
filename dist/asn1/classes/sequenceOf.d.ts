@@ -7,5 +7,5 @@ export declare class SequenceOf extends Base {
     constructor(type: any);
     setConstraint(constraint: any): SequenceOf;
     expand(): SequenceOf;
-    toString(depth?: number): string;
+    toString(): string;
 }

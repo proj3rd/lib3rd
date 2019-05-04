@@ -38,8 +38,8 @@ export class OctetString extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
-    const containing = this.containing ? ` (CONTAINING ${this.containing.toString(depth)})` : '';
+  public toString(): string {
+    const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
     const size = this.size ? ` (SIZE (${this.size}))` :
       this.sizeMin && this.sizeMax ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `OCTET STRING${containing}${size}`;

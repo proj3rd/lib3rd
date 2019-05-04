@@ -41,9 +41,9 @@ export class SequenceOf extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
+  public toString(): string {
     const size = this.size !== null ? `(SIZE (${this.size}))` :
       this.sizeMin !== null && this.sizeMax !== null ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-    return `SEQUENCE${size} OF ${this.type.toString(depth)}`;
+    return `SEQUENCE${size} OF ${this.type.toString()}`;
   }
 }

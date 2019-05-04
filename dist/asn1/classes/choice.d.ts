@@ -4,5 +4,5 @@ export declare class Choice extends Base {
     constructor(choices: any);
     setConstraint(constraint: any): Choice;
     expand(): Choice;
-    toString(depth?: number): string;
+    toString(): string;
 }

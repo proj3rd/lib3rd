@@ -47,9 +47,8 @@ var OctetString = /** @class */ (function (_super) {
         // TODO
         return this;
     };
-    OctetString.prototype.toString = function (depth) {
-        if (depth === void 0) { depth = 0; }
-        var containing = this.containing ? " (CONTAINING " + this.containing.toString(depth) + ")" : '';
+    OctetString.prototype.toString = function () {
+        var containing = this.containing ? " (CONTAINING " + this.containing.toString() + ")" : '';
         var size = this.size ? " (SIZE (" + this.size + "))" :
             this.sizeMin && this.sizeMax ? " (SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
         return "OCTET STRING" + containing + size;

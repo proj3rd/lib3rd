@@ -26,7 +26,7 @@ export class ComponentPresence extends Base {
     return this;
   }
 
-  public toString(depth: number = 0): string {
+  public toString(): string {
     return `${this.identifier} ${this.absentPresent}`;
   }
 }

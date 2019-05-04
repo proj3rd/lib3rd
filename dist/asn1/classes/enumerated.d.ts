@@ -4,5 +4,5 @@ export declare class Enumerated extends Base {
     constructor(items: any[]);
     setConstraint(constraint: any): Enumerated;
     expand(): Enumerated;
-    toString(depth?: number): string;
+    toString(): string;
 }
