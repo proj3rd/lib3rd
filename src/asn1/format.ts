@@ -1,4 +1,5 @@
-import { readFile } from 'fs';
+import { readFile, writeFileSync } from 'fs';
+import { parse as parsePath } from 'path';
 
 import { parse } from './parse';
 
@@ -11,7 +12,6 @@ export function format(msgIeName: string, asn1: any, fmt: string = 'txt'): any /
   switch (fmt) {
     case 'txt': {
       return `${msgIeName} ::= ${asn1.toString()}`;
-      break;
     }
     default: {
       throw Error(`Format '${fmt}' not supported`);
@@ -20,7 +20,7 @@ export function format(msgIeName: string, asn1: any, fmt: string = 'txt'): any /
 }
 
 if (require.main === module) {
-  const [filePath, msgIeName, fmt, expand] = process.argv.slice(2);
+  const [filePath, msgIeName] = process.argv.slice(2);
   if (!filePath || !msgIeName) {
     throw Error('Require at least 2 arguments, filePath, msgIeName, ... and fmt and expand');
   }
@@ -28,6 +28,9 @@ if (require.main === module) {
     if (err) {
       throw err;
     }
+    let [fmt, expand] = process.argv.slice(4);
+    fmt = fmt ? fmt : 'txt';
+    expand = expand ? expand : null;
     const parseResult: any /* TODO */ = parse(text);
     let msgIeDefinition = null;
     Object.keys(parseResult).forEach((moduleName) => {
@@ -41,7 +44,16 @@ if (require.main === module) {
     if (!msgIeDefinition) {
       throw Error(`${msgIeName} not found in ${filePath}`);
     }
-    const formatResult = format(msgIeDefinition, fmt ? fmt : 'txt');
-    // TODO: write to file?
+    const formatResult = format(msgIeName, msgIeDefinition, fmt);
+    const parsedPath = parsePath(filePath);
+    switch (fmt) {
+      case 'txt': {
+        writeFileSync(`${msgIeName}-${parsedPath.name}.txt`, formatResult);
+        break;
+      }
+      default: {
+        throw Error(`Format '${fmt}' not supported`);
+      }
+    }
   });
 }
