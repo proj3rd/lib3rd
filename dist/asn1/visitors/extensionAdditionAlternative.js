@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var extensionAdditionAlternativesGroup_1 = require("./extensionAdditionAlternativesGroup");
 var namedType_1 = require("./namedType");
@@ -25,6 +26,7 @@ var ExtensionAdditionAlternativeVisitor = /** @class */ (function () {
                 break;
             }
             default: {
+                logging_1.log.warn(utils_1.getLogWithAsn1(extensionAdditionAlternativeCtx, 'Not supported ASN1:'));
                 break;
             }
         }

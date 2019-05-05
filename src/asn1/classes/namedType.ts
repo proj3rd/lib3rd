@@ -7,6 +7,8 @@ import { Base } from './base';
 export class NamedType extends Base {
   public name: string;
   public type: any;
+  public optional: boolean;
+  public default: any;
 
   constructor(name: string, type: any) {
     super();
@@ -28,6 +30,8 @@ export class NamedType extends Base {
   }
 
   public toString(): string {
-    return `${this.name.padEnd(32)}    ${this.type}`;
+    const optional = this.optional ? '    OPTIONAL' :
+      this.default !== undefined ? `    DEFAULT   ${this.default.toString()}` : '';
+    return `${this.name.padEnd(48)}    ${this.type}${optional}`;
   }
 }

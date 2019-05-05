@@ -18,7 +18,7 @@ import { RootComponentTypeListVisitor } from './rootComponentTypeList';
 export class ComponentTypeListsVisitor {
   public visitChildren(componentTypeListsCtx: any): any /* TODO */ {
     const childCtxes = componentTypeListsCtx.children;
-    let componentTypeLists = null;
+    let componentTypeLists = [];
     switch (getContextName(childCtxes[0])) {
       case 'rootComponentTypeList': {
         const rootComponentTypeListCtx = childCtxes[0];
@@ -30,8 +30,8 @@ export class ComponentTypeListsVisitor {
         }
         const extensionAdditionsCtx = childCtxes[3];
         if (extensionAdditionsCtx) {
-          componentTypeLists.splice(componentTypeLists.length, 0,
-            ...extensionAdditionsCtx.accept(new ExtensionAdditionsVisitor()));
+          const extensionAdditions = extensionAdditionsCtx.accept(new ExtensionAdditionsVisitor());
+          componentTypeLists.splice(componentTypeLists.length, 0, ...extensionAdditions);
         }
         switch (childCtxes.length) {
           case 1: {
@@ -40,9 +40,7 @@ export class ComponentTypeListsVisitor {
           case 5: {
             const optionalExtensionMarkerCtx = childCtxes[4];
             const optionalExtensionMarker = optionalExtensionMarkerCtx.accept(new OptionalExtensionMarkerVisitor());
-            if (optionalExtensionMarker) {
-              componentTypeLists.push(optionalExtensionMarker);
-            }
+            componentTypeLists.splice(componentTypeLists.length, 0, ...optionalExtensionMarker);
             break;
           }
           case 7: {
@@ -64,15 +62,13 @@ export class ComponentTypeListsVisitor {
         componentTypeLists.splice(componentTypeLists.length, 0,
           ...extensionAndExceptionCtx.accept(new ExtensionAndExceptionVisitor()));
         const extensionAdditionsCtx = childCtxes[1];
-        componentTypeLists.splice(componentTypeLists.length, 0,
-          ...extensionAdditionsCtx.accept(new ExtensionAdditionsVisitor()));
+        const extensionAdditions = extensionAdditionsCtx.accept(new ExtensionAdditionsVisitor());
+        componentTypeLists.splice(componentTypeLists.length, 0, ...extensionAdditions);
         switch (childCtxes.length) {
           case 3: {
             const optionalExtensionMarkerCtx = childCtxes[2];
             const optionalExtensionMarker = optionalExtensionMarkerCtx.accept(new OptionalExtensionMarkerVisitor());
-            if (optionalExtensionMarker) {
-              componentTypeLists.push(optionalExtensionMarker);
-            }
+            componentTypeLists.splice(componentTypeLists.length, 0, ...optionalExtensionMarker);
             break;
           }
           case 5: {

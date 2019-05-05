@@ -17,8 +17,10 @@ var ExtensionAdditionListVisitor = /** @class */ (function () {
             if (index % 2) {
                 return;
             }
-            extensionAdditionList.push(childCtx.accept(new extensionAddition_1.ExtensionAdditionVisitor()));
+            var extensionAddition = childCtx.accept(new extensionAddition_1.ExtensionAdditionVisitor());
+            extensionAdditionList.splice.apply(extensionAdditionList, [extensionAdditionList.length, 0].concat(extensionAddition));
         });
+        return extensionAdditionList;
     };
     return ExtensionAdditionListVisitor;
 }());

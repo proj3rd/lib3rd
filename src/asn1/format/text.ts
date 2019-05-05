@@ -10,5 +10,5 @@ export function format(msgIes: any[]): string {
     log.debug(`Formatting ${msgIe.name} in text...`);
     formattedStrings.push(`${msgIe.name} ::= ${msgIe.definition.toString()}`);
   });
-  return msgIes.join('\n\n');
+  return formattedStrings.join('\n\n');
 }

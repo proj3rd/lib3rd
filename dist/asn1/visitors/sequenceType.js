@@ -16,7 +16,7 @@ var SequenceTypeVisitor = /** @class */ (function () {
     function SequenceTypeVisitor() {
     }
     SequenceTypeVisitor.prototype.visitChildren = function (sequenceTypeCtx) {
-        var sequenceType = null;
+        var sequenceType = [];
         var childCtxes = sequenceTypeCtx.children;
         switch (childCtxes.length) {
             case 3: {
@@ -32,7 +32,7 @@ var SequenceTypeVisitor = /** @class */ (function () {
             }
             case 5: {
                 // sequenceType :SEQUENCE_LITERAL L_BRACE extensionAndException optionalExtensionMarker R_BRACE
-                // TODO
+                logging_1.log.warn(utils_1.getLogWithAsn1(sequenceTypeCtx, 'extensionAndException optionalExtensionMarker Not supported:'));
                 break;
             }
             default: {

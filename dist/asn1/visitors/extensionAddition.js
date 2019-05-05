@@ -30,6 +30,7 @@ var ExtensionAdditionVisitor = /** @class */ (function () {
                 break;
             }
         }
+        return extensionAddition;
     };
     return ExtensionAdditionVisitor;
 }());

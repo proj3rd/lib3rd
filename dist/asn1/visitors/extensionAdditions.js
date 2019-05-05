@@ -12,7 +12,7 @@ var ExtensionAdditionsVisitor = /** @class */ (function () {
     }
     ExtensionAdditionsVisitor.prototype.visitChildren = function (extensionAdditionsCtx) {
         var childCtxes = extensionAdditionsCtx.children;
-        var extensionAdditions = null;
+        var extensionAdditions = [];
         if (childCtxes) {
             var extensionAdditionListCtx = childCtxes[1];
             extensionAdditions = extensionAdditionListCtx.accept(new extensionAdditionList_1.ExtensionAdditionListVisitor());

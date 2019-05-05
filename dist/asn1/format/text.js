@@ -11,6 +11,6 @@ function format(msgIes) {
         logging_1.log.debug("Formatting " + msgIe.name + " in text...");
         formattedStrings.push(msgIe.name + " ::= " + msgIe.definition.toString());
     });
-    return msgIes.join('\n\n');
+    return formattedStrings.join('\n\n');
 }
 exports.format = format;

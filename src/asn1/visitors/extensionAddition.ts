@@ -28,5 +28,6 @@ export class ExtensionAdditionVisitor {
         break;
       }
     }
+    return extensionAddition;
   }
 }

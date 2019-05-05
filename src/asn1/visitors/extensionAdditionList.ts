@@ -14,7 +14,9 @@ export class ExtensionAdditionListVisitor {
       if (index % 2) {
         return;
       }
-      extensionAdditionList.push(childCtx.accept(new ExtensionAdditionVisitor()));
+      const extensionAddition = childCtx.accept(new ExtensionAdditionVisitor());
+      extensionAdditionList.splice(extensionAdditionList.length, 0, ...extensionAddition);
     });
+    return extensionAdditionList;
   }
 }
