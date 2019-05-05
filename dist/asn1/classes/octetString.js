@@ -25,14 +25,15 @@ var OctetString = /** @class */ (function (_super) {
         if ('value' in constraint) {
             this.size = constraint.value;
             delete constraint.value;
+            this.sizeMin = undefined;
+            this.sizeMax = undefined;
         }
-        if ('min' in constraint) {
+        if ('min' in constraint && 'max' in constraint) {
             this.sizeMin = constraint.min;
             delete constraint.min;
-        }
-        if ('max' in constraint) {
             this.sizeMax = constraint.max;
             delete constraint.max;
+            this.size = undefined;
         }
         if ('containing' in constraint) {
             this.containing = constraint.containing;
@@ -49,8 +50,8 @@ var OctetString = /** @class */ (function (_super) {
     };
     OctetString.prototype.toString = function () {
         var containing = this.containing ? " (CONTAINING " + this.containing.toString() + ")" : '';
-        var size = this.size ? " (SIZE (" + this.size + "))" :
-            this.sizeMin && this.sizeMax ? " (SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
+        var size = this.size !== undefined ? " (SIZE (" + this.size + "))" :
+            this.sizeMin !== undefined && this.sizeMax !== undefined ? " (SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
         return "OCTET STRING" + containing + size;
     };
     return OctetString;

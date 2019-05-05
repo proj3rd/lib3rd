@@ -39,10 +39,10 @@ var ExtensionAdditionGroup = /** @class */ (function (_super) {
     ExtensionAdditionGroup.prototype.toString = function () {
         var _this = this;
         return [
-            '[['
-        ].concat(this.componentTypeList.map(function (item) { return _this.indent(item.toString()); }), [
+            '[[',
+            this.componentTypeList.map(function (item) { return _this.indent(item.toString()); }).join(',\n'),
             ']]',
-        ]).join('\n');
+        ].join('\n');
     };
     return ExtensionAdditionGroup;
 }(base_1.Base));

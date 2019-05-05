@@ -14,14 +14,15 @@ export class OctetString extends Base {
     if ('value' in constraint) {
       this.size = constraint.value;
       delete constraint.value;
+      this.sizeMin = undefined;
+      this.sizeMax = undefined;
     }
-    if ('min' in constraint) {
+    if ('min' in constraint && 'max' in constraint) {
       this.sizeMin = constraint.min;
       delete constraint.min;
-    }
-    if ('max' in constraint) {
       this.sizeMax = constraint.max;
       delete constraint.max;
+      this.size = undefined;
     }
     if ('containing' in constraint) {
       this.containing = constraint.containing;
@@ -40,8 +41,8 @@ export class OctetString extends Base {
 
   public toString(): string {
     const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
-    const size = this.size ? ` (SIZE (${this.size}))` :
-      this.sizeMin && this.sizeMax ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
+    const size = this.size !== undefined ? ` (SIZE (${this.size}))` :
+    this.sizeMin !== undefined && this.sizeMax !== undefined ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `OCTET STRING${containing}${size}`;
   }
 }

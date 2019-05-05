@@ -30,7 +30,7 @@ export class ExtensionAdditionGroup extends Base {
   public toString(): string {
     return [
       '[[',
-      ...this.componentTypeList.map((item) => this.indent(item.toString())),
+      this.componentTypeList.map((item) => this.indent(item.toString())).join(',\n'),
       ']]',
     ].join('\n');
   }
