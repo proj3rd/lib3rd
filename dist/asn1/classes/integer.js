@@ -46,7 +46,7 @@ var Integer = /** @class */ (function (_super) {
     Integer.prototype.toString = function () {
         var valueConstraint = this.value ? "(" + this.value + ")" :
             this.min !== null && this.max !== null ? "(" + this.min + ".." + this.max + ")" : '';
-        return "INTENGER " + valueConstraint;
+        return "INTEGER " + valueConstraint;
     };
     return Integer;
 }(base_1.Base));
