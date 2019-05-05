@@ -26,9 +26,10 @@ export class Choice extends Base {
   }
 
   public toString(): string {
-    const contentStrings = this.choices.map((choice: any) => {
-      return this.indent(choice.toString());
-    });
-    return `CHOICE ${['{', ...contentStrings, '}'].join(',\n')}`;
+    return !this.choices.length ? 'CHOICE {}' : [
+      'CHOICE {',
+      this.choices.map((choice) => this.indent(choice.toString())).join(',\n'),
+      '}',
+    ].join('\n');
   }
 }

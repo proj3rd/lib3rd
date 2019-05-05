@@ -35,10 +35,11 @@ var Choice = /** @class */ (function (_super) {
     };
     Choice.prototype.toString = function () {
         var _this = this;
-        var contentStrings = this.choices.map(function (choice) {
-            return _this.indent(choice.toString());
-        });
-        return "CHOICE " + ['{'].concat(contentStrings, ['}']).join(',\n');
+        return !this.choices.length ? 'CHOICE {}' : [
+            'CHOICE {',
+            this.choices.map(function (choice) { return _this.indent(choice.toString()); }).join(',\n'),
+            '}',
+        ].join('\n');
     };
     return Choice;
 }(base_1.Base));
