@@ -14,7 +14,7 @@ import { ComponentTypeListsVisitor } from './componentTypeLists';
  */
 export class SequenceTypeVisitor {
   public visitChildren(sequenceTypeCtx: any): Sequence {
-    let sequenceType = null;
+    let sequenceType = [];
     const childCtxes = sequenceTypeCtx.children;
     switch (childCtxes.length) {
       case 3: {
@@ -30,7 +30,7 @@ export class SequenceTypeVisitor {
       }
       case 5: {
         // sequenceType :SEQUENCE_LITERAL L_BRACE extensionAndException optionalExtensionMarker R_BRACE
-        // TODO
+        log.warn(getLogWithAsn1(sequenceTypeCtx, 'extensionAndException optionalExtensionMarker Not supported:'));
         break;
       }
       default: {

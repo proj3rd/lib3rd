@@ -25,15 +25,15 @@ var Integer = /** @class */ (function (_super) {
         if ('value' in constraint) {
             this.value = constraint.value;
             delete constraint.value;
-            this.min = null;
-            this.max = null;
+            this.min = undefined;
+            this.max = undefined;
         }
         if ('min' in constraint && 'max' in constraint) {
-            this.value = null;
             this.min = constraint.min;
             delete constraint.min;
             this.max = constraint.max;
             delete constraint.max;
+            this.value = undefined;
         }
         if (!lodash_1.isEmpty(constraint)) {
             logging_1.log.warn("Integer could not handle constraint " + JSON.stringify(constraint));
@@ -44,9 +44,9 @@ var Integer = /** @class */ (function (_super) {
         return this;
     };
     Integer.prototype.toString = function () {
-        var valueConstraint = this.value ? "(" + this.value + ")" :
-            this.min !== null && this.max !== null ? "(" + this.min + ".." + this.max + ")" : '';
-        return "INTENGER " + valueConstraint;
+        var valueConstraint = this.value !== undefined ? "(" + this.value + ")" :
+            this.min !== undefined && this.max !== undefined ? "(" + this.min + ".." + this.max + ")" : '';
+        return "INTEGER " + valueConstraint;
     };
     return Integer;
 }(base_1.Base));

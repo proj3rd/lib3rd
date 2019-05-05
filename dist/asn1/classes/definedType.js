@@ -37,8 +37,9 @@ var DefinedType = /** @class */ (function (_super) {
         return this;
     };
     DefinedType.prototype.toString = function () {
-        // TODO
-        return "" + (this.moduleReference ? this.moduleReference + '.' : '') + this.typeReference;
+        var withComponents = !this.withComponents ? '' :
+            " (WITH COMPONENTS " + this.withComponents.toString();
+        return "" + (this.moduleReference ? this.moduleReference + '.' : '') + this.typeReference + withComponents;
     };
     return DefinedType;
 }(base_1.Base));

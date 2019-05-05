@@ -11,7 +11,7 @@ var ExtensionAdditionAlternativesVisitor = /** @class */ (function () {
     function ExtensionAdditionAlternativesVisitor() {
     }
     ExtensionAdditionAlternativesVisitor.prototype.visitChildren = function (extensionAdditionAlternativesCtx) {
-        var extensionAdditionAlternatives = null;
+        var extensionAdditionAlternatives = [];
         if (extensionAdditionAlternativesCtx.children) {
             var extensionAdditionAlternativesListCtx = extensionAdditionAlternativesCtx.children[1];
             extensionAdditionAlternatives =

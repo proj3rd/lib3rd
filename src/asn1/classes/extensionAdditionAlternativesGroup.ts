@@ -31,7 +31,7 @@ export class ExtensionAdditionAlternativesGroup extends Base {
   public toString(): string {
     return [
       '[[',
-      ...this.alternativeTypeList.map((item) => this.indent(item.toString())),
+      this.alternativeTypeList.map((item) => this.indent(item.toString())).join(',\n'),
       ']]',
     ].join('\n');
   }

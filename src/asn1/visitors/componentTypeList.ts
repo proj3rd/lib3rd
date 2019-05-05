@@ -14,7 +14,10 @@ export class ComponentTypeListVisitor {
       if (index % 2) {
         return;
       }
-      componetTypeList.push(childCtx.accept(new ComponentTypeVisitor()));
+      const componentType = childCtx.accept(new ComponentTypeVisitor());
+      if (componentType) {
+        componetTypeList.push(componentType);
+      }
     });
     return componetTypeList;
   }

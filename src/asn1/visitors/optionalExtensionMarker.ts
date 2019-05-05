@@ -7,7 +7,7 @@ import { ExtensionMarker } from '../classes/extensionMarker';
  * ```
  */
 export class OptionalExtensionMarkerVisitor {
-  public visitChildren(optionalExtensionMarkerCtx: any): ExtensionMarker {
-    return optionalExtensionMarkerCtx.children ? new ExtensionMarker() : null;
+  public visitChildren(optionalExtensionMarkerCtx: any): ExtensionMarker | [] {
+    return optionalExtensionMarkerCtx.children ? new ExtensionMarker() : [];
   }
 }

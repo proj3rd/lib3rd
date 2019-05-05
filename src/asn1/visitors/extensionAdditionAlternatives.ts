@@ -8,7 +8,7 @@ import { ExtensionAdditionAlternativesListVisitor } from './extensionAdditionAlt
  */
 export class ExtensionAdditionAlternativesVisitor  {
   public visitChildren(extensionAdditionAlternativesCtx: any): any /* TODO */ {
-    let extensionAdditionAlternatives = null;
+    let extensionAdditionAlternatives = [];
     if (extensionAdditionAlternativesCtx.children) {
       const extensionAdditionAlternativesListCtx = extensionAdditionAlternativesCtx.children[1];
       extensionAdditionAlternatives =

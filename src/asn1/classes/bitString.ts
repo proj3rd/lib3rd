@@ -14,15 +14,15 @@ export class BitString extends Base {
     if ('value' in constraint) {
       this.size = constraint.value;
       delete constraint.value;
-      this.sizeMin = null;
-      this.sizeMax = null;
+      this.sizeMin = undefined;
+      this.sizeMax = undefined;
     }
     if ('min' in constraint && 'max' in constraint) {
-      this.size = null;
       this.sizeMin = constraint.min;
       delete constraint.min;
       this.sizeMax = constraint.max;
       delete constraint.max;
+      this.size = undefined;
     }
     if (!isEmpty(constraint)) {
       log.warn(`BitString could not handle constraint ${JSON.stringify(constraint)}`);
@@ -35,8 +35,8 @@ export class BitString extends Base {
   }
 
   public toString(): string {
-    const valueConstraint = this.size ? `(SIZE (${this.size}))` :
-      this.sizeMin !== null && this.sizeMax !== null ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
+    const valueConstraint = this.size !== undefined ? `(SIZE (${this.size}))` :
+      this.sizeMin !== undefined && this.sizeMax !== undefined ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `BIT STRING ${valueConstraint}`;
   }
 }

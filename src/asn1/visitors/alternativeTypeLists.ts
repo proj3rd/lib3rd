@@ -26,15 +26,11 @@ export class AlternativeTypeListsVisitor {
     if (extensionAdditionAlternativesCtx) {
       const extensionAdditionAlternatives =
         extensionAdditionAlternativesCtx.accept(new ExtensionAdditionAlternativesVisitor());
-      if (extensionAdditionAlternatives) {
-        alternativeTypeList.splice(alternativeTypeList.length, 0, ...extensionAdditionAlternatives);
-      }
+      alternativeTypeList.splice(alternativeTypeList.length, 0, ...extensionAdditionAlternatives);
     }
     if (optionalExtensionMarkerCtx) {
       const optionalExtensionMarker = optionalExtensionMarkerCtx.accept(new OptionalExtensionMarkerVisitor());
-      if (optionalExtensionMarker) {
-        alternativeTypeList.push(optionalExtensionMarker);
-      }
+      alternativeTypeList.splice(alternativeTypeList.length, 0, ...optionalExtensionMarker);
     }
     return alternativeTypeList;
   }

@@ -21,7 +21,7 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
     }
     ComponentTypeListsVisitor.prototype.visitChildren = function (componentTypeListsCtx) {
         var childCtxes = componentTypeListsCtx.children;
-        var componentTypeLists = null;
+        var componentTypeLists = [];
         switch (utils_1.getContextName(childCtxes[0])) {
             case 'rootComponentTypeList': {
                 var rootComponentTypeListCtx = childCtxes[0];
@@ -32,7 +32,8 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
                 }
                 var extensionAdditionsCtx = childCtxes[3];
                 if (extensionAdditionsCtx) {
-                    componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAdditionsCtx.accept(new extensionAdditions_1.ExtensionAdditionsVisitor())));
+                    var extensionAdditions = extensionAdditionsCtx.accept(new extensionAdditions_1.ExtensionAdditionsVisitor());
+                    componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAdditions));
                 }
                 switch (childCtxes.length) {
                     case 1: {
@@ -41,9 +42,7 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
                     case 5: {
                         var optionalExtensionMarkerCtx = childCtxes[4];
                         var optionalExtensionMarker = optionalExtensionMarkerCtx.accept(new optionalExtensionMarker_1.OptionalExtensionMarkerVisitor());
-                        if (optionalExtensionMarker) {
-                            componentTypeLists.push(optionalExtensionMarker);
-                        }
+                        componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(optionalExtensionMarker));
                         break;
                     }
                     case 7: {
@@ -63,14 +62,13 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
                 var extensionAndExceptionCtx = childCtxes[0];
                 componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAndExceptionCtx.accept(new extensionAndException_1.ExtensionAndExceptionVisitor())));
                 var extensionAdditionsCtx = childCtxes[1];
-                componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAdditionsCtx.accept(new extensionAdditions_1.ExtensionAdditionsVisitor())));
+                var extensionAdditions = extensionAdditionsCtx.accept(new extensionAdditions_1.ExtensionAdditionsVisitor());
+                componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(extensionAdditions));
                 switch (childCtxes.length) {
                     case 3: {
                         var optionalExtensionMarkerCtx = childCtxes[2];
                         var optionalExtensionMarker = optionalExtensionMarkerCtx.accept(new optionalExtensionMarker_1.OptionalExtensionMarkerVisitor());
-                        if (optionalExtensionMarker) {
-                            componentTypeLists.push(optionalExtensionMarker);
-                        }
+                        componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(optionalExtensionMarker));
                         break;
                     }
                     case 5: {

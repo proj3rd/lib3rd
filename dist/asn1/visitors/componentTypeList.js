@@ -17,7 +17,10 @@ var ComponentTypeListVisitor = /** @class */ (function () {
             if (index % 2) {
                 return;
             }
-            componetTypeList.push(childCtx.accept(new componentType_1.ComponentTypeVisitor()));
+            var componentType = childCtx.accept(new componentType_1.ComponentTypeVisitor());
+            if (componentType) {
+                componetTypeList.push(componentType);
+            }
         });
         return componetTypeList;
     };

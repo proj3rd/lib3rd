@@ -47,8 +47,8 @@ var SequenceOf = /** @class */ (function (_super) {
         return this;
     };
     SequenceOf.prototype.toString = function () {
-        var size = this.size !== null ? "(SIZE (" + this.size + "))" :
-            this.sizeMin !== null && this.sizeMax !== null ? "(SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
+        var size = this.size !== null ? " (SIZE (" + this.size + "))" :
+            this.sizeMin !== null && this.sizeMax !== null ? " (SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
         return "SEQUENCE" + size + " OF " + this.type.toString();
     };
     return SequenceOf;

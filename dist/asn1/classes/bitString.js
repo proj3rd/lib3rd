@@ -25,15 +25,15 @@ var BitString = /** @class */ (function (_super) {
         if ('value' in constraint) {
             this.size = constraint.value;
             delete constraint.value;
-            this.sizeMin = null;
-            this.sizeMax = null;
+            this.sizeMin = undefined;
+            this.sizeMax = undefined;
         }
         if ('min' in constraint && 'max' in constraint) {
-            this.size = null;
             this.sizeMin = constraint.min;
             delete constraint.min;
             this.sizeMax = constraint.max;
             delete constraint.max;
+            this.size = undefined;
         }
         if (!lodash_1.isEmpty(constraint)) {
             logging_1.log.warn("BitString could not handle constraint " + JSON.stringify(constraint));
@@ -44,8 +44,8 @@ var BitString = /** @class */ (function (_super) {
         return this;
     };
     BitString.prototype.toString = function () {
-        var valueConstraint = this.size ? "(SIZE (" + this.size + "))" :
-            this.sizeMin !== null && this.sizeMax !== null ? "(SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
+        var valueConstraint = this.size !== undefined ? "(SIZE (" + this.size + "))" :
+            this.sizeMin !== undefined && this.sizeMax !== undefined ? "(SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
         return "BIT STRING " + valueConstraint;
     };
     return BitString;

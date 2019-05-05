@@ -36,11 +36,11 @@ var Sequence = /** @class */ (function (_super) {
     Sequence.prototype.toString = function () {
         var _this = this;
         // TODO
-        return [
-            'SEQUENCE {'
-        ].concat(this.items.map(function (item) { return _this.indent(item.toString()); }), [
+        return !this.items.length ? 'SEQUENCE {}' : [
+            'SEQUENCE {',
+            this.items.map(function (item) { return _this.indent(item.toString()); }).join(',\n'),
             '}',
-        ]).join('\n');
+        ].join('\n');
     };
     return Sequence;
 }(base_1.Base));

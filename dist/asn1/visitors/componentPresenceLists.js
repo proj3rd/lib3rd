@@ -16,18 +16,13 @@ var ComponentPresenceListsVisitor = /** @class */ (function () {
     function ComponentPresenceListsVisitor() {
     }
     ComponentPresenceListsVisitor.prototype.visitChildren = function (componentPresenceListsCtx) {
-        var componentPresenceLists = null;
+        var componentPresenceLists = [];
         var childCtxes = componentPresenceListsCtx.children;
         childCtxes.forEach(function (childCtx, index) {
             switch (utils_1.getContextName(childCtx)) {
                 case 'componentPresenceList': {
                     var componentPresenceList = childCtx.accept(new componentPresenceList_1.ComponentPresenceListVisitor());
-                    if (componentPresenceLists === null) {
-                        componentPresenceLists = componentPresenceList;
-                    }
-                    else {
-                        componentPresenceLists.splice.apply(componentPresenceLists, [componentPresenceLists.length, 0].concat(componentPresenceList));
-                    }
+                    componentPresenceLists.splice.apply(componentPresenceLists, [componentPresenceLists.length, 0].concat(componentPresenceList));
                     break;
                 }
                 case null: {
@@ -37,12 +32,7 @@ var ComponentPresenceListsVisitor = /** @class */ (function () {
                         }
                         case '...': {
                             var extensionMarker = new extensionMarker_1.ExtensionMarker();
-                            if (componentPresenceLists === null) {
-                                componentPresenceLists = [extensionMarker];
-                            }
-                            else {
-                                componentPresenceLists.push(extensionMarker);
-                            }
+                            componentPresenceLists.push(extensionMarker);
                             break;
                         }
                         default: {

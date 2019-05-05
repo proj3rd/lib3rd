@@ -14,17 +14,13 @@ import { ComponentPresenceListVisitor } from './componentPresenceList';
  */
 export class ComponentPresenceListsVisitor {
   public visitChildren(componentPresenceListsCtx: any): any /* TODO */ {
-    let componentPresenceLists = null;
+    const componentPresenceLists = [];
     const childCtxes = componentPresenceListsCtx.children;
     childCtxes.forEach((childCtx: any, index: number) => {
       switch (getContextName(childCtx)) {
         case 'componentPresenceList': {
           const componentPresenceList = childCtx.accept(new ComponentPresenceListVisitor());
-          if (componentPresenceLists === null) {
-            componentPresenceLists = componentPresenceList;
-          } else {
-            componentPresenceLists.splice(componentPresenceLists.length, 0, ...componentPresenceList);
-          }
+          componentPresenceLists.splice(componentPresenceLists.length, 0, ...componentPresenceList);
           break;
         }
         case null: {
@@ -34,11 +30,7 @@ export class ComponentPresenceListsVisitor {
             }
             case '...': {
               const extensionMarker = new ExtensionMarker();
-              if (componentPresenceLists === null) {
-                componentPresenceLists = [extensionMarker];
-              } else {
-                componentPresenceLists.push(extensionMarker);
-              }
+              componentPresenceLists.push(extensionMarker);
               break;
             }
             default: {

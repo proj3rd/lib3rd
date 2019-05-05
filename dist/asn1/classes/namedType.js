@@ -35,7 +35,9 @@ var NamedType = /** @class */ (function (_super) {
         return this;
     };
     NamedType.prototype.toString = function () {
-        return this.name.padEnd(32) + "    " + this.type;
+        var optional = this.optional ? '    OPTIONAL' :
+            this["default"] !== undefined ? "    DEFAULT   " + this["default"].toString() : '';
+        return this.name.padEnd(48) + "    " + this.type + optional;
     };
     return NamedType;
 }(base_1.Base));

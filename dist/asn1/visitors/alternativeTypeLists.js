@@ -26,15 +26,11 @@ var AlternativeTypeListsVisitor = /** @class */ (function () {
         }
         if (extensionAdditionAlternativesCtx) {
             var extensionAdditionAlternatives = extensionAdditionAlternativesCtx.accept(new extensionAdditionAlternatives_1.ExtensionAdditionAlternativesVisitor());
-            if (extensionAdditionAlternatives) {
-                alternativeTypeList.splice.apply(alternativeTypeList, [alternativeTypeList.length, 0].concat(extensionAdditionAlternatives));
-            }
+            alternativeTypeList.splice.apply(alternativeTypeList, [alternativeTypeList.length, 0].concat(extensionAdditionAlternatives));
         }
         if (optionalExtensionMarkerCtx) {
             var optionalExtensionMarker = optionalExtensionMarkerCtx.accept(new optionalExtensionMarker_1.OptionalExtensionMarkerVisitor());
-            if (optionalExtensionMarker) {
-                alternativeTypeList.push(optionalExtensionMarker);
-            }
+            alternativeTypeList.splice.apply(alternativeTypeList, [alternativeTypeList.length, 0].concat(optionalExtensionMarker));
         }
         return alternativeTypeList;
     };

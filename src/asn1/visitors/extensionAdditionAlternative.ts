@@ -1,4 +1,5 @@
-import { getContextName } from '../utils';
+import { log } from '../../utils/logging';
+import { getContextName, getLogWithAsn1 } from '../utils';
 
 import { ExtensionAdditionAlternativesGroupVisitor } from './extensionAdditionAlternativesGroup';
 import { NamedTypeVisitor } from './namedType';
@@ -23,6 +24,7 @@ export class ExtensionAdditionAlternativeVisitor {
         break;
       }
       default: {
+        log.warn(getLogWithAsn1(extensionAdditionAlternativeCtx, 'Not supported ASN1:'));
         break;
       }
     }
