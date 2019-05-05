@@ -71,7 +71,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">AsnBoolean</span>
+						<a href="_asn1_classes_base_.base.html" class="tsd-signature-type">Base</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">AsnBoolean</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -82,8 +87,10 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_asnboolean_.asnboolean.html#expand" class="tsd-kind-icon">expand</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_asnboolean_.asnboolean.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_asn1_classes_asnboolean_.asnboolean.html#expand" class="tsd-kind-icon">expand</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_asn1_classes_asnboolean_.asnboolean.html#indent" class="tsd-kind-icon">indent</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_asn1_classes_asnboolean_.asnboolean.html#setconstraint" class="tsd-kind-icon">set<wbr>Constraint</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_asn1_classes_asnboolean_.asnboolean.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -91,34 +98,84 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="expand" class="tsd-anchor"></a>
 					<h3>expand</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">expand<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asn1_classes_asnboolean_.asnboolean.html" class="tsd-signature-type">AsnBoolean</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="_asn1_classes_base_.base.html">Base</a>.<a href="_asn1_classes_base_.base.html#expand">expand</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/52a15ab/src/asn1/classes/asnBoolean.ts#L2">asn1/classes/asnBoolean.ts:2</a></li>
+									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/7325ef8/src/asn1/classes/asnBoolean.ts#L15">asn1/classes/asnBoolean.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_asn1_classes_asnboolean_.asnboolean.html" class="tsd-signature-type">AsnBoolean</a></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="indent" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> indent</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">indent<span class="tsd-signature-symbol">(</span>text<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_asn1_classes_base_.base.html">Base</a>.<a href="_asn1_classes_base_.base.html#indent">indent</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/7325ef8/src/asn1/classes/base.ts#L6">asn1/classes/base.ts:6</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>text: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="setconstraint" class="tsd-anchor"></a>
+					<h3>set<wbr>Constraint</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Constraint<span class="tsd-signature-symbol">(</span>constraint<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asn1_classes_asnboolean_.asnboolean.html" class="tsd-signature-type">AsnBoolean</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_asn1_classes_base_.base.html">Base</a>.<a href="_asn1_classes_base_.base.html#setconstraint">setConstraint</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/7325ef8/src/asn1/classes/asnBoolean.ts#L8">asn1/classes/asnBoolean.ts:8</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>constraint: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_asn1_classes_asnboolean_.asnboolean.html" class="tsd-signature-type">AsnBoolean</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a name="tostring" class="tsd-anchor"></a>
 					<h3>to<wbr>String</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="_asn1_classes_base_.base.html">Base</a>.<a href="_asn1_classes_base_.base.html#tostring">toString</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/52a15ab/src/asn1/classes/asnBoolean.ts#L5">asn1/classes/asnBoolean.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/7325ef8/src/asn1/classes/asnBoolean.ts#L19">asn1/classes/asnBoolean.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -136,48 +193,6 @@
 					<li class="current tsd-kind-external-module">
 						<a href="../modules/_asn1_classes_asnboolean_.html">"asn1/classes/asn<wbr>Boolean"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_asn1_classes_bitstring_.html">"asn1/classes/bit<wbr>String"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_asn1_classes_integer_.html">"asn1/classes/integer"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_asn1_classes_null_.html">"asn1/classes/null"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_asn1_extract_.html">"asn1/extract"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_asn1_parse_.html">"asn1/parse"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_ran3ap_common_.html">"ran3<wbr>Ap/common"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_ran3ap_expand_.html">"ran3<wbr>Ap/expand"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_ran3ap_format_.html">"ran3<wbr>Ap/format"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_ran3ap_parse_.html">"ran3<wbr>Ap/parse"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_utils_logging_.html">"utils/logging"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_utils_numbering_.html">"utils/numbering"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_utils_text_.html">"utils/text"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_web_calendar_.html">"web/calendar"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_web_specs_.html">"web/specs"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -187,10 +202,16 @@
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_asn1_classes_asnboolean_.asnboolean.html" class="tsd-kind-icon">Asn<wbr>Boolean</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_asn1_classes_asnboolean_.asnboolean.html#expand" class="tsd-kind-icon">expand</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_asn1_classes_asnboolean_.asnboolean.html#indent" class="tsd-kind-icon">indent</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_asn1_classes_asnboolean_.asnboolean.html#setconstraint" class="tsd-kind-icon">set<wbr>Constraint</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_asn1_classes_asnboolean_.asnboolean.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>

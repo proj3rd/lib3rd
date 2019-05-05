@@ -2,7 +2,8 @@ import { log } from '../../utils/logging';
 
 /**
  * Format ASN.1 in text
- * @param msgIeDefinition ASN.1 object you want to format
+ * @param msgIes Collection of ASN.1 objects you want to format
+ * @returns ASN.1 notation in string
  */
 export function format(msgIes: any[]): string {
   const formattedStrings = [];

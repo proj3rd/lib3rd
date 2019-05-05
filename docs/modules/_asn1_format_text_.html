@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;utils/numbering&quot; | third-gen</title>
+	<title>&quot;asn1/format/text&quot; | third-gen</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,38 +54,24 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_utils_numbering_.html">&quot;utils/numbering&quot;</a>
+					<a href="_asn1_format_text_.html">&quot;asn1/format/text&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;utils/numbering&quot;</h1>
+			<h1>External module &quot;asn1/format/text&quot;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>This module defines some interfaces and functions for 3GPP numbering</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_utils_numbering_.iversion.html" class="tsd-kind-icon">IVersion</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_numbering_.html#seriesfromstring" class="tsd-kind-icon">series<wbr>From<wbr>String</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_numbering_.html#versionfromstring" class="tsd-kind-icon">version<wbr>From<wbr>String</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_asn1_format_text_.html#format" class="tsd-kind-icon">format</a></li>
 							</ul>
 						</section>
 					</div>
@@ -94,67 +80,34 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="seriesfromstring" class="tsd-anchor"></a>
-					<h3>series<wbr>From<wbr>String</h3>
+					<a name="format" class="tsd-anchor"></a>
+					<h3>format</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">series<wbr>From<wbr>String<span class="tsd-signature-symbol">(</span>specNumStr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">format<span class="tsd-signature-symbol">(</span>msgIes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/7325ef8/src/utils/numbering.ts#L19">utils/numbering.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/7325ef8/src/asn1/format/text.ts#L8">asn1/format/text.ts:8</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Find series of a given specification numbering</p>
+									<p>Format ASN.1 in text</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>specNumStr: <span class="tsd-signature-type">string</span></h5>
+									<h5>msgIes: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Sepcification numbering, e.g. <code>38.331</code></p>
+										<p>Collection of ASN.1 objects you want to format</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>Series of specification, e.g. <code>38</code></p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="versionfromstring" class="tsd-anchor"></a>
-					<h3>version<wbr>From<wbr>String</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">version<wbr>From<wbr>String<span class="tsd-signature-symbol">(</span>versionStr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_numbering_.iversion.html" class="tsd-signature-type">IVersion</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/7325ef8/src/utils/numbering.ts#L30">utils/numbering.ts:30</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Convert version string into <code>IVersion</code></p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>versionStr: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Version string</p>
-										<p>See 3GPP Version Numbering Scheme
-										<a href="http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme">http://www.3gpp.org/specifications/specification-numbering/81-version-numbering-scheme</a></p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_numbering_.iversion.html" class="tsd-signature-type">IVersion</a></h4>
+							<p>ASN.1 notation in string</p>
 						</li>
 					</ul>
 				</section>
@@ -167,20 +120,14 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_utils_numbering_.html">"utils/numbering"</a>
+						<a href="_asn1_format_text_.html">"asn1/format/text"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_utils_numbering_.iversion.html" class="tsd-kind-icon">IVersion</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_utils_numbering_.html#seriesfromstring" class="tsd-kind-icon">series<wbr>From<wbr>String</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_utils_numbering_.html#versionfromstring" class="tsd-kind-icon">version<wbr>From<wbr>String</a>
+						<a href="_asn1_format_text_.html#format" class="tsd-kind-icon">format</a>
 					</li>
 				</ul>
 			</nav>
