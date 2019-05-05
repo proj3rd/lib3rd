@@ -27,7 +27,8 @@ export class DefinedType extends Base {
   }
 
   public toString(): string {
-    // TODO
-    return `${this.moduleReference ? this.moduleReference + '.' : ''}${this.typeReference}`;
+    const withComponents = !this.withComponents ? '' :
+      ` (WITH COMPONENTS ${this.withComponents.toString()}`;
+    return `${this.moduleReference ? this.moduleReference + '.' : ''}${this.typeReference}${withComponents}`;
   }
 }

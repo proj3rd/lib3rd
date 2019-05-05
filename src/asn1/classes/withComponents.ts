@@ -28,6 +28,6 @@ export class WithComponents extends Base {
 
   public toString(): string {
     // TODO
-    return null;
+    return `{${this.components.map((component) => component.toString()).join(', ')}}`;
   }
 }

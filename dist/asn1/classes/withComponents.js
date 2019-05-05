@@ -34,7 +34,7 @@ var WithComponents = /** @class */ (function (_super) {
     };
     WithComponents.prototype.toString = function () {
         // TODO
-        return null;
+        return "{" + this.components.map(function (component) { return component.toString(); }).join(', ') + "}";
     };
     return WithComponents;
 }(base_1.Base));
