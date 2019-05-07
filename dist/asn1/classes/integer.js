@@ -43,6 +43,9 @@ var Integer = /** @class */ (function (_super) {
     Integer.prototype.expand = function () {
         return this;
     };
+    Integer.prototype.depthMax = function () {
+        return 1;
+    };
     Integer.prototype.toString = function () {
         var valueConstraint = this.value !== undefined ? "(" + this.value + ")" :
             this.min !== undefined && this.max !== undefined ? "(" + this.min + ".." + this.max + ")" : '';

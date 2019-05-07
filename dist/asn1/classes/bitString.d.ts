@@ -6,5 +6,6 @@ export declare class BitString extends Base {
     sizeMax: number | string;
     setConstraint(constraint: any): BitString;
     expand(): BitString;
+    depthMax(): number;
     toString(): string;
 }

@@ -28,6 +28,15 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     // TODO
     return this;
   }
+
+  public depthMax(): number {
+    let depthMax = 1;
+    this.alternativeTypeList.forEach((item) => {
+      depthMax = Math.max(depthMax, item.depthMax() + 1);
+    });
+    return depthMax;
+  }
+
   public toString(): string {
     return [
       '[[',

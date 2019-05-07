@@ -36,6 +36,13 @@ var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
         // TODO
         return this;
     };
+    ExtensionAdditionAlternativesGroup.prototype.depthMax = function () {
+        var depthMax = 1;
+        this.alternativeTypeList.forEach(function (item) {
+            depthMax = Math.max(depthMax, item.depthMax() + 1);
+        });
+        return depthMax;
+    };
     ExtensionAdditionAlternativesGroup.prototype.toString = function () {
         var _this = this;
         return [

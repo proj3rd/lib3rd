@@ -3,9 +3,10 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
+import { NamedType } from './namedType';
 
 export class ExtensionAdditionGroup extends Base {
-  public componentTypeList: any[] /* TODO */;
+  public componentTypeList: NamedType[];
 
   constructor(alternativeTypeList: any, versionNumber: any) {
     super();
@@ -27,6 +28,15 @@ export class ExtensionAdditionGroup extends Base {
     // TODO
     return this;
   }
+
+  public depthMax(): number {
+    let depthMax = 1;
+    this.componentTypeList.forEach((item) => {
+      depthMax = Math.max(depthMax, item.depthMax() + 1);
+    });
+    return depthMax;
+  }
+
   public toString(): string {
     return [
       '[[',

@@ -3,9 +3,10 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
+import { NamedType } from './namedType';
 
 export class Choice extends Base {
-  public choices: any[] /* TODO */;
+  public choices: NamedType[];
 
   constructor(choices: any) {
     super();
@@ -23,6 +24,14 @@ export class Choice extends Base {
   public expand(): Choice {
     // TODO
     return this;
+  }
+
+  public depthMax(): number {
+    let depthMax = 1;
+    this.choices.forEach((choice) => {
+      depthMax = Math.max(depthMax, choice.depthMax() + 1);
+    });
+    return depthMax;
   }
 
   public toString(): string {

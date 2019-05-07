@@ -33,6 +33,10 @@ var ComponentPresence = /** @class */ (function (_super) {
     ComponentPresence.prototype.expand = function () {
         return this;
     };
+    ComponentPresence.prototype.depthMax = function () {
+        // Depth of this class is not valid
+        return 0;
+    };
     ComponentPresence.prototype.toString = function () {
         return this.identifier + " " + this.absentPresent;
     };

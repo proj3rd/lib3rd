@@ -5,5 +5,6 @@ export declare class ComponentPresence extends Base {
     constructor(identifier: string, absentPresent: string);
     setConstraint(constraint: any): ComponentPresence;
     expand(): ComponentPresence;
+    depthMax(): number;
     toString(): string;
 }

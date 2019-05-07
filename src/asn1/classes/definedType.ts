@@ -26,6 +26,10 @@ export class DefinedType extends Base {
     return this;
   }
 
+  public depthMax(): number {
+    return 1;
+  }
+
   public toString(): string {
     const withComponents = !this.withComponents ? '' :
       ` (WITH COMPONENTS ${this.withComponents.toString()}`;

@@ -3,9 +3,10 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
+import { NamedType } from './namedType';
 
 export class Sequence extends Base {
-  public items: any[] /* TODO */;
+  public items: NamedType[];
 
   constructor(items: any[] /* TODO */) {
     super();
@@ -23,6 +24,14 @@ export class Sequence extends Base {
   public expand(): Sequence {
     // TODO
     return this;
+  }
+
+  public depthMax(): number {
+    let depthMax = 1;
+    this.items.forEach((item) => {
+      depthMax = Math.max(depthMax, item.depthMax() + 1);
+    });
+    return depthMax;
   }
 
   public toString(): string {

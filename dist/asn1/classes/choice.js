@@ -33,6 +33,13 @@ var Choice = /** @class */ (function (_super) {
         // TODO
         return this;
     };
+    Choice.prototype.depthMax = function () {
+        var depthMax = 1;
+        this.choices.forEach(function (choice) {
+            depthMax = Math.max(depthMax, choice.depthMax() + 1);
+        });
+        return depthMax;
+    };
     Choice.prototype.toString = function () {
         var _this = this;
         return !this.choices.length ? 'CHOICE {}' : [

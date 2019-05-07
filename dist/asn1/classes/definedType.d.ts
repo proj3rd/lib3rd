@@ -6,5 +6,6 @@ export declare class DefinedType extends Base {
     withComponents: WithComponents;
     setConstraint(constraint: any): DefinedType;
     expand(): DefinedType;
+    depthMax(): number;
     toString(): string;
 }

@@ -3,14 +3,15 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { Base } from './base';
+import { NamedType } from './namedType';
 
 export class SequenceOf extends Base {
-  public type: any /* TODO */;
+  public type: NamedType;
   public size: number | string;
   public sizeMin: number | string;
   public sizeMax: number | string;
 
-  constructor(type: any /* TODO */) {
+  constructor(type: NamedType) {
     super();
 
     this.type = type;
@@ -39,6 +40,10 @@ export class SequenceOf extends Base {
   public expand(): SequenceOf {
     // TODO
     return this;
+  }
+
+  public depthMax(): number {
+    return 1;
   }
 
   public toString(): string {

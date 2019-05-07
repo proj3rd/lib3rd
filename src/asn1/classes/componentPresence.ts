@@ -26,7 +26,7 @@ export class ComponentPresence extends Base {
     return this;
   }
 
-  public getDepthMax(): number {
+  public depthMax(): number {
     // Depth of this class is not valid
     return 0;
   }

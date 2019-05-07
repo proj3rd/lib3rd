@@ -30,6 +30,9 @@ var AsnBoolean = /** @class */ (function (_super) {
     AsnBoolean.prototype.expand = function () {
         return this;
     };
+    AsnBoolean.prototype.depthMax = function () {
+        return 1;
+    };
     AsnBoolean.prototype.toString = function () {
         return 'BOOLEAN';
     };

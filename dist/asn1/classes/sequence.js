@@ -33,6 +33,13 @@ var Sequence = /** @class */ (function (_super) {
         // TODO
         return this;
     };
+    Sequence.prototype.depthMax = function () {
+        var depthMax = 1;
+        this.items.forEach(function (item) {
+            depthMax = Math.max(depthMax, item.depthMax() + 1);
+        });
+        return depthMax;
+    };
     Sequence.prototype.toString = function () {
         var _this = this;
         // TODO

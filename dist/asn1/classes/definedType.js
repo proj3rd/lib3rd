@@ -36,6 +36,9 @@ var DefinedType = /** @class */ (function (_super) {
         // TODO
         return this;
     };
+    DefinedType.prototype.depthMax = function () {
+        return 1;
+    };
     DefinedType.prototype.toString = function () {
         var withComponents = !this.withComponents ? '' :
             " (WITH COMPONENTS " + this.withComponents.toString();

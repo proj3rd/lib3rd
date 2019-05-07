@@ -6,7 +6,7 @@ import { Base } from './base';
 
 export class NamedType extends Base {
   public name: string;
-  public type: any;
+  public type: Base;
   public optional: boolean;
   public default: any;
 
@@ -27,6 +27,10 @@ export class NamedType extends Base {
   public expand(): NamedType {
     // TODO
     return this;
+  }
+
+  public depthMax(): number {
+    return 1;
   }
 
   public toString(): string {

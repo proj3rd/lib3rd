@@ -18,7 +18,7 @@ var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
 var SequenceOf = /** @class */ (function (_super) {
     __extends(SequenceOf, _super);
-    function SequenceOf(type /* TODO */) {
+    function SequenceOf(type) {
         var _this = _super.call(this) || this;
         _this.type = type;
         return _this;
@@ -45,6 +45,9 @@ var SequenceOf = /** @class */ (function (_super) {
     SequenceOf.prototype.expand = function () {
         // TODO
         return this;
+    };
+    SequenceOf.prototype.depthMax = function () {
+        return 1;
     };
     SequenceOf.prototype.toString = function () {
         var size = this.size !== null ? " (SIZE (" + this.size + "))" :

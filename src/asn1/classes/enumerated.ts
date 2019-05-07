@@ -24,7 +24,7 @@ export class Enumerated extends Base {
     return this;
   }
 
-  public getDepthMax(): number {
+  public depthMax(): number {
     return 1;
   }
 

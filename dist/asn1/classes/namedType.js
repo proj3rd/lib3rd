@@ -34,6 +34,9 @@ var NamedType = /** @class */ (function (_super) {
         // TODO
         return this;
     };
+    NamedType.prototype.depthMax = function () {
+        return 1;
+    };
     NamedType.prototype.toString = function () {
         var optional = this.optional ? '    OPTIONAL' :
             this["default"] !== undefined ? "    DEFAULT   " + this["default"].toString() : '';
