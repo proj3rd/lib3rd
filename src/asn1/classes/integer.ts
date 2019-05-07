@@ -34,6 +34,10 @@ export class Integer extends Base {
     return this;
   }
 
+  public getDepthMax(): number {
+    return 1;
+  }
+
   public toString(): string {
     const valueConstraint = this.value !== undefined ? `(${this.value})` :
       this.min !== undefined && this.max !== undefined ? `(${this.min}..${this.max})` : '';

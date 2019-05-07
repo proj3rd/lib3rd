@@ -26,6 +26,11 @@ export class WithComponents extends Base {
     return this;
   }
 
+  public getDepthMax(): number {
+    // Depth of this class is not valid
+    return 0;
+  }
+
   public toString(): string {
     // TODO
     return `{${this.components.map((component) => component.toString()).join(', ')}}`;

@@ -39,6 +39,10 @@ export class OctetString extends Base {
     return this;
   }
 
+  public getDepthMax(): number {
+    return 1;
+  }
+
   public toString(): string {
     const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
     const size = this.size !== undefined ? ` (SIZE (${this.size}))` :

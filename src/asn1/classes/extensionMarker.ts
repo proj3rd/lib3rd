@@ -16,6 +16,10 @@ export class ExtensionMarker extends Base {
     return this;
   }
 
+  public getDepthMax(): number {
+    return 1;
+  }
+
   public toString(): string {
     return '...';
   }

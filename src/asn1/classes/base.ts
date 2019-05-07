@@ -1,5 +1,6 @@
 export abstract class Base {
   public abstract expand(): Base;
+  public abstract getDepthMax(): number;
   public abstract toString(): string;
 
   protected abstract setConstraint(constraint: any): Base;

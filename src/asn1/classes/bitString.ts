@@ -34,6 +34,10 @@ export class BitString extends Base {
     return this;
   }
 
+  public getDepthMax(): number {
+    return 1;
+  }
+
   public toString(): string {
     const valueConstraint = this.size !== undefined ? `(SIZE (${this.size}))` :
       this.sizeMin !== undefined && this.sizeMax !== undefined ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';

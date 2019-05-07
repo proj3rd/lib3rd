@@ -24,6 +24,10 @@ export class Enumerated extends Base {
     return this;
   }
 
+  public getDepthMax(): number {
+    return 1;
+  }
+
   public toString(): string {
     return `ENUMERATED {${this.items.join(', ')}}`;
   }
