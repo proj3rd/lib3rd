@@ -33,8 +33,7 @@ var WithComponents = /** @class */ (function (_super) {
         return this;
     };
     WithComponents.prototype.depthMax = function () {
-        // Depth of this class is not valid
-        return 0;
+        throw Error('Depth of this class is not valid');
     };
     WithComponents.prototype.toString = function () {
         // TODO

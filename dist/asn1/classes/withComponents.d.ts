@@ -6,6 +6,6 @@ export declare class WithComponents extends Base {
     constructor(components: Array<ExtensionMarker | ComponentPresence>);
     setConstraint(constraint: any): WithComponents;
     expand(): WithComponents;
-    depthMax(): number;
+    depthMax(): never;
     toString(): string;
 }

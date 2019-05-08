@@ -30,7 +30,7 @@ export class NamedType extends Base {
   }
 
   public depthMax(): number {
-    return 1;
+    return this.type.depthMax();
   }
 
   public toString(): string {
