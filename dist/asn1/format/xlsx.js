@@ -66,17 +66,26 @@ function format(msgIes, formatConfig) {
 exports.format = format;
 function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig) {
     if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
+    var _a;
     if (formatConfig.freezeHeader) {
         ws.row(row).freeze();
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
+    _a = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig), row = _a[0], col = _a[1];
+    ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
+    return [row, col];
+}
+function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth) {
+    if (depth === void 0) { depth = 0; }
     formatConfig.order.forEach(function (field, index) {
         if (index === 0) {
             ws.cell(row, col).style(xlsx_1.styleBorderLeft);
         }
         switch (field) {
             case 'ie': {
-                ws.cell(row, col).string(headerDefinition.ie).style(xlsx_1.styleBorderLeft).style(xlsx_1.styleBorderTop);
+                if ('ie' in ieElem) {
+                    ws.cell(row, col).string(ieElem.ie).style(xlsx_1.styleBorderLeft).style(xlsx_1.styleBorderTop);
+                }
                 ws.column(col++).setWidth(formatConfig.style.indentWidth);
                 for (var i = 0; i < depthMax; i++) {
                     ws.column(col).setWidth(formatConfig.style.indentWidth);
@@ -86,19 +95,31 @@ function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig) 
                 break;
             }
             case 'reference': {
-                ws.cell(row, col++).string(headerDefinition.reference).style(xlsx_1.styleBorderTop);
+                if ('reference' in ieElem) {
+                    ws.cell(row, col).string(ieElem.reference);
+                }
+                ws.cell(row, col++).style(xlsx_1.styleBorderTop);
                 break;
             }
             case 'type': {
-                ws.cell(row, col++).string(headerDefinition.type).style(xlsx_1.styleBorderTop);
+                if ('type' in ieElem) {
+                    ws.cell(row, col).string(ieElem.type);
+                }
+                ws.cell(row, col++).style(xlsx_1.styleBorderTop);
                 break;
             }
             case 'optional': {
-                ws.cell(row, col++).string(headerDefinition.optional).style(xlsx_1.styleBorderTop);
+                if ('optional' in ieElem) {
+                    ws.cell(row, col).string(ieElem.optional);
+                }
+                ws.cell(row, col++).style(xlsx_1.styleBorderTop);
                 break;
             }
             case 'tag': {
-                ws.cell(row, col++).string(headerDefinition.tag).style(xlsx_1.styleBorderTop);
+                if ('tag' in ieElem) {
+                    ws.cell(row, col).string(ieElem.tag);
+                }
+                ws.cell(row, col++).style(xlsx_1.styleBorderTop);
                 break;
             }
         }
@@ -108,10 +129,9 @@ function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig) 
     });
     row++;
     col = 1;
-    // TODO: Format body
-    ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
     return [row, col];
 }
+exports.fillRow = fillRow;
 function fillConstants(constants, ws, row, col, depthMax, formatConfig) {
     [headerConstants].concat(constants).forEach(function (rangeElem) {
         ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);

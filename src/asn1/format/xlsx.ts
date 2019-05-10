@@ -7,6 +7,14 @@ import { IMsgIe } from './common';
 
 type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'tag';
 
+export interface IIe {
+  ie: string;
+  reference: string;
+  type: string;
+  optional: string;
+  tag: string;
+}
+
 export interface IFormatConfig {
   order: fieldType[];
   grouping: boolean;
@@ -38,7 +46,7 @@ export const formatConfigDefault: IFormatConfig = {
   },
 };
 
-const headerDefinition: any /* TODO */ = {
+const headerDefinition: IIe = {
   ie: 'IE Name',
   reference: 'Reference Name',
   type: 'Type',
@@ -88,13 +96,22 @@ function fillDefinition(msgIe: IMsgIe, ws: any, row: number, col: number, depthM
     ws.row(row).freeze();
   }
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
+  [row, col] = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig);
+  ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
+  return [row, col];
+}
+
+export function fillRow(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                        formatConfig: IFormatConfig, depth: number = 0): [number, number] {
   formatConfig.order.forEach((field, index): void => {
     if (index === 0) {
       ws.cell(row, col).style(styleBorderLeft);
     }
     switch (field) {
       case 'ie': {
-        ws.cell(row, col).string(headerDefinition.ie).style(styleBorderLeft).style(styleBorderTop);
+        if ('ie' in ieElem) {
+          ws.cell(row, col).string(ieElem.ie).style(styleBorderLeft).style(styleBorderTop);
+        }
         ws.column(col++).setWidth(formatConfig.style.indentWidth);
         for (let i = 0; i < depthMax; i++) {
           ws.column(col).setWidth(formatConfig.style.indentWidth);
@@ -104,19 +121,31 @@ function fillDefinition(msgIe: IMsgIe, ws: any, row: number, col: number, depthM
         break;
       }
       case 'reference': {
-        ws.cell(row, col++).string(headerDefinition.reference).style(styleBorderTop);
+        if ('reference' in ieElem) {
+          ws.cell(row, col).string(ieElem.reference);
+        }
+        ws.cell(row, col++).style(styleBorderTop);
         break;
       }
       case 'type': {
-        ws.cell(row, col++).string(headerDefinition.type).style(styleBorderTop);
+        if ('type' in ieElem) {
+          ws.cell(row, col).string(ieElem.type);
+        }
+        ws.cell(row, col++).style(styleBorderTop);
         break;
       }
       case 'optional': {
-        ws.cell(row, col++).string(headerDefinition.optional).style(styleBorderTop);
+        if ('optional' in ieElem) {
+          ws.cell(row, col).string(ieElem.optional);
+        }
+        ws.cell(row, col++).style(styleBorderTop);
         break;
       }
       case 'tag': {
-        ws.cell(row, col++).string(headerDefinition.tag).style(styleBorderTop);
+        if ('tag' in ieElem) {
+          ws.cell(row, col).string(ieElem.tag);
+        }
+        ws.cell(row, col++).style(styleBorderTop);
         break;
       }
     }
@@ -126,8 +155,6 @@ function fillDefinition(msgIe: IMsgIe, ws: any, row: number, col: number, depthM
   });
   row++;
   col = 1;
-  // TODO: Format body
-  ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
   return [row, col];
 }
 
