@@ -1,5 +1,6 @@
 import { readFile, writeFileSync } from 'fs';
 import { parse as parsePath } from 'path';
+import * as yargs from 'yargs';
 
 import { format as formatTxt } from './text';
 
@@ -33,7 +34,24 @@ function findMsgIes(msgIeName: string, asn1: any): any[] /* TODO */ {
 }
 
 if (require.main === module) {
-  const [filePath, msgIeName] = process.argv.slice(2);
+  const argv = yargs
+    .command('<filePath> <msgIeName>', 'Format <msgIeName> from <filePath>')
+    .options({
+      format: {
+        alias: 'f',
+        describe: 'Output format',
+        choices: ['txt', 'xlsx'],
+        default: 'txt',
+      },
+      expand: {
+        alias: 'e',
+        describe: 'Whether expand sub-IE or not',
+        default: false,
+      },
+    })
+    .help()
+    .argv;
+  const [filePath, msgIeName] = argv._;
   if (!filePath || !msgIeName) {
     throw Error('Require at least 2 arguments, filePath, msgIeName, ... and fmt and expand');
   }
@@ -41,9 +59,7 @@ if (require.main === module) {
     if (err) {
       throw err;
     }
-    let [fmt, expand] = process.argv.slice(4);
-    fmt = fmt ? fmt : 'txt';
-    expand = expand ? expand : null;
+    const {format, expand} = argv;
     const parseResult: any /* TODO */ = parse(text);
     const msgIes = findMsgIes(msgIeName, parseResult);
     if (!msgIes.length) {
@@ -51,14 +67,14 @@ if (require.main === module) {
     }
     // TODO: expand
     const parsedPath = parsePath(filePath);
-    switch (fmt) {
+    switch (format) {
       case 'txt': {
         const formatResult = formatTxt(msgIes);
         writeFileSync(`${msgIeName}-${parsedPath.name}.txt`, formatResult);
         break;
       }
       default: {
-        throw Error(`Format '${fmt}' not supported`);
+        throw Error(`Format '${format}' not supported`);
       }
     }
   });
