@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
+var xlsx_1 = require("../format/xlsx");
 var base_1 = require("./base");
 var Sequence = /** @class */ (function (_super) {
     __extends(Sequence, _super);
@@ -48,6 +49,16 @@ var Sequence = /** @class */ (function (_super) {
             this.items.map(function (item) { return _this.indent(item.toString()); }).join(',\n'),
             '}',
         ].join('\n');
+    };
+    Sequence.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        var _a;
+        ieElem.type = 'SEQUENCE';
+        _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
+        this.items.forEach(function (item) {
+            var _a;
+            _a = item.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1), row = _a[0], col = _a[1];
+        });
+        return [row, col];
     };
     return Sequence;
 }(base_1.Base));

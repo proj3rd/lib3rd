@@ -97,6 +97,7 @@ function fillDefinition(msgIe: IMsgIe, ws: any, row: number, col: number, depthM
   }
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [row, col] = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig);
+  [row, col] = msgIe.definition.fillWorksheet({ie: msgIe.name}, ws, row, col, depthMax, constants, formatConfig);
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
   return [row, col];
 }

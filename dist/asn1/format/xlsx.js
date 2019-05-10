@@ -66,12 +66,13 @@ function format(msgIes, formatConfig) {
 exports.format = format;
 function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig) {
     if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
-    var _a;
+    var _a, _b;
     if (formatConfig.freezeHeader) {
         ws.row(row).freeze();
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     _a = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig), row = _a[0], col = _a[1];
+    _b = msgIe.definition.fillWorksheet({ ie: msgIe.name }, ws, row, col, depthMax, constants, formatConfig), row = _b[0], col = _b[1];
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
     return [row, col];
 }
