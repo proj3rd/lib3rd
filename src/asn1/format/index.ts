@@ -1,8 +1,9 @@
-import { readFile, writeFileSync } from 'fs';
+import { readFile, Stats, writeFileSync } from 'fs';
 import { parse as parsePath } from 'path';
 import * as yargs from 'yargs';
 
 import { format as formatTxt } from './text';
+import { format as formatXlsx } from './xlsx';
 
 import { parse } from '../parse';
 
@@ -67,10 +68,20 @@ if (require.main === module) {
     }
     // TODO: expand
     const parsedPath = parsePath(filePath);
+    const fileName = `${msgIeName}-${parsedPath.name}`;
     switch (format) {
       case 'txt': {
         const formatResult = formatTxt(msgIes);
-        writeFileSync(`${msgIeName}-${parsedPath.name}.txt`, formatResult);
+        writeFileSync(`${fileName}.txt`, formatResult);
+        break;
+      }
+      case 'xlsx': {
+        const formatResult = formatXlsx(msgIes /* TODO: formatConfig */);
+        formatResult.write(`${fileName}.xlsx`, (e: Error, stats: Stats) => {
+          if (e) {
+            throw e;
+          }
+        });
         break;
       }
       default: {

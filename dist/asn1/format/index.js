@@ -4,6 +4,7 @@ var fs_1 = require("fs");
 var path_1 = require("path");
 var yargs = require("yargs");
 var text_1 = require("./text");
+var xlsx_1 = require("./xlsx");
 var parse_1 = require("../parse");
 // TODO: need to be place in separate module?
 function findMsgIes(msgIeName, asn1) {
@@ -66,10 +67,20 @@ if (require.main === module) {
         }
         // TODO: expand
         var parsedPath = path_1.parse(filePath_1);
+        var fileName = msgIeName_1 + "-" + parsedPath.name;
         switch (format) {
             case 'txt': {
                 var formatResult = text_1.format(msgIes);
-                fs_1.writeFileSync(msgIeName_1 + "-" + parsedPath.name + ".txt", formatResult);
+                fs_1.writeFileSync(fileName + ".txt", formatResult);
+                break;
+            }
+            case 'xlsx': {
+                var formatResult = xlsx_1.format(msgIes /* TODO: formatConfig */);
+                formatResult.write(fileName + ".xlsx", function (e, stats) {
+                    if (e) {
+                        throw e;
+                    }
+                });
                 break;
             }
             default: {
