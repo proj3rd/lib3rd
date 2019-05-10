@@ -1,11 +1,11 @@
 import { IMsgIe } from './common';
 declare type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'tag';
 export interface IIe {
-    ie: string;
-    reference: string;
-    type: string;
-    optional: string;
-    tag: string;
+    ie?: string;
+    reference?: string;
+    type?: string;
+    optional?: string;
+    tag?: string;
 }
 export interface IFormatConfig {
     order: fieldType[];
