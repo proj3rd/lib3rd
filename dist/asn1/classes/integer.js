@@ -57,15 +57,9 @@ var Integer = /** @class */ (function (_super) {
         var _a;
         ieElem.type = this.toString();
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
-        if (typeof this.value === 'string') {
-            constants.push(this.value);
-        }
-        if (typeof this.min === 'string') {
-            constants.push(this.min);
-        }
-        if (typeof this.max === 'string') {
-            constants.push(this.max);
-        }
+        this.addToConstants(this.value, constants);
+        this.addToConstants(this.min, constants);
+        this.addToConstants(this.max, constants);
         return [row, col];
     };
     return Integer;

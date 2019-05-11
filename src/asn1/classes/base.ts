@@ -11,4 +11,9 @@ export abstract class Base {
   protected indent(text: string): string {
     return text.replace(/^/gm, '  ');
   }
+  protected addToConstants(obj: any, constants: any[]): void {
+    if (typeof obj === 'string') {
+      constants.push(obj);
+    }
+  }
 }

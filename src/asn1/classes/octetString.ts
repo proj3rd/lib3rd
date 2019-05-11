@@ -55,15 +55,9 @@ export class OctetString extends Base {
                        formatConfig: IFormatConfig, depth: number = 0): [number, number] {
     ieElem.type = this.toString();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
-    if (typeof this.size === 'string') {
-      constants.push(this.size);
-    }
-    if (typeof this.sizeMax === 'string') {
-      constants.push(this.sizeMin);
-    }
-    if (typeof this.sizeMin === 'string') {
-      constants.push(this.sizeMax);
-    }
+    this.addToConstants(this.size, constants);
+    this.addToConstants(this.sizeMin, constants);
+    this.addToConstants(this.sizeMax, constants);
     return [row, col];
   }
 }

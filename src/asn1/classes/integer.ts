@@ -49,15 +49,9 @@ export class Integer extends Base {
                        formatConfig: IFormatConfig, depth: number = 0): [number, number] {
     ieElem.type = this.toString();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
-    if (typeof this.value === 'string') {
-      constants.push(this.value);
-    }
-    if (typeof this.min === 'string') {
-      constants.push(this.min);
-    }
-    if (typeof this.max === 'string') {
-      constants.push(this.max);
-    }
+    this.addToConstants(this.value, constants);
+    this.addToConstants(this.min, constants);
+    this.addToConstants(this.max, constants);
     return [row, col];
   }
 }
