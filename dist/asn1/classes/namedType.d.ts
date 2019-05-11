@@ -1,3 +1,4 @@
+import { IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 export declare class NamedType extends Base {
     name: string;
@@ -9,4 +10,6 @@ export declare class NamedType extends Base {
     expand(): NamedType;
     depthMax(): number;
     toString(): string;
+    fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];
+    private getOptionalString;
 }

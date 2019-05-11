@@ -110,11 +110,15 @@ export function fillRow(ieElem: IIe, ws: any, row: number, col: number, depthMax
     }
     switch (field) {
       case 'ie': {
+        for (let i = 0; i < depth; i++) {
+          ws.column(col).setWidth(formatConfig.style.indentWidth);
+          ws.cell(row, col++).style(styleBorderLeft);
+        }
         if ('ie' in ieElem) {
           ws.cell(row, col).string(ieElem.ie).style(styleBorderLeft).style(styleBorderTop);
         }
         ws.column(col++).setWidth(formatConfig.style.indentWidth);
-        for (let i = 0; i < depthMax; i++) {
+        for (let i = depth; i < depthMax; i++) {
           ws.column(col).setWidth(formatConfig.style.indentWidth);
           ws.cell(row, col++).style(styleBorderTop);
         }

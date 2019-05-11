@@ -1,3 +1,4 @@
+import { IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 import { WithComponents } from './withComponents';
 export declare class DefinedType extends Base {
@@ -8,4 +9,5 @@ export declare class DefinedType extends Base {
     expand(): DefinedType;
     depthMax(): number;
     toString(): string;
+    fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }

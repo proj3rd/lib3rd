@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
+var xlsx_1 = require("../format/xlsx");
 var base_1 = require("./base");
 var withComponents_1 = require("./withComponents");
 var DefinedType = /** @class */ (function (_super) {
@@ -43,6 +44,13 @@ var DefinedType = /** @class */ (function (_super) {
         var withComponents = !this.withComponents ? '' :
             " (WITH COMPONENTS " + this.withComponents.toString();
         return "" + (this.moduleReference ? this.moduleReference + '.' : '') + this.typeReference + withComponents;
+    };
+    DefinedType.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        if (depth === void 0) { depth = 0; }
+        var _a;
+        ieElem.reference = this.toString();
+        _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
+        return [row, col];
     };
     return DefinedType;
 }(base_1.Base));
