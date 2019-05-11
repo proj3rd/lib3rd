@@ -28,7 +28,7 @@ export class Choice extends Base {
   }
 
   public depthMax(): number {
-    let depthMax = 1;
+    let depthMax = 0;
     this.choices.forEach((choice) => {
       depthMax = Math.max(depthMax, choice.depthMax() + 1);
     });

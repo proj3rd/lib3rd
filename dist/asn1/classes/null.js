@@ -32,7 +32,7 @@ var Null = /** @class */ (function (_super) {
         return this;
     };
     Null.prototype.depthMax = function () {
-        return 1;
+        return 0;
     };
     Null.prototype.toString = function () {
         return 'NULL';

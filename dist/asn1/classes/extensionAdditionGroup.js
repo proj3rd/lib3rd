@@ -37,7 +37,7 @@ var ExtensionAdditionGroup = /** @class */ (function (_super) {
         return this;
     };
     ExtensionAdditionGroup.prototype.depthMax = function () {
-        var depthMax = 1;
+        var depthMax = 0;
         this.componentTypeList.forEach(function (item) {
             depthMax = Math.max(depthMax, item.depthMax() + 1);
         });

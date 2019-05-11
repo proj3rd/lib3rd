@@ -50,7 +50,7 @@ var OctetString = /** @class */ (function (_super) {
         return this;
     };
     OctetString.prototype.depthMax = function () {
-        return 1;
+        return 0;
     };
     OctetString.prototype.toString = function () {
         var containing = this.containing ? " (CONTAINING " + this.containing.toString() + ")" : '';

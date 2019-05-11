@@ -35,7 +35,7 @@ var Choice = /** @class */ (function (_super) {
         return this;
     };
     Choice.prototype.depthMax = function () {
-        var depthMax = 1;
+        var depthMax = 0;
         this.choices.forEach(function (choice) {
             depthMax = Math.max(depthMax, choice.depthMax() + 1);
         });

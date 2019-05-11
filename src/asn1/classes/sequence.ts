@@ -28,7 +28,7 @@ export class Sequence extends Base {
   }
 
   public depthMax(): number {
-    let depthMax = 1;
+    let depthMax = 0;
     this.items.forEach((item) => {
       depthMax = Math.max(depthMax, item.depthMax() + 1);
     });

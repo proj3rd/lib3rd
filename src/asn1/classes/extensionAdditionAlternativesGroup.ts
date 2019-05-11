@@ -30,7 +30,7 @@ export class ExtensionAdditionAlternativesGroup extends Base {
   }
 
   public depthMax(): number {
-    let depthMax = 1;
+    let depthMax = 0;
     this.alternativeTypeList.forEach((item) => {
       depthMax = Math.max(depthMax, item.depthMax() + 1);
     });

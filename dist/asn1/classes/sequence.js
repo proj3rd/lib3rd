@@ -35,7 +35,7 @@ var Sequence = /** @class */ (function (_super) {
         return this;
     };
     Sequence.prototype.depthMax = function () {
-        var depthMax = 1;
+        var depthMax = 0;
         this.items.forEach(function (item) {
             depthMax = Math.max(depthMax, item.depthMax() + 1);
         });

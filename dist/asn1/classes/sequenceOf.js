@@ -48,7 +48,7 @@ var SequenceOf = /** @class */ (function (_super) {
         return this;
     };
     SequenceOf.prototype.depthMax = function () {
-        return 1;
+        return 0;
     };
     SequenceOf.prototype.toString = function () {
         var size = this.size !== null ? " (SIZE (" + this.size + "))" :

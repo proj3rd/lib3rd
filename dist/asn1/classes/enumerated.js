@@ -34,7 +34,7 @@ var Enumerated = /** @class */ (function (_super) {
         return this;
     };
     Enumerated.prototype.depthMax = function () {
-        return 1;
+        return 0;
     };
     Enumerated.prototype.toString = function () {
         return "ENUMERATED {" + this.items.join(', ') + "}";

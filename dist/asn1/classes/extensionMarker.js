@@ -32,7 +32,7 @@ var ExtensionMarker = /** @class */ (function (_super) {
         return this;
     };
     ExtensionMarker.prototype.depthMax = function () {
-        return 1;
+        return 0;
     };
     ExtensionMarker.prototype.toString = function () {
         return '...';

@@ -32,7 +32,7 @@ var AsnBoolean = /** @class */ (function (_super) {
         return this;
     };
     AsnBoolean.prototype.depthMax = function () {
-        return 1;
+        return 0;
     };
     AsnBoolean.prototype.toString = function () {
         return 'BOOLEAN';
