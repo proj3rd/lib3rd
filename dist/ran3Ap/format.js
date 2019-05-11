@@ -165,7 +165,7 @@ function fillDefinition(ies, ws, row, col, depthMax, formatConfig) {
             if (index === formatConfig.order.length - 1) {
                 ws.cell(row, col).style(styleBorderLeft);
             }
-            if (ie.depth > 0) {
+            if (formatConfig.grouping && ie.depth > 0) {
                 ws.row(row).group(Math.min(ie.depth, 7));
             }
         });

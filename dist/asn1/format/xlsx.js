@@ -132,6 +132,9 @@ function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth) {
         if (index === formatConfig.order.length - 1) {
             ws.cell(row, col).style(xlsx_1.styleBorderLeft);
         }
+        if (formatConfig.grouping && depth > 0) {
+            ws.row(row).group(Math.min(depth, 7));
+        }
     });
     row++;
     col = 1;
