@@ -2,15 +2,17 @@ import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
+import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
+import { NamedType } from './namedType';
 
 export class SequenceOf extends Base {
-  public type: any /* TODO */;
+  public type: NamedType;
   public size: number | string;
   public sizeMin: number | string;
   public sizeMax: number | string;
 
-  constructor(type: any /* TODO */) {
+  constructor(type: NamedType) {
     super();
 
     this.type = type;
@@ -41,9 +43,23 @@ export class SequenceOf extends Base {
     return this;
   }
 
+  public depthMax(): number {
+    return 0;
+  }
+
   public toString(): string {
     const size = this.size !== null ? ` (SIZE (${this.size}))` :
       this.sizeMin !== null && this.sizeMax !== null ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `SEQUENCE${size} OF ${this.type.toString()}`;
+  }
+
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+    ieElem.type = this.toString();
+    [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+    this.addToConstants(this.size, constants);
+    this.addToConstants(this.sizeMin, constants);
+    this.addToConstants(this.sizeMax, constants);
+    return [row, col];
   }
 }

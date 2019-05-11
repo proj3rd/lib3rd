@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
+import { IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 
 export class ComponentPresence extends Base {
@@ -26,7 +27,16 @@ export class ComponentPresence extends Base {
     return this;
   }
 
+  public depthMax(): never {
+    throw Error('Depth of this class is not valid');
+  }
+
   public toString(): string {
     return `${this.identifier} ${this.absentPresent}`;
+  }
+
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+                       formatConfig: IFormatConfig, depth: number = 0): never {
+    throw Error(`${this.constructor.name}.fillWorksheet does not need to be implemented`);
   }
 }

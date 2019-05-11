@@ -1,3 +1,4 @@
+import { IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 export declare class Integer extends Base {
     namedNumberList: any;
@@ -6,5 +7,7 @@ export declare class Integer extends Base {
     max: number | string;
     setConstraint(constraint: any): Integer;
     expand(): Integer;
+    depthMax(): number;
     toString(): string;
+    fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }

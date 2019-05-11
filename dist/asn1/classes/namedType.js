@@ -34,10 +34,24 @@ var NamedType = /** @class */ (function (_super) {
         // TODO
         return this;
     };
+    NamedType.prototype.depthMax = function () {
+        return this.type.depthMax();
+    };
     NamedType.prototype.toString = function () {
-        var optional = this.optional ? '    OPTIONAL' :
-            this["default"] !== undefined ? "    DEFAULT   " + this["default"].toString() : '';
+        var optional = "    " + this.getOptionalString();
         return this.name.padEnd(48) + "    " + this.type + optional;
+    };
+    NamedType.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        if (depth === void 0) { depth = 0; }
+        var _a;
+        ieElem.ie = this.name;
+        ieElem.optional = this.getOptionalString();
+        _a = this.type.fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth), row = _a[0], col = _a[1];
+        return [row, col];
+    };
+    NamedType.prototype.getOptionalString = function () {
+        return this.optional ? 'OPTIONAL' :
+            this["default"] !== undefined ? "DEFAULT   " + this["default"].toString() : '';
     };
     return NamedType;
 }(base_1.Base));

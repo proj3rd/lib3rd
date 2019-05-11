@@ -2,7 +2,9 @@
 exports.__esModule = true;
 var fs_1 = require("fs");
 var path_1 = require("path");
+var yargs = require("yargs");
 var text_1 = require("./text");
+var xlsx_1 = require("./xlsx");
 var parse_1 = require("../parse");
 // TODO: need to be place in separate module?
 function findMsgIes(msgIeName, asn1) {
@@ -32,7 +34,24 @@ function findMsgIes(msgIeName, asn1) {
     return msgIes;
 }
 if (require.main === module) {
-    var _a = process.argv.slice(2), filePath_1 = _a[0], msgIeName_1 = _a[1];
+    var argv_1 = yargs
+        .command('<filePath> <msgIeName>', 'Format <msgIeName> from <filePath>')
+        .options({
+        format: {
+            alias: 'f',
+            describe: 'Output format',
+            choices: ['txt', 'xlsx'],
+            "default": 'txt'
+        },
+        expand: {
+            alias: 'e',
+            describe: 'Whether expand sub-IE or not',
+            "default": false
+        }
+    })
+        .help()
+        .argv;
+    var _a = argv_1._, filePath_1 = _a[0], msgIeName_1 = _a[1];
     if (!filePath_1 || !msgIeName_1) {
         throw Error('Require at least 2 arguments, filePath, msgIeName, ... and fmt and expand');
     }
@@ -40,9 +59,7 @@ if (require.main === module) {
         if (err) {
             throw err;
         }
-        var _a = process.argv.slice(4), fmt = _a[0], expand = _a[1];
-        fmt = fmt ? fmt : 'txt';
-        expand = expand ? expand : null;
+        var format = argv_1.format, expand = argv_1.expand;
         var parseResult = parse_1.parse(text);
         var msgIes = findMsgIes(msgIeName_1, parseResult);
         if (!msgIes.length) {
@@ -50,14 +67,24 @@ if (require.main === module) {
         }
         // TODO: expand
         var parsedPath = path_1.parse(filePath_1);
-        switch (fmt) {
+        var fileName = msgIeName_1 + "-" + parsedPath.name;
+        switch (format) {
             case 'txt': {
                 var formatResult = text_1.format(msgIes);
-                fs_1.writeFileSync(msgIeName_1 + "-" + parsedPath.name + ".txt", formatResult);
+                fs_1.writeFileSync(fileName + ".txt", formatResult);
+                break;
+            }
+            case 'xlsx': {
+                var formatResult = xlsx_1.format(msgIes /* TODO: formatConfig */);
+                formatResult.write(fileName + ".xlsx", function (e, stats) {
+                    if (e) {
+                        throw e;
+                    }
+                });
                 break;
             }
             default: {
-                throw Error("Format '" + fmt + "' not supported");
+                throw Error("Format '" + format + "' not supported");
             }
         }
     });

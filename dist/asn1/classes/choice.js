@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
+var xlsx_1 = require("../format/xlsx");
 var base_1 = require("./base");
 var Choice = /** @class */ (function (_super) {
     __extends(Choice, _super);
@@ -33,6 +34,13 @@ var Choice = /** @class */ (function (_super) {
         // TODO
         return this;
     };
+    Choice.prototype.depthMax = function () {
+        var depthMax = 0;
+        this.choices.forEach(function (choice) {
+            depthMax = Math.max(depthMax, choice.depthMax() + 1);
+        });
+        return depthMax;
+    };
     Choice.prototype.toString = function () {
         var _this = this;
         return !this.choices.length ? 'CHOICE {}' : [
@@ -40,6 +48,17 @@ var Choice = /** @class */ (function (_super) {
             this.choices.map(function (choice) { return _this.indent(choice.toString()); }).join(',\n'),
             '}',
         ].join('\n');
+    };
+    Choice.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        if (depth === void 0) { depth = 0; }
+        var _a;
+        ieElem.type = 'CHOICE';
+        _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
+        this.choices.forEach(function (choice) {
+            var _a;
+            _a = choice.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1), row = _a[0], col = _a[1];
+        });
+        return [row, col];
     };
     return Choice;
 }(base_1.Base));

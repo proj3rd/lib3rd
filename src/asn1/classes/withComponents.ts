@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
+import { IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 import { ComponentPresence } from './componentPresence';
 import { ExtensionMarker } from './extensionMarker';
@@ -26,8 +27,17 @@ export class WithComponents extends Base {
     return this;
   }
 
+  public depthMax(): never {
+    throw Error('Depth of this class is not valid');
+  }
+
   public toString(): string {
     // TODO
     return `{${this.components.map((component) => component.toString()).join(', ')}}`;
+  }
+
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+                       formatConfig: IFormatConfig, depth: number = 0): never {
+    throw Error(`${this.constructor.name}.fillWorksheet does not need to be implemented`);
   }
 }

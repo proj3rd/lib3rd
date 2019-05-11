@@ -6,6 +6,11 @@ var Base = /** @class */ (function () {
     Base.prototype.indent = function (text) {
         return text.replace(/^/gm, '  ');
     };
+    Base.prototype.addToConstants = function (obj, constants) {
+        if (obj !== undefined && isNaN(Number(obj))) {
+            constants.push(obj);
+        }
+    };
     return Base;
 }());
 exports.Base = Base;

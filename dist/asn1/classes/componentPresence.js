@@ -33,8 +33,15 @@ var ComponentPresence = /** @class */ (function (_super) {
     ComponentPresence.prototype.expand = function () {
         return this;
     };
+    ComponentPresence.prototype.depthMax = function () {
+        throw Error('Depth of this class is not valid');
+    };
     ComponentPresence.prototype.toString = function () {
         return this.identifier + " " + this.absentPresent;
+    };
+    ComponentPresence.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        if (depth === void 0) { depth = 0; }
+        throw Error(this.constructor.name + ".fillWorksheet does not need to be implemented");
     };
     return ComponentPresence;
 }(base_1.Base));

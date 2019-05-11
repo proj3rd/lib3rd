@@ -1,6 +1,7 @@
+import { IMsgIe } from './common';
 /**
  * Format ASN.1 in text
- * @param msgIes Collection of ASN.1 objects you want to format
+ * @param msgIes Array of ASN.1 objects you want to format
  * @returns ASN.1 notation in string
  */
-export declare function format(msgIes: any[]): string;
+export declare function format(msgIes: IMsgIe[]): string;

@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
+var xlsx_1 = require("../format/xlsx");
 var base_1 = require("./base");
 var BitString = /** @class */ (function (_super) {
     __extends(BitString, _super);
@@ -43,10 +44,23 @@ var BitString = /** @class */ (function (_super) {
     BitString.prototype.expand = function () {
         return this;
     };
+    BitString.prototype.depthMax = function () {
+        return 0;
+    };
     BitString.prototype.toString = function () {
         var valueConstraint = this.size !== undefined ? "(SIZE (" + this.size + "))" :
             this.sizeMin !== undefined && this.sizeMax !== undefined ? "(SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';
         return "BIT STRING " + valueConstraint;
+    };
+    BitString.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        if (depth === void 0) { depth = 0; }
+        var _a;
+        ieElem.type = this.toString();
+        _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
+        this.addToConstants(this.size, constants);
+        this.addToConstants(this.sizeMin, constants);
+        this.addToConstants(this.sizeMax, constants);
+        return [row, col];
     };
     return BitString;
 }(base_1.Base));

@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
+import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 import { WithComponents } from './withComponents';
 
@@ -26,9 +27,20 @@ export class DefinedType extends Base {
     return this;
   }
 
+  public depthMax(): number {
+    return 0;
+  }
+
   public toString(): string {
     const withComponents = !this.withComponents ? '' :
       ` (WITH COMPONENTS ${this.withComponents.toString()}`;
     return `${this.moduleReference ? this.moduleReference + '.' : ''}${this.typeReference}${withComponents}`;
+  }
+
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+    ieElem.reference = this.toString();
+    [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+    return [row, col];
   }
 }

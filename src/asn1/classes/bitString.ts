@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
+import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 
 export class BitString extends Base {
@@ -34,9 +35,23 @@ export class BitString extends Base {
     return this;
   }
 
+  public depthMax(): number {
+    return 0;
+  }
+
   public toString(): string {
     const valueConstraint = this.size !== undefined ? `(SIZE (${this.size}))` :
       this.sizeMin !== undefined && this.sizeMax !== undefined ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `BIT STRING ${valueConstraint}`;
+  }
+
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+    ieElem.type = this.toString();
+    [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+    this.addToConstants(this.size, constants);
+    this.addToConstants(this.sizeMin, constants);
+    this.addToConstants(this.sizeMax, constants);
+    return [row, col];
   }
 }

@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
+var xlsx_1 = require("../format/xlsx");
 var base_1 = require("./base");
 var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
     __extends(ExtensionAdditionAlternativesGroup, _super);
@@ -36,6 +37,13 @@ var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
         // TODO
         return this;
     };
+    ExtensionAdditionAlternativesGroup.prototype.depthMax = function () {
+        var depthMax = 0;
+        this.alternativeTypeList.forEach(function (item) {
+            depthMax = Math.max(depthMax, item.depthMax() + 1);
+        });
+        return depthMax;
+    };
     ExtensionAdditionAlternativesGroup.prototype.toString = function () {
         var _this = this;
         return [
@@ -43,6 +51,19 @@ var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
             this.alternativeTypeList.map(function (item) { return _this.indent(item.toString()); }).join(',\n'),
             ']]',
         ].join('\n');
+    };
+    ExtensionAdditionAlternativesGroup.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        if (depth === void 0) { depth = 0; }
+        var _a, _b;
+        ieElem.ie = '[[';
+        _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
+        this.alternativeTypeList.forEach(function (item) {
+            var _a;
+            _a = item.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1), row = _a[0], col = _a[1];
+        });
+        ieElem.ie = ']]';
+        _b = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _b[0], col = _b[1];
+        return [row, col];
     };
     return ExtensionAdditionAlternativesGroup;
 }(base_1.Base));
