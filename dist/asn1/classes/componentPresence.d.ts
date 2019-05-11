@@ -1,3 +1,4 @@
+import { IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 export declare class ComponentPresence extends Base {
     identifier: string;
@@ -7,4 +8,5 @@ export declare class ComponentPresence extends Base {
     expand(): ComponentPresence;
     depthMax(): never;
     toString(): string;
+    fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): never;
 }

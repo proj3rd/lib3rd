@@ -39,6 +39,10 @@ var ComponentPresence = /** @class */ (function (_super) {
     ComponentPresence.prototype.toString = function () {
         return this.identifier + " " + this.absentPresent;
     };
+    ComponentPresence.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        if (depth === void 0) { depth = 0; }
+        throw Error(this.constructor.name + ".fillWorksheet does not need to be implemented");
+    };
     return ComponentPresence;
 }(base_1.Base));
 exports.ComponentPresence = ComponentPresence;

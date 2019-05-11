@@ -39,6 +39,10 @@ var WithComponents = /** @class */ (function (_super) {
         // TODO
         return "{" + this.components.map(function (component) { return component.toString(); }).join(', ') + "}";
     };
+    WithComponents.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        if (depth === void 0) { depth = 0; }
+        throw Error(this.constructor.name + ".fillWorksheet does not need to be implemented");
+    };
     return WithComponents;
 }(base_1.Base));
 exports.WithComponents = WithComponents;
