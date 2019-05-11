@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
+import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 
 export class Integer extends Base {
@@ -42,5 +43,21 @@ export class Integer extends Base {
     const valueConstraint = this.value !== undefined ? `(${this.value})` :
       this.min !== undefined && this.max !== undefined ? `(${this.min}..${this.max})` : '';
     return `INTEGER ${valueConstraint}`;
+  }
+
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+                       formatConfig: IFormatConfig, depth?: number): [number, number] {
+    ieElem.type = this.toString();
+    [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+    if (typeof this.value === 'string') {
+      constants.push(this.value);
+    }
+    if (typeof this.min === 'string') {
+      constants.push(this.min);
+    }
+    if (typeof this.max === 'string') {
+      constants.push(this.max);
+    }
+    return [row, col];
   }
 }

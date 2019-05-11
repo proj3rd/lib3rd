@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
+var xlsx_1 = require("../format/xlsx");
 var base_1 = require("./base");
 var Integer = /** @class */ (function (_super) {
     __extends(Integer, _super);
@@ -50,6 +51,21 @@ var Integer = /** @class */ (function (_super) {
         var valueConstraint = this.value !== undefined ? "(" + this.value + ")" :
             this.min !== undefined && this.max !== undefined ? "(" + this.min + ".." + this.max + ")" : '';
         return "INTEGER " + valueConstraint;
+    };
+    Integer.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        var _a;
+        ieElem.type = this.toString();
+        _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
+        if (typeof this.value === 'string') {
+            constants.push(this.value);
+        }
+        if (typeof this.min === 'string') {
+            constants.push(this.min);
+        }
+        if (typeof this.max === 'string') {
+            constants.push(this.max);
+        }
+        return [row, col];
     };
     return Integer;
 }(base_1.Base));
