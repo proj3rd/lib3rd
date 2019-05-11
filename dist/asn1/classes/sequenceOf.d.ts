@@ -1,3 +1,4 @@
+import { IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 import { NamedType } from './namedType';
 export declare class SequenceOf extends Base {
@@ -10,4 +11,5 @@ export declare class SequenceOf extends Base {
     expand(): SequenceOf;
     depthMax(): number;
     toString(): string;
+    fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }
