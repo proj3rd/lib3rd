@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
+import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 import { NamedType } from './namedType';
 
@@ -40,5 +41,15 @@ export class Choice extends Base {
       this.choices.map((choice) => this.indent(choice.toString())).join(',\n'),
       '}',
     ].join('\n');
+  }
+
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+    ieElem.type = 'CHOICE';
+    [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+    this.choices.forEach((choice) => {
+      [row, col] = choice.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
+    });
+    return [row, col];
   }
 }
