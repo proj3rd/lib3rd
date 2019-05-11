@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
+import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 
 export class OctetString extends Base {
@@ -48,5 +49,21 @@ export class OctetString extends Base {
     const size = this.size !== undefined ? ` (SIZE (${this.size}))` :
     this.sizeMin !== undefined && this.sizeMax !== undefined ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `OCTET STRING${containing}${size}`;
+  }
+
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+                       formatConfig: IFormatConfig, depth?: number): [number, number] {
+    ieElem.type = this.toString();
+    [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+    if (typeof this.size === 'string') {
+      constants.push(this.size);
+    }
+    if (typeof this.sizeMax === 'string') {
+      constants.push(this.sizeMin);
+    }
+    if (typeof this.sizeMin === 'string') {
+      constants.push(this.sizeMax);
+    }
+    return [row, col];
   }
 }
