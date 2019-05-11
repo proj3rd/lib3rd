@@ -38,7 +38,7 @@ var headerConstants = {
  * @param msgIes Array of ASN.1 objects you want to format
  * @returns Workbook object of excel4node
  */
-function format(msgIes, formatConfig) {
+function format(msgIes, asn1Pool, formatConfig) {
     if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
     var wb = new xl.Workbook({ author: xlsx_1.author });
     msgIes.forEach(function (msgIe, index) {
@@ -59,7 +59,7 @@ function format(msgIes, formatConfig) {
         _a = fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig), row = _a[0], col = _a[1];
         if (constants.length) {
             row++;
-            _b = fillConstants(constants, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
+            _b = fillConstants(constants, msgIe.moduleName, asn1Pool, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
         }
     });
     return wb;
@@ -138,9 +138,12 @@ function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth) {
     return [row, col];
 }
 exports.fillRow = fillRow;
-function fillConstants(constants, ws, row, col, depthMax, formatConfig) {
+function fillConstants(constants, moduleName, asn1Pool, ws, row, col, depthMax, formatConfig) {
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
-    [headerConstants].concat(constants).forEach(function (rangeElem) {
+    [headerConstants].concat(constants).forEach(function (rangeElem, index) {
+        if (index > 0) {
+            rangeElem.value = findConstantValue(rangeElem.constant, moduleName, asn1Pool);
+        }
         ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
         ws.cell(row, col + depthMax + formatConfig.order.length).style(xlsx_1.styleBorderLeft);
         ws.cell(row, col).string(rangeElem.constant).style(xlsx_1.styleBorderLeft);
@@ -148,4 +151,12 @@ function fillConstants(constants, ws, row, col, depthMax, formatConfig) {
     });
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
     return [row, col];
+}
+function findConstantValue(constant, moduleName, asn1Pool) {
+    if (constant in asn1Pool[moduleName].constants) {
+        return asn1Pool[moduleName].constants[constant];
+    }
+    var importedModuleName = asn1Pool[moduleName].imports[constant];
+    var importedModule = asn1Pool[importedModuleName];
+    return asn1Pool[importedModuleName].constants[constant];
 }

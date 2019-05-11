@@ -8,7 +8,7 @@ var Base = /** @class */ (function () {
     };
     Base.prototype.addToConstants = function (obj, constants) {
         if (obj !== undefined && isNaN(Number(obj))) {
-            constants.push(obj);
+            constants.push({ constant: obj });
         }
     };
     return Base;

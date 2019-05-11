@@ -13,7 +13,7 @@ export abstract class Base {
   }
   protected addToConstants(obj: any, constants: any[]): void {
     if (obj !== undefined && isNaN(Number(obj))) {
-      constants.push(obj);
+      constants.push({constant: obj});
     }
   }
 }

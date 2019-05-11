@@ -15,6 +15,7 @@ function findMsgIes(msgIeName, asn1) {
             Object.keys(assignments).forEach(function (name) {
                 msgIes.push({
                     name: name,
+                    moduleName: moduleName,
                     definition: assignments[name]
                 });
             });
@@ -26,6 +27,7 @@ function findMsgIes(msgIeName, asn1) {
             if (msgIeName in assignments) {
                 msgIes.push({
                     name: msgIeName,
+                    moduleName: moduleName,
                     definition: assignments[msgIeName]
                 });
             }
@@ -75,7 +77,7 @@ if (require.main === module) {
                 break;
             }
             case 'xlsx': {
-                var formatResult = xlsx_1.format(msgIes /* TODO: formatConfig */);
+                var formatResult = xlsx_1.format(msgIes, parseResult /* TODO: formatConfig */);
                 formatResult.write(fileName + ".xlsx", function (e, stats) {
                     if (e) {
                         throw e;
