@@ -26,7 +26,7 @@ export class ExtensionMarker extends Base {
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth?: number): [number, number] {
+                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
     ieElem.ie = '...';
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     return [row, col];

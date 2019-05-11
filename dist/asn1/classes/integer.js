@@ -53,6 +53,7 @@ var Integer = /** @class */ (function (_super) {
         return "INTEGER " + valueConstraint;
     };
     Integer.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
+        if (depth === void 0) { depth = 0; }
         var _a;
         ieElem.type = this.toString();
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
