@@ -58,6 +58,7 @@ function format(msgIes, formatConfig) {
         var constants = [];
         _a = fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig), row = _a[0], col = _a[1];
         if (constants.length) {
+            row++;
             _b = fillConstants(constants, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
         }
     });
@@ -138,6 +139,7 @@ function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth) {
 }
 exports.fillRow = fillRow;
 function fillConstants(constants, ws, row, col, depthMax, formatConfig) {
+    ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     [headerConstants].concat(constants).forEach(function (rangeElem) {
         ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
         ws.cell(row, col + depthMax + formatConfig.order.length).style(xlsx_1.styleBorderLeft);

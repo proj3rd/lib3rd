@@ -84,6 +84,7 @@ export function format(msgIes: IMsgIe[], formatConfig: IFormatConfig = formatCon
     [row, col] = fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig);
 
     if (constants.length) {
+      row++;
       [row, col] = fillConstants(constants, ws, row, col, depthMax, formatConfig);
     }
   });
@@ -165,6 +166,7 @@ export function fillRow(ieElem: IIe, ws: any, row: number, col: number, depthMax
 
 function fillConstants(constants: any[], ws: any, row: number, col: number, depthMax: number,
                        formatConfig: IFormatConfig): [number, number] {
+  ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [headerConstants, ...constants].forEach((rangeElem) => {
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
     ws.cell(row, col + depthMax + formatConfig.order.length).style(styleBorderLeft);
