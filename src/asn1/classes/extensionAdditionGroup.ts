@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
+import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { Base } from './base';
 import { NamedType } from './namedType';
 
@@ -43,5 +44,17 @@ export class ExtensionAdditionGroup extends Base {
       this.componentTypeList.map((item) => this.indent(item.toString())).join(',\n'),
       ']]',
     ].join('\n');
+  }
+
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+    ieElem.ie = '[[';
+    [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+    this.componentTypeList.forEach((componentType) => {
+      [row, col] = componentType.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
+    });
+    ieElem.ie = ']]';
+    [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+    return [row, col];
   }
 }
