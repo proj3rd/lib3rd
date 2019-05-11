@@ -6,16 +6,18 @@ import { format as formatTxt } from './text';
 import { format as formatXlsx } from './xlsx';
 
 import { parse } from '../parse';
+import { IMsgIe } from './common';
 
 // TODO: need to be place in separate module?
 function findMsgIes(msgIeName: string, asn1: any): any[] /* TODO */ {
-  const msgIes = [];
+  const msgIes: IMsgIe[] = [];
   Object.keys(asn1).forEach((moduleName) => {
     const assignments = asn1[moduleName].assignments;
     if (msgIeName === 'all') {
       Object.keys(assignments).forEach((name) => {
         msgIes.push({
           name,
+          moduleName,
           definition: assignments[name],
         });
       });
@@ -26,6 +28,7 @@ function findMsgIes(msgIeName: string, asn1: any): any[] /* TODO */ {
       if (msgIeName in assignments) {
         msgIes.push({
           name: msgIeName,
+          moduleName,
           definition: assignments[msgIeName],
         });
       }
@@ -76,7 +79,7 @@ if (require.main === module) {
         break;
       }
       case 'xlsx': {
-        const formatResult = formatXlsx(msgIes /* TODO: formatConfig */);
+        const formatResult = formatXlsx(msgIes, parseResult /* TODO: formatConfig */);
         formatResult.write(`${fileName}.xlsx`, (e: Error, stats: Stats) => {
           if (e) {
             throw e;
