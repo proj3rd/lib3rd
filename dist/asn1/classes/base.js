@@ -7,7 +7,7 @@ var Base = /** @class */ (function () {
         return text.replace(/^/gm, '  ');
     };
     Base.prototype.addToConstants = function (obj, constants) {
-        if (typeof obj === 'string') {
+        if (obj !== undefined && isNaN(Number(obj))) {
             constants.push(obj);
         }
     };

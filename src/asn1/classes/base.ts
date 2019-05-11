@@ -12,7 +12,7 @@ export abstract class Base {
     return text.replace(/^/gm, '  ');
   }
   protected addToConstants(obj: any, constants: any[]): void {
-    if (typeof obj === 'string') {
+    if (obj !== undefined && isNaN(Number(obj))) {
       constants.push(obj);
     }
   }
