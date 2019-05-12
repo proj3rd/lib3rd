@@ -35,8 +35,16 @@ var ModuleDefinitionVisitor = /** @class */ (function () {
         var moduleName = childCtxes[0].getText();
         var moduleBodyCtx = childCtxes[length - 2];
         var definition = moduleBodyCtx.accept(new moduleBody_1.ModuleBodyVisitor());
+        markModuleName(definition, moduleName);
         return { moduleName: moduleName, definition: definition };
     };
     return ModuleDefinitionVisitor;
 }());
 exports.ModuleDefinitionVisitor = ModuleDefinitionVisitor;
+function markModuleName(definition, moduleName) {
+    var assignments = definition.assignments;
+    // tslint:disable-next-line: forin
+    for (var identifier in assignments) {
+        assignments[identifier].moduleName = moduleName;
+    }
+}

@@ -38,6 +38,15 @@ export class ModuleDefinitionVisitor {
     const moduleName = childCtxes[0].getText();
     const moduleBodyCtx = childCtxes[length - 2];
     const definition = moduleBodyCtx.accept(new ModuleBodyVisitor());
+    markModuleName(definition, moduleName);
     return {moduleName, definition};
+  }
+}
+
+function markModuleName(definition: any, moduleName: string): void {
+  const assignments = definition.assignments;
+  // tslint:disable-next-line: forin
+  for (const identifier in assignments) {
+    assignments[identifier].moduleName = moduleName;
   }
 }
