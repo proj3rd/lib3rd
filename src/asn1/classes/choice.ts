@@ -23,7 +23,9 @@ export class Choice extends Base {
   }
 
   public expand(): Choice {
-    // TODO
+    this.choices.forEach((choice) => {
+      choice.expand();
+    });
     return this;
   }
 

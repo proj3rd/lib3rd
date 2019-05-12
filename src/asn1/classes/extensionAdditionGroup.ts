@@ -26,7 +26,9 @@ export class ExtensionAdditionGroup extends Base {
   }
 
   public expand(): ExtensionAdditionGroup {
-    // TODO
+    this.componentTypeList.forEach((item) => {
+      item.expand();
+    });
     return this;
   }
 

@@ -31,7 +31,9 @@ var Sequence = /** @class */ (function (_super) {
         return this;
     };
     Sequence.prototype.expand = function () {
-        // TODO
+        this.items.forEach(function (item) {
+            item.expand();
+        });
         return this;
     };
     Sequence.prototype.depthMax = function () {

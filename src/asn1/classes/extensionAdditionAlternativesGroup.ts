@@ -26,7 +26,9 @@ export class ExtensionAdditionAlternativesGroup extends Base {
   }
 
   public expand(): ExtensionAdditionAlternativesGroup {
-    // TODO
+    this.alternativeTypeList.forEach((item) => {
+      item.expand();
+    });
     return this;
   }
 

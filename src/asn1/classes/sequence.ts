@@ -23,7 +23,9 @@ export class Sequence extends Base {
   }
 
   public expand(): Sequence {
-    // TODO
+    this.items.forEach((item) => {
+      item.expand();
+    });
     return this;
   }
 

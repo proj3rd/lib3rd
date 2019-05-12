@@ -31,7 +31,9 @@ var Choice = /** @class */ (function (_super) {
         return this;
     };
     Choice.prototype.expand = function () {
-        // TODO
+        this.choices.forEach(function (choice) {
+            choice.expand();
+        });
         return this;
     };
     Choice.prototype.depthMax = function () {
