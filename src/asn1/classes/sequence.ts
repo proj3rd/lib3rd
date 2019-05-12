@@ -38,7 +38,6 @@ export class Sequence extends Base {
   }
 
   public toString(): string {
-    // TODO
     return !this.items.length ? 'SEQUENCE {}' : [
       'SEQUENCE {',
       this.items.map((item) => this.indent(item.toString())).join(',\n'),

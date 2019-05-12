@@ -36,7 +36,6 @@ var WithComponents = /** @class */ (function (_super) {
         throw Error('Depth of this class is not valid');
     };
     WithComponents.prototype.toString = function () {
-        // TODO
         return "{" + this.components.map(function (component) { return component.toString(); }).join(', ') + "}";
     };
     WithComponents.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {

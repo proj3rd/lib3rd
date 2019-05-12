@@ -32,7 +32,6 @@ export class WithComponents extends Base {
   }
 
   public toString(): string {
-    // TODO
     return `{${this.components.map((component) => component.toString()).join(', ')}}`;
   }
 

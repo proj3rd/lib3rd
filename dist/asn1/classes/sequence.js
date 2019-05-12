@@ -45,7 +45,6 @@ var Sequence = /** @class */ (function (_super) {
     };
     Sequence.prototype.toString = function () {
         var _this = this;
-        // TODO
         return !this.items.length ? 'SEQUENCE {}' : [
             'SEQUENCE {',
             this.items.map(function (item) { return _this.indent(item.toString()); }).join(',\n'),
