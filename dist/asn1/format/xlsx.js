@@ -59,7 +59,7 @@ function format(msgIes, asn1Pool, formatConfig) {
         _a = fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig), row = _a[0], col = _a[1];
         if (constants.length) {
             row++;
-            _b = fillConstants(constants, msgIe.moduleName, asn1Pool, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
+            _b = fillConstants(constants, msgIe.definition.moduleName, asn1Pool, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
         }
     });
     return wb;
@@ -161,5 +161,5 @@ function findConstantValue(constant, moduleName, asn1Pool) {
     }
     var importedModuleName = asn1Pool[moduleName].imports[constant];
     var importedModule = asn1Pool[importedModuleName];
-    return asn1Pool[importedModuleName].constants[constant];
+    return importedModule.constants[constant];
 }

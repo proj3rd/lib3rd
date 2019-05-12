@@ -1,5 +1,6 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
 export declare abstract class Base {
+    moduleName: string;
     abstract expand(): Base;
     abstract depthMax(): number;
     abstract toString(): string;

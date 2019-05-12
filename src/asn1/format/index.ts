@@ -17,7 +17,6 @@ function findMsgIes(msgIeName: string, asn1: any): IMsgIe[] {
       Object.keys(assignments).forEach((name) => {
         msgIes.push({
           name,
-          moduleName,
           definition: assignments[name],
         });
       });
@@ -28,7 +27,6 @@ function findMsgIes(msgIeName: string, asn1: any): IMsgIe[] {
       if (msgIeName in assignments) {
         msgIes.push({
           name: msgIeName,
-          moduleName,
           definition: assignments[msgIeName],
         });
       }

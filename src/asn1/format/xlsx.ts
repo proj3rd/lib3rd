@@ -85,7 +85,8 @@ export function format(msgIes: IMsgIe[], asn1Pool: any, formatConfig: IFormatCon
 
     if (constants.length) {
       row++;
-      [row, col] = fillConstants(constants, msgIe.moduleName, asn1Pool, ws, row, col, depthMax, formatConfig);
+      [row, col] = fillConstants(constants, msgIe.definition.moduleName, asn1Pool, ws, row, col, depthMax,
+                                 formatConfig);
     }
   });
   return wb;
@@ -189,5 +190,5 @@ function findConstantValue(constant: string, moduleName: string, asn1Pool: any):
   }
   const importedModuleName = asn1Pool[moduleName].imports[constant];
   const importedModule = asn1Pool[importedModuleName];
-  return asn1Pool[importedModuleName].constants[constant];
+  return importedModule.constants[constant];
 }
