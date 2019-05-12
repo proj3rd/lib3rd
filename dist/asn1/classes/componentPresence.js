@@ -31,7 +31,7 @@ var ComponentPresence = /** @class */ (function (_super) {
         return this;
     };
     ComponentPresence.prototype.expand = function () {
-        return this;
+        throw Error(this.constructor.name + ".expand does not need to be implemented");
     };
     ComponentPresence.prototype.depthMax = function () {
         throw Error('Depth of this class is not valid');

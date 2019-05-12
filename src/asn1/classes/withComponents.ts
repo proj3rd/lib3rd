@@ -23,8 +23,8 @@ export class WithComponents extends Base {
     return this;
   }
 
-  public expand(): WithComponents {
-    return this;
+  public expand(): never {
+    throw Error(`${this.constructor.name}.expand does not need to be implemented`);
   }
 
   public depthMax(): never {

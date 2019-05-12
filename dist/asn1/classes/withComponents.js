@@ -30,7 +30,7 @@ var WithComponents = /** @class */ (function (_super) {
         return this;
     };
     WithComponents.prototype.expand = function () {
-        return this;
+        throw Error(this.constructor.name + ".expand does not need to be implemented");
     };
     WithComponents.prototype.depthMax = function () {
         throw Error('Depth of this class is not valid');
