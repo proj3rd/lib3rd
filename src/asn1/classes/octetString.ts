@@ -36,7 +36,6 @@ export class OctetString extends Base {
   }
 
   public expand(): OctetString {
-    // TODO
     return this;
   }
 

@@ -46,7 +46,6 @@ var OctetString = /** @class */ (function (_super) {
         return this;
     };
     OctetString.prototype.expand = function () {
-        // TODO
         return this;
     };
     OctetString.prototype.depthMax = function () {
