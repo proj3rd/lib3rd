@@ -5,7 +5,7 @@ export declare class Choice extends Base {
     choices: NamedType[];
     constructor(choices: any);
     setConstraint(constraint: any): Choice;
-    expand(): Choice;
+    expand(asn1Pool: any, moduleName?: string): Choice;
     depthMax(): number;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];

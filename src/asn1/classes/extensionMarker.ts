@@ -13,7 +13,7 @@ export class ExtensionMarker extends Base {
     return this;
   }
 
-  public expand(): ExtensionMarker {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): ExtensionMarker {
     return this;
   }
 

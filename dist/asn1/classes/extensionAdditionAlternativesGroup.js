@@ -33,9 +33,9 @@ var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
         }
         return this;
     };
-    ExtensionAdditionAlternativesGroup.prototype.expand = function () {
+    ExtensionAdditionAlternativesGroup.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         this.alternativeTypeList.forEach(function (item) {
-            item.expand();
+            item.expand(asn1Pool, moduleName);
         });
         return this;
     };

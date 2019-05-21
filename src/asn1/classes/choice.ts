@@ -22,9 +22,9 @@ export class Choice extends Base {
     return this;
   }
 
-  public expand(): Choice {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): Choice {
     this.choices.forEach((choice) => {
-      choice.expand();
+      choice.expand(asn1Pool, moduleName);
     });
     return this;
   }

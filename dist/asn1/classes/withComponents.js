@@ -29,7 +29,7 @@ var WithComponents = /** @class */ (function (_super) {
         }
         return this;
     };
-    WithComponents.prototype.expand = function () {
+    WithComponents.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         throw Error(this.constructor.name + ".expand does not need to be implemented");
     };
     WithComponents.prototype.depthMax = function () {

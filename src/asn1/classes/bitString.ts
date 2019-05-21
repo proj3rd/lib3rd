@@ -31,7 +31,7 @@ export class BitString extends Base {
     return this;
   }
 
-  public expand(): BitString {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): BitString {
     return this;
   }
 

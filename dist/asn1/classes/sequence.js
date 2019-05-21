@@ -30,9 +30,9 @@ var Sequence = /** @class */ (function (_super) {
         }
         return this;
     };
-    Sequence.prototype.expand = function () {
+    Sequence.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         this.items.forEach(function (item) {
-            item.expand();
+            item.expand(asn1Pool, moduleName);
         });
         return this;
     };

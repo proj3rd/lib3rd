@@ -38,7 +38,7 @@ export class SequenceOf extends Base {
     return this;
   }
 
-  public expand(): SequenceOf {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): SequenceOf {
     // TODO
     return this;
   }

@@ -30,7 +30,7 @@ var Enumerated = /** @class */ (function (_super) {
         }
         return this;
     };
-    Enumerated.prototype.expand = function () {
+    Enumerated.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         return this;
     };
     Enumerated.prototype.depthMax = function () {

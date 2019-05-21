@@ -33,7 +33,7 @@ var DefinedType = /** @class */ (function (_super) {
         }
         return this;
     };
-    DefinedType.prototype.expand = function () {
+    DefinedType.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         // TODO
         return this;
     };

@@ -45,7 +45,7 @@ var OctetString = /** @class */ (function (_super) {
         }
         return this;
     };
-    OctetString.prototype.expand = function () {
+    OctetString.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         return this;
     };
     OctetString.prototype.depthMax = function () {

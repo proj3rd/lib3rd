@@ -1,7 +1,7 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
 export declare abstract class Base {
     moduleName: string;
-    abstract expand(): Base;
+    abstract expand(asn1Pool: any, moduleName?: string): Base;
     abstract depthMax(): number;
     abstract toString(): string;
     abstract fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];

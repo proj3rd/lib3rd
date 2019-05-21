@@ -43,7 +43,7 @@ var SequenceOf = /** @class */ (function (_super) {
         }
         return this;
     };
-    SequenceOf.prototype.expand = function () {
+    SequenceOf.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         // TODO
         return this;
     };

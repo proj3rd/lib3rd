@@ -22,7 +22,7 @@ export class DefinedType extends Base {
     return this;
   }
 
-  public expand(): DefinedType {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): DefinedType {
     // TODO
     return this;
   }

@@ -23,7 +23,7 @@ export class ComponentPresence extends Base {
     return this;
   }
 
-  public expand(): never {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): never {
     throw Error(`${this.constructor.name}.expand does not need to be implemented`);
   }
 

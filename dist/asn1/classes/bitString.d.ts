@@ -6,7 +6,7 @@ export declare class BitString extends Base {
     sizeMin: number | string;
     sizeMax: number | string;
     setConstraint(constraint: any): BitString;
-    expand(): BitString;
+    expand(asn1Pool: any, moduleName?: string): BitString;
     depthMax(): number;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];

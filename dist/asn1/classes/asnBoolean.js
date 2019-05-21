@@ -28,7 +28,7 @@ var AsnBoolean = /** @class */ (function (_super) {
         }
         return this;
     };
-    AsnBoolean.prototype.expand = function () {
+    AsnBoolean.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         return this;
     };
     AsnBoolean.prototype.depthMax = function () {

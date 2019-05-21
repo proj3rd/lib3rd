@@ -30,7 +30,7 @@ var ComponentPresence = /** @class */ (function (_super) {
         }
         return this;
     };
-    ComponentPresence.prototype.expand = function () {
+    ComponentPresence.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         throw Error(this.constructor.name + ".expand does not need to be implemented");
     };
     ComponentPresence.prototype.depthMax = function () {

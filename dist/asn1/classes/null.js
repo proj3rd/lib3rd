@@ -28,7 +28,7 @@ var Null = /** @class */ (function (_super) {
         }
         return this;
     };
-    Null.prototype.expand = function () {
+    Null.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         return this;
     };
     Null.prototype.depthMax = function () {

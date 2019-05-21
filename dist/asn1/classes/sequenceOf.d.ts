@@ -8,7 +8,7 @@ export declare class SequenceOf extends Base {
     sizeMax: number | string;
     constructor(type: NamedType);
     setConstraint(constraint: any): SequenceOf;
-    expand(): SequenceOf;
+    expand(asn1Pool: any, moduleName?: string): SequenceOf;
     depthMax(): number;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];

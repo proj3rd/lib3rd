@@ -25,9 +25,9 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     return this;
   }
 
-  public expand(): ExtensionAdditionAlternativesGroup {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): ExtensionAdditionAlternativesGroup {
     this.alternativeTypeList.forEach((item) => {
-      item.expand();
+      item.expand(asn1Pool, moduleName);
     });
     return this;
   }

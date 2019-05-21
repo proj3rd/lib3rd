@@ -7,7 +7,7 @@ export declare class NamedType extends Base {
     default: any;
     constructor(name: string, type: any);
     setConstraint(constraint: any): NamedType;
-    expand(): NamedType;
+    expand(asn1Pool: any, moduleName?: string): NamedType;
     depthMax(): number;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];

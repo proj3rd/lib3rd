@@ -30,8 +30,8 @@ var NamedType = /** @class */ (function (_super) {
         }
         return this;
     };
-    NamedType.prototype.expand = function () {
-        // TODO
+    NamedType.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
+        this.type.expand(asn1Pool, moduleName);
         return this;
     };
     NamedType.prototype.depthMax = function () {
