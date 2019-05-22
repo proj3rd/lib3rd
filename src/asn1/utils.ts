@@ -1,3 +1,5 @@
+import { Base } from './classes/base';
+
 export function getContextName(ctx: any): string {
   if ('ruleIndex' in ctx) {
     return ctx.parser.ruleNames[ctx.ruleIndex];
@@ -11,10 +13,18 @@ export function getLogWithAsn1(ctx: any, prefix: string = '', postfix: string = 
 }
 
 export function findConstantValue(constant: string, moduleName: string, asn1Pool: any): string {
-  if (constant in asn1Pool[moduleName].constants) {
-    return asn1Pool[moduleName].constants[constant];
+  return findReference(constant, moduleName, asn1Pool, 'constants');
+}
+
+export function findDefinition(typeName: string, moduleName: string, asn1Pool: any): Base {
+  return findReference(typeName, moduleName, asn1Pool, 'assignments');
+}
+
+function findReference<T>(refName: string, moduleName: string, asn1Pool: any, key: 'constants' | 'assignments'): T {
+  if (refName in asn1Pool[moduleName][key]) {
+    return asn1Pool[moduleName][key][refName];
   }
-  const importedModuleName = asn1Pool[moduleName].imports[constant];
+  const importedModuleName = asn1Pool[moduleName][key][refName];
   const importedModule = asn1Pool[importedModuleName];
-  return importedModule.constants[constant];
+  return importedModule.assignments[refName];
 }

@@ -16,11 +16,18 @@ function getLogWithAsn1(ctx, prefix, postfix, length) {
 }
 exports.getLogWithAsn1 = getLogWithAsn1;
 function findConstantValue(constant, moduleName, asn1Pool) {
-    if (constant in asn1Pool[moduleName].constants) {
-        return asn1Pool[moduleName].constants[constant];
-    }
-    var importedModuleName = asn1Pool[moduleName].imports[constant];
-    var importedModule = asn1Pool[importedModuleName];
-    return importedModule.constants[constant];
+    return findReference(constant, moduleName, asn1Pool, 'constants');
 }
 exports.findConstantValue = findConstantValue;
+function findDefinition(typeName, moduleName, asn1Pool) {
+    return findReference(typeName, moduleName, asn1Pool, 'assignments');
+}
+exports.findDefinition = findDefinition;
+function findReference(refName, moduleName, asn1Pool, key) {
+    if (refName in asn1Pool[moduleName][key]) {
+        return asn1Pool[moduleName][key][refName];
+    }
+    var importedModuleName = asn1Pool[moduleName][key][refName];
+    var importedModule = asn1Pool[importedModuleName];
+    return importedModule.assignments[refName];
+}
