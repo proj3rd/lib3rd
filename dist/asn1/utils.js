@@ -15,3 +15,12 @@ function getLogWithAsn1(ctx, prefix, postfix, length) {
     return [prefix, ctx.getText().substring(0, asn1Length), postfix].join(' ').trim();
 }
 exports.getLogWithAsn1 = getLogWithAsn1;
+function findConstantValue(constant, moduleName, asn1Pool) {
+    if (constant in asn1Pool[moduleName].constants) {
+        return asn1Pool[moduleName].constants[constant];
+    }
+    var importedModuleName = asn1Pool[moduleName].imports[constant];
+    var importedModule = asn1Pool[importedModuleName];
+    return importedModule.constants[constant];
+}
+exports.findConstantValue = findConstantValue;

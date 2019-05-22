@@ -3,6 +3,7 @@ import { log } from '../../utils/logging';
 import * as xl from 'excel4node';
 
 import { author, styleBorderLeft, styleBorderTop } from '../../utils/xlsx';
+import { findConstantValue } from '../utils';
 import { IMsgIe } from './common';
 
 type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'tag';
@@ -182,13 +183,4 @@ function fillConstants(constants: any[], moduleName: string, asn1Pool: any, ws: 
   });
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
   return [row, col];
-}
-
-function findConstantValue(constant: string, moduleName: string, asn1Pool: any): string {
-  if (constant in asn1Pool[moduleName].constants) {
-    return asn1Pool[moduleName].constants[constant];
-  }
-  const importedModuleName = asn1Pool[moduleName].imports[constant];
-  const importedModule = asn1Pool[importedModuleName];
-  return importedModule.constants[constant];
 }

@@ -3,6 +3,7 @@ exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var xl = require("excel4node");
 var xlsx_1 = require("../../utils/xlsx");
+var utils_1 = require("../utils");
 exports.formatConfigDefault = {
     order: ['ie', 'reference', 'type', 'optional', 'tag'],
     grouping: true,
@@ -145,7 +146,7 @@ function fillConstants(constants, moduleName, asn1Pool, ws, row, col, depthMax, 
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     [headerConstants].concat(constants).forEach(function (rangeElem, index) {
         if (index > 0) {
-            rangeElem.value = findConstantValue(rangeElem.constant, moduleName, asn1Pool);
+            rangeElem.value = utils_1.findConstantValue(rangeElem.constant, moduleName, asn1Pool);
         }
         ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
         ws.cell(row, col + depthMax + formatConfig.order.length).style(xlsx_1.styleBorderLeft);
@@ -154,12 +155,4 @@ function fillConstants(constants, moduleName, asn1Pool, ws, row, col, depthMax, 
     });
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
     return [row, col];
-}
-function findConstantValue(constant, moduleName, asn1Pool) {
-    if (constant in asn1Pool[moduleName].constants) {
-        return asn1Pool[moduleName].constants[constant];
-    }
-    var importedModuleName = asn1Pool[moduleName].imports[constant];
-    var importedModule = asn1Pool[importedModuleName];
-    return importedModule.constants[constant];
 }
