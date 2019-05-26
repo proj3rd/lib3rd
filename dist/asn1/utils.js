@@ -27,7 +27,10 @@ function findReference(refName, moduleName, asn1Pool, key) {
     if (refName in asn1Pool[moduleName][key]) {
         return asn1Pool[moduleName][key][refName];
     }
-    var importedModuleName = asn1Pool[moduleName][key][refName];
-    var importedModule = asn1Pool[importedModuleName];
-    return importedModule.assignments[refName];
+    if (refName in asn1Pool[moduleName].imports[refName]) {
+        var importedModuleName = asn1Pool[moduleName].imports[refName];
+        var importedModule = asn1Pool[importedModuleName];
+        return importedModule.assignments[refName];
+    }
+    throw Error("Cannot find a reference " + refName + " in a module " + moduleName);
 }
