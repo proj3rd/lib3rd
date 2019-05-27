@@ -27,7 +27,7 @@ function findReference(refName, moduleName, asn1Pool, key) {
     if (refName in asn1Pool[moduleName][key]) {
         return asn1Pool[moduleName][key][refName];
     }
-    if (refName in asn1Pool[moduleName].imports[refName]) {
+    if (refName in asn1Pool[moduleName].imports) {
         var importedModuleName = asn1Pool[moduleName].imports[refName];
         var importedModule = asn1Pool[importedModuleName];
         return importedModule.assignments[refName];

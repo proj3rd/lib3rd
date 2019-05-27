@@ -24,7 +24,7 @@ function findReference<T>(refName: string, moduleName: string, asn1Pool: any, ke
   if (refName in asn1Pool[moduleName][key]) {
     return asn1Pool[moduleName][key][refName];
   }
-  if (refName in asn1Pool[moduleName].imports[refName]) {
+  if (refName in asn1Pool[moduleName].imports) {
     const importedModuleName = asn1Pool[moduleName].imports[refName];
     const importedModule = asn1Pool[importedModuleName];
     return importedModule.assignments[refName];
