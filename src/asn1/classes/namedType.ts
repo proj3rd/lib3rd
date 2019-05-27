@@ -35,8 +35,7 @@ export class NamedType extends Base {
   }
 
   public toString(): string {
-    const optional = `    ${this.getOptionalString()}`;
-    return `${this.name.padEnd(48)}    ${this.type}${optional}`;
+    return `${this.name.padEnd(48)}    ${this.type}${this.getOptionalString()}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
@@ -48,7 +47,7 @@ export class NamedType extends Base {
   }
 
   private getOptionalString(): string {
-    return this.optional ? 'OPTIONAL' :
-      this.default !== undefined ? `DEFAULT   ${this.default.toString()}` : '';
+    return this.optional ? '    OPTIONAL' :
+      this.default !== undefined ? `    DEFAULT    ${this.default.toString()}` : '';
   }
 }

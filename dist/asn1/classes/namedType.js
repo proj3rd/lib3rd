@@ -38,8 +38,7 @@ var NamedType = /** @class */ (function (_super) {
         return this.type.depthMax();
     };
     NamedType.prototype.toString = function () {
-        var optional = "    " + this.getOptionalString();
-        return this.name.padEnd(48) + "    " + this.type + optional;
+        return this.name.padEnd(48) + "    " + this.type + this.getOptionalString();
     };
     NamedType.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
         if (depth === void 0) { depth = 0; }
@@ -50,8 +49,8 @@ var NamedType = /** @class */ (function (_super) {
         return [row, col];
     };
     NamedType.prototype.getOptionalString = function () {
-        return this.optional ? 'OPTIONAL' :
-            this["default"] !== undefined ? "DEFAULT   " + this["default"].toString() : '';
+        return this.optional ? '    OPTIONAL' :
+            this["default"] !== undefined ? "    DEFAULT    " + this["default"].toString() : '';
     };
     return NamedType;
 }(base_1.Base));
