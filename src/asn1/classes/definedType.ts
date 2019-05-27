@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { findDefinition } from '../utils';
 import { Base } from './base';
 import { WithComponents } from './withComponents';
 
@@ -22,9 +23,11 @@ export class DefinedType extends Base {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): DefinedType {
-    // TODO
-    return this;
+  public expand(asn1Pool: any /* TODO*/, moduleName?: string): Base {
+    const definition = findDefinition(this.typeReference, moduleName, asn1Pool);
+    Object.assign(definition, {moduleReference: this.moduleReference, typeReference: this.typeReference});
+    definition.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+    return definition;
   }
 
   public depthMax(): number {

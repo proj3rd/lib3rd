@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../utils/logging");
 function getContextName(ctx) {
     if ('ruleIndex' in ctx) {
         return ctx.parser.ruleNames[ctx.ruleIndex];
@@ -24,6 +25,8 @@ function findDefinition(typeName, moduleName, asn1Pool) {
 }
 exports.findDefinition = findDefinition;
 function findReference(refName, moduleName, asn1Pool, key) {
+    logging_1.log.warn("Look up " + key + " reference " + refName + " in module " + moduleName);
+    logging_1.log.warn(Object.keys(asn1Pool));
     if (refName in asn1Pool[moduleName][key]) {
         return asn1Pool[moduleName][key][refName];
     }

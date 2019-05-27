@@ -8,4 +8,5 @@ export declare abstract class Base {
     protected abstract setConstraint(constraint: any): Base;
     protected indent(text: string): string;
     protected addToConstants(obj: any, constants: any[]): void;
+    protected getModuleNameToPass(moduleName?: string): string;
 }

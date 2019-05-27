@@ -1,3 +1,5 @@
+import { log } from '../utils/logging';
+
 import { Base } from './classes/base';
 
 export function getContextName(ctx: any): string {
@@ -21,6 +23,8 @@ export function findDefinition(typeName: string, moduleName: string, asn1Pool: a
 }
 
 function findReference<T>(refName: string, moduleName: string, asn1Pool: any, key: 'constants' | 'assignments'): T {
+  log.warn(`Look up ${key} reference ${refName} in module ${moduleName}`);
+  log.warn(Object.keys(asn1Pool));
   if (refName in asn1Pool[moduleName][key]) {
     return asn1Pool[moduleName][key][refName];
   }

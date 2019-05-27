@@ -24,7 +24,7 @@ export class Sequence extends Base {
 
   public expand(asn1Pool: any /* TODO */, moduleName?: string): Sequence {
     this.items.forEach((item) => {
-      item.expand(asn1Pool, moduleName);
+      item.expand(asn1Pool, this.getModuleNameToPass(moduleName));
     });
     return this;
   }

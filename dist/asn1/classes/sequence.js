@@ -31,8 +31,9 @@ var Sequence = /** @class */ (function (_super) {
         return this;
     };
     Sequence.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
+        var _this = this;
         this.items.forEach(function (item) {
-            item.expand(asn1Pool, moduleName);
+            item.expand(asn1Pool, _this.getModuleNameToPass(moduleName));
         });
         return this;
     };

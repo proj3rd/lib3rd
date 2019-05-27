@@ -18,4 +18,7 @@ export abstract class Base {
       constants.push({constant: obj});
     }
   }
+  protected getModuleNameToPass(moduleName?: string): string {
+    return this.moduleName !== undefined ? this.moduleName : moduleName;
+  }
 }

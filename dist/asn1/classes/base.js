@@ -11,6 +11,9 @@ var Base = /** @class */ (function () {
             constants.push({ constant: obj });
         }
     };
+    Base.prototype.getModuleNameToPass = function (moduleName) {
+        return this.moduleName !== undefined ? this.moduleName : moduleName;
+    };
     return Base;
 }());
 exports.Base = Base;
