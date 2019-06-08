@@ -48,7 +48,8 @@ if (require.main === module) {
         expand: {
             alias: 'e',
             describe: 'Whether expand sub-IE or not',
-            "default": false
+            "default": false,
+            type: 'boolean'
         }
     })
         .help()
@@ -75,7 +76,7 @@ if (require.main === module) {
             msgIes = msgIesExpanded;
         }
         var parsedPath = path_1.parse(filePath_1);
-        var fileName = msgIeName_1 + "-" + parsedPath.name;
+        var fileName = msgIeName_1 + "-" + parsedPath.name + (doExpand ? '-expanded' : '');
         switch (formatString) {
             case 'txt': {
                 var formatResult = text_1.format(msgIes);
