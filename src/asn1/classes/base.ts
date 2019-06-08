@@ -15,7 +15,7 @@ export abstract class Base {
   }
   protected addToConstants(obj: any, constants: any[]): void {
     if (obj !== undefined && isNaN(Number(obj))) {
-      constants.push({constant: obj});
+      constants.push({constant: obj, moduleName: this.moduleName});
     }
   }
   protected getModuleNameToPass(moduleName?: string): string {

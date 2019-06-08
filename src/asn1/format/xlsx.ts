@@ -174,7 +174,7 @@ function fillConstants(constants: any[], moduleName: string, asn1Pool: any, ws: 
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [headerConstants, ...constants].forEach((rangeElem, index) => {
     if (index > 0) {
-      rangeElem.value = findConstantValue(rangeElem.constant, moduleName, asn1Pool);
+      rangeElem.value = findConstantValue(rangeElem.constant, rangeElem.moduleName, asn1Pool);
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
     ws.cell(row, col + depthMax + formatConfig.order.length).style(styleBorderLeft);
