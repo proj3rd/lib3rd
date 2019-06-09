@@ -45,6 +45,9 @@ var NamedType = /** @class */ (function (_super) {
         if (depth === void 0) { depth = 0; }
         var _a;
         ieElem.ie = this.name;
+        var moduleReference = this /* TODO */.type.moduleReference;
+        var typeReference = this /* TOdO */.type.typeReference;
+        ieElem.reference = "" + (moduleReference ? moduleReference + '.' : '') + (typeReference ? typeReference : '');
         ieElem.optional = this.getOptionalString();
         _a = this.type.fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth), row = _a[0], col = _a[1];
         return [row, col];

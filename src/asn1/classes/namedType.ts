@@ -42,6 +42,9 @@ export class NamedType extends Base {
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
                        formatConfig: IFormatConfig, depth: number = 0): [number, number] {
     ieElem.ie = this.name;
+    const moduleReference = (this as any /* TODO */).type.moduleReference;
+    const typeReference = (this as any /* TOdO */).type.typeReference;
+    ieElem.reference = `${moduleReference ? moduleReference + '.' : ''}${typeReference ? typeReference : ''}`;
     ieElem.optional = this.getOptionalString();
     [row, col] = this.type.fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth);
     return [row, col];
