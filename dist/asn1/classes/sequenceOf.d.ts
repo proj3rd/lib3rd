@@ -3,6 +3,7 @@ import { Base } from './base';
 import { NamedType } from './namedType';
 export declare class SequenceOf extends Base {
     type: NamedType;
+    expandedType: NamedType;
     size: number | string;
     sizeMin: number | string;
     sizeMax: number | string;

@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
@@ -8,6 +8,7 @@ import { NamedType } from './namedType';
 
 export class SequenceOf extends Base {
   public type: NamedType;
+  public expandedType: NamedType;
   public size: number | string;
   public sizeMin: number | string;
   public sizeMax: number | string;
@@ -39,11 +40,15 @@ export class SequenceOf extends Base {
   }
 
   public expand(asn1Pool: any /* TODO */, moduleName?: string): SequenceOf {
-    // TODO
+    const typeToExpand = cloneDeep(this.type);
+    this.expandedType = typeToExpand.expand(asn1Pool, this.getModuleNameToPass(moduleName));
     return this;
   }
 
   public depthMax(): number {
+    if (this.expandedType) {
+      return this.expandedType.depthMax() + 1;
+    }
     return 0;
   }
 

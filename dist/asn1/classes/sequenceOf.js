@@ -44,10 +44,14 @@ var SequenceOf = /** @class */ (function (_super) {
         return this;
     };
     SequenceOf.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
-        // TODO
+        var typeToExpand = lodash_1.cloneDeep(this.type);
+        this.expandedType = typeToExpand.expand(asn1Pool, this.getModuleNameToPass(moduleName));
         return this;
     };
     SequenceOf.prototype.depthMax = function () {
+        if (this.expandedType) {
+            return this.expandedType.depthMax() + 1;
+        }
         return 0;
     };
     SequenceOf.prototype.toString = function () {
