@@ -25,8 +25,10 @@ export class ExtensionAdditionGroup extends Base {
     return this;
   }
 
-  public expand(): ExtensionAdditionGroup {
-    // TODO
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): ExtensionAdditionGroup {
+    this.componentTypeList.forEach((item) => {
+      item.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+    });
     return this;
   }
 

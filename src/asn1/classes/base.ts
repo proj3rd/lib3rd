@@ -1,7 +1,9 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
 
 export abstract class Base {
-  public abstract expand(): Base;
+  public moduleName: string;
+
+  public abstract expand(asn1Pool: any /* TODO */, moduleName?: string): Base;
   public abstract depthMax(): number;
   public abstract toString(): string;
   public abstract fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
@@ -13,7 +15,10 @@ export abstract class Base {
   }
   protected addToConstants(obj: any, constants: any[]): void {
     if (obj !== undefined && isNaN(Number(obj))) {
-      constants.push({constant: obj});
+      constants.push({constant: obj, moduleName: this.moduleName});
     }
+  }
+  protected getModuleNameToPass(moduleName?: string): string {
+    return this.moduleName !== undefined ? this.moduleName : moduleName;
   }
 }

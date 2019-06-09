@@ -30,28 +30,31 @@ var NamedType = /** @class */ (function (_super) {
         }
         return this;
     };
-    NamedType.prototype.expand = function () {
-        // TODO
+    NamedType.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
+        var expandedType = this.type.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+        this.type = expandedType;
         return this;
     };
     NamedType.prototype.depthMax = function () {
         return this.type.depthMax();
     };
     NamedType.prototype.toString = function () {
-        var optional = "    " + this.getOptionalString();
-        return this.name.padEnd(48) + "    " + this.type + optional;
+        return this.name.padEnd(48) + "    " + this.type + this.getOptionalString();
     };
     NamedType.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
         if (depth === void 0) { depth = 0; }
         var _a;
         ieElem.ie = this.name;
+        var moduleReference = this /* TODO */.type.moduleReference;
+        var typeReference = this /* TOdO */.type.typeReference;
+        ieElem.reference = "" + (moduleReference ? moduleReference + '.' : '') + (typeReference ? typeReference : '');
         ieElem.optional = this.getOptionalString();
         _a = this.type.fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth), row = _a[0], col = _a[1];
         return [row, col];
     };
     NamedType.prototype.getOptionalString = function () {
-        return this.optional ? 'OPTIONAL' :
-            this["default"] !== undefined ? "DEFAULT   " + this["default"].toString() : '';
+        return this.optional ? '    OPTIONAL' :
+            this["default"] !== undefined ? "    DEFAULT    " + this["default"].toString() : '';
     };
     return NamedType;
 }(base_1.Base));

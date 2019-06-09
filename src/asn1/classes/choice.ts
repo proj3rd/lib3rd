@@ -22,8 +22,10 @@ export class Choice extends Base {
     return this;
   }
 
-  public expand(): Choice {
-    // TODO
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): Choice {
+    this.choices.forEach((choice) => {
+      choice.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+    });
     return this;
   }
 

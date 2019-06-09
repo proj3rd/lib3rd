@@ -35,8 +35,7 @@ export class OctetString extends Base {
     return this;
   }
 
-  public expand(): OctetString {
-    // TODO
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): OctetString {
     return this;
   }
 

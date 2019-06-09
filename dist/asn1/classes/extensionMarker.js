@@ -28,7 +28,7 @@ var ExtensionMarker = /** @class */ (function (_super) {
         }
         return this;
     };
-    ExtensionMarker.prototype.expand = function () {
+    ExtensionMarker.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         return this;
     };
     ExtensionMarker.prototype.depthMax = function () {

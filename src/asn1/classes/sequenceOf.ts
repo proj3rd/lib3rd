@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
@@ -8,6 +8,7 @@ import { NamedType } from './namedType';
 
 export class SequenceOf extends Base {
   public type: NamedType;
+  public expandedType: NamedType;
   public size: number | string;
   public sizeMin: number | string;
   public sizeMax: number | string;
@@ -38,19 +39,23 @@ export class SequenceOf extends Base {
     return this;
   }
 
-  public expand(): SequenceOf {
-    // TODO
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): SequenceOf {
+    const typeToExpand = cloneDeep(this.type);
+    this.expandedType = typeToExpand.expand(asn1Pool, this.getModuleNameToPass(moduleName));
     return this;
   }
 
   public depthMax(): number {
+    if (this.expandedType) {
+      return this.expandedType.depthMax() + 1;
+    }
     return 0;
   }
 
   public toString(): string {
     const size = this.size !== null ? ` (SIZE (${this.size}))` :
       this.sizeMin !== null && this.sizeMax !== null ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-    return `SEQUENCE${size} OF ${this.type.toString()}`;
+    return `SEQUENCE${size} OF ${this.expandedType ? this.expandedType.toString() : this.type.toString()}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
@@ -60,6 +65,9 @@ export class SequenceOf extends Base {
     this.addToConstants(this.size, constants);
     this.addToConstants(this.sizeMin, constants);
     this.addToConstants(this.sizeMax, constants);
+    if (this.expandedType) {
+      [row, col] = this.expandedType.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
+    }
     return [row, col];
   }
 }

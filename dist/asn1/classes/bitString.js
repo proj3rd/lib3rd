@@ -41,7 +41,7 @@ var BitString = /** @class */ (function (_super) {
         }
         return this;
     };
-    BitString.prototype.expand = function () {
+    BitString.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         return this;
     };
     BitString.prototype.depthMax = function () {

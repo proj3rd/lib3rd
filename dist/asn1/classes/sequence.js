@@ -30,8 +30,11 @@ var Sequence = /** @class */ (function (_super) {
         }
         return this;
     };
-    Sequence.prototype.expand = function () {
-        // TODO
+    Sequence.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
+        var _this = this;
+        this.items.forEach(function (item) {
+            item.expand(asn1Pool, _this.getModuleNameToPass(moduleName));
+        });
         return this;
     };
     Sequence.prototype.depthMax = function () {
@@ -43,7 +46,6 @@ var Sequence = /** @class */ (function (_super) {
     };
     Sequence.prototype.toString = function () {
         var _this = this;
-        // TODO
         return !this.items.length ? 'SEQUENCE {}' : [
             'SEQUENCE {',
             this.items.map(function (item) { return _this.indent(item.toString()); }).join(',\n'),

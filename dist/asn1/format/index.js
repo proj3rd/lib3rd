@@ -2,9 +2,11 @@
 exports.__esModule = true;
 var fs_1 = require("fs");
 var path_1 = require("path");
+var lodash_1 = require("lodash");
 var yargs = require("yargs");
 var text_1 = require("./text");
 var xlsx_1 = require("./xlsx");
+var expand_1 = require("../expand");
 var parse_1 = require("../parse");
 // TODO: need to be place in separate module?
 function findMsgIes(msgIeName, asn1) {
@@ -15,7 +17,6 @@ function findMsgIes(msgIeName, asn1) {
             Object.keys(assignments).forEach(function (name) {
                 msgIes.push({
                     name: name,
-                    moduleName: moduleName,
                     definition: assignments[name]
                 });
             });
@@ -27,7 +28,6 @@ function findMsgIes(msgIeName, asn1) {
             if (msgIeName in assignments) {
                 msgIes.push({
                     name: msgIeName,
-                    moduleName: moduleName,
                     definition: assignments[msgIeName]
                 });
             }
@@ -48,7 +48,8 @@ if (require.main === module) {
         expand: {
             alias: 'e',
             describe: 'Whether expand sub-IE or not',
-            "default": false
+            "default": false,
+            type: 'boolean'
         }
     })
         .help()
@@ -61,23 +62,29 @@ if (require.main === module) {
         if (err) {
             throw err;
         }
-        var format = argv_1.format, expand = argv_1.expand;
-        var parseResult = parse_1.parse(text);
-        var msgIes = findMsgIes(msgIeName_1, parseResult);
+        var formatString = argv_1.format, doExpand = argv_1.expand;
+        var asn1Pool = parse_1.parse(text);
+        var msgIes = findMsgIes(msgIeName_1, asn1Pool);
         if (!msgIes.length) {
             throw Error(msgIeName_1 + " not found in " + filePath_1);
         }
-        // TODO: expand
+        if (doExpand) {
+            var asn1PoolClone_1 = lodash_1.cloneDeep(asn1Pool);
+            var msgIesExpanded = msgIes.map(function (msgIe) {
+                return expand_1.expand(msgIe, asn1PoolClone_1);
+            });
+            msgIes = msgIesExpanded;
+        }
         var parsedPath = path_1.parse(filePath_1);
-        var fileName = msgIeName_1 + "-" + parsedPath.name;
-        switch (format) {
+        var fileName = msgIeName_1 + "-" + parsedPath.name + (doExpand ? '-expanded' : '');
+        switch (formatString) {
             case 'txt': {
                 var formatResult = text_1.format(msgIes);
                 fs_1.writeFileSync(fileName + ".txt", formatResult);
                 break;
             }
             case 'xlsx': {
-                var formatResult = xlsx_1.format(msgIes, parseResult /* TODO: formatConfig */);
+                var formatResult = xlsx_1.format(msgIes, asn1Pool /* TODO: formatConfig */);
                 formatResult.write(fileName + ".xlsx", function (e, stats) {
                     if (e) {
                         throw e;
@@ -86,7 +93,7 @@ if (require.main === module) {
                 break;
             }
             default: {
-                throw Error("Format '" + format + "' not supported");
+                throw Error("Format '" + formatString + "' not supported");
             }
         }
     });

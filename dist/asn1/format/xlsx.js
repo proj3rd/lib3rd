@@ -3,6 +3,7 @@ exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var xl = require("excel4node");
 var xlsx_1 = require("../../utils/xlsx");
+var utils_1 = require("../utils");
 exports.formatConfigDefault = {
     order: ['ie', 'reference', 'type', 'optional', 'tag'],
     grouping: true,
@@ -59,7 +60,7 @@ function format(msgIes, asn1Pool, formatConfig) {
         _a = fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig), row = _a[0], col = _a[1];
         if (constants.length) {
             row++;
-            _b = fillConstants(constants, msgIe.moduleName, asn1Pool, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
+            _b = fillConstants(constants, msgIe.definition.moduleName, asn1Pool, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
         }
     });
     return wb;
@@ -89,9 +90,7 @@ function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth) {
                     ws.column(col).setWidth(formatConfig.style.indentWidth);
                     ws.cell(row, col++).style(xlsx_1.styleBorderLeft);
                 }
-                if ('ie' in ieElem) {
-                    ws.cell(row, col).string(ieElem.ie).style(xlsx_1.styleBorderLeft).style(xlsx_1.styleBorderTop);
-                }
+                ws.cell(row, col).string(ieElem.ie ? ieElem.ie : '').style(xlsx_1.styleBorderLeft).style(xlsx_1.styleBorderTop);
                 ws.column(col++).setWidth(formatConfig.style.indentWidth);
                 for (var i = depth; i < depthMax; i++) {
                     ws.column(col).setWidth(formatConfig.style.indentWidth);
@@ -145,7 +144,7 @@ function fillConstants(constants, moduleName, asn1Pool, ws, row, col, depthMax, 
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     [headerConstants].concat(constants).forEach(function (rangeElem, index) {
         if (index > 0) {
-            rangeElem.value = findConstantValue(rangeElem.constant, moduleName, asn1Pool);
+            rangeElem.value = utils_1.findConstantValue(rangeElem.constant, rangeElem.moduleName, asn1Pool);
         }
         ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
         ws.cell(row, col + depthMax + formatConfig.order.length).style(xlsx_1.styleBorderLeft);
@@ -154,12 +153,4 @@ function fillConstants(constants, moduleName, asn1Pool, ws, row, col, depthMax, 
     });
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
     return [row, col];
-}
-function findConstantValue(constant, moduleName, asn1Pool) {
-    if (constant in asn1Pool[moduleName].constants) {
-        return asn1Pool[moduleName].constants[constant];
-    }
-    var importedModuleName = asn1Pool[moduleName].imports[constant];
-    var importedModule = asn1Pool[importedModuleName];
-    return asn1Pool[importedModuleName].constants[constant];
 }

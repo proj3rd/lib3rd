@@ -22,8 +22,10 @@ export class Sequence extends Base {
     return this;
   }
 
-  public expand(): Sequence {
-    // TODO
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): Sequence {
+    this.items.forEach((item) => {
+      item.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+    });
     return this;
   }
 
@@ -36,7 +38,6 @@ export class Sequence extends Base {
   }
 
   public toString(): string {
-    // TODO
     return !this.items.length ? 'SEQUENCE {}' : [
       'SEQUENCE {',
       this.items.map((item) => this.indent(item.toString())).join(',\n'),

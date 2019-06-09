@@ -13,7 +13,7 @@ export class AsnBoolean extends Base {
     return this;
   }
 
-  public expand(): AsnBoolean {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): AsnBoolean {
     return this;
   }
 

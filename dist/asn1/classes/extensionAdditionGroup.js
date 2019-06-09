@@ -33,8 +33,11 @@ var ExtensionAdditionGroup = /** @class */ (function (_super) {
         }
         return this;
     };
-    ExtensionAdditionGroup.prototype.expand = function () {
-        // TODO
+    ExtensionAdditionGroup.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
+        var _this = this;
+        this.componentTypeList.forEach(function (item) {
+            item.expand(asn1Pool, _this.getModuleNameToPass(moduleName));
+        });
         return this;
     };
     ExtensionAdditionGroup.prototype.depthMax = function () {

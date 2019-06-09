@@ -1,15 +1,18 @@
 import { readFile, Stats, writeFileSync } from 'fs';
 import { parse as parsePath } from 'path';
+
+import { cloneDeep } from 'lodash';
 import * as yargs from 'yargs';
 
 import { format as formatTxt } from './text';
 import { format as formatXlsx } from './xlsx';
 
+import { expand } from '../expand';
 import { parse } from '../parse';
 import { IMsgIe } from './common';
 
 // TODO: need to be place in separate module?
-function findMsgIes(msgIeName: string, asn1: any): any[] /* TODO */ {
+function findMsgIes(msgIeName: string, asn1: any): IMsgIe[] {
   const msgIes: IMsgIe[] = [];
   Object.keys(asn1).forEach((moduleName) => {
     const assignments = asn1[moduleName].assignments;
@@ -17,7 +20,6 @@ function findMsgIes(msgIeName: string, asn1: any): any[] /* TODO */ {
       Object.keys(assignments).forEach((name) => {
         msgIes.push({
           name,
-          moduleName,
           definition: assignments[name],
         });
       });
@@ -28,7 +30,6 @@ function findMsgIes(msgIeName: string, asn1: any): any[] /* TODO */ {
       if (msgIeName in assignments) {
         msgIes.push({
           name: msgIeName,
-          moduleName,
           definition: assignments[msgIeName],
         });
       }
@@ -51,6 +52,7 @@ if (require.main === module) {
         alias: 'e',
         describe: 'Whether expand sub-IE or not',
         default: false,
+        type: 'boolean',
       },
     })
     .help()
@@ -63,23 +65,29 @@ if (require.main === module) {
     if (err) {
       throw err;
     }
-    const {format, expand} = argv;
-    const parseResult: any /* TODO */ = parse(text);
-    const msgIes = findMsgIes(msgIeName, parseResult);
+    const {format: formatString, expand: doExpand} = argv;
+    const asn1Pool: any /* TODO */ = parse(text);
+    let msgIes = findMsgIes(msgIeName, asn1Pool);
     if (!msgIes.length) {
       throw Error(`${msgIeName} not found in ${filePath}`);
     }
-    // TODO: expand
+    if (doExpand) {
+      const asn1PoolClone = cloneDeep(asn1Pool);
+      const msgIesExpanded = msgIes.map((msgIe) => {
+        return expand(msgIe, asn1PoolClone);
+      });
+      msgIes = msgIesExpanded;
+    }
     const parsedPath = parsePath(filePath);
-    const fileName = `${msgIeName}-${parsedPath.name}`;
-    switch (format) {
+    const fileName = `${msgIeName}-${parsedPath.name}${doExpand ? '-expanded' : ''}`;
+    switch (formatString) {
       case 'txt': {
         const formatResult = formatTxt(msgIes);
         writeFileSync(`${fileName}.txt`, formatResult);
         break;
       }
       case 'xlsx': {
-        const formatResult = formatXlsx(msgIes, parseResult /* TODO: formatConfig */);
+        const formatResult = formatXlsx(msgIes, asn1Pool /* TODO: formatConfig */);
         formatResult.write(`${fileName}.xlsx`, (e: Error, stats: Stats) => {
           if (e) {
             throw e;
@@ -88,7 +96,7 @@ if (require.main === module) {
         break;
       }
       default: {
-        throw Error(`Format '${format}' not supported`);
+        throw Error(`Format '${formatString}' not supported`);
       }
     }
   });

@@ -41,7 +41,7 @@ var Integer = /** @class */ (function (_super) {
         }
         return this;
     };
-    Integer.prototype.expand = function () {
+    Integer.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
         return this;
     };
     Integer.prototype.depthMax = function () {

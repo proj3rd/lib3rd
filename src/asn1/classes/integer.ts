@@ -31,7 +31,7 @@ export class Integer extends Base {
     return this;
   }
 
-  public expand(): Integer {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): Integer {
     return this;
   }
 

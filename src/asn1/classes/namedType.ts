@@ -25,8 +25,9 @@ export class NamedType extends Base {
     return this;
   }
 
-  public expand(): NamedType {
-    // TODO
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): NamedType {
+    const expandedType = this.type.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+    this.type = expandedType;
     return this;
   }
 
@@ -35,20 +36,22 @@ export class NamedType extends Base {
   }
 
   public toString(): string {
-    const optional = `    ${this.getOptionalString()}`;
-    return `${this.name.padEnd(48)}    ${this.type}${optional}`;
+    return `${this.name.padEnd(48)}    ${this.type}${this.getOptionalString()}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
                        formatConfig: IFormatConfig, depth: number = 0): [number, number] {
     ieElem.ie = this.name;
+    const moduleReference = (this as any /* TODO */).type.moduleReference;
+    const typeReference = (this as any /* TOdO */).type.typeReference;
+    ieElem.reference = `${moduleReference ? moduleReference + '.' : ''}${typeReference ? typeReference : ''}`;
     ieElem.optional = this.getOptionalString();
     [row, col] = this.type.fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth);
     return [row, col];
   }
 
   private getOptionalString(): string {
-    return this.optional ? 'OPTIONAL' :
-      this.default !== undefined ? `DEFAULT   ${this.default.toString()}` : '';
+    return this.optional ? '    OPTIONAL' :
+      this.default !== undefined ? `    DEFAULT    ${this.default.toString()}` : '';
   }
 }

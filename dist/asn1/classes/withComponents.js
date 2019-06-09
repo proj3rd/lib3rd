@@ -29,14 +29,13 @@ var WithComponents = /** @class */ (function (_super) {
         }
         return this;
     };
-    WithComponents.prototype.expand = function () {
-        return this;
+    WithComponents.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
+        throw Error(this.constructor.name + ".expand does not need to be implemented");
     };
     WithComponents.prototype.depthMax = function () {
         throw Error('Depth of this class is not valid');
     };
     WithComponents.prototype.toString = function () {
-        // TODO
         return "{" + this.components.map(function (component) { return component.toString(); }).join(', ') + "}";
     };
     WithComponents.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {

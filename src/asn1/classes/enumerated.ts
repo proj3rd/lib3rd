@@ -21,7 +21,7 @@ export class Enumerated extends Base {
     return this;
   }
 
-  public expand(): Enumerated {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): Enumerated {
     return this;
   }
 

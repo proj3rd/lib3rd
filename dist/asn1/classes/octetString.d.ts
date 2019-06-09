@@ -6,7 +6,7 @@ export declare class OctetString extends Base {
     sizeMax: number | string;
     containing: any;
     setConstraint(constraint: any): OctetString;
-    expand(): OctetString;
+    expand(asn1Pool: any, moduleName?: string): OctetString;
     depthMax(): number;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];

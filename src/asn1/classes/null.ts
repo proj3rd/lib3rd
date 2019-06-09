@@ -13,7 +13,7 @@ export class Null extends Base {
     return this;
   }
 
-  public expand(): Null {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string): Null {
     return this;
   }
 
