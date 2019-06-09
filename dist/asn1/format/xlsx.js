@@ -90,9 +90,7 @@ function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth) {
                     ws.column(col).setWidth(formatConfig.style.indentWidth);
                     ws.cell(row, col++).style(xlsx_1.styleBorderLeft);
                 }
-                if ('ie' in ieElem) {
-                    ws.cell(row, col).string(ieElem.ie).style(xlsx_1.styleBorderLeft).style(xlsx_1.styleBorderTop);
-                }
+                ws.cell(row, col).string(ieElem.ie ? ieElem.ie : '').style(xlsx_1.styleBorderLeft).style(xlsx_1.styleBorderTop);
                 ws.column(col++).setWidth(formatConfig.style.indentWidth);
                 for (var i = depth; i < depthMax; i++) {
                     ws.column(col).setWidth(formatConfig.style.indentWidth);
