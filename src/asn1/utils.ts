@@ -35,3 +35,10 @@ function findReference<T>(refName: string, moduleName: string, asn1Pool: any, ke
   }
   throw Error(`Cannot find a reference ${refName} in a module ${moduleName}`);
 }
+
+export function sanitizeAsn1(asn1: string): string {
+  // Removes comments which are not a Need tag neither a Cond tag
+  // Gives one space before a Need tag and a Cond tag
+  return asn1.replace(/--(?!.*(Need|Cond)).*$/gm, '')
+             .replace(/(--\s*?(Need|Cond).*?)$/gm, ' $1');
+}

@@ -1,5 +1,8 @@
 import { readFile } from 'fs';
 
+import { sanitize } from '../utils/text';
+import { sanitizeAsn1 } from './utils';
+
 interface IToken {
   start: RegExp;
   end: RegExp;
@@ -38,7 +41,7 @@ export function extract(text: string, protocol: string): string {
 
     extractedTexts.push(text.substring(matchStart.index + matchStart[0].length, matchEnd.index));
   }
-  return extractedTexts.join('');
+  return sanitize(sanitizeAsn1(extractedTexts.join('')));
 }
 
 if (require.main === module) {

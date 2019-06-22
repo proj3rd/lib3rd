@@ -1,6 +1,8 @@
 "use strict";
 exports.__esModule = true;
 var fs_1 = require("fs");
+var text_1 = require("../utils/text");
+var utils_1 = require("./utils");
 var tokens = {
     RRC: {
         start: /^-- ASN1START/gm,
@@ -31,7 +33,7 @@ function extract(text, protocol) {
         }
         extractedTexts.push(text.substring(matchStart.index + matchStart[0].length, matchEnd.index));
     }
-    return extractedTexts.join('');
+    return text_1.sanitize(utils_1.sanitizeAsn1(extractedTexts.join('')));
 }
 exports.extract = extract;
 if (require.main === module) {
