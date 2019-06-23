@@ -2,8 +2,8 @@
 exports.__esModule = true;
 var fs_1 = require("fs");
 var antlr4 = require("antlr4");
-var ASNLexer_1 = require("./ASNLexer");
-var ASNParser_1 = require("./ASNParser");
+var ASN_3gppLexer_1 = require("./ASN_3gppLexer");
+var ASN_3gppParser_1 = require("./ASN_3gppParser");
 var modules_1 = require("./visitors/modules");
 /**
  * Parse ASN.1
@@ -12,9 +12,9 @@ var modules_1 = require("./visitors/modules");
  */
 function parse(text) {
     var chars = new antlr4.InputStream(text);
-    var lexer = new ASNLexer_1.ASNLexer(chars);
+    var lexer = new ASN_3gppLexer_1.ASN_3gppLexer(chars);
     var tokens = new antlr4.CommonTokenStream(lexer);
-    var parser = new ASNParser_1.ASNParser(tokens);
+    var parser = new ASN_3gppParser_1.ASN_3gppParser(tokens);
     parser.buildParseTrees = true;
     var tree = parser.modules();
     return tree.accept(new modules_1.ModulesVisitor());
