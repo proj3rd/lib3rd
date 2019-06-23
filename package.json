@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "antlr": "antlr4 src/asn1/ASN_3gpp.g4 -o dist/asn1 -Dlanguage=JavaScript -visitor -no-listener",
-    "grammar-update": "download https://raw.githubusercontent.com/antlr/grammars-v4/master/asn_3gpp/ASN_3gpp.g4 > src/asn1/ASN_3gpp.g4"
+    "grammar": "download https://raw.githubusercontent.com/antlr/grammars-v4/master/asn_3gpp/ASN_3gpp.g4 > src/asn1/ASN_3gpp.g4"
   },
   "repository": {
     "type": "git",
