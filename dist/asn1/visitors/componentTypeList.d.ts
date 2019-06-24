@@ -1,7 +1,7 @@
 /**
  * ANTLR4 grammar
  * ```
- * componentTypeList  : (componentType) (COMMA componentType)*
+ * componentTypeList  : (componentType) (COMMA tag? componentType)*
  * ```
  */
 export declare class ComponentTypeListVisitor {
