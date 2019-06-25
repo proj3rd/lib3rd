@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var utils_1 = require("../utils");
+var reTag = /^-- *?(Need|Cond) *?.+?$/;
 /**
  * ANTLR4 grammar
  * ```
@@ -30,6 +31,12 @@ var TagVisitor = /** @class */ (function () {
                 return childCtx.getText();
             }
             default: {
+                // FIXME: ASN_3gpp.g4 not working properly
+                // Temporary workaround
+                var tag = childCtx.getText();
+                if (tag.match(reTag)) {
+                    return tag;
+                }
                 return null;
             }
         }

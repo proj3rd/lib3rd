@@ -1,5 +1,7 @@
 import { getContextName } from '../utils';
 
+const reTag = /^-- *?(Need|Cond) *?.+?$/;
+
 /**
  * ANTLR4 grammar
  * ```
@@ -27,6 +29,12 @@ export class TagVisitor {
         return childCtx.getText();
       }
       default: {
+        // FIXME: ASN_3gpp.g4 not working properly
+        // Temporary workaround
+        const tag: string = childCtx.getText();
+        if (tag.match(reTag)) {
+          return tag;
+        }
         return null;
       }
     }
