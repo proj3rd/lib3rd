@@ -49,9 +49,16 @@ var ExtensionAdditionGroup = /** @class */ (function (_super) {
     };
     ExtensionAdditionGroup.prototype.toString = function () {
         var _this = this;
+        var itemString = [];
+        this.componentTypeList.forEach(function (item, index) {
+            var comma = index < _this.componentTypeList.length - 1 ? ',' : '';
+            var tag = item.tag;
+            var tagString = tag ? "    " + tag : '';
+            itemString.push("" + _this.indent(item.toString()) + comma + tagString);
+        });
         return [
             '[[',
-            this.componentTypeList.map(function (item) { return _this.indent(item.toString()); }).join(',\n'),
+            itemString.join('\n'),
             ']]',
         ].join('\n');
     };

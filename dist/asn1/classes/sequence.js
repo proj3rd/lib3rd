@@ -56,7 +56,7 @@ var Sequence = /** @class */ (function (_super) {
             var tagString = tag ? "    " + tag : '';
             itemString.push("" + _this.indent(item.toString()) + comma + tagString);
         });
-        return !this.items.length ? 'SEQUENCE {}' : [
+        return [
             'SEQUENCE {',
             itemString.join('\n'),
             '}',

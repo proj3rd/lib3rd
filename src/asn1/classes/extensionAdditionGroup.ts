@@ -41,9 +41,16 @@ export class ExtensionAdditionGroup extends Base {
   }
 
   public toString(): string {
+    const itemString = [];
+    this.componentTypeList.forEach((item, index) => {
+      const comma = index < this.componentTypeList.length - 1 ? ',' : '';
+      const tag = (item as any).tag;
+      const tagString = tag ? `    ${tag}` : '';
+      itemString.push(`${this.indent(item.toString())}${comma}${tagString}`);
+    });
     return [
       '[[',
-      this.componentTypeList.map((item) => this.indent(item.toString())).join(',\n'),
+      itemString.join('\n'),
       ']]',
     ].join('\n');
   }

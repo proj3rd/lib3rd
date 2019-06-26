@@ -48,7 +48,7 @@ export class Sequence extends Base {
       const tagString = tag ? `    ${tag}` : '';
       itemString.push(`${this.indent(item.toString())}${comma}${tagString}`);
     });
-    return !this.items.length ? 'SEQUENCE {}' : [
+    return [
       'SEQUENCE {',
       itemString.join('\n'),
       '}',
