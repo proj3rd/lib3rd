@@ -49,6 +49,8 @@ var NamedType = /** @class */ (function (_super) {
         var typeReference = this /* TOdO */.type.typeReference;
         ieElem.reference = "" + (moduleReference ? moduleReference + '.' : '') + (typeReference ? typeReference : '');
         ieElem.optional = this.getOptionalString();
+        var tag = this.tag;
+        ieElem.tag = tag ? tag.replace(/^-- *?/, '') : '';
         _a = this.type.fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth), row = _a[0], col = _a[1];
         return [row, col];
     };
