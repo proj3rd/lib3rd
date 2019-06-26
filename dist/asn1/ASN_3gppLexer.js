@@ -867,7 +867,7 @@ ASN_3gppLexer.prototype.sempred = function(localctx, ruleIndex, predIndex) {
 ASN_3gppLexer.prototype.LINE_COMMENT_sempred = function(localctx, predIndex) {
 	switch(predIndex) {
 		case 0:
-			return getCharPositionInLine() == 0;
+			return this.getCharIndex() == 0;
 		default:
 			throw "No predicate with index:" + predIndex;
 	}
