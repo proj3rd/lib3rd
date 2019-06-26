@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "antlr": "antlr4 src/asn1/ASN.g4 -o dist/asn1 -Dlanguage=JavaScript -visitor -no-listener"
+    "antlr": "antlr4 src/asn1/ASN_3gpp.g4 -o dist/asn1 -Dlanguage=JavaScript -visitor -no-listener && node dev/antlrToJs dist/asn1/ASN_3gppLexer.js",
+    "grammar": "download https://raw.githubusercontent.com/antlr/grammars-v4/master/asn_3gpp/ASN_3gpp.g4 > src/asn1/ASN_3gpp.g4"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "@types/loglevel": "^1.5.4",
     "@types/node": "^11.13.15",
     "@types/yargs": "^13.0.0",
+    "download-cli": "^1.1.1",
     "husky": "^1.3.1",
     "lint-staged": "^8.2.1",
     "typedoc": "^0.14.2",

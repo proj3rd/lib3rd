@@ -38,9 +38,19 @@ export class Sequence extends Base {
   }
 
   public toString(): string {
-    return !this.items.length ? 'SEQUENCE {}' : [
+    if (!this.items.length) {
+      return 'SEQUENCE {}';
+    }
+    const itemString = [];
+    this.items.forEach((item, index) => {
+      const comma = index < this.items.length - 1 ? ',' : '';
+      const tag = (item as any).tag;
+      const tagString = tag ? `    ${tag}` : '';
+      itemString.push(`${this.indent(item.toString())}${comma}${tagString}`);
+    });
+    return [
       'SEQUENCE {',
-      this.items.map((item) => this.indent(item.toString())).join(',\n'),
+      itemString.join('\n'),
       '}',
     ].join('\n');
   }

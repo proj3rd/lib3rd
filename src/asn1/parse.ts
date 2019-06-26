@@ -1,9 +1,8 @@
 import { readFile } from 'fs';
 
 import * as antlr4 from 'antlr4';
-import { sanitize } from '../utils/text';
-import { ASNLexer } from './ASNLexer';
-import { ASNParser } from './ASNParser';
+import { ASN_3gppLexer } from './ASN_3gppLexer';
+import { ASN_3gppParser } from './ASN_3gppParser';
 import { IModules, ModulesVisitor } from './visitors/modules';
 
 /**
@@ -13,9 +12,9 @@ import { IModules, ModulesVisitor } from './visitors/modules';
  */
 export function parse(text: string): IModules {
   const chars = new antlr4.InputStream(text);
-  const lexer = new ASNLexer(chars);
+  const lexer = new ASN_3gppLexer(chars);
   const tokens = new antlr4.CommonTokenStream(lexer);
-  const parser = new ASNParser(tokens);
+  const parser = new ASN_3gppParser(tokens);
   parser.buildParseTrees = true;
   const tree = parser.modules();
   return tree.accept(new ModulesVisitor());

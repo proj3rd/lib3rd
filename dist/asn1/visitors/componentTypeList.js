@@ -1,10 +1,12 @@
 "use strict";
 exports.__esModule = true;
+var utils_1 = require("../utils");
 var componentType_1 = require("./componentType");
+var tag_1 = require("./tag");
 /**
  * ANTLR4 grammar
  * ```
- * componentTypeList  : (componentType) (COMMA componentType)*
+ * componentTypeList  : (componentType) (COMMA tag? componentType)*
  * ```
  */
 var ComponentTypeListVisitor = /** @class */ (function () {
@@ -12,17 +14,29 @@ var ComponentTypeListVisitor = /** @class */ (function () {
     }
     ComponentTypeListVisitor.prototype.visitChildren = function (componentTypeListCtx) {
         var childCtxes = componentTypeListCtx.children;
-        var componetTypeList = [];
+        var componentTypeList = [];
         childCtxes.forEach(function (childCtx, index) {
-            if (index % 2) {
-                return;
-            }
-            var componentType = childCtx.accept(new componentType_1.ComponentTypeVisitor());
-            if (componentType) {
-                componetTypeList.push(componentType);
+            switch (utils_1.getContextName(childCtx)) {
+                case 'componentType': {
+                    var componentType = childCtx.accept(new componentType_1.ComponentTypeVisitor());
+                    if (componentType) {
+                        componentTypeList.push(componentType);
+                    }
+                    break;
+                }
+                case 'tag': {
+                    var tag = childCtx.accept(new tag_1.TagVisitor());
+                    if (tag) {
+                        componentTypeList[componentTypeList.length - 1].tag = tag;
+                    }
+                    break;
+                }
+                default: {
+                    return;
+                }
             }
         });
-        return componetTypeList;
+        return componentTypeList;
     };
     return ComponentTypeListVisitor;
 }());

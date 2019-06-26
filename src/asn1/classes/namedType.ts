@@ -46,6 +46,8 @@ export class NamedType extends Base {
     const typeReference = (this as any /* TOdO */).type.typeReference;
     ieElem.reference = `${moduleReference ? moduleReference + '.' : ''}${typeReference ? typeReference : ''}`;
     ieElem.optional = this.getOptionalString();
+    const tag = (this as any).tag;
+    ieElem.tag =  tag ? tag.replace(/^-- *?/, '') : '';
     [row, col] = this.type.fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth);
     return [row, col];
   }

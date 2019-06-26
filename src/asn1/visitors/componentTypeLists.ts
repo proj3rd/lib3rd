@@ -1,94 +1,72 @@
 import { log } from '../../utils/logging';
+import { ExtensionMarker } from '../classes/extensionMarker';
 import { getContextName, getLogWithAsn1 } from '../utils';
 import { ExtensionAdditionsVisitor } from './extensionAdditions';
 import { ExtensionAndExceptionVisitor } from './extensionAndException';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarker';
 import { RootComponentTypeListVisitor } from './rootComponentTypeList';
+import { TagVisitor } from './tag';
 
 /**
  * ANTRL4 grammar
  * ```
  *  componentTypeLists :
- *     rootComponentTypeList (COMMA  extensionAndException  extensionAdditions
- *      (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList)))?
+ *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions
+ *      (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
  *    |  extensionAndException  extensionAdditions
- *      (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList))
+ *      (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?))
  * ```
  */
 export class ComponentTypeListsVisitor {
   public visitChildren(componentTypeListsCtx: any): any /* TODO */ {
     const childCtxes = componentTypeListsCtx.children;
-    let componentTypeLists = [];
-    switch (getContextName(childCtxes[0])) {
-      case 'rootComponentTypeList': {
-        const rootComponentTypeListCtx = childCtxes[0];
-        componentTypeLists = rootComponentTypeListCtx.accept(new RootComponentTypeListVisitor());
-        const extensionAndExceptionCtx = childCtxes[2];
-        if (extensionAndExceptionCtx) {
+    const componentTypeLists = [];
+    childCtxes.forEach((childCtx) => {
+      switch (getContextName(childCtx)) {
+        case 'rootComponentTypeList': {
           componentTypeLists.splice(componentTypeLists.length, 0,
-            ...extensionAndExceptionCtx.accept(new ExtensionAndExceptionVisitor()));
+            ...childCtx.accept(new RootComponentTypeListVisitor()));
+          break;
         }
-        const extensionAdditionsCtx = childCtxes[3];
-        if (extensionAdditionsCtx) {
-          const extensionAdditions = extensionAdditionsCtx.accept(new ExtensionAdditionsVisitor());
-          componentTypeLists.splice(componentTypeLists.length, 0, ...extensionAdditions);
+        case 'tag': {
+          const tag = childCtx.accept(new TagVisitor());
+          componentTypeLists[componentTypeLists.length - 1].tag = tag;
+          break;
         }
-        switch (childCtxes.length) {
-          case 1: {
-            break;
-          }
-          case 5: {
-            const optionalExtensionMarkerCtx = childCtxes[4];
-            const optionalExtensionMarker = optionalExtensionMarkerCtx.accept(new OptionalExtensionMarkerVisitor());
-            componentTypeLists.splice(componentTypeLists.length, 0, ...optionalExtensionMarker);
-            break;
-          }
-          case 7: {
-            const extendedRootComponentTypeListCtx = childCtxes[6];
-            componentTypeLists.splice(componentTypeLists.length, 0,
-              ...extendedRootComponentTypeListCtx.accept(new RootComponentTypeListVisitor()));
-            break;
-          }
-          default: {
-            log.warn(getLogWithAsn1(componentTypeListsCtx, 'Not supported ASN1:'));
-            break;
-          }
+        case 'extensionAndException': {
+          componentTypeLists.splice(componentTypeLists.length, 0,
+            ...childCtx.accept(new ExtensionAndExceptionVisitor()));
+          break;
         }
-        // TODO
-        break;
+        case 'extensionAdditions': {
+          componentTypeLists.splice(componentTypeLists.length, 0,
+            ...childCtx.accept(new ExtensionAdditionsVisitor()));
+          break;
+        }
+        case 'optionalExtensionMarker': {
+          componentTypeLists.splice(componentTypeLists.length, 0,
+            ...childCtx.accept(new OptionalExtensionMarkerVisitor()));
+          break;
+        }
+        default: {
+          // COMMA or EXTENSIONENDMARKER
+          switch (childCtx.getText()) {
+            case ', ...': {
+              componentTypeLists.push(new ExtensionMarker());
+              break;
+            }
+            case ',': {
+              break;
+            }
+            default: {
+              log.warn(getLogWithAsn1(childCtx, 'Not supported ASN1:'));
+              break;
+            }
+          }
+          break;
+        }
       }
-      case 'extensionAndException': {
-        const extensionAndExceptionCtx = childCtxes[0];
-        componentTypeLists.splice(componentTypeLists.length, 0,
-          ...extensionAndExceptionCtx.accept(new ExtensionAndExceptionVisitor()));
-        const extensionAdditionsCtx = childCtxes[1];
-        const extensionAdditions = extensionAdditionsCtx.accept(new ExtensionAdditionsVisitor());
-        componentTypeLists.splice(componentTypeLists.length, 0, ...extensionAdditions);
-        switch (childCtxes.length) {
-          case 3: {
-            const optionalExtensionMarkerCtx = childCtxes[2];
-            const optionalExtensionMarker = optionalExtensionMarkerCtx.accept(new OptionalExtensionMarkerVisitor());
-            componentTypeLists.splice(componentTypeLists.length, 0, ...optionalExtensionMarker);
-            break;
-          }
-          case 5: {
-            const extendedRootComponentTypeListCtx = childCtxes[4];
-            componentTypeLists.splice(componentTypeLists.length, 0,
-              ...extendedRootComponentTypeListCtx.accept(new RootComponentTypeListVisitor()));
-            break;
-          }
-          default: {
-            log.warn(getLogWithAsn1(componentTypeListsCtx, 'Not supported ASN1:'));
-            break;
-          }
-        }
-        break;
-      }
-      default: {
-        log.warn(getLogWithAsn1(componentTypeListsCtx, 'Not supported ASN1:'));
-        break;
-      }
-    }
+    });
     return componentTypeLists;
   }
 }

@@ -2,10 +2,10 @@
  * ANTRL4 grammar
  * ```
  *  componentTypeLists :
- *     rootComponentTypeList (COMMA  extensionAndException  extensionAdditions
- *      (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList)))?
+ *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions
+ *      (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
  *    |  extensionAndException  extensionAdditions
- *      (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList))
+ *      (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?))
  * ```
  */
 export declare class ComponentTypeListsVisitor {
