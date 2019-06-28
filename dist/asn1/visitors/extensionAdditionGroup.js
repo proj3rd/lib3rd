@@ -20,8 +20,8 @@ var ExtensionAdditionGroupVisitor = /** @class */ (function () {
         var versionNumber = versionNumberCtx.accept(new versionNumber_1.VersionNumberVisitor());
         var componentTypeListCtx = childCtxes[2];
         var componentTypeList = componentTypeListCtx.accept(new componentTypeList_1.ComponentTypeListVisitor());
-        if (utils_1.getContextName(childCtxes[2])) {
-            var tag = childCtxes[2].accept(new tag_1.TagVisitor());
+        if (utils_1.getContextName(childCtxes[3]) === 'tag') {
+            var tag = childCtxes[3].accept(new tag_1.TagVisitor());
             if (tag) {
                 componentTypeList[componentTypeList.length - 1].tag = tag;
             }

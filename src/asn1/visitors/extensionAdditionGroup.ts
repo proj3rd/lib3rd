@@ -18,8 +18,8 @@ export class ExtensionAdditionGroupVisitor {
     const versionNumber = versionNumberCtx.accept(new VersionNumberVisitor());
     const componentTypeListCtx = childCtxes[2];
     const componentTypeList = componentTypeListCtx.accept(new ComponentTypeListVisitor());
-    if (getContextName(childCtxes[2])) {
-      const tag = childCtxes[2].accept(new TagVisitor());
+    if (getContextName(childCtxes[3]) === 'tag') {
+      const tag = childCtxes[3].accept(new TagVisitor());
       if (tag) {
         componentTypeList[componentTypeList.length - 1].tag = tag;
       }

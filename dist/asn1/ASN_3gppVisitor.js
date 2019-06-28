@@ -162,18 +162,6 @@ ASN_3gppVisitor.prototype.visitTag = function(ctx) {
 };
 
 
-// Visit a parse tree produced by ASN_3gppParser#needTag.
-ASN_3gppVisitor.prototype.visitNeedTag = function(ctx) {
-  return this.visitChildren(ctx);
-};
-
-
-// Visit a parse tree produced by ASN_3gppParser#condTag.
-ASN_3gppVisitor.prototype.visitCondTag = function(ctx) {
-  return this.visitChildren(ctx);
-};
-
-
 // Visit a parse tree produced by ASN_3gppParser#extensionAdditions.
 ASN_3gppVisitor.prototype.visitExtensionAdditions = function(ctx) {
   return this.visitChildren(ctx);

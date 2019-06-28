@@ -2,15 +2,11 @@
  * ANTLR4 grammar
  * ```
  * tag
- *   : needTag
- *   | condTag
- *   | INVALID_TAG
+ *   : TAG
  *   ;
- * needTag
- *  : NEED_LITERAL IDENTIFIER
- *  ;
- * condTag
- *   : COND_LITERAL IDENTIFIER
+ *
+ * TAG
+ *   | '--' ~('\n'|'\r')*
  *   ;
  * ```
  */

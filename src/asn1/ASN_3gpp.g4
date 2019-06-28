@@ -147,30 +147,12 @@ componentType  :
 ;
 
 tag
-  : needTag
-  | condTag
-  | INVALID_TAG
+  : TAG
   ;
 
-needTag
-  : NEED_LITERAL IDENTIFIER
-  ;
-
-NEED_LITERAL
-  : '--' (' ' | '\t')*? 'Need'
-  ;
-
-condTag
-  : COND_LITERAL IDENTIFIER
-  ;
-
-COND_LITERAL
-  : '--' (' ' | '\t')*? 'Cond'
-  ;
-
-INVALID_TAG
-  : '--' ~('\n'|'\r')*
-  ;
+TAG
+	: '--' ~('\n'|'\r')*
+	;
 
 extensionAdditions  :  (COMMA  extensionAdditionList)?
 ;
