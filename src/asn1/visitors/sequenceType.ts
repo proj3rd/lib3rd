@@ -1,8 +1,9 @@
 import { log } from '../../utils/logging';
-import { getLogWithAsn1 } from '../utils';
+import { getContextName, getLogWithAsn1 } from '../utils';
 
 import { Sequence } from '../classes/sequence';
 import { ComponentTypeListsVisitor } from './componentTypeLists';
+import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarker';
 
 /**
  * ANTLR4 grammar
@@ -14,30 +15,31 @@ import { ComponentTypeListsVisitor } from './componentTypeLists';
  */
 export class SequenceTypeVisitor {
   public visitChildren(sequenceTypeCtx: any): Sequence {
-    let sequenceType = [];
+    const sequenceType = [];
     const childCtxes = sequenceTypeCtx.children;
-    switch (childCtxes.length) {
-      case 3: {
-        // Empty sequence
-        sequenceType = [];
-        break;
+    childCtxes.forEach((childCtx) => {
+      switch (getContextName(childCtx)) {
+        case 'extensionAndException': {
+          log.warn(getLogWithAsn1(sequenceTypeCtx, 'extensionAndException Not supported:'));
+          break;
+        }
+        case 'optionalExtensionMarker': {
+          sequenceType.splice(sequenceType.length, 0, childCtx.accept(new OptionalExtensionMarkerVisitor()));
+          break;
+        }
+        case 'componentTypeLists': {
+          sequenceType.splice(sequenceType.length, 0, childCtx.accept(new ComponentTypeListsVisitor()));
+          break;
+        }
+        case null: {
+          break;
+        }
+        default: {
+          log.warn(getLogWithAsn1(sequenceTypeCtx, 'Not supported ASN1:'));
+          break;
+        }
       }
-      case 4: {
-        // SEQUENCE_LITERAL L_BRACE componentTypeLists R_BRACE
-        const componentTypeListsCtx = childCtxes[2];
-        sequenceType = componentTypeListsCtx.accept(new ComponentTypeListsVisitor());
-        break;
-      }
-      case 5: {
-        // sequenceType :SEQUENCE_LITERAL L_BRACE extensionAndException optionalExtensionMarker R_BRACE
-        log.warn(getLogWithAsn1(sequenceTypeCtx, 'extensionAndException optionalExtensionMarker Not supported:'));
-        break;
-      }
-      default: {
-        log.warn(getLogWithAsn1(sequenceTypeCtx, 'Not supported ASN1:'));
-        break;
-      }
-    }
+    });
     return new Sequence(sequenceType);
   }
 }
