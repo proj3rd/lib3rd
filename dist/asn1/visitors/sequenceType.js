@@ -4,6 +4,7 @@ var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var sequence_1 = require("../classes/sequence");
 var componentTypeLists_1 = require("./componentTypeLists");
+var extensionAndException_1 = require("./extensionAndException");
 var optionalExtensionMarker_1 = require("./optionalExtensionMarker");
 /**
  * ANTLR4 grammar
@@ -22,7 +23,7 @@ var SequenceTypeVisitor = /** @class */ (function () {
         childCtxes.forEach(function (childCtx) {
             switch (utils_1.getContextName(childCtx)) {
                 case 'extensionAndException': {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(sequenceTypeCtx, 'extensionAndException Not supported:'));
+                    sequenceType.splice(sequenceType.length, 0, childCtx.accept(new extensionAndException_1.ExtensionAndExceptionVisitor()));
                     break;
                 }
                 case 'optionalExtensionMarker': {

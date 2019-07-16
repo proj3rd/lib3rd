@@ -3,6 +3,7 @@ import { getContextName, getLogWithAsn1 } from '../utils';
 
 import { Sequence } from '../classes/sequence';
 import { ComponentTypeListsVisitor } from './componentTypeLists';
+import { ExtensionAndExceptionVisitor } from './extensionAndException';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarker';
 
 /**
@@ -20,7 +21,7 @@ export class SequenceTypeVisitor {
     childCtxes.forEach((childCtx) => {
       switch (getContextName(childCtx)) {
         case 'extensionAndException': {
-          log.warn(getLogWithAsn1(sequenceTypeCtx, 'extensionAndException Not supported:'));
+          sequenceType.splice(sequenceType.length, 0, childCtx.accept(new ExtensionAndExceptionVisitor()));
           break;
         }
         case 'optionalExtensionMarker': {
