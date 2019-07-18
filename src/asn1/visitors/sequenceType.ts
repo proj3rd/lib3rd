@@ -21,15 +21,15 @@ export class SequenceTypeVisitor {
     childCtxes.forEach((childCtx) => {
       switch (getContextName(childCtx)) {
         case 'extensionAndException': {
-          sequenceType.splice(sequenceType.length, 0, childCtx.accept(new ExtensionAndExceptionVisitor()));
+          sequenceType.splice(sequenceType.length, 0, ...childCtx.accept(new ExtensionAndExceptionVisitor()));
           break;
         }
         case 'optionalExtensionMarker': {
-          sequenceType.splice(sequenceType.length, 0, childCtx.accept(new OptionalExtensionMarkerVisitor()));
+          sequenceType.splice(sequenceType.length, 0, ...childCtx.accept(new OptionalExtensionMarkerVisitor()));
           break;
         }
         case 'componentTypeLists': {
-          sequenceType.splice(sequenceType.length, 0, childCtx.accept(new ComponentTypeListsVisitor()));
+          sequenceType.splice(sequenceType.length, 0, ...childCtx.accept(new ComponentTypeListsVisitor()));
           break;
         }
         case null: {

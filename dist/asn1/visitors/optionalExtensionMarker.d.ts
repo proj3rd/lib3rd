@@ -6,5 +6,5 @@ import { ExtensionMarker } from '../classes/extensionMarker';
  * ```
  */
 export declare class OptionalExtensionMarkerVisitor {
-    visitChildren(optionalExtensionMarkerCtx: any): ExtensionMarker | [];
+    visitChildren(optionalExtensionMarkerCtx: any): ExtensionMarker[];
 }

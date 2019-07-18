@@ -23,15 +23,15 @@ var SequenceTypeVisitor = /** @class */ (function () {
         childCtxes.forEach(function (childCtx) {
             switch (utils_1.getContextName(childCtx)) {
                 case 'extensionAndException': {
-                    sequenceType.splice(sequenceType.length, 0, childCtx.accept(new extensionAndException_1.ExtensionAndExceptionVisitor()));
+                    sequenceType.splice.apply(sequenceType, [sequenceType.length, 0].concat(childCtx.accept(new extensionAndException_1.ExtensionAndExceptionVisitor())));
                     break;
                 }
                 case 'optionalExtensionMarker': {
-                    sequenceType.splice(sequenceType.length, 0, childCtx.accept(new optionalExtensionMarker_1.OptionalExtensionMarkerVisitor()));
+                    sequenceType.splice.apply(sequenceType, [sequenceType.length, 0].concat(childCtx.accept(new optionalExtensionMarker_1.OptionalExtensionMarkerVisitor())));
                     break;
                 }
                 case 'componentTypeLists': {
-                    sequenceType.splice(sequenceType.length, 0, childCtx.accept(new componentTypeLists_1.ComponentTypeListsVisitor()));
+                    sequenceType.splice.apply(sequenceType, [sequenceType.length, 0].concat(childCtx.accept(new componentTypeLists_1.ComponentTypeListsVisitor())));
                     break;
                 }
                 case null: {
