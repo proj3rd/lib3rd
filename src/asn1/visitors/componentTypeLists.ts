@@ -11,17 +11,15 @@ import { TagVisitor } from './tag';
  * ANTRL4 grammar
  * ```
  *  componentTypeLists :
- *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions
- *      (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
- *    |  extensionAndException  extensionAdditions
- *      (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?))
+ *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
+ *    |  extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
  * ```
  */
 export class ComponentTypeListsVisitor {
   public visitChildren(componentTypeListsCtx: any): any /* TODO */ {
     const childCtxes = componentTypeListsCtx.children;
     const componentTypeLists = [];
-    childCtxes.forEach((childCtx) => {
+    childCtxes.forEach((childCtx: any /* TODO */) => {
       switch (getContextName(childCtx)) {
         case 'rootComponentTypeList': {
           componentTypeLists.splice(componentTypeLists.length, 0,

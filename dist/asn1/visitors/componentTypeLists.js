@@ -12,10 +12,8 @@ var tag_1 = require("./tag");
  * ANTRL4 grammar
  * ```
  *  componentTypeLists :
- *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions
- *      (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
- *    |  extensionAndException  extensionAdditions
- *      (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?))
+ *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
+ *    |  extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
  * ```
  */
 var ComponentTypeListsVisitor = /** @class */ (function () {
@@ -24,7 +22,7 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
     ComponentTypeListsVisitor.prototype.visitChildren = function (componentTypeListsCtx) {
         var childCtxes = componentTypeListsCtx.children;
         var componentTypeLists = [];
-        childCtxes.forEach(function (childCtx) {
+        childCtxes.forEach(function (childCtx /* TODO */) {
             switch (utils_1.getContextName(childCtx)) {
                 case 'rootComponentTypeList': {
                     componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(childCtx.accept(new rootComponentTypeList_1.RootComponentTypeListVisitor())));

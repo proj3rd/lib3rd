@@ -131,10 +131,10 @@ optionalExtensionMarker :  ( COMMA  ELLIPSIS )?
 ;
 
 componentTypeLists :
-   rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions   (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
+   rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
 //  |  rootComponentTypeList  COMMA  extensionAndException  extensionAdditions    optionalExtensionMarker
 //  |  rootComponentTypeList  COMMA  extensionAndException  extensionAdditions     EXTENSTIONENDMARKER  COMMA  rootComponentTypeList
-  |  extensionAndException  extensionAdditions  (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?))
+  |  extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
 //  |  extensionAndException  extensionAdditions  optionalExtensionMarker
 ;
 rootComponentTypeList  : componentTypeList
@@ -156,7 +156,7 @@ TAG
 
 extensionAdditions  :  (COMMA  extensionAdditionList)?
 ;
-extensionAdditionList  :  (extensionAddition) (COMMA  extensionAddition)*
+extensionAdditionList  :  (extensionAddition) (COMMA tag? extensionAddition)*
 ;
 extensionAddition  : componentType  |  extensionAdditionGroup
 ;
