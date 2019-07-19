@@ -144,7 +144,7 @@ function fillConstants(constants, moduleName, asn1Pool, ws, row, col, depthMax, 
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     [headerConstants].concat(constants).forEach(function (rangeElem, index) {
         if (index > 0) {
-            rangeElem.value = utils_1.findConstantValue(rangeElem.constant, rangeElem.moduleName, asn1Pool);
+            rangeElem.value = utils_1.findConstantValue(rangeElem.constant, moduleName, asn1Pool);
         }
         ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
         ws.cell(row, col + depthMax + formatConfig.order.length).style(xlsx_1.styleBorderLeft);
