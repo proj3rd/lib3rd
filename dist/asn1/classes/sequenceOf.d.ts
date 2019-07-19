@@ -12,5 +12,6 @@ export declare class SequenceOf extends Base {
     expand(asn1Pool: any, moduleName?: string): SequenceOf;
     depthMax(): number;
     toString(): string;
+    toStringUnexpanded(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }
