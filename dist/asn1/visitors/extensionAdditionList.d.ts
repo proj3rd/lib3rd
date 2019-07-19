@@ -1,7 +1,7 @@
 /**
  * ANTLR4 grammar
  * ```
- * extensionAdditionList  :  (extensionAddition) (COMMA  extensionAddition)*
+ * extensionAdditionList  :  (extensionAddition) (COMMA tag? extensionAddition)*
  * ```
  */
 export declare class ExtensionAdditionListVisitor {

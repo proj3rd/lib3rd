@@ -11,7 +11,7 @@ var OptionalExtensionMarkerVisitor = /** @class */ (function () {
     function OptionalExtensionMarkerVisitor() {
     }
     OptionalExtensionMarkerVisitor.prototype.visitChildren = function (optionalExtensionMarkerCtx) {
-        return optionalExtensionMarkerCtx.children ? new extensionMarker_1.ExtensionMarker() : [];
+        return optionalExtensionMarkerCtx.children ? [new extensionMarker_1.ExtensionMarker()] : [];
     };
     return OptionalExtensionMarkerVisitor;
 }());
