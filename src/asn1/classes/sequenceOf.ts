@@ -72,7 +72,8 @@ export class SequenceOf extends Base {
     this.addToConstants(this.sizeMin, constants);
     this.addToConstants(this.sizeMax, constants);
     if (this.expandedType) {
-      [row, col] = this.expandedType.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
+      [row, col] = this.expandedType.fillWorksheet({ie: this.type.toString()},
+        ws, row, col, depthMax, constants, formatConfig, depth + 1);
     }
     return [row, col];
   }

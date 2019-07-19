@@ -73,7 +73,7 @@ var SequenceOf = /** @class */ (function (_super) {
         this.addToConstants(this.sizeMin, constants);
         this.addToConstants(this.sizeMax, constants);
         if (this.expandedType) {
-            _b = this.expandedType.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1), row = _b[0], col = _b[1];
+            _b = this.expandedType.fillWorksheet({ ie: this.type.toString() }, ws, row, col, depthMax, constants, formatConfig, depth + 1), row = _b[0], col = _b[1];
         }
         return [row, col];
     };
