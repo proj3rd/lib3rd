@@ -58,15 +58,22 @@ export class SequenceOf extends Base {
     return `SEQUENCE${size} OF ${this.expandedType ? this.expandedType.toString() : this.type.toString()}`;
   }
 
+  public toStringUnexpanded(): string {
+    const size = this.size !== null ? ` (SIZE (${this.size}))` :
+      this.sizeMin !== null && this.sizeMax !== null ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
+    return `SEQUENCE${size} OF ${this.type.toString()}`;
+  }
+
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
                        formatConfig: IFormatConfig, depth: number = 0): [number, number] {
-    ieElem.type = this.toString();
+    ieElem.type = this.toStringUnexpanded();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     this.addToConstants(this.size, constants);
     this.addToConstants(this.sizeMin, constants);
     this.addToConstants(this.sizeMax, constants);
     if (this.expandedType) {
-      [row, col] = this.expandedType.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
+      [row, col] = this.expandedType.fillWorksheet({ie: this.type.toString()},
+        ws, row, col, depthMax, constants, formatConfig, depth + 1);
     }
     return [row, col];
   }
