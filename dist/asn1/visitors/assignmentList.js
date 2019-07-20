@@ -2,6 +2,7 @@
 exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
+var parameterizedAssignment_1 = require("./parameterizedAssignment");
 var typeAssignment_1 = require("./typeAssignment");
 var valueAssignment_1 = require("./valueAssignment");
 /**
@@ -45,8 +46,10 @@ var AssignmentListVisitor = /** @class */ (function () {
                     break;
                 }
                 case 'parameterizedAssignment': {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'ParameterizedAssignment not supported:'));
-                    // TODO
+                    var parameterizedAssignment = rValueContext.accept(new parameterizedAssignment_1.ParameterizedAssignmentVisitor());
+                    if (parameterizedAssignment) {
+                        assignments[referenceName] = parameterizedAssignment;
+                    }
                     break;
                 }
                 case 'objectClassAssignment': {
