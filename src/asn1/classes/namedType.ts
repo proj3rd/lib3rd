@@ -25,8 +25,8 @@ export class NamedType extends Base {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): NamedType {
-    const expandedType = this.type.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): NamedType {
+    const expandedType = this.type.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     this.type = expandedType;
     return this;
   }

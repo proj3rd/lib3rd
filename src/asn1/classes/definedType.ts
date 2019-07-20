@@ -23,13 +23,16 @@ export class DefinedType extends Base {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO*/, moduleName?: string): Base {
+  public expand(asn1Pool: any /* TODO*/, moduleName?: string, parameterList: string[] = []): Base {
+    if (parameterList.indexOf(this.typeReference) !== -1) {
+      return this;
+    }
     const definition = findDefinition(this.typeReference, moduleName, asn1Pool);
     if (!definition) {
       return this;
     }
     Object.assign(definition, {moduleReference: this.moduleReference, typeReference: this.typeReference});
-    definition.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+    definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     return definition;
   }
 

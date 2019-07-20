@@ -30,8 +30,9 @@ var NamedType = /** @class */ (function (_super) {
         }
         return this;
     };
-    NamedType.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
-        var expandedType = this.type.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+    NamedType.prototype.expand = function (asn1Pool /* TODO */, moduleName, parameterList) {
+        if (parameterList === void 0) { parameterList = []; }
+        var expandedType = this.type.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         this.type = expandedType;
         return this;
     };

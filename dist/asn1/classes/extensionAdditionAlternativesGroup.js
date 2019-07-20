@@ -33,10 +33,11 @@ var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
         }
         return this;
     };
-    ExtensionAdditionAlternativesGroup.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
+    ExtensionAdditionAlternativesGroup.prototype.expand = function (asn1Pool /* TODO */, moduleName, parameterList) {
         var _this = this;
+        if (parameterList === void 0) { parameterList = []; }
         this.alternativeTypeList.forEach(function (item) {
-            item.expand(asn1Pool, _this.getModuleNameToPass(moduleName));
+            item.expand(asn1Pool, _this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
     };

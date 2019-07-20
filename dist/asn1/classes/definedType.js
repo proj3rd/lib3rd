@@ -34,13 +34,17 @@ var DefinedType = /** @class */ (function (_super) {
         }
         return this;
     };
-    DefinedType.prototype.expand = function (asn1Pool /* TODO*/, moduleName) {
+    DefinedType.prototype.expand = function (asn1Pool /* TODO*/, moduleName, parameterList) {
+        if (parameterList === void 0) { parameterList = []; }
+        if (parameterList.indexOf(this.typeReference) !== -1) {
+            return this;
+        }
         var definition = utils_1.findDefinition(this.typeReference, moduleName, asn1Pool);
         if (!definition) {
             return this;
         }
         Object.assign(definition, { moduleReference: this.moduleReference, typeReference: this.typeReference });
-        definition.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+        definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         return definition;
     };
     DefinedType.prototype.depthMax = function () {

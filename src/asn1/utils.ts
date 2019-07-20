@@ -32,7 +32,6 @@ function findReference<T>(refName: string, moduleName: string, asn1Pool: any, ke
     return importedModule.assignments[refName];
   }
   log.warn(`Cannot find a reference ${refName} in a module ${moduleName}`);
-  log.warn('Maybe spec has error or reference is parameter of ParameterizedType');
   return null;
 }
 

@@ -30,10 +30,11 @@ var Choice = /** @class */ (function (_super) {
         }
         return this;
     };
-    Choice.prototype.expand = function (asn1Pool /* TODO */, moduleName) {
+    Choice.prototype.expand = function (asn1Pool /* TODO */, moduleName, parameterList) {
         var _this = this;
+        if (parameterList === void 0) { parameterList = []; }
         this.choices.forEach(function (choice) {
-            choice.expand(asn1Pool, _this.getModuleNameToPass(moduleName));
+            choice.expand(asn1Pool, _this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
     };

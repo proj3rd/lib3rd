@@ -34,7 +34,6 @@ function findReference(refName, moduleName, asn1Pool, key) {
         return importedModule.assignments[refName];
     }
     logging_1.log.warn("Cannot find a reference " + refName + " in a module " + moduleName);
-    logging_1.log.warn('Maybe spec has error or reference is parameter of ParameterizedType');
     return null;
 }
 function sanitizeAsn1(asn1) {

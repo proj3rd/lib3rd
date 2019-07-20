@@ -22,9 +22,9 @@ export class Sequence extends Base {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): Sequence {
+  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): Sequence {
     this.items.forEach((item) => {
-      item.expand(asn1Pool, this.getModuleNameToPass(moduleName));
+      item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
     return this;
   }
