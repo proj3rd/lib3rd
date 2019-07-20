@@ -47,6 +47,9 @@ var Integer = /** @class */ (function (_super) {
     Integer.prototype.depthMax = function () {
         return 0;
     };
+    Integer.prototype.replaceParameters = function (paramterMapping) {
+        // Do nothing
+    };
     Integer.prototype.toString = function () {
         var valueConstraint = this.value !== undefined ? "(" + this.value + ")" :
             this.min !== undefined && this.max !== undefined ? "(" + this.min + ".." + this.max + ")" : '';

@@ -45,6 +45,11 @@ var Choice = /** @class */ (function (_super) {
         });
         return depthMax;
     };
+    Choice.prototype.replaceParameters = function (parameterMapping) {
+        this.choices.forEach(function (choice) {
+            choice.replaceParameters(parameterMapping);
+        });
+    };
     Choice.prototype.toString = function () {
         var _this = this;
         return !this.choices.length ? 'CHOICE {}' : [

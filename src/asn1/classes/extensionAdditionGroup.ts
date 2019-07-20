@@ -40,6 +40,12 @@ export class ExtensionAdditionGroup extends Base {
     return depthMax;
   }
 
+  public replaceParameters(paramterMapping: {}): void {
+    this.componentTypeList.forEach((item) => {
+      item.replaceParameters(paramterMapping);
+    });
+  }
+
   public toString(): string {
     const itemString = [];
     this.componentTypeList.forEach((item, index) => {

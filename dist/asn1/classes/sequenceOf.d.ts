@@ -11,6 +11,7 @@ export declare class SequenceOf extends Base {
     setConstraint(constraint: any): SequenceOf;
     expand(asn1Pool: any, moduleName?: string, parameterList?: string[]): SequenceOf;
     depthMax(): number;
+    replaceParameters(parameterMapping: {}): void;
     toString(): string;
     toStringUnexpanded(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];

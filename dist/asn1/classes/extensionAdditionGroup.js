@@ -48,6 +48,11 @@ var ExtensionAdditionGroup = /** @class */ (function (_super) {
         });
         return depthMax;
     };
+    ExtensionAdditionGroup.prototype.replaceParameters = function (paramterMapping) {
+        this.componentTypeList.forEach(function (item) {
+            item.replaceParameters(paramterMapping);
+        });
+    };
     ExtensionAdditionGroup.prototype.toString = function () {
         var _this = this;
         var itemString = [];

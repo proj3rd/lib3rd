@@ -48,6 +48,11 @@ var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
         });
         return depthMax;
     };
+    ExtensionAdditionAlternativesGroup.prototype.replaceParameters = function (paramterMapping) {
+        this.alternativeTypeList.forEach(function (item) {
+            item.replaceParameters(paramterMapping);
+        });
+    };
     ExtensionAdditionAlternativesGroup.prototype.toString = function () {
         var _this = this;
         return [

@@ -35,6 +35,10 @@ export class NamedType extends Base {
     return this.type.depthMax();
   }
 
+  public replaceParameters(parameterMapping: {}): void {
+    this.type.replaceParameters(parameterMapping);
+  }
+
   public toString(): string {
     return `${this.name.padEnd(48)}    ${this.type}${this.getOptionalString()}`;
   }
