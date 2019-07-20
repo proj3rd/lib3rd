@@ -51,9 +51,12 @@ var DefinedType = /** @class */ (function (_super) {
         return 0;
     };
     DefinedType.prototype.toString = function () {
+        var actualParameterListString = !this.actualParameterList ? '' :
+            " { " + this.actualParameterList.map(function (item) { return item.toString(); }).join(', ') + " }";
         var withComponents = !this.withComponents ? '' :
             " (WITH COMPONENTS " + this.withComponents.toString();
-        return "" + (this.moduleReference ? this.moduleReference + '.' : '') + this.typeReference + withComponents;
+        return "" + (this.moduleReference ? this.moduleReference + '.' : '') +
+            ("" + this.typeReference + actualParameterListString + withComponents);
     };
     DefinedType.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
         if (depth === void 0) { depth = 0; }

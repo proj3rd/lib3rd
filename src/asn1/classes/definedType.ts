@@ -10,8 +10,8 @@ import { WithComponents } from './withComponents';
 export class DefinedType extends Base {
   public moduleReference: string;
   public typeReference: string;
-  public withComponents: WithComponents;
   public actualParameterList: any/* TODO */[];
+  public withComponents: WithComponents;
 
   public setConstraint(constraint: any): DefinedType {
     if ('withComponents' in constraint) {
@@ -42,9 +42,12 @@ export class DefinedType extends Base {
   }
 
   public toString(): string {
+    const actualParameterListString = !this.actualParameterList ? '' :
+      ` { ${this.actualParameterList.map((item) => item.toString()).join(', ')} }`;
     const withComponents = !this.withComponents ? '' :
       ` (WITH COMPONENTS ${this.withComponents.toString()}`;
-    return `${this.moduleReference ? this.moduleReference + '.' : ''}${this.typeReference}${withComponents}`;
+    return `${this.moduleReference ? this.moduleReference + '.' : ''}` +
+      `${this.typeReference}${actualParameterListString}${withComponents}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
