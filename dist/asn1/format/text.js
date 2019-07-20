@@ -10,7 +10,9 @@ function format(msgIes) {
     var formattedStrings = [];
     msgIes.forEach(function (msgIe) {
         logging_1.log.debug("Formatting " + msgIe.name + " in text...");
-        formattedStrings.push(msgIe.name + " ::= " + msgIe.definition.toString());
+        var parameterList = msgIe.definition.parameterList;
+        var parameterString = parameterList ? " { " + parameterList.join(', ') + " }" : '';
+        formattedStrings.push("" + msgIe.name + parameterString + " ::= " + msgIe.definition.toString());
     });
     return formattedStrings.join('\n\n');
 }
