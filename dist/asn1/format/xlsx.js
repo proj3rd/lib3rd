@@ -74,7 +74,9 @@ function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig) 
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     _a = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig), row = _a[0], col = _a[1];
-    _b = msgIe.definition.fillWorksheet({ ie: msgIe.name }, ws, row, col, depthMax, constants, formatConfig), row = _b[0], col = _b[1];
+    var parameterList = msgIe.definition.parameterList;
+    var parameterString = parameterList ? " { " + parameterList.join(', ') + " }" : '';
+    _b = msgIe.definition.fillWorksheet({ ie: "" + msgIe.name + parameterString }, ws, row, col, depthMax, constants, formatConfig), row = _b[0], col = _b[1];
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
     return [row, col];
 }
