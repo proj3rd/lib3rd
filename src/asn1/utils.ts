@@ -1,3 +1,5 @@
+import { log } from '../utils/logging';
+
 import { Base } from './classes/base';
 
 export function getContextName(ctx: any): string {
@@ -29,7 +31,9 @@ function findReference<T>(refName: string, moduleName: string, asn1Pool: any, ke
     const importedModule = asn1Pool[importedModuleName];
     return importedModule.assignments[refName];
   }
-  throw Error(`Cannot find a reference ${refName} in a module ${moduleName}`);
+  log.warn(`Cannot find a reference ${refName} in a module ${moduleName}`);
+  log.warn('Maybe spec has error or reference is parameter of ParameterizedType');
+  return null;
 }
 
 export function sanitizeAsn1(asn1: string): string {

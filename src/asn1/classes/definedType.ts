@@ -25,6 +25,9 @@ export class DefinedType extends Base {
 
   public expand(asn1Pool: any /* TODO*/, moduleName?: string): Base {
     const definition = findDefinition(this.typeReference, moduleName, asn1Pool);
+    if (!definition) {
+      return this;
+    }
     Object.assign(definition, {moduleReference: this.moduleReference, typeReference: this.typeReference});
     definition.expand(asn1Pool, this.getModuleNameToPass(moduleName));
     return definition;

@@ -36,6 +36,9 @@ var DefinedType = /** @class */ (function (_super) {
     };
     DefinedType.prototype.expand = function (asn1Pool /* TODO*/, moduleName) {
         var definition = utils_1.findDefinition(this.typeReference, moduleName, asn1Pool);
+        if (!definition) {
+            return this;
+        }
         Object.assign(definition, { moduleReference: this.moduleReference, typeReference: this.typeReference });
         definition.expand(asn1Pool, this.getModuleNameToPass(moduleName));
         return definition;

@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var logging_1 = require("../utils/logging");
 function getContextName(ctx) {
     if ('ruleIndex' in ctx) {
         return ctx.parser.ruleNames[ctx.ruleIndex];
@@ -32,7 +33,9 @@ function findReference(refName, moduleName, asn1Pool, key) {
         var importedModule = asn1Pool[importedModuleName];
         return importedModule.assignments[refName];
     }
-    throw Error("Cannot find a reference " + refName + " in a module " + moduleName);
+    logging_1.log.warn("Cannot find a reference " + refName + " in a module " + moduleName);
+    logging_1.log.warn('Maybe spec has error or reference is parameter of ParameterizedType');
+    return null;
 }
 function sanitizeAsn1(asn1) {
     // Removes comments which are not a Need tag neither a Cond tag
