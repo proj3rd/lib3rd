@@ -1,6 +1,7 @@
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { ParameterizedAssignmentVisitor } from './parameterizedAssignment';
 import { TypeAssignmentVisitor } from './typeAssignment';
 import { ValueAssignmentVisitor } from './valueAssignment';
 
@@ -43,8 +44,10 @@ export class AssignmentListVisitor {
           break;
         }
         case 'parameterizedAssignment': {
-          log.warn(getLogWithAsn1(assignmentCtx, 'ParameterizedAssignment not supported:'));
-          // TODO
+          const parameterizedAssignment = rValueContext.accept(new ParameterizedAssignmentVisitor());
+          if (parameterizedAssignment) {
+            assignments[referenceName] = parameterizedAssignment;
+          }
           break;
         }
         case 'objectClassAssignment': {
