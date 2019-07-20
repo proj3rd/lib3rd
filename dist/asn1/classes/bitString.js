@@ -47,6 +47,9 @@ var BitString = /** @class */ (function (_super) {
     BitString.prototype.depthMax = function () {
         return 0;
     };
+    BitString.prototype.replaceParameters = function (paramterMapping) {
+        // Do nothing
+    };
     BitString.prototype.toString = function () {
         var valueConstraint = this.size !== undefined ? "(SIZE (" + this.size + "))" :
             this.sizeMin !== undefined && this.sizeMax !== undefined ? "(SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';

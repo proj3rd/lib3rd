@@ -51,6 +51,9 @@ var OctetString = /** @class */ (function (_super) {
     OctetString.prototype.depthMax = function () {
         return 0;
     };
+    OctetString.prototype.replaceParameters = function (paramterMapping) {
+        // Do nothing
+    };
     OctetString.prototype.toString = function () {
         var containing = this.containing ? " (CONTAINING " + this.containing.toString() + ")" : '';
         var size = this.size !== undefined ? " (SIZE (" + this.size + "))" :

@@ -21,6 +21,10 @@ export class ExtensionMarker extends Base {
     return 0;
   }
 
+  public replaceParameters(paramterMapping: {}): void {
+    // Do nothing
+  }
+
   public toString(): string {
     return '...';
   }

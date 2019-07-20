@@ -34,6 +34,9 @@ var ExtensionMarker = /** @class */ (function (_super) {
     ExtensionMarker.prototype.depthMax = function () {
         return 0;
     };
+    ExtensionMarker.prototype.replaceParameters = function (paramterMapping) {
+        // Do nothing
+    };
     ExtensionMarker.prototype.toString = function () {
         return '...';
     };

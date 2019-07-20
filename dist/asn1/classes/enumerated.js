@@ -36,6 +36,9 @@ var Enumerated = /** @class */ (function (_super) {
     Enumerated.prototype.depthMax = function () {
         return 0;
     };
+    Enumerated.prototype.replaceParameters = function (parameterMapping) {
+        // Do nothing
+    };
     Enumerated.prototype.toString = function () {
         return "ENUMERATED {" + this.items.join(', ') + "}";
     };

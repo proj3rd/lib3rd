@@ -36,6 +36,9 @@ var ComponentPresence = /** @class */ (function (_super) {
     ComponentPresence.prototype.depthMax = function () {
         throw Error('Depth of this class is not valid');
     };
+    ComponentPresence.prototype.replaceParameters = function (parameterMapping) {
+        // Do nothing
+    };
     ComponentPresence.prototype.toString = function () {
         return this.identifier + " " + this.absentPresent;
     };

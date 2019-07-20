@@ -35,6 +35,9 @@ var WithComponents = /** @class */ (function (_super) {
     WithComponents.prototype.depthMax = function () {
         throw Error('Depth of this class is not valid');
     };
+    WithComponents.prototype.replaceParameters = function (paramterMapping) {
+        // Do nothing
+    };
     WithComponents.prototype.toString = function () {
         return "{" + this.components.map(function (component) { return component.toString(); }).join(', ') + "}";
     };

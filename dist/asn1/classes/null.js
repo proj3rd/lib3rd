@@ -34,6 +34,9 @@ var Null = /** @class */ (function (_super) {
     Null.prototype.depthMax = function () {
         return 0;
     };
+    Null.prototype.replaceParameters = function (paramterMapping) {
+        // Do nothing
+    };
     Null.prototype.toString = function () {
         return 'NULL';
     };

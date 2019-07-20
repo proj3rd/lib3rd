@@ -29,6 +29,10 @@ export class Enumerated extends Base {
     return 0;
   }
 
+  public replaceParameters(parameterMapping: {}): void {
+    // Do nothing
+  }
+
   public toString(): string {
     return `ENUMERATED {${this.items.join(', ')}}`;
   }

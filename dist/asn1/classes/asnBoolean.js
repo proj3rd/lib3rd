@@ -34,6 +34,9 @@ var AsnBoolean = /** @class */ (function (_super) {
     AsnBoolean.prototype.depthMax = function () {
         return 0;
     };
+    AsnBoolean.prototype.replaceParameters = function (parameterMapping) {
+        // Do nothing
+    };
     AsnBoolean.prototype.toString = function () {
         return 'BOOLEAN';
     };

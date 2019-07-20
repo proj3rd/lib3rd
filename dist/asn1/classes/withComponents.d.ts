@@ -8,6 +8,7 @@ export declare class WithComponents extends Base {
     setConstraint(constraint: any): WithComponents;
     expand(asn1Pool: any, moduleName?: string): never;
     depthMax(): never;
+    replaceParameters(paramterMapping: {}): void;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): never;
 }
