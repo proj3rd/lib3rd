@@ -11,6 +11,7 @@ export class DefinedType extends Base {
   public moduleReference: string;
   public typeReference: string;
   public withComponents: WithComponents;
+  public actualParameterList: any/* TODO */[];
 
   public setConstraint(constraint: any): DefinedType {
     if ('withComponents' in constraint) {

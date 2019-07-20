@@ -3,6 +3,8 @@ import { getContextName, getLogWithAsn1 } from '../utils';
 
 import { DefinedType } from '../classes/definedType';
 
+import { ActualParameterListVisitor } from './actualParameterList';
+
 /**
  * ANTLR4 grammar
  * ```
@@ -17,6 +19,7 @@ export class DefinedTypeVisitor {
     childCtxes.forEach((childCtx) => {
       switch (getContextName(childCtx)) {
         case 'actualParameterList': {
+          definedType.actualParameterList = childCtx.accept(new ActualParameterListVisitor());
           break;
         }
         case null: {

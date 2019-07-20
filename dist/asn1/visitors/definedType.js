@@ -3,6 +3,7 @@ exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var definedType_1 = require("../classes/definedType");
+var actualParameterList_1 = require("./actualParameterList");
 /**
  * ANTLR4 grammar
  * ```
@@ -19,7 +20,7 @@ var DefinedTypeVisitor = /** @class */ (function () {
         childCtxes.forEach(function (childCtx) {
             switch (utils_1.getContextName(childCtx)) {
                 case 'actualParameterList': {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(definedTypeCtx, 'actualParameterList not supported'));
+                    definedType.actualParameterList = childCtx.accept(new actualParameterList_1.ActualParameterListVisitor());
                     break;
                 }
                 case null: {
