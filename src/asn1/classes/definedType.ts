@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
@@ -28,17 +28,35 @@ export class DefinedType extends Base {
     if (parameterList.indexOf(this.typeReference) !== -1) {
       return this;
     }
-    const definition = findDefinition(this.typeReference, moduleName, asn1Pool);
+    const definition = cloneDeep(findDefinition(this.typeReference, moduleName, asn1Pool));
     if (!definition) {
       return this;
     }
+    const parameterMapping = {};
+    if ((definition as any).parameterList) {
+      ((definition as any).parameterList as string[]).forEach((parameter, index) => {
+        /**
+         * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }
+         * New parameter scope starts
+         * This overwrites
+         */
+        parameterMapping[parameter] = this.actualParameterList[index];
+      });
+    }
     Object.assign(definition, {moduleReference: this.moduleReference, typeReference: this.typeReference});
+    definition.replaceParameters(parameterMapping);
     definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     return definition;
   }
 
   public depthMax(): number {
     return 0;
+  }
+
+  public replaceParameters(parameterMapping: {}): void {
+    if (!this.moduleReference && this.typeReference && this.typeReference in parameterMapping) {
+      Object.assign(this, parameterMapping[this.typeReference]);
+    }
   }
 
   public toString(): string {
