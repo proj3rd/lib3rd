@@ -57,7 +57,7 @@ var DefinedType = /** @class */ (function (_super) {
         }
         Object.assign(definition, {
             moduleReference: this.moduleReference,
-            typeReference: "" + this.typeReference + this.getActualParameterListString()
+            typeReference: "" + this.toString()
         });
         definition.replaceParameters(parameterMapping);
         definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);

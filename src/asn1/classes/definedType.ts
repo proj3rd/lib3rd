@@ -45,7 +45,7 @@ export class DefinedType extends Base {
     }
     Object.assign(definition, {
       moduleReference: this.moduleReference,
-      typeReference: `${this.typeReference}${this.getActualParameterListString()}`,
+      typeReference: `${this.toString()}`,
     });
     definition.replaceParameters(parameterMapping);
     definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
