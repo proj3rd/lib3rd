@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
@@ -10,6 +10,7 @@ import { WithComponents } from './withComponents';
 export class DefinedType extends Base {
   public moduleReference: string;
   public typeReference: string;
+  public actualParameterList: any/* TODO */[];
   public withComponents: WithComponents;
 
   public setConstraint(constraint: any): DefinedType {
@@ -27,11 +28,26 @@ export class DefinedType extends Base {
     if (parameterList.indexOf(this.typeReference) !== -1) {
       return this;
     }
-    const definition = findDefinition(this.typeReference, moduleName, asn1Pool);
+    const definition = cloneDeep(findDefinition(this.typeReference, moduleName, asn1Pool));
     if (!definition) {
       return this;
     }
-    Object.assign(definition, {moduleReference: this.moduleReference, typeReference: this.typeReference});
+    const parameterMapping = {};
+    if ((definition as any).parameterList) {
+      ((definition as any).parameterList as string[]).forEach((parameter, index) => {
+        /**
+         * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }
+         * New parameter scope starts
+         * This overwrites
+         */
+        parameterMapping[parameter] = this.actualParameterList[index];
+      });
+    }
+    Object.assign(definition, {
+      moduleReference: this.moduleReference,
+      typeReference: `${this.toString()}`,
+    });
+    definition.replaceParameters(parameterMapping);
     definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     return definition;
   }
@@ -40,10 +56,18 @@ export class DefinedType extends Base {
     return 0;
   }
 
+  public replaceParameters(parameterMapping: {}): void {
+    if (!this.moduleReference && this.typeReference && this.typeReference in parameterMapping) {
+      Object.assign(this, parameterMapping[this.typeReference]);
+    }
+  }
+
   public toString(): string {
+    const actualParameterListString = this.getActualParameterListString();
     const withComponents = !this.withComponents ? '' :
       ` (WITH COMPONENTS ${this.withComponents.toString()}`;
-    return `${this.moduleReference ? this.moduleReference + '.' : ''}${this.typeReference}${withComponents}`;
+    return `${this.moduleReference ? this.moduleReference + '.' : ''}` +
+      `${this.typeReference}${actualParameterListString}${withComponents}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
@@ -51,5 +75,10 @@ export class DefinedType extends Base {
     ieElem.reference = this.toString();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     return [row, col];
+  }
+
+  private getActualParameterListString(): string {
+    return !this.actualParameterList ? '' :
+      ` { ${this.actualParameterList.map((item) => item.toString()).join(', ')} }`;
   }
 }

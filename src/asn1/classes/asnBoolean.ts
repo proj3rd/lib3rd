@@ -21,6 +21,10 @@ export class AsnBoolean extends Base {
     return 0;
   }
 
+  public replaceParameters(parameterMapping: {}): void {
+    // Do nothing
+  }
+
   public toString(): string {
     return 'BOOLEAN';
   }

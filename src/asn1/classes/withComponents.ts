@@ -31,6 +31,10 @@ export class WithComponents extends Base {
     throw Error('Depth of this class is not valid');
   }
 
+  public replaceParameters(paramterMapping: {}): void {
+    // Do nothing
+  }
+
   public toString(): string {
     return `{${this.components.map((component) => component.toString()).join(', ')}}`;
   }

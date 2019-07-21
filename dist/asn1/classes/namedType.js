@@ -39,6 +39,9 @@ var NamedType = /** @class */ (function (_super) {
     NamedType.prototype.depthMax = function () {
         return this.type.depthMax();
     };
+    NamedType.prototype.replaceParameters = function (parameterMapping) {
+        this.type.replaceParameters(parameterMapping);
+    };
     NamedType.prototype.toString = function () {
         return this.name.padEnd(48) + "    " + this.type + this.getOptionalString();
     };

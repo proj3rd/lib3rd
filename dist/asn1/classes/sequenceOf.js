@@ -55,6 +55,9 @@ var SequenceOf = /** @class */ (function (_super) {
         }
         return 0;
     };
+    SequenceOf.prototype.replaceParameters = function (parameterMapping) {
+        this.type.replaceParameters(parameterMapping);
+    };
     SequenceOf.prototype.toString = function () {
         var size = this.size !== null ? " (SIZE (" + this.size + "))" :
             this.sizeMin !== null && this.sizeMax !== null ? " (SIZE (" + this.sizeMin + ".." + this.sizeMax + "))" : '';

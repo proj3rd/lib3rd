@@ -1,7 +1,9 @@
 import { log } from '../../utils/logging';
-import { getLogWithAsn1 } from '../utils';
+import { getContextName, getLogWithAsn1 } from '../utils';
 
 import { DefinedType } from '../classes/definedType';
+
+import { ActualParameterListVisitor } from './actualParameterList';
 
 /**
  * ANTLR4 grammar
@@ -12,42 +14,32 @@ import { DefinedType } from '../classes/definedType';
  */
 export class DefinedTypeVisitor {
   public visitChildren(definedTypeCtx: any): any /* TODO */ {
-    const childCtxes = definedTypeCtx.children;
     const definedType = new DefinedType();
-    switch (childCtxes.length) {
-      case 1: {
-        // ITENDIFIER
-        definedType.typeReference = childCtxes[0].getText();
-      }
-      case 2: {
-        // ITENDIFIER actualParameterList?
-        if (childCtxes.length === 2) {
-          // TODO
-          log.warn(getLogWithAsn1(definedTypeCtx, 'Parameterized[ValueSet]Type not supported:'));
+    const childCtxes: any[] = definedTypeCtx.children;
+    childCtxes.forEach((childCtx) => {
+      switch (getContextName(childCtx)) {
+        case 'actualParameterList': {
+          definedType.actualParameterList = childCtx.accept(new ActualParameterListVisitor());
+          break;
         }
-        break;
-      }
-
-      case 3: {
-        // IDENTIFIER DOT IDENTIFIER
-        definedType.moduleReference = childCtxes[0].getText();
-        definedType.typeReference = childCtxes[2].getText();
-      }
-      case 4: {
-        // IDENTIFIER DOT IDENTIFIER actualParameterList?
-        if (childCtxes.length === 4) {
-          // TODO
-          log.warn(getLogWithAsn1(definedTypeCtx, 'ExternalTypeReference with params not supported:'));
+        case null: {
+          const text = childCtx.getText();
+          if (text !== '.') {
+            if (!definedType.typeReference) {
+              definedType.typeReference = text;
+            } else {
+              definedType.moduleReference = definedType.typeReference;
+              definedType.typeReference = text;
+            }
+          }
+          break;
         }
-        break;
+        default: {
+          log.warn(getLogWithAsn1(definedTypeCtx, 'Not supported ASN.1'));
+          break;
+        }
       }
-      default: {
-        log.warn(getLogWithAsn1(definedTypeCtx, 'Not supported ASN1:'));
-        return null;
-        break;
-      }
-    }
-    // TODO
+    });
     return definedType;
   }
 }

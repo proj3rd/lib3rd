@@ -7,6 +7,7 @@ export declare class ExtensionAdditionAlternativesGroup extends Base {
     setConstraint(constraint: any): ExtensionAdditionAlternativesGroup;
     expand(asn1Pool: any, moduleName?: string, parameterList?: string[]): ExtensionAdditionAlternativesGroup;
     depthMax(): number;
+    replaceParameters(paramterMapping: {}): void;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }

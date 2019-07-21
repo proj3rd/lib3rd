@@ -52,6 +52,10 @@ export class SequenceOf extends Base {
     return 0;
   }
 
+  public replaceParameters(parameterMapping: {}): void {
+    this.type.replaceParameters(parameterMapping);
+  }
+
   public toString(): string {
     const size = this.size !== null ? ` (SIZE (${this.size}))` :
       this.sizeMin !== null && this.sizeMax !== null ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';

@@ -45,6 +45,11 @@ var Sequence = /** @class */ (function (_super) {
         });
         return depthMax;
     };
+    Sequence.prototype.replaceParameters = function (parameterMapping) {
+        this.items.forEach(function (item) {
+            item.replaceParameters(parameterMapping);
+        });
+    };
     Sequence.prototype.toString = function () {
         var _this = this;
         if (!this.items.length) {

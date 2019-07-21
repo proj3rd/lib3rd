@@ -39,6 +39,10 @@ export class Integer extends Base {
     return 0;
   }
 
+  public replaceParameters(paramterMapping: {}): void {
+    // Do nothing
+  }
+
   public toString(): string {
     const valueConstraint = this.value !== undefined ? `(${this.value})` :
       this.min !== undefined && this.max !== undefined ? `(${this.min}..${this.max})` : '';

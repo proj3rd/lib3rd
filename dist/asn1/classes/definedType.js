@@ -35,25 +35,48 @@ var DefinedType = /** @class */ (function (_super) {
         return this;
     };
     DefinedType.prototype.expand = function (asn1Pool /* TODO*/, moduleName, parameterList) {
+        var _this = this;
         if (parameterList === void 0) { parameterList = []; }
         if (parameterList.indexOf(this.typeReference) !== -1) {
             return this;
         }
-        var definition = utils_1.findDefinition(this.typeReference, moduleName, asn1Pool);
+        var definition = lodash_1.cloneDeep(utils_1.findDefinition(this.typeReference, moduleName, asn1Pool));
         if (!definition) {
             return this;
         }
-        Object.assign(definition, { moduleReference: this.moduleReference, typeReference: this.typeReference });
+        var parameterMapping = {};
+        if (definition.parameterList) {
+            definition.parameterList.forEach(function (parameter, index) {
+                /**
+                 * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }
+                 * New parameter scope starts
+                 * This overwrites
+                 */
+                parameterMapping[parameter] = _this.actualParameterList[index];
+            });
+        }
+        Object.assign(definition, {
+            moduleReference: this.moduleReference,
+            typeReference: "" + this.toString()
+        });
+        definition.replaceParameters(parameterMapping);
         definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         return definition;
     };
     DefinedType.prototype.depthMax = function () {
         return 0;
     };
+    DefinedType.prototype.replaceParameters = function (parameterMapping) {
+        if (!this.moduleReference && this.typeReference && this.typeReference in parameterMapping) {
+            Object.assign(this, parameterMapping[this.typeReference]);
+        }
+    };
     DefinedType.prototype.toString = function () {
+        var actualParameterListString = this.getActualParameterListString();
         var withComponents = !this.withComponents ? '' :
             " (WITH COMPONENTS " + this.withComponents.toString();
-        return "" + (this.moduleReference ? this.moduleReference + '.' : '') + this.typeReference + withComponents;
+        return "" + (this.moduleReference ? this.moduleReference + '.' : '') +
+            ("" + this.typeReference + actualParameterListString + withComponents);
     };
     DefinedType.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
         if (depth === void 0) { depth = 0; }
@@ -61,6 +84,10 @@ var DefinedType = /** @class */ (function (_super) {
         ieElem.reference = this.toString();
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
         return [row, col];
+    };
+    DefinedType.prototype.getActualParameterListString = function () {
+        return !this.actualParameterList ? '' :
+            " { " + this.actualParameterList.map(function (item) { return item.toString(); }).join(', ') + " }";
     };
     return DefinedType;
 }(base_1.Base));

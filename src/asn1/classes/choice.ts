@@ -37,6 +37,12 @@ export class Choice extends Base {
     return depthMax;
   }
 
+  public replaceParameters(parameterMapping: {}): void {
+    this.choices.forEach((choice) => {
+      choice.replaceParameters(parameterMapping);
+    });
+  }
+
   public toString(): string {
     return !this.choices.length ? 'CHOICE {}' : [
       'CHOICE {',

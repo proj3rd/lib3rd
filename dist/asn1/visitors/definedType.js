@@ -3,6 +3,7 @@ exports.__esModule = true;
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var definedType_1 = require("../classes/definedType");
+var actualParameterList_1 = require("./actualParameterList");
 /**
  * ANTLR4 grammar
  * ```
@@ -14,41 +15,33 @@ var DefinedTypeVisitor = /** @class */ (function () {
     function DefinedTypeVisitor() {
     }
     DefinedTypeVisitor.prototype.visitChildren = function (definedTypeCtx) {
-        var childCtxes = definedTypeCtx.children;
         var definedType = new definedType_1.DefinedType();
-        switch (childCtxes.length) {
-            case 1: {
-                // ITENDIFIER
-                definedType.typeReference = childCtxes[0].getText();
-            }
-            case 2: {
-                // ITENDIFIER actualParameterList?
-                if (childCtxes.length === 2) {
-                    // TODO
-                    logging_1.log.warn(utils_1.getLogWithAsn1(definedTypeCtx, 'Parameterized[ValueSet]Type not supported:'));
+        var childCtxes = definedTypeCtx.children;
+        childCtxes.forEach(function (childCtx) {
+            switch (utils_1.getContextName(childCtx)) {
+                case 'actualParameterList': {
+                    definedType.actualParameterList = childCtx.accept(new actualParameterList_1.ActualParameterListVisitor());
+                    break;
                 }
-                break;
-            }
-            case 3: {
-                // IDENTIFIER DOT IDENTIFIER
-                definedType.moduleReference = childCtxes[0].getText();
-                definedType.typeReference = childCtxes[2].getText();
-            }
-            case 4: {
-                // IDENTIFIER DOT IDENTIFIER actualParameterList?
-                if (childCtxes.length === 4) {
-                    // TODO
-                    logging_1.log.warn(utils_1.getLogWithAsn1(definedTypeCtx, 'ExternalTypeReference with params not supported:'));
+                case null: {
+                    var text = childCtx.getText();
+                    if (text !== '.') {
+                        if (!definedType.typeReference) {
+                            definedType.typeReference = text;
+                        }
+                        else {
+                            definedType.moduleReference = definedType.typeReference;
+                            definedType.typeReference = text;
+                        }
+                    }
+                    break;
                 }
-                break;
+                default: {
+                    logging_1.log.warn(utils_1.getLogWithAsn1(definedTypeCtx, 'Not supported ASN.1'));
+                    break;
+                }
             }
-            default: {
-                logging_1.log.warn(utils_1.getLogWithAsn1(definedTypeCtx, 'Not supported ASN1:'));
-                return null;
-                break;
-            }
-        }
-        // TODO
+        });
         return definedType;
     };
     return DefinedTypeVisitor;

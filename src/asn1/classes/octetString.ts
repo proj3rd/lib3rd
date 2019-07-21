@@ -43,6 +43,10 @@ export class OctetString extends Base {
     return 0;
   }
 
+  public replaceParameters(paramterMapping: {}): void {
+    // Do nothing
+  }
+
   public toString(): string {
     const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
     const size = this.size !== undefined ? ` (SIZE (${this.size}))` :

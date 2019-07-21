@@ -37,6 +37,12 @@ export class Sequence extends Base {
     return depthMax;
   }
 
+  public replaceParameters(parameterMapping: {}): void {
+    this.items.forEach((item) => {
+      item.replaceParameters(parameterMapping);
+    });
+  }
+
   public toString(): string {
     if (!this.items.length) {
       return 'SEQUENCE {}';
