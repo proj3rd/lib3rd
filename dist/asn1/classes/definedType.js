@@ -55,7 +55,10 @@ var DefinedType = /** @class */ (function (_super) {
                 parameterMapping[parameter] = _this.actualParameterList[index];
             });
         }
-        Object.assign(definition, { moduleReference: this.moduleReference, typeReference: this.typeReference });
+        Object.assign(definition, {
+            moduleReference: this.moduleReference,
+            typeReference: "" + this.typeReference + this.getActualParameterListString()
+        });
         definition.replaceParameters(parameterMapping);
         definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         return definition;
@@ -69,8 +72,7 @@ var DefinedType = /** @class */ (function (_super) {
         }
     };
     DefinedType.prototype.toString = function () {
-        var actualParameterListString = !this.actualParameterList ? '' :
-            " { " + this.actualParameterList.map(function (item) { return item.toString(); }).join(', ') + " }";
+        var actualParameterListString = this.getActualParameterListString();
         var withComponents = !this.withComponents ? '' :
             " (WITH COMPONENTS " + this.withComponents.toString();
         return "" + (this.moduleReference ? this.moduleReference + '.' : '') +
@@ -82,6 +84,10 @@ var DefinedType = /** @class */ (function (_super) {
         ieElem.reference = this.toString();
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
         return [row, col];
+    };
+    DefinedType.prototype.getActualParameterListString = function () {
+        return !this.actualParameterList ? '' :
+            " { " + this.actualParameterList.map(function (item) { return item.toString(); }).join(', ') + " }";
     };
     return DefinedType;
 }(base_1.Base));

@@ -43,7 +43,10 @@ export class DefinedType extends Base {
         parameterMapping[parameter] = this.actualParameterList[index];
       });
     }
-    Object.assign(definition, {moduleReference: this.moduleReference, typeReference: this.typeReference});
+    Object.assign(definition, {
+      moduleReference: this.moduleReference,
+      typeReference: `${this.typeReference}${this.getActualParameterListString()}`,
+    });
     definition.replaceParameters(parameterMapping);
     definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     return definition;
@@ -60,8 +63,7 @@ export class DefinedType extends Base {
   }
 
   public toString(): string {
-    const actualParameterListString = !this.actualParameterList ? '' :
-      ` { ${this.actualParameterList.map((item) => item.toString()).join(', ')} }`;
+    const actualParameterListString = this.getActualParameterListString();
     const withComponents = !this.withComponents ? '' :
       ` (WITH COMPONENTS ${this.withComponents.toString()}`;
     return `${this.moduleReference ? this.moduleReference + '.' : ''}` +
@@ -73,5 +75,10 @@ export class DefinedType extends Base {
     ieElem.reference = this.toString();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     return [row, col];
+  }
+
+  private getActualParameterListString(): string {
+    return !this.actualParameterList ? '' :
+      ` { ${this.actualParameterList.map((item) => item.toString()).join(', ')} }`;
   }
 }
