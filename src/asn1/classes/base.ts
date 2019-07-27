@@ -1,3 +1,5 @@
+import { isEqual } from 'lodash';
+
 import { IFormatConfig, IIe } from '../format/xlsx';
 
 export abstract class Base {
@@ -15,7 +17,9 @@ export abstract class Base {
     return text.replace(/^/gm, '  ');
   }
   protected addToConstants(obj: any, constants: any[]): void {
-    if (obj !== undefined && isNaN(Number(obj))) {
+    if (obj !== undefined && isNaN(Number(obj)) && constants.findIndex((value) => {
+      return isEqual(value.constant, obj);
+    }) === -1) {
       constants.push({constant: obj, moduleName: this.moduleName});
     }
   }

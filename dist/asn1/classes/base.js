@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var lodash_1 = require("lodash");
 var Base = /** @class */ (function () {
     function Base() {
     }
@@ -7,7 +8,9 @@ var Base = /** @class */ (function () {
         return text.replace(/^/gm, '  ');
     };
     Base.prototype.addToConstants = function (obj, constants) {
-        if (obj !== undefined && isNaN(Number(obj))) {
+        if (obj !== undefined && isNaN(Number(obj)) && constants.findIndex(function (value) {
+            return lodash_1.isEqual(value.constant, obj);
+        }) === -1) {
             constants.push({ constant: obj, moduleName: this.moduleName });
         }
     };
