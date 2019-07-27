@@ -29,7 +29,7 @@ function findReference<T>(refName: string, moduleName: string, asn1Pool: any, ke
   if (refName in asn1Pool[moduleName].imports) {
     const importedModuleName = asn1Pool[moduleName].imports[refName];
     const importedModule = asn1Pool[importedModuleName];
-    return importedModule.assignments[refName];
+    return importedModule[key][refName];
   }
   log.warn(`Cannot find a reference ${refName} in a module ${moduleName}`);
   return null;

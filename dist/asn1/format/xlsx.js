@@ -151,6 +151,9 @@ function fillConstants(constants, moduleName, asn1Pool, ws, row, col, depthMax, 
         ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
         ws.cell(row, col + depthMax + formatConfig.order.length).style(xlsx_1.styleBorderLeft);
         ws.cell(row, col).string(rangeElem.constant).style(xlsx_1.styleBorderLeft);
+        if (rangeElem.value === null) {
+            rangeElem.value = "Spec error: " + moduleName + " neither defines nor imports " + rangeElem.constant;
+        }
         ws.cell(row++, col + depthMax + 1).string(rangeElem.value);
     });
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
