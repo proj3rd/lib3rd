@@ -1,6 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 exports.__esModule = true;
-var combinatorics = require("js-combinatorics");
+var caCommon_1 = require("../caCommon");
 var fallbackGroups = {
     FR1: ['A', 'C', 'D', 'E'],
     FR2: [
@@ -10,30 +23,33 @@ var fallbackGroups = {
         ['A', 'O', 'P', 'Q'],
     ]
 };
-var CaConfigPerCc = /** @class */ (function () {
-    function CaConfigPerCc(bandOrString, bwClass) {
+var CcConfigNr = /** @class */ (function (_super) {
+    __extends(CcConfigNr, _super);
+    function CcConfigNr(bandOrString, bwClass) {
+        var _this = _super.call(this) || this;
         if (typeof bandOrString === 'number' && bwClass) {
-            this.band = Number(bandOrString);
-            if (isNaN(this.band)) {
+            _this.band = Number(bandOrString);
+            if (isNaN(_this.band)) {
                 throw Error("bandOrString (" + bandOrString + ") is not a valid band number");
             }
-            this.fr = getFr(this.band);
-            this.bwClass = bwClass;
-            this.fallbackGroup = this.getFallbackGroup();
+            _this.fr = getFr(_this.band);
+            _this.bwClass = bwClass;
+            _this.fallbackGroup = _this.getFallbackGroup();
         }
         else if (typeof bandOrString === 'string' && !bwClass) {
             var bandWithoutN = bandOrString.replace('n', '');
             var bandNumberPart = bandWithoutN.match(/\d+/)[0];
-            this.band = Number(bandNumberPart);
-            this.fr = getFr(this.band);
-            this.bwClass = bandWithoutN.substring(bandNumberPart.length);
-            this.fallbackGroup = this.getFallbackGroup();
+            _this.band = Number(bandNumberPart);
+            _this.fr = getFr(_this.band);
+            _this.bwClass = bandWithoutN.substring(bandNumberPart.length);
+            _this.fallbackGroup = _this.getFallbackGroup();
         }
         else {
             throw Error('Invalid arguments');
         }
+        return _this;
     }
-    CaConfigPerCc.prototype.getFallbackGroup = function () {
+    CcConfigNr.prototype.getFallbackGroup = function () {
         if (this.fr === 'FR1') {
             return fallbackGroups.FR1;
         }
@@ -45,37 +61,25 @@ var CaConfigPerCc = /** @class */ (function () {
         }
         throw Error("band and bwClass (" + this.band + this.bwClass + ") is not a valid CC configuration");
     };
-    CaConfigPerCc.prototype.toString = function () {
+    CcConfigNr.prototype.toString = function () {
         return "n" + this.band + this.bwClass;
     };
-    return CaConfigPerCc;
-}());
+    return CcConfigNr;
+}(caCommon_1.CcConfig));
+exports.CcConfigNr = CcConfigNr;
 function getFr(band) {
     return band < 200 ? 'FR1' : 'FR2';
 }
 exports.getFr = getFr;
-function getIntraBandFallback(caConfigPerCc) {
-    return caConfigPerCc.fallbackGroup.filter(function (bwClass) { return bwClass <= caConfigPerCc.bwClass; })
-        .map(function (bwClass) { return new CaConfigPerCc(caConfigPerCc.band, bwClass); });
-}
-exports.getIntraBandFallback = getIntraBandFallback;
-function getFallback(caConfigPerCcArr) {
-    return combinatorics.cartesianProduct.apply(combinatorics, caConfigPerCcArr.map(function (caConfigPerCc) {
-        var intraBandFallback = getIntraBandFallback(caConfigPerCc);
-        intraBandFallback.unshift(null);
-        return intraBandFallback;
-    })).toArray();
-}
-exports.getFallback = getFallback;
 if (require.main === module) {
     var argv = process.argv;
     var caConfig = argv[2];
-    var caConfigPerCcArr = caConfig.replace('CA_', '').split('-')
-        .map(function (caConfigPerCc) { return new CaConfigPerCc(caConfigPerCc); });
+    var ccConfigArr = caConfig.replace('CA_', '').split('-')
+        .map(function (caConfigPerCc) { return new CcConfigNr(caConfigPerCc); });
     process.stdout.write('Original input\n');
     process.stdout.write(caConfig + "\n");
     process.stdout.write('\n');
-    var fallbackCombos = getFallback(caConfigPerCcArr);
+    var fallbackCombos = caCommon_1.getFallback(ccConfigArr, CcConfigNr);
     process.stdout.write('Cartesian product\n');
     fallbackCombos.forEach(function (combo) {
         var comboFiltered = combo.filter(function (caConfigPerCc) { return caConfigPerCc !== null; });

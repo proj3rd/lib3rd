@@ -1,4 +1,4 @@
-import * as combinatorics from 'js-combinatorics';
+import { CcConfig, getFallback } from '../caCommon';
 
 const fallbackGroups = {
   FR1: ['A', 'C', 'D', 'E'],
@@ -12,13 +12,12 @@ const fallbackGroups = {
 
 type Fr = 'FR1' | 'FR2';
 
-class CaConfigPerCc {
+export class CcConfigNr extends CcConfig {
   public fr: Fr;
-  public band: number;
-  public bwClass: string;
-  public fallbackGroup: string[];
 
   constructor(bandOrString: number | string, bwClass?: string) {
+    super();
+
     if (typeof bandOrString === 'number' && bwClass) {
       this.band = Number(bandOrString);
       if (isNaN(this.band)) {
@@ -60,31 +59,16 @@ export function getFr(band: number): Fr {
   return band < 200 ? 'FR1' : 'FR2';
 }
 
-export function getIntraBandFallback(caConfigPerCc: CaConfigPerCc): CaConfigPerCc[] {
-  return caConfigPerCc.fallbackGroup.filter((bwClass) => bwClass <= caConfigPerCc.bwClass)
-                      .map((bwClass) => new CaConfigPerCc(caConfigPerCc.band, bwClass));
-}
-
-export function getFallback(caConfigPerCcArr: CaConfigPerCc[]): CaConfigPerCc[][] {
-  return combinatorics.cartesianProduct(
-    ...caConfigPerCcArr.map((caConfigPerCc) => {
-      const intraBandFallback = getIntraBandFallback(caConfigPerCc);
-      intraBandFallback.unshift(null);
-      return intraBandFallback;
-    }),
-  ).toArray();
-}
-
 if (require.main === module) {
   const argv = process.argv;
   const caConfig = argv[2];
-  const caConfigPerCcArr = caConfig.replace('CA_', '').split('-')
-                                .map((caConfigPerCc) => new CaConfigPerCc(caConfigPerCc));
+  const ccConfigArr = caConfig.replace('CA_', '').split('-')
+                                .map((caConfigPerCc) => new CcConfigNr(caConfigPerCc));
   process.stdout.write('Original input\n');
   process.stdout.write(`${caConfig}\n`);
   process.stdout.write('\n');
 
-  const fallbackCombos = getFallback(caConfigPerCcArr);
+  const fallbackCombos = getFallback(ccConfigArr, CcConfigNr);
   process.stdout.write('Cartesian product\n');
   fallbackCombos.forEach((combo) => {
     const comboFiltered = combo.filter((caConfigPerCc) => caConfigPerCc !== null);
