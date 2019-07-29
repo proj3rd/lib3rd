@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var combinatorics = require("js-combinatorics");
 var fallbackGroup = ['A', 'C', 'D', 'E'];
 var CaConfigPerCc = /** @class */ (function () {
     function CaConfigPerCc(bandOrString, bwClass) {
@@ -25,6 +26,9 @@ var CaConfigPerCc = /** @class */ (function () {
             throw Error('Invalid arguments');
         }
     }
+    CaConfigPerCc.prototype.toString = function () {
+        return "" + this.band + this.bwClass;
+    };
     return CaConfigPerCc;
 }());
 function getIntraBandFallback(caConfigPerCc) {
@@ -32,9 +36,29 @@ function getIntraBandFallback(caConfigPerCc) {
         .map(function (bwClass) { return new CaConfigPerCc(caConfigPerCc.band, bwClass); });
 }
 exports.getIntraBandFallback = getIntraBandFallback;
+function getFallback(caConfigPerCcArr) {
+    return combinatorics.cartesianProduct.apply(combinatorics, caConfigPerCcArr.map(function (caConfigPerCc) {
+        var intraBandFallback = getIntraBandFallback(caConfigPerCc);
+        intraBandFallback.unshift(null);
+        return intraBandFallback;
+    })).toArray();
+}
+exports.getFallback = getFallback;
 if (require.main === module) {
     var argv = process.argv;
     var caConfig = argv[2];
     var caConfigPerCcArr = caConfig.replace('CA_', '').split('-')
         .map(function (caConfigPerCc) { return new CaConfigPerCc(caConfigPerCc); });
+    process.stdout.write('Original input\n');
+    process.stdout.write(caConfig + "\n");
+    process.stdout.write('\n');
+    var fallbackCombos = getFallback(caConfigPerCcArr);
+    process.stdout.write('Cartesian product\n');
+    fallbackCombos.forEach(function (combo) {
+        var comboFiltered = combo.filter(function (caConfigPerCc) { return caConfigPerCc !== null; });
+        if (!comboFiltered.length) {
+            return;
+        }
+        process.stdout.write("CA_" + comboFiltered.join('-') + "\n");
+    });
 }
