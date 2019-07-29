@@ -63,7 +63,7 @@ if (require.main === module) {
   const argv = process.argv;
   const caConfig = argv[2];
   const ccConfigArr = caConfig.replace('CA_', '').split('-')
-                                .map((caConfigPerCc) => new CcConfigNr(caConfigPerCc));
+                                .map((ccConfig) => new CcConfigNr(ccConfig));
   process.stdout.write('Original input\n');
   process.stdout.write(`${caConfig}\n`);
   process.stdout.write('\n');
@@ -71,7 +71,7 @@ if (require.main === module) {
   const fallbackCombos = getFallback(ccConfigArr, CcConfigNr);
   process.stdout.write('Cartesian product\n');
   fallbackCombos.forEach((combo) => {
-    const comboFiltered = combo.filter((caConfigPerCc) => caConfigPerCc !== null);
+    const comboFiltered = combo.filter((ccConfig) => ccConfig !== null);
     if (!comboFiltered.length) {
       return;
     }

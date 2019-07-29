@@ -46,7 +46,7 @@ if (require.main === module) {
   const fallbackCombos = getFallback(ccConfigArr, CcConfigLte);
   process.stdout.write('Cartesian product\n');
   fallbackCombos.forEach((combo) => {
-    const comboFiltered = combo.filter((caConfigPerCc) => caConfigPerCc !== null);
+    const comboFiltered = combo.filter((ccConfig) => ccConfig !== null);
     if (!comboFiltered.length) {
       return;
     }

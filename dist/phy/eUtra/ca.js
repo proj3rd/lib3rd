@@ -61,7 +61,7 @@ if (require.main === module) {
     var fallbackCombos = caCommon_1.getFallback(ccConfigArr, CcConfigLte);
     process.stdout.write('Cartesian product\n');
     fallbackCombos.forEach(function (combo) {
-        var comboFiltered = combo.filter(function (caConfigPerCc) { return caConfigPerCc !== null; });
+        var comboFiltered = combo.filter(function (ccConfig) { return ccConfig !== null; });
         if (!comboFiltered.length) {
             return;
         }

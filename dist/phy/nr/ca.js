@@ -75,14 +75,14 @@ if (require.main === module) {
     var argv = process.argv;
     var caConfig = argv[2];
     var ccConfigArr = caConfig.replace('CA_', '').split('-')
-        .map(function (caConfigPerCc) { return new CcConfigNr(caConfigPerCc); });
+        .map(function (ccConfig) { return new CcConfigNr(ccConfig); });
     process.stdout.write('Original input\n');
     process.stdout.write(caConfig + "\n");
     process.stdout.write('\n');
     var fallbackCombos = caCommon_1.getFallback(ccConfigArr, CcConfigNr);
     process.stdout.write('Cartesian product\n');
     fallbackCombos.forEach(function (combo) {
-        var comboFiltered = combo.filter(function (caConfigPerCc) { return caConfigPerCc !== null; });
+        var comboFiltered = combo.filter(function (ccConfig) { return ccConfig !== null; });
         if (!comboFiltered.length) {
             return;
         }
