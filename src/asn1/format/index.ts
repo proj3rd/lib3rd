@@ -12,7 +12,7 @@ import { parse } from '../parse';
 import { IMsgIe } from './common';
 
 // TODO: need to be place in separate module?
-function findMsgIes(msgIeName: string, asn1: any): IMsgIe[] {
+export function findMsgIes(msgIeName: string, asn1: any): IMsgIe[] {
   const msgIes: IMsgIe[] = [];
   Object.keys(asn1).forEach((moduleName) => {
     const assignments = asn1[moduleName].assignments;

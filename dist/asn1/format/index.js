@@ -35,6 +35,7 @@ function findMsgIes(msgIeName, asn1) {
     });
     return msgIes;
 }
+exports.findMsgIes = findMsgIes;
 if (require.main === module) {
     var argv_1 = yargs
         .command('<filePath> <msgIeName>', 'Format <msgIeName> from <filePath>')
