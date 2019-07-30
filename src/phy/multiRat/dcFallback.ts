@@ -1,8 +1,8 @@
 import * as combinatorics from 'js-combinatorics';
 
 import { CcConfig, getFallback } from '../caCommon';
-import { CcConfigLte } from '../eUtra/ca';
-import { CcConfigNr } from '../nr/ca';
+import { CcConfigLte } from '../eUtra/caFallback';
+import { CcConfigNr } from '../nr/caFallback';
 
 function removeNullInCombos<T extends CcConfig>(combos: T[][]): void {
   for (let i = 0; i < combos.length; i++) {

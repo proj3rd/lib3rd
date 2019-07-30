@@ -2,8 +2,8 @@
 exports.__esModule = true;
 var combinatorics = require("js-combinatorics");
 var caCommon_1 = require("../caCommon");
-var ca_1 = require("../eUtra/ca");
-var ca_2 = require("../nr/ca");
+var caFallback_1 = require("../eUtra/caFallback");
+var caFallback_2 = require("../nr/caFallback");
 function removeNullInCombos(combos) {
     for (var i = 0; i < combos.length; i++) {
         combos[i] = combos[i].filter(function (ccConfig) { return ccConfig !== null; });
@@ -22,12 +22,12 @@ if (require.main === module) {
     process.stdout.write('\n');
     var _a = dcConfig.replace('DC_', '').split('_'), caConfigLte = _a[0], caConfigNr = _a[1];
     var ccConfigLteArr = caConfigLte.split('-')
-        .map(function (ccConfigLte) { return new ca_1.CcConfigLte(ccConfigLte); });
+        .map(function (ccConfigLte) { return new caFallback_1.CcConfigLte(ccConfigLte); });
     var ccConfigNrArr = caConfigNr.split('-')
-        .map(function (ccConfigNr) { return new ca_2.CcConfigNr(ccConfigNr); });
-    var fallbackCombosLte = caCommon_1.getFallback(ccConfigLteArr, ca_1.CcConfigLte);
+        .map(function (ccConfigNr) { return new caFallback_2.CcConfigNr(ccConfigNr); });
+    var fallbackCombosLte = caCommon_1.getFallback(ccConfigLteArr, caFallback_1.CcConfigLte);
     removeNullInCombos(fallbackCombosLte);
-    var fallbackCombosNr = caCommon_1.getFallback(ccConfigNrArr, ca_2.CcConfigNr);
+    var fallbackCombosNr = caCommon_1.getFallback(ccConfigNrArr, caFallback_2.CcConfigNr);
     removeNullInCombos(fallbackCombosNr);
     var fallbackCombosDc = combinatorics.cartesianProduct(fallbackCombosLte, fallbackCombosNr).toArray();
     process.stdout.write('Cartesian product\n');
