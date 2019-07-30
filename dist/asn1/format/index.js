@@ -5,7 +5,9 @@ var path_1 = require("path");
 var lodash_1 = require("lodash");
 var yargs = require("yargs");
 var text_1 = require("./text");
+exports.formatTxt = text_1.format;
 var xlsx_1 = require("./xlsx");
+exports.formatXlsx = xlsx_1.format;
 var expand_1 = require("../expand");
 var parse_1 = require("../parse");
 // TODO: need to be place in separate module?

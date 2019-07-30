@@ -11,6 +11,11 @@ import { expand } from '../expand';
 import { parse } from '../parse';
 import { IMsgIe } from './common';
 
+export {
+  formatTxt,
+  formatXlsx,
+};
+
 // TODO: need to be place in separate module?
 export function findMsgIes(msgIeName: string, asn1: any): IMsgIe[] {
   const msgIes: IMsgIe[] = [];
