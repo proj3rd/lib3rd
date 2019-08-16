@@ -1,6 +1,6 @@
-import * as _ from 'lodash';
+import { cloneDeep } from 'lodash';
 
-import { IDefinitions, IMsgIeDefinition, reReference } from './common';
+import { IDefinitions, IIe, IMsgIeDefinition, reReference } from './common';
 
 interface IDefinitionTreeNode {
   content: IMsgIeDefinition;
@@ -23,7 +23,7 @@ export function expand(msgIeDefinition: IMsgIeDefinition, definitions: IDefiniti
     return {msgIeDefinition: definitionsExpanded[msgIeDefinition.section] as IMsgIeDefinition,
             definitionsExpanded};
   }
-  const definitionsExpandedClone = _.cloneDeep(definitionsExpanded);
+  const definitionsExpandedClone = cloneDeep(definitionsExpanded);
   const stackUnexpanded = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpandedClone);
   expandStack(stackUnexpanded, definitionsExpandedClone);
   return {msgIeDefinition: definitionsExpandedClone[section] as IMsgIeDefinition,
@@ -70,7 +70,7 @@ function prepareExpansionStack(msgIeDefinition: IMsgIeDefinition, definitions: I
 
 function expandStack(stackUnexpanded: IDefinitionTreeNode[], definitionsExpanded: IDefinitions): void {
   while (stackUnexpanded.length) {
-    const msgIeDefinition = _.cloneDeep(stackUnexpanded.pop().content);
+    const msgIeDefinition = cloneDeep(stackUnexpanded.pop().content);
     const {section, ies} = msgIeDefinition;
     // ies length may not be constant. So not using for-of
     // tslint:disable-next-line:prefer-for-of
@@ -80,10 +80,23 @@ function expandStack(stackUnexpanded: IDefinitionTreeNode[], definitionsExpanded
         continue;
       }
       const depth = ies[i].depth;
-      const subIes = (definitionsExpanded[reference] as IMsgIeDefinition).ies;
-      ies.splice(i + 1, 0, ...(_.cloneDeep(subIes)));
+      const subIes = cloneDeep((definitionsExpanded[reference] as IMsgIeDefinition).ies);
+      const isSingleRooted = hasSingleRoot(subIes);
+      const numIesToRemove = isSingleRooted ? 1 : 0;
+      const offsetSingleRoot = isSingleRooted ? 0 : 1;
+      if (isSingleRooted) {
+        const rootIeNew = subIes[0];
+        const rootIeOld = ies[i + offsetSingleRoot];
+        rootIeNew['ie/group name'] = rootIeOld['ie/group name'];
+        rootIeNew.presence = rootIeOld.presence;
+        if (rootIeOld['semantics description']) {
+          rootIeNew['semantics description'] =
+            rootIeOld['semantics description'] + '\n\n' + rootIeNew['semantics description'];
+        }
+      }
+      ies.splice(i + offsetSingleRoot, numIesToRemove, ...subIes);
       for (let j = 0; j < subIes.length; j++) {
-        ies[i + j + 1].depth += depth + 1;
+        ies[i + j + offsetSingleRoot].depth += depth + offsetSingleRoot;
       }
     }
     definitionsExpanded[section] = msgIeDefinition;
@@ -96,4 +109,13 @@ function getReference(text: string): string {
     return null;
   }
   return matchReference[0];
+}
+
+function hasSingleRoot(ies: IIe[]): boolean {
+  if (ies.length === 1) {
+    return true;
+  }
+  const depthMin = ies[0].depth;
+  const depthCount = ies.filter((ie) => ie.depth === depthMin).length;
+  return depthCount === 1;
 }
