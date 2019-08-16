@@ -74,9 +74,11 @@ function expandStack(stackUnexpanded, definitionsExpanded) {
             }
             var depth = ies[i].depth;
             var subIes = lodash_1.cloneDeep(definitionsExpanded[reference].ies);
-            ies.splice.apply(ies, [i + 1, 0].concat(subIes));
+            var numIesToRemove = hasSingleRoot(subIes) ? 1 : 0;
+            var offsetSingleRoot = hasSingleRoot(subIes) ? 0 : 1;
+            ies.splice.apply(ies, [i + offsetSingleRoot, numIesToRemove].concat(subIes));
             for (var j = 0; j < subIes.length; j++) {
-                ies[i + j + 1].depth += depth + 1;
+                ies[i + j + offsetSingleRoot].depth += depth + offsetSingleRoot;
             }
         }
         definitionsExpanded[section] = msgIeDefinition;
@@ -88,4 +90,12 @@ function getReference(text) {
         return null;
     }
     return matchReference[0];
+}
+function hasSingleRoot(ies) {
+    if (ies.length === 1) {
+        return true;
+    }
+    var depthMin = ies[0].depth;
+    var depthCount = ies.filter(function (ie) { return ie.depth === depthMin; }).length;
+    return depthCount === 1;
 }

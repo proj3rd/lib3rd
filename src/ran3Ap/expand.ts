@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash';
 
-import { IDefinitions, IMsgIeDefinition, reReference } from './common';
+import { IDefinitions, IIe, IMsgIeDefinition, reReference } from './common';
 
 interface IDefinitionTreeNode {
   content: IMsgIeDefinition;
@@ -81,9 +81,11 @@ function expandStack(stackUnexpanded: IDefinitionTreeNode[], definitionsExpanded
       }
       const depth = ies[i].depth;
       const subIes = cloneDeep((definitionsExpanded[reference] as IMsgIeDefinition).ies);
-      ies.splice(i + 1, 0, ...subIes);
+      const numIesToRemove = hasSingleRoot(subIes) ? 1 : 0;
+      const offsetSingleRoot = hasSingleRoot(subIes) ? 0 : 1;
+      ies.splice(i + offsetSingleRoot, numIesToRemove, ...subIes);
       for (let j = 0; j < subIes.length; j++) {
-        ies[i + j + 1].depth += depth + 1;
+        ies[i + j + offsetSingleRoot].depth += depth + offsetSingleRoot;
       }
     }
     definitionsExpanded[section] = msgIeDefinition;
@@ -96,4 +98,13 @@ function getReference(text: string): string {
     return null;
   }
   return matchReference[0];
+}
+
+function hasSingleRoot(ies: IIe[]): boolean {
+  if (ies.length === 1) {
+    return true;
+  }
+  const depthMin = ies[0].depth;
+  const depthCount = ies.filter((ie) => ie.depth === depthMin).length;
+  return depthCount === 1;
 }
