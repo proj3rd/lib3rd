@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var _ = require("lodash");
+var lodash_1 = require("lodash");
 var common_1 = require("./common");
 /**
  * Expand references in definition of message or IE
@@ -16,7 +16,7 @@ function expand(msgIeDefinition, definitions, definitionsExpanded) {
         return { msgIeDefinition: definitionsExpanded[msgIeDefinition.section],
             definitionsExpanded: definitionsExpanded };
     }
-    var definitionsExpandedClone = _.cloneDeep(definitionsExpanded);
+    var definitionsExpandedClone = lodash_1.cloneDeep(definitionsExpanded);
     var stackUnexpanded = prepareExpansionStack(msgIeDefinition, definitions, definitionsExpandedClone);
     expandStack(stackUnexpanded, definitionsExpandedClone);
     return { msgIeDefinition: definitionsExpandedClone[section],
@@ -63,7 +63,7 @@ function prepareExpansionStack(msgIeDefinition, definitions, definitionsExpanded
 }
 function expandStack(stackUnexpanded, definitionsExpanded) {
     while (stackUnexpanded.length) {
-        var msgIeDefinition = _.cloneDeep(stackUnexpanded.pop().content);
+        var msgIeDefinition = lodash_1.cloneDeep(stackUnexpanded.pop().content);
         var section = msgIeDefinition.section, ies = msgIeDefinition.ies;
         // ies length may not be constant. So not using for-of
         // tslint:disable-next-line:prefer-for-of
@@ -73,8 +73,8 @@ function expandStack(stackUnexpanded, definitionsExpanded) {
                 continue;
             }
             var depth = ies[i].depth;
-            var subIes = definitionsExpanded[reference].ies;
-            ies.splice.apply(ies, [i + 1, 0].concat((_.cloneDeep(subIes))));
+            var subIes = lodash_1.cloneDeep(definitionsExpanded[reference].ies);
+            ies.splice.apply(ies, [i + 1, 0].concat(subIes));
             for (var j = 0; j < subIes.length; j++) {
                 ies[i + j + 1].depth += depth + 1;
             }
