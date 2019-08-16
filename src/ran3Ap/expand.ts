@@ -81,8 +81,19 @@ function expandStack(stackUnexpanded: IDefinitionTreeNode[], definitionsExpanded
       }
       const depth = ies[i].depth;
       const subIes = cloneDeep((definitionsExpanded[reference] as IMsgIeDefinition).ies);
-      const numIesToRemove = hasSingleRoot(subIes) ? 1 : 0;
-      const offsetSingleRoot = hasSingleRoot(subIes) ? 0 : 1;
+      const isSingleRooted = hasSingleRoot(subIes);
+      const numIesToRemove = isSingleRooted ? 1 : 0;
+      const offsetSingleRoot = isSingleRooted ? 0 : 1;
+      if (isSingleRooted) {
+        const rootIeNew = subIes[0];
+        const rootIeOld = ies[i + offsetSingleRoot];
+        rootIeNew['ie/group name'] = rootIeOld['ie/group name'];
+        rootIeNew.presence = rootIeOld.presence;
+        if (rootIeOld['semantics description']) {
+          rootIeNew['semantics description'] =
+            rootIeOld['semantics description'] + '\n\n' + rootIeNew['semantics description'];
+        }
+      }
       ies.splice(i + offsetSingleRoot, numIesToRemove, ...subIes);
       for (let j = 0; j < subIes.length; j++) {
         ies[i + j + offsetSingleRoot].depth += depth + offsetSingleRoot;

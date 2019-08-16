@@ -74,8 +74,19 @@ function expandStack(stackUnexpanded, definitionsExpanded) {
             }
             var depth = ies[i].depth;
             var subIes = lodash_1.cloneDeep(definitionsExpanded[reference].ies);
-            var numIesToRemove = hasSingleRoot(subIes) ? 1 : 0;
-            var offsetSingleRoot = hasSingleRoot(subIes) ? 0 : 1;
+            var isSingleRooted = hasSingleRoot(subIes);
+            var numIesToRemove = isSingleRooted ? 1 : 0;
+            var offsetSingleRoot = isSingleRooted ? 0 : 1;
+            if (isSingleRooted) {
+                var rootIeNew = subIes[0];
+                var rootIeOld = ies[i + offsetSingleRoot];
+                rootIeNew['ie/group name'] = rootIeOld['ie/group name'];
+                rootIeNew.presence = rootIeOld.presence;
+                if (rootIeOld['semantics description']) {
+                    rootIeNew['semantics description'] =
+                        rootIeOld['semantics description'] + '\n\n' + rootIeNew['semantics description'];
+                }
+            }
             ies.splice.apply(ies, [i + offsetSingleRoot, numIesToRemove].concat(subIes));
             for (var j = 0; j < subIes.length; j++) {
                 ies[i + j + offsetSingleRoot].depth += depth + offsetSingleRoot;
