@@ -1,5 +1,10 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
+
+import { ModuleDefinitionContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { IModuleBody, ModuleBodyVisitor } from './moduleBody';
 
@@ -21,8 +26,13 @@ export interface IModuleDefinition {
  *       END_LITERAL
  * ```
  */
-export class ModuleDefinitionVisitor {
-  public visitChildren(moduleDefinitionCtx: any): IModuleDefinition {
+export class ModuleDefinitionVisitor extends AbstractParseTreeVisitor<IModuleDefinition>
+                                     implements ASN_3gppVisitor<IModuleDefinition> {
+  public defaultResult(): IModuleDefinition {
+    return { moduleName: undefined, definition: undefined };
+  }
+
+  public visitChildren(moduleDefinitionCtx: ModuleDefinitionContext): IModuleDefinition {
     const {children: childCtxes} = moduleDefinitionCtx;
     const { length } = childCtxes;
     if (length > 8) {
@@ -35,7 +45,7 @@ export class ModuleDefinitionVisitor {
        */
       log.warn(getLogWithAsn1(moduleDefinitionCtx, 'DefinitiveIdentification not supported:'));
     }
-    const moduleName = childCtxes[0].getText();
+    const moduleName = childCtxes[0].text;
     const moduleBodyCtx = childCtxes[length - 2];
     const definition = moduleBodyCtx.accept(new ModuleBodyVisitor());
     markModuleName(definition, moduleName);
@@ -43,7 +53,7 @@ export class ModuleDefinitionVisitor {
   }
 }
 
-function markModuleName(definition: any, moduleName: string): void {
+function markModuleName(definition: IModuleBody, moduleName: string): void {
   const assignments = definition.assignments;
   // tslint:disable-next-line: forin
   for (const identifier in assignments) {
