@@ -1,6 +1,7 @@
 import { readFile } from 'fs';
 
-import * as antlr4 from 'antlr4';
+import { ANTLRInputStream, CommonTokenStream } from 'antlr4ts';
+
 import { ASN_3gppLexer } from './ASN_3gppLexer';
 import { ASN_3gppParser } from './ASN_3gppParser';
 import { IModules, ModulesVisitor } from './visitors/modules';
@@ -11,11 +12,11 @@ import { IModules, ModulesVisitor } from './visitors/modules';
  * @returns Collection of ASN.1 module definitions. Module name is key
  */
 export function parse(text: string): IModules {
-  const chars = new antlr4.InputStream(text);
+  const chars = new ANTLRInputStream(text);
   const lexer = new ASN_3gppLexer(chars);
-  const tokens = new antlr4.CommonTokenStream(lexer);
+  const tokens = new CommonTokenStream(lexer);
   const parser = new ASN_3gppParser(tokens);
-  parser.buildParseTrees = true;
+  parser.buildParseTree = true;
   const tree = parser.modules();
   return tree.accept(new ModulesVisitor());
 }
