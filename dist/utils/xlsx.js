@@ -1,17 +1,17 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.author = 'Seokseong Jeon';
 exports.styleBorderLeft = {
     border: {
         left: {
-            style: 'thin'
-        }
-    }
+            style: 'thin',
+        },
+    },
 };
 exports.styleBorderTop = {
     border: {
         top: {
-            style: 'thin'
-        }
-    }
+            style: 'thin',
+        },
+    },
 };

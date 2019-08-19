@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var logging_1 = require("../../utils/logging");
 var xl = require("excel4node");
 var xlsx_1 = require("../../utils/xlsx");
@@ -12,27 +12,27 @@ exports.formatConfigDefault = {
         title: {
             font: {
                 size: 18,
-                bold: true
-            }
+                bold: true,
+            },
         },
         header: {
             font: {
-                bold: true
-            }
+                bold: true,
+            },
         },
-        indentWidth: 3
-    }
+        indentWidth: 3,
+    },
 };
 var headerDefinition = {
     ie: 'IE Name',
     reference: 'Reference Name',
     type: 'Type',
     optional: 'Optional',
-    tag: 'Tag'
+    tag: 'Tag',
 };
 var headerConstants = {
     constant: 'Constant',
-    value: 'Value'
+    value: 'Value',
 };
 /**
  * Format ASN.1 in xlsx
@@ -49,8 +49,8 @@ function format(msgIes, asn1Pool, formatConfig) {
         var sheetname = msgIe.name.substr(0, 31 - (indexString.length + 1)) + " " + indexString;
         var ws = wb.addWorksheet(sheetname, {
             outline: {
-                summaryBelow: false
-            }
+                summaryBelow: false,
+            },
         });
         var depthMax = msgIe.definition.depthMax();
         var _c = [1, 1], row = _c[0], col = _c[1];

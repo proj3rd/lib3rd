@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var namedType_1 = require("./namedType");
@@ -33,7 +33,7 @@ var ComponentTypeVisitor = /** @class */ (function () {
                     case 3: {
                         var valueCtx = childCtxes[2];
                         var value = valueCtx.accept(new value_1.ValueVisitor());
-                        componentType["default"] = value;
+                        componentType.default = value;
                         break;
                     }
                     default: {

@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var base_1 = require("./base");
@@ -60,7 +60,7 @@ var NamedType = /** @class */ (function (_super) {
     };
     NamedType.prototype.getOptionalString = function () {
         return this.optional ? '    OPTIONAL' :
-            this["default"] !== undefined ? "    DEFAULT    " + this["default"].toString() : '';
+            this.default !== undefined ? "    DEFAULT    " + this.default.toString() : '';
     };
     return NamedType;
 }(base_1.Base));

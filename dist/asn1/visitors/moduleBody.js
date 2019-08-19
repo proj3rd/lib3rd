@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var assignmentList_1 = require("./assignmentList");
 var exports_1 = require("./exports");
 var imports_1 = require("./imports");
@@ -19,7 +19,7 @@ var ModuleBodyVisitor = /** @class */ (function () {
             exports: [],
             imports: {},
             assignments: {},
-            constants: {}
+            constants: {},
         };
         if (childCtx) {
             moduleBody.exports = childCtx[0].accept(new exports_1.ExportsVisitor());

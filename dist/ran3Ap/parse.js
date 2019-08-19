@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var $ = require("cheerio");
 var fs_1 = require("fs");
 var logging_1 = require("../utils/logging");
@@ -43,7 +43,7 @@ function parse(html) {
                     direction: direction,
                     ies: ies,
                     range: rangeDefinition,
-                    condition: conditionDefinition
+                    condition: conditionDefinition,
                 };
                 definitions[sectionTitle] = sectionNumber;
                 logging_1.log.debug("Item stored: " + sectionNumber + " " + sectionTitle);

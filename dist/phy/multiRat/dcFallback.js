@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var combinatorics = require("js-combinatorics");
 var caCommon_1 = require("../caCommon");
 var caFallback_1 = require("../eUtra/caFallback");

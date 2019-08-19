@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var extensionAdditionAlternatives_1 = require("./extensionAdditionAlternatives");
 var extensionAndException_1 = require("./extensionAndException");
 var optionalExtensionMarker_1 = require("./optionalExtensionMarker");

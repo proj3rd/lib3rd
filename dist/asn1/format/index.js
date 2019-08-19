@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = require("fs");
 var path_1 = require("path");
 var lodash_1 = require("lodash");
@@ -19,7 +19,7 @@ function findMsgIes(msgIeName, asn1) {
             Object.keys(assignments).forEach(function (name) {
                 msgIes.push({
                     name: name,
-                    definition: assignments[name]
+                    definition: assignments[name],
                 });
             });
         }
@@ -30,7 +30,7 @@ function findMsgIes(msgIeName, asn1) {
             if (msgIeName in assignments) {
                 msgIes.push({
                     name: msgIeName,
-                    definition: assignments[msgIeName]
+                    definition: assignments[msgIeName],
                 });
             }
         }
@@ -46,14 +46,14 @@ if (require.main === module) {
             alias: 'f',
             describe: 'Output format',
             choices: ['txt', 'xlsx'],
-            "default": 'txt'
+            default: 'txt',
         },
         expand: {
             alias: 'e',
             describe: 'Whether expand sub-IE or not',
-            "default": false,
-            type: 'boolean'
-        }
+            default: false,
+            type: 'boolean',
+        },
     })
         .help()
         .argv;

@@ -10,7 +10,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var ftp = require("ftp");
 var numbering_1 = require("../utils/numbering");
 var host = 'ftp.3gpp.org';

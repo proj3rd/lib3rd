@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var asn1 = require("./asn1");
 exports.asn1 = asn1;
 var ran3Ap = require("./ran3Ap");

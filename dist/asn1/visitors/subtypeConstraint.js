@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var elementSetSpecs_1 = require("./elementSetSpecs");
 /**
  * ANTLR4 grammar

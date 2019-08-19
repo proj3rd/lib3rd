@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var xlsx_1 = require("../format/xlsx");

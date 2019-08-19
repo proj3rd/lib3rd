@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var extensionMarker_1 = require("../classes/extensionMarker");
 /**
  * ANTLR4 grammar

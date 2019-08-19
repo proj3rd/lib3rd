@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var octetString_1 = require("../classes/octetString");
 /**
  * ANTLR4 grammar

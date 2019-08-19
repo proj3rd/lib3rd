@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var ical = require("node-ical");
 // https://portal.etsi.org/webapp/MeetingCalendar/QueryForm.asp
 var techBodyKeyVal = {
@@ -7,7 +7,7 @@ var techBodyKeyVal = {
     RAN1: 379,
     RAN2: 380,
     RAN3: 381,
-    RAN4: 382
+    RAN4: 382,
 };
 var techBodies = Object.keys(techBodyKeyVal);
 /**

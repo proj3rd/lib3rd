@@ -1,13 +1,13 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = require("fs");
 var text_1 = require("../utils/text");
 var utils_1 = require("./utils");
 var tokens = {
     RRC: {
         start: /^-- ASN1START/gm,
-        end: /^-- ASN1STOP/gm
-    }
+        end: /^-- ASN1STOP/gm,
+    },
 };
 /**
  * Extract ASN.1 from text

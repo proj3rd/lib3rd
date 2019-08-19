@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = require("fs");
 var antlr4 = require("antlr4");
 var ASN_3gppLexer_1 = require("./ASN_3gppLexer");

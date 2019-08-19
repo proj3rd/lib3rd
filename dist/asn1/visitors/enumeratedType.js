@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var enumerated_1 = require("../classes/enumerated");
 var enumerations_1 = require("./enumerations");
 /**

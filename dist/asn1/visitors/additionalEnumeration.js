@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var enumeration_1 = require("./enumeration");
 /**
  * ANTLR4 grammar

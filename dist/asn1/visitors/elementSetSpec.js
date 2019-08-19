@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var unions_1 = require("./unions");

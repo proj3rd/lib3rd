@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var caCommon_1 = require("../caCommon");
 var fallbackGroups = {
     FR1: ['A', 'C', 'D', 'E'],
@@ -21,7 +21,7 @@ var fallbackGroups = {
         ['A', 'D', 'E', 'F'],
         ['A', 'G', 'H', 'I', 'J', 'K', 'L', 'M'],
         ['A', 'O', 'P', 'Q'],
-    ]
+    ],
 };
 var CcConfigNr = /** @class */ (function (_super) {
     __extends(CcConfigNr, _super);

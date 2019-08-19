@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var expand_1 = require("./expand");
 exports.expand = expand_1.expand;
 var extract_1 = require("./extract");

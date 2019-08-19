@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = require("fs");
 var path_1 = require("path");
 var xl = require("excel4node");
@@ -19,30 +19,30 @@ exports.formatConfigDefault = {
         title: {
             font: {
                 size: 18,
-                bold: true
-            }
+                bold: true,
+            },
         },
         header: {
             font: {
-                bold: true
-            }
+                bold: true,
+            },
         },
-        indentWidth: 3
-    }
+        indentWidth: 3,
+    },
 };
 var styleBorderLeft = {
     border: {
         left: {
-            style: 'thin'
-        }
-    }
+            style: 'thin',
+        },
+    },
 };
 var styleBorderTop = {
     border: {
         top: {
-            style: 'thin'
-        }
-    }
+            style: 'thin',
+        },
+    },
 };
 var headerDefinition = {
     'ie/group name': 'IE/Group Name',
@@ -52,15 +52,15 @@ var headerDefinition = {
     'semantics description': 'Semantics Description',
     'criticality': 'Criticality',
     'assigned criticiality': 'Assigned Criticality',
-    'depth': 0
+    'depth': 0,
 };
 var headerRange = {
     'range bound': 'Range bound',
-    'explanation': 'Explanation'
+    'explanation': 'Explanation',
 };
 var headerCondition = {
     condition: 'Condition',
-    explanation: 'Explanation'
+    explanation: 'Explanation',
 };
 /**
  * Generate an Excel workbook containing message(s) and/or IE(s) in a tabular form
@@ -72,15 +72,15 @@ var headerCondition = {
 function format(msgIeDefinitions, formatConfig) {
     if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
     var wb = new xl.Workbook({
-        author: '3GPP Utility https://github.com/gsongsong/3gpp'
+        author: '3GPP Utility https://github.com/gsongsong/3gpp',
     });
     msgIeDefinitions.forEach(function (msgIeDefinition) {
         var _a, _b, _c;
         var wsName = sheetname(msgIeDefinition);
         var ws = wb.addWorksheet(wsName, {
             outline: {
-                summaryBelow: false
-            }
+                summaryBelow: false,
+            },
         });
         var depthMax = msgIeDefinition.ies.reduce(function (prevDepth, currElem) {
             return Math.max(prevDepth, currElem.depth);

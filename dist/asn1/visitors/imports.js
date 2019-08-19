@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var symbolsImported_1 = require("./symbolsImported");
 /**
  * ANTLR4 grammar

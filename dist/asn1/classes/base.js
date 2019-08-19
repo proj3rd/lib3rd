@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var Base = /** @class */ (function () {
     function Base() {

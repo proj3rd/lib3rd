@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var choice_1 = require("../classes/choice");
 var alternativeTypeLists_1 = require("./alternativeTypeLists");
 /**

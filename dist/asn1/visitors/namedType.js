@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var namedType_1 = require("../classes/namedType");
 var asnType_1 = require("./asnType");
 /**

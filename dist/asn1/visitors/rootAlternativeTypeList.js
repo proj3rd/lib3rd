@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var alternativeTypeList_1 = require("./alternativeTypeList");
 /**
  * ANTLR4 grammar
