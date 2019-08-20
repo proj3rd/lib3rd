@@ -1,6 +1,11 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { ComponentTypeContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { NamedType } from '../classes/namedType';
 import { NamedTypeVisitor } from './namedType';
 import { ValueVisitor } from './value';
 
@@ -12,8 +17,12 @@ import { ValueVisitor } from './value';
  *  |  COMPONENTS_LITERAL OF_LITERAL  asnType
  * ```
  */
-export class ComponentTypeVisitor {
-  public visitChildren(componentTypeCtx: any): any /* TODO */ {
+export class ComponentTypeVisitor extends AbstractParseTreeVisitor<NamedType> implements ASN_3gppVisitor<NamedType> {
+  public defaultResult(): NamedType {
+    return undefined;
+  }
+
+  public visitChildren(componentTypeCtx: ComponentTypeContext): NamedType {
     const childCtxes = componentTypeCtx.children;
     let componentType = null;
     switch (getContextName(childCtxes[0])) {
