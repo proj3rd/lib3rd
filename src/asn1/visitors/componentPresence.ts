@@ -1,3 +1,8 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
+import { ComponentPresenceContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+
 import { ComponentPresence } from '../classes/componentPresence';
 
 /**
@@ -6,9 +11,14 @@ import { ComponentPresence } from '../classes/componentPresence';
  * componentPresence: IDENTIFIER (ABSENT_LITERAL | PRESENT_LITERAL)
  * ```
  */
-export class ComponentPresenceVisitor {
-  public visitChildren(componentPresenceCtx: any): ComponentPresence {
+export class ComponentPresenceVisitor extends AbstractParseTreeVisitor<ComponentPresence>
+                                      implements ASN_3gppVisitor<ComponentPresence> {
+  public defaultResult(): ComponentPresence {
+    return undefined;
+  }
+
+  public visitChildren(componentPresenceCtx: ComponentPresenceContext): ComponentPresence {
     const childCtxes = componentPresenceCtx.children;
-    return new ComponentPresence(childCtxes[0].getText(), childCtxes[1].getText());
+    return new ComponentPresence(childCtxes[0].text, childCtxes[1].text);
   }
 }

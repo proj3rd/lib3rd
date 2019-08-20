@@ -1,8 +1,17 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { ParseTree } from 'antlr4ts/tree/ParseTree';
+
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { ComponentPresenceListsContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+
+import { ComponentPresence } from '../classes/componentPresence';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import { ComponentPresenceListVisitor } from './componentPresenceList';
+
+type ComponentPresenceLists = Array<ComponentPresence | ExtensionMarker>;
 
 /**
  * ANTLR4 grammar
@@ -12,11 +21,16 @@ import { ComponentPresenceListVisitor } from './componentPresenceList';
  *   |  ELLIPSIS (COMMA componentPresenceList)?
  * ```
  */
-export class ComponentPresenceListsVisitor {
-  public visitChildren(componentPresenceListsCtx: any): any /* TODO */ {
+export class ComponentPresenceListsVisitor extends AbstractParseTreeVisitor<ComponentPresenceLists>
+                                           implements ASN_3gppVisitor<ComponentPresenceLists> {
+  public defaultResult(): ComponentPresenceLists {
+    return [];
+  }
+
+  public visitChildren(componentPresenceListsCtx: ComponentPresenceListsContext): ComponentPresenceLists {
     const componentPresenceLists = [];
     const childCtxes = componentPresenceListsCtx.children;
-    childCtxes.forEach((childCtx: any, index: number) => {
+    childCtxes.forEach((childCtx: ParseTree, index: number) => {
       switch (getContextName(childCtx)) {
         case 'componentPresenceList': {
           const componentPresenceList = childCtx.accept(new ComponentPresenceListVisitor());
@@ -24,7 +38,7 @@ export class ComponentPresenceListsVisitor {
           break;
         }
         case null: {
-          switch (childCtx.getText()) {
+          switch (childCtx.text) {
             case ',': {
               break;
             }
