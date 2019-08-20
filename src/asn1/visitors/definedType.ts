@@ -1,8 +1,11 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { DefinedTypeContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { DefinedType } from '../classes/definedType';
-
 import { ActualParameterListVisitor } from './actualParameterList';
 
 /**
@@ -12,10 +15,14 @@ import { ActualParameterListVisitor } from './actualParameterList';
  * IDENTIFIER (DOT IDENTIFIER)? actualParameterList?
  * ```
  */
-export class DefinedTypeVisitor {
-  public visitChildren(definedTypeCtx: any): any /* TODO */ {
+export class DefinedTypeVisitor extends AbstractParseTreeVisitor<DefinedType> implements ASN_3gppVisitor<DefinedType> {
+  public defaultResult(): DefinedType {
+    return undefined;
+  }
+
+  public visitChildren(definedTypeCtx: DefinedTypeContext): DefinedType {
     const definedType = new DefinedType();
-    const childCtxes: any[] = definedTypeCtx.children;
+    const childCtxes = definedTypeCtx.children;
     childCtxes.forEach((childCtx) => {
       switch (getContextName(childCtx)) {
         case 'actualParameterList': {
@@ -23,7 +30,7 @@ export class DefinedTypeVisitor {
           break;
         }
         case null: {
-          const text = childCtx.getText();
+          const text = childCtx.text;
           if (text !== '.') {
             if (!definedType.typeReference) {
               definedType.typeReference = text;
