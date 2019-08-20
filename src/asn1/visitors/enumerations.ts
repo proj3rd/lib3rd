@@ -10,7 +10,7 @@ import { AdditionalEnumerationVisitor } from './additionalEnumeration';
 import { EnumerationItem } from './enumerationItem';
 import { RootEnumerationVisitor } from './rootEnumeration';
 
-type Enumerations = Array<EnumerationItem | ExtensionMarker>;
+export type Enumerations = Array<EnumerationItem | ExtensionMarker>;
 
 /**
  * ANTLR4 grammar
