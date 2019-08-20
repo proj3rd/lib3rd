@@ -1,3 +1,7 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
+import { AlternativeTypeListContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { ExtensionAdditionAlternativesVisitor } from './extensionAdditionAlternatives';
 import { ExtensionAndExceptionVisitor } from './extensionAndException';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarker';
@@ -10,8 +14,12 @@ import { RootAlternativeTypeListVisitor } from './rootAlternativeTypeList';
  *    extensionAndException  extensionAdditionAlternatives  optionalExtensionMarker )?
  * ```
  */
-export class AlternativeTypeListsVisitor {
-  public visitChildren(alternativeTypeListsCtx: any): any /* TODO */ {
+export class AlternativeTypeListsVisitor extends AbstractParseTreeVisitor<any> implements ASN_3gppVisitor<any> {
+  public defaultResult(): any {
+    return undefined;
+  }
+
+  public visitChildren(alternativeTypeListsCtx: AlternativeTypeListContext): any /* TODO */ {
     const childCtxes = alternativeTypeListsCtx.children;
     const rootAlternativeTypeListCtx = childCtxes[0];
     const extensionAndExceptionCtx = childCtxes[2];
