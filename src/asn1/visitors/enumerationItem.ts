@@ -1,7 +1,15 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { EnumerationItemContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+
+import { BuiltinValue } from './builtinValue';
 import { ValueVisitor } from './value';
+
+export type EnumerationItem = BuiltinValue;
 
 /**
  * ANTLR4 grammar
@@ -9,13 +17,18 @@ import { ValueVisitor } from './value';
  * enumerationItem : IDENTIFIER | namedNumber | value
  * ```
  */
-export class EnumerationItemVisitor {
-  public visitChildren(enumerationItemCtx: any): any /* TODO */ {
+export class EnumerationItemVisitor extends AbstractParseTreeVisitor<EnumerationItem>
+                                    implements ASN_3gppVisitor<EnumerationItem> {
+  public defaultResult(): EnumerationItem {
+    return undefined;
+  }
+
+  public visitChildren(enumerationItemCtx: EnumerationItemContext): EnumerationItem {
     const childCtx = enumerationItemCtx.children[0];
-    let enumerationItem = null;
+    let enumerationItem: EnumerationItem;
     switch (getContextName(childCtx)) {
       case null: {
-        enumerationItem = childCtx.getText();
+        enumerationItem = childCtx.text;
         break;
       }
       case 'namedNumber': {
