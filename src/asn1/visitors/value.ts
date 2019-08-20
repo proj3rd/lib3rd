@@ -11,7 +11,7 @@ import { BuiltinValue, BuiltinValueVisitor } from './builtinValue';
  * value  :   builtinValue
  * ```
  */
-export class ValueVisitor extends AbstractParseTreeVisitor<any> implements ASN_3gppVisitor<any> {
+export class ValueVisitor extends AbstractParseTreeVisitor<BuiltinValue> implements ASN_3gppVisitor<BuiltinValue> {
   public defaultResult(): BuiltinValue {
     return undefined;
   }
