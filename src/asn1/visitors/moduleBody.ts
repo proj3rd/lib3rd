@@ -3,7 +3,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { ModuleBodyContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
-import { AssignmentListVisitor} from './assignmentList';
+import { AssignmentListVisitor, IAssignments, IConstants } from './assignmentList';
 import { ExportsVisitor } from './exports';
 import { ImportsVisitor } from './imports';
 import { ISymbolsFromModule } from './symbolsFromModuleList';
@@ -11,8 +11,8 @@ import { ISymbolsFromModule } from './symbolsFromModuleList';
 export interface IModuleBody {
   exports: string[];
   imports: ISymbolsFromModule;
-  assignments: any /* TODO */;
-  constants: any /* TODO */;
+  assignments: IAssignments;
+  constants: IConstants;
 }
 
 /**
