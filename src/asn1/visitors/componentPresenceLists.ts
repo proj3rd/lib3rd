@@ -11,7 +11,7 @@ import { ComponentPresence } from '../classes/componentPresence';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import { ComponentPresenceListVisitor } from './componentPresenceList';
 
-type ComponentPresenceLists = Array<ComponentPresence | ExtensionMarker>;
+export type ComponentPresenceLists = Array<ComponentPresence | ExtensionMarker>;
 
 /**
  * ANTLR4 grammar

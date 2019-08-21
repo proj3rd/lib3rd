@@ -1,9 +1,21 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
 
+import { ContentsConstraintContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { AsnType } from '../classes/asnType';
 import { AsnTypeVisitor } from './asnType';
-import { ComponentPresenceListsVisitor } from './componentPresenceLists';
+import { BuiltinValue } from './builtinValue';
+import { ComponentPresenceLists, ComponentPresenceListsVisitor } from './componentPresenceLists';
 import { ValueVisitor } from './value';
+
+export interface IContentsConstraint {
+  containing?: AsnType;
+  encodedBy?: BuiltinValue;
+  withComponents?: ComponentPresenceLists;
+}
 
 /**
  * ANTLR4 grammar
@@ -14,11 +26,16 @@ import { ValueVisitor } from './value';
  *  |  WITH_LITERAL COMPONENTS_LITERAL L_BRACE componentPresenceLists R_BRACE
  * ```
  */
-export class ContentsConstraintVisitor {
-  public visitChildren(contentsConstraintCtx: any): any /* TODO */ {
+export class ContentsConstraintVisitor extends AbstractParseTreeVisitor<IContentsConstraint>
+                                       implements ASN_3gppVisitor<IContentsConstraint> {
+  public defaultResult(): IContentsConstraint {
+    return {};
+  }
+
+  public visitChildren(contentsConstraintCtx: ContentsConstraintContext): IContentsConstraint {
     const childCtxes = contentsConstraintCtx.children;
-    const contentsConstraint: any /* TODO */ = {};
-    switch (childCtxes[0].getText().toLowerCase()) {
+    const contentsConstraint: IContentsConstraint = {};
+    switch (childCtxes[0].text.toLowerCase()) {
       case 'containing': {
         const asnTypeCtx = childCtxes[1];
         const asnType = asnTypeCtx.accept(new AsnTypeVisitor());

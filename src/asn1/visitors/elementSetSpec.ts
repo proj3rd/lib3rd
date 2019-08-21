@@ -1,6 +1,11 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
 
+import { ElementSetSpecContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { IConstraint } from './elements';
 import { UnionsVisitor } from './unions';
 
 /**
@@ -9,10 +14,15 @@ import { UnionsVisitor } from './unions';
  * elementSetSpec : unions | ALL_LITERAL exclusions
  * ```
  */
-export class ElementSetSpecVisitor {
-  public visitChildren(elementSetSpecCtx: any): any /* TODO */ {
+export class ElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint>
+                                   implements ASN_3gppVisitor<IConstraint> {
+  public defaultResult(): IConstraint {
+    return undefined;
+  }
+
+  public visitChildren(elementSetSpecCtx: ElementSetSpecContext): IConstraint {
     const childCtxes = elementSetSpecCtx.children;
-    let elementSetSpec = null;
+    let elementSetSpec: IConstraint;
     switch (childCtxes.length) {
       case 1: {
         elementSetSpec = childCtxes[0].accept(new UnionsVisitor());
