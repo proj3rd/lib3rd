@@ -1,8 +1,22 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
+var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 var logging_1 = require("../../utils/logging");
-var extensionMarker_1 = require("../classes/extensionMarker");
 var utils_1 = require("../utils");
+var extensionMarker_1 = require("../classes/extensionMarker");
 var extensionAdditions_1 = require("./extensionAdditions");
 var extensionAndException_1 = require("./extensionAndException");
 var optionalExtensionMarker_1 = require("./optionalExtensionMarker");
@@ -16,13 +30,18 @@ var tag_1 = require("./tag");
  *    |  extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
  * ```
  */
-var ComponentTypeListsVisitor = /** @class */ (function () {
+var ComponentTypeListsVisitor = /** @class */ (function (_super) {
+    __extends(ComponentTypeListsVisitor, _super);
     function ComponentTypeListsVisitor() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
+    ComponentTypeListsVisitor.prototype.defaultResult = function () {
+        return [];
+    };
     ComponentTypeListsVisitor.prototype.visitChildren = function (componentTypeListsCtx) {
         var childCtxes = componentTypeListsCtx.children;
         var componentTypeLists = [];
-        childCtxes.forEach(function (childCtx /* TODO */) {
+        childCtxes.forEach(function (childCtx) {
             switch (utils_1.getContextName(childCtx)) {
                 case 'rootComponentTypeList': {
                     componentTypeLists.splice.apply(componentTypeLists, [componentTypeLists.length, 0].concat(childCtx.accept(new rootComponentTypeList_1.RootComponentTypeListVisitor())));
@@ -47,7 +66,7 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
                 }
                 default: {
                     // COMMA or EXTENSIONENDMARKER
-                    switch (childCtx.getText()) {
+                    switch (childCtx.text) {
                         case ', ...': {
                             componentTypeLists.push(new extensionMarker_1.ExtensionMarker());
                             break;
@@ -67,5 +86,5 @@ var ComponentTypeListsVisitor = /** @class */ (function () {
         return componentTypeLists;
     };
     return ComponentTypeListsVisitor;
-}());
+}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
 exports.ComponentTypeListsVisitor = ComponentTypeListsVisitor;

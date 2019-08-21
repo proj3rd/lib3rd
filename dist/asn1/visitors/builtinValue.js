@@ -1,5 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
+var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var enumeratedValue_1 = require("./enumeratedValue");
@@ -16,26 +30,31 @@ var enumeratedValue_1 = require("./enumeratedValue");
  *   |   BSTRING
  * ```
  */
-var BuiltinValueVisitor = /** @class */ (function () {
+var BuiltinValueVisitor = /** @class */ (function (_super) {
+    __extends(BuiltinValueVisitor, _super);
     function BuiltinValueVisitor() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
+    BuiltinValueVisitor.prototype.defaultResult = function () {
+        return undefined;
+    };
     BuiltinValueVisitor.prototype.visitChildren = function (builtinValueCtx) {
         var subContext = builtinValueCtx.children[0];
         var contextName = utils_1.getContextName(subContext);
-        var valueAssignment = null;
+        var valueAssignment;
         if (!contextName) {
             // Corresponds to CSTRING or BSTRING
-            valueAssignment = subContext.getText();
+            valueAssignment = subContext.text;
         }
         switch (contextName) {
             case 'booleanValue': {
-                valueAssignment = subContext.getText().toLowerCase() === 'true';
+                valueAssignment = subContext.text.toLowerCase() === 'true';
                 break;
             }
             case 'integerValue': {
-                var valueText = subContext.getText();
+                var valueText = subContext.text;
                 var valueNumeric = Number(valueText);
-                valueAssignment = valueNumeric === valueText ? valueNumeric : valueText;
+                valueAssignment = isNaN(valueNumeric) ? valueText : valueNumeric;
                 break;
             }
             case 'enumeratedValue': {
@@ -58,7 +77,7 @@ var BuiltinValueVisitor = /** @class */ (function () {
                 break;
             }
             case null: {
-                valueAssignment = subContext.getText();
+                valueAssignment = subContext.text;
                 break;
             }
             default: {
@@ -69,5 +88,5 @@ var BuiltinValueVisitor = /** @class */ (function () {
         return valueAssignment;
     };
     return BuiltinValueVisitor;
-}());
+}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
 exports.BuiltinValueVisitor = BuiltinValueVisitor;

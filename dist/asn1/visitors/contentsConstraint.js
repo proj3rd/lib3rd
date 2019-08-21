@@ -1,5 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
+var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var asnType_1 = require("./asnType");
@@ -14,13 +28,18 @@ var value_1 = require("./value");
  *  |  WITH_LITERAL COMPONENTS_LITERAL L_BRACE componentPresenceLists R_BRACE
  * ```
  */
-var ContentsConstraintVisitor = /** @class */ (function () {
+var ContentsConstraintVisitor = /** @class */ (function (_super) {
+    __extends(ContentsConstraintVisitor, _super);
     function ContentsConstraintVisitor() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
+    ContentsConstraintVisitor.prototype.defaultResult = function () {
+        return {};
+    };
     ContentsConstraintVisitor.prototype.visitChildren = function (contentsConstraintCtx) {
         var childCtxes = contentsConstraintCtx.children;
         var contentsConstraint = {};
-        switch (childCtxes[0].getText().toLowerCase()) {
+        switch (childCtxes[0].text.toLowerCase()) {
             case 'containing': {
                 var asnTypeCtx = childCtxes[1];
                 var asnType = asnTypeCtx.accept(new asnType_1.AsnTypeVisitor());
@@ -50,5 +69,5 @@ var ContentsConstraintVisitor = /** @class */ (function () {
         return contentsConstraint;
     };
     return ContentsConstraintVisitor;
-}());
+}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
 exports.ContentsConstraintVisitor = ContentsConstraintVisitor;

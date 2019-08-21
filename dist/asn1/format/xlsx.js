@@ -67,8 +67,8 @@ function format(msgIes, asn1Pool, formatConfig) {
 }
 exports.format = format;
 function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig) {
-    if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
     var _a, _b;
+    if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
     if (formatConfig.freezeHeader) {
         ws.row(row).freeze();
     }

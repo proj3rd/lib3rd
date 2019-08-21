@@ -16,7 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var xlsx_1 = require("../format/xlsx");
-var base_1 = require("./base");
+var asnType_1 = require("./asnType");
 var BitString = /** @class */ (function (_super) {
     __extends(BitString, _super);
     function BitString() {
@@ -56,8 +56,8 @@ var BitString = /** @class */ (function (_super) {
         return "BIT STRING " + valueConstraint;
     };
     BitString.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        if (depth === void 0) { depth = 0; }
         var _a;
+        if (depth === void 0) { depth = 0; }
         ieElem.type = this.toString();
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
         this.addToConstants(this.size, constants);
@@ -66,5 +66,5 @@ var BitString = /** @class */ (function (_super) {
         return [row, col];
     };
     return BitString;
-}(base_1.Base));
+}(asnType_1.AsnType));
 exports.BitString = BitString;

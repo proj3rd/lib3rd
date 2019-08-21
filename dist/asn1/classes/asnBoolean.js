@@ -16,7 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var xlsx_1 = require("../format/xlsx");
-var base_1 = require("./base");
+var asnType_1 = require("./asnType");
 var AsnBoolean = /** @class */ (function (_super) {
     __extends(AsnBoolean, _super);
     function AsnBoolean() {
@@ -41,12 +41,12 @@ var AsnBoolean = /** @class */ (function (_super) {
         return 'BOOLEAN';
     };
     AsnBoolean.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        if (depth === void 0) { depth = 0; }
         var _a;
+        if (depth === void 0) { depth = 0; }
         ieElem.type = 'BOOLEAN';
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
         return [row, col];
     };
     return AsnBoolean;
-}(base_1.Base));
+}(asnType_1.AsnType));
 exports.AsnBoolean = AsnBoolean;

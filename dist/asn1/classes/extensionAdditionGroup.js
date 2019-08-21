@@ -69,8 +69,8 @@ var ExtensionAdditionGroup = /** @class */ (function (_super) {
         ].join('\n');
     };
     ExtensionAdditionGroup.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        if (depth === void 0) { depth = 0; }
         var _a, _b;
+        if (depth === void 0) { depth = 0; }
         ieElem.ie = '[[';
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
         this.componentTypeList.forEach(function (componentType) {

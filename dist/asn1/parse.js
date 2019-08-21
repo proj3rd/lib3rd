@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = require("fs");
-var antlr4 = require("antlr4");
+var antlr4ts_1 = require("antlr4ts");
 var ASN_3gppLexer_1 = require("./ASN_3gppLexer");
 var ASN_3gppParser_1 = require("./ASN_3gppParser");
 var modules_1 = require("./visitors/modules");
@@ -11,11 +11,11 @@ var modules_1 = require("./visitors/modules");
  * @returns Collection of ASN.1 module definitions. Module name is key
  */
 function parse(text) {
-    var chars = new antlr4.InputStream(text);
+    var chars = new antlr4ts_1.ANTLRInputStream(text);
     var lexer = new ASN_3gppLexer_1.ASN_3gppLexer(chars);
-    var tokens = new antlr4.CommonTokenStream(lexer);
+    var tokens = new antlr4ts_1.CommonTokenStream(lexer);
     var parser = new ASN_3gppParser_1.ASN_3gppParser(tokens);
-    parser.buildParseTrees = true;
+    parser.buildParseTree = true;
     var tree = parser.modules();
     return tree.accept(new modules_1.ModulesVisitor());
 }

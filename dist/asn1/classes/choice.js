@@ -16,7 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var xlsx_1 = require("../format/xlsx");
-var base_1 = require("./base");
+var asnType_1 = require("./asnType");
 var Choice = /** @class */ (function (_super) {
     __extends(Choice, _super);
     function Choice(choices) {
@@ -59,8 +59,8 @@ var Choice = /** @class */ (function (_super) {
         ].join('\n');
     };
     Choice.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        if (depth === void 0) { depth = 0; }
         var _a;
+        if (depth === void 0) { depth = 0; }
         ieElem.type = 'CHOICE';
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
         this.choices.forEach(function (choice) {
@@ -70,5 +70,5 @@ var Choice = /** @class */ (function (_super) {
         return [row, col];
     };
     return Choice;
-}(base_1.Base));
+}(asnType_1.AsnType));
 exports.Choice = Choice;

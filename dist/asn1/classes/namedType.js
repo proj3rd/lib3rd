@@ -46,8 +46,8 @@ var NamedType = /** @class */ (function (_super) {
         return this.name.padEnd(48) + "    " + this.type + this.getOptionalString();
     };
     NamedType.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        if (depth === void 0) { depth = 0; }
         var _a;
+        if (depth === void 0) { depth = 0; }
         ieElem.ie = this.name;
         var moduleReference = this /* TODO */.type.moduleReference;
         var typeReference = this /* TOdO */.type.typeReference;

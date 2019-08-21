@@ -16,7 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var xlsx_1 = require("../format/xlsx");
-var base_1 = require("./base");
+var asnType_1 = require("./asnType");
 var SequenceOf = /** @class */ (function (_super) {
     __extends(SequenceOf, _super);
     function SequenceOf(type) {
@@ -69,8 +69,8 @@ var SequenceOf = /** @class */ (function (_super) {
         return "SEQUENCE" + size + " OF " + this.type.toString();
     };
     SequenceOf.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        if (depth === void 0) { depth = 0; }
         var _a, _b;
+        if (depth === void 0) { depth = 0; }
         ieElem.type = this.toStringUnexpanded();
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
         this.addToConstants(this.size, constants);
@@ -82,5 +82,5 @@ var SequenceOf = /** @class */ (function (_super) {
         return [row, col];
     };
     return SequenceOf;
-}(base_1.Base));
+}(asnType_1.AsnType));
 exports.SequenceOf = SequenceOf;

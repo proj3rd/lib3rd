@@ -1,5 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
+var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 var logging_1 = require("../../utils/logging");
 var utils_1 = require("../utils");
 var parameterizedAssignment_1 = require("./parameterizedAssignment");
@@ -19,36 +33,43 @@ var valueAssignment_1 = require("./valueAssignment");
  * )
  * ```
  */
-var AssignmentListVisitor = /** @class */ (function () {
+var AssignmentListVisitor = /** @class */ (function (_super) {
+    __extends(AssignmentListVisitor, _super);
     function AssignmentListVisitor() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
+    AssignmentListVisitor.prototype.defaultResult = function () {
+        return { assignments: {}, constants: {} };
+    };
     AssignmentListVisitor.prototype.visitChildren = function (assignmentListCtx) {
-        var assignments = {};
-        var constants = {};
+        var assignmentList = {
+            assignments: {},
+            constants: {},
+        };
         var assignmentCtxes = assignmentListCtx.children;
         assignmentCtxes.forEach(function (assignmentCtx) {
-            var referenceName = assignmentCtx.children[0].getText();
+            var referenceName = assignmentCtx.children[0].text;
             var rValueContext = assignmentCtx.children[1];
             var contextName = utils_1.getContextName(rValueContext);
             switch (contextName) {
                 case 'valueAssignment': {
                     var value = rValueContext.accept(new valueAssignment_1.ValueAssignmentVisitor());
                     if (value !== null) {
-                        constants[referenceName] = value;
+                        assignmentList.constants[referenceName] = value;
                     }
                     break;
                 }
                 case 'typeAssignment': {
                     var type = rValueContext.accept(new typeAssignment_1.TypeAssignmentVisitor());
                     if (type) {
-                        assignments[referenceName] = type;
+                        assignmentList.assignments[referenceName] = type;
                     }
                     break;
                 }
                 case 'parameterizedAssignment': {
                     var parameterizedAssignment = rValueContext.accept(new parameterizedAssignment_1.ParameterizedAssignmentVisitor());
                     if (parameterizedAssignment) {
-                        assignments[referenceName] = parameterizedAssignment;
+                        assignmentList.assignments[referenceName] = parameterizedAssignment;
                     }
                     break;
                 }
@@ -62,8 +83,8 @@ var AssignmentListVisitor = /** @class */ (function () {
                 }
             }
         });
-        return { assignments: assignments, constants: constants };
+        return assignmentList;
     };
     return AssignmentListVisitor;
-}());
+}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
 exports.AssignmentListVisitor = AssignmentListVisitor;

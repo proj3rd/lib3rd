@@ -13,26 +13,12 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-var builtinValue_1 = require("./builtinValue");
-/**
- * ANTLR4 grammar
- * ```
- * value  :   builtinValue
- * ```
- */
-var ValueVisitor = /** @class */ (function (_super) {
-    __extends(ValueVisitor, _super);
-    function ValueVisitor() {
+var base_1 = require("./base");
+var AsnType = /** @class */ (function (_super) {
+    __extends(AsnType, _super);
+    function AsnType() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ValueVisitor.prototype.defaultResult = function () {
-        return undefined;
-    };
-    ValueVisitor.prototype.visitChildren = function (valueCtx) {
-        var builtinValueCtx = valueCtx.children[0];
-        return builtinValueCtx.accept(new builtinValue_1.BuiltinValueVisitor());
-    };
-    return ValueVisitor;
-}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
-exports.ValueVisitor = ValueVisitor;
+    return AsnType;
+}(base_1.Base));
+exports.AsnType = AsnType;

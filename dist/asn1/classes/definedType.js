@@ -17,7 +17,7 @@ var lodash_1 = require("lodash");
 var logging_1 = require("../../utils/logging");
 var xlsx_1 = require("../format/xlsx");
 var utils_1 = require("../utils");
-var base_1 = require("./base");
+var asnType_1 = require("./asnType");
 var withComponents_1 = require("./withComponents");
 var DefinedType = /** @class */ (function (_super) {
     __extends(DefinedType, _super);
@@ -81,8 +81,8 @@ var DefinedType = /** @class */ (function (_super) {
             ("" + this.typeReference + actualParameterListString + withComponents);
     };
     DefinedType.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        if (depth === void 0) { depth = 0; }
         var _a;
+        if (depth === void 0) { depth = 0; }
         ieElem.reference = this.toString();
         _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
         return [row, col];
@@ -92,5 +92,5 @@ var DefinedType = /** @class */ (function (_super) {
             " { " + this.actualParameterList.map(function (item) { return item.toString(); }).join(', ') + " }";
     };
     return DefinedType;
-}(base_1.Base));
+}(asnType_1.AsnType));
 exports.DefinedType = DefinedType;

@@ -1,6 +1,6 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
-export declare class Enumerated extends Base {
+import { AsnType } from './asnType';
+export declare class Enumerated extends AsnType {
     items: any[];
     constructor(items: any[]);
     setConstraint(constraint: any): Enumerated;
