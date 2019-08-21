@@ -1,10 +1,14 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { SequenceOfTypeContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { SequenceOf } from '../classes/sequenceOf';
-
 import { AsnTypeVisitor } from './asnType';
 import { ConstraintVisitor } from './constraint';
+import { ConstraintSpec } from './constraintSpec';
 import { NamedTypeVisitor } from './namedType';
 import { SizeConstraintVisitor } from './sizeConstraint';
 
@@ -14,10 +18,14 @@ import { SizeConstraintVisitor } from './sizeConstraint';
  * sequenceOfType  : SEQUENCE_LITERAL (L_PARAN (constraint | sizeConstraint) R_PARAN)? OF_LITERAL (asnType | namedType )
  * ```
  */
-export class SequenceOfTypeVisitor {
-  public visitChildren(sequenceOfTypeCtx: any): SequenceOf {
+export class SequenceOfTypeVisitor extends AbstractParseTreeVisitor<SequenceOf> implements ASN_3gppVisitor<SequenceOf> {
+  public defaultResult(): SequenceOf {
+    return undefined;
+  }
+
+  public visitChildren(sequenceOfTypeCtx: SequenceOfTypeContext): SequenceOf {
     const childCtxes = sequenceOfTypeCtx.children;
-    let sequenceOfType: SequenceOf = null;
+    let sequenceOfType: SequenceOf;
     const typeCtx = childCtxes[childCtxes.length - 1];
     let type = null;
     switch (getContextName(typeCtx)) {
@@ -44,7 +52,7 @@ export class SequenceOfTypeVisitor {
         }
         case 6: {
           const constraintCtx = childCtxes[2];
-          let constraint = null;
+          let constraint: ConstraintSpec;
           switch (getContextName(constraintCtx)) {
             case 'constraint': {
               constraint = constraintCtx.accept(new ConstraintVisitor());
