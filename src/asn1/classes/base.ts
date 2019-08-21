@@ -10,9 +10,9 @@ export abstract class Base {
   public abstract toString(): string;
   public abstract fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
                                 constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];
+  public abstract setConstraint(constraint: any): Base;
   public abstract replaceParameters(parameterMapping: {[parameter: string]: any /* TODO */}): void;
 
-  protected abstract setConstraint(constraint: any): Base;
   protected indent(text: string): string {
     return text.replace(/^/gm, '  ');
   }

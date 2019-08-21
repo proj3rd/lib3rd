@@ -1,6 +1,11 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { AsnTypeContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { AsnType } from '../classes/asnType';
 import { BuiltinTypeVisitor } from './builtinType';
 import { ConstraintVisitor } from './constraint';
 import { ReferencedTypeVisitor } from './referencedType';
@@ -11,13 +16,17 @@ import { ReferencedTypeVisitor } from './referencedType';
  * asnType : (builtinType | referencedType) (constraint)*
  * ```
  */
-export class AsnTypeVisitor {
-  public visitChildren(asnTypeCtx: any): any /* TODO */ {
+export class AsnTypeVisitor extends AbstractParseTreeVisitor<AsnType> implements ASN_3gppVisitor<AsnType> {
+  public defaultResult(): AsnType {
+    return undefined;
+  }
+
+  public visitChildren(asnTypeCtx: AsnTypeContext): AsnType {
     const childCtxes = asnTypeCtx.children;
     const typeCtx = childCtxes[0];
     const constraintCtx = childCtxes[1];
     const contextName = getContextName(typeCtx);
-    let type = null;
+    let type: AsnType;
     switch (contextName) {
       case 'builtinType': {
         type = typeCtx.accept(new BuiltinTypeVisitor());
