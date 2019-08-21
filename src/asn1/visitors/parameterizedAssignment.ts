@@ -1,6 +1,11 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { ParameterizedAssignmentContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { AsnType } from '../classes/asnType';
 import { AsnTypeVisitor } from './asnType';
 import { ParameterListVisitor } from './parameterList';
 
@@ -24,12 +29,17 @@ import { ParameterListVisitor } from './parameterList';
  * ;
  * ```
  */
-export class ParameterizedAssignmentVisitor {
-  public visitChildren(parameterizedAssignmentCtx: any): any /* TODO */ {
-    let parameterList = null;
-    let asnType = null;
-    const childCtxes: any/* TODO */[] = parameterizedAssignmentCtx.children;
-    childCtxes.every((childCtx: any /* TODO */) => {
+export class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<AsnType>
+                                            implements ASN_3gppVisitor<AsnType> {
+  public defaultResult(): AsnType {
+    return undefined;
+  }
+
+  public visitChildren(parameterizedAssignmentCtx: ParameterizedAssignmentContext): AsnType {
+    let parameterList: string[];
+    let asnType: AsnType;
+    const childCtxes = parameterizedAssignmentCtx.children;
+    childCtxes.every((childCtx) => {
       switch (getContextName(childCtx)) {
         case 'parameterList': {
           parameterList = childCtx.accept(new ParameterListVisitor());
@@ -59,8 +69,7 @@ export class ParameterizedAssignmentVisitor {
     });
     if (asnType) {
       asnType.parameterList = parameterList;
-      return asnType;
     }
-    return null;
+    return asnType;
   }
 }

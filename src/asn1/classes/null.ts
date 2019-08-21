@@ -3,9 +3,9 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { AsnType } from './asnType';
 
-export class Null extends Base {
+export class Null extends AsnType {
   public setConstraint(constraint: any): Null {
     if (!isEmpty(constraint)) {
       log.warn(`Null could not handle constraint ${JSON.stringify(constraint)}`);

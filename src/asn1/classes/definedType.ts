@@ -4,10 +4,11 @@ import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
+import { AsnType } from './asnType';
 import { Base } from './base';
 import { WithComponents } from './withComponents';
 
-export class DefinedType extends Base {
+export class DefinedType extends AsnType {
   public moduleReference: string;
   public typeReference: string;
   public actualParameterList: any/* TODO */[];

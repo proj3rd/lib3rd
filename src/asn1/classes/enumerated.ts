@@ -3,9 +3,9 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { AsnType } from './asnType';
 
-export class Enumerated extends Base {
+export class Enumerated extends AsnType {
   public items: any[];
 
   constructor(items: any[]) {

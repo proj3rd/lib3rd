@@ -3,10 +3,10 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { AsnType } from './asnType';
 import { NamedType } from './namedType';
 
-export class Choice extends Base {
+export class Choice extends AsnType {
   public choices: NamedType[];
 
   constructor(choices: any) {

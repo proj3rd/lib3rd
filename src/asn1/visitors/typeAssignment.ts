@@ -1,3 +1,8 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
+import { TypeAssignmentContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { AsnType } from '../classes/asnType';
 import { AsnTypeVisitor } from './asnType';
 
 /**
@@ -8,8 +13,12 @@ import { AsnTypeVisitor } from './asnType';
  *       asnType
  * ```
  */
-export class TypeAssignmentVisitor {
-  public visitChildren(typeAssignmentCtx: any): any /* TODO */ {
+export class TypeAssignmentVisitor extends AbstractParseTreeVisitor<AsnType> implements ASN_3gppVisitor<AsnType> {
+  public defaultResult(): AsnType {
+    return undefined;
+  }
+
+  public visitChildren(typeAssignmentCtx: TypeAssignmentContext): AsnType {
     return typeAssignmentCtx.children[1].accept(new AsnTypeVisitor());
   }
 }

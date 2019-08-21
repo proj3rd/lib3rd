@@ -3,10 +3,10 @@ import { cloneDeep, isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { AsnType } from './asnType';
 import { NamedType } from './namedType';
 
-export class SequenceOf extends Base {
+export class SequenceOf extends AsnType {
   public type: NamedType;
   public expandedType: NamedType;
   public size: number | string;
