@@ -10,7 +10,7 @@ import { NamedType } from '../classes/namedType';
 import { ComponentTypeVisitor } from './componentType';
 import { ExtensionAdditionGroupVisitor } from './extensionAdditionGroup';
 
-type ExtensionAddition = NamedType | ExtensionAdditionGroup;
+export type ExtensionAddition = NamedType | ExtensionAdditionGroup;
 
 /**
  * ANTLR4 grammar

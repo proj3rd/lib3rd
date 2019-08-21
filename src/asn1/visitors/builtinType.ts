@@ -1,9 +1,19 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
+import { BuiltinTypeContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnBoolean } from '../classes/asnBoolean';
+import { BitString } from '../classes/bitString';
+import { Choice } from '../classes/choice';
+import { Enumerated } from '../classes/enumerated';
+import { Integer } from '../classes/integer';
 import { Null } from '../classes/null';
-
+import { OctetString } from '../classes/octetString';
+import { Sequence } from '../classes/sequence';
+import { SequenceOf } from '../classes/sequenceOf';
 import { BitStringTypeVisitor } from './bitStringType';
 import { ChoiceTypeVisitor } from './choiceType';
 import { EnumeratedTypeVisitor } from './enumeratedType';
@@ -11,6 +21,9 @@ import { IntegerTypeVisitor } from './integerType';
 import { OctetStringTypeVisitor } from './octetStringType';
 import { SequenceOfTypeVisitor } from './sequenceOfType';
 import { SequenceTypeVisitor } from './sequenceType';
+
+export type BuiltinType = AsnBoolean | BitString | Choice | Enumerated |
+                          Integer | Null | OctetString | Sequence | SequenceOf;
 
 /**
  * ANTLR4 grammar
@@ -29,10 +42,14 @@ import { SequenceTypeVisitor } from './sequenceType';
  *  | BOOLEAN_LITERAL
  *  | NULL_LITERAL
  */
-export class BuiltinTypeVisitor {
-  public visitChildren(builtinTypeCtx: any): any /* TODO */ {
+export class BuiltinTypeVisitor extends AbstractParseTreeVisitor<BuiltinType> implements ASN_3gppVisitor<BuiltinType> {
+  public defaultResult(): BuiltinType {
+    return undefined;
+  }
+
+  public visitChildren(builtinTypeCtx: BuiltinTypeContext): BuiltinType {
     const childCtx = builtinTypeCtx.children[0];
-    let builtinType = null;
+    let builtinType: BuiltinType;
     switch (getContextName(childCtx)) {
       case 'bitStringType': {
         builtinType = childCtx.accept(new BitStringTypeVisitor());
@@ -63,7 +80,7 @@ export class BuiltinTypeVisitor {
         break;
       }
       default: {
-        switch (childCtx.getText().toLowerCase()) {
+        switch (childCtx.text.toLowerCase()) {
           case 'boolean': {
             builtinType = new AsnBoolean();
             break;

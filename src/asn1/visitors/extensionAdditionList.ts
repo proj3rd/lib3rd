@@ -1,8 +1,14 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 
 import { getContextName, getLogWithAsn1 } from '../utils';
-import { ExtensionAdditionVisitor } from './extensionAddition';
+
+import { ExtensionAdditionListContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { ExtensionAddition, ExtensionAdditionVisitor } from './extensionAddition';
 import { TagVisitor } from './tag';
+import { NamedType } from '../classes/namedType';
 
 /**
  * ANTLR4 grammar
@@ -10,21 +16,26 @@ import { TagVisitor } from './tag';
  * extensionAdditionList  :  (extensionAddition) (COMMA tag? extensionAddition)*
  * ```
  */
-export class ExtensionAdditionListVisitor {
-  public visitChildren(extensionAdditionListCtx: any): any /* TODO */ {
+export class ExtensionAdditionListVisitor extends AbstractParseTreeVisitor<ExtensionAddition[]>
+                                          implements ASN_3gppVisitor<ExtensionAddition[]> {
+  public defaultResult(): ExtensionAddition[] {
+    return [];
+  }
+
+  public visitChildren(extensionAdditionListCtx: ExtensionAdditionListContext): ExtensionAddition[] {
     const childCtxes = extensionAdditionListCtx.children;
-    const extensionAdditionList = [];
-    childCtxes.forEach((childCtx: any, index: number) => {
+    const extensionAdditionList: ExtensionAddition[] = [];
+    childCtxes.forEach((childCtx) => {
       switch (getContextName(childCtx)) {
         case 'extensionAddition': {
-          const extensionAddition = childCtx.accept(new ExtensionAdditionVisitor());
-          extensionAdditionList.splice(extensionAdditionList.length, 0, ...extensionAddition);
+          extensionAdditionList.push(childCtx.accept(new ExtensionAdditionVisitor()));
           break;
         }
         case 'tag': {
           const tag = childCtx.accept(new TagVisitor());
-          if (tag) {
-            extensionAdditionList[extensionAdditionList.length - 1].tag = tag;
+          const lastItem = extensionAdditionList[extensionAdditionList.length - 1];
+          if (tag && lastItem instanceof NamedType) {
+            lastItem.tag = tag;
           }
           break;
         }

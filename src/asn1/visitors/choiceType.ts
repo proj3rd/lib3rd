@@ -1,5 +1,9 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { Choice } from '../classes/choice';
 
+import { ChoiceTypeContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AlternativeTypeListsVisitor } from './alternativeTypeLists';
 
 /**
@@ -8,8 +12,12 @@ import { AlternativeTypeListsVisitor } from './alternativeTypeLists';
  * choiceType    : CHOICE_LITERAL L_BRACE alternativeTypeLists R_BRACE
  * ```
  */
-export class ChoiceTypeVisitor {
-  public visitChildren(choiceTypeCtx: any): Choice {
+export class ChoiceTypeVisitor extends AbstractParseTreeVisitor<Choice> implements ASN_3gppVisitor<Choice> {
+  public defaultResult(): Choice {
+    return undefined;
+  }
+
+  public visitChildren(choiceTypeCtx: ChoiceTypeContext): Choice {
     const alternativeTypeListsCtx = choiceTypeCtx.children[2];
     const alternativeTypeLists = alternativeTypeListsCtx.accept(new AlternativeTypeListsVisitor());
     return new Choice(alternativeTypeLists);

@@ -1,8 +1,15 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getContextName, getLogWithAsn1 } from '../utils';
 
-import { AsnTypeVisitor } from './asnType';
+import { ActualParameterContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { AsnType, AsnTypeVisitor } from './asnType';
+import { BuiltinValue } from './builtinValue';
 import { ValueVisitor } from './value';
+
+export type ActualParameter = AsnType | BuiltinValue;
 
 /**
  * ANTLR4 grammar
@@ -10,8 +17,13 @@ import { ValueVisitor } from './value';
  * actualParameter : asnType | value
  * ```
  */
-export class ActualParameterVisitor {
-  public visitChildren(actualParameterCtx: any): any /* TODO */ {
+export class ActualParameterVisitor extends AbstractParseTreeVisitor<ActualParameter>
+                                    implements ASN_3gppVisitor<ActualParameter> {
+  public defaultResult(): ActualParameter {
+    return undefined;
+  }
+
+  public visitChildren(actualParameterCtx: ActualParameterContext): ActualParameter {
     const childCtx = actualParameterCtx.children[0];
     switch (getContextName(childCtx)) {
       case 'asnType': {
