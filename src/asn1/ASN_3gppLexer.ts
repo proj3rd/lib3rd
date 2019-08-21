@@ -243,7 +243,7 @@ export class ASN_3gppLexer extends Lexer {
 	private LINE_COMMENT_sempred(_localctx: RuleContext, predIndex: number): boolean {
 		switch (predIndex) {
 		case 0:
-			return getCharPositionInLine() == 0;
+			return this.charPositionInLine == 0;
 		}
 		return true;
 	}

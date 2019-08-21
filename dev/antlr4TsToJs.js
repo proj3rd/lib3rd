@@ -6,7 +6,7 @@ if (require.main === module) {
     if (errRead) {
       throw errRead;
     }
-    const lexerCodeReplaced = lexerCode.replace(/\bgetCharPositionInLine\b/gm, 'this.getCharIndex');
+    const lexerCodeReplaced = lexerCode.replace(/\bgetCharPositionInLine\b\s*?\(\s*?\)/gm, 'this.charPositionInLine');
     fs.writeFile(lexerPath, lexerCodeReplaced, (errWrite) => {
       if (errWrite) {
         throw errWrite;
