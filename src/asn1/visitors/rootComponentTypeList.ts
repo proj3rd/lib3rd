@@ -14,7 +14,7 @@ import { ComponentTypeListVisitor } from './componentTypeList';
 export class RootComponentTypeListVisitor extends AbstractParseTreeVisitor<NamedType[]>
                                           implements ASN_3gppVisitor<NamedType[]> {
   public defaultResult(): NamedType[] {
-    return []];
+    return [];
   }
 
   public visitChildren(rootComponentTypeListCtx: RootComponentTypeListContext): NamedType[] {

@@ -5,7 +5,8 @@ import { getContextName, getLogWithAsn1 } from '../utils';
 
 import { ActualParameterContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { AsnType, AsnTypeVisitor } from './asnType';
+import { AsnType } from '../classes/asnType';
+import { AsnTypeVisitor } from './asnType';
 import { BuiltinValue } from './builtinValue';
 import { ValueVisitor } from './value';
 

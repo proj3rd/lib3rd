@@ -3,7 +3,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { SizeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { ConstraintVisitor } from './constraint';
-import { ConstraintSpec } from './constraintSpec';
+import { IConstraint } from './elements';
 
 /**
  * ANTLR4 grammar
@@ -11,13 +11,13 @@ import { ConstraintSpec } from './constraintSpec';
  * sizeConstraint : SIZE_LITERAL constraint
  * ```
  */
-export class SizeConstraintVisitor extends AbstractParseTreeVisitor<ConstraintSpec>
-                                   implements ASN_3gppVisitor<ConstraintSpec> {
-  public defaultResult(): ConstraintSpec {
+export class SizeConstraintVisitor extends AbstractParseTreeVisitor<IConstraint>
+                                   implements ASN_3gppVisitor<IConstraint> {
+  public defaultResult(): IConstraint {
     return undefined;
   }
 
-  public visitChildren(sizeConstraintCtx: SizeConstraintContext): ConstraintSpec {
+  public visitChildren(sizeConstraintCtx: SizeConstraintContext): IConstraint {
     const childCtxes = sizeConstraintCtx.children;
     /** NOTE: It seems ciruclar function call
      * But it is expected to be {min, max} according to below:
@@ -29,6 +29,6 @@ export class SizeConstraintVisitor extends AbstractParseTreeVisitor<ConstraintSp
      *     which can be applied to the following parent type:
      */
     const constraintCtx = childCtxes[1];
-    return constraintCtx.accept(new ConstraintVisitor());
+    return constraintCtx.accept(new ConstraintVisitor()) as IConstraint;
   }
 }
