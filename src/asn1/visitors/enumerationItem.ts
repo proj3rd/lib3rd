@@ -1,9 +1,10 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { EnumerationItemContext } from '../ASN_3gppParser';
+import { EnumerationItemContext, NamedNumberContext, ValueContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { BuiltinValue } from './builtinValue';
@@ -26,22 +27,14 @@ export class EnumerationItemVisitor extends AbstractParseTreeVisitor<Enumeration
   public visitChildren(enumerationItemCtx: EnumerationItemContext): EnumerationItem {
     const childCtx = enumerationItemCtx.children[0];
     let enumerationItem: EnumerationItem;
-    switch (getContextName(childCtx)) {
-      case null: {
-        enumerationItem = childCtx.text;
-        break;
-      }
-      case 'namedNumber': {
-        log.warn(getLogWithAsn1(enumerationItemCtx, 'NamedNumber not supported:'));
-        break;
-      }
-      case 'value': {
-        enumerationItem = childCtx.accept(new ValueVisitor());
-        break;
-      }
-      default: {
-        log.warn(getLogWithAsn1(enumerationItemCtx, 'Not supported ASN1:'));
-      }
+    if (childCtx instanceof TerminalNode) {
+      enumerationItem = childCtx.text;
+    } else if (childCtx instanceof NamedNumberContext) {
+      log.warn(getLogWithAsn1(enumerationItemCtx, 'NamedNumber not supported:'));
+    } else if (childCtx instanceof ValueContext) {
+      enumerationItem = childCtx.accept(new ValueVisitor());
+    } else {
+      log.warn(getLogWithAsn1(enumerationItemCtx, 'Not supported ASN1:'));
     }
     return enumerationItem;
   }

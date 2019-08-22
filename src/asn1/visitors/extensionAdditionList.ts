@@ -1,14 +1,15 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 
 import { log } from '../../utils/logging';
 
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { ExtensionAdditionListContext } from '../ASN_3gppParser';
+import { ExtensionAdditionContext, ExtensionAdditionListContext, TagContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { NamedType } from '../classes/namedType';
 import { ExtensionAddition, ExtensionAdditionVisitor } from './extensionAddition';
 import { TagVisitor } from './tag';
-import { NamedType } from '../classes/namedType';
 
 /**
  * ANTLR4 grammar
@@ -26,26 +27,18 @@ export class ExtensionAdditionListVisitor extends AbstractParseTreeVisitor<Exten
     const childCtxes = extensionAdditionListCtx.children;
     const extensionAdditionList: ExtensionAddition[] = [];
     childCtxes.forEach((childCtx) => {
-      switch (getContextName(childCtx)) {
-        case 'extensionAddition': {
-          extensionAdditionList.push(childCtx.accept(new ExtensionAdditionVisitor()));
-          break;
+      if (childCtx instanceof ExtensionAdditionContext) {
+        extensionAdditionList.push(childCtx.accept(new ExtensionAdditionVisitor()));
+      } else if (childCtx instanceof TagContext) {
+        const tag = childCtx.accept(new TagVisitor());
+        const lastItem = extensionAdditionList[extensionAdditionList.length - 1];
+        if (tag && lastItem instanceof NamedType) {
+          lastItem.tag = tag;
         }
-        case 'tag': {
-          const tag = childCtx.accept(new TagVisitor());
-          const lastItem = extensionAdditionList[extensionAdditionList.length - 1];
-          if (tag && lastItem instanceof NamedType) {
-            lastItem.tag = tag;
-          }
-          break;
-        }
-        case null: {
-          break;
-        }
-        default: {
-          log.warn(getLogWithAsn1(childCtx, 'Not supported ASN.1 in ExtensionAdditionList'));
-          break;
-        }
+      } else if (childCtx instanceof TerminalNode) {
+        // Do nothing
+      } else {
+        log.warn(getLogWithAsn1(childCtx, 'Not supported ASN.1 in ExtensionAdditionList'));
       }
     });
     return extensionAdditionList;

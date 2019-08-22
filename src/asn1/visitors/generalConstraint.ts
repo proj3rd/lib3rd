@@ -1,9 +1,10 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { GeneralConstraintContext } from '../ASN_3gppParser';
+import { ContentsConstraintContext, GeneralConstraintContext,
+        TableConstraintContext, UserDefinedConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { ContentsConstraintVisitor, IContentsConstraint } from './contentsConstraint';
 
@@ -22,23 +23,14 @@ export class GeneralConstraintVisitor extends AbstractParseTreeVisitor<IContents
   public visitChildren(generalConstraintCtx: GeneralConstraintContext): IContentsConstraint {
     const childCtx = generalConstraintCtx.children[0];
     let generalConstraint: IContentsConstraint;
-    switch (getContextName(childCtx)) {
-      case 'userDefinedConstraint': {
-        log.warn(getLogWithAsn1(childCtx, 'UserDefinedConstraint not supported:'));
-        break;
-      }
-      case 'tableConstraint': {
-        log.warn(getLogWithAsn1(childCtx, 'TableConstraint not supported:'));
-        break;
-      }
-      case 'contentsConstraint': {
-        generalConstraint = childCtx.accept(new ContentsConstraintVisitor());
-        break;
-      }
-      default: {
-        log.warn(getLogWithAsn1(childCtx, 'Not supported ASN1:'));
-        break;
-      }
+    if (childCtx instanceof UserDefinedConstraintContext) {
+      log.warn(getLogWithAsn1(childCtx, 'UserDefinedConstraint not supported:'));
+    } else if (childCtx instanceof TableConstraintContext) {
+      log.warn(getLogWithAsn1(childCtx, 'TableConstraint not supported:'));
+    } else if (childCtx instanceof ContentsConstraintContext) {
+      generalConstraint = childCtx.accept(new ContentsConstraintVisitor());
+    } else {
+      log.warn(getLogWithAsn1(childCtx, 'Not supported ASN1:'));
     }
     return generalConstraint;
   }

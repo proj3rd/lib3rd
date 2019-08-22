@@ -1,9 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { ConstraintSpecContext } from '../ASN_3gppParser';
+import { ConstraintSpecContext, GeneralConstraintContext, SubtypeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { IContentsConstraint } from './contentsConstraint';
 import { IConstraint } from './elements';
@@ -27,19 +27,12 @@ export class ConstraintSpecVisitor extends AbstractParseTreeVisitor<ConstraintSp
   public visitChildren(constraintSpecCtx: ConstraintSpecContext): ConstraintSpec {
     const childCtx = constraintSpecCtx.children[0];
     let constraintSpec: ConstraintSpec;
-    switch (getContextName(childCtx)) {
-      case 'generalConstraint': {
-        constraintSpec = childCtx.accept(new GeneralConstraintVisitor());
-        break;
-      }
-      case 'subtypeConstraint': {
-        constraintSpec = childCtx.accept(new SubtypeConstraintVisitor());
-        break;
-      }
-      default: {
-        log.warn(getLogWithAsn1(constraintSpecCtx, 'Not supported ASN1:'));
-        break;
-      }
+    if (childCtx instanceof GeneralConstraintContext) {
+      constraintSpec = childCtx.accept(new GeneralConstraintVisitor());
+    } else if (childCtx instanceof SubtypeConstraintContext) {
+      constraintSpec = childCtx.accept(new SubtypeConstraintVisitor());
+    } else {
+      log.warn(getLogWithAsn1(constraintSpecCtx, 'Not supported ASN1:'));
     }
     return constraintSpec;
   }

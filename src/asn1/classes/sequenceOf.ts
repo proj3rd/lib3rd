@@ -7,13 +7,13 @@ import { AsnType } from './asnType';
 import { NamedType } from './namedType';
 
 export class SequenceOf extends AsnType {
-  public type: NamedType;
-  public expandedType: NamedType;
+  public type: AsnType | NamedType;
+  public expandedType: AsnType | NamedType;
   public size: number | string;
   public sizeMin: number | string;
   public sizeMax: number | string;
 
-  constructor(type: NamedType) {
+  constructor(type: AsnType | NamedType) {
     super();
 
     this.type = type;
@@ -40,8 +40,11 @@ export class SequenceOf extends AsnType {
   }
 
   public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): SequenceOf {
-    const typeToExpand = cloneDeep(this.type);
-    this.expandedType = typeToExpand.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    const typeToExpand = cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    // This should always be true
+    if (typeToExpand instanceof AsnType || typeToExpand instanceof NamedType) {
+      this.expandedType = typeToExpand;
+    }
     return this;
   }
 

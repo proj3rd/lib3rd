@@ -1,8 +1,6 @@
-import { getContextName } from '../utils';
-
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
-import { IntegerValueContext } from '../ASN_3gppParser';
+import { IntegerValueContext, SignedNumberContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { SignedNumberVisitor } from './signedNumber';
@@ -24,15 +22,10 @@ export class IntegerValueVisitor extends AbstractParseTreeVisitor<AsnIntegerValu
   public visitChildren(integerValueCtx: IntegerValueContext): number | string {
     const childCtx = integerValueCtx.children[0];
     let integerValue: AsnIntegerValue;
-    switch (getContextName(childCtx)) {
-      case 'signedNumber': {
-        integerValue = integerValueCtx.accept(new SignedNumberVisitor());
-        break;
-      }
-      default: {
-        integerValue = integerValueCtx.text;
-        break;
-      }
+    if (childCtx instanceof SignedNumberContext) {
+      integerValue = integerValueCtx.accept(new SignedNumberVisitor());
+    } else {
+      integerValue = integerValueCtx.text;
     }
     return integerValue;
   }

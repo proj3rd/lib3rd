@@ -1,10 +1,13 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { SequenceOfTypeContext } from '../ASN_3gppParser';
+import { AsnTypeContext, ConstraintContext, NamedTypeContext,
+         SequenceOfTypeContext, SizeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { AsnType } from '../classes/asnType';
+import { NamedType } from '../classes/namedType';
 import { SequenceOf } from '../classes/sequenceOf';
 import { AsnTypeVisitor } from './asnType';
 import { ConstraintVisitor } from './constraint';
@@ -27,20 +30,13 @@ export class SequenceOfTypeVisitor extends AbstractParseTreeVisitor<SequenceOf> 
     const childCtxes = sequenceOfTypeCtx.children;
     let sequenceOfType: SequenceOf;
     const typeCtx = childCtxes[childCtxes.length - 1];
-    let type = null;
-    switch (getContextName(typeCtx)) {
-      case 'asnType': {
-        type = typeCtx.accept(new AsnTypeVisitor());
-        break;
-      }
-      case 'namedType': {
-        type = typeCtx.accept(new NamedTypeVisitor());
-        break;
-      }
-      default: {
-        log.warn(getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
-        break;
-      }
+    let type: AsnType | NamedType;
+    if (typeCtx instanceof AsnTypeContext) {
+      type = typeCtx.accept(new AsnTypeVisitor());
+    } else if (typeCtx instanceof NamedTypeContext) {
+      type = typeCtx.accept(new NamedTypeVisitor());
+    } else {
+      log.warn(getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
     }
     if (type) {
       sequenceOfType = new SequenceOf(type);
@@ -53,19 +49,12 @@ export class SequenceOfTypeVisitor extends AbstractParseTreeVisitor<SequenceOf> 
         case 6: {
           const constraintCtx = childCtxes[2];
           let constraint: ConstraintSpec;
-          switch (getContextName(constraintCtx)) {
-            case 'constraint': {
-              constraint = constraintCtx.accept(new ConstraintVisitor());
-              break;
-            }
-            case 'sizeConstraint': {
-              constraint = constraintCtx.accept(new SizeConstraintVisitor());
-              break;
-            }
-            default: {
-              log.warn(getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
-              break;
-            }
+          if (constraintCtx instanceof ConstraintContext) {
+            constraint = constraintCtx.accept(new ConstraintVisitor());
+          } else if (constraintCtx instanceof SizeConstraintContext) {
+            constraint = constraintCtx.accept(new SizeConstraintVisitor());
+          } else {
+            log.warn(getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
           }
           if (constraint) {
             sequenceOfType.setConstraint(constraint);

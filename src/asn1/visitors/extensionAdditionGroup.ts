@@ -1,8 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
-import { getContextName } from '../utils';
-
-import { ExtensionAdditionGroupContext } from '../ASN_3gppParser';
+import { ExtensionAdditionGroupContext, TagContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { ExtensionAdditionGroup } from '../classes/extensionAdditionGroup';
 import { ComponentTypeListVisitor } from './componentTypeList';
@@ -27,7 +25,7 @@ export class ExtensionAdditionGroupVisitor extends AbstractParseTreeVisitor<Exte
     const versionNumber = versionNumberCtx.accept(new VersionNumberVisitor());
     const componentTypeListCtx = childCtxes[2];
     const componentTypeList = componentTypeListCtx.accept(new ComponentTypeListVisitor());
-    if (getContextName(childCtxes[3]) === 'tag') {
+    if (childCtxes[3] instanceof TagContext) {
       const tag = childCtxes[3].accept(new TagVisitor());
       if (tag) {
         componentTypeList[componentTypeList.length - 1].tag = tag;

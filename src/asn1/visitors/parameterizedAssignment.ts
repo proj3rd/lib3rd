@@ -1,9 +1,11 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { ParameterizedAssignmentContext } from '../ASN_3gppParser';
+import { AsnTypeContext, ParameterizedAssignmentContext, ParameterListContext,
+        ValueContext, ValueSetContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
 import { AsnTypeVisitor } from './asnType';
@@ -40,30 +42,18 @@ export class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<Asn
     let asnType: AsnType;
     const childCtxes = parameterizedAssignmentCtx.children;
     childCtxes.every((childCtx) => {
-      switch (getContextName(childCtx)) {
-        case 'parameterList': {
-          parameterList = childCtx.accept(new ParameterListVisitor());
-          break;
-        }
-        case 'asnType': {
-          asnType = childCtx.accept(new AsnTypeVisitor());
-          break;
-        }
-        case 'value': {
-          log.warn(getLogWithAsn1(parameterizedAssignmentCtx, 'ParameterizedValueAssignment not supported'));
-          return false;
-        }
-        case 'valueSet': {
-          log.warn(getLogWithAsn1(parameterizedAssignmentCtx, 'ParameterizedValueSetAssignment not supported'));
-          return false;
-        }
-        case null: {
-          break;
-        }
-        default: {
-          log.warn(getLogWithAsn1(parameterizedAssignmentCtx, 'Not supported ASN.1'));
-          return false;
-        }
+      if (childCtx instanceof ParameterListContext) {
+        parameterList = childCtx.accept(new ParameterListVisitor());
+      } else if (childCtx instanceof AsnTypeContext) {
+        asnType = childCtx.accept(new AsnTypeVisitor());
+      } else if (childCtx instanceof ValueContext) {
+        log.warn(getLogWithAsn1(parameterizedAssignmentCtx, 'ParameterizedValueAssignment not supported'));
+      } else if (childCtx instanceof ValueSetContext) {
+        log.warn(getLogWithAsn1(parameterizedAssignmentCtx, 'ParameterizedValueSetAssignment not supported'));
+      } else if (childCtx instanceof TerminalNode) {
+        // Do nothing
+      } else {
+        log.warn(getLogWithAsn1(parameterizedAssignmentCtx, 'Not supported ASN.1'));
       }
       return true;
     });

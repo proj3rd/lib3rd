@@ -1,9 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { ExtensionAdditionContext } from '../ASN_3gppParser';
+import { ComponentTypeContext, ExtensionAdditionContext, ExtensionAdditionGroupContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { ExtensionAdditionGroup } from '../classes/extensionAdditionGroup';
 import { NamedType } from '../classes/namedType';
@@ -27,19 +27,12 @@ export class ExtensionAdditionVisitor extends AbstractParseTreeVisitor<Extension
   public visitChildren(extensionAdditionCtx: ExtensionAdditionContext): ExtensionAddition {
     const childCtx = extensionAdditionCtx.children[0];
     let extensionAddition: ExtensionAddition;
-    switch (getContextName(childCtx)) {
-      case 'componentType': {
-        extensionAddition = childCtx.accept(new ComponentTypeVisitor());
-        break;
-      }
-      case 'extensionAdditionGroup': {
-        extensionAddition = childCtx.accept(new ExtensionAdditionGroupVisitor());
-        break;
-      }
-      default: {
-        log.warn(getLogWithAsn1(extensionAdditionCtx, 'Not supported ASN1:'));
-        break;
-      }
+    if (childCtx instanceof ComponentTypeContext) {
+      extensionAddition = childCtx.accept(new ComponentTypeVisitor());
+    } else if (childCtx instanceof ExtensionAdditionGroupContext) {
+      extensionAddition = childCtx.accept(new ExtensionAdditionGroupVisitor());
+    } else {
+      log.warn(getLogWithAsn1(extensionAdditionCtx, 'Not supported ASN1:'));
     }
     return extensionAddition;
   }

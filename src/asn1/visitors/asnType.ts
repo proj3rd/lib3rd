@@ -1,9 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { AsnTypeContext } from '../ASN_3gppParser';
+import { AsnTypeContext, BuiltinTypeContext, ReferencedTypeContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
 import { BuiltinTypeVisitor } from './builtinType';
@@ -25,20 +25,13 @@ export class AsnTypeVisitor extends AbstractParseTreeVisitor<AsnType> implements
     const childCtxes = asnTypeCtx.children;
     const typeCtx = childCtxes[0];
     const constraintCtx = childCtxes[1];
-    const contextName = getContextName(typeCtx);
     let type: AsnType;
-    switch (contextName) {
-      case 'builtinType': {
-        type = typeCtx.accept(new BuiltinTypeVisitor());
-        break;
-      }
-      case 'referencedType': {
-        type = typeCtx.accept(new ReferencedTypeVisitor());
-        break;
-      }
-      default: {
-        log.warn(getLogWithAsn1(asnTypeCtx, 'Not supported ASN1 in Type:'));
-      }
+    if (typeCtx instanceof BuiltinTypeContext) {
+      type = typeCtx.accept(new BuiltinTypeVisitor());
+    } else if (typeCtx instanceof ReferencedTypeContext) {
+      type = typeCtx.accept(new ReferencedTypeVisitor());
+    } else {
+      log.warn(getLogWithAsn1(asnTypeCtx, 'Not supported ASN1 in Type:'));
     }
     if (constraintCtx) {
       const constraint = constraintCtx.accept(new ConstraintVisitor());

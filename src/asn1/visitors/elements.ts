@@ -1,9 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { ElementsContext } from '../ASN_3gppParser';
+import { ElementsContext, SizeConstraintContext, ValueContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { BuiltinValue } from './builtinValue';
 import { SizeConstraintVisitor } from './sizeConstraint';
@@ -41,21 +41,14 @@ export class ElementsVisitor extends AbstractParseTreeVisitor<IConstraint> imple
       case 1: {
         // sizeConstraint
         // value
-        switch (getContextName(childCtxFirst)) {
-          case 'sizeConstraint': {
-            const sizeConstraintCtx = childCtxFirst;
-            elements = sizeConstraintCtx.accept(new SizeConstraintVisitor());
-            break;
-          }
-          case 'value': {
-            const valueCtx = childCtxFirst;
-            elements = {value: valueCtx.accept(new ValueVisitor())};
-            break;
-          }
-          default: {
-            log.warn(getLogWithAsn1(elementsCtx, 'Not supported ASN1:'));
-            break;
-          }
+        if (childCtxFirst instanceof SizeConstraintContext) {
+          const sizeConstraintCtx = childCtxFirst;
+          elements = sizeConstraintCtx.accept(new SizeConstraintVisitor());
+        } else if (childCtxFirst instanceof ValueContext) {
+          const valueCtx = childCtxFirst;
+          elements = {value: valueCtx.accept(new ValueVisitor())};
+        } else {
+          log.warn(getLogWithAsn1(elementsCtx, 'Not supported ASN1:'));
         }
         break;
       }
@@ -72,9 +65,9 @@ export class ElementsVisitor extends AbstractParseTreeVisitor<IConstraint> imple
           log.warn(getLogWithAsn1(elementsCtx, '\'<\' or \'>\' not supported:'));
         }
         const minCtx = childCtxFirst;
-        const min = getContextName(minCtx) === 'value' ? minCtx.accept(new ValueVisitor()) : minCtx.text;
+        const min = minCtx instanceof ValueContext ? minCtx.accept(new ValueVisitor()) : minCtx.text;
         const maxCtx = childCtxLast;
-        const max = getContextName(maxCtx) === 'value' ? maxCtx.accept(new ValueVisitor()) : maxCtx.text;
+        const max = maxCtx instanceof ValueContext ? maxCtx.accept(new ValueVisitor()) : maxCtx.text;
         elements = {min, max};
         break;
       }

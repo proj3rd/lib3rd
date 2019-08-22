@@ -1,9 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { ConstraintContext } from '../ASN_3gppParser';
+import { ConstraintContext, ExceptionSpecContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { ConstraintSpec, ConstraintSpecVisitor } from './constraintSpec';
 
@@ -23,7 +23,7 @@ export class ConstraintVisitor extends AbstractParseTreeVisitor<ConstraintSpec>
     const childCtxes = constraintCtx.children;
     const constraintSpecCtx = childCtxes[1];
     const constraint = constraintSpecCtx.accept(new ConstraintSpecVisitor());
-    if (getContextName(childCtxes[2]) === 'exceptionSpec') {
+    if (childCtxes[2] instanceof ExceptionSpecContext) {
       log.warn(getLogWithAsn1(constraintCtx, 'ExceptionSpec not supported:'));
     }
     return constraint;

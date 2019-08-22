@@ -1,8 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
-import { getContextName } from '../utils';
-
-import { ComponentTypeListContext } from '../ASN_3gppParser';
+import { ComponentTypeContext, ComponentTypeListContext, TagContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { NamedType } from '../classes/namedType';
 import { ComponentTypeVisitor } from './componentType';
@@ -24,24 +22,18 @@ export class ComponentTypeListVisitor extends AbstractParseTreeVisitor<NamedType
     const childCtxes = componentTypeListCtx.children;
     const componentTypeList = [];
     childCtxes.forEach((childCtx) => {
-      switch (getContextName(childCtx)) {
-        case 'componentType': {
-          const componentType = childCtx.accept(new ComponentTypeVisitor());
-          if (componentType) {
-            componentTypeList.push(componentType);
-          }
-          break;
+      if (childCtx instanceof ComponentTypeContext) {
+        const componentType = childCtx.accept(new ComponentTypeVisitor());
+        if (componentType) {
+          componentTypeList.push(componentType);
         }
-        case 'tag': {
-          const tag = childCtx.accept(new TagVisitor());
-          if (tag) {
-            componentTypeList[componentTypeList.length - 1].tag = tag;
-          }
-          break;
+      } else if (childCtx instanceof TagContext) {
+        const tag = childCtx.accept(new TagVisitor());
+        if (tag) {
+          componentTypeList[componentTypeList.length - 1].tag = tag;
         }
-        default: {
-          return;
-        }
+      } else {
+        // Do nothing
       }
     });
     return componentTypeList;

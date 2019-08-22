@@ -1,9 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
 
-import { ParameterContext } from '../ASN_3gppParser';
+import { ParameterContext, ParamGovernorContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 /**
@@ -19,7 +19,7 @@ export class ParameterVisitor extends AbstractParseTreeVisitor<string> implement
 
   public visitChildren(parameterCtx: ParameterContext): string {
     const childCtxes = parameterCtx.children;
-    if (getContextName(childCtxes[0]) !== null) {
+    if (childCtxes[0] instanceof ParamGovernorContext) {
       log.warn(getLogWithAsn1(parameterCtx, 'ParamGovernor not supported'));
       return childCtxes[2].text;
     }
