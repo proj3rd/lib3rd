@@ -29,7 +29,7 @@ export class SymbolsFromModuleVisitor extends AbstractParseTreeVisitor<ISymbolsF
     };
     for (let index = 0; index < symbolListCtx.childCount; index++) {
       if (index % 2) {
-        return;
+        continue;
       }
       const symbolCtx = symbolListCtx.getChild(index);
       // TODO: Need to implement/use SymbolCtxVisitor class?
