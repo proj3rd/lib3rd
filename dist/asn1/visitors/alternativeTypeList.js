@@ -1,26 +1,27 @@
 "use strict";
-exports.__esModule = true;
-var namedType_1 = require("./namedType");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const namedType_1 = require("./namedType");
 /**
  * ANTLR4 grammar
  * ```
  * alternativeTypeList : (namedType) (COMMA namedType)*
  * ```
  */
-var AlternativeTypeListVisitor = /** @class */ (function () {
-    function AlternativeTypeListVisitor() {
+class AlternativeTypeListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return [];
     }
-    AlternativeTypeListVisitor.prototype.visitChildren = function (alternativeTypeListCtx) {
-        var childCtxes = alternativeTypeListCtx.children;
-        var alternativeTypeList = [];
-        childCtxes.forEach(function (childCtx, index) {
+    visitChildren(alternativeTypeListCtx) {
+        const childCtxes = alternativeTypeListCtx.children;
+        const alternativeTypeList = [];
+        childCtxes.forEach((childCtx, index) => {
             if (index % 2) {
                 return;
             }
             alternativeTypeList.push(childCtx.accept(new namedType_1.NamedTypeVisitor()));
         });
         return alternativeTypeList;
-    };
-    return AlternativeTypeListVisitor;
-}());
+    }
+}
 exports.AlternativeTypeListVisitor = AlternativeTypeListVisitor;

@@ -1,6 +1,7 @@
 "use strict";
-exports.__esModule = true;
-var symbolsFromModule_1 = require("./symbolsFromModule");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const symbolsFromModule_1 = require("./symbolsFromModule");
 /**
  * ANTLR4 grammar
  * ```
@@ -8,19 +9,19 @@ var symbolsFromModule_1 = require("./symbolsFromModule");
  *      (symbolsFromModule) (symbolsFromModule)*
  * ```
  */
-var SymbolsFromModuleListVisitor = /** @class */ (function () {
-    function SymbolsFromModuleListVisitor() {
+class SymbolsFromModuleListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return {};
     }
-    SymbolsFromModuleListVisitor.prototype.visitChildren = function (symbolsFromModuleListCtx) {
-        var symbolsFromModule = {};
-        symbolsFromModuleListCtx.children.forEach(function (symbolsFromModuleCtx) {
-            var _a = symbolsFromModuleCtx.accept(new symbolsFromModule_1.SymbolsFromModuleVisitor()), moduleName = _a.moduleName, symbols = _a.symbols;
-            symbols.forEach(function (symbol) {
+    visitChildren(symbolsFromModuleListCtx) {
+        const symbolsFromModule = {};
+        symbolsFromModuleListCtx.children.forEach((symbolsFromModuleCtx) => {
+            const { moduleName, symbols } = symbolsFromModuleCtx.accept(new symbolsFromModule_1.SymbolsFromModuleVisitor());
+            symbols.forEach((symbol) => {
                 symbolsFromModule[symbol] = moduleName;
             });
         });
         return symbolsFromModule;
-    };
-    return SymbolsFromModuleListVisitor;
-}());
+    }
+}
 exports.SymbolsFromModuleListVisitor = SymbolsFromModuleListVisitor;

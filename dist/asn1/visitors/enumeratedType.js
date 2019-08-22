@@ -1,20 +1,21 @@
 "use strict";
-exports.__esModule = true;
-var enumerated_1 = require("../classes/enumerated");
-var enumerations_1 = require("./enumerations");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const enumerated_1 = require("../classes/enumerated");
+const enumerations_1 = require("./enumerations");
 /**
  * ANTLR4 grammar
  * ```
  * enumeratedType : ENUMERATED_LITERAL L_BRACE enumerations R_BRACE
  * ```
  */
-var EnumeratedTypeVisitor = /** @class */ (function () {
-    function EnumeratedTypeVisitor() {
+class EnumeratedTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    EnumeratedTypeVisitor.prototype.visitChildren = function (enumeratedTypeCtx) {
-        var enumerationsCtx = enumeratedTypeCtx.children[2];
+    visitChildren(enumeratedTypeCtx) {
+        const enumerationsCtx = enumeratedTypeCtx.children[2];
         return new enumerated_1.Enumerated(enumerationsCtx.accept(new enumerations_1.EnumerationsVisitor()));
-    };
-    return EnumeratedTypeVisitor;
-}());
+    }
+}
 exports.EnumeratedTypeVisitor = EnumeratedTypeVisitor;

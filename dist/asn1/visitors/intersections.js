@@ -1,20 +1,22 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var intersectionElements_1 = require("./intersectionElements");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const intersectionElements_1 = require("./intersectionElements");
 /**
  * ANTLR4 grammar
  * ```
  * intersections : (intersectionElements) (intersectionMark intersectionElements)*
  * ```
  */
-var IntersectionsVisitor = /** @class */ (function () {
-    function IntersectionsVisitor() {
+class IntersectionsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    IntersectionsVisitor.prototype.visitChildren = function (intersectionsCtx) {
-        var childCtxes = intersectionsCtx.children;
-        var intersections = null;
+    visitChildren(intersectionsCtx) {
+        const childCtxes = intersectionsCtx.children;
+        let intersections;
         if (childCtxes.length === 1) {
             intersections = childCtxes[0].accept(new intersectionElements_1.IntersectionElementsVisitor());
         }
@@ -23,7 +25,6 @@ var IntersectionsVisitor = /** @class */ (function () {
             logging_1.log.warn(utils_1.getLogWithAsn1(intersectionsCtx, 'Multiple IntersectionElements\'s not supported:'));
         }
         return intersections;
-    };
-    return IntersectionsVisitor;
-}());
+    }
+}
 exports.IntersectionsVisitor = IntersectionsVisitor;

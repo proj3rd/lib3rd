@@ -1,17 +1,18 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 /**
  * ANTLR4 grammar
  * ```
  * enumeratedValue  : IDENTIFIER
  * ```
  */
-var EnumeratedValueVisitor = /** @class */ (function () {
-    function EnumeratedValueVisitor() {
+class EnumeratedValueVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return '';
     }
-    EnumeratedValueVisitor.prototype.visitChildren = function (enumeratedValueCtx) {
-        return enumeratedValueCtx.getText();
-    };
-    return EnumeratedValueVisitor;
-}());
+    visitChildren(enumeratedValueCtx) {
+        return enumeratedValueCtx.text;
+    }
+}
 exports.EnumeratedValueVisitor = EnumeratedValueVisitor;

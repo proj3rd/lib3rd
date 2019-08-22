@@ -1,24 +1,26 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
 /**
  * ANTLR4 grammar
  * ```
  * parameter : (paramGovernor COLON)? IDENTIFIER
  * ```
  */
-var ParameterVisitor = /** @class */ (function () {
-    function ParameterVisitor() {
+class ParameterVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ParameterVisitor.prototype.visitChildren = function (parameterCtx /* TODO */) {
-        var childCtxes = parameterCtx.children;
-        if (utils_1.getContextName(childCtxes[0]) !== null) {
+    visitChildren(parameterCtx) {
+        const childCtxes = parameterCtx.children;
+        if (childCtxes[0] instanceof ASN_3gppParser_1.ParamGovernorContext) {
             logging_1.log.warn(utils_1.getLogWithAsn1(parameterCtx, 'ParamGovernor not supported'));
-            return childCtxes[2].getText();
+            return childCtxes[2].text;
         }
-        return childCtxes[0].getText();
-    };
-    return ParameterVisitor;
-}());
+        return childCtxes[0].text;
+    }
+}
 exports.ParameterVisitor = ParameterVisitor;

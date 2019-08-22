@@ -1,6 +1,6 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
-export declare class BitString extends Base {
+import { AsnType } from './asnType';
+export declare class BitString extends AsnType {
     namedBitList: any;
     size: number | string;
     sizeMin: number | string;

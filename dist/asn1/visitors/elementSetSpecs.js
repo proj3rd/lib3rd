@@ -1,8 +1,9 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var rootElementSetSpec_1 = require("./rootElementSetSpec");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const rootElementSetSpec_1 = require("./rootElementSetSpec");
 /**
  * ANTLR4 grammar
  * ```
@@ -10,13 +11,14 @@ var rootElementSetSpec_1 = require("./rootElementSetSpec");
  *  rootElementSetSpec (COMMA ELLIPSIS (COMMA additionalElementSetSpec)?)?
  * ```
  */
-var ElementSetSpecsVisitor = /** @class */ (function () {
-    function ElementSetSpecsVisitor() {
+class ElementSetSpecsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ElementSetSpecsVisitor.prototype.visitChildren = function (elementSetSpecsCtx) {
-        var childCtxes = elementSetSpecsCtx.children;
-        var rootElementSetSpecCtx = childCtxes[0];
-        var elementSetSpecs = rootElementSetSpecCtx.accept(new rootElementSetSpec_1.RootElementSetSpecVisitor());
+    visitChildren(elementSetSpecsCtx) {
+        const childCtxes = elementSetSpecsCtx.children;
+        const rootElementSetSpecCtx = childCtxes[0];
+        const elementSetSpecs = rootElementSetSpecCtx.accept(new rootElementSetSpec_1.RootElementSetSpecVisitor());
         if (childCtxes.length > 3) {
             logging_1.log.warn(utils_1.getLogWithAsn1(elementSetSpecsCtx, 'AdditionalElementSetSpec not supported:'));
         }
@@ -24,7 +26,6 @@ var ElementSetSpecsVisitor = /** @class */ (function () {
             logging_1.log.warn(utils_1.getLogWithAsn1(elementSetSpecsCtx, 'Extension marker not supported:'));
         }
         return elementSetSpecs;
-    };
-    return ElementSetSpecsVisitor;
-}());
+    }
+}
 exports.ElementSetSpecsVisitor = ElementSetSpecsVisitor;

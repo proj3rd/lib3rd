@@ -10,6 +10,7 @@ export class NamedType extends Base {
   public type: Base;
   public optional: boolean;
   public default: any;
+  public tag?: string;
 
   constructor(name: string, type: any) {
     super();

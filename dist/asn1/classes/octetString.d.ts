@@ -1,6 +1,6 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
-export declare class OctetString extends Base {
+import { AsnType } from './asnType';
+export declare class OctetString extends AsnType {
     size: number | string;
     sizeMin: number | string;
     sizeMax: number | string;

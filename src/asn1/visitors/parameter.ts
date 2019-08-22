@@ -1,5 +1,10 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { getLogWithAsn1 } from '../utils';
+
+import { ParameterContext, ParamGovernorContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 /**
  * ANTLR4 grammar
@@ -7,13 +12,17 @@ import { getContextName, getLogWithAsn1 } from '../utils';
  * parameter : (paramGovernor COLON)? IDENTIFIER
  * ```
  */
-export class ParameterVisitor {
-  public visitChildren(parameterCtx: any/* TODO */): any/* TODO */ {
-    const childCtxes: any[] = parameterCtx.children;
-    if (getContextName(childCtxes[0]) !== null) {
+export class ParameterVisitor extends AbstractParseTreeVisitor<string> implements ASN_3gppVisitor<string> {
+  public defaultResult(): string {
+    return undefined;
+  }
+
+  public visitChildren(parameterCtx: ParameterContext): string {
+    const childCtxes = parameterCtx.children;
+    if (childCtxes[0] instanceof ParamGovernorContext) {
       log.warn(getLogWithAsn1(parameterCtx, 'ParamGovernor not supported'));
-      return childCtxes[2].getText();
+      return childCtxes[2].text;
     }
-    return childCtxes[0].getText();
+    return childCtxes[0].text;
   }
 }

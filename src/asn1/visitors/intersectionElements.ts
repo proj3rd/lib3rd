@@ -1,7 +1,11 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
 import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
 
-import { ElementsVisitor } from './elements';
+import { IntersectionElementsContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { ElementsVisitor, IConstraint } from './elements';
 
 /**
  * ANTLR4 grammar
@@ -9,8 +13,13 @@ import { ElementsVisitor } from './elements';
  * intersectionElements : elements (exclusions)?
  * ```
  */
-export class IntersectionElementsVisitor {
-  public visitChildren(intersectionElementsCtx: any): any /* TODO */ {
+export class IntersectionElementsVisitor extends AbstractParseTreeVisitor<IConstraint>
+                                         implements ASN_3gppVisitor<IConstraint> {
+  public defaultResult(): IConstraint {
+    return undefined;
+  }
+
+  public visitChildren(intersectionElementsCtx: IntersectionElementsContext): IConstraint {
     const childCtxes = intersectionElementsCtx.children;
     const elementsCtx = childCtxes[0];
     const exclusionsCtx = childCtxes[1];

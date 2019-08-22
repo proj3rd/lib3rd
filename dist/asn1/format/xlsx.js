@@ -1,9 +1,9 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var xl = require("excel4node");
-var xlsx_1 = require("../../utils/xlsx");
-var utils_1 = require("../utils");
+Object.defineProperty(exports, "__esModule", { value: true });
+const logging_1 = require("../../utils/logging");
+const xl = require("excel4node");
+const xlsx_1 = require("../../utils/xlsx");
+const utils_1 = require("../utils");
 exports.formatConfigDefault = {
     order: ['ie', 'reference', 'type', 'optional', 'tag'],
     grouping: true,
@@ -12,89 +12,84 @@ exports.formatConfigDefault = {
         title: {
             font: {
                 size: 18,
-                bold: true
-            }
+                bold: true,
+            },
         },
         header: {
             font: {
-                bold: true
-            }
+                bold: true,
+            },
         },
-        indentWidth: 3
-    }
+        indentWidth: 3,
+    },
 };
-var headerDefinition = {
+const headerDefinition = {
     ie: 'IE Name',
     reference: 'Reference Name',
     type: 'Type',
     optional: 'Optional',
-    tag: 'Tag'
+    tag: 'Tag',
 };
-var headerConstants = {
+const headerConstants = {
     constant: 'Constant',
-    value: 'Value'
+    value: 'Value',
 };
 /**
  * Format ASN.1 in xlsx
  * @param msgIes Array of ASN.1 objects you want to format
  * @returns Workbook object of excel4node
  */
-function format(msgIes, asn1Pool, formatConfig) {
-    if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
-    var wb = new xl.Workbook({ author: xlsx_1.author });
-    msgIes.forEach(function (msgIe, index) {
-        var _a, _b;
-        logging_1.log.debug("Formatting " + msgIe.name + " in xlsx...");
-        var indexString = index.toString();
-        var sheetname = msgIe.name.substr(0, 31 - (indexString.length + 1)) + " " + indexString;
-        var ws = wb.addWorksheet(sheetname, {
+function format(msgIes, asn1Pool, formatConfig = exports.formatConfigDefault) {
+    const wb = new xl.Workbook({ author: xlsx_1.author });
+    msgIes.forEach((msgIe, index) => {
+        logging_1.log.debug(`Formatting ${msgIe.name} in xlsx...`);
+        const indexString = index.toString();
+        const sheetname = `${msgIe.name.substr(0, 31 - (indexString.length + 1))} ${indexString}`;
+        const ws = wb.addWorksheet(sheetname, {
             outline: {
-                summaryBelow: false
-            }
+                summaryBelow: false,
+            },
         });
-        var depthMax = msgIe.definition.depthMax();
-        var _c = [1, 1], row = _c[0], col = _c[1];
+        const depthMax = msgIe.definition.depthMax();
+        let [row, col] = [1, 1];
         ws.cell(row++, col).string(msgIe.name).style(formatConfig.style.title);
         row++;
-        var constants = [];
-        _a = fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig), row = _a[0], col = _a[1];
+        const constants = [];
+        [row, col] = fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig);
         if (constants.length) {
             row++;
-            _b = fillConstants(constants, msgIe.definition.moduleName, asn1Pool, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
+            [row, col] = fillConstants(constants, msgIe.definition.moduleName, asn1Pool, ws, row, col, depthMax, formatConfig);
         }
     });
     return wb;
 }
 exports.format = format;
-function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig) {
-    if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
-    var _a, _b;
+function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig = exports.formatConfigDefault) {
     if (formatConfig.freezeHeader) {
         ws.row(row).freeze();
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
-    _a = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig), row = _a[0], col = _a[1];
-    var parameterList = msgIe.definition.parameterList;
-    var parameterString = parameterList ? " { " + parameterList.join(', ') + " }" : '';
-    _b = msgIe.definition.fillWorksheet({ ie: "" + msgIe.name + parameterString }, ws, row, col, depthMax, constants, formatConfig), row = _b[0], col = _b[1];
+    [row, col] = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig);
+    const parameterList = msgIe.definition.parameterList;
+    const parameterString = parameterList ? ` { ${parameterList.join(', ')} }` : '';
+    [row, col] = msgIe.definition.fillWorksheet({ ie: `${msgIe.name}${parameterString}` }, ws, row, col, depthMax, constants, formatConfig);
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
     return [row, col];
 }
-function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth) {
-    if (depth === void 0) { depth = 0; }
-    formatConfig.order.forEach(function (field, index) {
+function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth = 0) {
+    formatConfig.order.forEach((field, index) => {
         if (index === 0) {
             ws.cell(row, col).style(xlsx_1.styleBorderLeft);
         }
         switch (field) {
             case 'ie': {
-                for (var i = 0; i < depth; i++) {
+                for (let i = 0; i < depth; i++) {
                     ws.column(col).setWidth(formatConfig.style.indentWidth);
                     ws.cell(row, col++).style(xlsx_1.styleBorderLeft);
                 }
                 ws.cell(row, col).string(ieElem.ie ? ieElem.ie : '').style(xlsx_1.styleBorderLeft).style(xlsx_1.styleBorderTop);
                 ws.column(col++).setWidth(formatConfig.style.indentWidth);
-                for (var i = depth; i < depthMax; i++) {
+                for (let i = depth; i < depthMax; i++) {
                     ws.column(col).setWidth(formatConfig.style.indentWidth);
                     ws.cell(row, col++).style(xlsx_1.styleBorderTop);
                 }
@@ -144,7 +139,7 @@ function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth) {
 exports.fillRow = fillRow;
 function fillConstants(constants, moduleName, asn1Pool, ws, row, col, depthMax, formatConfig) {
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
-    [headerConstants].concat(constants).forEach(function (rangeElem, index) {
+    [headerConstants, ...constants].forEach((rangeElem, index) => {
         if (index > 0) {
             rangeElem.value = utils_1.findConstantValue(rangeElem.constant, moduleName, asn1Pool);
         }
@@ -152,9 +147,14 @@ function fillConstants(constants, moduleName, asn1Pool, ws, row, col, depthMax, 
         ws.cell(row, col + depthMax + formatConfig.order.length).style(xlsx_1.styleBorderLeft);
         ws.cell(row, col).string(rangeElem.constant).style(xlsx_1.styleBorderLeft);
         if (rangeElem.value === null) {
-            rangeElem.value = "Spec error: " + moduleName + " neither defines nor imports " + rangeElem.constant;
+            rangeElem.value = `Spec error: ${moduleName} neither defines nor imports ${rangeElem.constant}`;
         }
-        ws.cell(row++, col + depthMax + 1).string(rangeElem.value);
+        if (isNaN(Number(rangeElem.value))) {
+            ws.cell(row++, col + depthMax + 1).string(rangeElem.value);
+        }
+        else {
+            ws.cell(row++, col + depthMax + 1).number(rangeElem.value);
+        }
     });
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
     return [row, col];

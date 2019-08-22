@@ -1,24 +1,25 @@
 "use strict";
-exports.__esModule = true;
-var extensionAdditionAlternativesList_1 = require("./extensionAdditionAlternativesList");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const extensionAdditionAlternativesList_1 = require("./extensionAdditionAlternativesList");
 /**
  * ANTLR4 grammar
  * ```
  * extensionAdditionAlternatives  : (COMMA  extensionAdditionAlternativesList )?
  * ```
  */
-var ExtensionAdditionAlternativesVisitor = /** @class */ (function () {
-    function ExtensionAdditionAlternativesVisitor() {
+class ExtensionAdditionAlternativesVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ExtensionAdditionAlternativesVisitor.prototype.visitChildren = function (extensionAdditionAlternativesCtx) {
-        var extensionAdditionAlternatives = [];
+    visitChildren(extensionAdditionAlternativesCtx) {
+        let extensionAdditionAlternatives = [];
         if (extensionAdditionAlternativesCtx.children) {
-            var extensionAdditionAlternativesListCtx = extensionAdditionAlternativesCtx.children[1];
+            const extensionAdditionAlternativesListCtx = extensionAdditionAlternativesCtx.children[1];
             extensionAdditionAlternatives =
                 extensionAdditionAlternativesListCtx.accept(new extensionAdditionAlternativesList_1.ExtensionAdditionAlternativesListVisitor());
         }
         return extensionAdditionAlternatives;
-    };
-    return ExtensionAdditionAlternativesVisitor;
-}());
+    }
+}
 exports.ExtensionAdditionAlternativesVisitor = ExtensionAdditionAlternativesVisitor;

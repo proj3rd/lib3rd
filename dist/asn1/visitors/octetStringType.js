@@ -1,18 +1,19 @@
 "use strict";
-exports.__esModule = true;
-var octetString_1 = require("../classes/octetString");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const octetString_1 = require("../classes/octetString");
 /**
  * ANTLR4 grammar
  * ```
  * octetStringType  :  OCTET_LITERAL STRING_LITERAL
  * ```
  */
-var OctetStringTypeVisitor = /** @class */ (function () {
-    function OctetStringTypeVisitor() {
+class OctetStringTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    OctetStringTypeVisitor.prototype.visitChildren = function (octetStringTypeCtx) {
+    visitChildren(octetStringTypeCtx) {
         return new octetString_1.OctetString();
-    };
-    return OctetStringTypeVisitor;
-}());
+    }
+}
 exports.OctetStringTypeVisitor = OctetStringTypeVisitor;

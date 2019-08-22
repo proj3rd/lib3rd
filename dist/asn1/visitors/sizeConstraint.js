@@ -1,17 +1,19 @@
 "use strict";
-exports.__esModule = true;
-var constraint_1 = require("./constraint");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const constraint_1 = require("./constraint");
 /**
  * ANTLR4 grammar
  * ```
  * sizeConstraint : SIZE_LITERAL constraint
  * ```
  */
-var SizeConstraintVisitor = /** @class */ (function () {
-    function SizeConstraintVisitor() {
+class SizeConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    SizeConstraintVisitor.prototype.visitChildren = function (sizeConstraintCtx) {
-        var childCtxes = sizeConstraintCtx.children;
+    visitChildren(sizeConstraintCtx) {
+        const childCtxes = sizeConstraintCtx.children;
         /** NOTE: It seems ciruclar function call
          * But it is expected to be {min, max} according to below:
          * X.680-201508, 51.5 Size constraint
@@ -21,9 +23,8 @@ var SizeConstraintVisitor = /** @class */ (function () {
          *     the length of the specified values, and takes the form of any constraint
          *     which can be applied to the following parent type:
          */
-        var constraintCtx = childCtxes[1];
+        const constraintCtx = childCtxes[1];
         return constraintCtx.accept(new constraint_1.ConstraintVisitor());
-    };
-    return SizeConstraintVisitor;
-}());
+    }
+}
 exports.SizeConstraintVisitor = SizeConstraintVisitor;

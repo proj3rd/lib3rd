@@ -2,7 +2,7 @@
 /**
  * This module defines some interfaces and functions for 3GPP numbering
  */
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Find series of a given specification numbering
  * @param specNumStr Sepcification numbering, e.g. `38.331`
@@ -24,17 +24,17 @@ function versionFromString(versionStr) {
         return {
             major: numberFromAlpha(versionStr[0]),
             technical: numberFromAlpha(versionStr[1]),
-            editorial: numberFromAlpha(versionStr[2])
+            editorial: numberFromAlpha(versionStr[2]),
         };
     }
     else if (versionStr.length === 6) {
         return {
             major: parseInt(versionStr.substring(0, 2), 10),
             technical: parseInt(versionStr.substring(2, 4), 10),
-            editorial: parseInt(versionStr.substring(4, 6), 10)
+            editorial: parseInt(versionStr.substring(4, 6), 10),
         };
     }
-    throw Error("Malformed version string (" + versionStr + ")");
+    throw Error(`Malformed version string (${versionStr})`);
 }
 exports.versionFromString = versionFromString;
 function numberFromAlpha(char) {

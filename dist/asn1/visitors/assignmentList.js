@@ -1,10 +1,12 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var parameterizedAssignment_1 = require("./parameterizedAssignment");
-var typeAssignment_1 = require("./typeAssignment");
-var valueAssignment_1 = require("./valueAssignment");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const parameterizedAssignment_1 = require("./parameterizedAssignment");
+const typeAssignment_1 = require("./typeAssignment");
+const valueAssignment_1 = require("./valueAssignment");
 /**
  * ANTLR4 grammar
  * ```
@@ -19,51 +21,46 @@ var valueAssignment_1 = require("./valueAssignment");
  * )
  * ```
  */
-var AssignmentListVisitor = /** @class */ (function () {
-    function AssignmentListVisitor() {
+class AssignmentListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return { assignments: {}, constants: {} };
     }
-    AssignmentListVisitor.prototype.visitChildren = function (assignmentListCtx) {
-        var assignments = {};
-        var constants = {};
-        var assignmentCtxes = assignmentListCtx.children;
-        assignmentCtxes.forEach(function (assignmentCtx) {
-            var referenceName = assignmentCtx.children[0].getText();
-            var rValueContext = assignmentCtx.children[1];
-            var contextName = utils_1.getContextName(rValueContext);
-            switch (contextName) {
-                case 'valueAssignment': {
-                    var value = rValueContext.accept(new valueAssignment_1.ValueAssignmentVisitor());
-                    if (value !== null) {
-                        constants[referenceName] = value;
-                    }
-                    break;
-                }
-                case 'typeAssignment': {
-                    var type = rValueContext.accept(new typeAssignment_1.TypeAssignmentVisitor());
-                    if (type) {
-                        assignments[referenceName] = type;
-                    }
-                    break;
-                }
-                case 'parameterizedAssignment': {
-                    var parameterizedAssignment = rValueContext.accept(new parameterizedAssignment_1.ParameterizedAssignmentVisitor());
-                    if (parameterizedAssignment) {
-                        assignments[referenceName] = parameterizedAssignment;
-                    }
-                    break;
-                }
-                case 'objectClassAssignment': {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported:'));
-                    // TODO?
-                    break;
-                }
-                default: {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'Unsupported ASN1 in Assignment:'));
+    visitChildren(assignmentListCtx) {
+        const assignmentList = {
+            assignments: {},
+            constants: {},
+        };
+        const assignmentCtxes = assignmentListCtx.children;
+        assignmentCtxes.forEach((assignmentCtx) => {
+            const referenceName = assignmentCtx.children[0].text;
+            const rValueContext = assignmentCtx.children[1];
+            if (rValueContext instanceof ASN_3gppParser_1.ValueAssignmentContext) {
+                const value = rValueContext.accept(new valueAssignment_1.ValueAssignmentVisitor());
+                if (value !== null) {
+                    assignmentList.constants[referenceName] = value;
                 }
             }
+            else if (rValueContext instanceof ASN_3gppParser_1.TypeAssignmentContext) {
+                const type = rValueContext.accept(new typeAssignment_1.TypeAssignmentVisitor());
+                if (type) {
+                    assignmentList.assignments[referenceName] = type;
+                }
+            }
+            else if (rValueContext instanceof ASN_3gppParser_1.ParameterizedAssignmentContext) {
+                const parameterizedAssignment = rValueContext.accept(new parameterizedAssignment_1.ParameterizedAssignmentVisitor());
+                if (parameterizedAssignment) {
+                    assignmentList.assignments[referenceName] = parameterizedAssignment;
+                }
+            }
+            else if (rValueContext instanceof ASN_3gppParser_1.ObjectClassAssignmentContext) {
+                logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported:'));
+                // TODO?
+            }
+            else {
+                logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'Unsupported ASN1 in Assignment:'));
+            }
         });
-        return { assignments: assignments, constants: constants };
-    };
-    return AssignmentListVisitor;
-}());
+        return assignmentList;
+    }
+}
 exports.AssignmentListVisitor = AssignmentListVisitor;

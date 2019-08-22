@@ -1,3 +1,7 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { ParameterizedAssignmentContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { AsnType } from '../classes/asnType';
 /**
  * ANTLR4 grammar
  * ```
@@ -18,6 +22,7 @@
  * ;
  * ```
  */
-export declare class ParameterizedAssignmentVisitor {
-    visitChildren(parameterizedAssignmentCtx: any): any;
+export declare class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<AsnType> implements ASN_3gppVisitor<AsnType> {
+    defaultResult(): AsnType;
+    visitChildren(parameterizedAssignmentCtx: ParameterizedAssignmentContext): AsnType;
 }

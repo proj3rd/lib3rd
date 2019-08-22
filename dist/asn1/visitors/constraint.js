@@ -1,26 +1,28 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var constraintSpec_1 = require("./constraintSpec");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const constraintSpec_1 = require("./constraintSpec");
 /**
  * ANTLR4 grammar
  * ```
  * constraint :L_PARAN constraintSpec  exceptionSpec? R_PARAN
  * ```
  */
-var ConstraintVisitor = /** @class */ (function () {
-    function ConstraintVisitor() {
+class ConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ConstraintVisitor.prototype.visitChildren = function (constraintCtx) {
-        var childCtxes = constraintCtx.children;
-        var constraintSpecCtx = childCtxes[1];
-        var constraint = constraintSpecCtx.accept(new constraintSpec_1.ConstraintSpecVisitor());
-        if (utils_1.getContextName(childCtxes[2]) === 'exceptionSpec') {
+    visitChildren(constraintCtx) {
+        const childCtxes = constraintCtx.children;
+        const constraintSpecCtx = childCtxes[1];
+        const constraint = constraintSpecCtx.accept(new constraintSpec_1.ConstraintSpecVisitor());
+        if (childCtxes[2] instanceof ASN_3gppParser_1.ExceptionSpecContext) {
             logging_1.log.warn(utils_1.getLogWithAsn1(constraintCtx, 'ExceptionSpec not supported:'));
         }
         return constraint;
-    };
-    return ConstraintVisitor;
-}());
+    }
+}
 exports.ConstraintVisitor = ConstraintVisitor;

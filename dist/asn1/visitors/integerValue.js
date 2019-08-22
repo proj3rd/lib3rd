@@ -1,31 +1,28 @@
 "use strict";
-exports.__esModule = true;
-var utils_1 = require("../utils");
-var signedNumber_1 = require("./signedNumber");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const signedNumber_1 = require("./signedNumber");
 /**
  * ANTLR4 grammar
  * ```
  * integerValue :  signedNumber | IDENTIFIER
  * ```
  */
-var IntegerValueVisitor = /** @class */ (function () {
-    function IntegerValueVisitor() {
+class IntegerValueVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    IntegerValueVisitor.prototype.visitChildren = function (integerValueCtx) {
-        var childCtx = integerValueCtx.children[0];
-        var integerValue = null;
-        switch (utils_1.getContextName(childCtx)) {
-            case 'signedNumber': {
-                integerValue = integerValueCtx.accept(new signedNumber_1.SignedNumberVisitor());
-                break;
-            }
-            default: {
-                integerValue = integerValueCtx.getText();
-                break;
-            }
+    visitChildren(integerValueCtx) {
+        const childCtx = integerValueCtx.children[0];
+        let integerValue;
+        if (childCtx instanceof ASN_3gppParser_1.SignedNumberContext) {
+            integerValue = integerValueCtx.accept(new signedNumber_1.SignedNumberVisitor());
+        }
+        else {
+            integerValue = integerValueCtx.text;
         }
         return integerValue;
-    };
-    return IntegerValueVisitor;
-}());
+    }
+}
 exports.IntegerValueVisitor = IntegerValueVisitor;

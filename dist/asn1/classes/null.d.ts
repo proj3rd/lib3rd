@@ -1,6 +1,6 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
-export declare class Null extends Base {
+import { AsnType } from './asnType';
+export declare class Null extends AsnType {
     setConstraint(constraint: any): Null;
     expand(asn1Pool: any, moduleName?: string): Null;
     depthMax(): number;

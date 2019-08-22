@@ -1,18 +1,19 @@
 "use strict";
-exports.__esModule = true;
-var extensionMarker_1 = require("../classes/extensionMarker");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const extensionMarker_1 = require("../classes/extensionMarker");
 /**
  * ANTLR4 grammar
  * ```
  * optionalExtensionMarker :  ( COMMA  ELLIPSIS )?
  * ```
  */
-var OptionalExtensionMarkerVisitor = /** @class */ (function () {
-    function OptionalExtensionMarkerVisitor() {
+class OptionalExtensionMarkerVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return [];
     }
-    OptionalExtensionMarkerVisitor.prototype.visitChildren = function (optionalExtensionMarkerCtx) {
+    visitChildren(optionalExtensionMarkerCtx) {
         return optionalExtensionMarkerCtx.children ? [new extensionMarker_1.ExtensionMarker()] : [];
-    };
-    return OptionalExtensionMarkerVisitor;
-}());
+    }
+}
 exports.OptionalExtensionMarkerVisitor = OptionalExtensionMarkerVisitor;

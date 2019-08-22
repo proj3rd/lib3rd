@@ -1,6 +1,7 @@
 "use strict";
-exports.__esModule = true;
-var reTag = /^-- *?(Need|Cond) *?.+?$/;
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const reTag = /^-- *?(Need|Cond) *?.+?$/;
 /**
  * ANTLR4 grammar
  * ```
@@ -13,19 +14,16 @@ var reTag = /^-- *?(Need|Cond) *?.+?$/;
  *   ;
  * ```
  */
-var TagVisitor = /** @class */ (function () {
-    function TagVisitor() {
+class TagVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    TagVisitor.prototype.visitChildren = function (tagCtx) {
-        var childCtx = tagCtx.children[0];
+    visitChildren(tagCtx) {
+        const childCtx = tagCtx.children[0];
         // FIXME: ASN_3gpp.g4 not working properly
         // Temporary workaround
-        var tag = childCtx.getText();
-        if (tag.match(reTag)) {
-            return tag;
-        }
-        return null;
-    };
-    return TagVisitor;
-}());
+        const tag = childCtx.text;
+        return tag.match(reTag) ? tag : null;
+    }
+}
 exports.TagVisitor = TagVisitor;

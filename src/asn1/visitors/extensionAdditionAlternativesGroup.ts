@@ -1,5 +1,8 @@
-import { ExtensionAdditionAlternativesGroup } from '../classes/extensionAdditionAlternativesGroup';
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
+import { ExtensionAdditionAlternativesGroupContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { ExtensionAdditionAlternativesGroup } from '../classes/extensionAdditionAlternativesGroup';
 import { AlternativeTypeListVisitor } from './alternativeTypeList';
 import { VersionNumberVisitor } from './versionNumber';
 
@@ -9,8 +12,15 @@ import { VersionNumberVisitor } from './versionNumber';
  * extensionAdditionAlternativesGroup  :  DOUBLE_L_BRACKET  versionNumber  alternativeTypeList  DOUBLE_R_BRACKET
  * ```
  */
-export class ExtensionAdditionAlternativesGroupVisitor {
-  public visitChildren(extensionAdditionAlternativesGroupCtx: any): ExtensionAdditionAlternativesGroup {
+export class ExtensionAdditionAlternativesGroupVisitor
+    extends AbstractParseTreeVisitor<ExtensionAdditionAlternativesGroup>
+    implements ASN_3gppVisitor<ExtensionAdditionAlternativesGroup> {
+  public defaultResult(): ExtensionAdditionAlternativesGroup {
+    return undefined;
+  }
+
+  public visitChildren(extensionAdditionAlternativesGroupCtx: ExtensionAdditionAlternativesGroupContext)
+      : ExtensionAdditionAlternativesGroup {
     const childCtxes = extensionAdditionAlternativesGroupCtx.children;
     const versionNumberCtx = childCtxes[1];
     const alternativeTypeListCtx = childCtxes[2];

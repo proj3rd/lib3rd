@@ -1,7 +1,12 @@
-import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 
-import { ActualParameterVisitor } from './actualParameter';
+import { log } from '../../utils/logging';
+import { getLogWithAsn1 } from '../utils';
+
+import { ActualParameterContext, ActualParameterListContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { ActualParameter, ActualParameterVisitor } from './actualParameter';
 
 /**
  * ANTLR4 grammar
@@ -9,23 +14,22 @@ import { ActualParameterVisitor } from './actualParameter';
  * actualParameterList : L_BRACE actualParameter (COMMA actualParameter)* R_BRACE
  * ```
  */
-export class ActualParameterListVisitor {
-  public visitChildren(actualParameterListCtx: any): any /* TODO */ {
-    const actualParameterList: any[] = [];
-    const childCtxes: any/* TODO */[] = actualParameterListCtx.children;
+export class ActualParameterListVisitor extends AbstractParseTreeVisitor<ActualParameter[]>
+                                        implements ASN_3gppVisitor<ActualParameter[]> {
+  public defaultResult(): ActualParameter[] {
+    return undefined;
+  }
+
+  public visitChildren(actualParameterListCtx: ActualParameterListContext): ActualParameter[] {
+    const actualParameterList = [];
+    const childCtxes = actualParameterListCtx.children;
     childCtxes.forEach((childCtx) => {
-      switch (getContextName(childCtx)) {
-        case 'actualParameter': {
-          actualParameterList.push(childCtx.accept(new ActualParameterVisitor()));
-          break;
-        }
-        case null: {
-          break;
-        }
-        default: {
-          log.warn(getLogWithAsn1(actualParameterListCtx, 'Not supported ASN.1'));
-          break;
-        }
+      if (childCtx instanceof ActualParameterContext) {
+        actualParameterList.push(childCtx.accept(new ActualParameterVisitor()));
+      } else if (childCtx instanceof TerminalNode) {
+        // Do nothing
+      } else {
+        log.warn(getLogWithAsn1(actualParameterListCtx, 'Not supported ASN.1'));
       }
     });
     return actualParameterList;

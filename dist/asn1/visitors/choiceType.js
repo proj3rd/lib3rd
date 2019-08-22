@@ -1,21 +1,22 @@
 "use strict";
-exports.__esModule = true;
-var choice_1 = require("../classes/choice");
-var alternativeTypeLists_1 = require("./alternativeTypeLists");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const choice_1 = require("../classes/choice");
+const alternativeTypeLists_1 = require("./alternativeTypeLists");
 /**
  * ANTLR4 grammar
  * ```
  * choiceType    : CHOICE_LITERAL L_BRACE alternativeTypeLists R_BRACE
  * ```
  */
-var ChoiceTypeVisitor = /** @class */ (function () {
-    function ChoiceTypeVisitor() {
+class ChoiceTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ChoiceTypeVisitor.prototype.visitChildren = function (choiceTypeCtx) {
-        var alternativeTypeListsCtx = choiceTypeCtx.children[2];
-        var alternativeTypeLists = alternativeTypeListsCtx.accept(new alternativeTypeLists_1.AlternativeTypeListsVisitor());
+    visitChildren(choiceTypeCtx) {
+        const alternativeTypeListsCtx = choiceTypeCtx.children[2];
+        const alternativeTypeLists = alternativeTypeListsCtx.accept(new alternativeTypeLists_1.AlternativeTypeListsVisitor());
         return new choice_1.Choice(alternativeTypeLists);
-    };
-    return ChoiceTypeVisitor;
-}());
+    }
+}
 exports.ChoiceTypeVisitor = ChoiceTypeVisitor;

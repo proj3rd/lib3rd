@@ -1,8 +1,9 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var moduleBody_1 = require("./moduleBody");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const moduleBody_1 = require("./moduleBody");
 /**
  * ANTLR4 grammar
  * ```
@@ -16,12 +17,13 @@ var moduleBody_1 = require("./moduleBody");
  *       END_LITERAL
  * ```
  */
-var ModuleDefinitionVisitor = /** @class */ (function () {
-    function ModuleDefinitionVisitor() {
+class ModuleDefinitionVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return { moduleName: undefined, definition: undefined };
     }
-    ModuleDefinitionVisitor.prototype.visitChildren = function (moduleDefinitionCtx) {
-        var childCtxes = moduleDefinitionCtx.children;
-        var length = childCtxes.length;
+    visitChildren(moduleDefinitionCtx) {
+        const { children: childCtxes } = moduleDefinitionCtx;
+        const { length } = childCtxes;
         if (length > 8) {
             /**
              * TODO: matches to (L_BRACE (IDENTIFIER L_PARAN NUMBER R_PARAN)* R_BRACE)?
@@ -32,19 +34,18 @@ var ModuleDefinitionVisitor = /** @class */ (function () {
              */
             logging_1.log.warn(utils_1.getLogWithAsn1(moduleDefinitionCtx, 'DefinitiveIdentification not supported:'));
         }
-        var moduleName = childCtxes[0].getText();
-        var moduleBodyCtx = childCtxes[length - 2];
-        var definition = moduleBodyCtx.accept(new moduleBody_1.ModuleBodyVisitor());
+        const moduleName = childCtxes[0].text;
+        const moduleBodyCtx = childCtxes[length - 2];
+        const definition = moduleBodyCtx.accept(new moduleBody_1.ModuleBodyVisitor());
         markModuleName(definition, moduleName);
-        return { moduleName: moduleName, definition: definition };
-    };
-    return ModuleDefinitionVisitor;
-}());
+        return { moduleName, definition };
+    }
+}
 exports.ModuleDefinitionVisitor = ModuleDefinitionVisitor;
 function markModuleName(definition, moduleName) {
-    var assignments = definition.assignments;
+    const assignments = definition.assignments;
     // tslint:disable-next-line: forin
-    for (var identifier in assignments) {
+    for (const identifier in assignments) {
         assignments[identifier].moduleName = moduleName;
     }
 }

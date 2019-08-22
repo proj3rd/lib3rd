@@ -1,6 +1,11 @@
-import { getContextName } from '../utils';
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
+import { IntegerValueContext, SignedNumberContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { SignedNumberVisitor } from './signedNumber';
+
+export type AsnIntegerValue = number | string;
 
 /**
  * ANTLR4 grammar
@@ -8,19 +13,19 @@ import { SignedNumberVisitor } from './signedNumber';
  * integerValue :  signedNumber | IDENTIFIER
  * ```
  */
-export class IntegerValueVisitor {
-  public visitChildren(integerValueCtx: any): number | string {
+export class IntegerValueVisitor extends AbstractParseTreeVisitor<AsnIntegerValue>
+                                 implements ASN_3gppVisitor<AsnIntegerValue> {
+  public defaultResult(): AsnIntegerValue {
+    return undefined;
+  }
+
+  public visitChildren(integerValueCtx: IntegerValueContext): number | string {
     const childCtx = integerValueCtx.children[0];
-    let integerValue: number | string = null;
-    switch (getContextName(childCtx)) {
-      case 'signedNumber': {
-        integerValue = integerValueCtx.accept(new SignedNumberVisitor());
-        break;
-      }
-      default: {
-        integerValue = integerValueCtx.getText();
-        break;
-      }
+    let integerValue: AsnIntegerValue;
+    if (childCtx instanceof SignedNumberContext) {
+      integerValue = integerValueCtx.accept(new SignedNumberVisitor());
+    } else {
+      integerValue = integerValueCtx.text;
     }
     return integerValue;
   }

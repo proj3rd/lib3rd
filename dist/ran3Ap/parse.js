@@ -1,57 +1,56 @@
 "use strict";
-exports.__esModule = true;
-var $ = require("cheerio");
-var fs_1 = require("fs");
-var logging_1 = require("../utils/logging");
-var common_1 = require("./common");
-var msgIeTableHeader = [
+Object.defineProperty(exports, "__esModule", { value: true });
+const $ = require("cheerio");
+const fs_1 = require("fs");
+const logging_1 = require("../utils/logging");
+const common_1 = require("./common");
+const msgIeTableHeader = [
     'ie/group name', 'presence', 'range', 'ie type and reference', 'semantics description',
     'criticality', 'assigned criticiality',
 ];
-var rangeTableHeader = [
+const rangeTableHeader = [
     'range bound', 'explanation',
 ];
-var conditionTableHeader = [
+const conditionTableHeader = [
     'condition', 'explanation',
 ];
-var reDepth = /^>+/;
+const reDepth = /^>+/;
 /**
  * Parse RAN3 AP messages and IEs
  * @param html RAN3 AP document in HTML format encoded in UTF-8
  * @returns Collection of RAN3 AP messages and IEs
  */
 function parse(html) {
-    var _a;
-    var definitions = {};
-    var sectionNumber = '';
-    var sectionTitle = '';
-    var description = '';
-    var direction = '';
-    var ies = null;
-    var rangeDefinition = null;
-    var conditionDefinition = null;
-    var stack = selectorToArray($(html)).reverse();
+    const definitions = {};
+    let sectionNumber = '';
+    let sectionTitle = '';
+    let description = '';
+    let direction = '';
+    let ies = null;
+    let rangeDefinition = null;
+    let conditionDefinition = null;
+    let stack = selectorToArray($(html)).reverse();
     while (stack.length) {
-        var selector = stack.pop();
-        var elem = selector[0];
+        const selector = stack.pop();
+        const elem = selector[0];
         if (containsSection(selector)) {
             if (ies) {
                 definitions[sectionNumber] = {
                     section: sectionNumber,
                     name: sectionTitle,
-                    description: description,
-                    direction: direction,
-                    ies: ies,
+                    description,
+                    direction,
+                    ies,
                     range: rangeDefinition,
-                    condition: conditionDefinition
+                    condition: conditionDefinition,
                 };
                 definitions[sectionTitle] = sectionNumber;
-                logging_1.log.debug("Item stored: " + sectionNumber + " " + sectionTitle);
+                logging_1.log.debug(`Item stored: ${sectionNumber} ${sectionTitle}`);
             }
             else {
-                logging_1.log.debug("Item discarded: " + sectionNumber + " " + sectionTitle.substring(0, 32) + "...");
+                logging_1.log.debug(`Item discarded: ${sectionNumber} ${sectionTitle.substring(0, 32)}...`);
             }
-            (_a = sectionInformation(selector), sectionNumber = _a.sectionNumber, sectionTitle = _a.sectionTitle);
+            ({ sectionNumber, sectionTitle } = sectionInformation(selector));
             description = '';
             direction = '';
             ies = null;
@@ -90,7 +89,7 @@ function isTag(elem) {
     return elem.type === 'tag';
 }
 function containsSection(selector) {
-    var elem = selector[0];
+    const elem = selector[0];
     if (isTag(elem)) {
         if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(elem.name) !== -1) {
             return true;
@@ -98,9 +97,9 @@ function containsSection(selector) {
         // Do not use normalizeWhitespace() here
         // Because it removes newline character and concatenates all root and children text
         // So it leads incorrect parse result
-        var text = selector.text();
+        const text = selector.text();
         if (text.match(common_1.reSection)) {
-            logging_1.log.debug("Section info in non-heading: " + text.substring(0, 32) + "...");
+            logging_1.log.debug(`Section info in non-heading: ${text.substring(0, 32)}...`);
             return true;
         }
     }
@@ -113,11 +112,11 @@ function isTagP(elem) {
     return isTag(elem) && elem.name === 'p';
 }
 function sectionInformation(selector) {
-    var sectionHeading = normalizeWhitespace(selector.text());
-    var indexDelimiter = sectionHeading.indexOf(' ');
-    var sectionNumber = sectionHeading.substring(0, indexDelimiter) || '';
-    var sectionTitle = sectionHeading.substring(indexDelimiter + 1) || '';
-    return { sectionNumber: sectionNumber, sectionTitle: sectionTitle };
+    const sectionHeading = normalizeWhitespace(selector.text());
+    const indexDelimiter = sectionHeading.indexOf(' ');
+    const sectionNumber = sectionHeading.substring(0, indexDelimiter) || '';
+    const sectionTitle = sectionHeading.substring(indexDelimiter + 1) || '';
+    return { sectionNumber, sectionTitle };
 }
 function containsDirection(selector) {
     return normalizeWhitespace(selector.text()).startsWith('Direction:');
@@ -128,8 +127,8 @@ function getDirection(selector) {
         .replace(/®/g, '→');
 }
 function doesHeaderMatch(selector, header, indexEnd) {
-    var headerTds = selector.find('tr').first().children('td').slice(0, indexEnd);
-    return headerTds.get().reduce(function (prev, curr, currIndex, arr) {
+    const headerTds = selector.find('tr').first().children('td').slice(0, indexEnd);
+    return headerTds.get().reduce((prev, curr, currIndex, arr) => {
         return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === header[currIndex]);
     }, true);
 }
@@ -137,11 +136,11 @@ function isMsgIeTable(selector) {
     return isTagTable(selector[0]) && doesHeaderMatch(selector, msgIeTableHeader, 5);
 }
 function parseTable(selector, tableHeader) {
-    var trs = selector.find('tr').slice(1);
-    var ies = trs.map(function (indexTr, tr) {
-        var ie = {};
-        $(tr).find('td').each(function (indexTd, td) {
-            var key = tableHeader[indexTd];
+    const trs = selector.find('tr').slice(1);
+    const ies = trs.map((indexTr, tr) => {
+        const ie = {};
+        $(tr).find('td').each((indexTd, td) => {
+            const key = tableHeader[indexTd];
             if (!key) {
                 return;
             }
@@ -152,13 +151,13 @@ function parseTable(selector, tableHeader) {
     return ies;
 }
 function parseMsgIeTable(selector) {
-    var ies = parseTable(selector, msgIeTableHeader);
-    var depthMin = Infinity;
-    ies.forEach(function (ie) {
+    const ies = parseTable(selector, msgIeTableHeader);
+    let depthMin = Infinity;
+    ies.forEach((ie) => {
         ie.depth = elemDepth(ie);
         depthMin = Math.min(depthMin, ie.depth);
     });
-    ies.forEach(function (ie) {
+    ies.forEach((ie) => {
         ie.depth -= depthMin;
     });
     return ies;
@@ -176,12 +175,12 @@ function parseConditionTable(selector) {
     return parseTable(selector, conditionTableHeader);
 }
 function selectorToArray(selector) {
-    return selector.map(function (index, elem) {
+    return selector.map((index, elem) => {
         return $(elem);
     }).get();
 }
 function stackChildren(stack, selector) {
-    var children = selector.children().map(function (index, child) {
+    const children = selector.children().map((index, child) => {
         return $(child);
     }).get();
     return stack.concat(children.reverse());
@@ -194,18 +193,18 @@ function htmlToText(html) {
         .replace(/<sub>\s*?(.+?)\s*?<\/sub>/g, '_($1)');
 }
 function elemDepth(ie) {
-    var matchDepth = ie['ie/group name'].match(reDepth);
+    const matchDepth = ie['ie/group name'].match(reDepth);
     if (matchDepth) {
         return matchDepth[0].length;
     }
     return 0;
 }
 if (require.main === module) {
-    var filePath = process.argv[2];
+    const filePath = process.argv[2];
     if (!filePath) {
         throw Error('Requires 1 argument, filePath');
     }
-    fs_1.readFile(filePath, 'utf8', function (err, html) {
+    fs_1.readFile(filePath, 'utf8', (err, html) => {
         if (err) {
             throw err;
         }

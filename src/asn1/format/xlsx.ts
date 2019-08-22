@@ -183,7 +183,11 @@ function fillConstants(constants: any[], moduleName: string, asn1Pool: any, ws: 
     if (rangeElem.value === null) {
       rangeElem.value = `Spec error: ${moduleName} neither defines nor imports ${rangeElem.constant}`;
     }
-    ws.cell(row++, col + depthMax + 1).string(rangeElem.value);
+    if (isNaN(Number(rangeElem.value))) {
+      ws.cell(row++, col + depthMax + 1).string(rangeElem.value);
+    } else {
+      ws.cell(row++, col + depthMax + 1).number(rangeElem.value);
+    }
   });
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
   return [row, col];

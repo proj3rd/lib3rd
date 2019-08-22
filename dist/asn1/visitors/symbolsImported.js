@@ -1,22 +1,23 @@
 "use strict";
-exports.__esModule = true;
-var symbolsFromModuleList_1 = require("./symbolsFromModuleList");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const symbolsFromModuleList_1 = require("./symbolsFromModuleList");
 /**
  * ANTLR4 grammar
  * ```
  * symbolsImported : (symbolsFromModuleList )?
  * ```
  */
-var SymbolsImportedVisitor = /** @class */ (function () {
-    function SymbolsImportedVisitor() {
+class SymbolsImportedVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return {};
     }
-    SymbolsImportedVisitor.prototype.visitChildren = function (symbolsImportedCtx) {
-        var symbolsFromModule = {};
+    visitChildren(symbolsImportedCtx) {
+        let symbolsFromModule = {};
         if (symbolsImportedCtx.children) {
             symbolsFromModule = symbolsImportedCtx.children[0].accept(new symbolsFromModuleList_1.SymbolsFromModuleListVisitor());
         }
         return symbolsFromModule;
-    };
-    return SymbolsImportedVisitor;
-}());
+    }
+}
 exports.SymbolsImportedVisitor = SymbolsImportedVisitor;

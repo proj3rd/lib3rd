@@ -1,3 +1,6 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { ModuleDefinitionContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { IModuleBody } from './moduleBody';
 export interface IModuleDefinition {
     moduleName: string;
@@ -16,6 +19,7 @@ export interface IModuleDefinition {
  *       END_LITERAL
  * ```
  */
-export declare class ModuleDefinitionVisitor {
-    visitChildren(moduleDefinitionCtx: any): IModuleDefinition;
+export declare class ModuleDefinitionVisitor extends AbstractParseTreeVisitor<IModuleDefinition> implements ASN_3gppVisitor<IModuleDefinition> {
+    defaultResult(): IModuleDefinition;
+    visitChildren(moduleDefinitionCtx: ModuleDefinitionContext): IModuleDefinition;
 }

@@ -1,20 +1,22 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var unions_1 = require("./unions");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const unions_1 = require("./unions");
 /**
  * ANTLR4 grammar
  * ```
  * elementSetSpec : unions | ALL_LITERAL exclusions
  * ```
  */
-var ElementSetSpecVisitor = /** @class */ (function () {
-    function ElementSetSpecVisitor() {
+class ElementSetSpecVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ElementSetSpecVisitor.prototype.visitChildren = function (elementSetSpecCtx) {
-        var childCtxes = elementSetSpecCtx.children;
-        var elementSetSpec = null;
+    visitChildren(elementSetSpecCtx) {
+        const childCtxes = elementSetSpecCtx.children;
+        let elementSetSpec;
         switch (childCtxes.length) {
             case 1: {
                 elementSetSpec = childCtxes[0].accept(new unions_1.UnionsVisitor());
@@ -30,7 +32,6 @@ var ElementSetSpecVisitor = /** @class */ (function () {
             }
         }
         return elementSetSpec;
-    };
-    return ElementSetSpecVisitor;
-}());
+    }
+}
 exports.ElementSetSpecVisitor = ElementSetSpecVisitor;

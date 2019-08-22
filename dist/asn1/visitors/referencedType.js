@@ -1,6 +1,7 @@
 "use strict";
-exports.__esModule = true;
-var definedType_1 = require("./definedType");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const definedType_1 = require("./definedType");
 /**
  * ANTLR4 grammar
  * ```
@@ -8,13 +9,13 @@ var definedType_1 = require("./definedType");
  *   definedType
  * ```
  */
-var ReferencedTypeVisitor = /** @class */ (function () {
-    function ReferencedTypeVisitor() {
+class ReferencedTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ReferencedTypeVisitor.prototype.visitChildren = function (referencedTypeCtx) {
-        var definedTypeCtx = referencedTypeCtx.children[0];
+    visitChildren(referencedTypeCtx) {
+        const definedTypeCtx = referencedTypeCtx.children[0];
         return definedTypeCtx.accept(new definedType_1.DefinedTypeVisitor());
-    };
-    return ReferencedTypeVisitor;
-}());
+    }
+}
 exports.ReferencedTypeVisitor = ReferencedTypeVisitor;

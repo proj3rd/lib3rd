@@ -1,13 +1,13 @@
 "use strict";
-exports.__esModule = true;
-var fs_1 = require("fs");
-var text_1 = require("../utils/text");
-var utils_1 = require("./utils");
-var tokens = {
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = require("fs");
+const text_1 = require("../utils/text");
+const utils_1 = require("./utils");
+const tokens = {
     RRC: {
         start: /^-- ASN1START/gm,
-        end: /^-- ASN1STOP/gm
-    }
+        end: /^-- ASN1STOP/gm,
+    },
 };
 /**
  * Extract ASN.1 from text
@@ -20,14 +20,14 @@ function extract(text, protocol) {
     if (!tokens[protocol]) {
         throw Error('Protocol is not supported');
     }
-    var extractedTexts = [];
+    const extractedTexts = [];
     while (true) {
-        var matchStart = tokens[protocol].start.exec(text);
+        const matchStart = tokens[protocol].start.exec(text);
         if (!matchStart) {
             break;
         }
         tokens[protocol].end.lastIndex = matchStart.index;
-        var matchEnd = tokens[protocol].end.exec(text);
+        const matchEnd = tokens[protocol].end.exec(text);
         if (!matchEnd) {
             throw Error('Start token is found but end token is not');
         }
@@ -37,14 +37,14 @@ function extract(text, protocol) {
 }
 exports.extract = extract;
 if (require.main === module) {
-    var _a = process.argv.slice(2), protocol_1 = _a[0], filePath = _a[1];
-    if (!protocol_1 || !filePath) {
+    const [protocol, filePath] = process.argv.slice(2);
+    if (!protocol || !filePath) {
         throw Error('Requires 2 arguments, protocol and filePath');
     }
-    fs_1.readFile(filePath, 'utf8', function (err, text) {
+    fs_1.readFile(filePath, 'utf8', (err, text) => {
         if (err) {
             throw err;
         }
-        process.stdout.write(extract(text, protocol_1));
+        process.stdout.write(extract(text, protocol));
     });
 }

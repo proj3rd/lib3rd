@@ -1,6 +1,7 @@
 "use strict";
-exports.__esModule = true;
-var elementSetSpecs_1 = require("./elementSetSpecs");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const elementSetSpecs_1 = require("./elementSetSpecs");
 /**
  * ANTLR4 grammar
  * ```
@@ -8,13 +9,13 @@ var elementSetSpecs_1 = require("./elementSetSpecs");
  * elementSetSpecs
  * ```
  */
-var SubtypeConstraintVisitor = /** @class */ (function () {
-    function SubtypeConstraintVisitor() {
+class SubtypeConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    SubtypeConstraintVisitor.prototype.visitChildren = function (subtypeConstraintCtx) {
-        var elementSetSpecs = subtypeConstraintCtx.children[0];
+    visitChildren(subtypeConstraintCtx) {
+        const elementSetSpecs = subtypeConstraintCtx.children[0];
         return elementSetSpecs.accept(new elementSetSpecs_1.ElementSetSpecsVisitor());
-    };
-    return SubtypeConstraintVisitor;
-}());
+    }
+}
 exports.SubtypeConstraintVisitor = SubtypeConstraintVisitor;

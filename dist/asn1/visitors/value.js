@@ -1,19 +1,20 @@
 "use strict";
-exports.__esModule = true;
-var builtinValue_1 = require("./builtinValue");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const builtinValue_1 = require("./builtinValue");
 /**
  * ANTLR4 grammar
  * ```
  * value  :   builtinValue
  * ```
  */
-var ValueVisitor = /** @class */ (function () {
-    function ValueVisitor() {
+class ValueVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ValueVisitor.prototype.visitChildren = function (valueCtx) {
-        var builtinValueCtx = valueCtx.children[0];
+    visitChildren(valueCtx) {
+        const builtinValueCtx = valueCtx.children[0];
         return builtinValueCtx.accept(new builtinValue_1.BuiltinValueVisitor());
-    };
-    return ValueVisitor;
-}());
+    }
+}
 exports.ValueVisitor = ValueVisitor;

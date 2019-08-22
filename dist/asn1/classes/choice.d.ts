@@ -1,9 +1,9 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
-import { NamedType } from './namedType';
-export declare class Choice extends Base {
-    choices: NamedType[];
-    constructor(choices: any);
+import { AlternativeTypeLists } from '../visitors/alternativeTypeLists';
+import { AsnType } from './asnType';
+export declare class Choice extends AsnType {
+    choices: AlternativeTypeLists;
+    constructor(choices: AlternativeTypeLists);
     setConstraint(constraint: any): Choice;
     expand(asn1Pool: any, moduleName?: string, parameterList?: string[]): Choice;
     depthMax(): number;

@@ -1,20 +1,22 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var intersections_1 = require("./intersections");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const intersections_1 = require("./intersections");
 /**
  * ANTLR4 grammar
  * ```
  * unions :   (intersections) (unionMark intersections)*
  * ```
  */
-var UnionsVisitor = /** @class */ (function () {
-    function UnionsVisitor() {
+class UnionsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    UnionsVisitor.prototype.visitChildren = function (unionsCtx) {
-        var childCtxes = unionsCtx.children;
-        var unions = null;
+    visitChildren(unionsCtx) {
+        const childCtxes = unionsCtx.children;
+        let unions;
         if (childCtxes.length === 1) {
             unions = childCtxes[0].accept(new intersections_1.IntersectionsVisitor());
         }
@@ -22,7 +24,6 @@ var UnionsVisitor = /** @class */ (function () {
             logging_1.log.warn(utils_1.getLogWithAsn1(unionsCtx, 'Multiple of Intersections\'s not supported:'));
         }
         return unions;
-    };
-    return UnionsVisitor;
-}());
+    }
+}
 exports.UnionsVisitor = UnionsVisitor;

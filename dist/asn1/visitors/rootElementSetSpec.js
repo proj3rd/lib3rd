@@ -1,17 +1,18 @@
 "use strict";
-exports.__esModule = true;
-var elementSetSpec_1 = require("./elementSetSpec");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const elementSetSpec_1 = require("./elementSetSpec");
 /**
  * ANTLR4 grammar
  * rootElementSetSpec : elementSetSpec
  */
-var RootElementSetSpecVisitor = /** @class */ (function () {
-    function RootElementSetSpecVisitor() {
+class RootElementSetSpecVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    RootElementSetSpecVisitor.prototype.visitChildren = function (rootElementSetSpecCtx) {
-        var elementSetSpec = rootElementSetSpecCtx.children[0];
+    visitChildren(rootElementSetSpecCtx) {
+        const elementSetSpec = rootElementSetSpecCtx.children[0];
         return elementSetSpec.accept(new elementSetSpec_1.ElementSetSpecVisitor());
-    };
-    return RootElementSetSpecVisitor;
-}());
+    }
+}
 exports.RootElementSetSpecVisitor = RootElementSetSpecVisitor;

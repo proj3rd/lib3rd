@@ -1,7 +1,7 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { AsnType } from './asnType';
 import { NamedType } from './namedType';
-export declare class Sequence extends Base {
+export declare class Sequence extends AsnType {
     items: NamedType[];
     constructor(items: any[]);
     setConstraint(constraint: any): Sequence;

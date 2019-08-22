@@ -1,6 +1,6 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
-export declare class AsnBoolean extends Base {
+import { AsnType } from './asnType';
+export declare class AsnBoolean extends AsnType {
     setConstraint(constraint: any): AsnBoolean;
     expand(asn1Pool: any, moduleName?: string): AsnBoolean;
     depthMax(): number;

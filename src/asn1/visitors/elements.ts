@@ -1,8 +1,19 @@
-import { log } from '../../utils/logging';
-import { getContextName, getLogWithAsn1 } from '../utils';
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
+import { log } from '../../utils/logging';
+import { getLogWithAsn1 } from '../utils';
+
+import { ElementsContext, SizeConstraintContext, ValueContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { BuiltinValue } from './builtinValue';
 import { SizeConstraintVisitor } from './sizeConstraint';
 import { ValueVisitor } from './value';
+
+export interface IConstraint {
+  min?: BuiltinValue;
+  max?: BuiltinValue;
+  value?: BuiltinValue;
+}
 
 /**
  * ANTLR4 grammar
@@ -15,30 +26,29 @@ import { ValueVisitor } from './value';
  *  | value
  * ```
  */
-export class ElementsVisitor {
-  public visitChildren(elementsCtx: any): any /* TODO */ {
+export class ElementsVisitor extends AbstractParseTreeVisitor<IConstraint> implements ASN_3gppVisitor<IConstraint> {
+  public defaultResult(): IConstraint {
+    return undefined;
+  }
+
+  public visitChildren(elementsCtx: ElementsContext): IConstraint {
     const subtypeElementsCtx = elementsCtx.children[0];
-    const childCtxes = subtypeElementsCtx.children;
-    let elements = null;
-    switch (childCtxes.length) {
+    const childCount = subtypeElementsCtx.childCount;
+    const childCtxFirst = subtypeElementsCtx.getChild(0);
+    const childCtxLast = subtypeElementsCtx.getChild(childCount - 1);
+    let elements: IConstraint;
+    switch (subtypeElementsCtx.childCount) {
       case 1: {
         // sizeConstraint
         // value
-        switch (getContextName(childCtxes[0])) {
-          case 'sizeConstraint': {
-            const sizeConstraintCtx = childCtxes[0];
-            elements = sizeConstraintCtx.accept(new SizeConstraintVisitor());
-            break;
-          }
-          case 'value': {
-            const valueCtx = childCtxes[0];
-            elements = {value: valueCtx.accept(new ValueVisitor())};
-            break;
-          }
-          default: {
-            log.warn(getLogWithAsn1(elementsCtx, 'Not supported ASN1:'));
-            break;
-          }
+        if (childCtxFirst instanceof SizeConstraintContext) {
+          const sizeConstraintCtx = childCtxFirst;
+          elements = sizeConstraintCtx.accept(new SizeConstraintVisitor());
+        } else if (childCtxFirst instanceof ValueContext) {
+          const valueCtx = childCtxFirst;
+          elements = {value: valueCtx.accept(new ValueVisitor())};
+        } else {
+          log.warn(getLogWithAsn1(elementsCtx, 'Not supported ASN1:'));
         }
         break;
       }
@@ -51,13 +61,13 @@ export class ElementsVisitor {
         // ((value | MIN_LITERAL) LESS_THAN?  DOUBLE_DOT LESS_THAN?  (value | MAX_LITERAL) )
         /** NOTE: value is expected to be string (IDENTIFIER) or number (integer)
          */
-        if (childCtxes.length > 3) {
+        if (childCount > 3) {
           log.warn(getLogWithAsn1(elementsCtx, '\'<\' or \'>\' not supported:'));
         }
-        const minCtx = childCtxes[0];
-        const min = getContextName(minCtx) === 'value' ? minCtx.accept(new ValueVisitor()) : minCtx.getText();
-        const maxCtx = childCtxes[childCtxes.length - 1];
-        const max = getContextName(maxCtx) === 'value' ? maxCtx.accept(new ValueVisitor()) : maxCtx.getText();
+        const minCtx = childCtxFirst;
+        const min = minCtx instanceof ValueContext ? minCtx.accept(new ValueVisitor()) : minCtx.text;
+        const maxCtx = childCtxLast;
+        const max = maxCtx instanceof ValueContext ? maxCtx.accept(new ValueVisitor()) : maxCtx.text;
         elements = {min, max};
         break;
       }

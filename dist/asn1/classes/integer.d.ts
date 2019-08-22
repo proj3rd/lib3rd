@@ -1,6 +1,6 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
-export declare class Integer extends Base {
+import { AsnType } from './asnType';
+export declare class Integer extends AsnType {
     namedNumberList: any;
     value: number | string;
     min: number | string;

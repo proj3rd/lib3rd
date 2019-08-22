@@ -1,7 +1,8 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
+import { AsnType } from './asnType';
 import { Base } from './base';
 import { WithComponents } from './withComponents';
-export declare class DefinedType extends Base {
+export declare class DefinedType extends AsnType {
     moduleReference: string;
     typeReference: string;
     actualParameterList: any[];

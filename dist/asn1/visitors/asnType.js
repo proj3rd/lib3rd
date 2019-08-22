@@ -1,46 +1,43 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var builtinType_1 = require("./builtinType");
-var constraint_1 = require("./constraint");
-var referencedType_1 = require("./referencedType");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const builtinType_1 = require("./builtinType");
+const constraint_1 = require("./constraint");
+const referencedType_1 = require("./referencedType");
 /**
  * ANTLR4 grammar
  * ```
  * asnType : (builtinType | referencedType) (constraint)*
  * ```
  */
-var AsnTypeVisitor = /** @class */ (function () {
-    function AsnTypeVisitor() {
+class AsnTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    AsnTypeVisitor.prototype.visitChildren = function (asnTypeCtx) {
-        var childCtxes = asnTypeCtx.children;
-        var typeCtx = childCtxes[0];
-        var constraintCtx = childCtxes[1];
-        var contextName = utils_1.getContextName(typeCtx);
-        var type = null;
-        switch (contextName) {
-            case 'builtinType': {
-                type = typeCtx.accept(new builtinType_1.BuiltinTypeVisitor());
-                break;
-            }
-            case 'referencedType': {
-                type = typeCtx.accept(new referencedType_1.ReferencedTypeVisitor());
-                break;
-            }
-            default: {
-                logging_1.log.warn(utils_1.getLogWithAsn1(asnTypeCtx, 'Not supported ASN1 in Type:'));
-            }
+    visitChildren(asnTypeCtx) {
+        const childCtxes = asnTypeCtx.children;
+        const typeCtx = childCtxes[0];
+        const constraintCtx = childCtxes[1];
+        let type;
+        if (typeCtx instanceof ASN_3gppParser_1.BuiltinTypeContext) {
+            type = typeCtx.accept(new builtinType_1.BuiltinTypeVisitor());
+        }
+        else if (typeCtx instanceof ASN_3gppParser_1.ReferencedTypeContext) {
+            type = typeCtx.accept(new referencedType_1.ReferencedTypeVisitor());
+        }
+        else {
+            logging_1.log.warn(utils_1.getLogWithAsn1(asnTypeCtx, 'Not supported ASN1 in Type:'));
         }
         if (constraintCtx) {
-            var constraint = constraintCtx.accept(new constraint_1.ConstraintVisitor());
+            const constraint = constraintCtx.accept(new constraint_1.ConstraintVisitor());
             if (constraint && type && type.setConstraint) {
                 type.setConstraint(constraint);
             }
         }
         return type;
-    };
-    return AsnTypeVisitor;
-}());
+    }
+}
 exports.AsnTypeVisitor = AsnTypeVisitor;

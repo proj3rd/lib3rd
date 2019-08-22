@@ -1,10 +1,10 @@
 "use strict";
-exports.__esModule = true;
-var fs_1 = require("fs");
-var path_1 = require("path");
-var xl = require("excel4node");
-var expand_1 = require("./expand");
-var parse_1 = require("./parse");
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = require("fs");
+const path_1 = require("path");
+const xl = require("excel4node");
+const expand_1 = require("./expand");
+const parse_1 = require("./parse");
 /**
  * Default configuration for formatting
  */
@@ -19,32 +19,32 @@ exports.formatConfigDefault = {
         title: {
             font: {
                 size: 18,
-                bold: true
-            }
+                bold: true,
+            },
         },
         header: {
             font: {
-                bold: true
-            }
+                bold: true,
+            },
         },
-        indentWidth: 3
-    }
+        indentWidth: 3,
+    },
 };
-var styleBorderLeft = {
+const styleBorderLeft = {
     border: {
         left: {
-            style: 'thin'
-        }
-    }
+            style: 'thin',
+        },
+    },
 };
-var styleBorderTop = {
+const styleBorderTop = {
     border: {
         top: {
-            style: 'thin'
-        }
-    }
+            style: 'thin',
+        },
+    },
 };
-var headerDefinition = {
+const headerDefinition = {
     'ie/group name': 'IE/Group Name',
     'presence': 'Presence',
     'range': 'Range',
@@ -52,15 +52,15 @@ var headerDefinition = {
     'semantics description': 'Semantics Description',
     'criticality': 'Criticality',
     'assigned criticiality': 'Assigned Criticality',
-    'depth': 0
+    'depth': 0,
 };
-var headerRange = {
+const headerRange = {
     'range bound': 'Range bound',
-    'explanation': 'Explanation'
+    'explanation': 'Explanation',
 };
-var headerCondition = {
+const headerCondition = {
     condition: 'Condition',
-    explanation: 'Explanation'
+    explanation: 'Explanation',
 };
 /**
  * Generate an Excel workbook containing message(s) and/or IE(s) in a tabular form
@@ -69,66 +69,64 @@ var headerCondition = {
  * @returns excel4node [`Workbook`](https://www.npmjs.com/package/excel4node) object.
  * One worksheet is included for one definition
  */
-function format(msgIeDefinitions, formatConfig) {
-    if (formatConfig === void 0) { formatConfig = exports.formatConfigDefault; }
-    var wb = new xl.Workbook({
-        author: '3GPP Utility https://github.com/gsongsong/3gpp'
+function format(msgIeDefinitions, formatConfig = exports.formatConfigDefault) {
+    const wb = new xl.Workbook({
+        author: '3GPP Utility https://github.com/gsongsong/3gpp',
     });
-    msgIeDefinitions.forEach(function (msgIeDefinition) {
-        var _a, _b, _c;
-        var wsName = sheetname(msgIeDefinition);
-        var ws = wb.addWorksheet(wsName, {
+    msgIeDefinitions.forEach((msgIeDefinition) => {
+        const wsName = sheetname(msgIeDefinition);
+        const ws = wb.addWorksheet(wsName, {
             outline: {
-                summaryBelow: false
-            }
+                summaryBelow: false,
+            },
         });
-        var depthMax = msgIeDefinition.ies.reduce(function (prevDepth, currElem) {
+        const depthMax = msgIeDefinition.ies.reduce((prevDepth, currElem) => {
             return Math.max(prevDepth, currElem.depth);
         }, 0);
-        var _d = [1, 1], row = _d[0], col = _d[1];
+        let [row, col] = [1, 1];
         ws.cell(row++, col).string(msgIeDefinition.name).style(formatConfig.style.title);
         if (msgIeDefinition.description) {
             ws.cell(row++, col).string(msgIeDefinition.description);
         }
         if (msgIeDefinition.direction) {
-            ws.cell(row++, col).string("Direction: " + msgIeDefinition.direction);
+            ws.cell(row++, col).string(`Direction: ${msgIeDefinition.direction}`);
         }
         row++;
-        _a = fillDefinition(msgIeDefinition.ies, ws, row, col, depthMax, formatConfig), row = _a[0], col = _a[1];
+        [row, col] = fillDefinition(msgIeDefinition.ies, ws, row, col, depthMax, formatConfig);
         if (msgIeDefinition.range && formatConfig.showRange) {
             row++;
-            _b = fillRange(msgIeDefinition.range, ws, row, col, depthMax, formatConfig), row = _b[0], col = _b[1];
+            [row, col] = fillRange(msgIeDefinition.range, ws, row, col, depthMax, formatConfig);
         }
         if (msgIeDefinition.condition && formatConfig.showCondition) {
             row++;
-            _c = fillCondition(msgIeDefinition.condition, ws, row, col, depthMax, formatConfig), row = _c[0], col = _c[1];
+            [row, col] = fillCondition(msgIeDefinition.condition, ws, row, col, depthMax, formatConfig);
         }
     });
     return wb;
 }
 exports.format = format;
 function sheetname(msgIeDefinition) {
-    return (msgIeDefinition.section + " " + msgIeDefinition.name).substr(0, 31);
+    return `${msgIeDefinition.section} ${msgIeDefinition.name}`.substr(0, 31);
 }
 function fillDefinition(ies, ws, row, col, depthMax, formatConfig) {
     if (formatConfig.freezeHeader) {
         ws.row(row).freeze();
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
-    [headerDefinition].concat(ies).forEach(function (ie) {
-        formatConfig.order.forEach(function (field, index) {
+    [headerDefinition, ...ies].forEach((ie) => {
+        formatConfig.order.forEach((field, index) => {
             if (index === 0) {
                 ws.cell(row, col).style(styleBorderLeft);
             }
             switch (field) {
                 case 'ie/group name': {
-                    for (var i = 0; i < ie.depth; i++) {
+                    for (let i = 0; i < ie.depth; i++) {
                         ws.column(col).setWidth(formatConfig.style.indentWidth);
                         ws.cell(row, col++).style(styleBorderLeft);
                     }
                     ws.cell(row, col).string(ie['ie/group name']).style(styleBorderLeft).style(styleBorderTop);
                     ws.column(col++).setWidth(formatConfig.style.indentWidth);
-                    for (var i = ie.depth; i < depthMax; i++) {
+                    for (let i = ie.depth; i < depthMax; i++) {
                         ws.column(col).setWidth(formatConfig.style.indentWidth);
                         ws.cell(row, col++).style(styleBorderTop);
                     }
@@ -152,12 +150,12 @@ function fillDefinition(ies, ws, row, col, depthMax, formatConfig) {
                     break;
                 }
                 case 'criticality': {
-                    var criticality = ie.criticality || '';
+                    const criticality = ie.criticality || '';
                     ws.cell(row, col++).string(criticality).style(styleBorderTop);
                     break;
                 }
                 case 'assigned criticality': {
-                    var assignedCriticality = ie['assigned criticiality'] || '';
+                    const assignedCriticality = ie['assigned criticiality'] || '';
                     ws.cell(row, col++).string(assignedCriticality).style(styleBorderTop);
                     break;
                 }
@@ -177,7 +175,7 @@ function fillDefinition(ies, ws, row, col, depthMax, formatConfig) {
 }
 function fillRange(range, ws, row, col, depthMax, formatConfig) {
     ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
-    [headerRange].concat(range).forEach(function (rangeElem) {
+    [headerRange, ...range].forEach((rangeElem) => {
         ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
         ws.cell(row, col + depthMax + formatConfig.order.length).style(styleBorderLeft);
         ws.cell(row, col).string(rangeElem['range bound']).style(styleBorderLeft);
@@ -188,7 +186,7 @@ function fillRange(range, ws, row, col, depthMax, formatConfig) {
 }
 function fillCondition(condition, ws, row, col, depthMax, formatConfig) {
     ws.cell(row, col, row, col + depthMax + 1).style(formatConfig.style.header);
-    [headerCondition].concat(condition).forEach(function (conditionElem) {
+    [headerCondition, ...condition].forEach((conditionElem) => {
         ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(styleBorderTop);
         ws.cell(row, col + depthMax + formatConfig.order.length).style(styleBorderLeft);
         ws.cell(row, col).string(conditionElem.condition).style(styleBorderLeft);
@@ -198,44 +196,44 @@ function fillCondition(condition, ws, row, col, depthMax, formatConfig) {
     return [row, col];
 }
 if (require.main === module) {
-    var _a = process.argv.slice(2), filePath_1 = _a[0], msgIeName_1 = _a[1], needExpansion_1 = _a[2];
-    if (!filePath_1 || !msgIeName_1) {
+    const [filePath, msgIeName, needExpansion] = process.argv.slice(2);
+    if (!filePath || !msgIeName) {
         throw Error('Requires 2 or 3 arguments, filePath, msgIeName and expand');
     }
-    fs_1.readFile(filePath_1, 'utf8', function (err, html) {
-        var _a;
+    fs_1.readFile(filePath, 'utf8', (err, html) => {
         if (err) {
             throw err;
         }
-        var fileName = path_1.parse(filePath_1);
-        var definitions = parse_1.parse(html);
-        var msgIeDefinitions = null;
-        var wb = null;
-        var outFileName = fileName.name;
-        if (msgIeName_1 === 'all') {
-            msgIeDefinitions = Object.keys(definitions).filter(function (key) {
+        const fileName = path_1.parse(filePath);
+        const definitions = parse_1.parse(html);
+        let msgIeDefinitions = null;
+        let wb = null;
+        let outFileName = fileName.name;
+        if (msgIeName === 'all') {
+            msgIeDefinitions = Object.keys(definitions).filter((key) => {
                 return typeof definitions[key] !== 'string';
-            }).map(function (sectionNumber) {
+            }).map((sectionNumber) => {
                 return definitions[sectionNumber];
             });
         }
         else {
-            if (!(msgIeName_1 in definitions)) {
-                throw Error("Definition for a given name " + msgIeName_1 + " is not found");
+            if (!(msgIeName in definitions)) {
+                throw Error(`Definition for a given name ${msgIeName} is not found`);
             }
-            var sectionNumber = definitions[msgIeName_1];
+            const sectionNumber = definitions[msgIeName];
             msgIeDefinitions = [definitions[sectionNumber]];
-            outFileName += " " + msgIeName_1;
+            outFileName += ` ${msgIeName}`;
         }
-        if (needExpansion_1 === 'expand') {
-            var definitionsExpanded = {};
+        if (needExpansion === 'expand') {
+            let definitionsExpanded = {};
             // tslint:disable-next-line: prefer-for-of
-            for (var i = 0; i < msgIeDefinitions.length; i++) {
-                (_a = expand_1.expand(msgIeDefinitions[i], definitions, definitionsExpanded), msgIeDefinitions[i] = _a.msgIeDefinition, definitionsExpanded = _a.definitionsExpanded);
+            for (let i = 0; i < msgIeDefinitions.length; i++) {
+                ({ msgIeDefinition: msgIeDefinitions[i], definitionsExpanded } =
+                    expand_1.expand(msgIeDefinitions[i], definitions, definitionsExpanded));
             }
-            outFileName += " (expanded)";
+            outFileName += ` (expanded)`;
         }
         wb = format(msgIeDefinitions);
-        wb.write(outFileName + ".xlsx");
+        wb.write(`${outFileName}.xlsx`);
     });
 }

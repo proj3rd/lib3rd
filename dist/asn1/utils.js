@@ -1,18 +1,8 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../utils/logging");
-function getContextName(ctx) {
-    if ('ruleIndex' in ctx) {
-        return ctx.parser.ruleNames[ctx.ruleIndex];
-    }
-    return null;
-}
-exports.getContextName = getContextName;
-function getLogWithAsn1(ctx, prefix, postfix, length) {
-    if (prefix === void 0) { prefix = ''; }
-    if (postfix === void 0) { postfix = ''; }
-    if (length === void 0) { length = 80; }
-    var asn1Length = length - prefix.length - postfix.length;
+Object.defineProperty(exports, "__esModule", { value: true });
+const logging_1 = require("../utils/logging");
+function getLogWithAsn1(ctx, prefix = '', postfix = '', length = 80) {
+    const asn1Length = length - prefix.length - postfix.length;
     return [prefix, ctx.getText().substring(0, asn1Length), postfix].join(' ').trim();
 }
 exports.getLogWithAsn1 = getLogWithAsn1;
@@ -29,11 +19,11 @@ function findReference(refName, moduleName, asn1Pool, key) {
         return asn1Pool[moduleName][key][refName];
     }
     if (refName in asn1Pool[moduleName].imports) {
-        var importedModuleName = asn1Pool[moduleName].imports[refName];
-        var importedModule = asn1Pool[importedModuleName];
+        const importedModuleName = asn1Pool[moduleName].imports[refName];
+        const importedModule = asn1Pool[importedModuleName];
         return importedModule[key][refName];
     }
-    logging_1.log.warn("Cannot find a reference " + refName + " in a module " + moduleName);
+    logging_1.log.warn(`Cannot find a reference ${refName} in a module ${moduleName}`);
     return null;
 }
 function sanitizeAsn1(asn1) {

@@ -1,6 +1,7 @@
 "use strict";
-exports.__esModule = true;
-var value_1 = require("./value");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const value_1 = require("./value");
 /**
  * ANTLR4 grammar
  * ```
@@ -10,13 +11,13 @@ var value_1 = require("./value");
  *        value
  * ```
  */
-var ValueAssignmentVisitor = /** @class */ (function () {
-    function ValueAssignmentVisitor() {
+class ValueAssignmentVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ValueAssignmentVisitor.prototype.visitChildren = function (valueAssignmentCtx) {
-        var valueCtx = valueAssignmentCtx.children[2];
+    visitChildren(valueAssignmentCtx) {
+        const valueCtx = valueAssignmentCtx.children[2];
         return valueCtx.accept(new value_1.ValueVisitor());
-    };
-    return ValueAssignmentVisitor;
-}());
+    }
+}
 exports.ValueAssignmentVisitor = ValueAssignmentVisitor;

@@ -1,40 +1,36 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var contentsConstraint_1 = require("./contentsConstraint");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const contentsConstraint_1 = require("./contentsConstraint");
 /**
  * ANTLR4 grammar
  * ```
  * generalConstraint :  userDefinedConstraint | tableConstraint | contentsConstraint
  * ```
  */
-var GeneralConstraintVisitor = /** @class */ (function () {
-    function GeneralConstraintVisitor() {
+class GeneralConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    GeneralConstraintVisitor.prototype.visitChildren = function (generalConstraintCtx) {
-        var childCtx = generalConstraintCtx.children[0];
-        var generalConstraint = null;
-        switch (utils_1.getContextName(childCtx)) {
-            case 'userDefinedConstraint': {
-                logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'UserDefinedConstraint not supported:'));
-                break;
-            }
-            case 'tableConstraint': {
-                logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'TableConstraint not supported:'));
-                break;
-            }
-            case 'contentsConstraint': {
-                generalConstraint = childCtx.accept(new contentsConstraint_1.ContentsConstraintVisitor());
-                break;
-            }
-            default: {
-                logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'Not supported ASN1:'));
-                break;
-            }
+    visitChildren(generalConstraintCtx) {
+        const childCtx = generalConstraintCtx.children[0];
+        let generalConstraint;
+        if (childCtx instanceof ASN_3gppParser_1.UserDefinedConstraintContext) {
+            logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'UserDefinedConstraint not supported:'));
+        }
+        else if (childCtx instanceof ASN_3gppParser_1.TableConstraintContext) {
+            logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'TableConstraint not supported:'));
+        }
+        else if (childCtx instanceof ASN_3gppParser_1.ContentsConstraintContext) {
+            generalConstraint = childCtx.accept(new contentsConstraint_1.ContentsConstraintVisitor());
+        }
+        else {
+            logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'Not supported ASN1:'));
         }
         return generalConstraint;
-    };
-    return GeneralConstraintVisitor;
-}());
+    }
+}
 exports.GeneralConstraintVisitor = GeneralConstraintVisitor;

@@ -1,19 +1,20 @@
 "use strict";
-exports.__esModule = true;
-var componentTypeList_1 = require("./componentTypeList");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const componentTypeList_1 = require("./componentTypeList");
 /**
  * ANTLR4 grammar
  * ```
  * rootComponentTypeList  : componentTypeList
  * ```
  */
-var RootComponentTypeListVisitor = /** @class */ (function () {
-    function RootComponentTypeListVisitor() {
+class RootComponentTypeListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return [];
     }
-    RootComponentTypeListVisitor.prototype.visitChildren = function (rootComponentTypeListCtx) {
-        var componentTypeListCtx = rootComponentTypeListCtx.children[0];
+    visitChildren(rootComponentTypeListCtx) {
+        const componentTypeListCtx = rootComponentTypeListCtx.children[0];
         return componentTypeListCtx.accept(new componentTypeList_1.ComponentTypeListVisitor());
-    };
-    return RootComponentTypeListVisitor;
-}());
+    }
+}
 exports.RootComponentTypeListVisitor = RootComponentTypeListVisitor;

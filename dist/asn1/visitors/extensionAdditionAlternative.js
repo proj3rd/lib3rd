@@ -1,37 +1,34 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var extensionAdditionAlternativesGroup_1 = require("./extensionAdditionAlternativesGroup");
-var namedType_1 = require("./namedType");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const extensionAdditionAlternativesGroup_1 = require("./extensionAdditionAlternativesGroup");
+const namedType_1 = require("./namedType");
 /**
  * ANTR4 grammar
  * ```
  * extensionAdditionAlternative  :  extensionAdditionAlternativesGroup | namedType
  * ```
  */
-var ExtensionAdditionAlternativeVisitor = /** @class */ (function () {
-    function ExtensionAdditionAlternativeVisitor() {
+class ExtensionAdditionAlternativeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ExtensionAdditionAlternativeVisitor.prototype.visitChildren = function (extensionAdditionAlternativeCtx) {
-        var extensionAdditionAlternative = null;
-        var childCtx = extensionAdditionAlternativeCtx.children[0];
-        switch (utils_1.getContextName(childCtx)) {
-            case 'extensionAdditionAlternativesGroup': {
-                extensionAdditionAlternative = childCtx.accept(new extensionAdditionAlternativesGroup_1.ExtensionAdditionAlternativesGroupVisitor());
-                break;
-            }
-            case 'namedType': {
-                extensionAdditionAlternative = childCtx.accept(new namedType_1.NamedTypeVisitor());
-                break;
-            }
-            default: {
-                logging_1.log.warn(utils_1.getLogWithAsn1(extensionAdditionAlternativeCtx, 'Not supported ASN1:'));
-                break;
-            }
+    visitChildren(extensionAdditionAlternativeCtx) {
+        let extensionAdditionAlternative;
+        const childCtx = extensionAdditionAlternativeCtx.children[0];
+        if (childCtx instanceof ASN_3gppParser_1.ExtensionAdditionAlternativesGroupContext) {
+            extensionAdditionAlternative = childCtx.accept(new extensionAdditionAlternativesGroup_1.ExtensionAdditionAlternativesGroupVisitor());
+        }
+        else if (childCtx instanceof ASN_3gppParser_1.NamedTypeContext) {
+            extensionAdditionAlternative = childCtx.accept(new namedType_1.NamedTypeVisitor());
+        }
+        else {
+            logging_1.log.warn(utils_1.getLogWithAsn1(extensionAdditionAlternativeCtx, 'Not supported ASN1:'));
         }
         return extensionAdditionAlternative;
-    };
-    return ExtensionAdditionAlternativeVisitor;
-}());
+    }
+}
 exports.ExtensionAdditionAlternativeVisitor = ExtensionAdditionAlternativeVisitor;

@@ -1,26 +1,27 @@
 "use strict";
-exports.__esModule = true;
-var enumerationItem_1 = require("./enumerationItem");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const enumerationItem_1 = require("./enumerationItem");
 /**
  * ANTLR4 grammar
  * ```
  * enumeration : enumerationItem ( COMMA enumerationItem)*
  * ```
  */
-var EnumerationVisitor = /** @class */ (function () {
-    function EnumerationVisitor() {
+class EnumerationVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return [];
     }
-    EnumerationVisitor.prototype.visitChildren = function (enumerationCtx) {
-        var childCtxes = enumerationCtx.children;
-        var enumeration = [];
-        childCtxes.forEach(function (childCtx, index) {
+    visitChildren(enumerationCtx) {
+        const childCtxes = enumerationCtx.children;
+        const enumeration = [];
+        childCtxes.forEach((childCtx, index) => {
             if (index % 2) {
                 return;
             }
             enumeration.push(childCtx.accept(new enumerationItem_1.EnumerationItemVisitor()));
         });
         return enumeration;
-    };
-    return EnumerationVisitor;
-}());
+    }
+}
 exports.EnumerationVisitor = EnumerationVisitor;

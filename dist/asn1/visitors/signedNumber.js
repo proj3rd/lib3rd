@@ -1,17 +1,18 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 /**
  * ANTLR4 grammar
  * ```
  * signedNumber :  (MINUS)? NUMBER
  * ```
  */
-var SignedNumberVisitor = /** @class */ (function () {
-    function SignedNumberVisitor() {
+class SignedNumberVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    SignedNumberVisitor.prototype.visitChildren = function (signedNumberCtx) {
-        return Number(signedNumberCtx.getText());
-    };
-    return SignedNumberVisitor;
-}());
+    visitChildren(signedNumberCtx) {
+        return Number(signedNumberCtx.text);
+    }
+}
 exports.SignedNumberVisitor = SignedNumberVisitor;

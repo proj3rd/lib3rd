@@ -1,19 +1,20 @@
 "use strict";
-exports.__esModule = true;
-var componentPresence_1 = require("../classes/componentPresence");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const componentPresence_1 = require("../classes/componentPresence");
 /**
  * ANTLR4 grammar
  * ```
  * componentPresence: IDENTIFIER (ABSENT_LITERAL | PRESENT_LITERAL)
  * ```
  */
-var ComponentPresenceVisitor = /** @class */ (function () {
-    function ComponentPresenceVisitor() {
+class ComponentPresenceVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    ComponentPresenceVisitor.prototype.visitChildren = function (componentPresenceCtx) {
-        var childCtxes = componentPresenceCtx.children;
-        return new componentPresence_1.ComponentPresence(childCtxes[0].getText(), childCtxes[1].getText());
-    };
-    return ComponentPresenceVisitor;
-}());
+    visitChildren(componentPresenceCtx) {
+        const childCtxes = componentPresenceCtx.children;
+        return new componentPresence_1.ComponentPresence(childCtxes[0].text, childCtxes[1].text);
+    }
+}
 exports.ComponentPresenceVisitor = ComponentPresenceVisitor;

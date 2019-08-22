@@ -1,6 +1,6 @@
 "use strict";
-exports.__esModule = true;
-var calendar = require("./calendar");
+Object.defineProperty(exports, "__esModule", { value: true });
+const calendar = require("./calendar");
 exports.calendar = calendar;
-var specs = require("./specs");
+const specs = require("./specs");
 exports.specs = specs;

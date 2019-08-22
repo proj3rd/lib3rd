@@ -1,4 +1,9 @@
-import { AssignmentListVisitor} from './assignmentList';
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
+import { ModuleBodyContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+
+import { AssignmentListVisitor, IAssignments, IConstants } from './assignmentList';
 import { ExportsVisitor } from './exports';
 import { ImportsVisitor } from './imports';
 import { ISymbolsFromModule } from './symbolsFromModuleList';
@@ -6,8 +11,8 @@ import { ISymbolsFromModule } from './symbolsFromModuleList';
 export interface IModuleBody {
   exports: string[];
   imports: ISymbolsFromModule;
-  assignments: any /* TODO */;
-  constants: any /* TODO */;
+  assignments: IAssignments;
+  constants: IConstants;
 }
 
 /**
@@ -16,8 +21,12 @@ export interface IModuleBody {
  * moduleBody :  (exports imports assignmentList) ?
  * ```
  */
-export class ModuleBodyVisitor {
-  public visitChildren(moduleBodyCtx: any): IModuleBody {
+export class ModuleBodyVisitor extends AbstractParseTreeVisitor<IModuleBody> implements ASN_3gppVisitor<IModuleBody> {
+  public defaultResult(): IModuleBody {
+    return { exports: [], imports: {}, assignments: {}, constants: {} };
+  }
+
+  public visitChildren(moduleBodyCtx: ModuleBodyContext): IModuleBody {
     const childCtx = moduleBodyCtx.children;
     const moduleBody: IModuleBody = {
       exports: [],

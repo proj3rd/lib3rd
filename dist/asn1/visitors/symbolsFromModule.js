@@ -1,5 +1,6 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 /**
  * ANTLR4 grammar
  * ```
@@ -7,22 +8,25 @@ exports.__esModule = true;
  * symbolList   : (symbol) (COMMA symbol)*
  * ```
  */
-var SymbolsFromModuleVisitor = /** @class */ (function () {
-    function SymbolsFromModuleVisitor() {
+class SymbolsFromModuleVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return { moduleName: undefined, symbols: [] };
     }
-    SymbolsFromModuleVisitor.prototype.visitChildren = function (symbolsFromModuleCtx) {
-        var moduleName = symbolsFromModuleCtx.children[2].getText();
-        var symbolListCtx = symbolsFromModuleCtx.children[0];
-        var symbols = [];
-        symbolListCtx.children.forEach(function (symbolCtx, index) {
+    visitChildren(symbolsFromModuleCtx) {
+        const symbolListCtx = symbolsFromModuleCtx.children[0];
+        const symbolsFromModule = {
+            moduleName: symbolsFromModuleCtx.children[2].text,
+            symbols: [],
+        };
+        for (let index = 0; index < symbolListCtx.childCount; index++) {
             if (index % 2) {
-                return;
+                continue;
             }
+            const symbolCtx = symbolListCtx.getChild(index);
             // TODO: Need to implement/use SymbolCtxVisitor class?
-            symbols.push(symbolCtx.children[0].getText());
-        });
-        return { moduleName: moduleName, symbols: symbols };
-    };
-    return SymbolsFromModuleVisitor;
-}());
+            symbolsFromModule.symbols.push(symbolCtx.getChild(0).text);
+        }
+        return symbolsFromModule;
+    }
+}
 exports.SymbolsFromModuleVisitor = SymbolsFromModuleVisitor;

@@ -1,3 +1,13 @@
+import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+
+import { SymbolsFromModuleContext } from '../ASN_3gppParser';
+import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+
+interface ISymbolsFromModule {
+  moduleName: string;
+  symbols: string[];
+}
+
 /**
  * ANTLR4 grammar
  * ```
@@ -5,18 +15,26 @@
  * symbolList   : (symbol) (COMMA symbol)*
  * ```
  */
-export class SymbolsFromModuleVisitor {
-  public visitChildren(symbolsFromModuleCtx: any): {moduleName: string, symbols: string[]} {
-    const moduleName = symbolsFromModuleCtx.children[2].getText();
+export class SymbolsFromModuleVisitor extends AbstractParseTreeVisitor<ISymbolsFromModule>
+                                      implements ASN_3gppVisitor<ISymbolsFromModule> {
+  public defaultResult(): ISymbolsFromModule {
+    return { moduleName: undefined, symbols: [] };
+  }
+
+  public visitChildren(symbolsFromModuleCtx: SymbolsFromModuleContext): ISymbolsFromModule {
     const symbolListCtx = symbolsFromModuleCtx.children[0];
-    const symbols: string[] = [];
-    symbolListCtx.children.forEach((symbolCtx: any, index: number) => {
+    const symbolsFromModule = {
+      moduleName: symbolsFromModuleCtx.children[2].text,
+      symbols: [],
+    };
+    for (let index = 0; index < symbolListCtx.childCount; index++) {
       if (index % 2) {
-        return;
+        continue;
       }
+      const symbolCtx = symbolListCtx.getChild(index);
       // TODO: Need to implement/use SymbolCtxVisitor class?
-      symbols.push(symbolCtx.children[0].getText());
-    });
-    return {moduleName, symbols};
+      symbolsFromModule.symbols.push(symbolCtx.getChild(0).text);
+    }
+    return symbolsFromModule;
   }
 }

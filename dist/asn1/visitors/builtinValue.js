@@ -1,8 +1,11 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var enumeratedValue_1 = require("./enumeratedValue");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const TerminalNode_1 = require("antlr4ts/tree/TerminalNode");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const enumeratedValue_1 = require("./enumeratedValue");
 /**
  * ANTLR4 grammar
  * ```
@@ -16,58 +19,48 @@ var enumeratedValue_1 = require("./enumeratedValue");
  *   |   BSTRING
  * ```
  */
-var BuiltinValueVisitor = /** @class */ (function () {
-    function BuiltinValueVisitor() {
+class BuiltinValueVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return undefined;
     }
-    BuiltinValueVisitor.prototype.visitChildren = function (builtinValueCtx) {
-        var subContext = builtinValueCtx.children[0];
-        var contextName = utils_1.getContextName(subContext);
-        var valueAssignment = null;
-        if (!contextName) {
+    visitChildren(builtinValueCtx) {
+        const subContext = builtinValueCtx.children[0];
+        let valueAssignment;
+        if (subContext instanceof TerminalNode_1.TerminalNode) {
             // Corresponds to CSTRING or BSTRING
-            valueAssignment = subContext.getText();
+            valueAssignment = subContext.text;
         }
-        switch (contextName) {
-            case 'booleanValue': {
-                valueAssignment = subContext.getText().toLowerCase() === 'true';
-                break;
-            }
-            case 'integerValue': {
-                var valueText = subContext.getText();
-                var valueNumeric = Number(valueText);
-                valueAssignment = valueNumeric === valueText ? valueNumeric : valueText;
-                break;
-            }
-            case 'enumeratedValue': {
-                /** NOTE: Since enum and interger are defined as below:
-                 *   enumeratedValue  : IDENTIFIER
-                 *   integerValue :  signedNumber | IDENTIFIER
-                 * and enum precedes integer, integer may be incorrectly parsed as enum
-                 */
-                valueAssignment = subContext.accept(new enumeratedValue_1.EnumeratedValueVisitor());
-                break;
-            }
-            case 'choiceValue': {
-                logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'ChoiceValue not supported:'));
-                // TODO
-                break;
-            }
-            case 'objectIdentifierValue': {
-                logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'ObjectIdentifierValue not supported:'));
-                // TODO
-                break;
-            }
-            case null: {
-                valueAssignment = subContext.getText();
-                break;
-            }
-            default: {
-                logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'Not supported ASN1 in BuiltinValue:'));
-                break;
-            }
+        if (subContext instanceof ASN_3gppParser_1.BooleanValueContext) {
+            valueAssignment = subContext.text.toLowerCase() === 'true';
+        }
+        else if (subContext instanceof ASN_3gppParser_1.IntegerValueContext) {
+            const valueText = subContext.text;
+            const valueNumeric = Number(valueText);
+            valueAssignment = isNaN(valueNumeric) ? valueText : valueNumeric;
+        }
+        else if (subContext instanceof ASN_3gppParser_1.EnumeratedValueContext) {
+            /** NOTE: Since enum and interger are defined as below:
+             *   enumeratedValue  : IDENTIFIER
+             *   integerValue :  signedNumber | IDENTIFIER
+             * and enum precedes integer, integer may be incorrectly parsed as enum
+             */
+            valueAssignment = subContext.accept(new enumeratedValue_1.EnumeratedValueVisitor());
+        }
+        else if (subContext instanceof ASN_3gppParser_1.ChoiceValueContext) {
+            logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'ChoiceValue not supported:'));
+            // TODO
+        }
+        else if (subContext instanceof ASN_3gppParser_1.ObjectIdentifierValueContext) {
+            logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'ObjectIdentifierValue not supported:'));
+            // TODO
+        }
+        else if (subContext instanceof TerminalNode_1.TerminalNode) {
+            valueAssignment = subContext.text;
+        }
+        else {
+            logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'Not supported ASN1 in BuiltinValue:'));
         }
         return valueAssignment;
-    };
-    return BuiltinValueVisitor;
-}());
+    }
+}
 exports.BuiltinValueVisitor = BuiltinValueVisitor;

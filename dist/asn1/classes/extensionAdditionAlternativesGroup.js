@@ -1,79 +1,57 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-exports.__esModule = true;
-var lodash_1 = require("lodash");
-var logging_1 = require("../../utils/logging");
-var xlsx_1 = require("../format/xlsx");
-var base_1 = require("./base");
-var ExtensionAdditionAlternativesGroup = /** @class */ (function (_super) {
-    __extends(ExtensionAdditionAlternativesGroup, _super);
-    function ExtensionAdditionAlternativesGroup(alternativeTypeList, versionNumber) {
-        var _this = _super.call(this) || this;
-        _this.alternativeTypeList = alternativeTypeList;
+Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
+const logging_1 = require("../../utils/logging");
+const xlsx_1 = require("../format/xlsx");
+const base_1 = require("./base");
+class ExtensionAdditionAlternativesGroup extends base_1.Base {
+    constructor(alternativeTypeList, versionNumber) {
+        super();
+        this.alternativeTypeList = alternativeTypeList;
         if (versionNumber !== undefined && versionNumber !== null) {
             logging_1.log.warn('ExtensionAdditionAlternativesGroup could not handle versionNumber');
         }
-        return _this;
     }
-    ExtensionAdditionAlternativesGroup.prototype.setConstraint = function (constraint) {
+    setConstraint(constraint) {
         if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn("ExtensionAdditionAlternativesGroup could not handle constraint " + JSON.stringify(constraint));
+            logging_1.log.warn(`ExtensionAdditionAlternativesGroup could not handle constraint ${JSON.stringify(constraint)}`);
         }
         return this;
-    };
-    ExtensionAdditionAlternativesGroup.prototype.expand = function (asn1Pool /* TODO */, moduleName, parameterList) {
-        var _this = this;
-        if (parameterList === void 0) { parameterList = []; }
-        this.alternativeTypeList.forEach(function (item) {
-            item.expand(asn1Pool, _this.getModuleNameToPass(moduleName), parameterList);
+    }
+    expand(asn1Pool /* TODO */, moduleName, parameterList = []) {
+        this.alternativeTypeList.forEach((item) => {
+            item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
-    };
-    ExtensionAdditionAlternativesGroup.prototype.depthMax = function () {
-        var depthMax = 0;
-        this.alternativeTypeList.forEach(function (item) {
+    }
+    depthMax() {
+        let depthMax = 0;
+        this.alternativeTypeList.forEach((item) => {
             depthMax = Math.max(depthMax, item.depthMax() + 1);
         });
         return depthMax;
-    };
-    ExtensionAdditionAlternativesGroup.prototype.replaceParameters = function (paramterMapping) {
-        this.alternativeTypeList.forEach(function (item) {
+    }
+    replaceParameters(paramterMapping) {
+        this.alternativeTypeList.forEach((item) => {
             item.replaceParameters(paramterMapping);
         });
-    };
-    ExtensionAdditionAlternativesGroup.prototype.toString = function () {
-        var _this = this;
+    }
+    toString() {
         return [
             '[[',
-            this.alternativeTypeList.map(function (item) { return _this.indent(item.toString()); }).join(',\n'),
+            this.alternativeTypeList.map((item) => this.indent(item.toString())).join(',\n'),
             ']]',
         ].join('\n');
-    };
-    ExtensionAdditionAlternativesGroup.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        if (depth === void 0) { depth = 0; }
-        var _a, _b;
+    }
+    fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.ie = '[[';
-        _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
-        this.alternativeTypeList.forEach(function (item) {
-            var _a;
-            _a = item.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1), row = _a[0], col = _a[1];
+        [row, col] = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+        this.alternativeTypeList.forEach((item) => {
+            [row, col] = item.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
         });
         ieElem.ie = ']]';
-        _b = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _b[0], col = _b[1];
+        [row, col] = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
         return [row, col];
-    };
-    return ExtensionAdditionAlternativesGroup;
-}(base_1.Base));
+    }
+}
 exports.ExtensionAdditionAlternativesGroup = ExtensionAdditionAlternativesGroup;

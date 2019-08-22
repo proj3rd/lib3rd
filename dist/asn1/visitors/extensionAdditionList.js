@@ -1,46 +1,45 @@
 "use strict";
-exports.__esModule = true;
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var extensionAddition_1 = require("./extensionAddition");
-var tag_1 = require("./tag");
+Object.defineProperty(exports, "__esModule", { value: true });
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const TerminalNode_1 = require("antlr4ts/tree/TerminalNode");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const namedType_1 = require("../classes/namedType");
+const extensionAddition_1 = require("./extensionAddition");
+const tag_1 = require("./tag");
 /**
  * ANTLR4 grammar
  * ```
  * extensionAdditionList  :  (extensionAddition) (COMMA tag? extensionAddition)*
  * ```
  */
-var ExtensionAdditionListVisitor = /** @class */ (function () {
-    function ExtensionAdditionListVisitor() {
+class ExtensionAdditionListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
+        return [];
     }
-    ExtensionAdditionListVisitor.prototype.visitChildren = function (extensionAdditionListCtx) {
-        var childCtxes = extensionAdditionListCtx.children;
-        var extensionAdditionList = [];
-        childCtxes.forEach(function (childCtx, index) {
-            switch (utils_1.getContextName(childCtx)) {
-                case 'extensionAddition': {
-                    var extensionAddition = childCtx.accept(new extensionAddition_1.ExtensionAdditionVisitor());
-                    extensionAdditionList.splice.apply(extensionAdditionList, [extensionAdditionList.length, 0].concat(extensionAddition));
-                    break;
+    visitChildren(extensionAdditionListCtx) {
+        const childCtxes = extensionAdditionListCtx.children;
+        const extensionAdditionList = [];
+        childCtxes.forEach((childCtx) => {
+            if (childCtx instanceof ASN_3gppParser_1.ExtensionAdditionContext) {
+                extensionAdditionList.push(childCtx.accept(new extensionAddition_1.ExtensionAdditionVisitor()));
+            }
+            else if (childCtx instanceof ASN_3gppParser_1.TagContext) {
+                const tag = childCtx.accept(new tag_1.TagVisitor());
+                const lastItem = extensionAdditionList[extensionAdditionList.length - 1];
+                if (tag && lastItem instanceof namedType_1.NamedType) {
+                    lastItem.tag = tag;
                 }
-                case 'tag': {
-                    var tag = childCtx.accept(new tag_1.TagVisitor());
-                    if (tag) {
-                        extensionAdditionList[extensionAdditionList.length - 1].tag = tag;
-                    }
-                    break;
-                }
-                case null: {
-                    break;
-                }
-                default: {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'Not supported ASN.1 in ExtensionAdditionList'));
-                    break;
-                }
+            }
+            else if (childCtx instanceof TerminalNode_1.TerminalNode) {
+                // Do nothing
+            }
+            else {
+                logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'Not supported ASN.1 in ExtensionAdditionList'));
             }
         });
         return extensionAdditionList;
-    };
-    return ExtensionAdditionListVisitor;
-}());
+    }
+}
 exports.ExtensionAdditionListVisitor = ExtensionAdditionListVisitor;

@@ -3,9 +3,9 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { AsnType } from './asnType';
 
-export class Integer extends Base {
+export class Integer extends AsnType {
   public namedNumberList: any; // TODO
   public value: number | string;
   public min: number | string;

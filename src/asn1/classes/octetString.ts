@@ -3,9 +3,9 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { AsnType } from './asnType';
 
-export class OctetString extends Base {
+export class OctetString extends AsnType {
   public size: number | string;
   public sizeMin: number | string;
   public sizeMax: number | string;
