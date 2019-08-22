@@ -12,13 +12,13 @@ import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
  * versionNumber  :  (NUMBER  COLON )?
  * ```
  */
-export class VersionNumberVisitor extends AbstractParseTreeVisitor<any /* TODO */>
-                                  implements ASN_3gppVisitor<any /* TODO */> {
-  public defaultResult(): any /* TODO */ {
+export class VersionNumberVisitor extends AbstractParseTreeVisitor<null>
+                                  implements ASN_3gppVisitor<null> {
+  public defaultResult(): null {
     return null;
   }
 
-  public visitChildren(versionNumberCtx: VersionNumberContext): any /* TODO */ {
+  public visitChildren(versionNumberCtx: VersionNumberContext): null {
     const childCtxes = versionNumberCtx.children;
     if (childCtxes) {
       log.warn(getLogWithAsn1(versionNumberCtx, 'VersionNumber not supported:'));

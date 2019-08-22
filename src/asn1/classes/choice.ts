@@ -3,13 +3,14 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+
+import { AlternativeTypeLists } from '../visitors/alternativeTypeLists';
 import { AsnType } from './asnType';
-import { NamedType } from './namedType';
 
 export class Choice extends AsnType {
-  public choices: NamedType[];
+  public choices: AlternativeTypeLists;
 
-  constructor(choices: any) {
+  constructor(choices: AlternativeTypeLists) {
     super();
 
     this.choices = choices;

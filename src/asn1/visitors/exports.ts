@@ -3,6 +3,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
 
+import { ExportsContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 /**
@@ -14,7 +15,7 @@ export class ExportsVisitor extends AbstractParseTreeVisitor<string[]> implement
     return [];
   }
 
-  public visitChildren(exportsCtx: any): string[] {
+  public visitChildren(exportsCtx: ExportsContext): string[] {
     const exports = [];
     if (exportsCtx.children) {
       log.warn(getLogWithAsn1(exportsCtx, 'Exports not supported:'));

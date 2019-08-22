@@ -21,7 +21,7 @@ export class ComponentPresenceListVisitor extends AbstractParseTreeVisitor<Compo
   public visitChildren(componentPresenceListCtx: ComponentPresenceListContext): ComponentPresence[] {
     const childCtxes = componentPresenceListCtx.children;
     const componentPresenceList = [];
-    childCtxes.forEach((childCtx: any, index: number) => {
+    childCtxes.forEach((childCtx, index) => {
       if (index % 2) {
         return;
       }
