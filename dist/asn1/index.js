@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var expand_1 = require("./expand");
+const expand_1 = require("./expand");
 exports.expand = expand_1.expand;
-var extract_1 = require("./extract");
+const extract_1 = require("./extract");
 exports.extract = extract_1.extract;
-var format_1 = require("./format");
+const format_1 = require("./format");
 exports.findMsgIes = format_1.findMsgIes;
 exports.formatTxt = format_1.formatTxt;
 exports.formatXlsx = format_1.formatXlsx;
-var parse_1 = require("./parse");
+const parse_1 = require("./parse");
 exports.parse = parse_1.parse;

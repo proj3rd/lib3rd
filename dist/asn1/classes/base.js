@@ -1,22 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var lodash_1 = require("lodash");
-var Base = /** @class */ (function () {
-    function Base() {
-    }
-    Base.prototype.indent = function (text) {
+const lodash_1 = require("lodash");
+class Base {
+    indent(text) {
         return text.replace(/^/gm, '  ');
-    };
-    Base.prototype.addToConstants = function (obj, constants) {
-        if (obj !== undefined && isNaN(Number(obj)) && constants.findIndex(function (value) {
+    }
+    addToConstants(obj, constants) {
+        if (obj !== undefined && isNaN(Number(obj)) && constants.findIndex((value) => {
             return lodash_1.isEqual(value.constant, obj);
         }) === -1) {
             constants.push({ constant: obj, moduleName: this.moduleName });
         }
-    };
-    Base.prototype.getModuleNameToPass = function (moduleName) {
+    }
+    getModuleNameToPass(moduleName) {
         return this.moduleName !== undefined ? this.moduleName : moduleName;
-    };
-    return Base;
-}());
+    }
+}
 exports.Base = Base;

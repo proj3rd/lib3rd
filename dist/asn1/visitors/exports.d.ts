@@ -1,4 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { ExportsContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 /**
  * exports :   (EXPORTS_LITERAL symbolsExported SEMI_COLON
@@ -6,5 +7,5 @@ import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
  */
 export declare class ExportsVisitor extends AbstractParseTreeVisitor<string[]> implements ASN_3gppVisitor<string[]> {
     defaultResult(): string[];
-    visitChildren(exportsCtx: any): string[];
+    visitChildren(exportsCtx: ExportsContext): string[];
 }

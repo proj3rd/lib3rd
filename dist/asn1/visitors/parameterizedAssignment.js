@@ -1,23 +1,12 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var asnType_1 = require("./asnType");
-var parameterList_1 = require("./parameterList");
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const TerminalNode_1 = require("antlr4ts/tree/TerminalNode");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const asnType_1 = require("./asnType");
+const parameterList_1 = require("./parameterList");
 /**
  * ANTLR4 grammar
  * ```
@@ -38,43 +27,32 @@ var parameterList_1 = require("./parameterList");
  * ;
  * ```
  */
-var ParameterizedAssignmentVisitor = /** @class */ (function (_super) {
-    __extends(ParameterizedAssignmentVisitor, _super);
-    function ParameterizedAssignmentVisitor() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ParameterizedAssignmentVisitor.prototype.defaultResult = function () {
+class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
         return undefined;
-    };
-    ParameterizedAssignmentVisitor.prototype.visitChildren = function (parameterizedAssignmentCtx) {
-        var parameterList;
-        var asnType;
-        var childCtxes = parameterizedAssignmentCtx.children;
-        childCtxes.every(function (childCtx) {
-            switch (utils_1.getContextName(childCtx)) {
-                case 'parameterList': {
-                    parameterList = childCtx.accept(new parameterList_1.ParameterListVisitor());
-                    break;
-                }
-                case 'asnType': {
-                    asnType = childCtx.accept(new asnType_1.AsnTypeVisitor());
-                    break;
-                }
-                case 'value': {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(parameterizedAssignmentCtx, 'ParameterizedValueAssignment not supported'));
-                    return false;
-                }
-                case 'valueSet': {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(parameterizedAssignmentCtx, 'ParameterizedValueSetAssignment not supported'));
-                    return false;
-                }
-                case null: {
-                    break;
-                }
-                default: {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(parameterizedAssignmentCtx, 'Not supported ASN.1'));
-                    return false;
-                }
+    }
+    visitChildren(parameterizedAssignmentCtx) {
+        let parameterList;
+        let asnType;
+        const childCtxes = parameterizedAssignmentCtx.children;
+        childCtxes.every((childCtx) => {
+            if (childCtx instanceof ASN_3gppParser_1.ParameterListContext) {
+                parameterList = childCtx.accept(new parameterList_1.ParameterListVisitor());
+            }
+            else if (childCtx instanceof ASN_3gppParser_1.AsnTypeContext) {
+                asnType = childCtx.accept(new asnType_1.AsnTypeVisitor());
+            }
+            else if (childCtx instanceof ASN_3gppParser_1.ValueContext) {
+                logging_1.log.warn(utils_1.getLogWithAsn1(parameterizedAssignmentCtx, 'ParameterizedValueAssignment not supported'));
+            }
+            else if (childCtx instanceof ASN_3gppParser_1.ValueSetContext) {
+                logging_1.log.warn(utils_1.getLogWithAsn1(parameterizedAssignmentCtx, 'ParameterizedValueSetAssignment not supported'));
+            }
+            else if (childCtx instanceof TerminalNode_1.TerminalNode) {
+                // Do nothing
+            }
+            else {
+                logging_1.log.warn(utils_1.getLogWithAsn1(parameterizedAssignmentCtx, 'Not supported ASN.1'));
             }
             return true;
         });
@@ -82,7 +60,6 @@ var ParameterizedAssignmentVisitor = /** @class */ (function (_super) {
             asnType.parameterList = parameterList;
         }
         return asnType;
-    };
-    return ParameterizedAssignmentVisitor;
-}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
+    }
+}
 exports.ParameterizedAssignmentVisitor = ParameterizedAssignmentVisitor;

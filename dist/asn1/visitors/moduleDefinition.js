@@ -1,22 +1,9 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var moduleBody_1 = require("./moduleBody");
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const moduleBody_1 = require("./moduleBody");
 /**
  * ANTLR4 grammar
  * ```
@@ -30,17 +17,13 @@ var moduleBody_1 = require("./moduleBody");
  *       END_LITERAL
  * ```
  */
-var ModuleDefinitionVisitor = /** @class */ (function (_super) {
-    __extends(ModuleDefinitionVisitor, _super);
-    function ModuleDefinitionVisitor() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ModuleDefinitionVisitor.prototype.defaultResult = function () {
+class ModuleDefinitionVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
         return { moduleName: undefined, definition: undefined };
-    };
-    ModuleDefinitionVisitor.prototype.visitChildren = function (moduleDefinitionCtx) {
-        var childCtxes = moduleDefinitionCtx.children;
-        var length = childCtxes.length;
+    }
+    visitChildren(moduleDefinitionCtx) {
+        const { children: childCtxes } = moduleDefinitionCtx;
+        const { length } = childCtxes;
         if (length > 8) {
             /**
              * TODO: matches to (L_BRACE (IDENTIFIER L_PARAN NUMBER R_PARAN)* R_BRACE)?
@@ -51,19 +34,18 @@ var ModuleDefinitionVisitor = /** @class */ (function (_super) {
              */
             logging_1.log.warn(utils_1.getLogWithAsn1(moduleDefinitionCtx, 'DefinitiveIdentification not supported:'));
         }
-        var moduleName = childCtxes[0].text;
-        var moduleBodyCtx = childCtxes[length - 2];
-        var definition = moduleBodyCtx.accept(new moduleBody_1.ModuleBodyVisitor());
+        const moduleName = childCtxes[0].text;
+        const moduleBodyCtx = childCtxes[length - 2];
+        const definition = moduleBodyCtx.accept(new moduleBody_1.ModuleBodyVisitor());
         markModuleName(definition, moduleName);
-        return { moduleName: moduleName, definition: definition };
-    };
-    return ModuleDefinitionVisitor;
-}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
+        return { moduleName, definition };
+    }
+}
 exports.ModuleDefinitionVisitor = ModuleDefinitionVisitor;
 function markModuleName(definition, moduleName) {
-    var assignments = definition.assignments;
+    const assignments = definition.assignments;
     // tslint:disable-next-line: forin
-    for (var identifier in assignments) {
+    for (const identifier in assignments) {
         assignments[identifier].moduleName = moduleName;
     }
 }

@@ -1,24 +1,11 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var asnType_1 = require("./asnType");
-var componentPresenceLists_1 = require("./componentPresenceLists");
-var value_1 = require("./value");
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const asnType_1 = require("./asnType");
+const componentPresenceLists_1 = require("./componentPresenceLists");
+const value_1 = require("./value");
 /**
  * ANTLR4 grammar
  * ```contentsConstraint :
@@ -28,25 +15,21 @@ var value_1 = require("./value");
  *  |  WITH_LITERAL COMPONENTS_LITERAL L_BRACE componentPresenceLists R_BRACE
  * ```
  */
-var ContentsConstraintVisitor = /** @class */ (function (_super) {
-    __extends(ContentsConstraintVisitor, _super);
-    function ContentsConstraintVisitor() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ContentsConstraintVisitor.prototype.defaultResult = function () {
+class ContentsConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
         return {};
-    };
-    ContentsConstraintVisitor.prototype.visitChildren = function (contentsConstraintCtx) {
-        var childCtxes = contentsConstraintCtx.children;
-        var contentsConstraint = {};
+    }
+    visitChildren(contentsConstraintCtx) {
+        const childCtxes = contentsConstraintCtx.children;
+        const contentsConstraint = {};
         switch (childCtxes[0].text.toLowerCase()) {
             case 'containing': {
-                var asnTypeCtx = childCtxes[1];
-                var asnType = asnTypeCtx.accept(new asnType_1.AsnTypeVisitor());
+                const asnTypeCtx = childCtxes[1];
+                const asnType = asnTypeCtx.accept(new asnType_1.AsnTypeVisitor());
                 contentsConstraint.containing = asnType;
-                var valueCtx = childCtxes[4];
+                const valueCtx = childCtxes[4];
                 if (valueCtx) {
-                    var value = valueCtx.accept(new value_1.ValueVisitor());
+                    const value = valueCtx.accept(new value_1.ValueVisitor());
                     contentsConstraint.encodedBy = value;
                 }
                 break;
@@ -56,8 +39,8 @@ var ContentsConstraintVisitor = /** @class */ (function (_super) {
                 break;
             }
             case 'with': {
-                var componentPresenceListsCtx = childCtxes[3];
-                var componentPresenceLists = componentPresenceListsCtx.accept(new componentPresenceLists_1.ComponentPresenceListsVisitor());
+                const componentPresenceListsCtx = childCtxes[3];
+                const componentPresenceLists = componentPresenceListsCtx.accept(new componentPresenceLists_1.ComponentPresenceListsVisitor());
                 contentsConstraint.withComponents = componentPresenceLists;
                 break;
             }
@@ -67,7 +50,6 @@ var ContentsConstraintVisitor = /** @class */ (function (_super) {
             }
         }
         return contentsConstraint;
-    };
-    return ContentsConstraintVisitor;
-}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
+    }
+}
 exports.ContentsConstraintVisitor = ContentsConstraintVisitor;

@@ -1,20 +1,9 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var ftp = require("ftp");
-var numbering_1 = require("../utils/numbering");
-var host = 'ftp.3gpp.org';
-var baseDir = 'Specs/archive';
+const ftp = require("ftp");
+const numbering_1 = require("../utils/numbering");
+const host = 'ftp.3gpp.org';
+const baseDir = 'Specs/archive';
 /**
  * Get a collection of spec documents for a given spec number
  * @param specNumStr Specificaiton number, e.g. `38.331`
@@ -22,16 +11,12 @@ var baseDir = 'Specs/archive';
  * @param args Arguments for callback function
  * @param cb.specFiles[] Collection of spec files
  */
-function list(specNumStr, cb) {
-    var args = [];
-    for (var _i = 2; _i < arguments.length; _i++) {
-        args[_i - 2] = arguments[_i];
-    }
-    var ftpClient = new ftp();
-    ftpClient.on('ready', function () {
-        var series = numbering_1.seriesFromString(specNumStr);
-        var specDir = baseDir + "/" + series + "_series/" + specNumStr;
-        ftpClient.list(specDir, function (e, l) {
+function list(specNumStr, cb, ...args) {
+    const ftpClient = new ftp();
+    ftpClient.on('ready', () => {
+        const series = numbering_1.seriesFromString(specNumStr);
+        const specDir = `${baseDir}/${series}_series/${specNumStr}`;
+        ftpClient.list(specDir, (e, l) => {
             ftpClient.end();
             if (e) {
                 if (cb) {
@@ -39,21 +24,21 @@ function list(specNumStr, cb) {
                 }
                 return;
             }
-            var specFiles = [];
-            l.forEach(function (el) {
-                var versionString = el.name.split('-').slice(-1)[0].split('.')[0];
-                specFiles.push(__assign({}, el, { version: numbering_1.versionFromString(versionString), url: "ftp://" + host + "/" + specDir + "/" + el.name }));
+            const specFiles = [];
+            l.forEach((el) => {
+                const versionString = el.name.split('-').slice(-1)[0].split('.')[0];
+                specFiles.push(Object.assign({}, el, { version: numbering_1.versionFromString(versionString), url: `ftp://${host}/${specDir}/${el.name}` }));
             });
             if (cb) {
                 cb(null, specFiles, args);
             }
         });
     });
-    ftpClient.on('error', function (e) {
+    ftpClient.on('error', (e) => {
         if (cb) {
             cb(e, null, args);
         }
     });
-    ftpClient.connect({ host: host });
+    ftpClient.connect({ host });
 }
 exports.list = list;

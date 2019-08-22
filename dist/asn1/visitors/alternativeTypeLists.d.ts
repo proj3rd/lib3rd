@@ -1,6 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { AlternativeTypeListContext } from '../ASN_3gppParser';
+import { AlternativeTypeListsContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { ExtensionMarker } from '../classes/extensionMarker';
+import { NamedType } from '../classes/namedType';
+export declare type AlternativeTypeLists = Array<NamedType | ExtensionMarker>;
 /**
  * ANTLR4 grammar
  * ```
@@ -8,7 +11,7 @@ import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
  *    extensionAndException  extensionAdditionAlternatives  optionalExtensionMarker )?
  * ```
  */
-export declare class AlternativeTypeListsVisitor extends AbstractParseTreeVisitor<any> implements ASN_3gppVisitor<any> {
-    defaultResult(): any;
-    visitChildren(alternativeTypeListsCtx: AlternativeTypeListContext): any;
+export declare class AlternativeTypeListsVisitor extends AbstractParseTreeVisitor<AlternativeTypeLists> implements ASN_3gppVisitor<AlternativeTypeLists> {
+    defaultResult(): AlternativeTypeLists;
+    visitChildren(alternativeTypeListsCtx: AlternativeTypeListsContext): AlternativeTypeLists;
 }

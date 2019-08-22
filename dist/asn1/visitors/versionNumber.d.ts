@@ -7,7 +7,7 @@ import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
  * versionNumber  :  (NUMBER  COLON )?
  * ```
  */
-export declare class VersionNumberVisitor extends AbstractParseTreeVisitor<any> implements ASN_3gppVisitor<any> {
-    defaultResult(): any;
-    visitChildren(versionNumberCtx: VersionNumberContext): any;
+export declare class VersionNumberVisitor extends AbstractParseTreeVisitor<null> implements ASN_3gppVisitor<null> {
+    defaultResult(): null;
+    visitChildren(versionNumberCtx: VersionNumberContext): null;
 }

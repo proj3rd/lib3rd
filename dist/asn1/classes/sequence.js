@@ -1,84 +1,62 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var lodash_1 = require("lodash");
-var logging_1 = require("../../utils/logging");
-var xlsx_1 = require("../format/xlsx");
-var asnType_1 = require("./asnType");
-var Sequence = /** @class */ (function (_super) {
-    __extends(Sequence, _super);
-    function Sequence(items /* TODO */) {
-        var _this = _super.call(this) || this;
-        _this.items = items;
-        return _this;
+const lodash_1 = require("lodash");
+const logging_1 = require("../../utils/logging");
+const xlsx_1 = require("../format/xlsx");
+const asnType_1 = require("./asnType");
+class Sequence extends asnType_1.AsnType {
+    constructor(items /* TODO */) {
+        super();
+        this.items = items;
     }
-    Sequence.prototype.setConstraint = function (constraint) {
+    setConstraint(constraint) {
         if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn("Sequence could not handle constraint " + JSON.stringify(constraint));
+            logging_1.log.warn(`Sequence could not handle constraint ${JSON.stringify(constraint)}`);
         }
         return this;
-    };
-    Sequence.prototype.expand = function (asn1Pool /* TODO */, moduleName, parameterList) {
-        var _this = this;
-        if (parameterList === void 0) { parameterList = []; }
-        this.items.forEach(function (item) {
-            item.expand(asn1Pool, _this.getModuleNameToPass(moduleName), parameterList);
+    }
+    expand(asn1Pool /* TODO */, moduleName, parameterList = []) {
+        this.items.forEach((item) => {
+            item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
-    };
-    Sequence.prototype.depthMax = function () {
-        var depthMax = 0;
-        this.items.forEach(function (item) {
+    }
+    depthMax() {
+        let depthMax = 0;
+        this.items.forEach((item) => {
             depthMax = Math.max(depthMax, item.depthMax() + 1);
         });
         return depthMax;
-    };
-    Sequence.prototype.replaceParameters = function (parameterMapping) {
-        this.items.forEach(function (item) {
+    }
+    replaceParameters(parameterMapping) {
+        this.items.forEach((item) => {
             item.replaceParameters(parameterMapping);
         });
-    };
-    Sequence.prototype.toString = function () {
-        var _this = this;
+    }
+    toString() {
         if (!this.items.length) {
             return 'SEQUENCE {}';
         }
-        var itemString = [];
-        this.items.forEach(function (item, index) {
-            var comma = index < _this.items.length - 1 ? ',' : '';
-            var tag = item.tag;
-            var tagString = tag ? "    " + tag : '';
-            itemString.push("" + _this.indent(item.toString()) + comma + tagString);
+        const itemString = [];
+        this.items.forEach((item, index) => {
+            const comma = index < this.items.length - 1 ? ',' : '';
+            const tag = item.tag;
+            const tagString = tag ? `    ${tag}` : '';
+            itemString.push(`${this.indent(item.toString())}${comma}${tagString}`);
         });
         return [
             'SEQUENCE {',
             itemString.join('\n'),
             '}',
         ].join('\n');
-    };
-    Sequence.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        var _a;
-        if (depth === void 0) { depth = 0; }
+    }
+    fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.type = 'SEQUENCE';
-        _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
-        this.items.forEach(function (item) {
-            var _a;
-            _a = item.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1), row = _a[0], col = _a[1];
+        [row, col] = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+        this.items.forEach((item) => {
+            [row, col] = item.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
         });
         return [row, col];
-    };
-    return Sequence;
-}(asnType_1.AsnType));
+    }
+}
 exports.Sequence = Sequence;

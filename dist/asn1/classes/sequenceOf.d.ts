@@ -2,12 +2,12 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { AsnType } from './asnType';
 import { NamedType } from './namedType';
 export declare class SequenceOf extends AsnType {
-    type: NamedType;
-    expandedType: NamedType;
+    type: AsnType | NamedType;
+    expandedType: AsnType | NamedType;
     size: number | string;
     sizeMin: number | string;
     sizeMax: number | string;
-    constructor(type: NamedType);
+    constructor(type: AsnType | NamedType);
     setConstraint(constraint: any): SequenceOf;
     expand(asn1Pool: any, moduleName?: string, parameterList?: string[]): SequenceOf;
     depthMax(): number;

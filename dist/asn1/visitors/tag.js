@@ -1,20 +1,7 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-var reTag = /^-- *?(Need|Cond) *?.+?$/;
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const reTag = /^-- *?(Need|Cond) *?.+?$/;
 /**
  * ANTLR4 grammar
  * ```
@@ -27,21 +14,16 @@ var reTag = /^-- *?(Need|Cond) *?.+?$/;
  *   ;
  * ```
  */
-var TagVisitor = /** @class */ (function (_super) {
-    __extends(TagVisitor, _super);
-    function TagVisitor() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    TagVisitor.prototype.defaultResult = function () {
+class TagVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
         return undefined;
-    };
-    TagVisitor.prototype.visitChildren = function (tagCtx) {
-        var childCtx = tagCtx.children[0];
+    }
+    visitChildren(tagCtx) {
+        const childCtx = tagCtx.children[0];
         // FIXME: ASN_3gpp.g4 not working properly
         // Temporary workaround
-        var tag = childCtx.text;
+        const tag = childCtx.text;
         return tag.match(reTag) ? tag : null;
-    };
-    return TagVisitor;
-}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
+    }
+}
 exports.TagVisitor = TagVisitor;

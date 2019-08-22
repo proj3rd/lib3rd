@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var numbering = require("./numbering");
+const numbering = require("./numbering");
 exports.numbering = numbering;
-var text = require("./text");
+const text = require("./text");
 exports.text = text;

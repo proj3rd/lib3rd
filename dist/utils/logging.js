@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var loglevel = require("loglevel");
+const loglevel = require("loglevel");
 try {
     loglevel.setLevel(process.env.loglevel);
 }

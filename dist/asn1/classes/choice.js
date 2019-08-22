@@ -1,74 +1,52 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var lodash_1 = require("lodash");
-var logging_1 = require("../../utils/logging");
-var xlsx_1 = require("../format/xlsx");
-var asnType_1 = require("./asnType");
-var Choice = /** @class */ (function (_super) {
-    __extends(Choice, _super);
-    function Choice(choices) {
-        var _this = _super.call(this) || this;
-        _this.choices = choices;
-        return _this;
+const lodash_1 = require("lodash");
+const logging_1 = require("../../utils/logging");
+const xlsx_1 = require("../format/xlsx");
+const asnType_1 = require("./asnType");
+class Choice extends asnType_1.AsnType {
+    constructor(choices) {
+        super();
+        this.choices = choices;
     }
-    Choice.prototype.setConstraint = function (constraint) {
+    setConstraint(constraint) {
         if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn("Choice constraint " + JSON.stringify(constraint));
+            logging_1.log.warn(`Choice constraint ${JSON.stringify(constraint)}`);
         }
         return this;
-    };
-    Choice.prototype.expand = function (asn1Pool /* TODO */, moduleName, parameterList) {
-        var _this = this;
-        if (parameterList === void 0) { parameterList = []; }
-        this.choices.forEach(function (choice) {
-            choice.expand(asn1Pool, _this.getModuleNameToPass(moduleName), parameterList);
+    }
+    expand(asn1Pool /* TODO */, moduleName, parameterList = []) {
+        this.choices.forEach((choice) => {
+            choice.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
-    };
-    Choice.prototype.depthMax = function () {
-        var depthMax = 0;
-        this.choices.forEach(function (choice) {
+    }
+    depthMax() {
+        let depthMax = 0;
+        this.choices.forEach((choice) => {
             depthMax = Math.max(depthMax, choice.depthMax() + 1);
         });
         return depthMax;
-    };
-    Choice.prototype.replaceParameters = function (parameterMapping) {
-        this.choices.forEach(function (choice) {
+    }
+    replaceParameters(parameterMapping) {
+        this.choices.forEach((choice) => {
             choice.replaceParameters(parameterMapping);
         });
-    };
-    Choice.prototype.toString = function () {
-        var _this = this;
+    }
+    toString() {
         return !this.choices.length ? 'CHOICE {}' : [
             'CHOICE {',
-            this.choices.map(function (choice) { return _this.indent(choice.toString()); }).join(',\n'),
+            this.choices.map((choice) => this.indent(choice.toString())).join(',\n'),
             '}',
         ].join('\n');
-    };
-    Choice.prototype.fillWorksheet = function (ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
-        var _a;
-        if (depth === void 0) { depth = 0; }
+    }
+    fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.type = 'CHOICE';
-        _a = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth), row = _a[0], col = _a[1];
-        this.choices.forEach(function (choice) {
-            var _a;
-            _a = choice.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1), row = _a[0], col = _a[1];
+        [row, col] = xlsx_1.fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
+        this.choices.forEach((choice) => {
+            [row, col] = choice.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
         });
         return [row, col];
-    };
-    return Choice;
-}(asnType_1.AsnType));
+    }
+}
 exports.Choice = Choice;

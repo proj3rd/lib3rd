@@ -34,7 +34,7 @@ function versionFromString(versionStr) {
             editorial: parseInt(versionStr.substring(4, 6), 10),
         };
     }
-    throw Error("Malformed version string (" + versionStr + ")");
+    throw Error(`Malformed version string (${versionStr})`);
 }
 exports.versionFromString = versionFromString;
 function numberFromAlpha(char) {

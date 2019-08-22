@@ -1,23 +1,11 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-var logging_1 = require("../../utils/logging");
-var utils_1 = require("../utils");
-var sizeConstraint_1 = require("./sizeConstraint");
-var value_1 = require("./value");
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const logging_1 = require("../../utils/logging");
+const utils_1 = require("../utils");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const sizeConstraint_1 = require("./sizeConstraint");
+const value_1 = require("./value");
 /**
  * ANTLR4 grammar
  * ```
@@ -29,39 +17,30 @@ var value_1 = require("./value");
  *  | value
  * ```
  */
-var ElementsVisitor = /** @class */ (function (_super) {
-    __extends(ElementsVisitor, _super);
-    function ElementsVisitor() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ElementsVisitor.prototype.defaultResult = function () {
+class ElementsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
         return undefined;
-    };
-    ElementsVisitor.prototype.visitChildren = function (elementsCtx) {
-        var subtypeElementsCtx = elementsCtx.children[0];
-        var childCount = subtypeElementsCtx.childCount;
-        var childCtxFirst = subtypeElementsCtx.getChild(0);
-        var childCtxLast = subtypeElementsCtx.getChild(childCount - 1);
-        var elements;
+    }
+    visitChildren(elementsCtx) {
+        const subtypeElementsCtx = elementsCtx.children[0];
+        const childCount = subtypeElementsCtx.childCount;
+        const childCtxFirst = subtypeElementsCtx.getChild(0);
+        const childCtxLast = subtypeElementsCtx.getChild(childCount - 1);
+        let elements;
         switch (subtypeElementsCtx.childCount) {
             case 1: {
                 // sizeConstraint
                 // value
-                switch (utils_1.getContextName(childCtxFirst)) {
-                    case 'sizeConstraint': {
-                        var sizeConstraintCtx = childCtxFirst;
-                        elements = sizeConstraintCtx.accept(new sizeConstraint_1.SizeConstraintVisitor());
-                        break;
-                    }
-                    case 'value': {
-                        var valueCtx = childCtxFirst;
-                        elements = { value: valueCtx.accept(new value_1.ValueVisitor()) };
-                        break;
-                    }
-                    default: {
-                        logging_1.log.warn(utils_1.getLogWithAsn1(elementsCtx, 'Not supported ASN1:'));
-                        break;
-                    }
+                if (childCtxFirst instanceof ASN_3gppParser_1.SizeConstraintContext) {
+                    const sizeConstraintCtx = childCtxFirst;
+                    elements = sizeConstraintCtx.accept(new sizeConstraint_1.SizeConstraintVisitor());
+                }
+                else if (childCtxFirst instanceof ASN_3gppParser_1.ValueContext) {
+                    const valueCtx = childCtxFirst;
+                    elements = { value: valueCtx.accept(new value_1.ValueVisitor()) };
+                }
+                else {
+                    logging_1.log.warn(utils_1.getLogWithAsn1(elementsCtx, 'Not supported ASN1:'));
                 }
                 break;
             }
@@ -77,16 +56,15 @@ var ElementsVisitor = /** @class */ (function (_super) {
                 if (childCount > 3) {
                     logging_1.log.warn(utils_1.getLogWithAsn1(elementsCtx, '\'<\' or \'>\' not supported:'));
                 }
-                var minCtx = childCtxFirst;
-                var min = utils_1.getContextName(minCtx) === 'value' ? minCtx.accept(new value_1.ValueVisitor()) : minCtx.text;
-                var maxCtx = childCtxLast;
-                var max = utils_1.getContextName(maxCtx) === 'value' ? maxCtx.accept(new value_1.ValueVisitor()) : maxCtx.text;
-                elements = { min: min, max: max };
+                const minCtx = childCtxFirst;
+                const min = minCtx instanceof ASN_3gppParser_1.ValueContext ? minCtx.accept(new value_1.ValueVisitor()) : minCtx.text;
+                const maxCtx = childCtxLast;
+                const max = maxCtx instanceof ASN_3gppParser_1.ValueContext ? maxCtx.accept(new value_1.ValueVisitor()) : maxCtx.text;
+                elements = { min, max };
                 break;
             }
         }
         return elements;
-    };
-    return ElementsVisitor;
-}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
+    }
+}
 exports.ElementsVisitor = ElementsVisitor;

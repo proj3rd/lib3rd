@@ -1,45 +1,27 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-var componentPresence_1 = require("./componentPresence");
+const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const componentPresence_1 = require("./componentPresence");
 /**
  * ANTRL4 grammar
  * ```
  * componentPresenceList: (componentPresence) (COMMA componentPresence)*
  * ```
  */
-var ComponentPresenceListVisitor = /** @class */ (function (_super) {
-    __extends(ComponentPresenceListVisitor, _super);
-    function ComponentPresenceListVisitor() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ComponentPresenceListVisitor.prototype.defaultResult = function () {
+class ComponentPresenceListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
+    defaultResult() {
         return [];
-    };
-    ComponentPresenceListVisitor.prototype.visitChildren = function (componentPresenceListCtx) {
-        var childCtxes = componentPresenceListCtx.children;
-        var componentPresenceList = [];
-        childCtxes.forEach(function (childCtx, index) {
+    }
+    visitChildren(componentPresenceListCtx) {
+        const childCtxes = componentPresenceListCtx.children;
+        const componentPresenceList = [];
+        childCtxes.forEach((childCtx, index) => {
             if (index % 2) {
                 return;
             }
             componentPresenceList.push(childCtx.accept(new componentPresence_1.ComponentPresenceVisitor()));
         });
         return componentPresenceList;
-    };
-    return ComponentPresenceListVisitor;
-}(AbstractParseTreeVisitor_1.AbstractParseTreeVisitor));
+    }
+}
 exports.ComponentPresenceListVisitor = ComponentPresenceListVisitor;
