@@ -4,7 +4,7 @@ import { ModulesContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { IModuleBody } from './moduleBody';
-import { IModuleDefinition, ModuleDefinitionVisitor } from './moduleDefinition';
+import { ModuleDefinitionVisitor } from './moduleDefinition';
 
 export interface IModules {
   [moduleName: string]: IModuleBody;
