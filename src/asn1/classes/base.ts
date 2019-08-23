@@ -1,11 +1,12 @@
 import { isEqual } from 'lodash';
 
 import { IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 
 export abstract class Base {
   public moduleName: string;
 
-  public abstract expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList?: string[]): Base;
+  public abstract expand(asn1Pool: IModules, moduleName?: string, parameterList?: string[]): Base;
   public abstract depthMax(): number;
   public abstract toString(): string;
   public abstract fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,

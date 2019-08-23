@@ -4,6 +4,7 @@ import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { Base } from './base';
 import { WithComponents } from './withComponents';
@@ -25,7 +26,7 @@ export class DefinedType extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO*/, moduleName?: string, parameterList: string[] = []): Base {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): Base {
     if (parameterList.indexOf(this.typeReference) !== -1) {
       return this;
     }

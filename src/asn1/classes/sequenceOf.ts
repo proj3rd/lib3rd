@@ -3,6 +3,7 @@ import { cloneDeep, isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { NamedType } from './namedType';
 
@@ -39,7 +40,7 @@ export class SequenceOf extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): SequenceOf {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): SequenceOf {
     const typeToExpand = cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     // This should always be true
     if (typeToExpand instanceof AsnType || typeToExpand instanceof NamedType) {

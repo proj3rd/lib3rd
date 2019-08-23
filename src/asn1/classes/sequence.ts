@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { NamedType } from './namedType';
 
@@ -22,7 +23,7 @@ export class Sequence extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): Sequence {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): Sequence {
     this.items.forEach((item) => {
       item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });

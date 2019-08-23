@@ -5,6 +5,7 @@ import { log } from '../../utils/logging';
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 
 import { AlternativeTypeLists } from '../visitors/alternativeTypeLists';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
 export class Choice extends AsnType {
@@ -23,7 +24,7 @@ export class Choice extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): Choice {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): Choice {
     this.choices.forEach((choice) => {
       choice.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });

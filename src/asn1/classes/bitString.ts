@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
 export class BitString extends AsnType {
@@ -31,7 +32,7 @@ export class BitString extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): BitString {
+  public expand(asn1Pool: IModules, moduleName?: string): BitString {
     return this;
   }
 

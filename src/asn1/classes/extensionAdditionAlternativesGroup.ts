@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 import { Base } from './base';
 import { NamedType } from './namedType';
 
@@ -25,7 +26,7 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = [])
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = [])
     : ExtensionAdditionAlternativesGroup {
     this.alternativeTypeList.forEach((item) => {
       item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);

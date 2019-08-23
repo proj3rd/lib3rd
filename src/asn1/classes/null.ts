@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
 export class Null extends AsnType {
@@ -13,7 +14,7 @@ export class Null extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): Null {
+  public expand(asn1Pool: IModules, moduleName?: string): Null {
     return this;
   }
 

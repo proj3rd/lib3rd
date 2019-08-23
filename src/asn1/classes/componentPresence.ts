@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 import { Base } from './base';
 
 export class ComponentPresence extends Base {
@@ -23,7 +24,7 @@ export class ComponentPresence extends Base {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): never {
+  public expand(asn1Pool: IModules, moduleName?: string): never {
     throw Error(`${this.constructor.name}.expand does not need to be implemented`);
   }
 

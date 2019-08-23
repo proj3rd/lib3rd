@@ -4,6 +4,7 @@ import * as xl from 'excel4node';
 
 import { author, styleBorderLeft, styleBorderTop } from '../../utils/xlsx';
 import { findConstantValue } from '../utils';
+import { IModules } from '../visitors/modules';
 import { IMsgIe } from './common';
 
 type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'tag';
@@ -65,7 +66,7 @@ const headerConstants: any /* TODO */ = {
  * @param msgIes Array of ASN.1 objects you want to format
  * @returns Workbook object of excel4node
  */
-export function format(msgIes: IMsgIe[], asn1Pool: any, formatConfig: IFormatConfig = formatConfigDefault): any {
+export function format(msgIes: IMsgIe[], asn1Pool: IModules, formatConfig: IFormatConfig = formatConfigDefault): any {
   const wb = new xl.Workbook({ author });
   msgIes.forEach((msgIe, index) => {
     log.debug(`Formatting ${msgIe.name} in xlsx...`);
@@ -170,7 +171,7 @@ export function fillRow(ieElem: IIe, ws: any, row: number, col: number, depthMax
   return [row, col];
 }
 
-function fillConstants(constants: any[], moduleName: string, asn1Pool: any, ws: any, row: number, col: number,
+function fillConstants(constants: any[], moduleName: string, asn1Pool: IModules, ws: any, row: number, col: number,
                        depthMax: number, formatConfig: IFormatConfig): [number, number] {
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [headerConstants, ...constants].forEach((rangeElem, index) => {

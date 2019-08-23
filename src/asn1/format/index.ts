@@ -9,6 +9,7 @@ import { format as formatXlsx } from './xlsx';
 
 import { expand } from '../expand';
 import { parse } from '../parse';
+import { IModules } from '../visitors/modules';
 import { IMsgIe } from './common';
 
 export {
@@ -17,10 +18,10 @@ export {
 };
 
 // TODO: need to be place in separate module?
-export function findMsgIes(msgIeName: string, asn1: any): IMsgIe[] {
+export function findMsgIes(msgIeName: string, asn1Pool: IModules): IMsgIe[] {
   const msgIes: IMsgIe[] = [];
-  Object.keys(asn1).forEach((moduleName) => {
-    const assignments = asn1[moduleName].assignments;
+  Object.keys(asn1Pool).forEach((moduleName) => {
+    const assignments = asn1Pool[moduleName].assignments;
     if (msgIeName === 'all') {
       Object.keys(assignments).forEach((name) => {
         msgIes.push({
@@ -71,7 +72,7 @@ if (require.main === module) {
       throw err;
     }
     const {format: formatString, expand: doExpand} = argv;
-    const asn1Pool: any /* TODO */ = parse(text);
+    const asn1Pool = parse(text);
     let msgIes = findMsgIes(msgIeName, asn1Pool);
     if (!msgIes.length) {
       throw Error(`${msgIeName} not found in ${filePath}`);

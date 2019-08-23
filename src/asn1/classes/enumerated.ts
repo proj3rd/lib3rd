@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
 export class Enumerated extends AsnType {
@@ -21,7 +22,7 @@ export class Enumerated extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): Enumerated {
+  public expand(asn1Pool: IModules, moduleName?: string): Enumerated {
     return this;
   }
 

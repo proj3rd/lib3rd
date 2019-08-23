@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 import { Base } from './base';
 
 export class ExtensionMarker extends Base {
@@ -13,7 +14,7 @@ export class ExtensionMarker extends Base {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): ExtensionMarker {
+  public expand(asn1Pool: IModules, moduleName?: string): ExtensionMarker {
     return this;
   }
 

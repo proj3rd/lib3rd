@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { IFormatConfig, IIe } from '../format/xlsx';
+import { IModules } from '../visitors/modules';
 import { Base } from './base';
 
 export class NamedType extends Base {
@@ -26,7 +27,7 @@ export class NamedType extends Base {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): NamedType {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): NamedType {
     const expandedType = this.type.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     this.type = expandedType;
     return this;
