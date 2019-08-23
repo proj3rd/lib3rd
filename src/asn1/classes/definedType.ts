@@ -5,6 +5,7 @@ import { log } from '../../utils/logging';
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
 import { ActualParameter } from '../visitors/actualParameter';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { Base } from './base';
@@ -16,7 +17,7 @@ export class DefinedType extends AsnType {
   public actualParameterList: ActualParameter[];
   public withComponents: WithComponents;
 
-  public setConstraint(constraint: any): DefinedType {
+  public setConstraint(constraint: ConstraintSpec): DefinedType {
     if ('withComponents' in constraint) {
       this.withComponents = new WithComponents(constraint.withComponents);
       delete constraint.withComponents;

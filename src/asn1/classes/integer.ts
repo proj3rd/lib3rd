@@ -3,16 +3,18 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { BuiltinValue } from '../visitors/builtinValue';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
 export class Integer extends AsnType {
   public namedNumberList: any; // TODO
-  public value: number | string;
-  public min: number | string;
-  public max: number | string;
+  public value: BuiltinValue;
+  public min: BuiltinValue;
+  public max: BuiltinValue;
 
-  public setConstraint(constraint: any): Integer {
+  public setConstraint(constraint: ConstraintSpec): Integer {
     if ('value' in constraint) {
       this.value = constraint.value;
       delete constraint.value;

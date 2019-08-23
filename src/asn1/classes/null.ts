@@ -3,11 +3,12 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
 export class Null extends AsnType {
-  public setConstraint(constraint: any): Null {
+  public setConstraint(constraint: ConstraintSpec): Null {
     if (!isEmpty(constraint)) {
       log.warn(`Null could not handle constraint ${JSON.stringify(constraint)}`);
     }

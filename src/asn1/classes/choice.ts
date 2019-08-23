@@ -5,6 +5,7 @@ import { log } from '../../utils/logging';
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 
 import { AlternativeTypeLists } from '../visitors/alternativeTypeLists';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
@@ -17,7 +18,7 @@ export class Choice extends AsnType {
     this.choices = choices;
   }
 
-  public setConstraint(constraint: any): Choice {
+  public setConstraint(constraint: ConstraintSpec): Choice {
     if (!isEmpty(constraint)) {
       log.warn(`Choice constraint ${JSON.stringify(constraint)}`);
     }

@@ -3,16 +3,18 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { BuiltinValue } from '../visitors/builtinValue';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
 export class OctetString extends AsnType {
-  public size: number | string;
-  public sizeMin: number | string;
-  public sizeMax: number | string;
+  public size: BuiltinValue;
+  public sizeMin: BuiltinValue;
+  public sizeMax: BuiltinValue;
   public containing: AsnType;
 
-  public setConstraint(constraint: any): OctetString {
+  public setConstraint(constraint: ConstraintSpec): OctetString {
     if ('value' in constraint) {
       this.size = constraint.value;
       delete constraint.value;

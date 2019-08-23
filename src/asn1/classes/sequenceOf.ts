@@ -3,6 +3,8 @@ import { cloneDeep, isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { BuiltinValue } from '../visitors/builtinValue';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { NamedType } from './namedType';
@@ -10,9 +12,9 @@ import { NamedType } from './namedType';
 export class SequenceOf extends AsnType {
   public type: AsnType | NamedType;
   public expandedType: AsnType | NamedType;
-  public size: number | string;
-  public sizeMin: number | string;
-  public sizeMax: number | string;
+  public size: BuiltinValue;
+  public sizeMin: BuiltinValue;
+  public sizeMax: BuiltinValue;
 
   constructor(type: AsnType | NamedType) {
     super();
@@ -20,7 +22,7 @@ export class SequenceOf extends AsnType {
     this.type = type;
   }
 
-  public setConstraint(constraint: any): SequenceOf {
+  public setConstraint(constraint: ConstraintSpec): SequenceOf {
     if ('value' in constraint) {
       this.size = constraint.value;
       delete constraint.value;

@@ -1,6 +1,7 @@
 import { isEqual } from 'lodash';
 
 import { IFormatConfig, IIe } from '../format/xlsx';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 
 export abstract class Base {
@@ -11,7 +12,7 @@ export abstract class Base {
   public abstract toString(): string;
   public abstract fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
                                 constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];
-  public abstract setConstraint(constraint: any): Base;
+  public abstract setConstraint(constraint: ConstraintSpec): Base;
   public abstract replaceParameters(parameterMapping: {[parameter: string]: any /* TODO */}): void;
 
   protected indent(text: string): string {

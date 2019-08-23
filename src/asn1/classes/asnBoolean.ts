@@ -3,11 +3,12 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
 export class AsnBoolean extends AsnType {
-  public setConstraint(constraint: any): AsnBoolean {
+  public setConstraint(constraint: ConstraintSpec): AsnBoolean {
     if (!isEmpty(constraint)) {
       log.warn(`Boolean could not handle constraint ${JSON.stringify(constraint)}`);
     }

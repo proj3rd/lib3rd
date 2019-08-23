@@ -4,6 +4,7 @@ import { log } from '../../utils/logging';
 
 import { IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base } from './base';
 
@@ -21,7 +22,7 @@ export class NamedType extends Base {
     this.type = type;
   }
 
-  public setConstraint(constraint: any): NamedType {
+  public setConstraint(constraint: ConstraintSpec): NamedType {
     if (!isEmpty(constraint)) {
       log.warn(`NamedType could not handle constraint ${JSON.stringify(constraint)}`);
     }

@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { Enumerations } from '../visitors/enumerations';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
@@ -16,7 +17,7 @@ export class Enumerated extends AsnType {
     this.items = items;
   }
 
-  public setConstraint(constraint: any): Enumerated {
+  public setConstraint(constraint: ConstraintSpec): Enumerated {
     if (!isEmpty(constraint)) {
       log.warn(`Enumerated could not handle constraint ${JSON.stringify(constraint)}`);
     }

@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { NamedType } from './namedType';
@@ -16,7 +17,7 @@ export class Sequence extends AsnType {
     this.items = items;
   }
 
-  public setConstraint(constraint: any): Sequence {
+  public setConstraint(constraint: ConstraintSpec): Sequence {
     if (!isEmpty(constraint)) {
       log.warn(`Sequence could not handle constraint ${JSON.stringify(constraint)}`);
     }

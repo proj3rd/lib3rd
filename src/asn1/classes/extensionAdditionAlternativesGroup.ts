@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base } from './base';
 import { NamedType } from './namedType';
@@ -19,7 +20,7 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     }
   }
 
-  public setConstraint(constraint: any): ExtensionAdditionAlternativesGroup {
+  public setConstraint(constraint: ConstraintSpec): ExtensionAdditionAlternativesGroup {
     if (!isEmpty(constraint)) {
       log.warn(`ExtensionAdditionAlternativesGroup could not handle constraint ${JSON.stringify(constraint)}`);
     }

@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { IFormatConfig, IIe } from '../format/xlsx';
+import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base } from './base';
 
@@ -17,7 +18,7 @@ export class ComponentPresence extends Base {
     this.absentPresent = absentPresent;
   }
 
-  public setConstraint(constraint: any): ComponentPresence {
+  public setConstraint(constraint: ConstraintSpec): ComponentPresence {
     if (!isEmpty(constraint)) {
       log.warn(`ComponentPresence could not handle constraint ${JSON.stringify(constraint)}`);
     }
