@@ -13,7 +13,7 @@ export class NamedType extends Base {
   public default: any;
   public tag?: string;
 
-  constructor(name: string, type: any) {
+  constructor(name: string, type: Base) {
     super();
 
     this.name = name;

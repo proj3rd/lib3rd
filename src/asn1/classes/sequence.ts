@@ -10,7 +10,7 @@ import { NamedType } from './namedType';
 export class Sequence extends AsnType {
   public items: NamedType[];
 
-  constructor(items: any[] /* TODO */) {
+  constructor(items: NamedType[]) {
     super();
 
     this.items = items;

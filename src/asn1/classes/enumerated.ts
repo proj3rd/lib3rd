@@ -3,13 +3,14 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { Enumerations } from '../visitors/enumerations';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 
 export class Enumerated extends AsnType {
-  public items: any[];
+  public items: Enumerations;
 
-  constructor(items: any[]) {
+  constructor(items: Enumerations) {
     super();
 
     this.items = items;

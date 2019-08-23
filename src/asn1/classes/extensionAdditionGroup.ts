@@ -10,7 +10,7 @@ import { NamedType } from './namedType';
 export class ExtensionAdditionGroup extends Base {
   public componentTypeList: NamedType[];
 
-  constructor(alternativeTypeList: any, versionNumber: any) {
+  constructor(alternativeTypeList: NamedType[], versionNumber: null) {
     super();
 
     this.componentTypeList = alternativeTypeList;

@@ -4,6 +4,7 @@ import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
+import { ActualParameter } from '../visitors/actualParameter';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { Base } from './base';
@@ -12,7 +13,7 @@ import { WithComponents } from './withComponents';
 export class DefinedType extends AsnType {
   public moduleReference: string;
   public typeReference: string;
-  public actualParameterList: any/* TODO */[];
+  public actualParameterList: ActualParameter[];
   public withComponents: WithComponents;
 
   public setConstraint(constraint: any): DefinedType {
