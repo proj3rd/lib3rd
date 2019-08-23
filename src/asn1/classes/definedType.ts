@@ -36,8 +36,8 @@ export class DefinedType extends AsnType {
       return this;
     }
     const parameterMapping = {};
-    if ((definition as any).parameterList) {
-      ((definition as any).parameterList as string[]).forEach((parameter, index) => {
+    if (definition.parameterList) {
+      (definition.parameterList as string[]).forEach((parameter, index) => {
         /**
          * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }
          * New parameter scope starts

@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { IFormatConfig, IIe } from '../format/xlsx';
+import { BuiltinValue } from '../visitors/builtinValue';
 import { IModules } from '../visitors/modules';
 import { Base } from './base';
 
@@ -10,7 +11,7 @@ export class NamedType extends Base {
   public name: string;
   public type: Base;
   public optional: boolean;
-  public default: any;
+  public default: BuiltinValue;
   public tag?: string;
 
   constructor(name: string, type: Base) {
@@ -52,7 +53,7 @@ export class NamedType extends Base {
     const typeReference = (this as any /* TOdO */).type.typeReference;
     ieElem.reference = `${moduleReference ? moduleReference + '.' : ''}${typeReference ? typeReference : ''}`;
     ieElem.optional = this.getOptionalString();
-    const tag = (this as any).tag;
+    const tag = this.tag;
     ieElem.tag =  tag ? tag.replace(/^-- *?/, '') : '';
     [row, col] = this.type.fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth);
     return [row, col];

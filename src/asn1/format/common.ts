@@ -1,6 +1,6 @@
-import { Base } from '../classes/base';
+import { AsnType } from '../classes/asnType';
 
 export interface IMsgIe {
   name: string;
-  definition: Base;
+  definition: AsnType;
 }

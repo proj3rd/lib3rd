@@ -10,7 +10,7 @@ export class OctetString extends AsnType {
   public size: number | string;
   public sizeMin: number | string;
   public sizeMax: number | string;
-  public containing: any /* TODO */;
+  public containing: AsnType;
 
   public setConstraint(constraint: any): OctetString {
     if ('value' in constraint) {
