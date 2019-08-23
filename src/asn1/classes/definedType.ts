@@ -8,7 +8,7 @@ import { ActualParameter } from '../visitors/actualParameter';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
-import { Base } from './base';
+import { Base, IConstantAndModule } from './base';
 import { WithComponents } from './withComponents';
 
 export class DefinedType extends AsnType {
@@ -76,8 +76,9 @@ export class DefinedType extends AsnType {
       `${this.typeReference}${actualParameterListString}${withComponents}`;
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.reference = this.toString();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     return [row, col];

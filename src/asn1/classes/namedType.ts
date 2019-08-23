@@ -6,7 +6,7 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { Base } from './base';
+import { Base, IConstantAndModule } from './base';
 
 export class NamedType extends Base {
   public name: string;
@@ -47,8 +47,9 @@ export class NamedType extends Base {
     return `${this.name.padEnd(48)}    ${this.type}${this.getOptionalString()}`;
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.ie = this.name;
     const moduleReference = (this as any /* TODO */).type.moduleReference;
     const typeReference = (this as any /* TOdO */).type.typeReference;

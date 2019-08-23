@@ -3,6 +3,7 @@ import { log } from '../../utils/logging';
 import * as xl from 'excel4node';
 
 import { author, styleBorderLeft, styleBorderTop } from '../../utils/xlsx';
+import { IConstantAndModule } from '../classes/base';
 import { findConstantValue } from '../utils';
 import { IModules } from '../visitors/modules';
 import { IMsgIe } from './common';
@@ -94,7 +95,8 @@ export function format(msgIes: IMsgIe[], asn1Pool: IModules, formatConfig: IForm
   return wb;
 }
 
-function fillDefinition(msgIe: IMsgIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+function fillDefinition(msgIe: IMsgIe, ws: any, row: number, col: number, depthMax: number,
+                        constants: IConstantAndModule[],
                         formatConfig: IFormatConfig = formatConfigDefault): [number, number] {
   if (formatConfig.freezeHeader) {
     ws.row(row).freeze();
@@ -171,8 +173,9 @@ export function fillRow(ieElem: IIe, ws: any, row: number, col: number, depthMax
   return [row, col];
 }
 
-function fillConstants(constants: any[], moduleName: string, asn1Pool: IModules, ws: any, row: number, col: number,
-                       depthMax: number, formatConfig: IFormatConfig): [number, number] {
+function fillConstants(constants: IConstantAndModule[], moduleName: string, asn1Pool: IModules,
+                       ws: any, row: number, col: number, depthMax: number,
+                       formatConfig: IFormatConfig): [number, number] {
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [headerConstants, ...constants].forEach((rangeElem, index) => {
     if (index > 0) {

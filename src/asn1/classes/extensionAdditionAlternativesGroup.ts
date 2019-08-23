@@ -5,7 +5,7 @@ import { log } from '../../utils/logging';
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { Base } from './base';
+import { Base, IConstantAndModule } from './base';
 import { NamedType } from './namedType';
 
 export class ExtensionAdditionAlternativesGroup extends Base {
@@ -57,8 +57,9 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     ].join('\n');
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.ie = '[[';
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     this.alternativeTypeList.forEach((item) => {
