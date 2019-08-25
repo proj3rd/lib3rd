@@ -145,7 +145,7 @@ function getDirection(selector: Cheerio): string {
 
 function doesHeaderMatch(selector: Cheerio, header: string[], indexEnd: number): boolean {
   const headerTds = selector.find('tr').first().children('td').slice(0, indexEnd);
-  return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number, arr: any[]) => {
+  return headerTds.get().reduce((prev: boolean, curr: any, currIndex: number) => {
     return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === header[currIndex]);
   }, true);
 }
