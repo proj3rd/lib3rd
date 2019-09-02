@@ -17,7 +17,7 @@ class ParameterListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeV
         const parameterList = [];
         const childCtxes = parameterListCtx.children;
         childCtxes.forEach((childCtx) => {
-            if (childCtx instanceof ASN_3gppParser_1.ParameterContext) {
+            if (!(childCtx instanceof ASN_3gppParser_1.ParameterContext)) {
                 return;
             }
             parameterList.push(childCtx.accept(new parameter_1.ParameterVisitor()));
