@@ -11,7 +11,7 @@ class ExtensionMarker extends base_1.Base {
         }
         return this;
     }
-    expand(asn1Pool /* TODO */, moduleName) {
+    expand(asn1Pool, moduleName) {
         return this;
     }
     depthMax() {

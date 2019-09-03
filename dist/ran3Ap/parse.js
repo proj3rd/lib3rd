@@ -128,7 +128,7 @@ function getDirection(selector) {
 }
 function doesHeaderMatch(selector, header, indexEnd) {
     const headerTds = selector.find('tr').first().children('td').slice(0, indexEnd);
-    return headerTds.get().reduce((prev, curr, currIndex, arr) => {
+    return headerTds.get().reduce((prev, curr, currIndex) => {
         return prev && (normalizeWhitespace($(curr).text()).toLowerCase() === header[currIndex]);
     }, true);
 }

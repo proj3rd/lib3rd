@@ -5,7 +5,7 @@ const logging_1 = require("../../utils/logging");
 const xlsx_1 = require("../format/xlsx");
 const asnType_1 = require("./asnType");
 class Sequence extends asnType_1.AsnType {
-    constructor(items /* TODO */) {
+    constructor(items) {
         super();
         this.items = items;
     }
@@ -15,7 +15,7 @@ class Sequence extends asnType_1.AsnType {
         }
         return this;
     }
-    expand(asn1Pool /* TODO */, moduleName, parameterList = []) {
+    expand(asn1Pool, moduleName, parameterList = []) {
         this.items.forEach((item) => {
             item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });

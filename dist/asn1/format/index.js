@@ -11,10 +11,10 @@ exports.formatXlsx = xlsx_1.format;
 const expand_1 = require("../expand");
 const parse_1 = require("../parse");
 // TODO: need to be place in separate module?
-function findMsgIes(msgIeName, asn1) {
+function findMsgIes(msgIeName, asn1Pool) {
     const msgIes = [];
-    Object.keys(asn1).forEach((moduleName) => {
-        const assignments = asn1[moduleName].assignments;
+    Object.keys(asn1Pool).forEach((moduleName) => {
+        const assignments = asn1Pool[moduleName].assignments;
         if (msgIeName === 'all') {
             Object.keys(assignments).forEach((name) => {
                 msgIes.push({

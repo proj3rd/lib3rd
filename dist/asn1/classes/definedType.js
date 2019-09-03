@@ -17,7 +17,7 @@ class DefinedType extends asnType_1.AsnType {
         }
         return this;
     }
-    expand(asn1Pool /* TODO*/, moduleName, parameterList = []) {
+    expand(asn1Pool, moduleName, parameterList = []) {
         if (parameterList.indexOf(this.typeReference) !== -1) {
             return this;
         }

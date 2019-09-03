@@ -29,7 +29,7 @@ class SequenceOf extends asnType_1.AsnType {
         }
         return this;
     }
-    expand(asn1Pool /* TODO */, moduleName, parameterList = []) {
+    expand(asn1Pool, moduleName, parameterList = []) {
         const typeToExpand = lodash_1.cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         // This should always be true
         if (typeToExpand instanceof asnType_1.AsnType || typeToExpand instanceof namedType_1.NamedType) {

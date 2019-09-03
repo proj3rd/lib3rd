@@ -1,10 +1,12 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
+import { Base, IConstantAndModule } from './base';
 export declare class ExtensionMarker extends Base {
-    setConstraint(constraint: any): ExtensionMarker;
-    expand(asn1Pool: any, moduleName?: string): ExtensionMarker;
+    setConstraint(constraint: ConstraintSpec): ExtensionMarker;
+    expand(asn1Pool: IModules, moduleName?: string): ExtensionMarker;
     depthMax(): number;
     replaceParameters(paramterMapping: {}): void;
     toString(): string;
-    fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[], formatConfig: IFormatConfig, depth?: number): [number, number];
+    fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }

@@ -1,3 +1,4 @@
+import { IModules } from '../visitors/modules';
 import { IMsgIe } from './common';
 declare type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'tag';
 export interface IIe {
@@ -23,6 +24,6 @@ export declare const formatConfigDefault: IFormatConfig;
  * @param msgIes Array of ASN.1 objects you want to format
  * @returns Workbook object of excel4node
  */
-export declare function format(msgIes: IMsgIe[], asn1Pool: any, formatConfig?: IFormatConfig): any;
+export declare function format(msgIes: IMsgIe[], asn1Pool: IModules, formatConfig?: IFormatConfig): any;
 export declare function fillRow(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, formatConfig: IFormatConfig, depth?: number): [number, number];
 export {};

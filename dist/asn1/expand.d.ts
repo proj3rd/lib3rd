@@ -1,2 +1,3 @@
 import { IMsgIe } from './format/common';
-export declare function expand(msgIe: IMsgIe, asn1Pool: any): any;
+import { IModules } from './visitors/modules';
+export declare function expand(msgIe: IMsgIe, asn1Pool: IModules): IMsgIe;
