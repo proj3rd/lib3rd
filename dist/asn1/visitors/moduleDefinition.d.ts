@@ -2,9 +2,14 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { ModuleDefinitionContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { IModuleBody } from './moduleBody';
+interface IDefinitiveObjIdComponent {
+    definitiveName: string;
+    definitiveNumber: number;
+}
 export interface IModuleDefinition {
     moduleName: string;
     definition: IModuleBody;
+    definitiveIdentification: IDefinitiveObjIdComponent[];
 }
 /**
  * ANTLR4 grammar
@@ -23,3 +28,4 @@ export declare class ModuleDefinitionVisitor extends AbstractParseTreeVisitor<IM
     defaultResult(): IModuleDefinition;
     visitChildren(moduleDefinitionCtx: ModuleDefinitionContext): IModuleDefinition;
 }
+export {};

@@ -8,9 +8,15 @@ import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { IModuleBody, ModuleBodyVisitor } from './moduleBody';
 
+interface IDefinitiveObjIdComponent {
+  definitiveName: string;
+  definitiveNumber: number;
+}
+
 export interface IModuleDefinition {
   moduleName: string;
   definition: IModuleBody;
+  definitiveIdentification: IDefinitiveObjIdComponent[];
 }
 
 /**
@@ -29,27 +35,27 @@ export interface IModuleDefinition {
 export class ModuleDefinitionVisitor extends AbstractParseTreeVisitor<IModuleDefinition>
                                      implements ASN_3gppVisitor<IModuleDefinition> {
   public defaultResult(): IModuleDefinition {
-    return { moduleName: undefined, definition: undefined };
+    return undefined;
   }
 
   public visitChildren(moduleDefinitionCtx: ModuleDefinitionContext): IModuleDefinition {
-    const {children: childCtxes} = moduleDefinitionCtx;
-    const { length } = childCtxes;
+    const { children } = moduleDefinitionCtx;
+    const { length } = children;
+    const definitiveIdentification: IDefinitiveObjIdComponent[] = [];
     if (length > 8) {
-      /**
-       * TODO: matches to (L_BRACE (IDENTIFIER L_PARAN NUMBER R_PARAN)* R_BRACE)?
-       * S1AP-PDU-Contents {
-       *   itu-t (0) identified-organization (4) etsi (0) mobileDomain (0)
-       *   eps-Access (21) modules (3) s1ap (1) version1 (1) s1ap-PDU-Contents (1) }
-       * DEFINITIONS AUTOMATIC TAGS ::= ...
-       */
-      log.warn(getLogWithAsn1(moduleDefinitionCtx, 'DefinitiveIdentification not supported:'));
+      const definitiveObjIdComponentList = children.slice(2, length - 8);
+      for (let i = 0; i < definitiveObjIdComponentList.length; i += 4) {
+        const definitiveName = definitiveObjIdComponentList[i].text;
+        const definitiveNumber = Number(definitiveObjIdComponentList[i + 2].text);
+        definitiveIdentification.push({definitiveName, definitiveNumber});
+      }
     }
-    const moduleName = childCtxes[0].text;
-    const moduleBodyCtx = childCtxes[length - 2];
+    const moduleName = children[0].text;
+    const moduleBodyCtx = children[length - 2];
     const definition = moduleBodyCtx.accept(new ModuleBodyVisitor());
     markModuleName(definition, moduleName);
-    return {moduleName, definition};
+    const moduleDefinition: IModuleDefinition = {moduleName, definition, definitiveIdentification};
+    return moduleDefinition;
   }
 }
 
