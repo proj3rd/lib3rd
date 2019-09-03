@@ -1374,6 +1374,7 @@ export declare class ObjIdComponentsContext extends ParserRuleContext {
     L_PARAN(): TerminalNode | undefined;
     R_PARAN(): TerminalNode | undefined;
     definedValue(): DefinedValueContext | undefined;
+    builtinType(): BuiltinTypeContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
     readonly ruleIndex: number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;

@@ -5373,7 +5373,7 @@ export class ASN_3gppParser extends Parser {
 			this.state = 1051;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (_la === ASN_3gppParser.NUMBER || _la === ASN_3gppParser.IDENTIFIER) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << ASN_3gppParser.BOOLEAN_LITERAL) | (1 << ASN_3gppParser.INTEGER_LITERAL) | (1 << ASN_3gppParser.ENUMERATED_LITERAL) | (1 << ASN_3gppParser.BIT_LITERAL))) !== 0) || ((((_la - 33)) & ~0x1F) === 0 && ((1 << (_la - 33)) & ((1 << (ASN_3gppParser.OCTET_LITERAL - 33)) | (1 << (ASN_3gppParser.NULL_LITERAL - 33)) | (1 << (ASN_3gppParser.SEQUENCE_LITERAL - 33)) | (1 << (ASN_3gppParser.SET_LITERAL - 33)) | (1 << (ASN_3gppParser.TYPE_IDENTIFIER_LITERAL - 33)) | (1 << (ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL - 33)))) !== 0) || ((((_la - 81)) & ~0x1F) === 0 && ((1 << (_la - 81)) & ((1 << (ASN_3gppParser.CHOICE_LITERAL - 81)) | (1 << (ASN_3gppParser.OBJECT_LITERAL - 81)) | (1 << (ASN_3gppParser.NUMBER - 81)) | (1 << (ASN_3gppParser.IDENTIFIER - 81)))) !== 0)) {
 				{
 				{
 				this.state = 1048;
@@ -5406,7 +5406,7 @@ export class ASN_3gppParser extends Parser {
 		this.enterRule(_localctx, 216, ASN_3gppParser.RULE_objIdComponents);
 		let _la: number;
 		try {
-			this.state = 1065;
+			this.state = 1066;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 124, this._ctx) ) {
 			case 1:
@@ -5459,6 +5459,14 @@ export class ASN_3gppParser extends Parser {
 				this.enterOuterAlt(_localctx, 3);
 				{
 				this.state = 1064;
+				this.builtinType();
+				}
+				break;
+
+			case 4:
+				this.enterOuterAlt(_localctx, 4);
+				{
+				this.state = 1065;
 				this.definedValue();
 				}
 				break;
@@ -5483,21 +5491,21 @@ export class ASN_3gppParser extends Parser {
 		let _localctx: IntegerValueContext = new IntegerValueContext(this._ctx, this.state);
 		this.enterRule(_localctx, 218, ASN_3gppParser.RULE_integerValue);
 		try {
-			this.state = 1069;
+			this.state = 1070;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case ASN_3gppParser.MINUS:
 			case ASN_3gppParser.NUMBER:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 1067;
+				this.state = 1068;
 				this.signedNumber();
 				}
 				break;
 			case ASN_3gppParser.IDENTIFIER:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 1068;
+				this.state = 1069;
 				this.match(ASN_3gppParser.IDENTIFIER);
 				}
 				break;
@@ -5526,11 +5534,11 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1071;
-			this.match(ASN_3gppParser.IDENTIFIER);
 			this.state = 1072;
-			this.match(ASN_3gppParser.COLON);
+			this.match(ASN_3gppParser.IDENTIFIER);
 			this.state = 1073;
+			this.match(ASN_3gppParser.COLON);
+			this.state = 1074;
 			this.value();
 			}
 		}
@@ -5555,7 +5563,7 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1075;
+			this.state = 1076;
 			this.match(ASN_3gppParser.IDENTIFIER);
 			}
 		}
@@ -5581,17 +5589,17 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1078;
+			this.state = 1079;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === ASN_3gppParser.MINUS) {
 				{
-				this.state = 1077;
+				this.state = 1078;
 				this.match(ASN_3gppParser.MINUS);
 				}
 			}
 
-			this.state = 1080;
+			this.state = 1081;
 			this.match(ASN_3gppParser.NUMBER);
 			}
 		}
@@ -5616,13 +5624,13 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1082;
-			this.match(ASN_3gppParser.CHOICE_LITERAL);
 			this.state = 1083;
-			this.match(ASN_3gppParser.L_BRACE);
+			this.match(ASN_3gppParser.CHOICE_LITERAL);
 			this.state = 1084;
-			this.alternativeTypeLists();
+			this.match(ASN_3gppParser.L_BRACE);
 			this.state = 1085;
+			this.alternativeTypeLists();
+			this.state = 1086;
 			this.match(ASN_3gppParser.R_BRACE);
 			}
 		}
@@ -5648,20 +5656,20 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1087;
+			this.state = 1088;
 			this.rootAlternativeTypeList();
-			this.state = 1093;
+			this.state = 1094;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === ASN_3gppParser.COMMA) {
 				{
-				this.state = 1088;
-				this.match(ASN_3gppParser.COMMA);
 				this.state = 1089;
-				this.extensionAndException();
+				this.match(ASN_3gppParser.COMMA);
 				this.state = 1090;
-				this.extensionAdditionAlternatives();
+				this.extensionAndException();
 				this.state = 1091;
+				this.extensionAdditionAlternatives();
+				this.state = 1092;
 				this.optionalExtensionMarker();
 				}
 			}
@@ -5689,14 +5697,14 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1097;
+			this.state = 1098;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 128, this._ctx) ) {
 			case 1:
 				{
-				this.state = 1095;
-				this.match(ASN_3gppParser.COMMA);
 				this.state = 1096;
+				this.match(ASN_3gppParser.COMMA);
+				this.state = 1097;
 				this.extensionAdditionAlternativesList();
 				}
 				break;
@@ -5726,24 +5734,24 @@ export class ASN_3gppParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			{
-			this.state = 1099;
+			this.state = 1100;
 			this.extensionAdditionAlternative();
 			}
-			this.state = 1104;
+			this.state = 1105;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 129, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					{
 					{
-					this.state = 1100;
-					this.match(ASN_3gppParser.COMMA);
 					this.state = 1101;
+					this.match(ASN_3gppParser.COMMA);
+					this.state = 1102;
 					this.extensionAdditionAlternative();
 					}
 					}
 				}
-				this.state = 1106;
+				this.state = 1107;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 129, this._ctx);
 			}
@@ -5768,20 +5776,20 @@ export class ASN_3gppParser extends Parser {
 		let _localctx: ExtensionAdditionAlternativeContext = new ExtensionAdditionAlternativeContext(this._ctx, this.state);
 		this.enterRule(_localctx, 234, ASN_3gppParser.RULE_extensionAdditionAlternative);
 		try {
-			this.state = 1109;
+			this.state = 1110;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case ASN_3gppParser.DOUBLE_L_BRACKET:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 1107;
+				this.state = 1108;
 				this.extensionAdditionAlternativesGroup();
 				}
 				break;
 			case ASN_3gppParser.IDENTIFIER:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 1108;
+				this.state = 1109;
 				this.namedType();
 				}
 				break;
@@ -5810,13 +5818,13 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1111;
-			this.match(ASN_3gppParser.DOUBLE_L_BRACKET);
 			this.state = 1112;
-			this.versionNumber();
+			this.match(ASN_3gppParser.DOUBLE_L_BRACKET);
 			this.state = 1113;
-			this.alternativeTypeList();
+			this.versionNumber();
 			this.state = 1114;
+			this.alternativeTypeList();
+			this.state = 1115;
 			this.match(ASN_3gppParser.DOUBLE_R_BRACKET);
 			}
 		}
@@ -5841,7 +5849,7 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1116;
+			this.state = 1117;
 			this.alternativeTypeList();
 			}
 		}
@@ -5868,24 +5876,24 @@ export class ASN_3gppParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			{
-			this.state = 1118;
+			this.state = 1119;
 			this.namedType();
 			}
-			this.state = 1123;
+			this.state = 1124;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 131, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					{
 					{
-					this.state = 1119;
-					this.match(ASN_3gppParser.COMMA);
 					this.state = 1120;
+					this.match(ASN_3gppParser.COMMA);
+					this.state = 1121;
 					this.namedType();
 					}
 					}
 				}
-				this.state = 1125;
+				this.state = 1126;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 131, this._ctx);
 			}
@@ -5912,9 +5920,9 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1126;
-			this.match(ASN_3gppParser.IDENTIFIER);
 			this.state = 1127;
+			this.match(ASN_3gppParser.IDENTIFIER);
+			this.state = 1128;
 			this.asnType();
 			}
 		}
@@ -5939,13 +5947,13 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1129;
-			this.match(ASN_3gppParser.ENUMERATED_LITERAL);
 			this.state = 1130;
-			this.match(ASN_3gppParser.L_BRACE);
+			this.match(ASN_3gppParser.ENUMERATED_LITERAL);
 			this.state = 1131;
-			this.enumerations();
+			this.match(ASN_3gppParser.L_BRACE);
 			this.state = 1132;
+			this.enumerations();
+			this.state = 1133;
 			this.match(ASN_3gppParser.R_BRACE);
 			}
 		}
@@ -5971,35 +5979,35 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1134;
+			this.state = 1135;
 			this.rootEnumeration();
-			this.state = 1144;
+			this.state = 1145;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === ASN_3gppParser.COMMA) {
 				{
-				this.state = 1135;
-				this.match(ASN_3gppParser.COMMA);
 				this.state = 1136;
+				this.match(ASN_3gppParser.COMMA);
+				this.state = 1137;
 				this.match(ASN_3gppParser.ELLIPSIS);
-				this.state = 1138;
+				this.state = 1139;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === ASN_3gppParser.EXCLAM) {
 					{
-					this.state = 1137;
+					this.state = 1138;
 					this.exceptionSpec();
 					}
 				}
 
-				this.state = 1142;
+				this.state = 1143;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === ASN_3gppParser.COMMA) {
 					{
-					this.state = 1140;
-					this.match(ASN_3gppParser.COMMA);
 					this.state = 1141;
+					this.match(ASN_3gppParser.COMMA);
+					this.state = 1142;
 					this.additionalEnumeration();
 					}
 				}
@@ -6030,7 +6038,7 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1146;
+			this.state = 1147;
 			this.enumeration();
 			}
 		}
@@ -6056,23 +6064,23 @@ export class ASN_3gppParser extends Parser {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1148;
+			this.state = 1149;
 			this.enumerationItem();
-			this.state = 1153;
+			this.state = 1154;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 135, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					{
 					{
-					this.state = 1149;
-					this.match(ASN_3gppParser.COMMA);
 					this.state = 1150;
+					this.match(ASN_3gppParser.COMMA);
+					this.state = 1151;
 					this.enumerationItem();
 					}
 					}
 				}
-				this.state = 1155;
+				this.state = 1156;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 135, this._ctx);
 			}
@@ -6097,13 +6105,13 @@ export class ASN_3gppParser extends Parser {
 		let _localctx: EnumerationItemContext = new EnumerationItemContext(this._ctx, this.state);
 		this.enterRule(_localctx, 252, ASN_3gppParser.RULE_enumerationItem);
 		try {
-			this.state = 1159;
+			this.state = 1160;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 136, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 1156;
+				this.state = 1157;
 				this.match(ASN_3gppParser.IDENTIFIER);
 				}
 				break;
@@ -6111,7 +6119,7 @@ export class ASN_3gppParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 1157;
+				this.state = 1158;
 				this.namedNumber();
 				}
 				break;
@@ -6119,7 +6127,7 @@ export class ASN_3gppParser extends Parser {
 			case 3:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 1158;
+				this.state = 1159;
 				this.value();
 				}
 				break;
@@ -6146,30 +6154,30 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1161;
-			this.match(ASN_3gppParser.IDENTIFIER);
 			this.state = 1162;
+			this.match(ASN_3gppParser.IDENTIFIER);
+			this.state = 1163;
 			this.match(ASN_3gppParser.L_PARAN);
-			this.state = 1165;
+			this.state = 1166;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case ASN_3gppParser.MINUS:
 			case ASN_3gppParser.NUMBER:
 				{
-				this.state = 1163;
+				this.state = 1164;
 				this.signedNumber();
 				}
 				break;
 			case ASN_3gppParser.IDENTIFIER:
 				{
-				this.state = 1164;
+				this.state = 1165;
 				this.definedValue();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			this.state = 1167;
+			this.state = 1168;
 			this.match(ASN_3gppParser.R_PARAN);
 			}
 		}
@@ -6194,7 +6202,7 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1169;
+			this.state = 1170;
 			this.parameterizedValue();
 			}
 		}
@@ -6220,14 +6228,14 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1171;
+			this.state = 1172;
 			this.simpleDefinedValue();
-			this.state = 1173;
+			this.state = 1174;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === ASN_3gppParser.L_BRACE) {
 				{
-				this.state = 1172;
+				this.state = 1173;
 				this.actualParameterList();
 				}
 			}
@@ -6256,16 +6264,16 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1175;
+			this.state = 1176;
 			this.match(ASN_3gppParser.IDENTIFIER);
-			this.state = 1178;
+			this.state = 1179;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === ASN_3gppParser.DOT) {
 				{
-				this.state = 1176;
-				this.match(ASN_3gppParser.DOT);
 				this.state = 1177;
+				this.match(ASN_3gppParser.DOT);
+				this.state = 1178;
 				this.match(ASN_3gppParser.IDENTIFIER);
 				}
 			}
@@ -6294,27 +6302,27 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1180;
-			this.match(ASN_3gppParser.L_BRACE);
 			this.state = 1181;
+			this.match(ASN_3gppParser.L_BRACE);
+			this.state = 1182;
 			this.actualParameter();
-			this.state = 1186;
+			this.state = 1187;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === ASN_3gppParser.COMMA) {
 				{
 				{
-				this.state = 1182;
-				this.match(ASN_3gppParser.COMMA);
 				this.state = 1183;
+				this.match(ASN_3gppParser.COMMA);
+				this.state = 1184;
 				this.actualParameter();
 				}
 				}
-				this.state = 1188;
+				this.state = 1189;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 1189;
+			this.state = 1190;
 			this.match(ASN_3gppParser.R_BRACE);
 			}
 		}
@@ -6337,13 +6345,13 @@ export class ASN_3gppParser extends Parser {
 		let _localctx: ActualParameterContext = new ActualParameterContext(this._ctx, this.state);
 		this.enterRule(_localctx, 264, ASN_3gppParser.RULE_actualParameter);
 		try {
-			this.state = 1193;
+			this.state = 1194;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 141, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 1191;
+				this.state = 1192;
 				this.asnType();
 				}
 				break;
@@ -6351,7 +6359,7 @@ export class ASN_3gppParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 1192;
+				this.state = 1193;
 				this.value();
 				}
 				break;
@@ -6378,9 +6386,9 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1195;
-			this.match(ASN_3gppParser.EXCLAM);
 			this.state = 1196;
+			this.match(ASN_3gppParser.EXCLAM);
+			this.state = 1197;
 			this.exceptionIdentification();
 			}
 		}
@@ -6403,13 +6411,13 @@ export class ASN_3gppParser extends Parser {
 		let _localctx: ExceptionIdentificationContext = new ExceptionIdentificationContext(this._ctx, this.state);
 		this.enterRule(_localctx, 268, ASN_3gppParser.RULE_exceptionIdentification);
 		try {
-			this.state = 1204;
+			this.state = 1205;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 142, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 1198;
+				this.state = 1199;
 				this.signedNumber();
 				}
 				break;
@@ -6417,7 +6425,7 @@ export class ASN_3gppParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 1199;
+				this.state = 1200;
 				this.definedValue();
 				}
 				break;
@@ -6425,11 +6433,11 @@ export class ASN_3gppParser extends Parser {
 			case 3:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 1200;
-				this.asnType();
 				this.state = 1201;
-				this.match(ASN_3gppParser.COLON);
+				this.asnType();
 				this.state = 1202;
+				this.match(ASN_3gppParser.COLON);
+				this.state = 1203;
 				this.value();
 				}
 				break;
@@ -6456,7 +6464,7 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1206;
+			this.state = 1207;
 			this.enumeration();
 			}
 		}
@@ -6481,18 +6489,18 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1208;
+			this.state = 1209;
 			this.match(ASN_3gppParser.INTEGER_LITERAL);
-			this.state = 1213;
+			this.state = 1214;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 143, this._ctx) ) {
 			case 1:
 				{
-				this.state = 1209;
-				this.match(ASN_3gppParser.L_BRACE);
 				this.state = 1210;
-				this.namedNumberList();
+				this.match(ASN_3gppParser.L_BRACE);
 				this.state = 1211;
+				this.namedNumberList();
+				this.state = 1212;
 				this.match(ASN_3gppParser.R_BRACE);
 				}
 				break;
@@ -6522,22 +6530,22 @@ export class ASN_3gppParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			{
-			this.state = 1215;
+			this.state = 1216;
 			this.namedNumber();
 			}
-			this.state = 1220;
+			this.state = 1221;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === ASN_3gppParser.COMMA) {
 				{
 				{
-				this.state = 1216;
-				this.match(ASN_3gppParser.COMMA);
 				this.state = 1217;
+				this.match(ASN_3gppParser.COMMA);
+				this.state = 1218;
 				this.namedNumber();
 				}
 				}
-				this.state = 1222;
+				this.state = 1223;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -6564,9 +6572,9 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1223;
-			this.match(ASN_3gppParser.OBJECT_LITERAL);
 			this.state = 1224;
+			this.match(ASN_3gppParser.OBJECT_LITERAL);
+			this.state = 1225;
 			this.match(ASN_3gppParser.IDENTIFIER_LITERAL);
 			}
 		}
@@ -6592,52 +6600,52 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1226;
+			this.state = 1227;
 			this.match(ASN_3gppParser.L_BRACE);
 			{
-			this.state = 1227;
+			this.state = 1228;
 			this.match(ASN_3gppParser.IDENTIFIER);
-			this.state = 1230;
+			this.state = 1231;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === ASN_3gppParser.DOT) {
 				{
-				this.state = 1228;
-				this.match(ASN_3gppParser.DOT);
 				this.state = 1229;
+				this.match(ASN_3gppParser.DOT);
+				this.state = 1230;
 				this.match(ASN_3gppParser.IDENTIFIER);
 				}
 			}
 
 			}
-			this.state = 1232;
+			this.state = 1233;
 			this.match(ASN_3gppParser.R_BRACE);
-			this.state = 1244;
+			this.state = 1245;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === ASN_3gppParser.L_BRACE) {
 				{
-				this.state = 1233;
-				this.match(ASN_3gppParser.L_BRACE);
 				this.state = 1234;
+				this.match(ASN_3gppParser.L_BRACE);
+				this.state = 1235;
 				this.atNotation();
-				this.state = 1239;
+				this.state = 1240;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				while (_la === ASN_3gppParser.COMMA) {
 					{
 					{
-					this.state = 1235;
-					this.match(ASN_3gppParser.COMMA);
 					this.state = 1236;
+					this.match(ASN_3gppParser.COMMA);
+					this.state = 1237;
 					this.atNotation();
 					}
 					}
-					this.state = 1241;
+					this.state = 1242;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				}
-				this.state = 1242;
+				this.state = 1243;
 				this.match(ASN_3gppParser.R_BRACE);
 				}
 			}
@@ -6665,21 +6673,21 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1249;
+			this.state = 1250;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case ASN_3gppParser.A_ROND:
 				{
-				this.state = 1246;
+				this.state = 1247;
 				this.match(ASN_3gppParser.A_ROND);
 				}
 				break;
 			case ASN_3gppParser.A_ROND_DOT:
 				{
 				{
-				this.state = 1247;
-				this.match(ASN_3gppParser.A_ROND_DOT);
 				this.state = 1248;
+				this.match(ASN_3gppParser.A_ROND_DOT);
+				this.state = 1249;
 				this.level();
 				}
 				}
@@ -6687,7 +6695,7 @@ export class ASN_3gppParser extends Parser {
 			default:
 				throw new NoViableAltException(this);
 			}
-			this.state = 1251;
+			this.state = 1252;
 			this.componentIdList();
 			}
 		}
@@ -6713,14 +6721,14 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1255;
+			this.state = 1256;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === ASN_3gppParser.DOT) {
 				{
-				this.state = 1253;
-				this.match(ASN_3gppParser.DOT);
 				this.state = 1254;
+				this.match(ASN_3gppParser.DOT);
+				this.state = 1255;
 				this.level();
 				}
 			}
@@ -6749,21 +6757,21 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1257;
+			this.state = 1258;
 			this.match(ASN_3gppParser.IDENTIFIER);
-			this.state = 1262;
+			this.state = 1263;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === ASN_3gppParser.DOT) {
 				{
 				{
-				this.state = 1258;
-				this.match(ASN_3gppParser.DOT);
 				this.state = 1259;
+				this.match(ASN_3gppParser.DOT);
+				this.state = 1260;
 				this.match(ASN_3gppParser.IDENTIFIER);
 				}
 				}
-				this.state = 1264;
+				this.state = 1265;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -6790,9 +6798,9 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1265;
-			this.match(ASN_3gppParser.OCTET_LITERAL);
 			this.state = 1266;
+			this.match(ASN_3gppParser.OCTET_LITERAL);
+			this.state = 1267;
 			this.match(ASN_3gppParser.STRING_LITERAL);
 			}
 		}
@@ -6818,21 +6826,21 @@ export class ASN_3gppParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			{
-			this.state = 1268;
-			this.match(ASN_3gppParser.BIT_LITERAL);
 			this.state = 1269;
+			this.match(ASN_3gppParser.BIT_LITERAL);
+			this.state = 1270;
 			this.match(ASN_3gppParser.STRING_LITERAL);
 			}
-			this.state = 1275;
+			this.state = 1276;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 151, this._ctx) ) {
 			case 1:
 				{
-				this.state = 1271;
-				this.match(ASN_3gppParser.L_BRACE);
 				this.state = 1272;
-				this.namedBitList();
+				this.match(ASN_3gppParser.L_BRACE);
 				this.state = 1273;
+				this.namedBitList();
+				this.state = 1274;
 				this.match(ASN_3gppParser.R_BRACE);
 				}
 				break;
@@ -6862,22 +6870,22 @@ export class ASN_3gppParser extends Parser {
 			this.enterOuterAlt(_localctx, 1);
 			{
 			{
-			this.state = 1277;
+			this.state = 1278;
 			this.namedBit();
 			}
-			this.state = 1282;
+			this.state = 1283;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === ASN_3gppParser.COMMA) {
 				{
 				{
-				this.state = 1278;
-				this.match(ASN_3gppParser.COMMA);
 				this.state = 1279;
+				this.match(ASN_3gppParser.COMMA);
+				this.state = 1280;
 				this.namedBit();
 				}
 				}
-				this.state = 1284;
+				this.state = 1285;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -6904,29 +6912,29 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1285;
-			this.match(ASN_3gppParser.IDENTIFIER);
 			this.state = 1286;
+			this.match(ASN_3gppParser.IDENTIFIER);
+			this.state = 1287;
 			this.match(ASN_3gppParser.L_PARAN);
-			this.state = 1289;
+			this.state = 1290;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case ASN_3gppParser.NUMBER:
 				{
-				this.state = 1287;
+				this.state = 1288;
 				this.match(ASN_3gppParser.NUMBER);
 				}
 				break;
 			case ASN_3gppParser.IDENTIFIER:
 				{
-				this.state = 1288;
+				this.state = 1289;
 				this.definedValue();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			this.state = 1291;
+			this.state = 1292;
 			this.match(ASN_3gppParser.R_PARAN);
 			}
 		}
@@ -6952,7 +6960,7 @@ export class ASN_3gppParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 1293;
+			this.state = 1294;
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << ASN_3gppParser.TRUE_LITERAL) | (1 << ASN_3gppParser.FALSE_LITERAL) | (1 << ASN_3gppParser.TRUE_SMALL_LITERAL) | (1 << ASN_3gppParser.FALSE_SMALL_LITERAL))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -6983,7 +6991,7 @@ export class ASN_3gppParser extends Parser {
 
 	private static readonly _serializedATNSegments: number = 3;
 	private static readonly _serializedATNSegment0: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03k\u0512\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03k\u0513\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
 		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x04\x12\t\x12\x04" +
@@ -7076,30 +7084,30 @@ export class ASN_3gppParser extends Parser {
 		"g\u0404\vg\x03h\x03h\x03h\x03i\x03i\x03j\x03j\x03k\x03k\x03k\x03k\x03" +
 		"k\x03k\x03k\x05k\u0414\nk\x03l\x03l\x03l\x03l\x03m\x03m\x07m\u041C\nm" +
 		"\fm\x0Em\u041F\vm\x03n\x03n\x03n\x03n\x03n\x05n\u0426\nn\x03n\x05n\u0429" +
-		"\nn\x03n\x05n\u042C\nn\x03o\x03o\x05o\u0430\no\x03p\x03p\x03p\x03p\x03" +
-		"q\x03q\x03r\x05r\u0439\nr\x03r\x03r\x03s\x03s\x03s\x03s\x03s\x03t\x03" +
-		"t\x03t\x03t\x03t\x03t\x05t\u0448\nt\x03u\x03u\x05u\u044C\nu\x03v\x03v" +
-		"\x03v\x07v\u0451\nv\fv\x0Ev\u0454\vv\x03w\x03w\x05w\u0458\nw\x03x\x03" +
-		"x\x03x\x03x\x03x\x03y\x03y\x03z\x03z\x03z\x07z\u0464\nz\fz\x0Ez\u0467" +
-		"\vz\x03{\x03{\x03{\x03|\x03|\x03|\x03|\x03|\x03}\x03}\x03}\x03}\x05}\u0475" +
-		"\n}\x03}\x03}\x05}\u0479\n}\x05}\u047B\n}\x03~\x03~\x03\x7F\x03\x7F\x03" +
-		"\x7F\x07\x7F\u0482\n\x7F\f\x7F\x0E\x7F\u0485\v\x7F\x03\x80\x03\x80\x03" +
-		"\x80\x05\x80\u048A\n\x80\x03\x81\x03\x81\x03\x81\x03\x81\x05\x81\u0490" +
-		"\n\x81\x03\x81\x03\x81\x03\x82\x03\x82\x03\x83\x03\x83\x05\x83\u0498\n" +
-		"\x83\x03\x84\x03\x84\x03\x84\x05\x84\u049D\n\x84\x03\x85\x03\x85\x03\x85" +
-		"\x03\x85\x07\x85\u04A3\n\x85\f\x85\x0E\x85\u04A6\v\x85\x03\x85\x03\x85" +
-		"\x03\x86\x03\x86\x05\x86\u04AC\n\x86\x03\x87\x03\x87\x03\x87\x03\x88\x03" +
-		"\x88\x03\x88\x03\x88\x03\x88\x03\x88\x05\x88\u04B7\n\x88\x03\x89\x03\x89" +
-		"\x03\x8A\x03\x8A\x03\x8A\x03\x8A\x03\x8A\x05\x8A\u04C0\n\x8A\x03\x8B\x03" +
-		"\x8B\x03\x8B\x07\x8B\u04C5\n\x8B\f\x8B\x0E\x8B\u04C8\v\x8B\x03\x8C\x03" +
-		"\x8C\x03\x8C\x03\x8D\x03\x8D\x03\x8D\x03\x8D\x05\x8D\u04D1\n\x8D\x03\x8D" +
-		"\x03\x8D\x03\x8D\x03\x8D\x03\x8D\x07\x8D\u04D8\n\x8D\f\x8D\x0E\x8D\u04DB" +
-		"\v\x8D\x03\x8D\x03\x8D\x05\x8D\u04DF\n\x8D\x03\x8E\x03\x8E\x03\x8E\x05" +
-		"\x8E\u04E4\n\x8E\x03\x8E\x03\x8E\x03\x8F\x03\x8F\x05\x8F\u04EA\n\x8F\x03" +
-		"\x90\x03\x90\x03\x90\x07\x90\u04EF\n\x90\f\x90\x0E\x90\u04F2\v\x90\x03" +
+		"\nn\x03n\x03n\x05n\u042D\nn\x03o\x03o\x05o\u0431\no\x03p\x03p\x03p\x03" +
+		"p\x03q\x03q\x03r\x05r\u043A\nr\x03r\x03r\x03s\x03s\x03s\x03s\x03s\x03" +
+		"t\x03t\x03t\x03t\x03t\x03t\x05t\u0449\nt\x03u\x03u\x05u\u044D\nu\x03v" +
+		"\x03v\x03v\x07v\u0452\nv\fv\x0Ev\u0455\vv\x03w\x03w\x05w\u0459\nw\x03" +
+		"x\x03x\x03x\x03x\x03x\x03y\x03y\x03z\x03z\x03z\x07z\u0465\nz\fz\x0Ez\u0468" +
+		"\vz\x03{\x03{\x03{\x03|\x03|\x03|\x03|\x03|\x03}\x03}\x03}\x03}\x05}\u0476" +
+		"\n}\x03}\x03}\x05}\u047A\n}\x05}\u047C\n}\x03~\x03~\x03\x7F\x03\x7F\x03" +
+		"\x7F\x07\x7F\u0483\n\x7F\f\x7F\x0E\x7F\u0486\v\x7F\x03\x80\x03\x80\x03" +
+		"\x80\x05\x80\u048B\n\x80\x03\x81\x03\x81\x03\x81\x03\x81\x05\x81\u0491" +
+		"\n\x81\x03\x81\x03\x81\x03\x82\x03\x82\x03\x83\x03\x83\x05\x83\u0499\n" +
+		"\x83\x03\x84\x03\x84\x03\x84\x05\x84\u049E\n\x84\x03\x85\x03\x85\x03\x85" +
+		"\x03\x85\x07\x85\u04A4\n\x85\f\x85\x0E\x85\u04A7\v\x85\x03\x85\x03\x85" +
+		"\x03\x86\x03\x86\x05\x86\u04AD\n\x86\x03\x87\x03\x87\x03\x87\x03\x88\x03" +
+		"\x88\x03\x88\x03\x88\x03\x88\x03\x88\x05\x88\u04B8\n\x88\x03\x89\x03\x89" +
+		"\x03\x8A\x03\x8A\x03\x8A\x03\x8A\x03\x8A\x05\x8A\u04C1\n\x8A\x03\x8B\x03" +
+		"\x8B\x03\x8B\x07\x8B\u04C6\n\x8B\f\x8B\x0E\x8B\u04C9\v\x8B\x03\x8C\x03" +
+		"\x8C\x03\x8C\x03\x8D\x03\x8D\x03\x8D\x03\x8D\x05\x8D\u04D2\n\x8D\x03\x8D" +
+		"\x03\x8D\x03\x8D\x03\x8D\x03\x8D\x07\x8D\u04D9\n\x8D\f\x8D\x0E\x8D\u04DC" +
+		"\v\x8D\x03\x8D\x03\x8D\x05\x8D\u04E0\n\x8D\x03\x8E\x03\x8E\x03\x8E\x05" +
+		"\x8E\u04E5\n\x8E\x03\x8E\x03\x8E\x03\x8F\x03\x8F\x05\x8F\u04EB\n\x8F\x03" +
+		"\x90\x03\x90\x03\x90\x07\x90\u04F0\n\x90\f\x90\x0E\x90\u04F3\v\x90\x03" +
 		"\x91\x03\x91\x03\x91\x03\x92\x03\x92\x03\x92\x03\x92\x03\x92\x03\x92\x03" +
-		"\x92\x05\x92\u04FE\n\x92\x03\x93\x03\x93\x03\x93\x07\x93\u0503\n\x93\f" +
-		"\x93\x0E\x93\u0506\v\x93\x03\x94\x03\x94\x03\x94\x03\x94\x05\x94\u050C" +
+		"\x92\x05\x92\u04FF\n\x92\x03\x93\x03\x93\x03\x93\x07\x93\u0504\n\x93\f" +
+		"\x93\x0E\x93\u0507\v\x93\x03\x94\x03\x94\x03\x94\x03\x94\x05\x94\u050D" +
 		"\n\x94\x03\x94\x03\x94\x03\x95\x03\x95\x03\x95\x02\x02\x02\x96\x02\x02" +
 		"\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x16" +
 		"\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02\"\x02$\x02&\x02(\x02*\x02,\x02" +
@@ -7117,7 +7125,7 @@ export class ASN_3gppParser extends Parser {
 		"\x02\u010E\x02\u0110\x02\u0112\x02\u0114\x02\u0116\x02\u0118\x02\u011A" +
 		"\x02\u011C\x02\u011E\x02\u0120\x02\u0122\x02\u0124\x02\u0126\x02\u0128" +
 		"\x02\x02\t\x04\x02IIKL\x03\x02<=\x04\x02\x18\x18kk\x03\x02/0\x04\x02." +
-		".11\x03\x029:\x04\x02\b\t\x13\x14\x02\u0543\x02\u012B\x03\x02\x02\x02" +
+		".11\x03\x029:\x04\x02\b\t\x13\x14\x02\u0545\x02\u012B\x03\x02\x02\x02" +
 		"\x04\u012F\x03\x02\x02\x02\x06\u0147\x03\x02\x02\x02\b\u014B\x03\x02\x02" +
 		"\x02\n\u0151\x03\x02\x02\x02\f\u015A\x03\x02\x02\x02\x0E\u015D\x03\x02" +
 		"\x02\x02\x10\u0163\x03\x02\x02\x02\x12\u0166\x03\x02\x02\x02\x14\u0168" +
@@ -7155,22 +7163,22 @@ export class ASN_3gppParser extends Parser {
 		"\x02\x02\x02\xC8\u03E9\x03\x02\x02\x02\xCA\u03FB\x03\x02\x02\x02\xCC\u03FD" +
 		"\x03\x02\x02\x02\xCE\u0405\x03\x02\x02\x02\xD0\u0408\x03\x02\x02\x02\xD2" +
 		"\u040A\x03\x02\x02\x02\xD4\u0413\x03\x02\x02\x02\xD6\u0415\x03\x02\x02" +
-		"\x02\xD8\u0419\x03\x02\x02\x02\xDA\u042B\x03\x02\x02\x02\xDC\u042F\x03" +
-		"\x02\x02\x02\xDE\u0431\x03\x02\x02\x02\xE0\u0435\x03\x02\x02\x02\xE2\u0438" +
-		"\x03\x02\x02\x02\xE4\u043C\x03\x02\x02\x02\xE6\u0441\x03\x02\x02\x02\xE8" +
-		"\u044B\x03\x02\x02\x02\xEA\u044D\x03\x02\x02\x02\xEC\u0457\x03\x02\x02" +
-		"\x02\xEE\u0459\x03\x02\x02\x02\xF0\u045E\x03\x02\x02\x02\xF2\u0460\x03" +
-		"\x02\x02\x02\xF4\u0468\x03\x02\x02\x02\xF6\u046B\x03\x02\x02\x02\xF8\u0470" +
-		"\x03\x02\x02\x02\xFA\u047C\x03\x02\x02\x02\xFC\u047E\x03\x02\x02\x02\xFE" +
-		"\u0489\x03\x02\x02\x02\u0100\u048B\x03\x02\x02\x02\u0102\u0493\x03\x02" +
-		"\x02\x02\u0104\u0495\x03\x02\x02\x02\u0106\u0499\x03\x02\x02\x02\u0108" +
-		"\u049E\x03\x02\x02\x02\u010A\u04AB\x03\x02\x02\x02\u010C\u04AD\x03\x02" +
-		"\x02\x02\u010E\u04B6\x03\x02\x02\x02\u0110\u04B8\x03\x02\x02\x02\u0112" +
-		"\u04BA\x03\x02\x02\x02\u0114\u04C1\x03\x02\x02\x02\u0116\u04C9\x03\x02" +
-		"\x02\x02\u0118\u04CC\x03\x02\x02\x02\u011A\u04E3\x03\x02\x02\x02\u011C" +
-		"\u04E9\x03\x02\x02\x02\u011E\u04EB\x03\x02\x02\x02\u0120\u04F3\x03\x02" +
-		"\x02\x02\u0122\u04F6\x03\x02\x02\x02\u0124\u04FF\x03\x02\x02\x02\u0126" +
-		"\u0507\x03\x02\x02\x02\u0128\u050F\x03\x02\x02\x02\u012A\u012C\x05\x04" +
+		"\x02\xD8\u0419\x03\x02\x02\x02\xDA\u042C\x03\x02\x02\x02\xDC\u0430\x03" +
+		"\x02\x02\x02\xDE\u0432\x03\x02\x02\x02\xE0\u0436\x03\x02\x02\x02\xE2\u0439" +
+		"\x03\x02\x02\x02\xE4\u043D\x03\x02\x02\x02\xE6\u0442\x03\x02\x02\x02\xE8" +
+		"\u044C\x03\x02\x02\x02\xEA\u044E\x03\x02\x02\x02\xEC\u0458\x03\x02\x02" +
+		"\x02\xEE\u045A\x03\x02\x02\x02\xF0\u045F\x03\x02\x02\x02\xF2\u0461\x03" +
+		"\x02\x02\x02\xF4\u0469\x03\x02\x02\x02\xF6\u046C\x03\x02\x02\x02\xF8\u0471" +
+		"\x03\x02\x02\x02\xFA\u047D\x03\x02\x02\x02\xFC\u047F\x03\x02\x02\x02\xFE" +
+		"\u048A\x03\x02\x02\x02\u0100\u048C\x03\x02\x02\x02\u0102\u0494\x03\x02" +
+		"\x02\x02\u0104\u0496\x03\x02\x02\x02\u0106\u049A\x03\x02\x02\x02\u0108" +
+		"\u049F\x03\x02\x02\x02\u010A\u04AC\x03\x02\x02\x02\u010C\u04AE\x03\x02" +
+		"\x02\x02\u010E\u04B7\x03\x02\x02\x02\u0110\u04B9\x03\x02\x02\x02\u0112" +
+		"\u04BB\x03\x02\x02\x02\u0114\u04C2\x03\x02\x02\x02\u0116\u04CA\x03\x02" +
+		"\x02\x02\u0118\u04CD\x03\x02\x02\x02\u011A\u04E4\x03\x02\x02\x02\u011C" +
+		"\u04EA\x03\x02\x02\x02\u011E\u04EC\x03\x02\x02\x02\u0120\u04F4\x03\x02" +
+		"\x02\x02\u0122\u04F7\x03\x02\x02\x02\u0124\u0500\x03\x02\x02\x02\u0126" +
+		"\u0508\x03\x02\x02\x02\u0128\u0510\x03\x02\x02\x02\u012A\u012C\x05\x04" +
 		"\x03\x02\u012B\u012A\x03\x02\x02\x02\u012C\u012D\x03\x02\x02\x02\u012D" +
 		"\u012B\x03\x02\x02\x02\u012D\u012E\x03\x02\x02\x02\u012E\x03\x03\x02\x02" +
 		"\x02\u012F\u013B\x07k\x02\x02\u0130\u0137\x07\x16\x02\x02\u0131\u0132" +
@@ -7232,11 +7240,11 @@ export class ASN_3gppParser extends Parser {
 		"\x02\u01AE\u01B0\x07\x18\x02\x02\u01AF\u01B1\x052\x1A\x02\u01B0\u01AF" +
 		"\x03\x02\x02\x02\u01B0\u01B1\x03\x02\x02\x02\u01B1\u01B2\x03\x02\x02\x02" +
 		"\u01B2\u01B8\x07\f\x02\x02\u01B3\u01B4\x07\x18\x02\x02\u01B4\u01B6\x05" +
-		",\x17\x02\u01B5\u01B7\x052\x1A\x02\u01B6\u01B5\x03\x02";
+		",\x17\x02\u01B5\u01B7\x052\x1A\x02\u01B6\u01B5";
 	private static readonly _serializedATNSegment1: string =
-		"\x02\x02\u01B6\u01B7\x03\x02\x02\x02\u01B7\u01B9\x03\x02\x02\x02\u01B8" +
-		"\u01B3\x03\x02\x02\x02\u01B8\u01B9\x03\x02\x02\x02\u01B9\u01BB\x03\x02" +
-		"\x02\x02\u01BA\u01AD\x03\x02\x02\x02\u01BA\u01AE\x03\x02\x02\x02\u01BA" +
+		"\x03\x02\x02\x02\u01B6\u01B7\x03\x02\x02\x02\u01B7\u01B9\x03\x02\x02\x02" +
+		"\u01B8\u01B3\x03\x02\x02\x02\u01B8\u01B9\x03\x02\x02\x02\u01B9\u01BB\x03" +
+		"\x02\x02\x02\u01BA\u01AD\x03\x02\x02\x02\u01BA\u01AE\x03\x02\x02\x02\u01BA" +
 		"\u01BB\x03\x02\x02\x02\u01BB\u01BD\x03\x02\x02\x02\u01BC\u01A6\x03\x02" +
 		"\x02\x02\u01BC\u01A7\x03\x02\x02\x02\u01BC\u01BD\x03\x02\x02\x02\u01BD" +
 		"\u01D0\x03\x02\x02\x02\u01BE\u01BF\x05&\x14\x02\u01BF\u01CD\x054\x1B\x02" +
@@ -7515,127 +7523,127 @@ export class ASN_3gppParser extends Parser {
 		"\u041D\x05\xDAn\x02\u041A\u041C\x05\xDAn\x02\u041B\u041A\x03\x02\x02\x02" +
 		"\u041C\u041F\x03\x02\x02\x02\u041D\u041B\x03\x02\x02\x02\u041D\u041E\x03" +
 		"\x02\x02\x02\u041E\xD9\x03\x02\x02\x02\u041F\u041D\x03\x02\x02\x02\u0420" +
-		"\u042C\x07e\x02\x02\u0421\u0428\x07k\x02\x02\u0422\u0425\x07\x19\x02\x02" +
+		"\u042D\x07e\x02\x02\u0421\u0428\x07k\x02\x02\u0422\u0425\x07\x19\x02\x02" +
 		"\u0423\u0426\x07e\x02\x02\u0424\u0426\x05\u0102\x82\x02\u0425\u0423\x03" +
 		"\x02\x02\x02\u0425\u0424\x03\x02\x02\x02\u0426\u0427\x03\x02\x02\x02\u0427" +
 		"\u0429\x07\x1A\x02\x02\u0428\u0422\x03\x02\x02\x02\u0428\u0429\x03\x02" +
-		"\x02\x02\u0429\u042C\x03\x02\x02\x02\u042A\u042C\x05\u0102\x82\x02\u042B" +
-		"\u0420\x03\x02\x02\x02\u042B\u0421\x03\x02\x02\x02\u042B\u042A\x03\x02" +
-		"\x02\x02\u042C\xDB\x03\x02\x02\x02\u042D\u0430\x05\xE2r\x02\u042E\u0430" +
-		"\x07k\x02\x02\u042F\u042D\x03\x02\x02\x02\u042F\u042E\x03\x02\x02\x02" +
-		"\u0430\xDD\x03\x02\x02\x02\u0431\u0432\x07k\x02\x02\u0432\u0433\x07R\x02" +
-		"\x02\u0433\u0434\x05\xD2j\x02\u0434\xDF\x03\x02\x02\x02\u0435\u0436\x07" +
-		"k\x02\x02\u0436\xE1\x03\x02\x02\x02\u0437\u0439\x07\x1B\x02\x02\u0438" +
-		"\u0437\x03\x02\x02\x02\u0438\u0439\x03\x02\x02\x02\u0439\u043A\x03\x02" +
-		"\x02\x02\u043A\u043B\x07e\x02\x02\u043B\xE3\x03\x02\x02\x02\u043C\u043D" +
-		"\x07S\x02\x02\u043D\u043E\x07\x16\x02\x02\u043E\u043F\x05\xE6t\x02\u043F" +
-		"\u0440\x07\x17\x02\x02\u0440\xE5\x03\x02\x02\x02\u0441\u0447\x05\xF0y" +
-		"\x02\u0442\u0443\x07\x18\x02\x02\u0443\u0444\x05&\x14\x02\u0444\u0445" +
-		"\x05\xE8u\x02\u0445\u0446\x05(\x15\x02\u0446\u0448\x03\x02\x02\x02\u0447" +
-		"\u0442\x03\x02\x02\x02\u0447\u0448\x03\x02\x02\x02\u0448\xE7\x03\x02\x02" +
-		"\x02\u0449\u044A\x07\x18\x02\x02\u044A\u044C\x05\xEAv\x02\u044B\u0449" +
-		"\x03\x02\x02\x02\u044B\u044C\x03\x02\x02\x02\u044C\xE9\x03\x02\x02\x02" +
-		"\u044D\u0452\x05\xECw\x02\u044E\u044F\x07\x18\x02\x02\u044F\u0451\x05" +
-		"\xECw\x02\u0450\u044E\x03\x02\x02\x02\u0451\u0454\x03\x02\x02\x02\u0452" +
-		"\u0450\x03\x02\x02\x02\u0452\u0453\x03\x02\x02\x02\u0453\xEB\x03\x02\x02" +
-		"\x02\u0454\u0452\x03\x02\x02\x02\u0455\u0458\x05\xEEx\x02\u0456\u0458" +
-		"\x05\xF4{\x02\u0457\u0455\x03\x02\x02\x02\u0457\u0456\x03\x02\x02\x02" +
-		"\u0458\xED\x03\x02\x02\x02\u0459\u045A\x07P\x02\x02\u045A\u045B\x05<\x1F" +
-		"\x02\u045B\u045C\x05\xF2z\x02\u045C\u045D\x07Q\x02\x02\u045D\xEF\x03\x02" +
-		"\x02\x02\u045E\u045F\x05\xF2z\x02\u045F\xF1\x03\x02\x02\x02\u0460\u0465" +
-		"\x05\xF4{\x02\u0461\u0462\x07\x18\x02\x02\u0462\u0464\x05\xF4{\x02";
+		"\x02\x02\u0429\u042D\x03\x02\x02\x02\u042A\u042D\x05\xAEX\x02\u042B\u042D" +
+		"\x05\u0102\x82\x02\u042C\u0420\x03\x02\x02\x02\u042C\u0421\x03\x02\x02" +
+		"\x02\u042C\u042A\x03\x02\x02\x02\u042C\u042B\x03\x02\x02\x02\u042D\xDB" +
+		"\x03\x02\x02\x02\u042E\u0431\x05\xE2r\x02\u042F\u0431\x07k\x02\x02\u0430" +
+		"\u042E\x03\x02\x02\x02\u0430\u042F\x03\x02\x02\x02\u0431\xDD\x03\x02\x02" +
+		"\x02\u0432\u0433\x07k\x02\x02\u0433\u0434\x07R\x02\x02\u0434\u0435\x05" +
+		"\xD2j\x02\u0435\xDF\x03\x02\x02\x02\u0436\u0437\x07k\x02\x02\u0437\xE1" +
+		"\x03\x02\x02\x02\u0438\u043A\x07\x1B\x02\x02\u0439\u0438\x03\x02\x02\x02" +
+		"\u0439\u043A\x03\x02\x02\x02\u043A\u043B\x03\x02\x02\x02\u043B\u043C\x07" +
+		"e\x02\x02\u043C\xE3\x03\x02\x02\x02\u043D\u043E\x07S\x02\x02\u043E\u043F" +
+		"\x07\x16\x02\x02\u043F\u0440\x05\xE6t\x02\u0440\u0441\x07\x17\x02\x02" +
+		"\u0441\xE5\x03\x02\x02\x02\u0442\u0448\x05\xF0y\x02\u0443\u0444\x07\x18" +
+		"\x02\x02\u0444\u0445\x05&\x14\x02\u0445\u0446\x05\xE8u\x02\u0446\u0447" +
+		"\x05(\x15\x02\u0447\u0449\x03\x02\x02\x02\u0448\u0443\x03\x02\x02\x02" +
+		"\u0448\u0449\x03\x02\x02\x02\u0449\xE7\x03\x02\x02\x02\u044A\u044B\x07" +
+		"\x18\x02\x02\u044B\u044D\x05\xEAv\x02\u044C\u044A\x03\x02\x02\x02\u044C" +
+		"\u044D\x03\x02\x02\x02\u044D\xE9\x03\x02\x02\x02\u044E\u0453\x05\xECw" +
+		"\x02\u044F\u0450\x07\x18\x02\x02\u0450\u0452\x05\xECw\x02\u0451\u044F" +
+		"\x03\x02\x02\x02\u0452\u0455\x03\x02\x02\x02\u0453\u0451\x03\x02\x02\x02" +
+		"\u0453\u0454\x03\x02\x02\x02\u0454\xEB\x03\x02\x02\x02\u0455\u0453\x03" +
+		"\x02\x02\x02\u0456\u0459\x05\xEEx\x02\u0457\u0459\x05\xF4{\x02\u0458\u0456" +
+		"\x03\x02\x02\x02\u0458\u0457\x03\x02\x02\x02\u0459\xED\x03\x02\x02\x02" +
+		"\u045A\u045B\x07P\x02\x02\u045B\u045C\x05<\x1F\x02\u045C\u045D\x05\xF2" +
+		"z\x02\u045D\u045E\x07Q\x02\x02\u045E\xEF\x03\x02\x02\x02\u045F\u0460\x05" +
+		"\xF2z\x02\u0460\xF1\x03\x02\x02\x02\u0461\u0466\x05\xF4";
 	private static readonly _serializedATNSegment2: string =
-		"\u0463\u0461\x03\x02\x02\x02\u0464\u0467\x03\x02\x02\x02\u0465\u0463\x03" +
-		"\x02\x02\x02\u0465\u0466\x03\x02\x02\x02\u0466\xF3\x03\x02\x02\x02\u0467" +
-		"\u0465\x03\x02\x02\x02\u0468\u0469\x07k\x02\x02\u0469\u046A\x05\xACW\x02" +
-		"\u046A\xF5\x03\x02\x02\x02\u046B\u046C\x07\x1C\x02\x02\u046C\u046D\x07" +
-		"\x16\x02\x02\u046D\u046E\x05\xF8}\x02\u046E\u046F\x07\x17\x02\x02\u046F" +
-		"\xF7\x03\x02\x02\x02\u0470\u047A\x05\xFA~\x02\u0471\u0472\x07\x18\x02" +
-		"\x02\u0472\u0474\x07\f\x02\x02\u0473\u0475\x05\u010C\x87\x02\u0474\u0473" +
-		"\x03\x02\x02\x02\u0474\u0475\x03\x02\x02\x02\u0475\u0478\x03\x02\x02\x02" +
-		"\u0476\u0477\x07\x18\x02\x02\u0477\u0479\x05\u0110\x89\x02\u0478\u0476" +
-		"\x03\x02\x02\x02\u0478\u0479\x03\x02\x02\x02\u0479\u047B\x03\x02\x02\x02" +
-		"\u047A\u0471\x03\x02\x02\x02\u047A\u047B\x03\x02\x02\x02\u047B\xF9\x03" +
-		"\x02\x02\x02\u047C\u047D\x05\xFC\x7F\x02\u047D\xFB\x03\x02\x02\x02\u047E" +
-		"\u0483\x05\xFE\x80\x02\u047F\u0480\x07\x18\x02\x02\u0480\u0482\x05\xFE" +
-		"\x80\x02\u0481\u047F\x03\x02\x02\x02\u0482\u0485\x03\x02\x02\x02\u0483" +
-		"\u0481\x03\x02\x02\x02\u0483\u0484\x03\x02\x02\x02\u0484\xFD\x03\x02\x02" +
-		"\x02\u0485\u0483\x03\x02\x02\x02\u0486\u048A\x07k\x02\x02\u0487\u048A" +
-		"\x05\u0100\x81\x02\u0488\u048A\x05\xD2j\x02\u0489\u0486\x03\x02\x02\x02" +
-		"\u0489\u0487\x03\x02\x02\x02\u0489\u0488\x03\x02\x02\x02\u048A\xFF\x03" +
-		"\x02\x02\x02\u048B\u048C\x07k\x02\x02\u048C\u048F\x07\x19\x02\x02\u048D" +
-		"\u0490\x05\xE2r\x02\u048E\u0490\x05\u0102\x82\x02\u048F\u048D\x03\x02" +
-		"\x02\x02\u048F\u048E\x03\x02\x02\x02\u0490\u0491\x03\x02\x02\x02\u0491" +
-		"\u0492\x07\x1A\x02\x02\u0492\u0101\x03\x02\x02\x02\u0493\u0494\x05\u0104" +
-		"\x83\x02\u0494\u0103\x03\x02\x02\x02\u0495\u0497\x05\u0106\x84\x02\u0496" +
-		"\u0498\x05\u0108\x85\x02\u0497\u0496\x03\x02\x02\x02\u0497\u0498\x03\x02" +
-		"\x02\x02\u0498\u0105\x03\x02\x02\x02\u0499\u049C\x07k\x02\x02\u049A\u049B" +
-		"\x07\n\x02\x02\u049B\u049D\x07k\x02\x02\u049C\u049A\x03\x02\x02\x02\u049C" +
-		"\u049D\x03\x02\x02\x02\u049D\u0107\x03\x02\x02\x02\u049E\u049F\x07\x16" +
-		"\x02\x02\u049F\u04A4\x05\u010A\x86\x02\u04A0\u04A1\x07\x18\x02\x02\u04A1" +
-		"\u04A3\x05\u010A\x86\x02\u04A2\u04A0\x03\x02\x02\x02\u04A3\u04A6\x03\x02" +
-		"\x02\x02\u04A4\u04A2\x03\x02\x02\x02\u04A4\u04A5\x03\x02\x02\x02\u04A5" +
-		"\u04A7\x03\x02\x02\x02\u04A6\u04A4\x03\x02\x02\x02\u04A7\u04A8\x07\x17" +
-		"\x02\x02\u04A8\u0109\x03\x02\x02\x02\u04A9\u04AC\x05\xACW\x02\u04AA\u04AC" +
-		"\x05\xD2j\x02\u04AB\u04A9\x03\x02\x02\x02\u04AB\u04AA\x03\x02\x02\x02" +
-		"\u04AC\u010B\x03\x02\x02\x02\u04AD\u04AE\x07+\x02\x02\u04AE\u04AF\x05" +
-		"\u010E\x88\x02\u04AF\u010D\x03\x02\x02\x02\u04B0\u04B7\x05\xE2r\x02\u04B1" +
-		"\u04B7\x05\u0102\x82\x02\u04B2\u04B3\x05\xACW\x02\u04B3\u04B4\x07R\x02" +
-		"\x02\u04B4\u04B5\x05\xD2j\x02\u04B5\u04B7\x03\x02\x02\x02\u04B6\u04B0" +
-		"\x03\x02\x02\x02\u04B6\u04B1\x03\x02\x02\x02\u04B6\u04B2\x03\x02\x02\x02" +
-		"\u04B7\u010F\x03\x02\x02\x02\u04B8\u04B9\x05\xFC\x7F\x02\u04B9\u0111\x03" +
-		"\x02\x02\x02\u04BA\u04BF\x07\x15\x02\x02\u04BB\u04BC\x07\x16\x02\x02\u04BC" +
-		"\u04BD\x05\u0114\x8B\x02\u04BD\u04BE\x07\x17\x02\x02\u04BE\u04C0\x03\x02" +
-		"\x02\x02\u04BF\u04BB\x03\x02\x02\x02\u04BF\u04C0\x03\x02\x02\x02\u04C0" +
-		"\u0113\x03\x02\x02\x02\u04C1\u04C6\x05\u0100\x81\x02\u04C2\u04C3\x07\x18" +
-		"\x02\x02\u04C3\u04C5\x05\u0100\x81\x02\u04C4\u04C2\x03\x02\x02\x02\u04C5" +
-		"\u04C8\x03\x02\x02\x02\u04C6\u04C4\x03\x02\x02\x02\u04C6\u04C7\x03\x02" +
-		"\x02\x02\u04C7\u0115\x03\x02\x02\x02\u04C8\u04C6\x03\x02\x02\x02\u04C9" +
-		"\u04CA\x07Z\x02\x02\u04CA\u04CB\x07[\x02\x02\u04CB\u0117\x03\x02\x02\x02" +
-		"\u04CC\u04CD\x07\x16\x02\x02\u04CD\u04D0\x07k\x02\x02\u04CE\u04CF\x07" +
-		"\n\x02\x02\u04CF\u04D1\x07k\x02\x02\u04D0\u04CE\x03\x02\x02\x02\u04D0" +
-		"\u04D1\x03\x02\x02\x02\u04D1\u04D2\x03\x02\x02\x02\u04D2\u04DE\x07\x17" +
-		"\x02\x02\u04D3\u04D4\x07\x16\x02\x02\u04D4\u04D9\x05\u011A\x8E\x02\u04D5" +
-		"\u04D6\x07\x18\x02\x02\u04D6\u04D8\x05\u011A\x8E\x02\u04D7\u04D5\x03\x02" +
-		"\x02\x02\u04D8\u04DB\x03\x02\x02\x02\u04D9\u04D7\x03\x02\x02\x02\u04D9" +
-		"\u04DA\x03\x02\x02\x02\u04DA\u04DC\x03\x02\x02\x02\u04DB\u04D9\x03\x02" +
-		"\x02\x02\u04DC\u04DD\x07\x17\x02\x02\u04DD\u04DF\x03\x02\x02\x02\u04DE" +
-		"\u04D3\x03\x02\x02\x02\u04DE\u04DF\x03\x02\x02\x02\u04DF\u0119\x03\x02" +
-		"\x02\x02\u04E0\u04E4\x07\x04\x02\x02\u04E1\u04E2\x07`\x02\x02\u04E2\u04E4" +
-		"\x05\u011C\x8F\x02\u04E3\u04E0\x03\x02\x02\x02\u04E3\u04E1\x03\x02\x02" +
-		"\x02\u04E4\u04E5\x03\x02\x02\x02\u04E5\u04E6\x05\u011E\x90\x02\u04E6\u011B" +
-		"\x03\x02\x02\x02\u04E7\u04E8\x07\n\x02\x02\u04E8\u04EA\x05\u011C\x8F\x02" +
-		"\u04E9\u04E7\x03\x02\x02\x02\u04E9\u04EA\x03\x02\x02\x02\u04EA\u011D\x03" +
-		"\x02\x02\x02\u04EB\u04F0\x07k\x02\x02\u04EC\u04ED\x07\n\x02\x02\u04ED" +
-		"\u04EF\x07k\x02\x02\u04EE\u04EC\x03\x02\x02\x02\u04EF\u04F2\x03\x02\x02" +
-		"\x02\u04F0\u04EE\x03\x02\x02\x02\u04F0\u04F1\x03\x02\x02\x02\u04F1\u011F" +
-		"\x03\x02\x02\x02\u04F2\u04F0\x03\x02\x02\x02\u04F3\u04F4\x07#\x02\x02" +
-		"\u04F4\u04F5\x07!\x02\x02\u04F5\u0121\x03\x02\x02\x02\u04F6\u04F7\x07" +
-		" \x02\x02\u04F7\u04F8\x07!\x02\x02\u04F8\u04FD\x03\x02\x02\x02\u04F9\u04FA" +
-		"\x07\x16\x02\x02\u04FA\u04FB\x05\u0124\x93\x02\u04FB\u04FC\x07\x17\x02" +
-		"\x02\u04FC\u04FE\x03\x02\x02\x02\u04FD\u04F9\x03\x02\x02\x02\u04FD\u04FE" +
-		"\x03\x02\x02\x02\u04FE\u0123\x03\x02\x02\x02\u04FF\u0504\x05\u0126\x94" +
-		"\x02\u0500\u0501\x07\x18\x02\x02\u0501\u0503\x05\u0126\x94\x02\u0502\u0500" +
-		"\x03\x02\x02\x02\u0503\u0506\x03\x02\x02\x02\u0504\u0502\x03\x02\x02\x02" +
-		"\u0504\u0505\x03\x02\x02\x02\u0505\u0125\x03\x02\x02\x02\u0506\u0504\x03" +
-		"\x02\x02\x02\u0507\u0508\x07k\x02\x02\u0508\u050B\x07\x19\x02\x02\u0509" +
-		"\u050C\x07e\x02\x02\u050A\u050C\x05\u0102\x82\x02\u050B\u0509\x03\x02" +
-		"\x02\x02\u050B\u050A\x03\x02\x02\x02\u050C\u050D\x03\x02\x02\x02\u050D" +
-		"\u050E\x07\x1A\x02\x02\u050E\u0127\x03\x02\x02\x02\u050F\u0510\t\b\x02" +
-		"\x02\u0510\u0129\x03\x02\x02\x02\x9C\u012D\u0137\u013B\u0147\u014B\u0151" +
-		"\u015A\u015D\u0163\u0166\u016C\u017D\u0183\u0189\u0191\u0199\u019F\u01A3" +
-		"\u01A9\u01B0\u01B6\u01B8\u01BA\u01BC\u01C3\u01C9\u01CB\u01CD\u01CF\u01D6" +
-		"\u01DB\u01E2\u01E7\u01ED\u01F2\u01F7\u01FC\u0202\u0208\u020E\u0212\u0217" +
-		"\u0221\u0228\u022A\u0232\u023A\u0240\u0244\u024B\u024F\u0254\u0263\u0268" +
-		"\u0272\u0278\u027E\u0284\u028E\u0292\u0295\u0298\u029A\u02A1\u02A3\u02AA" +
-		"\u02AC\u02AE\u02B3\u02B8\u02BE\u02C1\u02C6\u02CC\u02D2\u02D7\u02DB\u02E2" +
-		"\u02ED\u02EF\u02F4\u02F6\u0300\u030C\u030E\u0317\u031F\u032B\u0336\u033A" +
-		"\u033E\u0341\u0345\u0349\u034F\u0355\u035B\u0360\u0366\u036B\u0376\u037B" +
-		"\u038B\u0397\u039E\u03A3\u03AA\u03AD\u03B2\u03B8\u03C2\u03CA\u03D2\u03E9" +
-		"\u03EC\u03F2\u03F4\u03F9\u03FB\u0402\u0413\u041D\u0425\u0428\u042B\u042F" +
-		"\u0438\u0447\u044B\u0452\u0457\u0465\u0474\u0478\u047A\u0483\u0489\u048F" +
-		"\u0497\u049C\u04A4\u04AB\u04B6\u04BF\u04C6\u04D0\u04D9\u04DE\u04E3\u04E9" +
-		"\u04F0\u04FD\u0504\u050B";
+		"{\x02\u0462\u0463\x07\x18\x02\x02\u0463\u0465\x05\xF4{\x02\u0464\u0462" +
+		"\x03\x02\x02\x02\u0465\u0468\x03\x02\x02\x02\u0466\u0464\x03\x02\x02\x02" +
+		"\u0466\u0467\x03\x02\x02\x02\u0467\xF3\x03\x02\x02\x02\u0468\u0466\x03" +
+		"\x02\x02\x02\u0469\u046A\x07k\x02\x02\u046A\u046B\x05\xACW\x02\u046B\xF5" +
+		"\x03\x02\x02\x02\u046C\u046D\x07\x1C\x02\x02\u046D\u046E\x07\x16\x02\x02" +
+		"\u046E\u046F\x05\xF8}\x02\u046F\u0470\x07\x17\x02\x02\u0470\xF7\x03\x02" +
+		"\x02\x02\u0471\u047B\x05\xFA~\x02\u0472\u0473\x07\x18\x02\x02\u0473\u0475" +
+		"\x07\f\x02\x02\u0474\u0476\x05\u010C\x87\x02\u0475\u0474\x03\x02\x02\x02" +
+		"\u0475\u0476\x03\x02\x02\x02\u0476\u0479\x03\x02\x02\x02\u0477\u0478\x07" +
+		"\x18\x02\x02\u0478\u047A\x05\u0110\x89\x02\u0479\u0477\x03\x02\x02\x02" +
+		"\u0479\u047A\x03\x02\x02\x02\u047A\u047C\x03\x02\x02\x02\u047B\u0472\x03" +
+		"\x02\x02\x02\u047B\u047C\x03\x02\x02\x02\u047C\xF9\x03\x02\x02\x02\u047D" +
+		"\u047E\x05\xFC\x7F\x02\u047E\xFB\x03\x02\x02\x02\u047F\u0484\x05\xFE\x80" +
+		"\x02\u0480\u0481\x07\x18\x02\x02\u0481\u0483\x05\xFE\x80\x02\u0482\u0480" +
+		"\x03\x02\x02\x02\u0483\u0486\x03\x02\x02\x02\u0484\u0482\x03\x02\x02\x02" +
+		"\u0484\u0485\x03\x02\x02\x02\u0485\xFD\x03\x02\x02\x02\u0486\u0484\x03" +
+		"\x02\x02\x02\u0487\u048B\x07k\x02\x02\u0488\u048B\x05\u0100\x81\x02\u0489" +
+		"\u048B\x05\xD2j\x02\u048A\u0487\x03\x02\x02\x02\u048A\u0488\x03\x02\x02" +
+		"\x02\u048A\u0489\x03\x02\x02\x02\u048B\xFF\x03\x02\x02\x02\u048C\u048D" +
+		"\x07k\x02\x02\u048D\u0490\x07\x19\x02\x02\u048E\u0491\x05\xE2r\x02\u048F" +
+		"\u0491\x05\u0102\x82\x02\u0490\u048E\x03\x02\x02\x02\u0490\u048F\x03\x02" +
+		"\x02\x02\u0491\u0492\x03\x02\x02\x02\u0492\u0493\x07\x1A\x02\x02\u0493" +
+		"\u0101\x03\x02\x02\x02\u0494\u0495\x05\u0104\x83\x02\u0495\u0103\x03\x02" +
+		"\x02\x02\u0496\u0498\x05\u0106\x84\x02\u0497\u0499\x05\u0108\x85\x02\u0498" +
+		"\u0497\x03\x02\x02\x02\u0498\u0499\x03\x02\x02\x02\u0499\u0105\x03\x02" +
+		"\x02\x02\u049A\u049D\x07k\x02\x02\u049B\u049C\x07\n\x02\x02\u049C\u049E" +
+		"\x07k\x02\x02\u049D\u049B\x03\x02\x02\x02\u049D\u049E\x03\x02\x02\x02" +
+		"\u049E\u0107\x03\x02\x02\x02\u049F\u04A0\x07\x16\x02\x02\u04A0\u04A5\x05" +
+		"\u010A\x86\x02\u04A1\u04A2\x07\x18\x02\x02\u04A2\u04A4\x05\u010A\x86\x02" +
+		"\u04A3\u04A1\x03\x02\x02\x02\u04A4\u04A7\x03\x02\x02\x02\u04A5\u04A3\x03" +
+		"\x02\x02\x02\u04A5\u04A6\x03\x02\x02\x02\u04A6\u04A8\x03\x02\x02\x02\u04A7" +
+		"\u04A5\x03\x02\x02\x02\u04A8\u04A9\x07\x17\x02\x02\u04A9\u0109\x03\x02" +
+		"\x02\x02\u04AA\u04AD\x05\xACW\x02\u04AB\u04AD\x05\xD2j\x02\u04AC\u04AA" +
+		"\x03\x02\x02\x02\u04AC\u04AB\x03\x02\x02\x02\u04AD\u010B\x03\x02\x02\x02" +
+		"\u04AE\u04AF\x07+\x02\x02\u04AF\u04B0\x05\u010E\x88\x02\u04B0\u010D\x03" +
+		"\x02\x02\x02\u04B1\u04B8\x05\xE2r\x02\u04B2\u04B8\x05\u0102\x82\x02\u04B3" +
+		"\u04B4\x05\xACW\x02\u04B4\u04B5\x07R\x02\x02\u04B5\u04B6\x05\xD2j\x02" +
+		"\u04B6\u04B8\x03\x02\x02\x02\u04B7\u04B1\x03\x02\x02\x02\u04B7\u04B2\x03" +
+		"\x02\x02\x02\u04B7\u04B3\x03\x02\x02\x02\u04B8\u010F\x03\x02\x02\x02\u04B9" +
+		"\u04BA\x05\xFC\x7F\x02\u04BA\u0111\x03\x02\x02\x02\u04BB\u04C0\x07\x15" +
+		"\x02\x02\u04BC\u04BD\x07\x16\x02\x02\u04BD\u04BE\x05\u0114\x8B\x02\u04BE" +
+		"\u04BF\x07\x17\x02\x02\u04BF\u04C1\x03\x02\x02\x02\u04C0\u04BC\x03\x02" +
+		"\x02\x02\u04C0\u04C1\x03\x02\x02\x02\u04C1\u0113\x03\x02\x02\x02\u04C2" +
+		"\u04C7\x05\u0100\x81\x02\u04C3\u04C4\x07\x18\x02\x02\u04C4\u04C6\x05\u0100" +
+		"\x81\x02\u04C5\u04C3\x03\x02\x02\x02\u04C6\u04C9\x03\x02\x02\x02\u04C7" +
+		"\u04C5\x03\x02\x02\x02\u04C7\u04C8\x03\x02\x02\x02\u04C8\u0115\x03\x02" +
+		"\x02\x02\u04C9\u04C7\x03\x02\x02\x02\u04CA\u04CB\x07Z\x02\x02\u04CB\u04CC" +
+		"\x07[\x02\x02\u04CC\u0117\x03\x02\x02\x02\u04CD\u04CE\x07\x16\x02\x02" +
+		"\u04CE\u04D1\x07k\x02\x02\u04CF\u04D0\x07\n\x02\x02\u04D0\u04D2\x07k\x02" +
+		"\x02\u04D1\u04CF\x03\x02\x02\x02\u04D1\u04D2\x03\x02\x02\x02\u04D2\u04D3" +
+		"\x03\x02\x02\x02\u04D3\u04DF\x07\x17\x02\x02\u04D4\u04D5\x07\x16\x02\x02" +
+		"\u04D5\u04DA\x05\u011A\x8E\x02\u04D6\u04D7\x07\x18\x02\x02\u04D7\u04D9" +
+		"\x05\u011A\x8E\x02\u04D8\u04D6\x03\x02\x02\x02\u04D9\u04DC\x03\x02\x02" +
+		"\x02\u04DA\u04D8\x03\x02\x02\x02\u04DA\u04DB\x03\x02\x02\x02\u04DB\u04DD" +
+		"\x03\x02\x02\x02\u04DC\u04DA\x03\x02\x02\x02\u04DD\u04DE\x07\x17\x02\x02" +
+		"\u04DE\u04E0\x03\x02\x02\x02\u04DF\u04D4\x03\x02\x02\x02\u04DF\u04E0\x03" +
+		"\x02\x02\x02\u04E0\u0119\x03\x02\x02\x02\u04E1\u04E5\x07\x04\x02\x02\u04E2" +
+		"\u04E3\x07`\x02\x02\u04E3\u04E5\x05\u011C\x8F\x02\u04E4\u04E1\x03\x02" +
+		"\x02\x02\u04E4\u04E2\x03\x02\x02\x02\u04E5\u04E6\x03\x02\x02\x02\u04E6" +
+		"\u04E7\x05\u011E\x90\x02\u04E7\u011B\x03\x02\x02\x02\u04E8\u04E9\x07\n" +
+		"\x02\x02\u04E9\u04EB\x05\u011C\x8F\x02\u04EA\u04E8\x03\x02\x02\x02\u04EA" +
+		"\u04EB\x03\x02\x02\x02\u04EB\u011D\x03\x02\x02\x02\u04EC\u04F1\x07k\x02" +
+		"\x02\u04ED\u04EE\x07\n\x02\x02\u04EE\u04F0\x07k\x02\x02\u04EF\u04ED\x03" +
+		"\x02\x02\x02\u04F0\u04F3\x03\x02\x02\x02\u04F1\u04EF\x03\x02\x02\x02\u04F1" +
+		"\u04F2\x03\x02\x02\x02\u04F2\u011F\x03\x02\x02\x02\u04F3\u04F1\x03\x02" +
+		"\x02\x02\u04F4\u04F5\x07#\x02\x02\u04F5\u04F6\x07!\x02\x02\u04F6\u0121" +
+		"\x03\x02\x02\x02\u04F7\u04F8\x07 \x02\x02\u04F8\u04F9\x07!\x02\x02\u04F9" +
+		"\u04FE\x03\x02\x02\x02\u04FA\u04FB\x07\x16\x02\x02\u04FB\u04FC\x05\u0124" +
+		"\x93\x02\u04FC\u04FD\x07\x17\x02\x02\u04FD\u04FF\x03\x02\x02\x02\u04FE" +
+		"\u04FA\x03\x02\x02\x02\u04FE\u04FF\x03\x02\x02\x02\u04FF\u0123\x03\x02" +
+		"\x02\x02\u0500\u0505\x05\u0126\x94\x02\u0501\u0502\x07\x18\x02\x02\u0502" +
+		"\u0504\x05\u0126\x94\x02\u0503\u0501\x03\x02\x02\x02\u0504\u0507\x03\x02" +
+		"\x02\x02\u0505\u0503\x03\x02\x02\x02\u0505\u0506\x03\x02\x02\x02\u0506" +
+		"\u0125\x03\x02\x02\x02\u0507\u0505\x03\x02\x02\x02\u0508\u0509\x07k\x02" +
+		"\x02\u0509\u050C\x07\x19\x02\x02\u050A\u050D\x07e\x02\x02\u050B\u050D" +
+		"\x05\u0102\x82\x02\u050C\u050A\x03\x02\x02\x02\u050C\u050B\x03\x02\x02" +
+		"\x02\u050D\u050E\x03\x02\x02\x02\u050E\u050F\x07\x1A\x02\x02\u050F\u0127" +
+		"\x03\x02\x02\x02\u0510\u0511\t\b\x02\x02\u0511\u0129\x03\x02\x02\x02\x9C" +
+		"\u012D\u0137\u013B\u0147\u014B\u0151\u015A\u015D\u0163\u0166\u016C\u017D" +
+		"\u0183\u0189\u0191\u0199\u019F\u01A3\u01A9\u01B0\u01B6\u01B8\u01BA\u01BC" +
+		"\u01C3\u01C9\u01CB\u01CD\u01CF\u01D6\u01DB\u01E2\u01E7\u01ED\u01F2\u01F7" +
+		"\u01FC\u0202\u0208\u020E\u0212\u0217\u0221\u0228\u022A\u0232\u023A\u0240" +
+		"\u0244\u024B\u024F\u0254\u0263\u0268\u0272\u0278\u027E\u0284\u028E\u0292" +
+		"\u0295\u0298\u029A\u02A1\u02A3\u02AA\u02AC\u02AE\u02B3\u02B8\u02BE\u02C1" +
+		"\u02C6\u02CC\u02D2\u02D7\u02DB\u02E2\u02ED\u02EF\u02F4\u02F6\u0300\u030C" +
+		"\u030E\u0317\u031F\u032B\u0336\u033A\u033E\u0341\u0345\u0349\u034F\u0355" +
+		"\u035B\u0360\u0366\u036B\u0376\u037B\u038B\u0397\u039E\u03A3\u03AA\u03AD" +
+		"\u03B2\u03B8\u03C2\u03CA\u03D2\u03E9\u03EC\u03F2\u03F4\u03F9\u03FB\u0402" +
+		"\u0413\u041D\u0425\u0428\u042C\u0430\u0439\u0448\u044C\u0453\u0458\u0466" +
+		"\u0475\u0479\u047B\u0484\u048A\u0490\u0498\u049D\u04A5\u04AC\u04B7\u04C0" +
+		"\u04C7\u04D1\u04DA\u04DF\u04E4\u04EA\u04F1\u04FE\u0505\u050C";
 	public static readonly _serializedATN: string = Utils.join(
 		[
 			ASN_3gppParser._serializedATNSegment0,
@@ -10544,6 +10552,9 @@ export class ObjIdComponentsContext extends ParserRuleContext {
 	public R_PARAN(): TerminalNode | undefined { return this.tryGetToken(ASN_3gppParser.R_PARAN, 0); }
 	public definedValue(): DefinedValueContext | undefined {
 		return this.tryGetRuleContext(0, DefinedValueContext);
+	}
+	public builtinType(): BuiltinTypeContext | undefined {
+		return this.tryGetRuleContext(0, BuiltinTypeContext);
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
