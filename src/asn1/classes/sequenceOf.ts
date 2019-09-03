@@ -3,15 +3,19 @@ import { cloneDeep, isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { BuiltinValue } from '../visitors/builtinValue';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
+import { IConstantAndModule } from './base';
 import { NamedType } from './namedType';
 
 export class SequenceOf extends AsnType {
   public type: AsnType | NamedType;
   public expandedType: AsnType | NamedType;
-  public size: number | string;
-  public sizeMin: number | string;
-  public sizeMax: number | string;
+  public size: BuiltinValue;
+  public sizeMin: BuiltinValue;
+  public sizeMax: BuiltinValue;
 
   constructor(type: AsnType | NamedType) {
     super();
@@ -19,7 +23,7 @@ export class SequenceOf extends AsnType {
     this.type = type;
   }
 
-  public setConstraint(constraint: any): SequenceOf {
+  public setConstraint(constraint: ConstraintSpec): SequenceOf {
     if ('value' in constraint) {
       this.size = constraint.value;
       delete constraint.value;
@@ -39,7 +43,7 @@ export class SequenceOf extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): SequenceOf {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): SequenceOf {
     const typeToExpand = cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     // This should always be true
     if (typeToExpand instanceof AsnType || typeToExpand instanceof NamedType) {
@@ -71,8 +75,9 @@ export class SequenceOf extends AsnType {
     return `SEQUENCE${size} OF ${this.type.toString()}`;
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.type = this.toStringUnexpanded();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     this.addToConstants(this.size, constants);

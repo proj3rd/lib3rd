@@ -3,7 +3,9 @@ import { log } from '../../utils/logging';
 import * as xl from 'excel4node';
 
 import { author, styleBorderLeft, styleBorderTop } from '../../utils/xlsx';
+import { IConstantAndModule } from '../classes/base';
 import { findConstantValue } from '../utils';
+import { IModules } from '../visitors/modules';
 import { IMsgIe } from './common';
 
 type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'tag';
@@ -65,7 +67,7 @@ const headerConstants: any /* TODO */ = {
  * @param msgIes Array of ASN.1 objects you want to format
  * @returns Workbook object of excel4node
  */
-export function format(msgIes: IMsgIe[], asn1Pool: any, formatConfig: IFormatConfig = formatConfigDefault): any {
+export function format(msgIes: IMsgIe[], asn1Pool: IModules, formatConfig: IFormatConfig = formatConfigDefault): any {
   const wb = new xl.Workbook({ author });
   msgIes.forEach((msgIe, index) => {
     log.debug(`Formatting ${msgIe.name} in xlsx...`);
@@ -93,14 +95,15 @@ export function format(msgIes: IMsgIe[], asn1Pool: any, formatConfig: IFormatCon
   return wb;
 }
 
-function fillDefinition(msgIe: IMsgIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
+function fillDefinition(msgIe: IMsgIe, ws: any, row: number, col: number, depthMax: number,
+                        constants: IConstantAndModule[],
                         formatConfig: IFormatConfig = formatConfigDefault): [number, number] {
   if (formatConfig.freezeHeader) {
     ws.row(row).freeze();
   }
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [row, col] = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig);
-  const parameterList: string[] = (msgIe.definition as any).parameterList;
+  const parameterList: string[] = msgIe.definition.parameterList;
   const parameterString = parameterList ? ` { ${parameterList.join(', ')} }` : '';
   [row, col] = msgIe.definition.fillWorksheet({ie: `${msgIe.name}${parameterString}`},
     ws, row, col, depthMax, constants, formatConfig);
@@ -170,8 +173,9 @@ export function fillRow(ieElem: IIe, ws: any, row: number, col: number, depthMax
   return [row, col];
 }
 
-function fillConstants(constants: any[], moduleName: string, asn1Pool: any, ws: any, row: number, col: number,
-                       depthMax: number, formatConfig: IFormatConfig): [number, number] {
+function fillConstants(constants: IConstantAndModule[], moduleName: string, asn1Pool: IModules,
+                       ws: any, row: number, col: number, depthMax: number,
+                       formatConfig: IFormatConfig): [number, number] {
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [headerConstants, ...constants].forEach((rangeElem, index) => {
     if (index > 0) {

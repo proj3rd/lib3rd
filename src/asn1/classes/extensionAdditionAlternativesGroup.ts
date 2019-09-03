@@ -3,13 +3,15 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
+import { Base, IConstantAndModule } from './base';
 import { NamedType } from './namedType';
 
 export class ExtensionAdditionAlternativesGroup extends Base {
   public alternativeTypeList: NamedType[];
 
-  constructor(alternativeTypeList: any, versionNumber: any) {
+  constructor(alternativeTypeList: NamedType[], versionNumber: null) {
     super();
 
     this.alternativeTypeList = alternativeTypeList;
@@ -18,14 +20,14 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     }
   }
 
-  public setConstraint(constraint: any): ExtensionAdditionAlternativesGroup {
+  public setConstraint(constraint: ConstraintSpec): ExtensionAdditionAlternativesGroup {
     if (!isEmpty(constraint)) {
       log.warn(`ExtensionAdditionAlternativesGroup could not handle constraint ${JSON.stringify(constraint)}`);
     }
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = [])
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = [])
     : ExtensionAdditionAlternativesGroup {
     this.alternativeTypeList.forEach((item) => {
       item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
@@ -55,8 +57,9 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     ].join('\n');
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.ie = '[[';
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     this.alternativeTypeList.forEach((item) => {

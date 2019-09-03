@@ -3,15 +3,19 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { BuiltinValue } from '../visitors/builtinValue';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
+import { IConstantAndModule } from './base';
 
 export class Integer extends AsnType {
   public namedNumberList: any; // TODO
-  public value: number | string;
-  public min: number | string;
-  public max: number | string;
+  public value: BuiltinValue;
+  public min: BuiltinValue;
+  public max: BuiltinValue;
 
-  public setConstraint(constraint: any): Integer {
+  public setConstraint(constraint: ConstraintSpec): Integer {
     if ('value' in constraint) {
       this.value = constraint.value;
       delete constraint.value;
@@ -31,7 +35,7 @@ export class Integer extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): Integer {
+  public expand(asn1Pool: IModules, moduleName?: string): Integer {
     return this;
   }
 
@@ -49,8 +53,9 @@ export class Integer extends AsnType {
     return `INTEGER ${valueConstraint}`;
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.type = this.toString();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     this.addToConstants(this.value, constants);

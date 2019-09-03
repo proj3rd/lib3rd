@@ -4,17 +4,20 @@ import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
+import { ActualParameter } from '../visitors/actualParameter';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
-import { Base } from './base';
+import { Base, IConstantAndModule } from './base';
 import { WithComponents } from './withComponents';
 
 export class DefinedType extends AsnType {
   public moduleReference: string;
   public typeReference: string;
-  public actualParameterList: any/* TODO */[];
+  public actualParameterList: ActualParameter[];
   public withComponents: WithComponents;
 
-  public setConstraint(constraint: any): DefinedType {
+  public setConstraint(constraint: ConstraintSpec): DefinedType {
     if ('withComponents' in constraint) {
       this.withComponents = new WithComponents(constraint.withComponents);
       delete constraint.withComponents;
@@ -25,7 +28,7 @@ export class DefinedType extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO*/, moduleName?: string, parameterList: string[] = []): Base {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): Base {
     if (parameterList.indexOf(this.typeReference) !== -1) {
       return this;
     }
@@ -34,8 +37,8 @@ export class DefinedType extends AsnType {
       return this;
     }
     const parameterMapping = {};
-    if ((definition as any).parameterList) {
-      ((definition as any).parameterList as string[]).forEach((parameter, index) => {
+    if (definition.parameterList) {
+      (definition.parameterList as string[]).forEach((parameter, index) => {
         /**
          * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }
          * New parameter scope starts
@@ -73,8 +76,9 @@ export class DefinedType extends AsnType {
       `${this.typeReference}${actualParameterListString}${withComponents}`;
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.reference = this.toString();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     return [row, col];

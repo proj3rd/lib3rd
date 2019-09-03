@@ -20,7 +20,7 @@ export class ParameterListVisitor extends AbstractParseTreeVisitor<string[]> imp
     const parameterList = [];
     const childCtxes = parameterListCtx.children;
     childCtxes.forEach((childCtx) => {
-      if (childCtx instanceof ParameterContext) {
+      if (!(childCtx instanceof ParameterContext)) {
         return;
       }
       parameterList.push(childCtx.accept(new ParameterVisitor()));

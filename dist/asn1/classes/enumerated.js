@@ -15,7 +15,7 @@ class Enumerated extends asnType_1.AsnType {
         }
         return this;
     }
-    expand(asn1Pool /* TODO */, moduleName) {
+    expand(asn1Pool, moduleName) {
         return this;
     }
     depthMax() {

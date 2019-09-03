@@ -3,7 +3,9 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
+import { Base, IConstantAndModule } from './base';
 import { ComponentPresence } from './componentPresence';
 import { ExtensionMarker } from './extensionMarker';
 
@@ -16,14 +18,14 @@ export class WithComponents extends Base {
     this.components = components;
   }
 
-  public setConstraint(constraint: any): WithComponents {
+  public setConstraint(constraint: ConstraintSpec): WithComponents {
     if (!isEmpty(constraint)) {
       log.warn(`WithComponents could not handle constraint ${JSON.stringify(constraint)}`);
     }
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): never {
+  public expand(asn1Pool: IModules, moduleName?: string): never {
     throw Error(`${this.constructor.name}.expand does not need to be implemented`);
   }
 
@@ -39,8 +41,9 @@ export class WithComponents extends Base {
     return `{${this.components.map((component) => component.toString()).join(', ')}}`;
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): never {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): never {
     throw Error(`${this.constructor.name}.fillWorksheet does not need to be implemented`);
   }
 }

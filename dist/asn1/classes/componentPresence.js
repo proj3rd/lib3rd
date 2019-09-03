@@ -15,7 +15,7 @@ class ComponentPresence extends base_1.Base {
         }
         return this;
     }
-    expand(asn1Pool /* TODO */, moduleName) {
+    expand(asn1Pool, moduleName) {
         throw Error(`${this.constructor.name}.expand does not need to be implemented`);
     }
     depthMax() {

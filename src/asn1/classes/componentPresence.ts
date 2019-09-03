@@ -3,7 +3,9 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { Base } from './base';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
+import { Base, IConstantAndModule } from './base';
 
 export class ComponentPresence extends Base {
   public identifier: string;
@@ -16,14 +18,14 @@ export class ComponentPresence extends Base {
     this.absentPresent = absentPresent;
   }
 
-  public setConstraint(constraint: any): ComponentPresence {
+  public setConstraint(constraint: ConstraintSpec): ComponentPresence {
     if (!isEmpty(constraint)) {
       log.warn(`ComponentPresence could not handle constraint ${JSON.stringify(constraint)}`);
     }
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): never {
+  public expand(asn1Pool: IModules, moduleName?: string): never {
     throw Error(`${this.constructor.name}.expand does not need to be implemented`);
   }
 
@@ -39,8 +41,9 @@ export class ComponentPresence extends Base {
     return `${this.identifier} ${this.absentPresent}`;
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): never {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): never {
     throw Error(`${this.constructor.name}.fillWorksheet does not need to be implemented`);
   }
 }

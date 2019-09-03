@@ -15,7 +15,7 @@ class Choice extends asnType_1.AsnType {
         }
         return this;
     }
-    expand(asn1Pool /* TODO */, moduleName, parameterList = []) {
+    expand(asn1Pool, moduleName, parameterList = []) {
         this.choices.forEach((choice) => {
             choice.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });

@@ -3,26 +3,29 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
+import { IConstantAndModule } from './base';
 import { NamedType } from './namedType';
 
 export class Sequence extends AsnType {
   public items: NamedType[];
 
-  constructor(items: any[] /* TODO */) {
+  constructor(items: NamedType[]) {
     super();
 
     this.items = items;
   }
 
-  public setConstraint(constraint: any): Sequence {
+  public setConstraint(constraint: ConstraintSpec): Sequence {
     if (!isEmpty(constraint)) {
       log.warn(`Sequence could not handle constraint ${JSON.stringify(constraint)}`);
     }
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): Sequence {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): Sequence {
     this.items.forEach((item) => {
       item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
@@ -50,7 +53,7 @@ export class Sequence extends AsnType {
     const itemString = [];
     this.items.forEach((item, index) => {
       const comma = index < this.items.length - 1 ? ',' : '';
-      const tag = (item as any).tag;
+      const tag = item.tag;
       const tagString = tag ? `    ${tag}` : '';
       itemString.push(`${this.indent(item.toString())}${comma}${tagString}`);
     });
@@ -61,8 +64,9 @@ export class Sequence extends AsnType {
     ].join('\n');
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.type = 'SEQUENCE';
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     this.items.forEach((item) => {

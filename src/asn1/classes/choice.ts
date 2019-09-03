@@ -5,7 +5,10 @@ import { log } from '../../utils/logging';
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 
 import { AlternativeTypeLists } from '../visitors/alternativeTypeLists';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
+import { IConstantAndModule } from './base';
 
 export class Choice extends AsnType {
   public choices: AlternativeTypeLists;
@@ -16,14 +19,14 @@ export class Choice extends AsnType {
     this.choices = choices;
   }
 
-  public setConstraint(constraint: any): Choice {
+  public setConstraint(constraint: ConstraintSpec): Choice {
     if (!isEmpty(constraint)) {
       log.warn(`Choice constraint ${JSON.stringify(constraint)}`);
     }
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string, parameterList: string[] = []): Choice {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): Choice {
     this.choices.forEach((choice) => {
       choice.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
@@ -52,8 +55,9 @@ export class Choice extends AsnType {
     ].join('\n');
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.type = 'CHOICE';
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     this.choices.forEach((choice) => {

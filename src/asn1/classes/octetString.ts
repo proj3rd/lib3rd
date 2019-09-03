@@ -3,15 +3,19 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { BuiltinValue } from '../visitors/builtinValue';
+import { ConstraintSpec } from '../visitors/constraintSpec';
+import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
+import { IConstantAndModule } from './base';
 
 export class OctetString extends AsnType {
-  public size: number | string;
-  public sizeMin: number | string;
-  public sizeMax: number | string;
-  public containing: any /* TODO */;
+  public size: BuiltinValue;
+  public sizeMin: BuiltinValue;
+  public sizeMax: BuiltinValue;
+  public containing: AsnType;
 
-  public setConstraint(constraint: any): OctetString {
+  public setConstraint(constraint: ConstraintSpec): OctetString {
     if ('value' in constraint) {
       this.size = constraint.value;
       delete constraint.value;
@@ -35,7 +39,7 @@ export class OctetString extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: any /* TODO */, moduleName?: string): OctetString {
+  public expand(asn1Pool: IModules, moduleName?: string): OctetString {
     return this;
   }
 
@@ -54,8 +58,9 @@ export class OctetString extends AsnType {
     return `OCTET STRING${containing}${size}`;
   }
 
-  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: any[],
-                       formatConfig: IFormatConfig, depth: number = 0): [number, number] {
+  public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
+                       constants: IConstantAndModule[], formatConfig: IFormatConfig,
+                       depth: number = 0): [number, number] {
     ieElem.type = this.toString();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     this.addToConstants(this.size, constants);
