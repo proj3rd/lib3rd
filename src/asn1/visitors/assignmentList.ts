@@ -8,6 +8,7 @@ import { AssignmentContext, AssignmentListContext, ObjectClassAssignmentContext,
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
 import { BuiltinValue } from './builtinValue';
+import { ObjectClassAssignmentVisitor } from './objectClassAssignment';
 import { ParameterizedAssignmentVisitor } from './parameterizedAssignment';
 import { TypeAssignmentVisitor } from './typeAssignment';
 import { ValueAssignmentVisitor } from './valueAssignment';
@@ -70,8 +71,10 @@ export class AssignmentListVisitor extends AbstractParseTreeVisitor<IAssignmentL
           assignmentList.assignments[referenceName] = parameterizedAssignment;
         }
       } else if (rValueContext instanceof ObjectClassAssignmentContext) {
-        log.warn(getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported:'));
-        // TODO?
+        const objectClassAssignment = rValueContext.accept (new ObjectClassAssignmentVisitor());
+        if (objectClassAssignment) {
+          assignmentList.assignments[referenceName] = objectClassAssignment;
+        }
       } else {
         log.warn(getLogWithAsn1(assignmentCtx, 'Unsupported ASN1 in Assignment:'));
       }
