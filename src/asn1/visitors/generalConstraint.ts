@@ -26,7 +26,7 @@ export class GeneralConstraintVisitor extends AbstractParseTreeVisitor<IContents
     if (childCtx instanceof UserDefinedConstraintContext) {
       log.warn(getLogWithAsn1(childCtx, 'UserDefinedConstraint not supported:'));
     } else if (childCtx instanceof TableConstraintContext) {
-      log.warn(getLogWithAsn1(childCtx, 'TableConstraint not supported:'));
+      generalConstraint = childCtx.accept(new TableConstraintVisitor());
     } else if (childCtx instanceof ContentsConstraintContext) {
       generalConstraint = childCtx.accept(new ContentsConstraintVisitor());
     } else {
