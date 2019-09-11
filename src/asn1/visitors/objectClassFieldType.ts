@@ -2,6 +2,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 
 import { ObjectClassFieldTypeContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { ObjectClassField } from '../classes/objectClassField';
 import { DefinedObjectClassVisitor } from './definedObjectClass';
 
 /**
@@ -10,16 +11,16 @@ import { DefinedObjectClassVisitor } from './definedObjectClass';
  * objectClassFieldType : definedObjectClass DOT fieldName
  * ```
  */
-export class ObjectClassFieldTypeVisitor extends AbstractParseTreeVisitor<ObjectClassFieldType>
-                                         implements ASN_3gppVisitor<ObjectClassFieldType> {
-  public defaultResult(): ObjectClassFieldType {
+export class ObjectClassFieldTypeVisitor extends AbstractParseTreeVisitor<ObjectClassField>
+                                         implements ASN_3gppVisitor<ObjectClassField> {
+  public defaultResult(): ObjectClassField {
     return undefined;
   }
 
-  public visitChildren(objectClassFieldTypeCtx: ObjectClassFieldTypeContext): ObjectClassFieldType {
+  public visitChildren(objectClassFieldTypeCtx: ObjectClassFieldTypeContext): ObjectClassField {
     const definedObjectClassCtx = objectClassFieldTypeCtx.children[0];
     const { moduleReference, objectClassReference } = definedObjectClassCtx.accept(new DefinedObjectClassVisitor());
     const fieldName = objectClassFieldTypeCtx.children[2].text;
-    return new ObjectClassFieldType(moduleReference, objectClassReference, fieldName);
+    return new ObjectClassField(moduleReference, objectClassReference, fieldName);
   }
 }
