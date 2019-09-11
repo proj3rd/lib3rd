@@ -4,8 +4,8 @@ import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
 
 import { BitStringTypeContext, BuiltinTypeContext, ChoiceTypeContext,
-         EnumeratedTypeContext, IntegerTypeContext, OctetStringTypeContext,
-         SequenceOfTypeContext, SequenceTypeContext } from '../ASN_3gppParser';
+         EnumeratedTypeContext, IntegerTypeContext, ObjectClassFieldTypeContext,
+         OctetStringTypeContext, SequenceOfTypeContext, SequenceTypeContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnBoolean } from '../classes/asnBoolean';
 import { BitString } from '../classes/bitString';
@@ -20,6 +20,7 @@ import { BitStringTypeVisitor } from './bitStringType';
 import { ChoiceTypeVisitor } from './choiceType';
 import { EnumeratedTypeVisitor } from './enumeratedType';
 import { IntegerTypeVisitor } from './integerType';
+import { ObjectClassFieldTypeVisitor } from './objectClassFieldType';
 import { OctetStringTypeVisitor } from './octetStringType';
 import { SequenceOfTypeVisitor } from './sequenceOfType';
 import { SequenceTypeVisitor } from './sequenceType';
@@ -66,6 +67,8 @@ export class BuiltinTypeVisitor extends AbstractParseTreeVisitor<BuiltinType> im
       builtinType = childCtx.accept(new SequenceOfTypeVisitor());
     } else if (childCtx instanceof SequenceTypeContext) {
       builtinType = childCtx.accept(new SequenceTypeVisitor());
+    } else if (childCtx instanceof ObjectClassFieldTypeContext) {
+      builtinType = childCtx.accept(new ObjectClassFieldTypeVisitor());
     } else {
       switch (childCtx.text.toLowerCase()) {
         case 'boolean': {
