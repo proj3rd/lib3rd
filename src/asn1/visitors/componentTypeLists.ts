@@ -21,8 +21,11 @@ type ComponentTypeLists = Array<NamedType | ExtensionMarker | ExtensionAddition>
  * ANTRL4 grammar
  * ```
  *  componentTypeLists :
- *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
- *    |  extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
+ *     rootComponentTypeList
+ *       (tag | (COMMA tag? extensionAndException  extensionAdditions
+ *                 (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
+ *    |  extensionAndException  extensionAdditions
+ *         (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
  * ```
  */
 export class ComponentTypeListsVisitor extends AbstractParseTreeVisitor<ComponentTypeLists>
