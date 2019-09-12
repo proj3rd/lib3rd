@@ -20,7 +20,7 @@ export class ObjectClassField extends AsnType {
   }
 
   public setConstraint(constraint: ConstraintSpec): ObjectClassField {
-    // TODO
+    log.warn(new Error('setConstraint() not supported').stack);
     return this;
   }
 
@@ -33,7 +33,7 @@ export class ObjectClassField extends AsnType {
   }
 
   public replaceParameters(paramterMapping: {}): void {
-    // TODO
+    log.warn(new Error('replaceParameters() not supported').stack);
   }
 
   public toString(): string {
