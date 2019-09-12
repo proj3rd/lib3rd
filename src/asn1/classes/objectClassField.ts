@@ -1,5 +1,3 @@
-import { isEmpty } from 'lodash';
-
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
