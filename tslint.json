@@ -4,6 +4,11 @@
         "tslint:recommended"
     ],
     "jsRules": {},
+    "linterOptions": {
+        "exclude": [
+            "src/asn1/ASN_3gpp*.ts"
+        ]
+    },
     "rules": {
         "align": [true, "elements", "members", "parameters", "statements"],
         "typedef": [true, "call-signature"],

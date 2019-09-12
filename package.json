@@ -24,7 +24,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.ts, !src/asn1/ASN_3gpp*.ts": "tslint"
+    "src/**/*.ts": "tslint"
   },
   "devDependencies": {
     "@types/antlr4": "^4.7.0",
