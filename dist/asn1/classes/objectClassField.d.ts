@@ -7,7 +7,7 @@ export declare class ObjectClassField extends AsnType {
     moduleReference: string;
     objectClassReference: string;
     fieldName: string;
-    constructor(moduleReference: string, objectClassReference: string, filedName: string);
+    constructor(moduleReference: string, objectClassReference: string, fieldName: string);
     setConstraint(constraint: ConstraintSpec): ObjectClassField;
     expand(asn1Pool: IModules, moduleName?: string): ObjectClassField;
     depthMax(): number;

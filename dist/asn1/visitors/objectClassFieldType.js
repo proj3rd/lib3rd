@@ -14,9 +14,10 @@ class ObjectClassFieldTypeVisitor extends AbstractParseTreeVisitor_1.AbstractPar
         return undefined;
     }
     visitChildren(objectClassFieldTypeCtx) {
-        const definedObjectClassCtx = objectClassFieldTypeCtx.children[0];
+        const { children } = objectClassFieldTypeCtx;
+        const definedObjectClassCtx = children[0];
         const { moduleReference, objectClassReference } = definedObjectClassCtx.accept(new definedObjectClass_1.DefinedObjectClassVisitor());
-        const fieldName = objectClassFieldTypeCtx.children[2].text;
+        const fieldName = children[2].text;
         return new objectClassField_1.ObjectClassField(moduleReference, objectClassReference, fieldName);
     }
 }

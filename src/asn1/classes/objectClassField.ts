@@ -11,16 +11,16 @@ export class ObjectClassField extends AsnType {
   public objectClassReference: string;
   public fieldName: string;
 
-  constructor(moduleReference: string, objectClassReference: string, filedName: string) {
+  constructor(moduleReference: string, objectClassReference: string, fieldName: string) {
     super();
 
     this.moduleReference = moduleReference;
     this.objectClassReference = objectClassReference;
-    this.fieldName = this.fieldName;
+    this.fieldName = fieldName;
   }
 
   public setConstraint(constraint: ConstraintSpec): ObjectClassField {
-    log.warn(new Error('setConstraint() not supported').stack);
+    this.constraint = constraint;
     return this;
   }
 

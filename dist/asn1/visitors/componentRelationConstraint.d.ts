@@ -1,11 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ComponentRelationConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-export interface IComponentRelationConstraint {
-    moduleReference?: string;
-    objectSetReference: string;
-    atNotations?: string[];
-}
+import { TableConstraint } from '../classes/tableConstraint';
 /**
  * ANTLR4 grammar
  * ```
@@ -13,7 +9,7 @@ export interface IComponentRelationConstraint {
  *      (L_BRACE atNotation (COMMA atNotation)* R_BRACE)?
  * ```
  */
-export declare class ComponentRelationConstraintVisitor extends AbstractParseTreeVisitor<IComponentRelationConstraint> implements ASN_3gppVisitor<IComponentRelationConstraint> {
-    defaultResult(): IComponentRelationConstraint;
-    visitChildren(componentRelationConstraintCtx: ComponentRelationConstraintContext): IComponentRelationConstraint;
+export declare class ComponentRelationConstraintVisitor extends AbstractParseTreeVisitor<TableConstraint> implements ASN_3gppVisitor<TableConstraint> {
+    defaultResult(): TableConstraint;
+    visitChildren(componentRelationConstraintCtx: ComponentRelationConstraintContext): TableConstraint;
 }

@@ -2,13 +2,8 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 
 import { AtNotationContext, ComponentRelationConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { TableConstraint } from '../classes/tableConstraint';
 import { AtNotationVisitor } from './atNotation';
-
-export interface IComponentRelationConstraint {
-  moduleReference?: string;
-  objectSetReference: string;
-  atNotations?: string[];
-}
 
 /**
  * ANTLR4 grammar
@@ -17,14 +12,13 @@ export interface IComponentRelationConstraint {
  *      (L_BRACE atNotation (COMMA atNotation)* R_BRACE)?
  * ```
  */
-export class ComponentRelationConstraintVisitor extends AbstractParseTreeVisitor<IComponentRelationConstraint>
-                                                implements ASN_3gppVisitor<IComponentRelationConstraint> {
-  public defaultResult(): IComponentRelationConstraint {
+export class ComponentRelationConstraintVisitor extends AbstractParseTreeVisitor<TableConstraint>
+                                                implements ASN_3gppVisitor<TableConstraint> {
+  public defaultResult(): TableConstraint {
     return undefined;
   }
 
-  public visitChildren(componentRelationConstraintCtx: ComponentRelationConstraintContext)
-      : IComponentRelationConstraint {
+  public visitChildren(componentRelationConstraintCtx: ComponentRelationConstraintContext): TableConstraint {
     let moduleReference: string;
     let objectSetReference: string;
     let offsetAtNotation: number;
@@ -40,6 +34,6 @@ export class ComponentRelationConstraintVisitor extends AbstractParseTreeVisitor
     const atNotations = children.slice(offsetAtNotation)
                                 .filter((ctx) => ctx instanceof AtNotationContext)
                                 .map((atNotationCtx) => atNotationCtx.accept(new AtNotationVisitor()));
-    return { moduleReference, objectSetReference, atNotations };
+    return new TableConstraint(moduleReference, objectSetReference, atNotations);
   }
 }

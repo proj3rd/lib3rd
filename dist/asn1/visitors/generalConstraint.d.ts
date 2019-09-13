@@ -1,9 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { GeneralConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { IComponentRelationConstraint } from './componentRelationConstraint';
+import { TableConstraint } from '../classes/tableConstraint';
 import { IContentsConstraint } from './contentsConstraint';
-export declare type GeneralConstraint = IComponentRelationConstraint | IContentsConstraint;
+export declare type GeneralConstraint = TableConstraint | IContentsConstraint;
 /**
  * ANTLR4 grammar
  * ```

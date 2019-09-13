@@ -23,7 +23,7 @@ class AtNotationVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisi
                 logging_1.log.warn(new Error('Level not supported'));
             }
             else if (childCtx instanceof ASN_3gppParser_1.ComponentIdListContext) {
-                componentIdList = childCtx.text;
+                componentIdList = `@${childCtx.text}`;
             }
             else if (childCtx instanceof TerminalNode_1.TerminalNode) {
                 // Do nothing

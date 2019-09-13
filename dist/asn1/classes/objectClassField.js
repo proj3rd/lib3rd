@@ -4,14 +4,14 @@ const logging_1 = require("../../utils/logging");
 const xlsx_1 = require("../format/xlsx");
 const asnType_1 = require("./asnType");
 class ObjectClassField extends asnType_1.AsnType {
-    constructor(moduleReference, objectClassReference, filedName) {
+    constructor(moduleReference, objectClassReference, fieldName) {
         super();
         this.moduleReference = moduleReference;
         this.objectClassReference = objectClassReference;
-        this.fieldName = this.fieldName;
+        this.fieldName = fieldName;
     }
     setConstraint(constraint) {
-        logging_1.log.warn(new Error('setConstraint() not supported').stack);
+        this.constraint = constraint;
         return this;
     }
     expand(asn1Pool, moduleName) {

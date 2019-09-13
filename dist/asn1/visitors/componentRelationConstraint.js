@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const tableConstraint_1 = require("../classes/tableConstraint");
 const atNotation_1 = require("./atNotation");
 /**
  * ANTLR4 grammar
@@ -31,7 +32,7 @@ class ComponentRelationConstraintVisitor extends AbstractParseTreeVisitor_1.Abst
         const atNotations = children.slice(offsetAtNotation)
             .filter((ctx) => ctx instanceof ASN_3gppParser_1.AtNotationContext)
             .map((atNotationCtx) => atNotationCtx.accept(new atNotation_1.AtNotationVisitor()));
-        return { moduleReference, objectSetReference, atNotations };
+        return new tableConstraint_1.TableConstraint(moduleReference, objectSetReference, atNotations);
     }
 }
 exports.ComponentRelationConstraintVisitor = ComponentRelationConstraintVisitor;

@@ -26,7 +26,7 @@ export class AtNotationVisitor extends AbstractParseTreeVisitor<string>
       if (childCtx instanceof LevelContext) {
         log.warn(new Error('Level not supported'));
       } else if (childCtx instanceof ComponentIdListContext) {
-        componentIdList = childCtx.text;
+        componentIdList = `@${childCtx.text}`;
       } else if (childCtx instanceof TerminalNode) {
         // Do nothing
       } else {
