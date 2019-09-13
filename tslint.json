@@ -11,6 +11,7 @@
     },
     "rules": {
         "align": [true, "elements", "members", "parameters", "statements"],
+        "no-unused-variable": true,
         "typedef": [true, "call-signature"],
         "triple-equals": true,
         "object-literal-sort-keys": false,
