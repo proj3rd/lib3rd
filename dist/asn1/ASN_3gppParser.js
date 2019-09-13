@@ -6668,6 +6668,7 @@ class ASN_3gppParser extends Parser_1.Parser {
         return ASN_3gppParser.__ATN;
     }
 }
+exports.ASN_3gppParser = ASN_3gppParser;
 ASN_3gppParser.TAG = 1;
 ASN_3gppParser.A_ROND = 2;
 ASN_3gppParser.STAR = 3;
@@ -7660,7 +7661,6 @@ ASN_3gppParser._serializedATN = Utils.join([
     ASN_3gppParser._serializedATNSegment1,
     ASN_3gppParser._serializedATNSegment2,
 ], "");
-exports.ASN_3gppParser = ASN_3gppParser;
 class ModulesContext extends ParserRuleContext_1.ParserRuleContext {
     moduleDefinition(i) {
         if (i === undefined) {

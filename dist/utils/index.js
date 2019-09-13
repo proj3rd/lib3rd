@@ -4,3 +4,5 @@ const numbering = require("./numbering");
 exports.numbering = numbering;
 const text = require("./text");
 exports.text = text;
+const xlsx = require("./xlsx");
+exports.xlsx = xlsx;

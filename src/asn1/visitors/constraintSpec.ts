@@ -5,12 +5,11 @@ import { getLogWithAsn1 } from '../utils';
 
 import { ConstraintSpecContext, GeneralConstraintContext, SubtypeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { IContentsConstraint } from './contentsConstraint';
 import { IConstraint } from './elements';
-import { GeneralConstraintVisitor } from './generalConstraint';
+import { GeneralConstraint, GeneralConstraintVisitor } from './generalConstraint';
 import { SubtypeConstraintVisitor } from './subtypeConstraint';
 
-export type ConstraintSpec = IContentsConstraint | IConstraint;
+export type ConstraintSpec = GeneralConstraint | IConstraint;
 
 /**
  * ANTLR4 grammar

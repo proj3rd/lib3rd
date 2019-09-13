@@ -5,6 +5,7 @@ const logging_1 = require("../../utils/logging");
 const utils_1 = require("../utils");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
 const contentsConstraint_1 = require("./contentsConstraint");
+const tableConstraint_1 = require("./tableConstraint");
 /**
  * ANTLR4 grammar
  * ```
@@ -22,7 +23,7 @@ class GeneralConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParseT
             logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'UserDefinedConstraint not supported:'));
         }
         else if (childCtx instanceof ASN_3gppParser_1.TableConstraintContext) {
-            logging_1.log.warn(utils_1.getLogWithAsn1(childCtx, 'TableConstraint not supported:'));
+            generalConstraint = childCtx.accept(new tableConstraint_1.TableConstraintVisitor());
         }
         else if (childCtx instanceof ASN_3gppParser_1.ContentsConstraintContext) {
             generalConstraint = childCtx.accept(new contentsConstraint_1.ContentsConstraintVisitor());

@@ -1,3 +1,4 @@
 import * as numbering from './numbering';
 import * as text from './text';
-export { numbering, text, };
+import * as xlsx from './xlsx';
+export { numbering, text, xlsx, };

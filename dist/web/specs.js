@@ -27,7 +27,7 @@ function list(specNumStr, cb, ...args) {
             const specFiles = [];
             l.forEach((el) => {
                 const versionString = el.name.split('-').slice(-1)[0].split('.')[0];
-                specFiles.push(Object.assign({}, el, { version: numbering_1.versionFromString(versionString), url: `ftp://${host}/${specDir}/${el.name}` }));
+                specFiles.push(Object.assign(Object.assign({}, el), { version: numbering_1.versionFromString(versionString), url: `ftp://${host}/${specDir}/${el.name}` }));
             });
             if (cb) {
                 cb(null, specFiles, args);
