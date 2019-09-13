@@ -25,7 +25,8 @@ class ObjectClassField extends asnType_1.AsnType {
     }
     toString() {
         const moduleReference = this.moduleReference ? `${this.moduleReference}.` : '';
-        return `${moduleReference}${this.objectClassReference}.${this.fieldName}`;
+        const constraint = this.constraint ? ` (${this.constraint.toString()})` : '';
+        return `${moduleReference}${this.objectClassReference}.${this.fieldName}${constraint}`;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.type = this.toString();
