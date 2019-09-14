@@ -16,22 +16,7 @@ export class Integer extends AsnType {
   public max: BuiltinValue;
 
   public setConstraint(constraint: ConstraintSpec): Integer {
-    if ('value' in constraint) {
-      this.value = constraint.value;
-      delete constraint.value;
-      this.min = undefined;
-      this.max = undefined;
-    }
-    if ('min' in constraint && 'max' in constraint) {
-      this.min = constraint.min;
-      delete constraint.min;
-      this.max = constraint.max;
-      delete constraint.max;
-      this.value = undefined;
-    }
-    if (!isEmpty(constraint)) {
-      log.warn(`Integer could not handle constraint ${JSON.stringify(constraint)}`);
-    }
+    this.constraint = constraint;
     return this;
   }
 

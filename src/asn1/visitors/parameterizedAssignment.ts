@@ -4,11 +4,14 @@ import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
 
-import { AsnTypeContext, ParameterizedAssignmentContext, ParameterListContext,
+import { AsnTypeContext, DefinedObjectClassContext, ObjectClassContext,
+        ObjectSetContext, ParameterizedAssignmentContext, ParameterListContext,
         ValueContext, ValueSetContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
 import { AsnTypeVisitor } from './asnType';
+import { DefinedObjectClassVisitor, IDefinedObjectClass } from './definedObjectClass';
+import { ObjectSetVisitor } from './objectSet';
 import { ParameterListVisitor } from './parameterList';
 
 /**
@@ -39,9 +42,11 @@ export class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<Asn
 
   public visitChildren(parameterizedAssignmentCtx: ParameterizedAssignmentContext): AsnType {
     let parameterList: string[];
+    let definedObjectClass: IDefinedObjectClass;
     let asnType: AsnType;
+    let object: any/* TODO */;
     const childCtxes = parameterizedAssignmentCtx.children;
-    childCtxes.every((childCtx) => {
+    childCtxes.forEach((childCtx) => {
       if (childCtx instanceof ParameterListContext) {
         parameterList = childCtx.accept(new ParameterListVisitor());
       } else if (childCtx instanceof AsnTypeContext) {
@@ -52,14 +57,23 @@ export class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<Asn
         log.warn(getLogWithAsn1(parameterizedAssignmentCtx, 'ParameterizedValueSetAssignment not supported'));
       } else if (childCtx instanceof TerminalNode) {
         // Do nothing
+      } else if (childCtx instanceof DefinedObjectClassContext) {
+        definedObjectClass = childCtx.accept(new DefinedObjectClassVisitor());
+      } else if (childCtx instanceof ObjectClassContext ) {
+        log.warn(new Error('TODO: ObjectClassContext'));
+      } else if (childCtx instanceof ObjectSetContext) {
+        object = childCtx.accept(new ObjectSetVisitor());
       } else {
-        log.warn(getLogWithAsn1(parameterizedAssignmentCtx, 'Not supported ASN.1'));
+        log.warn(new Error(getLogWithAsn1(parameterizedAssignmentCtx, 'Not supported ASN.1')));
       }
-      return true;
     });
     if (asnType) {
       asnType.parameterList = parameterList;
+      return asnType;
     }
-    return asnType;
+    if (object) {
+      object.definedObjectClass = definedObjectClass;
+      return object;
+    }
   }
 }

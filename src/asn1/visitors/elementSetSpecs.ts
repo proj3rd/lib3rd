@@ -1,12 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
-import { log } from '../../utils/logging';
-import { getLogWithAsn1 } from '../utils';
-
-import { ElementSetSpecsContext } from '../ASN_3gppParser';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
+import { AdditionalElementSetSpecContext, ElementSetSpecsContext, RootElementSetSpecContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { ExtensionMarker } from '../classes/extensionMarker';
+import { AdditionalElementSetSpecVisitor } from './additionalElementSetSpec';
 import { IConstraint } from './elements';
 import { RootElementSetSpecVisitor } from './rootElementSetSpec';
+
+export type ElementSetSpec = Array<IConstraint | ExtensionMarker>;
 
 /**
  * ANTLR4 grammar
@@ -15,21 +17,26 @@ import { RootElementSetSpecVisitor } from './rootElementSetSpec';
  *  rootElementSetSpec (COMMA ELLIPSIS (COMMA additionalElementSetSpec)?)?
  * ```
  */
-export class ElementSetSpecsVisitor extends AbstractParseTreeVisitor<IConstraint>
-                                    implements ASN_3gppVisitor<IConstraint> {
-  public defaultResult(): IConstraint {
-    return undefined;
+export class ElementSetSpecsVisitor extends AbstractParseTreeVisitor<ElementSetSpec>
+                                    implements ASN_3gppVisitor<ElementSetSpec> {
+  public defaultResult(): ElementSetSpec {
+    return [];
   }
 
-  public visitChildren(elementSetSpecsCtx: ElementSetSpecsContext): IConstraint /* TODO */ {
-    const childCtxes = elementSetSpecsCtx.children;
-    const rootElementSetSpecCtx = childCtxes[0];
-    const elementSetSpecs = rootElementSetSpecCtx.accept(new RootElementSetSpecVisitor());
-    if (childCtxes.length > 3) {
-      log.warn(getLogWithAsn1(elementSetSpecsCtx, 'AdditionalElementSetSpec not supported:'));
-    } else if (childCtxes.length > 1) {
-      log.warn(getLogWithAsn1(elementSetSpecsCtx, 'Extension marker not supported:'));
-    }
+  public visitChildren(elementSetSpecsCtx: ElementSetSpecsContext): ElementSetSpec {
+    const elementSetSpecs: ElementSetSpec = [];
+    const { children } = elementSetSpecsCtx;
+    children.forEach((childCtx) => {
+      if (childCtx instanceof RootElementSetSpecContext) {
+        elementSetSpecs.splice(elementSetSpecs.length, 0, ...childCtx.accept(new RootElementSetSpecVisitor()));
+      } else if (childCtx instanceof AdditionalElementSetSpecContext) {
+        elementSetSpecs.splice(elementSetSpecs.length, 0, ...childCtx.accept(new AdditionalElementSetSpecVisitor()));
+      } else if (childCtx instanceof TerminalNode) {
+        if (childCtx.text === '...') {
+          elementSetSpecs.push(new ExtensionMarker());
+        }
+      }
+    });
     return elementSetSpecs;
   }
 }

@@ -24,22 +24,7 @@ export class SequenceOf extends AsnType {
   }
 
   public setConstraint(constraint: ConstraintSpec): SequenceOf {
-    if ('value' in constraint) {
-      this.size = constraint.value;
-      delete constraint.value;
-      this.sizeMin = null;
-      this.sizeMax = null;
-    }
-    if ('min' in constraint && 'max' in constraint) {
-      this.size = null;
-      this.sizeMin = constraint.min;
-      delete constraint.min;
-      this.sizeMax = constraint.max;
-      delete constraint.max;
-    }
-    if (!isEmpty(constraint)) {
-      log.warn(`SequenceOf could not handle constraint ${JSON.stringify(constraint)}`);
-    }
+    this.constraint = constraint;
     return this;
   }
 

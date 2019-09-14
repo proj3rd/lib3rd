@@ -52,7 +52,8 @@ export class SequenceOfTypeVisitor extends AbstractParseTreeVisitor<SequenceOf> 
           if (constraintCtx instanceof ConstraintContext) {
             constraint = constraintCtx.accept(new ConstraintVisitor());
           } else if (constraintCtx instanceof SizeConstraintContext) {
-            constraint = constraintCtx.accept(new SizeConstraintVisitor());
+            // FIXME
+            constraint = [constraintCtx.accept(new SizeConstraintVisitor())];
           } else {
             log.warn(getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
           }
