@@ -18,13 +18,7 @@ export class DefinedType extends AsnType {
   public withComponents: WithComponents;
 
   public setConstraint(constraint: ConstraintSpec): DefinedType {
-    if ('withComponents' in constraint) {
-      this.withComponents = new WithComponents(constraint.withComponents);
-      delete constraint.withComponents;
-    }
-    if (!isEmpty(constraint)) {
-      log.warn(`DefinedType could not handle constraint ${JSON.stringify(constraint)}`);
-    }
+    this.constraint = constraint;
     return this;
   }
 
