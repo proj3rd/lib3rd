@@ -3,10 +3,11 @@ import { getLogWithAsn1 } from '../utils';
 
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
-import { IntegerTypeContext } from '../ASN_3gppParser';
+import { IntegerTypeContext, NamedNumberListContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { Integer } from '../classes/integer';
+import { NamedNumberListVisitor } from './namedNumberList';
 
 /**
  * ANTLR4 grammar
@@ -20,9 +21,12 @@ export class IntegerTypeVisitor extends AbstractParseTreeVisitor<Integer> implem
   }
 
   public visitChildren(integerTypeCtx: IntegerTypeContext): Integer {
-    if (integerTypeCtx.children.length > 1) {
-      log.warn(getLogWithAsn1(integerTypeCtx, 'NamedNumberList not supported:'));
+    let namedNumberList: any;
+    const { children } = integerTypeCtx;
+    const namedNumberListCtx = children[2];
+    if (namedNumberListCtx && namedNumberListCtx instanceof NamedNumberListContext) {
+      namedNumberList = namedNumberListCtx.accept(new NamedNumberListVisitor());
     }
-    return new Integer();
+    return new Integer(namedNumberList);
   }
 }
