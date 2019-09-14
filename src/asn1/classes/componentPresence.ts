@@ -6,6 +6,7 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class ComponentPresence extends Base {
   public identifier: string;
@@ -33,7 +34,7 @@ export class ComponentPresence extends Base {
     throw Error('Depth of this class is not valid');
   }
 
-  public replaceParameters(parameterMapping: {}): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

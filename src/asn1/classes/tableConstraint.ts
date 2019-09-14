@@ -3,6 +3,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { IConstantAndModule } from './base';
 import { Constraint } from './constraint';
+import { IParameterMapping } from './definedType';
 
 export class TableConstraint extends Constraint {
   public moduleReference: string;
@@ -29,7 +30,7 @@ export class TableConstraint extends Constraint {
     throw Error('Depth of constraint is not valid');
   }
 
-  public replaceParameters(parameterMapping: {}): never {
+  public replaceParameters(parameterMapping: IParameterMapping[]): never {
     throw Error('Parameters of constraint cannot be replaced');
   }
 

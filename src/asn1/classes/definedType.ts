@@ -1,4 +1,4 @@
-import { cloneDeep, isEmpty } from 'lodash';
+import { cloneDeep, isEmpty, isEqual } from 'lodash';
 
 import { log } from '../../utils/logging';
 
@@ -7,9 +7,15 @@ import { findDefinition } from '../utils';
 import { ActualParameter } from '../visitors/actualParameter';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
+import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
 import { WithComponents } from './withComponents';
+
+export interface IParameterMapping {
+  parameter: IParameter;
+  actualParameter: ActualParameter;
+}
 
 export class DefinedType extends AsnType {
   public moduleReference: string;
@@ -22,23 +28,24 @@ export class DefinedType extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): Base {
-    if (parameterList.indexOf(this.typeReference) !== -1) {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): Base {
+    if (parameterList.findIndex((value) => isEqual(value, this.typeReference)) !== -1) {
       return this;
     }
     const definition = cloneDeep(findDefinition(this.typeReference, moduleName, asn1Pool));
     if (!definition) {
       return this;
     }
-    const parameterMapping = {};
+    const parameterMapping: IParameterMapping[] = [];
     if (definition.parameterList) {
-      (definition.parameterList as string[]).forEach((parameter, index) => {
+      definition.parameterList.forEach((parameter, index) => {
         /**
          * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }
          * New parameter scope starts
          * This overwrites
          */
-        parameterMapping[parameter] = this.actualParameterList[index];
+        const actualParameter = this.actualParameterList[index];
+        parameterMapping.push({ parameter, actualParameter });
       });
     }
     if (!(definition instanceof DefinedType)) {
@@ -56,9 +63,10 @@ export class DefinedType extends AsnType {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: {}): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): void {
     if (!this.moduleReference && this.typeReference && this.typeReference in parameterMapping) {
-      Object.assign(this, parameterMapping[this.typeReference]);
+      const { actualParameter } = parameterMapping.find((mapping) => isEqual(mapping.parameter, this.typeReference));
+      Object.assign(this, actualParameter);
     }
   }
 

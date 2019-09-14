@@ -5,6 +5,7 @@ import { IModules } from '../visitors/modules';
 import { INamedNumberList } from '../visitors/namedNumberList';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class Integer extends AsnType {
   public namedNumberList: INamedNumberList;
@@ -31,7 +32,7 @@ export class Integer extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: {}): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

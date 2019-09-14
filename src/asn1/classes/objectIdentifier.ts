@@ -9,15 +9,15 @@ import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
 import { IParameterMapping } from './definedType';
 
-export class AsnBoolean extends AsnType {
-  public setConstraint(constraint: ConstraintSpec): AsnBoolean {
+export class ObjectIdentifier extends AsnType {
+  public setConstraint(constraint: ConstraintSpec): ObjectIdentifier {
     if (!isEmpty(constraint)) {
       log.warn(`Boolean could not handle constraint ${JSON.stringify(constraint)}`);
     }
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string): AsnBoolean {
+  public expand(asn1Pool: IModules, moduleName?: string): ObjectIdentifier {
     return this;
   }
 
@@ -30,13 +30,13 @@ export class AsnBoolean extends AsnType {
   }
 
   public toString(): string {
-    return 'BOOLEAN';
+    return 'OBJECT IDENTIFIER';
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
                        constants: IConstantAndModule[], formatConfig: IFormatConfig,
                        depth: number = 0): [number, number] {
-    ieElem.type = 'BOOLEAN';
+    ieElem.type = this.toString();
     [row, col] = fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth);
     return [row, col];
   }

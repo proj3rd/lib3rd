@@ -6,6 +6,7 @@ import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class ExtensionMarker extends Base {
   public setConstraint(constraint: ConstraintSpec): ExtensionMarker {
@@ -23,7 +24,7 @@ export class ExtensionMarker extends Base {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: {}): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

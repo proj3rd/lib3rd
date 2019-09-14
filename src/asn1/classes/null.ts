@@ -7,6 +7,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class Null extends AsnType {
   public setConstraint(constraint: ConstraintSpec): Null {
@@ -24,7 +25,7 @@ export class Null extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: {}): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

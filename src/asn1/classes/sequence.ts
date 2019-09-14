@@ -5,8 +5,10 @@ import { log } from '../../utils/logging';
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
+import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
 
 export class Sequence extends AsnType {
@@ -25,7 +27,7 @@ export class Sequence extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): Sequence {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): Sequence {
     this.items.forEach((item) => {
       item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
@@ -40,7 +42,7 @@ export class Sequence extends AsnType {
     return depthMax;
   }
 
-  public replaceParameters(parameterMapping: {}): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): void {
     this.items.forEach((item) => {
       item.replaceParameters(parameterMapping);
     });

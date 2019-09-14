@@ -12,6 +12,7 @@ import { AsnType } from '../classes/asnType';
 import { AsnTypeVisitor } from './asnType';
 import { DefinedObjectClassVisitor, IDefinedObjectClass } from './definedObjectClass';
 import { ObjectSetVisitor } from './objectSet';
+import { IParameter } from './parameter';
 import { ParameterListVisitor } from './parameterList';
 
 /**
@@ -41,7 +42,7 @@ export class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<Asn
   }
 
   public visitChildren(parameterizedAssignmentCtx: ParameterizedAssignmentContext): AsnType {
-    let parameterList: string[];
+    let parameterList: IParameter[];
     let definedObjectClass: IDefinedObjectClass;
     let asnType: AsnType;
     let object: any/* TODO */;

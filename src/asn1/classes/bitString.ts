@@ -8,6 +8,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class BitString extends AsnType {
   public namedBitList: any; // TODO
@@ -28,7 +29,7 @@ export class BitString extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: {}): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 
