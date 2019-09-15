@@ -2,7 +2,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 
 import { ParameterContext, ParameterListContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { ParameterVisitor } from './parameter';
+import { IParameter, ParameterVisitor } from './parameter';
 
 /**
  * ANTLR4 grammar
@@ -11,13 +11,14 @@ import { ParameterVisitor } from './parameter';
  * ```
  */
 
-export class ParameterListVisitor extends AbstractParseTreeVisitor<string[]> implements ASN_3gppVisitor<string[]> {
-  public defaultResult(): string[] {
+export class ParameterListVisitor extends AbstractParseTreeVisitor<IParameter[]>
+                                  implements ASN_3gppVisitor<IParameter[]> {
+  public defaultResult(): IParameter[] {
     return undefined;
   }
 
-  public visitChildren(parameterListCtx: ParameterListContext): string[] {
-    const parameterList = [];
+  public visitChildren(parameterListCtx: ParameterListContext): IParameter[] {
+    const parameterList: IParameter[] = [];
     const childCtxes = parameterListCtx.children;
     childCtxes.forEach((childCtx) => {
       if (!(childCtx instanceof ParameterContext)) {

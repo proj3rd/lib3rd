@@ -8,6 +8,7 @@ import { Enumerations } from '../visitors/enumerations';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class Enumerated extends AsnType {
   public items: Enumerations;
@@ -33,7 +34,7 @@ export class Enumerated extends AsnType {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: {}): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

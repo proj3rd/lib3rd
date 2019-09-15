@@ -6,7 +6,11 @@ import { getLogWithAsn1 } from '../utils';
 import { ContentsConstraintContext, GeneralConstraintContext,
         TableConstraintContext, UserDefinedConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { TableConstraint } from '../classes/tableConstraint';
 import { ContentsConstraintVisitor, IContentsConstraint } from './contentsConstraint';
+import { TableConstraintVisitor } from './tableConstraint';
+
+export type GeneralConstraint = TableConstraint | IContentsConstraint;
 
 /**
  * ANTLR4 grammar
@@ -14,15 +18,15 @@ import { ContentsConstraintVisitor, IContentsConstraint } from './contentsConstr
  * generalConstraint :  userDefinedConstraint | tableConstraint | contentsConstraint
  * ```
  */
-export class GeneralConstraintVisitor extends AbstractParseTreeVisitor<IContentsConstraint>
-                                      implements ASN_3gppVisitor<IContentsConstraint> {
-  public defaultResult(): IContentsConstraint {
+export class GeneralConstraintVisitor extends AbstractParseTreeVisitor<GeneralConstraint>
+                                      implements ASN_3gppVisitor<GeneralConstraint> {
+  public defaultResult(): GeneralConstraint {
     return undefined;
   }
 
-  public visitChildren(generalConstraintCtx: GeneralConstraintContext): IContentsConstraint {
+  public visitChildren(generalConstraintCtx: GeneralConstraintContext): GeneralConstraint {
     const childCtx = generalConstraintCtx.children[0];
-    let generalConstraint: IContentsConstraint;
+    let generalConstraint: GeneralConstraint;
     if (childCtx instanceof UserDefinedConstraintContext) {
       log.warn(getLogWithAsn1(childCtx, 'UserDefinedConstraint not supported:'));
     } else if (childCtx instanceof TableConstraintContext) {

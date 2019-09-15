@@ -14,15 +14,15 @@ import { UnionsVisitor } from './unions';
  * elementSetSpec : unions | ALL_LITERAL exclusions
  * ```
  */
-export class ElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint>
-                                   implements ASN_3gppVisitor<IConstraint> {
-  public defaultResult(): IConstraint {
+export class ElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint[]>
+                                   implements ASN_3gppVisitor<IConstraint[]> {
+  public defaultResult(): IConstraint[] {
     return undefined;
   }
 
-  public visitChildren(elementSetSpecCtx: ElementSetSpecContext): IConstraint {
+  public visitChildren(elementSetSpecCtx: ElementSetSpecContext): IConstraint[] {
     const childCtxes = elementSetSpecCtx.children;
-    let elementSetSpec: IConstraint;
+    let elementSetSpec: IConstraint[];
     switch (childCtxes.length) {
       case 1: {
         elementSetSpec = childCtxes[0].accept(new UnionsVisitor());

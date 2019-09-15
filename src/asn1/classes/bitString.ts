@@ -8,6 +8,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class BitString extends AsnType {
   public namedBitList: any; // TODO
@@ -16,22 +17,7 @@ export class BitString extends AsnType {
   public sizeMax: BuiltinValue;
 
   public setConstraint(constraint: ConstraintSpec): BitString {
-    if ('value' in constraint) {
-      this.size = constraint.value;
-      delete constraint.value;
-      this.sizeMin = undefined;
-      this.sizeMax = undefined;
-    }
-    if ('min' in constraint && 'max' in constraint) {
-      this.sizeMin = constraint.min;
-      delete constraint.min;
-      this.sizeMax = constraint.max;
-      delete constraint.max;
-      this.size = undefined;
-    }
-    if (!isEmpty(constraint)) {
-      log.warn(`BitString could not handle constraint ${JSON.stringify(constraint)}`);
-    }
+    this.constraint = constraint;
     return this;
   }
 
@@ -43,7 +29,7 @@ export class BitString extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: {}): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

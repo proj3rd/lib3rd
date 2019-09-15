@@ -9,6 +9,7 @@ import { BooleanValueContext, BuiltinValueContext, ChoiceValueContext, Enumerate
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { EnumeratedValueVisitor } from './enumeratedValue';
+import { ObjectIdentifierValueVisitor } from './objectIdentifierValue';
 
 export type BuiltinValue = string | boolean | number;
 
@@ -55,8 +56,7 @@ export class BuiltinValueVisitor extends AbstractParseTreeVisitor<BuiltinValue>
       log.warn(getLogWithAsn1(builtinValueCtx, 'ChoiceValue not supported:'));
       // TODO
     } else if (subContext instanceof ObjectIdentifierValueContext) {
-      log.warn(getLogWithAsn1(builtinValueCtx, 'ObjectIdentifierValue not supported:'));
-      // TODO
+      valueAssignment = subContext.accept(new ObjectIdentifierValueVisitor());
     } else if (subContext instanceof TerminalNode) {
       valueAssignment = subContext.text;
     } else {

@@ -18,9 +18,10 @@ export class ObjectClassFieldTypeVisitor extends AbstractParseTreeVisitor<Object
   }
 
   public visitChildren(objectClassFieldTypeCtx: ObjectClassFieldTypeContext): ObjectClassField {
-    const definedObjectClassCtx = objectClassFieldTypeCtx.children[0];
+    const { children } = objectClassFieldTypeCtx;
+    const definedObjectClassCtx = children[0];
     const { moduleReference, objectClassReference } = definedObjectClassCtx.accept(new DefinedObjectClassVisitor());
-    const fieldName = objectClassFieldTypeCtx.children[2].text;
+    const fieldName = children[2].text;
     return new ObjectClassField(moduleReference, objectClassReference, fieldName);
   }
 }

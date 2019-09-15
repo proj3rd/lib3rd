@@ -7,6 +7,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class AsnBoolean extends AsnType {
   public setConstraint(constraint: ConstraintSpec): AsnBoolean {
@@ -24,7 +25,7 @@ export class AsnBoolean extends AsnType {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: {}): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

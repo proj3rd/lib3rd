@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
-import { SymbolsFromModuleListContext, SymbolsFromModuleContext } from '../ASN_3gppParser';
+import { SymbolsFromModuleContext, SymbolsFromModuleListContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { SymbolsFromModuleVisitor } from './symbolsFromModule';

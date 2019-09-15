@@ -5,4 +5,5 @@ import * as xlsx from './xlsx';
 export {
   numbering,
   text,
+  xlsx,
 };

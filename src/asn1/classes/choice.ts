@@ -7,8 +7,10 @@ import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { AlternativeTypeLists } from '../visitors/alternativeTypeLists';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
+import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class Choice extends AsnType {
   public choices: AlternativeTypeLists;
@@ -26,7 +28,7 @@ export class Choice extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): Choice {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): Choice {
     this.choices.forEach((choice) => {
       choice.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
@@ -41,7 +43,7 @@ export class Choice extends AsnType {
     return depthMax;
   }
 
-  public replaceParameters(parameterMapping: {}): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): void {
     this.choices.forEach((choice) => {
       choice.replaceParameters(parameterMapping);
     });

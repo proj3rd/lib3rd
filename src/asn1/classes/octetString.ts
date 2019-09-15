@@ -8,6 +8,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class OctetString extends AsnType {
   public size: BuiltinValue;
@@ -16,26 +17,7 @@ export class OctetString extends AsnType {
   public containing: AsnType;
 
   public setConstraint(constraint: ConstraintSpec): OctetString {
-    if ('value' in constraint) {
-      this.size = constraint.value;
-      delete constraint.value;
-      this.sizeMin = undefined;
-      this.sizeMax = undefined;
-    }
-    if ('min' in constraint && 'max' in constraint) {
-      this.sizeMin = constraint.min;
-      delete constraint.min;
-      this.sizeMax = constraint.max;
-      delete constraint.max;
-      this.size = undefined;
-    }
-    if ('containing' in constraint) {
-      this.containing = constraint.containing;
-      delete constraint.containing;
-    }
-    if (!isEmpty(constraint)) {
-      log.warn(`OctetStringType could not handle constraint ${JSON.stringify(constraint)}`);
-    }
+    this.constraint = constraint;
     return this;
   }
 
@@ -47,7 +29,7 @@ export class OctetString extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: {}): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

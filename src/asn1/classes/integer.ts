@@ -1,37 +1,26 @@
-import { isEmpty } from 'lodash';
-
-import { log } from '../../utils/logging';
-
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
+import { INamedNumberList } from '../visitors/namedNumberList';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class Integer extends AsnType {
-  public namedNumberList: any; // TODO
+  public namedNumberList: INamedNumberList;
   public value: BuiltinValue;
   public min: BuiltinValue;
   public max: BuiltinValue;
 
+  constructor(namedNumberList: INamedNumberList) {
+    super();
+
+    this.namedNumberList = namedNumberList;
+  }
+
   public setConstraint(constraint: ConstraintSpec): Integer {
-    if ('value' in constraint) {
-      this.value = constraint.value;
-      delete constraint.value;
-      this.min = undefined;
-      this.max = undefined;
-    }
-    if ('min' in constraint && 'max' in constraint) {
-      this.min = constraint.min;
-      delete constraint.min;
-      this.max = constraint.max;
-      delete constraint.max;
-      this.value = undefined;
-    }
-    if (!isEmpty(constraint)) {
-      log.warn(`Integer could not handle constraint ${JSON.stringify(constraint)}`);
-    }
+    this.constraint = constraint;
     return this;
   }
 
@@ -43,7 +32,7 @@ export class Integer extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: {}): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

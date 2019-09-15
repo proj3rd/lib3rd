@@ -10,6 +10,7 @@ const bitStringType_1 = require("./bitStringType");
 const choiceType_1 = require("./choiceType");
 const enumeratedType_1 = require("./enumeratedType");
 const integerType_1 = require("./integerType");
+const objectClassFieldType_1 = require("./objectClassFieldType");
 const octetStringType_1 = require("./octetStringType");
 const sequenceOfType_1 = require("./sequenceOfType");
 const sequenceType_1 = require("./sequenceType");
@@ -57,6 +58,9 @@ class BuiltinTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVis
         }
         else if (childCtx instanceof ASN_3gppParser_1.SequenceTypeContext) {
             builtinType = childCtx.accept(new sequenceType_1.SequenceTypeVisitor());
+        }
+        else if (childCtx instanceof ASN_3gppParser_1.ObjectClassFieldTypeContext) {
+            builtinType = childCtx.accept(new objectClassFieldType_1.ObjectClassFieldTypeVisitor());
         }
         else {
             switch (childCtx.text.toLowerCase()) {

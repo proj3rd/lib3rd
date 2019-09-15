@@ -7,6 +7,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
 import { ComponentPresence } from './componentPresence';
+import { IParameterMapping } from './definedType';
 import { ExtensionMarker } from './extensionMarker';
 
 export class WithComponents extends Base {
@@ -33,7 +34,7 @@ export class WithComponents extends Base {
     throw Error('Depth of this class is not valid');
   }
 
-  public replaceParameters(paramterMapping: {}): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
     // Do nothing
   }
 

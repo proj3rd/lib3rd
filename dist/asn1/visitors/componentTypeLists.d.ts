@@ -9,8 +9,11 @@ declare type ComponentTypeLists = Array<NamedType | ExtensionMarker | ExtensionA
  * ANTRL4 grammar
  * ```
  *  componentTypeLists :
- *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
- *    |  extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
+ *     rootComponentTypeList
+ *       (tag | (COMMA tag? extensionAndException  extensionAdditions
+ *                 (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
+ *    |  extensionAndException  extensionAdditions
+ *         (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
  * ```
  */
 export declare class ComponentTypeListsVisitor extends AbstractParseTreeVisitor<ComponentTypeLists> implements ASN_3gppVisitor<ComponentTypeLists> {

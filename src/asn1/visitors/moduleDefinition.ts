@@ -1,8 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
-import { log } from '../../utils/logging';
-import { getLogWithAsn1 } from '../utils';
-
 import { ModuleDefinitionContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 

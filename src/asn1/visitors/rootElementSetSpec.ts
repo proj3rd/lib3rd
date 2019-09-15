@@ -9,13 +9,13 @@ import { ElementSetSpecVisitor } from './elementSetSpec';
  * ANTLR4 grammar
  * rootElementSetSpec : elementSetSpec
  */
-export class RootElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint>
-                                       implements ASN_3gppVisitor<IConstraint> {
-  public defaultResult(): IConstraint {
+export class RootElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint[]>
+                                       implements ASN_3gppVisitor<IConstraint[]> {
+  public defaultResult(): IConstraint[] {
     return undefined;
   }
 
-  public visitChildren(rootElementSetSpecCtx: RootElementSetSpecContext): IConstraint {
+  public visitChildren(rootElementSetSpecCtx: RootElementSetSpecContext): IConstraint[] {
     const elementSetSpec = rootElementSetSpecCtx.children[0];
     return elementSetSpec.accept(new ElementSetSpecVisitor());
   }

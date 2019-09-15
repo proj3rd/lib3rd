@@ -5,7 +5,9 @@ import { log } from '../../utils/logging';
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
+import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
 
 export class ExtensionAdditionGroup extends Base {
@@ -27,7 +29,7 @@ export class ExtensionAdditionGroup extends Base {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: string[] = []): ExtensionAdditionGroup {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): ExtensionAdditionGroup {
     this.componentTypeList.forEach((item) => {
       item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
@@ -42,7 +44,7 @@ export class ExtensionAdditionGroup extends Base {
     return depthMax;
   }
 
-  public replaceParameters(paramterMapping: {}): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
     this.componentTypeList.forEach((item) => {
       item.replaceParameters(paramterMapping);
     });

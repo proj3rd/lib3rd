@@ -3,7 +3,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { SubtypeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { IConstraint } from './elements';
-import { ElementSetSpecsVisitor } from './elementSetSpecs';
+import { ElementSetSpec, ElementSetSpecsVisitor } from './elementSetSpecs';
 
 /**
  * ANTLR4 grammar
@@ -12,13 +12,13 @@ import { ElementSetSpecsVisitor } from './elementSetSpecs';
  * elementSetSpecs
  * ```
  */
-export class SubtypeConstraintVisitor extends AbstractParseTreeVisitor<IConstraint>
-                                      implements ASN_3gppVisitor<IConstraint> {
-  public defaultResult(): IConstraint {
+export class SubtypeConstraintVisitor extends AbstractParseTreeVisitor<ElementSetSpec>
+                                      implements ASN_3gppVisitor<ElementSetSpec> {
+  public defaultResult(): ElementSetSpec {
     return undefined;
   }
 
-  public visitChildren(subtypeConstraintCtx: SubtypeConstraintContext): IConstraint {
+  public visitChildren(subtypeConstraintCtx: SubtypeConstraintContext): ElementSetSpec {
     const elementSetSpecs = subtypeConstraintCtx.children[0];
     return elementSetSpecs.accept(new ElementSetSpecsVisitor());
   }

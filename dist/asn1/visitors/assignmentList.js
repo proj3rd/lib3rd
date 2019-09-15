@@ -4,6 +4,7 @@ const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisit
 const logging_1 = require("../../utils/logging");
 const utils_1 = require("../utils");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const objectClassAssignment_1 = require("./objectClassAssignment");
 const parameterizedAssignment_1 = require("./parameterizedAssignment");
 const typeAssignment_1 = require("./typeAssignment");
 const valueAssignment_1 = require("./valueAssignment");
@@ -53,8 +54,10 @@ class AssignmentListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTree
                 }
             }
             else if (rValueContext instanceof ASN_3gppParser_1.ObjectClassAssignmentContext) {
-                logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'ObjectClassAssignment not supported:'));
-                // TODO?
+                const objectClassAssignment = rValueContext.accept(new objectClassAssignment_1.ObjectClassAssignmentVisitor());
+                if (objectClassAssignment) {
+                    assignmentList.assignments[referenceName] = objectClassAssignment;
+                }
             }
             else {
                 logging_1.log.warn(utils_1.getLogWithAsn1(assignmentCtx, 'Unsupported ASN1 in Assignment:'));

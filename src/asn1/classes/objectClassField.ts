@@ -1,5 +1,3 @@
-import { isEmpty } from 'lodash';
-
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
@@ -7,22 +5,23 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 
 export class ObjectClassField extends AsnType {
   public moduleReference: string;
   public objectClassReference: string;
   public fieldName: string;
 
-  constructor(moduleReference: string, objectClassReference: string, filedName: string) {
+  constructor(moduleReference: string, objectClassReference: string, fieldName: string) {
     super();
 
     this.moduleReference = moduleReference;
     this.objectClassReference = objectClassReference;
-    this.fieldName = this.fieldName;
+    this.fieldName = fieldName;
   }
 
   public setConstraint(constraint: ConstraintSpec): ObjectClassField {
-    // TODO
+    this.constraint = constraint;
     return this;
   }
 
@@ -34,13 +33,14 @@ export class ObjectClassField extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: {}): void {
-    // TODO
+  public replaceParameters(paramterMapping: IParameterMapping[]): void {
+    log.warn(new Error('replaceParameters() not supported').stack);
   }
 
   public toString(): string {
     const moduleReference = this.moduleReference ? `${this.moduleReference}.` : '';
-    return `${moduleReference}${this.objectClassReference}.${this.fieldName}`;
+    const constraint = this.constraint ? ` (${this.constraint.toString()})` : '';
+    return `${moduleReference}${this.objectClassReference}.${this.fieldName}${constraint}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
