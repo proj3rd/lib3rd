@@ -10,20 +10,25 @@ interface IToken {
 
 const tokens: { [protocol: string]: IToken} = {
   RRC: {
-    start: /^-- ASN1START/gm,
-    end: /^-- ASN1STOP/gm,
+    start: /^--\s*?ASN1START.*?$/gm,
+    end: /^--\s*?ASN1STOP.*?$/gm,
   },
+  RAN3: {
+    start: /^--\s*?\*+$/gm,
+    end: /^\bEND\b\s*?$/gm,
+  }
 };
 
 /**
  * Extract ASN.1 from text
  * @param text Text containing ASN.1 encoded in UTF-8
- * @param protocol Protocol name, case-insensitive. Only `RRC` protocol is supported currently
  * @returns Text containing only ASN.1 encoded in UTF-8
  */
-export function extract(text: string, protocol: string): string {
-  protocol = protocol.toUpperCase();
-  if (!tokens[protocol]) {
+export function extract(text: string): string {
+  const protocol = text.match(tokens.RRC.start) ? 'RRC' :
+                   text.match(tokens.RAN3.start) ? 'RAN3' : undefined;
+  console.log(protocol);
+  if (!protocol) {
     throw Error('Protocol is not supported');
   }
   const extractedTexts: string[] = [];
@@ -32,27 +37,30 @@ export function extract(text: string, protocol: string): string {
     if (!matchStart) {
       break;
     }
-
     tokens[protocol].end.lastIndex = matchStart.index;
+
     const matchEnd = tokens[protocol].end.exec(text);
     if (!matchEnd) {
       throw Error('Start token is found but end token is not');
     }
+    tokens[protocol].start.lastIndex = matchEnd.index;
 
-    extractedTexts.push(text.substring(matchStart.index + matchStart[0].length, matchEnd.index));
+    extractedTexts.push(text.substring(matchStart.index + matchStart[0].length,
+                                       matchEnd.index + matchEnd[0].length));
   }
   return sanitize(sanitizeAsn1(extractedTexts.join('')));
 }
 
 if (require.main === module) {
-  const [protocol, filePath] = process.argv.slice(2);
-  if (!protocol || !filePath) {
-    throw Error('Requires 2 arguments, protocol and filePath');
+  console.log(process.argv);
+  const filePath = process.argv[2];
+  if (!filePath) {
+    throw Error('Requires filePath');
   }
   readFile(filePath, 'utf8', (err: Error, text: string) => {
     if (err) {
       throw err;
     }
-    process.stdout.write(extract(text, protocol));
+    process.stdout.write(extract(text));
   });
 }
