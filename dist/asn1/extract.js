@@ -5,19 +5,24 @@ const text_1 = require("../utils/text");
 const utils_1 = require("./utils");
 const tokens = {
     RRC: {
-        start: /^-- ASN1START/gm,
-        end: /^-- ASN1STOP/gm,
+        start: /^--\s*?ASN1START.*?$/gm,
+        end: /^--\s*?ASN1STOP.*?$/gm,
     },
+    RAN3: {
+        start: /^--\s*?\*+$/gm,
+        end: /^\bEND\b\s*?$/gm,
+    }
 };
 /**
  * Extract ASN.1 from text
  * @param text Text containing ASN.1 encoded in UTF-8
- * @param protocol Protocol name, case-insensitive. Only `RRC` protocol is supported currently
  * @returns Text containing only ASN.1 encoded in UTF-8
  */
-function extract(text, protocol) {
-    protocol = protocol.toUpperCase();
-    if (!tokens[protocol]) {
+function extract(text) {
+    const protocol = text.match(tokens.RRC.start) ? 'RRC' :
+        text.match(tokens.RAN3.start) ? 'RAN3' : undefined;
+    console.log(protocol);
+    if (!protocol) {
         throw Error('Protocol is not supported');
     }
     const extractedTexts = [];
@@ -31,20 +36,22 @@ function extract(text, protocol) {
         if (!matchEnd) {
             throw Error('Start token is found but end token is not');
         }
-        extractedTexts.push(text.substring(matchStart.index + matchStart[0].length, matchEnd.index));
+        tokens[protocol].start.lastIndex = matchEnd.index;
+        extractedTexts.push(text.substring(matchStart.index + matchStart[0].length, matchEnd.index + matchEnd[0].length));
     }
     return text_1.sanitize(utils_1.sanitizeAsn1(extractedTexts.join('')));
 }
 exports.extract = extract;
 if (require.main === module) {
-    const [protocol, filePath] = process.argv.slice(2);
-    if (!protocol || !filePath) {
-        throw Error('Requires 2 arguments, protocol and filePath');
+    console.log(process.argv);
+    const filePath = process.argv[2];
+    if (!filePath) {
+        throw Error('Requires filePath');
     }
     fs_1.readFile(filePath, 'utf8', (err, text) => {
         if (err) {
             throw err;
         }
-        process.stdout.write(extract(text, protocol));
+        process.stdout.write(extract(text));
     });
 }
