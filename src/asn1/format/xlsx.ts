@@ -8,13 +8,14 @@ import { findConstantValue } from '../utils';
 import { IModules } from '../visitors/modules';
 import { IMsgIe } from './common';
 
-type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'tag';
+type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'default' | 'tag';
 
 export interface IIe {
   ie?: string;
   reference?: string;
   type?: string;
   optional?: string;
+  default?: string;
   tag?: string;
 }
 
@@ -30,7 +31,7 @@ export interface IFormatConfig {
 }
 
 export const formatConfigDefault: IFormatConfig = {
-  order: ['ie', 'reference', 'type', 'optional', 'tag'],
+  order: ['ie', 'reference', 'type', 'optional', 'default', 'tag'],
   grouping: true,
   freezeHeader: false,
   style: {
@@ -54,6 +55,7 @@ const headerDefinition: IIe = {
   reference: 'Reference Name',
   type: 'Type',
   optional: 'Optional',
+  default: 'Default',
   tag: 'Tag',
 };
 
@@ -149,6 +151,10 @@ export function fillRow(ieElem: IIe, ws: any, row: number, col: number, depthMax
       case 'optional': {
         if ('optional' in ieElem) {
           ws.cell(row, col).string(ieElem.optional);
+        }
+        ws.cell(row, col++).style(styleBorderTop);
+        if ('default' in ieElem) {
+          ws.cell(row, col).string(ieElem.default);
         }
         ws.cell(row, col++).style(styleBorderTop);
         break;

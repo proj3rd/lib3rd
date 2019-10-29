@@ -5,7 +5,7 @@ const xl = require("excel4node");
 const xlsx_1 = require("../../utils/xlsx");
 const utils_1 = require("../utils");
 exports.formatConfigDefault = {
-    order: ['ie', 'reference', 'type', 'optional', 'tag'],
+    order: ['ie', 'reference', 'type', 'optional', 'default', 'tag'],
     grouping: true,
     freezeHeader: false,
     style: {
@@ -28,6 +28,7 @@ const headerDefinition = {
     reference: 'Reference Name',
     type: 'Type',
     optional: 'Optional',
+    default: 'Default',
     tag: 'Tag',
 };
 const headerConstants = {
@@ -113,6 +114,10 @@ function fillRow(ieElem, ws, row, col, depthMax, formatConfig, depth = 0) {
             case 'optional': {
                 if ('optional' in ieElem) {
                     ws.cell(row, col).string(ieElem.optional);
+                }
+                ws.cell(row, col++).style(xlsx_1.styleBorderTop);
+                if ('default' in ieElem) {
+                    ws.cell(row, col).string(ieElem.default);
                 }
                 ws.cell(row, col++).style(xlsx_1.styleBorderTop);
                 break;

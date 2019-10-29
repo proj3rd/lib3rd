@@ -34,7 +34,8 @@ class NamedType extends base_1.Base {
         const moduleReference = this /* TODO */.type.moduleReference;
         const typeReference = this /* TOdO */.type.typeReference;
         ieElem.reference = `${moduleReference ? moduleReference + '.' : ''}${typeReference ? typeReference : ''}`;
-        ieElem.optional = this.getOptionalString();
+        ieElem.optional = this.optional || this.default ? 'OPTIONAL' : '';
+        ieElem.default = this.default ? this.default.toString() : '';
         const tag = this.tag;
         ieElem.tag = tag ? tag.replace(/^-- *?/, '') : '';
         [row, col] = this.type.fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth);

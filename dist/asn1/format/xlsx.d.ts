@@ -1,11 +1,12 @@
 import { IModules } from '../visitors/modules';
 import { IMsgIe } from './common';
-declare type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'tag';
+declare type fieldType = 'ie' | 'reference' | 'type' | 'optional' | 'default' | 'tag';
 export interface IIe {
     ie?: string;
     reference?: string;
     type?: string;
     optional?: string;
+    default?: string;
     tag?: string;
 }
 export interface IFormatConfig {
