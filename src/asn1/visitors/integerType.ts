@@ -7,7 +7,7 @@ import { IntegerTypeContext, NamedNumberListContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
 import { Integer } from '../classes/integer';
-import { NamedNumberListVisitor } from './namedNumberList';
+import { INamedNumberList, NamedNumberListVisitor } from './namedNumberList';
 
 /**
  * ANTLR4 grammar
@@ -21,7 +21,7 @@ export class IntegerTypeVisitor extends AbstractParseTreeVisitor<Integer> implem
   }
 
   public visitChildren(integerTypeCtx: IntegerTypeContext): Integer {
-    let namedNumberList: any;
+    let namedNumberList: INamedNumberList;
     const { children } = integerTypeCtx;
     const namedNumberListCtx = children[2];
     if (namedNumberListCtx && namedNumberListCtx instanceof NamedNumberListContext) {

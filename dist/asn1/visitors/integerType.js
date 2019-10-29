@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const logging_1 = require("../../utils/logging");
-const utils_1 = require("../utils");
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const ASN_3gppParser_1 = require("../ASN_3gppParser");
 const integer_1 = require("../classes/integer");
+const namedNumberList_1 = require("./namedNumberList");
 /**
  * ANTLR4 grammar
  * ```
@@ -15,10 +15,13 @@ class IntegerTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVis
         return undefined;
     }
     visitChildren(integerTypeCtx) {
-        if (integerTypeCtx.children.length > 1) {
-            logging_1.log.warn(utils_1.getLogWithAsn1(integerTypeCtx, 'NamedNumberList not supported:'));
+        let namedNumberList;
+        const { children } = integerTypeCtx;
+        const namedNumberListCtx = children[2];
+        if (namedNumberListCtx && namedNumberListCtx instanceof ASN_3gppParser_1.NamedNumberListContext) {
+            namedNumberList = namedNumberListCtx.accept(new namedNumberList_1.NamedNumberListVisitor());
         }
-        return new integer_1.Integer();
+        return new integer_1.Integer(namedNumberList);
     }
 }
 exports.IntegerTypeVisitor = IntegerTypeVisitor;

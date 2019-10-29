@@ -6,7 +6,7 @@ import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { BuiltinTypeContext, DefinedValueContext, ObjIdComponentsContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { getLogWithAsn1 } from '../utils';
-import { BuiltinTypeVisitor } from './builtinType';
+import { BuiltinType, BuiltinTypeVisitor } from './builtinType';
 
 /**
  * ANTLR4 grammar
@@ -26,7 +26,7 @@ export class ObjIdComponentsVisitor extends AbstractParseTreeVisitor<any /* TODO
 
   public visitChildren(objIdComponentsCtx: ObjIdComponentsContext): any /* TODO */ {
     const { children } = objIdComponentsCtx;
-    let objIdComponents: any;
+    let objIdComponents: BuiltinType | string | number;
     const firstCtx = children[0];
     if (firstCtx instanceof BuiltinTypeContext) {
       objIdComponents = firstCtx.accept(new BuiltinTypeVisitor());
