@@ -11,7 +11,7 @@ const tokens = {
     RAN3: {
         start: /^--\s*?\*+$/gm,
         end: /^\bEND\b\s*?$/gm,
-    }
+    },
 };
 /**
  * Extract ASN.1 from text
@@ -21,7 +21,6 @@ const tokens = {
 function extract(text) {
     const protocol = text.match(tokens.RRC.start) ? 'RRC' :
         text.match(tokens.RAN3.start) ? 'RAN3' : undefined;
-    console.log(protocol);
     if (!protocol) {
         throw Error('Protocol is not supported');
     }
@@ -43,7 +42,6 @@ function extract(text) {
 }
 exports.extract = extract;
 if (require.main === module) {
-    console.log(process.argv);
     const filePath = process.argv[2];
     if (!filePath) {
         throw Error('Requires filePath');

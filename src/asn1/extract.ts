@@ -16,7 +16,7 @@ const tokens: { [protocol: string]: IToken} = {
   RAN3: {
     start: /^--\s*?\*+$/gm,
     end: /^\bEND\b\s*?$/gm,
-  }
+  },
 };
 
 /**
@@ -27,7 +27,6 @@ const tokens: { [protocol: string]: IToken} = {
 export function extract(text: string): string {
   const protocol = text.match(tokens.RRC.start) ? 'RRC' :
                    text.match(tokens.RAN3.start) ? 'RAN3' : undefined;
-  console.log(protocol);
   if (!protocol) {
     throw Error('Protocol is not supported');
   }
@@ -52,7 +51,6 @@ export function extract(text: string): string {
 }
 
 if (require.main === module) {
-  console.log(process.argv);
   const filePath = process.argv[2];
   if (!filePath) {
     throw Error('Requires filePath');
