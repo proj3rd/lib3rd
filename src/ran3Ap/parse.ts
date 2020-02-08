@@ -177,8 +177,25 @@ function parseMsgIeTable(selector: Cheerio): IIe[] {
     ie.depth = elemDepth(ie);
     depthMin = Math.min(depthMin, ie.depth);
   });
-  ies.forEach((ie: IIe) => {
+  const depthStack: number[] = [];
+  let depthLast: number;
+  ies.forEach((ie: IIe, index) => {
     ie.depth -= depthMin;
+    if (depthStack.length === 0) {
+      depthStack.push(ie.depth);
+      depthLast = ie.depth;
+    } else {
+      const depthExcess = ie.depth - depthLast - 1;
+      if (depthExcess > 0) {
+        for (let i = index; ies[i] && ies[i].depth >= ie.depth; i++) {
+          ies[i].depth -= depthExcess;
+        }
+        depthStack.push(ie.depth);
+        depthLast = ie.depth;
+      } else if (depthExcess <= 0) {
+        depthLast = depthStack.pop();
+      }
+    }
   });
   return ies;
 }
