@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-const logging_1 = require("../../utils/logging");
-const utils_1 = require("../utils");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const paramGovernor_1 = require("./paramGovernor");
 /**
  * ANTLR4 grammar
  * ```
@@ -15,12 +14,19 @@ class ParameterVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisit
         return undefined;
     }
     visitChildren(parameterCtx) {
-        const childCtxes = parameterCtx.children;
-        if (childCtxes[0] instanceof ASN_3gppParser_1.ParamGovernorContext) {
-            logging_1.log.warn(utils_1.getLogWithAsn1(parameterCtx, 'ParamGovernor not supported'));
-            return childCtxes[2].text;
+        const { children } = parameterCtx;
+        const parameter = {
+            paramGovernor: undefined,
+            parameterName: undefined,
+        };
+        if (children[0] instanceof ASN_3gppParser_1.ParamGovernorContext) {
+            parameter.paramGovernor = children[0].accept(new paramGovernor_1.ParamGovernorVisitor());
+            parameter.parameterName = children[2].text;
         }
-        return childCtxes[0].text;
+        else {
+            parameter.parameterName = children[0].text;
+        }
+        return parameter;
     }
 }
 exports.ParameterVisitor = ParameterVisitor;

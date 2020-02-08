@@ -6,6 +6,8 @@ const logging_1 = require("../../utils/logging");
 const utils_1 = require("../utils");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
 const asnType_1 = require("./asnType");
+const definedObjectClass_1 = require("./definedObjectClass");
+const objectSet_1 = require("./objectSet");
 const parameterList_1 = require("./parameterList");
 /**
  * ANTLR4 grammar
@@ -33,9 +35,11 @@ class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor_1.Abstract
     }
     visitChildren(parameterizedAssignmentCtx) {
         let parameterList;
+        let definedObjectClass;
         let asnType;
+        let object /* TODO */;
         const childCtxes = parameterizedAssignmentCtx.children;
-        childCtxes.every((childCtx) => {
+        childCtxes.forEach((childCtx) => {
             if (childCtx instanceof ASN_3gppParser_1.ParameterListContext) {
                 parameterList = childCtx.accept(new parameterList_1.ParameterListVisitor());
             }
@@ -51,15 +55,27 @@ class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor_1.Abstract
             else if (childCtx instanceof TerminalNode_1.TerminalNode) {
                 // Do nothing
             }
-            else {
-                logging_1.log.warn(utils_1.getLogWithAsn1(parameterizedAssignmentCtx, 'Not supported ASN.1'));
+            else if (childCtx instanceof ASN_3gppParser_1.DefinedObjectClassContext) {
+                definedObjectClass = childCtx.accept(new definedObjectClass_1.DefinedObjectClassVisitor());
             }
-            return true;
+            else if (childCtx instanceof ASN_3gppParser_1.ObjectClassContext) {
+                logging_1.log.warn(new Error('TODO: ObjectClassContext'));
+            }
+            else if (childCtx instanceof ASN_3gppParser_1.ObjectSetContext) {
+                object = childCtx.accept(new objectSet_1.ObjectSetVisitor());
+            }
+            else {
+                logging_1.log.warn(new Error(utils_1.getLogWithAsn1(parameterizedAssignmentCtx, 'Not supported ASN.1')));
+            }
         });
         if (asnType) {
             asnType.parameterList = parameterList;
+            return asnType;
         }
-        return asnType;
+        if (object) {
+            object.definedObjectClass = definedObjectClass;
+            return object;
+        }
     }
 }
 exports.ParameterizedAssignmentVisitor = ParameterizedAssignmentVisitor;

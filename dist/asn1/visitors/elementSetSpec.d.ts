@@ -8,7 +8,7 @@ import { IConstraint } from './elements';
  * elementSetSpec : unions | ALL_LITERAL exclusions
  * ```
  */
-export declare class ElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint> implements ASN_3gppVisitor<IConstraint> {
-    defaultResult(): IConstraint;
-    visitChildren(elementSetSpecCtx: ElementSetSpecContext): IConstraint;
+export declare class ElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint[]> implements ASN_3gppVisitor<IConstraint[]> {
+    defaultResult(): IConstraint[];
+    visitChildren(elementSetSpecCtx: ElementSetSpecContext): IConstraint[];
 }

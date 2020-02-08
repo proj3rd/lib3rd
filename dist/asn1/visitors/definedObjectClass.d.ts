@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { DefinedObjectClassContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-interface IDefinedObjectClass {
+export interface IDefinedObjectClass {
     moduleReference: string;
     objectClassReference: string;
 }
@@ -18,4 +18,3 @@ export declare class DefinedObjectClassVisitor extends AbstractParseTreeVisitor<
     defaultResult(): IDefinedObjectClass;
     visitChildren(definedObjectClassCtx: DefinedObjectClassContext): IDefinedObjectClass;
 }
-export {};

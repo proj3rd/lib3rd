@@ -6,6 +6,7 @@ const logging_1 = require("../../utils/logging");
 const utils_1 = require("../utils");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
 const enumeratedValue_1 = require("./enumeratedValue");
+const objectIdentifierValue_1 = require("./objectIdentifierValue");
 /**
  * ANTLR4 grammar
  * ```
@@ -51,8 +52,7 @@ class BuiltinValueVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVi
             // TODO
         }
         else if (subContext instanceof ASN_3gppParser_1.ObjectIdentifierValueContext) {
-            logging_1.log.warn(utils_1.getLogWithAsn1(builtinValueCtx, 'ObjectIdentifierValue not supported:'));
-            // TODO
+            valueAssignment = subContext.accept(new objectIdentifierValue_1.ObjectIdentifierValueVisitor());
         }
         else if (subContext instanceof TerminalNode_1.TerminalNode) {
             valueAssignment = subContext.text;

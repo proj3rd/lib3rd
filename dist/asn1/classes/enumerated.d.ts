@@ -4,13 +4,14 @@ import { Enumerations } from '../visitors/enumerations';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { IParameterMapping } from './definedType';
 export declare class Enumerated extends AsnType {
     items: Enumerations;
     constructor(items: Enumerations);
     setConstraint(constraint: ConstraintSpec): Enumerated;
     expand(asn1Pool: IModules, moduleName?: string): Enumerated;
     depthMax(): number;
-    replaceParameters(parameterMapping: {}): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): void;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }

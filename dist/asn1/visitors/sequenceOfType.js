@@ -48,7 +48,8 @@ class SequenceOfTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTree
                         constraint = constraintCtx.accept(new constraint_1.ConstraintVisitor());
                     }
                     else if (constraintCtx instanceof ASN_3gppParser_1.SizeConstraintContext) {
-                        constraint = constraintCtx.accept(new sizeConstraint_1.SizeConstraintVisitor());
+                        // FIXME
+                        constraint = [constraintCtx.accept(new sizeConstraint_1.SizeConstraintVisitor())];
                     }
                     else {
                         logging_1.log.warn(utils_1.getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));

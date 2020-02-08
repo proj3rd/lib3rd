@@ -1,31 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_1 = require("lodash");
-const logging_1 = require("../../utils/logging");
 const xlsx_1 = require("../format/xlsx");
 const asnType_1 = require("./asnType");
 class OctetString extends asnType_1.AsnType {
     setConstraint(constraint) {
-        if ('value' in constraint) {
-            this.size = constraint.value;
-            delete constraint.value;
-            this.sizeMin = undefined;
-            this.sizeMax = undefined;
-        }
-        if ('min' in constraint && 'max' in constraint) {
-            this.sizeMin = constraint.min;
-            delete constraint.min;
-            this.sizeMax = constraint.max;
-            delete constraint.max;
-            this.size = undefined;
-        }
-        if ('containing' in constraint) {
-            this.containing = constraint.containing;
-            delete constraint.containing;
-        }
-        if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn(`OctetStringType could not handle constraint ${JSON.stringify(constraint)}`);
-        }
+        this.constraint = constraint;
         return this;
     }
     expand(asn1Pool, moduleName) {

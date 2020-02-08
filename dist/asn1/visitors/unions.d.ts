@@ -8,7 +8,7 @@ import { IConstraint } from './elements';
  * unions :   (intersections) (unionMark intersections)*
  * ```
  */
-export declare class UnionsVisitor extends AbstractParseTreeVisitor<IConstraint> implements ASN_3gppVisitor<IConstraint> {
-    defaultResult(): IConstraint;
-    visitChildren(unionsCtx: UnionsContext): IConstraint;
+export declare class UnionsVisitor extends AbstractParseTreeVisitor<IConstraint[]> implements ASN_3gppVisitor<IConstraint[]> {
+    defaultResult(): IConstraint[];
+    visitChildren(unionsCtx: UnionsContext): IConstraint[];
 }

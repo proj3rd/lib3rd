@@ -1,31 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
-const logging_1 = require("../../utils/logging");
 const xlsx_1 = require("../format/xlsx");
 const utils_1 = require("../utils");
 const asnType_1 = require("./asnType");
-const withComponents_1 = require("./withComponents");
 class DefinedType extends asnType_1.AsnType {
     setConstraint(constraint) {
-        if ('withComponents' in constraint) {
-            this.withComponents = new withComponents_1.WithComponents(constraint.withComponents);
-            delete constraint.withComponents;
-        }
-        if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn(`DefinedType could not handle constraint ${JSON.stringify(constraint)}`);
-        }
+        this.constraint = constraint;
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
-        if (parameterList.indexOf(this.typeReference) !== -1) {
+        if (parameterList.findIndex((value) => lodash_1.isEqual(value, this.typeReference)) !== -1) {
             return this;
         }
         const definition = lodash_1.cloneDeep(utils_1.findDefinition(this.typeReference, moduleName, asn1Pool));
         if (!definition) {
             return this;
         }
-        const parameterMapping = {};
+        const parameterMapping = [];
         if (definition.parameterList) {
             definition.parameterList.forEach((parameter, index) => {
                 /**
@@ -33,7 +25,8 @@ class DefinedType extends asnType_1.AsnType {
                  * New parameter scope starts
                  * This overwrites
                  */
-                parameterMapping[parameter] = this.actualParameterList[index];
+                const actualParameter = this.actualParameterList[index];
+                parameterMapping.push({ parameter, actualParameter });
             });
         }
         if (!(definition instanceof DefinedType)) {
@@ -51,7 +44,8 @@ class DefinedType extends asnType_1.AsnType {
     }
     replaceParameters(parameterMapping) {
         if (!this.moduleReference && this.typeReference && this.typeReference in parameterMapping) {
-            Object.assign(this, parameterMapping[this.typeReference]);
+            const { actualParameter } = parameterMapping.find((mapping) => lodash_1.isEqual(mapping.parameter, this.typeReference));
+            Object.assign(this, actualParameter);
         }
     }
     toString() {

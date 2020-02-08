@@ -6,7 +6,7 @@ import { IConstraint } from './elements';
  * ANTLR4 grammar
  * rootElementSetSpec : elementSetSpec
  */
-export declare class RootElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint> implements ASN_3gppVisitor<IConstraint> {
-    defaultResult(): IConstraint;
-    visitChildren(rootElementSetSpecCtx: RootElementSetSpecContext): IConstraint;
+export declare class RootElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint[]> implements ASN_3gppVisitor<IConstraint[]> {
+    defaultResult(): IConstraint[];
+    visitChildren(rootElementSetSpecCtx: RootElementSetSpecContext): IConstraint[];
 }
