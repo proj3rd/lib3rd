@@ -1,9 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ObjectSetSpecContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { ExtensionMarker } from '../classes/extensionMarker';
-import { IConstraint } from './elements';
-declare type ObjectSetSpec = Array<IConstraint | ExtensionMarker>;
+import { ObjectSetSpec } from '../classes/objectSetSpec';
 /**
  * ANTLR4 grammar
  * ```
@@ -16,4 +14,3 @@ export declare class ObjectSetSpecVisitor extends AbstractParseTreeVisitor<Objec
     defaultResult(): ObjectSetSpec;
     visitChildren(objectSetSpecCtx: ObjectSetSpecContext): ObjectSetSpec;
 }
-export {};
