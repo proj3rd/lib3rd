@@ -1,7 +1,8 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { BuiltinValueContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-export declare type BuiltinValue = string | boolean | number;
+import { ObjectIdentifierValue } from '../classes/objectIdentifierValue';
+export declare type BuiltinValue = string | boolean | number | ObjectIdentifierValue;
 /**
  * ANTLR4 grammar
  * ```
