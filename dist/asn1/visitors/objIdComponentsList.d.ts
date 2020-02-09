@@ -7,7 +7,7 @@ import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
  * objIdComponentsList: (objIdComponents) (objIdComponents)*
  * ```
  */
-export declare class ObjIdComponentsListVisitor extends AbstractParseTreeVisitor<any> implements ASN_3gppVisitor<any> {
-    defaultResult(): any;
-    visitChildren(objIdComponentsListCtx: ObjIdComponentsListContext): any;
+export declare class ObjIdComponentsListVisitor extends AbstractParseTreeVisitor<any[]> implements ASN_3gppVisitor<any[]> {
+    defaultResult(): any[];
+    visitChildren(objIdComponentsListCtx: ObjIdComponentsListContext): any[];
 }

@@ -10,13 +10,13 @@ import { ObjIdComponentsVisitor } from './objIdComponents';
  * objIdComponentsList: (objIdComponents) (objIdComponents)*
  * ```
  */
-export class ObjIdComponentsListVisitor extends AbstractParseTreeVisitor<any /* TODO */>
-                                  implements ASN_3gppVisitor<any /* TODO */> {
-  public defaultResult(): any /* TODO */ {
+export class ObjIdComponentsListVisitor extends AbstractParseTreeVisitor<any[] /* TODO */>
+                                  implements ASN_3gppVisitor<any[] /* TODO */> {
+  public defaultResult(): any[] /* TODO */ {
     return [];
   }
 
-  public visitChildren(objIdComponentsListCtx: ObjIdComponentsListContext): any /* TODO */ {
+  public visitChildren(objIdComponentsListCtx: ObjIdComponentsListContext): any[] /* TODO */ {
     const { children } = objIdComponentsListCtx;
     return children.map((childCtx) => childCtx.accept(new ObjIdComponentsVisitor()));
   }
