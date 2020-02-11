@@ -36,7 +36,8 @@ export class TableConstraint extends Constraint {
 
   public toString(): string {
     const definedObjectSet = `${this.moduleReference ? this.moduleReference + '.' : ''}${this.objectSetReference}`;
-    return `{${definedObjectSet}} ({${this.atNotations.join(', ')}})`;
+    const atNotations = !this.atNotations.length ? '' : ` ({${this.atNotations.join(', ')}})`;
+    return `{${definedObjectSet}}${atNotations}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
