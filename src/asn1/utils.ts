@@ -53,5 +53,6 @@ export function sanitizeAsn1(asn1: string): string {
   // Removes comments which are not a Need tag neither a Cond tag
   // Gives one space before a Need tag and a Cond tag
   return asn1.replace(/--(?!.*(Need|Cond)).*$/gm, '')
-             .replace(/(--\s*?(Need|Cond).*?)$/gm, ' $1');
+             .replace(/(--\s*?(Need|Cond).*?)$/gm, ' $1')
+             .replace(/,\.\.\./gm, ', ...');
 }
