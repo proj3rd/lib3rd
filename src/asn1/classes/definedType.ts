@@ -32,7 +32,7 @@ export class DefinedType extends AsnType {
     if (parameterList.findIndex((value) => isEqual(value, this.typeReference)) !== -1) {
       return this;
     }
-    const definition = cloneDeep(findDefinition(this.typeReference, moduleName, asn1Pool));
+    const definition = cloneDeep(findDefinition(this.typeReference, this.getModuleNameToPass(moduleName), asn1Pool));
     if (!definition) {
       return this;
     }

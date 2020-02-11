@@ -13,7 +13,7 @@ class DefinedType extends asnType_1.AsnType {
         if (parameterList.findIndex((value) => lodash_1.isEqual(value, this.typeReference)) !== -1) {
             return this;
         }
-        const definition = lodash_1.cloneDeep(utils_1.findDefinition(this.typeReference, moduleName, asn1Pool));
+        const definition = lodash_1.cloneDeep(utils_1.findDefinition(this.typeReference, this.getModuleNameToPass(moduleName), asn1Pool));
         if (!definition) {
             return this;
         }
