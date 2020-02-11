@@ -1,7 +1,5 @@
 import { cloneDeep, isEmpty, isEqual } from 'lodash';
 
-import { log } from '../../utils/logging';
-
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
 import { ActualParameter } from '../visitors/actualParameter';
