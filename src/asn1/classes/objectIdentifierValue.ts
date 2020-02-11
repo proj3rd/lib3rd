@@ -1,9 +1,9 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
 import { IParameterMapping } from './definedType';
+import { Parameter } from './parameter';
 
 export class ObjectIdentifierValue extends Base {
   public objIdComponentsList: any[]; // TODO
@@ -22,7 +22,7 @@ export class ObjectIdentifierValue extends Base {
     return depthMax;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): ObjectIdentifierValue {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): ObjectIdentifierValue {
     // TODO
     return this;
   }

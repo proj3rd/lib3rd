@@ -4,8 +4,8 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { IParameterMapping } from './definedType';
+import { Parameter } from './parameter';
 
 export interface IConstantAndModule {
   constant: BuiltinValue;
@@ -15,7 +15,7 @@ export interface IConstantAndModule {
 export abstract class Base {
   public moduleName: string;
 
-  public abstract expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): Base;
+  public abstract expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): Base;
   public abstract depthMax(): number;
   public abstract toString(): string;
   public abstract fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,

@@ -1,9 +1,9 @@
 import { ConstraintSpec } from '../visitors/constraintSpec';
-import { IParameter } from '../visitors/parameter';
 import { Base } from './base';
 import { Constraint } from './constraint';
+import { Parameter } from './parameter';
 
 export abstract class AsnType extends Base {
-  public parameterList: IParameter[];
+  public parameterList: Parameter[];
   public constraint: Constraint | ConstraintSpec /* TODO: Remove */;
 }

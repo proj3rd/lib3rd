@@ -9,10 +9,10 @@ import { AsnTypeContext, DefinedObjectClassContext, ObjectClassContext,
         ValueContext, ValueSetContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { Parameter } from '../classes/parameter';
 import { AsnTypeVisitor } from './asnType';
 import { DefinedObjectClassVisitor, IDefinedObjectClass } from './definedObjectClass';
 import { ObjectSetVisitor } from './objectSet';
-import { IParameter } from './parameter';
 import { ParameterListVisitor } from './parameterList';
 
 /**
@@ -42,7 +42,7 @@ export class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<Asn
   }
 
   public visitChildren(parameterizedAssignmentCtx: ParameterizedAssignmentContext): AsnType {
-    let parameterList: IParameter[];
+    let parameterList: Parameter[];
     let definedObjectClass: IDefinedObjectClass;
     let asnType: AsnType;
     let object: any/* TODO */;

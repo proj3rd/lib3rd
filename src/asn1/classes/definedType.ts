@@ -7,13 +7,13 @@ import { findDefinition } from '../utils';
 import { ActualParameter } from '../visitors/actualParameter';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
+import { Parameter } from './parameter';
 import { WithComponents } from './withComponents';
 
 export interface IParameterMapping {
-  parameter: IParameter;
+  parameter: Parameter;
   actualParameter: ActualParameter;
 }
 
@@ -28,7 +28,7 @@ export class DefinedType extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): Base {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): Base {
     if (parameterList.findIndex((value) => isEqual(value, this.typeReference)) !== -1) {
       return this;
     }

@@ -1,9 +1,9 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
 import { IConstraint } from '../visitors/elements';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
 import { ExtensionMarker } from './extensionMarker';
+import { Parameter } from './parameter';
 
 export class ObjectSetSpec extends Base {
   public objectSetSpec: Array<IConstraint | ExtensionMarker>;
@@ -24,7 +24,7 @@ export class ObjectSetSpec extends Base {
     return depthMax;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): ObjectSetSpec {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): ObjectSetSpec {
     // TODO
     return this;
   }

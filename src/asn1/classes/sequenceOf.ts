@@ -6,11 +6,11 @@ import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
+import { Parameter } from './parameter';
 
 export class SequenceOf extends AsnType {
   public type: AsnType | NamedType;
@@ -30,7 +30,7 @@ export class SequenceOf extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): SequenceOf {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): SequenceOf {
     const typeToExpand = cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     // This should always be true
     if (typeToExpand instanceof AsnType || typeToExpand instanceof NamedType) {

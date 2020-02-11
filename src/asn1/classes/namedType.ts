@@ -6,9 +6,9 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
 import { IParameterMapping } from './definedType';
+import { Parameter } from './parameter';
 
 export class NamedType extends Base {
   public name: string;
@@ -31,7 +31,7 @@ export class NamedType extends Base {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): NamedType {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): NamedType {
     const expandedType = this.type.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     this.type = expandedType;
     return this;

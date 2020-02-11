@@ -1,8 +1,8 @@
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
 import { ObjectSetSpec } from './objectSetSpec';
+import { Parameter } from './parameter';
 
 export class ObjectSet extends Base {
   public objectSetSpec: ObjectSetSpec;
@@ -17,7 +17,7 @@ export class ObjectSet extends Base {
     return this.objectSetSpec.depthMax() + 1;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): ObjectSet {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): ObjectSet {
     this.objectSetSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     return this;
   }
