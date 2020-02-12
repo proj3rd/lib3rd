@@ -43,9 +43,12 @@ class DefinedType extends asnType_1.AsnType {
         return 0;
     }
     replaceParameters(parameterMapping) {
-        if (!this.moduleReference && this.typeReference && this.typeReference in parameterMapping) {
-            const { actualParameter } = parameterMapping.find((mapping) => lodash_1.isEqual(mapping.parameter, this.typeReference));
-            Object.assign(this, actualParameter);
+        if (!this.moduleReference && this.typeReference) {
+            const mappingFound = parameterMapping.find((mapping) => mapping.parameter.parameterName === this.typeReference);
+            if (!mappingFound) {
+                return;
+            }
+            Object.assign(this, mappingFound.actualParameter);
         }
     }
     toString() {

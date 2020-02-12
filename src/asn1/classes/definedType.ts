@@ -62,9 +62,12 @@ export class DefinedType extends AsnType {
   }
 
   public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    if (!this.moduleReference && this.typeReference && this.typeReference in parameterMapping) {
-      const { actualParameter } = parameterMapping.find((mapping) => isEqual(mapping.parameter, this.typeReference));
-      Object.assign(this, actualParameter);
+    if (!this.moduleReference && this.typeReference) {
+      const mappingFound = parameterMapping.find((mapping) => mapping.parameter.parameterName === this.typeReference);
+      if (!mappingFound) {
+        return;
+      }
+      Object.assign(this, mappingFound.actualParameter);
     }
   }
 
