@@ -7,6 +7,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
 
@@ -22,9 +23,9 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     }
   }
 
-  public setConstraint(constraint: ConstraintSpec): ExtensionAdditionAlternativesGroup {
-    if (!isEmpty(constraint)) {
-      log.warn(`ExtensionAdditionAlternativesGroup could not handle constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ExtensionAdditionAlternativesGroup {
+    if (!isEmpty(constraints)) {
+      log.warn(`ExtensionAdditionAlternativesGroup could not handle constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }

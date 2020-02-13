@@ -6,10 +6,11 @@ import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
+import { Constraint } from './constraint';
 export declare class Sequence extends AsnType {
     items: NamedType[];
     constructor(items: NamedType[]);
-    setConstraint(constraint: ConstraintSpec): Sequence;
+    setConstraint(constraints: Array<Constraint | ConstraintSpec>): Sequence;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): Sequence;
     depthMax(): number;
     replaceParameters(parameterMapping: IParameterMapping[]): void;

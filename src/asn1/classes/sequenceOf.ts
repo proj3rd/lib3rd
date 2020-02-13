@@ -9,6 +9,7 @@ import { IModules } from '../visitors/modules';
 import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
 
@@ -25,8 +26,8 @@ export class SequenceOf extends AsnType {
     this.type = type;
   }
 
-  public setConstraint(constraint: ConstraintSpec): SequenceOf {
-    this.constraint = constraint;
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): SequenceOf {
+    this.constraints = constraints;
     return this;
   }
 

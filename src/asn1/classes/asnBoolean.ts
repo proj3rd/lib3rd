@@ -7,12 +7,13 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class AsnBoolean extends AsnType {
-  public setConstraint(constraint: ConstraintSpec): AsnBoolean {
-    if (!isEmpty(constraint)) {
-      log.warn(`Boolean could not handle constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): AsnBoolean {
+    if (!isEmpty(constraints)) {
+      log.warn(`Boolean could not handle constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }

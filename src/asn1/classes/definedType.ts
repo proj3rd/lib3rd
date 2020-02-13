@@ -10,6 +10,7 @@ import { IModules } from '../visitors/modules';
 import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { WithComponents } from './withComponents';
 
 export interface IParameterMapping {
@@ -23,8 +24,8 @@ export class DefinedType extends AsnType {
   public actualParameterList: ActualParameter[];
   public withComponents: WithComponents;
 
-  public setConstraint(constraint: ConstraintSpec): DefinedType {
-    this.constraint = constraint;
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): DefinedType {
+    this.constraints = constraints;
     return this;
   }
 

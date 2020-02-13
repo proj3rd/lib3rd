@@ -5,5 +5,5 @@ import { Constraint } from './constraint';
 
 export abstract class AsnType extends Base {
   public parameterList: IParameter[];
-  public constraint: Constraint | ConstraintSpec /* TODO: Remove */;
+  public constraints: Array<Constraint | ConstraintSpec> /* TODO: Remove */;
 }

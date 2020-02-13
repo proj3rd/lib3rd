@@ -24,7 +24,7 @@ export class AsnTypeVisitor extends AbstractParseTreeVisitor<AsnType> implements
   public visitChildren(asnTypeCtx: AsnTypeContext): AsnType {
     const childCtxes = asnTypeCtx.children;
     const typeCtx = childCtxes[0];
-    const constraintCtx = childCtxes[1];
+    const constraintCtxes = childCtxes.slice(1);
     let type: AsnType;
     if (typeCtx instanceof BuiltinTypeContext) {
       type = typeCtx.accept(new BuiltinTypeVisitor());
@@ -33,10 +33,10 @@ export class AsnTypeVisitor extends AbstractParseTreeVisitor<AsnType> implements
     } else {
       log.warn(getLogWithAsn1(asnTypeCtx, 'Not supported ASN1 in Type:'));
     }
-    if (constraintCtx) {
-      const constraint = constraintCtx.accept(new ConstraintVisitor());
-      if (constraint && type && type.setConstraint) {
-        type.setConstraint(constraint);
+    if (constraintCtxes) {
+      const constraints = constraintCtxes.map((ctx) => ctx.accept(new ConstraintVisitor()));
+      if (constraints && type && type.setConstraint) {
+        type.setConstraint(constraints);
       }
     }
     return type;

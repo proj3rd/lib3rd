@@ -7,8 +7,8 @@ class Integer extends asnType_1.AsnType {
         super();
         this.namedNumberList = namedNumberList;
     }
-    setConstraint(constraint) {
-        this.constraint = constraint;
+    setConstraint(constraints) {
+        this.constraints = constraints;
         return this;
     }
     expand(asn1Pool, moduleName) {

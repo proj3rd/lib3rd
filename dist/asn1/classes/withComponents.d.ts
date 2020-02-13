@@ -3,12 +3,13 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
 import { ComponentPresence } from './componentPresence';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { ExtensionMarker } from './extensionMarker';
 export declare class WithComponents extends Base {
     components: Array<ExtensionMarker | ComponentPresence>;
     constructor(components: Array<ExtensionMarker | ComponentPresence>);
-    setConstraint(constraint: ConstraintSpec): WithComponents;
+    setConstraint(constraints: Array<Constraint | ConstraintSpec>): WithComponents;
     expand(asn1Pool: IModules, moduleName?: string): never;
     depthMax(): never;
     replaceParameters(paramterMapping: IParameterMapping[]): void;

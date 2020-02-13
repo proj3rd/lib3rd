@@ -8,6 +8,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class BitString extends AsnType {
@@ -16,8 +17,8 @@ export class BitString extends AsnType {
   public sizeMin: BuiltinValue;
   public sizeMax: BuiltinValue;
 
-  public setConstraint(constraint: ConstraintSpec): BitString {
-    this.constraint = constraint;
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): BitString {
+    this.constraints = constraints;
     return this;
   }
 

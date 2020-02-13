@@ -4,13 +4,14 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 export declare class OctetString extends AsnType {
     size: BuiltinValue;
     sizeMin: BuiltinValue;
     sizeMax: BuiltinValue;
     containing: AsnType;
-    setConstraint(constraint: ConstraintSpec): OctetString;
+    setConstraint(constraints: Array<Constraint | ConstraintSpec>): OctetString;
     expand(asn1Pool: IModules, moduleName?: string): OctetString;
     depthMax(): number;
     replaceParameters(paramterMapping: IParameterMapping[]): void;

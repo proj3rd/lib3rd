@@ -9,8 +9,8 @@ class SequenceOf extends asnType_1.AsnType {
         super();
         this.type = type;
     }
-    setConstraint(constraint) {
-        this.constraint = constraint;
+    setConstraint(constraints) {
+        this.constraints = constraints;
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {

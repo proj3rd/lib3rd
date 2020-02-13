@@ -8,6 +8,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class OctetString extends AsnType {
@@ -16,8 +17,8 @@ export class OctetString extends AsnType {
   public sizeMax: BuiltinValue;
   public containing: AsnType;
 
-  public setConstraint(constraint: ConstraintSpec): OctetString {
-    this.constraint = constraint;
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): OctetString {
+    this.constraints = constraints;
     return this;
   }
 

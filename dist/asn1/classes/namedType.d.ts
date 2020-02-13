@@ -5,6 +5,7 @@ import { IModules } from '../visitors/modules';
 import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
 import { IParameterMapping } from './definedType';
+import { Constraint } from './constraint';
 export declare class NamedType extends Base {
     name: string;
     type: Base;
@@ -12,7 +13,7 @@ export declare class NamedType extends Base {
     default: BuiltinValue;
     tag?: string;
     constructor(name: string, type: Base);
-    setConstraint(constraint: ConstraintSpec): NamedType;
+    setConstraint(constraints: Array<Constraint | ConstraintSpec>): NamedType;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): NamedType;
     depthMax(): number;
     replaceParameters(parameterMapping: IParameterMapping[]): void;

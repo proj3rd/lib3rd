@@ -8,6 +8,7 @@ import { IModules } from '../visitors/modules';
 import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
 
@@ -20,9 +21,9 @@ export class Sequence extends AsnType {
     this.items = items;
   }
 
-  public setConstraint(constraint: ConstraintSpec): Sequence {
-    if (!isEmpty(constraint)) {
-      log.warn(`Sequence could not handle constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): Sequence {
+    if (!isEmpty(constraints)) {
+      log.warn(`Sequence could not handle constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }

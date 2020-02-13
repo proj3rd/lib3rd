@@ -8,9 +8,9 @@ class WithComponents extends base_1.Base {
         super();
         this.components = components;
     }
-    setConstraint(constraint) {
-        if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn(`WithComponents could not handle constraint ${JSON.stringify(constraint)}`);
+    setConstraint(constraints) {
+        if (!lodash_1.isEmpty(constraints)) {
+            logging_1.log.warn(`WithComponents could not handle constraint ${JSON.stringify(constraints)}`);
         }
         return this;
     }

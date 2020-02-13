@@ -8,6 +8,7 @@ import { Enumerations } from '../visitors/enumerations';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class Enumerated extends AsnType {
@@ -19,9 +20,9 @@ export class Enumerated extends AsnType {
     this.items = items;
   }
 
-  public setConstraint(constraint: ConstraintSpec): Enumerated {
-    if (!isEmpty(constraint)) {
-      log.warn(`Enumerated could not handle constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): Enumerated {
+    if (!isEmpty(constraints)) {
+      log.warn(`Enumerated could not handle constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }
