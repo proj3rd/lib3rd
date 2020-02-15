@@ -2,9 +2,11 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 
 import { SizeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { SingleValue } from '../classes/singleValue';
+import { SizeConstraint } from '../classes/sizeConstraint';
+import { ValueRange } from '../classes/valueRange';
 import { ConstraintVisitor } from './constraint';
-import { ConstraintSpec } from './constraintSpec';
-import { IConstraint } from './elements';
+import { ElementSetSpecs } from './elementSetSpecs';
 
 /**
  * ANTLR4 grammar
@@ -12,13 +14,13 @@ import { IConstraint } from './elements';
  * sizeConstraint : SIZE_LITERAL constraint
  * ```
  */
-export class SizeConstraintVisitor extends AbstractParseTreeVisitor<ConstraintSpec>
-                                   implements ASN_3gppVisitor<ConstraintSpec> {
-  public defaultResult(): ConstraintSpec {
+export class SizeConstraintVisitor extends AbstractParseTreeVisitor<SizeConstraint>
+                                   implements ASN_3gppVisitor<SizeConstraint> {
+  public defaultResult(): SizeConstraint {
     return undefined;
   }
 
-  public visitChildren(sizeConstraintCtx: SizeConstraintContext): ConstraintSpec {
+  public visitChildren(sizeConstraintCtx: SizeConstraintContext): SizeConstraint {
     const childCtxes = sizeConstraintCtx.children;
     /** NOTE: It seems ciruclar function call
      * But it is expected to be {min, max} according to below:
@@ -30,6 +32,10 @@ export class SizeConstraintVisitor extends AbstractParseTreeVisitor<ConstraintSp
      *     which can be applied to the following parent type:
      */
     const constraintCtx = childCtxes[1];
-    return constraintCtx.accept(new ConstraintVisitor());
+    const sizeConstraint = (constraintCtx.accept(new ConstraintVisitor()) as ElementSetSpecs)[0];
+    if (sizeConstraint instanceof SingleValue || sizeConstraint instanceof ValueRange) {
+      return new SizeConstraint(sizeConstraint);
+    }
+    return undefined;
   }
 }

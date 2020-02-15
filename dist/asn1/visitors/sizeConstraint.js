@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const singleValue_1 = require("../classes/singleValue");
+const sizeConstraint_1 = require("../classes/sizeConstraint");
+const valueRange_1 = require("../classes/valueRange");
 const constraint_1 = require("./constraint");
 /**
  * ANTLR4 grammar
@@ -24,7 +27,11 @@ class SizeConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParseTree
          *     which can be applied to the following parent type:
          */
         const constraintCtx = childCtxes[1];
-        return constraintCtx.accept(new constraint_1.ConstraintVisitor());
+        const sizeConstraint = constraintCtx.accept(new constraint_1.ConstraintVisitor())[0];
+        if (sizeConstraint instanceof singleValue_1.SingleValue || sizeConstraint instanceof valueRange_1.ValueRange) {
+            return new sizeConstraint_1.SizeConstraint(sizeConstraint);
+        }
+        return undefined;
     }
 }
 exports.SizeConstraintVisitor = SizeConstraintVisitor;

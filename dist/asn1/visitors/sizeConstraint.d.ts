@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { SizeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { ConstraintSpec } from './constraintSpec';
+import { SizeConstraint } from '../classes/sizeConstraint';
 /**
  * ANTLR4 grammar
  * ```
  * sizeConstraint : SIZE_LITERAL constraint
  * ```
  */
-export declare class SizeConstraintVisitor extends AbstractParseTreeVisitor<ConstraintSpec> implements ASN_3gppVisitor<ConstraintSpec> {
-    defaultResult(): ConstraintSpec;
-    visitChildren(sizeConstraintCtx: SizeConstraintContext): ConstraintSpec;
+export declare class SizeConstraintVisitor extends AbstractParseTreeVisitor<SizeConstraint> implements ASN_3gppVisitor<SizeConstraint> {
+    defaultResult(): SizeConstraint;
+    visitChildren(sizeConstraintCtx: SizeConstraintContext): SizeConstraint;
 }
