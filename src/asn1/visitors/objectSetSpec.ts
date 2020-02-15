@@ -8,10 +8,10 @@ import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import { getLogWithAsn1 } from '../utils';
 import { AdditionalElementSetSpecVisitor } from './additionalElementSetSpec';
-import { IConstraint } from './elements';
+import { ElementsTypes } from './elements';
 import { RootElementSetSpecVisitor } from './rootElementSetSpec';
 
-type ObjectSetSpec = Array<IConstraint | ExtensionMarker>;
+type ObjectSetSpec = Array<ElementsTypes | ExtensionMarker>;
 
 /**
  * ANTLR4 grammar

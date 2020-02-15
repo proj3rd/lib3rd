@@ -2,7 +2,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 
 import { SubtypeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { IConstraint } from './elements';
+import { ElementsTypes } from './elements';
 import { ElementSetSpecs, ElementSetSpecsVisitor } from './elementSetSpecs';
 
 /**

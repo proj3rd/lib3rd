@@ -5,10 +5,10 @@ import { AdditionalElementSetSpecContext, ElementSetSpecsContext, RootElementSet
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import { AdditionalElementSetSpecVisitor } from './additionalElementSetSpec';
-import { IConstraint } from './elements';
+import { ElementsTypes } from './elements';
 import { RootElementSetSpecVisitor } from './rootElementSetSpec';
 
-export type ElementSetSpecs = Array<IConstraint | ExtensionMarker>;
+export type ElementSetSpecs = Array<ElementsTypes | ExtensionMarker>;
 
 /**
  * ANTLR4 grammar
