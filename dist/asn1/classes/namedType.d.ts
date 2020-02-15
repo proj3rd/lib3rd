@@ -4,8 +4,8 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
-import { IParameterMapping } from './definedType';
 import { Constraint } from './constraint';
+import { IParameterMapping } from './definedType';
 export declare class NamedType extends Base {
     name: string;
     type: Base;

@@ -4,9 +4,9 @@ import { IModules } from '../visitors/modules';
 import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
-import { Constraint } from './constraint';
 export declare class Sequence extends AsnType {
     items: NamedType[];
     constructor(items: NamedType[]);
