@@ -4,6 +4,8 @@ const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisit
 const logging_1 = require("../../utils/logging");
 const utils_1 = require("../utils");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const singleValue_1 = require("../classes/singleValue");
+const valueRange_1 = require("../classes/valueRange");
 const sizeConstraint_1 = require("./sizeConstraint");
 const value_1 = require("./value");
 /**
@@ -37,7 +39,7 @@ class ElementsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisito
                 }
                 else if (childCtxFirst instanceof ASN_3gppParser_1.ValueContext) {
                     const valueCtx = childCtxFirst;
-                    elements = { value: valueCtx.accept(new value_1.ValueVisitor()) };
+                    elements = new singleValue_1.SingleValue(valueCtx.accept(new value_1.ValueVisitor()));
                 }
                 else {
                     logging_1.log.warn(utils_1.getLogWithAsn1(elementsCtx, 'Not supported ASN1:'));
@@ -60,7 +62,7 @@ class ElementsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisito
                 const min = minCtx instanceof ASN_3gppParser_1.ValueContext ? minCtx.accept(new value_1.ValueVisitor()) : minCtx.text;
                 const maxCtx = childCtxLast;
                 const max = maxCtx instanceof ASN_3gppParser_1.ValueContext ? maxCtx.accept(new value_1.ValueVisitor()) : maxCtx.text;
-                elements = { min, max };
+                elements = new valueRange_1.ValueRange({ min, max });
                 break;
             }
         }
