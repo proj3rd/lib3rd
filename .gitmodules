@@ -1,0 +1,3 @@
+[submodule "specs"]
+	path = specs
+	url = git@github.com:gsongsong/3gpp-specs
