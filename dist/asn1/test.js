@@ -31,13 +31,11 @@ function getAsn1Parsed(specWithVersion) {
         return asn1Parsed;
     }
 }
-describe('ASN.1', () => {
-    testCases.forEach((testCase) => {
-        const { testName, specWithVersion, ieName, expectedResult } = testCase;
-        it(testName, () => {
-            const asn1Parsed = getAsn1Parsed(specWithVersion);
-            const ie = format_1.findMsgIes(ieName, asn1Parsed);
-            assert.equal(text_1.format(ie), expectedResult);
-        });
+testCases.forEach((testCase) => {
+    const { testName, specWithVersion, ieName, expectedResult } = testCase;
+    it(testName, () => {
+        const asn1Parsed = getAsn1Parsed(specWithVersion);
+        const ie = format_1.findMsgIes(ieName, asn1Parsed);
+        assert.equal(text_1.format(ie), expectedResult);
     });
 });

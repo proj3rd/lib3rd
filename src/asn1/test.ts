@@ -44,13 +44,11 @@ function getAsn1Parsed(specWithVersion): IModules {
   }
 }
 
-describe('ASN.1', () => {
-  testCases.forEach((testCase) => {
-    const {testName, specWithVersion, ieName, expectedResult} = testCase;
-    it(testName, () => {
-      const asn1Parsed = getAsn1Parsed(specWithVersion);
-      const ie = findMsgIes(ieName, asn1Parsed);
-      assert.equal(format(ie), expectedResult);
-    });
+testCases.forEach((testCase) => {
+  const {testName, specWithVersion, ieName, expectedResult} = testCase;
+  it(testName, () => {
+    const asn1Parsed = getAsn1Parsed(specWithVersion);
+    const ie = findMsgIes(ieName, asn1Parsed);
+    assert.equal(format(ie), expectedResult);
   });
 });
