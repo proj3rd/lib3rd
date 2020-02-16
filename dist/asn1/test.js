@@ -43,6 +43,52 @@ const testCases = [
 }`,
     },
     {
+        testName: 'CHOICE',
+        specWithVersion: '36331-f80',
+        ieName: 'BCCH-DL-SCH-MessageType',
+        expectedResult: `BCCH-DL-SCH-MessageType ::= CHOICE {
+  c1                                                  CHOICE {
+    systemInformation                                   SystemInformation,
+    systemInformationBlockType1                         SystemInformationBlockType1
+  },
+  messageClassExtension                               SEQUENCE {}
+}`,
+    },
+    {
+        testName: 'CHOICE with Extension Marker',
+        specWithVersion: '36331-f80',
+        ieName: 'TDM-AssistanceInfo-r11',
+        expectedResult: `TDM-AssistanceInfo-r11 ::= CHOICE {
+  drx-AssistanceInfo-r11                              SEQUENCE {
+    drx-CycleLength-r11                                 ENUMERATED {sf40, sf64, sf80, sf128, sf160, sf256, spare2, spare1},
+    drx-Offset-r11                                      INTEGER (0..255)    OPTIONAL,
+    drx-ActiveTime-r11                                  ENUMERATED {sf20, sf30, sf40, sf60, sf80, sf100, spare2, spare1}
+  },
+  idc-SubframePatternList-r11                         IDC-SubframePatternList-r11,
+  ...
+}`,
+    },
+    {
+        testName: 'CHOICE with Extension Marker and Extension Addition Alternatives',
+        specWithVersion: '36331-f80',
+        ieName: 'PagingUE-Identity',
+        expectedResult: `PagingUE-Identity ::= CHOICE {
+  s-TMSI                                              S-TMSI,
+  imsi                                                IMSI,
+  ...,
+  ng-5G-S-TMSI-r15                                    NG-5G-S-TMSI-r15,
+  fullI-RNTI-r15                                      I-RNTI-r15
+}`,
+    },
+    /*
+    {
+      testName: 'CHOICE with Extension Marker and Version Bracket',
+      specWithVersion: '',
+      ieName: '',
+      expectedResult: ``,
+    },
+    */
+    {
         testName: 'ENUMERATED',
         specWithVersion: '36331-f80',
         ieName: 'MasterInformationBlock-MBMS-r14',
@@ -135,6 +181,45 @@ const testCases = [
         ieName: 'AS-Context-v1320',
         expectedResult: `AS-Context-v1320 ::= SEQUENCE {
   wlanConnectionStatusReport-r13                      OCTET STRING (CONTAINING WLANConnectionStatusReport-r13)    OPTIONAL    -- Cond HO2
+}`,
+    },
+    {
+        testName: 'SEQUENCE',
+        specWithVersion: '36331-f80',
+        ieName: 'CounterCheck',
+        expectedResult: `CounterCheck ::= SEQUENCE {
+  rrc-TransactionIdentifier                           RRC-TransactionIdentifier,
+  criticalExtensions                                  CHOICE {
+    c1                                                  CHOICE {
+      counterCheck-r8                                     CounterCheck-r8-IEs,
+      spare3                                              NULL,
+      spare2                                              NULL,
+      spare1                                              NULL
+    },
+    criticalExtensionsFuture                            SEQUENCE {}
+  }
+}`,
+    },
+    {
+        testName: 'SEQUENCE with Extension Marker',
+        specWithVersion: '36331-f80',
+        ieName: 'TargetMBSFN-Area-r12',
+        expectedResult: `TargetMBSFN-Area-r12 ::= SEQUENCE {
+  mbsfn-AreaId-r12                                    MBSFN-AreaId-r12    OPTIONAL,    -- Need OR
+  carrierFreq-r12                                     ARFCN-ValueEUTRA-r9,
+  ...
+}`,
+    },
+    {
+        testName: 'SEQUENCE with Extension Marker and Extension Additions',
+        specWithVersion: '36331-f80',
+        ieName: 'SystemInformationBlockType7',
+        expectedResult: `SystemInformationBlockType7 ::= SEQUENCE {
+  t-ReselectionGERAN                                  T-Reselection,
+  t-ReselectionGERAN-SF                               SpeedStateScaleFactors    OPTIONAL,    -- Need OR
+  carrierFreqsInfoList                                CarrierFreqsInfoListGERAN    OPTIONAL,    -- Need OR
+  ...,
+  lateNonCriticalExtension                            OCTET STRING    OPTIONAL
 }`,
     },
 ];
