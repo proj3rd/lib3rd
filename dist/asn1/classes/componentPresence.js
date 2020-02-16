@@ -9,9 +9,9 @@ class ComponentPresence extends base_1.Base {
         this.identifier = identifier;
         this.absentPresent = absentPresent;
     }
-    setConstraint(constraint) {
-        if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn(`ComponentPresence could not handle constraint ${JSON.stringify(constraint)}`);
+    setConstraint(constraints) {
+        if (!lodash_1.isEmpty(constraints)) {
+            logging_1.log.warn(`ComponentPresence could not handle constraint ${JSON.stringify(constraints)}`);
         }
         return this;
     }

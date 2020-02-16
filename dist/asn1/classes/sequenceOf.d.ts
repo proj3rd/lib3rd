@@ -5,6 +5,7 @@ import { IModules } from '../visitors/modules';
 import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
 export declare class SequenceOf extends AsnType {
@@ -14,7 +15,7 @@ export declare class SequenceOf extends AsnType {
     sizeMin: BuiltinValue;
     sizeMax: BuiltinValue;
     constructor(type: AsnType | NamedType);
-    setConstraint(constraint: ConstraintSpec): SequenceOf;
+    setConstraint(constraints: Array<Constraint | ConstraintSpec>): SequenceOf;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): SequenceOf;
     depthMax(): number;
     replaceParameters(parameterMapping: IParameterMapping[]): void;

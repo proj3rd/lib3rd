@@ -6,6 +6,7 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class ComponentPresence extends Base {
@@ -19,9 +20,9 @@ export class ComponentPresence extends Base {
     this.absentPresent = absentPresent;
   }
 
-  public setConstraint(constraint: ConstraintSpec): ComponentPresence {
-    if (!isEmpty(constraint)) {
-      log.warn(`ComponentPresence could not handle constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ComponentPresence {
+    if (!isEmpty(constraints)) {
+      log.warn(`ComponentPresence could not handle constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }

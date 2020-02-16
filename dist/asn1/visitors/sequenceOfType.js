@@ -43,19 +43,19 @@ class SequenceOfTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTree
                 }
                 case 6: {
                     const constraintCtx = childCtxes[2];
-                    let constraint;
+                    let constraints;
                     if (constraintCtx instanceof ASN_3gppParser_1.ConstraintContext) {
-                        constraint = constraintCtx.accept(new constraint_1.ConstraintVisitor());
+                        constraints = [constraintCtx.accept(new constraint_1.ConstraintVisitor())];
                     }
                     else if (constraintCtx instanceof ASN_3gppParser_1.SizeConstraintContext) {
                         // FIXME
-                        constraint = [constraintCtx.accept(new sizeConstraint_1.SizeConstraintVisitor())];
+                        constraints = [constraintCtx.accept(new sizeConstraint_1.SizeConstraintVisitor())];
                     }
                     else {
                         logging_1.log.warn(utils_1.getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
                     }
-                    if (constraint) {
-                        sequenceOfType.setConstraint(constraint);
+                    if (constraints) {
+                        sequenceOfType.setConstraint(constraints);
                     }
                     break;
                 }

@@ -7,6 +7,7 @@ import { AsnTypeContext, ConstraintContext, NamedTypeContext,
          SequenceOfTypeContext, SizeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { Constraint } from '../classes/constraint';
 import { NamedType } from '../classes/namedType';
 import { SequenceOf } from '../classes/sequenceOf';
 import { AsnTypeVisitor } from './asnType';
@@ -48,17 +49,17 @@ export class SequenceOfTypeVisitor extends AbstractParseTreeVisitor<SequenceOf> 
         }
         case 6: {
           const constraintCtx = childCtxes[2];
-          let constraint: ConstraintSpec;
+          let constraints: Array<Constraint | ConstraintSpec>;
           if (constraintCtx instanceof ConstraintContext) {
-            constraint = constraintCtx.accept(new ConstraintVisitor());
+            constraints = [constraintCtx.accept(new ConstraintVisitor())];
           } else if (constraintCtx instanceof SizeConstraintContext) {
             // FIXME
-            constraint = [constraintCtx.accept(new SizeConstraintVisitor())];
+            constraints = [constraintCtx.accept(new SizeConstraintVisitor())];
           } else {
             log.warn(getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
           }
-          if (constraint) {
-            sequenceOfType.setConstraint(constraint);
+          if (constraints) {
+            sequenceOfType.setConstraint(constraints);
           }
           break;
         }

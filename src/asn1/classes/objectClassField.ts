@@ -5,6 +5,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class ObjectClassField extends AsnType {
@@ -20,8 +21,8 @@ export class ObjectClassField extends AsnType {
     this.fieldName = fieldName;
   }
 
-  public setConstraint(constraint: ConstraintSpec): ObjectClassField {
-    this.constraint = constraint;
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ObjectClassField {
+    this.constraints = constraints;
     return this;
   }
 
@@ -39,7 +40,7 @@ export class ObjectClassField extends AsnType {
 
   public toString(): string {
     const moduleReference = this.moduleReference ? `${this.moduleReference}.` : '';
-    const constraint = this.constraint ? ` (${this.constraint.toString()})` : '';
+    const constraint = this.constraints ? ` (${this.constraints.toString()})` : '';
     return `${moduleReference}${this.objectClassReference}.${this.fieldName}${constraint}`;
   }
 

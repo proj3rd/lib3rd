@@ -9,9 +9,9 @@ class NamedType extends base_1.Base {
         this.name = name;
         this.type = type;
     }
-    setConstraint(constraint) {
-        if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn(`NamedType could not handle constraint ${JSON.stringify(constraint)}`);
+    setConstraint(constraints) {
+        if (!lodash_1.isEmpty(constraints)) {
+            logging_1.log.warn(`NamedType could not handle constraint ${JSON.stringify(constraints)}`);
         }
         return this;
     }

@@ -12,9 +12,9 @@ class ExtensionAdditionGroup extends base_1.Base {
             logging_1.log.warn('ExtensionAdditionGroup could not handle versionNumber');
         }
     }
-    setConstraint(constraint) {
-        if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn(`ExtensionAdditionGroup could not handle constraint ${JSON.stringify(constraint)}`);
+    setConstraint(constraints) {
+        if (!lodash_1.isEmpty(constraints)) {
+            logging_1.log.warn(`ExtensionAdditionGroup could not handle constraint ${JSON.stringify(constraints)}`);
         }
         return this;
     }

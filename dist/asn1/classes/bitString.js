@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const xlsx_1 = require("../format/xlsx");
 const asnType_1 = require("./asnType");
 class BitString extends asnType_1.AsnType {
-    setConstraint(constraint) {
-        this.constraint = constraint;
+    setConstraint(constraints) {
+        this.constraints = constraints;
         return this;
     }
     expand(asn1Pool, moduleName) {

@@ -9,7 +9,7 @@ export declare class TableConstraint extends Constraint {
     objectSetReference: string;
     atNotations: string[];
     constructor(moduleReference: string, objectSetReference: string, atNotations?: string[]);
-    setConstraint(constraint: ConstraintSpec): never;
+    setConstraint(constraints: Array<Constraint | ConstraintSpec>): never;
     expand(asn1Pool: IModules, moduleName?: string): never;
     depthMax(): never;
     replaceParameters(parameterMapping: IParameterMapping[]): never;

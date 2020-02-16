@@ -7,12 +7,13 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class Null extends AsnType {
-  public setConstraint(constraint: ConstraintSpec): Null {
-    if (!isEmpty(constraint)) {
-      log.warn(`Null could not handle constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): Null {
+    if (!isEmpty(constraints)) {
+      log.warn(`Null could not handle constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }

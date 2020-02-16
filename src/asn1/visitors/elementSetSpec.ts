@@ -5,7 +5,7 @@ import { getLogWithAsn1 } from '../utils';
 
 import { ElementSetSpecContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { IConstraint } from './elements';
+import { ElementsTypes } from './elements';
 import { UnionsVisitor } from './unions';
 
 /**
@@ -14,15 +14,15 @@ import { UnionsVisitor } from './unions';
  * elementSetSpec : unions | ALL_LITERAL exclusions
  * ```
  */
-export class ElementSetSpecVisitor extends AbstractParseTreeVisitor<IConstraint[]>
-                                   implements ASN_3gppVisitor<IConstraint[]> {
-  public defaultResult(): IConstraint[] {
+export class ElementSetSpecVisitor extends AbstractParseTreeVisitor<ElementsTypes[]>
+                                   implements ASN_3gppVisitor<ElementsTypes[]> {
+  public defaultResult(): ElementsTypes[] {
     return undefined;
   }
 
-  public visitChildren(elementSetSpecCtx: ElementSetSpecContext): IConstraint[] {
+  public visitChildren(elementSetSpecCtx: ElementSetSpecContext): ElementsTypes[] {
     const childCtxes = elementSetSpecCtx.children;
-    let elementSetSpec: IConstraint[];
+    let elementSetSpec: ElementsTypes[];
     switch (childCtxes.length) {
       case 1: {
         elementSetSpec = childCtxes[0].accept(new UnionsVisitor());

@@ -9,9 +9,9 @@ class Choice extends asnType_1.AsnType {
         super();
         this.choices = choices;
     }
-    setConstraint(constraint) {
-        if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn(`Choice constraint ${JSON.stringify(constraint)}`);
+    setConstraint(constraints) {
+        if (!lodash_1.isEmpty(constraints)) {
+            logging_1.log.warn(`Choice constraint ${JSON.stringify(constraints)}`);
         }
         return this;
     }

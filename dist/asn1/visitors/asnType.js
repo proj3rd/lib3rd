@@ -20,7 +20,7 @@ class AsnTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor
     visitChildren(asnTypeCtx) {
         const childCtxes = asnTypeCtx.children;
         const typeCtx = childCtxes[0];
-        const constraintCtx = childCtxes[1];
+        const constraintCtxes = childCtxes.slice(1);
         let type;
         if (typeCtx instanceof ASN_3gppParser_1.BuiltinTypeContext) {
             type = typeCtx.accept(new builtinType_1.BuiltinTypeVisitor());
@@ -31,10 +31,10 @@ class AsnTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor
         else {
             logging_1.log.warn(utils_1.getLogWithAsn1(asnTypeCtx, 'Not supported ASN1 in Type:'));
         }
-        if (constraintCtx) {
-            const constraint = constraintCtx.accept(new constraint_1.ConstraintVisitor());
-            if (constraint && type && type.setConstraint) {
-                type.setConstraint(constraint);
+        if (constraintCtxes) {
+            const constraints = constraintCtxes.map((ctx) => ctx.accept(new constraint_1.ConstraintVisitor()));
+            if (constraints && type && type.setConstraint) {
+                type.setConstraint(constraints);
             }
         }
         return type;
