@@ -1,9 +1,10 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 
 import { log } from '../../utils/logging';
 import { getLogWithAsn1 } from '../utils';
 
-import { AdditionalEnumerationContext, EnumerationsContext, ExceptionSpecContext } from '../ASN_3gppParser';
+import { AdditionalEnumerationContext, EnumerationsContext, ExceptionSpecContext, RootEnumerationContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import { AdditionalEnumerationVisitor } from './additionalEnumeration';
@@ -26,19 +27,24 @@ export class EnumerationsVisitor extends AbstractParseTreeVisitor<Enumerations>
 
   public visitChildren(enumerationsCtx: EnumerationsContext): Enumerations {
     const childCtxes = enumerationsCtx.children;
-    const rootEnumerationCtx = childCtxes[0];
-    const enumerations: Enumerations = rootEnumerationCtx.accept(new RootEnumerationVisitor());
-    const exceptionSpecCtx = childCtxes[3] && childCtxes[3] instanceof ExceptionSpecContext ? childCtxes[3] : null;
-    if (exceptionSpecCtx) {
-      // TODO
-      log.warn(getLogWithAsn1(enumerationsCtx, 'ExceptionSpec not supported:'));
-    }
-    const lastCtx = childCtxes[childCtxes.length - 1];
-    const additionalEnumerationCtx = lastCtx instanceof AdditionalEnumerationContext  ? lastCtx : null;
-    if (additionalEnumerationCtx) {
-      const additionalEnumeration = additionalEnumerationCtx.accept(new AdditionalEnumerationVisitor());
-      enumerations.splice(enumerations.length, 0, new ExtensionMarker(), ...additionalEnumeration);
-    }
+    const enumerations: Enumerations = [];
+    childCtxes.forEach((childCtx) => {
+      if (childCtx instanceof RootEnumerationContext) {
+        enumerations.splice(0, 0, ...childCtx.accept(new RootEnumerationVisitor()));
+      }
+      if (childCtx instanceof ExceptionSpecContext) {
+        // TODO
+        log.warn(getLogWithAsn1(enumerationsCtx, 'ExceptionSpec not supported:'));
+      }
+      if (childCtx instanceof AdditionalEnumerationContext) {
+        enumerations.splice(enumerations.length, 0, ...childCtx.accept(new AdditionalEnumerationVisitor()));
+      }
+      if (childCtx instanceof TerminalNode) {
+        if (childCtx.text === '...') {
+          enumerations.push(new ExtensionMarker());
+        }
+      }
+    });
     return enumerations;
   }
 }
