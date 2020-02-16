@@ -21,9 +21,11 @@ class Integer extends asnType_1.AsnType {
         // Do nothing
     }
     toString() {
-        const valueConstraint = this.value !== undefined ? `(${this.value})` :
-            this.min !== undefined && this.max !== undefined ? `(${this.min}..${this.max})` : '';
-        return `INTEGER ${valueConstraint}`;
+        function parenthesize(constraint) {
+            return `(${constraint})`;
+        }
+        const constraints = this.constraints && this.constraints.length ? ` ${this.constraints.map((constraint) => parenthesize(constraint.toString())).join(' ')}` : '';
+        return `INTEGER${constraints}`;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.type = this.toString();

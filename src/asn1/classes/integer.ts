@@ -38,9 +38,11 @@ export class Integer extends AsnType {
   }
 
   public toString(): string {
-    const valueConstraint = this.value !== undefined ? `(${this.value})` :
-      this.min !== undefined && this.max !== undefined ? `(${this.min}..${this.max})` : '';
-    return `INTEGER ${valueConstraint}`;
+    function parenthesize(constraint: string): string {
+      return `(${constraint})`;
+    }
+    const constraints = this.constraints && this.constraints.length ? ` ${this.constraints.map((constraint) => parenthesize(constraint.toString())).join(' ')}` : '';
+    return `INTEGER${constraints}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
