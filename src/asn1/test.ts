@@ -45,7 +45,7 @@ const testCases: ITestCase[] = [
     specWithVersion: '36331-f80',
     ieName: 'SS-RSSI-Measurement-r15',
     expectedResult: `SS-RSSI-Measurement-r15 ::= SEQUENCE {
-  measurementSlots-r15                                BIT STRING (SIZE(1..80)),
+  measurementSlots-r15                                BIT STRING (SIZE (1..80)),
   endSymbol-r15                                       INTEGER (0..3)
 }`,
   },
@@ -80,7 +80,7 @@ const testCases: ITestCase[] = [
     specWithVersion: '36331-f80',
     ieName: 'UE-RadioPagingInfo-r12',
     expectedResult: `UE-RadioPagingInfo-r12 ::= SEQUENCE {
-  ue-Category-v1250                                   INTEGER (0)     OPTIONAL,
+  ue-Category-v1250                                   INTEGER (0)    OPTIONAL,
   ...,
   [[
     ue-CategoryDL-v1310                                 ENUMERATED {m1}    OPTIONAL,
@@ -132,7 +132,7 @@ const testCases: ITestCase[] = [
     specWithVersion: '36331-f80',
     ieName: 'SS-RSSI-Measurement-r15',
     expectedResult: `SS-RSSI-Measurement-r15 ::= SEQUENCE {
-  measurementSlots-r15                                BIT STRING (SIZE(1..80)),
+  measurementSlots-r15                                BIT STRING (SIZE (1..80)),
   endSymbol-r15                                       INTEGER (0..3)
 }`,
   },
