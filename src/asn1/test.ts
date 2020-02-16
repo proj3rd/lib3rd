@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import { findMsgIes } from './format';
 import { format } from './format/text';
 import { parse } from './parse';
+import { IModules } from './visitors/modules';
 
 interface ITestCase {
   testName: string;
@@ -23,15 +24,29 @@ const testCases: ITestCase[] = [
   },
 ];
 
+interface IAsn1Pool {
+  [specWithVersion: string]: IModules;
+}
+
+const asn1Pool: IAsn1Pool = {};
+
+function getAsn1Parsed(specWithVersion): IModules {
+  if (specWithVersion in asn1Pool) {
+    return asn1Pool[specWithVersion];
+  } else {
+    const series = specWithVersion.substring(0, 2);
+    const spec = specWithVersion.split('-')[0];
+    const specPath = `specs/${series} series/${spec}/${specWithVersion}.asn1`;
+    const asn1Text = readFileSync(specPath, 'utf8');
+    return parse(asn1Text);
+  }
+}
+
 describe('ASN.1', () => {
   testCases.forEach((testCase) => {
     const {testName, specWithVersion, ieName, expectedResult} = testCase;
-    describe(testName, () => {
-      const series = specWithVersion.substring(0, 2);
-      const spec = specWithVersion.split('-')[0];
-      const specPath = `specs/${series} series/${spec}/${specWithVersion}.asn1`;
-      const asn1Text = readFileSync(specPath, 'utf8');
-      const asn1Parsed = parse(asn1Text);
+    it(testName, () => {
+      const asn1Parsed = getAsn1Parsed(specWithVersion);
       const ie = findMsgIes(ieName, asn1Parsed);
       assert.equal(format(ie), expectedResult);
     });
