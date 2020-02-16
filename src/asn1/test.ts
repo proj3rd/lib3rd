@@ -38,7 +38,9 @@ function getAsn1Parsed(specWithVersion): IModules {
     const spec = specWithVersion.split('-')[0];
     const specPath = `specs/${series} series/${spec}/${specWithVersion}.asn1`;
     const asn1Text = readFileSync(specPath, 'utf8');
-    return parse(asn1Text);
+    const asn1Parsed = parse(asn1Text);
+    asn1Pool[specWithVersion] = asn1Parsed;
+    return asn1Parsed;
   }
 }
 

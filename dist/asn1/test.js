@@ -26,7 +26,9 @@ function getAsn1Parsed(specWithVersion) {
         const spec = specWithVersion.split('-')[0];
         const specPath = `specs/${series} series/${spec}/${specWithVersion}.asn1`;
         const asn1Text = fs_1.readFileSync(specPath, 'utf8');
-        return parse_1.parse(asn1Text);
+        const asn1Parsed = parse_1.parse(asn1Text);
+        asn1Pool[specWithVersion] = asn1Parsed;
+        return asn1Parsed;
     }
 }
 describe('ASN.1', () => {
