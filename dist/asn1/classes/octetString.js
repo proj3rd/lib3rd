@@ -20,7 +20,7 @@ class OctetString extends asnType_1.AsnType {
         const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
         const size = this.size !== undefined ? ` (SIZE (${this.size}))` :
             this.sizeMin !== undefined && this.sizeMax !== undefined ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-        return `OCTET STRING${containing}${size}`;
+        return `OCTET STRING${this.constraintsToString()}${size}`;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.type = this.toString();

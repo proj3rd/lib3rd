@@ -6,6 +6,7 @@ import { getLogWithAsn1 } from '../utils';
 import { ContentsConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { ContainingEncodedByConstraint } from '../classes/containingEncodedByConstraint';
 import { AsnTypeVisitor } from './asnType';
 import { BuiltinValue } from './builtinValue';
 import { ComponentPresenceLists, ComponentPresenceListsVisitor } from './componentPresenceLists';
@@ -26,25 +27,24 @@ export interface IContentsConstraint {
  *  |  WITH_LITERAL COMPONENTS_LITERAL L_BRACE componentPresenceLists R_BRACE
  * ```
  */
-export class ContentsConstraintVisitor extends AbstractParseTreeVisitor<IContentsConstraint>
-                                       implements ASN_3gppVisitor<IContentsConstraint> {
-  public defaultResult(): IContentsConstraint {
+export class ContentsConstraintVisitor
+       extends AbstractParseTreeVisitor<ContainingEncodedByConstraint | IContentsConstraint>
+       implements ASN_3gppVisitor<ContainingEncodedByConstraint | IContentsConstraint> {
+  public defaultResult(): ContainingEncodedByConstraint | IContentsConstraint {
     return {};
   }
 
-  public visitChildren(contentsConstraintCtx: ContentsConstraintContext): IContentsConstraint {
+  public visitChildren(contentsConstraintCtx: ContentsConstraintContext)
+      : ContainingEncodedByConstraint | IContentsConstraint {
     const childCtxes = contentsConstraintCtx.children;
-    const contentsConstraint: IContentsConstraint = {};
+    let contentsConstraint: ContainingEncodedByConstraint | ContainingEncodedByConstraint | IContentsConstraint = {};
     switch (childCtxes[0].text.toLowerCase()) {
       case 'containing': {
         const asnTypeCtx = childCtxes[1];
         const asnType = asnTypeCtx.accept(new AsnTypeVisitor());
-        contentsConstraint.containing = asnType;
         const valueCtx = childCtxes[4];
-        if (valueCtx) {
-          const value = valueCtx.accept(new ValueVisitor());
-          contentsConstraint.encodedBy = value;
-        }
+        const value = valueCtx ? valueCtx.accept(new ValueVisitor()) : undefined;
+        contentsConstraint = new ContainingEncodedByConstraint(asnType, value);
         break;
       }
       case 'encoded': {

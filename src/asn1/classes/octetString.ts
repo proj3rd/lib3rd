@@ -38,7 +38,7 @@ export class OctetString extends AsnType {
     const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
     const size = this.size !== undefined ? ` (SIZE (${this.size}))` :
     this.sizeMin !== undefined && this.sizeMax !== undefined ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-    return `OCTET STRING${containing}${size}`;
+    return `OCTET STRING${this.constraintsToString()}${size}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
