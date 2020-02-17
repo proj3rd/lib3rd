@@ -222,6 +222,15 @@ const testCases = [
   lateNonCriticalExtension                            OCTET STRING    OPTIONAL
 }`,
     },
+    {
+        testName: 'SEQUENCE OF',
+        specWithVersion: '36331-f80',
+        ieName: 'MRDC-AssistanceInfo-r15',
+        expectedResult: `MRDC-AssistanceInfo-r15 ::= SEQUENCE {
+  affectedCarrierFreqCombInfoListMRDC-r15             SEQUENCE (SIZE (1..maxCombIDC-r11)) OF AffectedCarrierFreqCombInfoMRDC-r15,
+  ...
+}`,
+    },
 ];
 const asn1Pool = {};
 const specWithVersionSet = new Set(testCases.map((testCase) => testCase.specWithVersion));
