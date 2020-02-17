@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-const logging_1 = require("../../utils/logging");
-const utils_1 = require("../utils");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
 const sequenceOf_1 = require("../classes/sequenceOf");
 const asnType_1 = require("./asnType");
@@ -22,48 +20,23 @@ class SequenceOfTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTree
     visitChildren(sequenceOfTypeCtx) {
         const childCtxes = sequenceOfTypeCtx.children;
         let sequenceOfType;
-        const typeCtx = childCtxes[childCtxes.length - 1];
-        let type;
-        if (typeCtx instanceof ASN_3gppParser_1.AsnTypeContext) {
-            type = typeCtx.accept(new asnType_1.AsnTypeVisitor());
-        }
-        else if (typeCtx instanceof ASN_3gppParser_1.NamedTypeContext) {
-            type = typeCtx.accept(new namedType_1.NamedTypeVisitor());
-        }
-        else {
-            logging_1.log.warn(utils_1.getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
-        }
-        if (type) {
-            sequenceOfType = new sequenceOf_1.SequenceOf(type);
-        }
-        if (sequenceOfType) {
-            switch (childCtxes.length) {
-                case 3: {
-                    break;
-                }
-                case 6: {
-                    const constraintCtx = childCtxes[2];
-                    let constraints;
-                    if (constraintCtx instanceof ASN_3gppParser_1.ConstraintContext) {
-                        constraints = [constraintCtx.accept(new constraint_1.ConstraintVisitor())];
-                    }
-                    else if (constraintCtx instanceof ASN_3gppParser_1.SizeConstraintContext) {
-                        // FIXME
-                        constraints = [constraintCtx.accept(new sizeConstraint_1.SizeConstraintVisitor())];
-                    }
-                    else {
-                        logging_1.log.warn(utils_1.getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
-                    }
-                    if (constraints) {
-                        sequenceOfType.setConstraint(constraints);
-                    }
-                    break;
-                }
-                default: {
-                    logging_1.log.warn(utils_1.getLogWithAsn1(sequenceOfTypeCtx, 'Not supported ASN1:'));
-                    break;
-                }
+        const constraints = [];
+        childCtxes.forEach((childCtx) => {
+            if (childCtx instanceof ASN_3gppParser_1.ConstraintContext) {
+                constraints.push(childCtx.accept(new constraint_1.ConstraintVisitor()));
             }
+            if (childCtx instanceof ASN_3gppParser_1.SizeConstraintContext) {
+                constraints.push(childCtx.accept(new sizeConstraint_1.SizeConstraintVisitor()));
+            }
+            if (childCtx instanceof ASN_3gppParser_1.AsnTypeContext) {
+                sequenceOfType = new sequenceOf_1.SequenceOf(childCtx.accept(new asnType_1.AsnTypeVisitor()));
+            }
+            if (childCtx instanceof ASN_3gppParser_1.NamedTypeContext) {
+                sequenceOfType = new sequenceOf_1.SequenceOf(childCtx.accept(new namedType_1.NamedTypeVisitor()));
+            }
+        });
+        if (sequenceOfType) {
+            sequenceOfType.setConstraint(constraints);
         }
         return sequenceOfType;
     }

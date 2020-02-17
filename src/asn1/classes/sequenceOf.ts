@@ -1,7 +1,5 @@
 import { cloneDeep, isEmpty } from 'lodash';
 
-import { log } from '../../utils/logging';
-
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
@@ -27,6 +25,10 @@ export class SequenceOf extends AsnType {
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): SequenceOf {
+    // If constraints (SIZE (X..Y)) of sequenceOf are already set, forbid others replacing them
+    if (this.constraints && this.constraints.length) {
+      return this;
+    }
     this.constraints = constraints;
     return this;
   }
@@ -54,13 +56,11 @@ export class SequenceOf extends AsnType {
   public toString(): string {
     const size = this.size !== null ? ` (SIZE (${this.size}))` :
       this.sizeMin !== null && this.sizeMax !== null ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-    return `SEQUENCE${size} OF ${this.expandedType ? this.expandedType.toString() : this.type.toString()}`;
+    return `SEQUENCE${this.constraintsToString()} OF ${this.expandedType ? this.expandedType.toString() : this.type.toString()}`;
   }
 
   public toStringUnexpanded(): string {
-    const size = this.size !== null ? ` (SIZE (${this.size}))` :
-      this.sizeMin !== null && this.sizeMax !== null ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-    return `SEQUENCE${size} OF ${this.type.toString()}`;
+    return `SEQUENCE${this.constraintsToString()} OF ${this.type.toString()}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,

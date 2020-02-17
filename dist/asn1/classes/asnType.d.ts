@@ -5,4 +5,5 @@ import { Constraint } from './constraint';
 export declare abstract class AsnType extends Base {
     parameterList: IParameter[];
     constraints: Array<Constraint | ConstraintSpec>;
+    constraintsToString(): string;
 }
