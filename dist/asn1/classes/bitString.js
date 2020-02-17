@@ -17,9 +17,8 @@ class BitString extends asnType_1.AsnType {
         // Do nothing
     }
     toString() {
-        const valueConstraint = this.size !== undefined ? `(SIZE (${this.size}))` :
-            this.sizeMin !== undefined && this.sizeMax !== undefined ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-        return `BIT STRING ${valueConstraint}`;
+        const constraints = this.constraints && this.constraints.length ? ` ${this.constraints.map((constraint) => constraint.toString()).join(' ')}` : '';
+        return `BIT STRING${constraints}`;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.type = this.toString();

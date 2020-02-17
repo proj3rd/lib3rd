@@ -45,10 +45,56 @@ const testCases: ITestCase[] = [
     specWithVersion: '36331-f80',
     ieName: 'SS-RSSI-Measurement-r15',
     expectedResult: `SS-RSSI-Measurement-r15 ::= SEQUENCE {
-  measurementSlots-r15                                BIT STRING (SIZE(1..80)),
+  measurementSlots-r15                                BIT STRING (SIZE (1..80)),
   endSymbol-r15                                       INTEGER (0..3)
 }`,
   },
+  {
+    testName: 'CHOICE',
+    specWithVersion: '36331-f80',
+    ieName: 'BCCH-DL-SCH-MessageType',
+    expectedResult: `BCCH-DL-SCH-MessageType ::= CHOICE {
+  c1                                                  CHOICE {
+    systemInformation                                   SystemInformation,
+    systemInformationBlockType1                         SystemInformationBlockType1
+  },
+  messageClassExtension                               SEQUENCE {}
+}`,
+  },
+  {
+    testName: 'CHOICE with Extension Marker',
+    specWithVersion: '36331-f80',
+    ieName: 'TDM-AssistanceInfo-r11',
+    expectedResult: `TDM-AssistanceInfo-r11 ::= CHOICE {
+  drx-AssistanceInfo-r11                              SEQUENCE {
+    drx-CycleLength-r11                                 ENUMERATED {sf40, sf64, sf80, sf128, sf160, sf256, spare2, spare1},
+    drx-Offset-r11                                      INTEGER (0..255)    OPTIONAL,
+    drx-ActiveTime-r11                                  ENUMERATED {sf20, sf30, sf40, sf60, sf80, sf100, spare2, spare1}
+  },
+  idc-SubframePatternList-r11                         IDC-SubframePatternList-r11,
+  ...
+}`,
+  },
+  {
+    testName: 'CHOICE with Extension Marker and Extension Addition Alternatives',
+    specWithVersion: '36331-f80',
+    ieName: 'PagingUE-Identity',
+    expectedResult: `PagingUE-Identity ::= CHOICE {
+  s-TMSI                                              S-TMSI,
+  imsi                                                IMSI,
+  ...,
+  ng-5G-S-TMSI-r15                                    NG-5G-S-TMSI-r15,
+  fullI-RNTI-r15                                      I-RNTI-r15
+}`,
+  },
+  /*
+  {
+    testName: 'CHOICE with Extension Marker and Version Bracket',
+    specWithVersion: '',
+    ieName: '',
+    expectedResult: ``,
+  },
+  */
   {
     testName: 'ENUMERATED',
     specWithVersion: '36331-f80',
@@ -80,7 +126,7 @@ const testCases: ITestCase[] = [
     specWithVersion: '36331-f80',
     ieName: 'UE-RadioPagingInfo-r12',
     expectedResult: `UE-RadioPagingInfo-r12 ::= SEQUENCE {
-  ue-Category-v1250                                   INTEGER (0)     OPTIONAL,
+  ue-Category-v1250                                   INTEGER (0)    OPTIONAL,
   ...,
   [[
     ue-CategoryDL-v1310                                 ENUMERATED {m1}    OPTIONAL,
@@ -132,7 +178,7 @@ const testCases: ITestCase[] = [
     specWithVersion: '36331-f80',
     ieName: 'SS-RSSI-Measurement-r15',
     expectedResult: `SS-RSSI-Measurement-r15 ::= SEQUENCE {
-  measurementSlots-r15                                BIT STRING (SIZE(1..80)),
+  measurementSlots-r15                                BIT STRING (SIZE (1..80)),
   endSymbol-r15                                       INTEGER (0..3)
 }`,
   },
@@ -142,6 +188,45 @@ const testCases: ITestCase[] = [
     ieName: 'AS-Context-v1320',
     expectedResult: `AS-Context-v1320 ::= SEQUENCE {
   wlanConnectionStatusReport-r13                      OCTET STRING (CONTAINING WLANConnectionStatusReport-r13)    OPTIONAL    -- Cond HO2
+}`,
+  },
+  {
+    testName: 'SEQUENCE',
+    specWithVersion: '36331-f80',
+    ieName: 'CounterCheck',
+    expectedResult: `CounterCheck ::= SEQUENCE {
+  rrc-TransactionIdentifier                           RRC-TransactionIdentifier,
+  criticalExtensions                                  CHOICE {
+    c1                                                  CHOICE {
+      counterCheck-r8                                     CounterCheck-r8-IEs,
+      spare3                                              NULL,
+      spare2                                              NULL,
+      spare1                                              NULL
+    },
+    criticalExtensionsFuture                            SEQUENCE {}
+  }
+}`,
+  },
+  {
+    testName: 'SEQUENCE with Extension Marker',
+    specWithVersion: '36331-f80',
+    ieName: 'TargetMBSFN-Area-r12',
+    expectedResult: `TargetMBSFN-Area-r12 ::= SEQUENCE {
+  mbsfn-AreaId-r12                                    MBSFN-AreaId-r12    OPTIONAL,    -- Need OR
+  carrierFreq-r12                                     ARFCN-ValueEUTRA-r9,
+  ...
+}`,
+  },
+  {
+    testName: 'SEQUENCE with Extension Marker and Extension Additions',
+    specWithVersion: '36331-f80',
+    ieName: 'SystemInformationBlockType7',
+    expectedResult: `SystemInformationBlockType7 ::= SEQUENCE {
+  t-ReselectionGERAN                                  T-Reselection,
+  t-ReselectionGERAN-SF                               SpeedStateScaleFactors    OPTIONAL,    -- Need OR
+  carrierFreqsInfoList                                CarrierFreqsInfoListGERAN    OPTIONAL,    -- Need OR
+  ...,
+  lateNonCriticalExtension                            OCTET STRING    OPTIONAL
 }`,
   },
   /*
@@ -160,24 +245,20 @@ interface IAsn1Pool {
 
 const asn1Pool: IAsn1Pool = {};
 
-function getAsn1Parsed(specWithVersion): IModules {
-  if (specWithVersion in asn1Pool) {
-    return asn1Pool[specWithVersion];
-  } else {
-    const series = specWithVersion.substring(0, 2);
-    const spec = specWithVersion.split('-')[0];
-    const specPath = `specs/${series} series/${spec}/${specWithVersion}.asn1`;
-    const asn1Text = readFileSync(specPath, 'utf8');
-    const asn1Parsed = parse(asn1Text);
-    asn1Pool[specWithVersion] = asn1Parsed;
-    return asn1Parsed;
-  }
-}
+const specWithVersionSet = new Set(testCases.map((testCase) => testCase.specWithVersion));
+specWithVersionSet.forEach((specWithVersion) => {
+  const series = specWithVersion.substring(0, 2);
+  const spec = specWithVersion.split('-')[0];
+  const specPath = `specs/${series} series/${spec}/${specWithVersion}.asn1`;
+  const asn1Text = readFileSync(specPath, 'utf8');
+  const asn1Parsed = parse(asn1Text);
+  asn1Pool[specWithVersion] = asn1Parsed;
+});
 
 testCases.forEach((testCase) => {
   const {testName, specWithVersion, ieName, expectedResult} = testCase;
   it(testName, () => {
-    const asn1Parsed = getAsn1Parsed(specWithVersion);
+    const asn1Parsed = asn1Pool[specWithVersion];
     const ie = findMsgIes(ieName, asn1Parsed);
     assert.equal(format(ie), expectedResult);
   });

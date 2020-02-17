@@ -35,9 +35,8 @@ export class BitString extends AsnType {
   }
 
   public toString(): string {
-    const valueConstraint = this.size !== undefined ? `(SIZE (${this.size}))` :
-      this.sizeMin !== undefined && this.sizeMax !== undefined ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-    return `BIT STRING ${valueConstraint}`;
+    const constraints = this.constraints && this.constraints.length ? ` ${this.constraints.map((constraint) => constraint.toString()).join(' ')}` : '';
+    return `BIT STRING${constraints}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
