@@ -4,7 +4,7 @@ const base_1 = require("./base");
 class AsnType extends base_1.Base {
     constraintsToString() {
         return this.constraints && this.constraints.length ?
-            ` ${this.constraints.map((constraint) => constraint.toString()).join(', ')}` : '';
+            ` (${this.constraints.map((constraint) => constraint.toString()).join(', ')})` : '';
     }
 }
 exports.AsnType = AsnType;

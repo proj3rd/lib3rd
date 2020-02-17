@@ -54,8 +54,6 @@ export class SequenceOf extends AsnType {
   }
 
   public toString(): string {
-    const size = this.size !== null ? ` (SIZE (${this.size}))` :
-      this.sizeMin !== null && this.sizeMax !== null ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `SEQUENCE${this.constraintsToString()} OF ${this.expandedType ? this.expandedType.toString() : this.type.toString()}`;
   }
 

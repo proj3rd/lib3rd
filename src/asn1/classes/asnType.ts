@@ -9,6 +9,6 @@ export abstract class AsnType extends Base {
 
   public constraintsToString(): string {
     return this.constraints && this.constraints.length ?
-    ` ${this.constraints.map((constraint) => constraint.toString()).join(', ')}` : '';
+    ` (${this.constraints.map((constraint) => constraint.toString()).join(', ')})` : '';
   }
 }

@@ -43,6 +43,6 @@ export class SizeConstraint extends Constraint {
   }
 
   public toString(): string {
-    return `(SIZE (${this.sizeConstraint.toString()}))`;
+    return `SIZE (${this.sizeConstraint.toString()})`;
   }
 }

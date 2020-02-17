@@ -35,8 +35,7 @@ export class BitString extends AsnType {
   }
 
   public toString(): string {
-    const constraints = this.constraints && this.constraints.length ? ` ${this.constraints.map((constraint) => constraint.toString()).join(' ')}` : '';
-    return `BIT STRING${constraints}`;
+    return `BIT STRING${this.constraintsToString()}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,

@@ -25,7 +25,7 @@ class SizeConstraint extends constraint_1.Constraint {
         return this;
     }
     toString() {
-        return `(SIZE (${this.sizeConstraint.toString()}))`;
+        return `SIZE (${this.sizeConstraint.toString()})`;
     }
 }
 exports.SizeConstraint = SizeConstraint;
