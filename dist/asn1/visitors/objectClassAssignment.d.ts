@@ -1,7 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ObjectClassAssignmentContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-export declare class ObjectClassAssignmentVisitor extends AbstractParseTreeVisitor<any> implements ASN_3gppVisitor<any> {
-    defaultResult(): any;
-    visitChildren(objectClassAssignmentCtx: ObjectClassAssignmentContext): any;
+import { ObjectClass } from '../classes/objectClass';
+/**
+ * ANTLR4 grammar
+ * ```
+ * objectClassAssignment : ASSIGN_OP objectClass
+ * ```
+ */
+export declare class ObjectClassAssignmentVisitor extends AbstractParseTreeVisitor<ObjectClass> implements ASN_3gppVisitor<ObjectClass> {
+    defaultResult(): ObjectClass;
+    visitChildren(objectClassAssignmentCtx: ObjectClassAssignmentContext): ObjectClass;
 }
