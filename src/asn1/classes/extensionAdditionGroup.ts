@@ -6,6 +6,7 @@ import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
 import { Parameter } from './parameter';
@@ -22,9 +23,9 @@ export class ExtensionAdditionGroup extends Base {
     }
   }
 
-  public setConstraint(constraint: ConstraintSpec): ExtensionAdditionGroup {
-    if (!isEmpty(constraint)) {
-      log.warn(`ExtensionAdditionGroup could not handle constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ExtensionAdditionGroup {
+    if (!isEmpty(constraints)) {
+      log.warn(`ExtensionAdditionGroup could not handle constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }

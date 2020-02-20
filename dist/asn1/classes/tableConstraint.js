@@ -8,7 +8,7 @@ class TableConstraint extends constraint_1.Constraint {
         this.objectSetReference = objectSetReference;
         this.atNotations = atNotations;
     }
-    setConstraint(constraint) {
+    setConstraint(constraints) {
         throw Error('Constraint cannot be set to constraint');
     }
     expand(asn1Pool, moduleName) {

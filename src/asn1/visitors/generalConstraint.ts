@@ -6,11 +6,12 @@ import { getLogWithAsn1 } from '../utils';
 import { ContentsConstraintContext, GeneralConstraintContext,
         TableConstraintContext, UserDefinedConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { ContainingEncodedByConstraint } from '../classes/containingEncodedByConstraint';
 import { TableConstraint } from '../classes/tableConstraint';
 import { ContentsConstraintVisitor, IContentsConstraint } from './contentsConstraint';
 import { TableConstraintVisitor } from './tableConstraint';
 
-export type GeneralConstraint = TableConstraint | IContentsConstraint;
+export type GeneralConstraint = TableConstraint | IContentsConstraint | ContainingEncodedByConstraint;
 
 /**
  * ANTLR4 grammar

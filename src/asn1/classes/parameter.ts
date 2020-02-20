@@ -2,6 +2,7 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class Parameter extends Base {
@@ -19,7 +20,7 @@ export class Parameter extends Base {
     this.dummyReference = dummyReference;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string): Parameter {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): Parameter {
     // Do nothing
     return this;
   }
@@ -39,7 +40,7 @@ export class Parameter extends Base {
     // TODO
   }
 
-  public setConstraint(constraint: ConstraintSpec): Parameter {
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): Parameter {
     // TODO
     return this;
   }

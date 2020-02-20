@@ -2,6 +2,7 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { Parameter } from './parameter';
 
@@ -38,7 +39,7 @@ export class ObjectIdentifierValue extends Base {
     // TODO
   }
 
-  public setConstraint(constraint: ConstraintSpec): ObjectIdentifierValue {
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ObjectIdentifierValue {
     // Do nothing
     return this;
   }

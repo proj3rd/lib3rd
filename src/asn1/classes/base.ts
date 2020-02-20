@@ -4,6 +4,7 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { Parameter } from './parameter';
 
@@ -21,7 +22,7 @@ export abstract class Base {
   public abstract fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
                                 constants: IConstantAndModule[], formatConfig: IFormatConfig,
                                 depth?: number): [number, number];
-  public abstract setConstraint(constraint: ConstraintSpec): Base;
+  public abstract setConstraint(constraints: Array<Constraint | ConstraintSpec>): Base;
   public abstract replaceParameters(parameterMapping: IParameterMapping[]): void;
 
   protected indent(text: string): string {

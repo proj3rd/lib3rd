@@ -5,8 +5,8 @@ const xlsx_1 = require("../format/xlsx");
 const utils_1 = require("../utils");
 const asnType_1 = require("./asnType");
 class DefinedType extends asnType_1.AsnType {
-    setConstraint(constraint) {
-        this.constraint = constraint;
+    setConstraint(constraints) {
+        this.constraints = constraints;
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
@@ -44,7 +44,7 @@ class DefinedType extends asnType_1.AsnType {
     }
     replaceParameters(parameterMapping) {
         if (!this.moduleReference && this.typeReference) {
-            const mappingFound = parameterMapping.find((mapping) => mapping.parameter.parameterName === this.typeReference);
+            const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
             if (!mappingFound) {
                 return;
             }

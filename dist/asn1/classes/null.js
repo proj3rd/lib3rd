@@ -5,9 +5,9 @@ const logging_1 = require("../../utils/logging");
 const xlsx_1 = require("../format/xlsx");
 const asnType_1 = require("./asnType");
 class Null extends asnType_1.AsnType {
-    setConstraint(constraint) {
-        if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn(`Null could not handle constraint ${JSON.stringify(constraint)}`);
+    setConstraint(constraints) {
+        if (!lodash_1.isEmpty(constraints)) {
+            logging_1.log.warn(`Null could not handle constraint ${JSON.stringify(constraints)}`);
         }
         return this;
     }

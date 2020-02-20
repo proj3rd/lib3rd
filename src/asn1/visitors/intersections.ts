@@ -5,7 +5,7 @@ import { getLogWithAsn1 } from '../utils';
 
 import { IntersectionsContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { IConstraint } from './elements';
+import { ElementsTypes } from './elements';
 import { IntersectionElementsVisitor } from './intersectionElements';
 
 /**
@@ -14,15 +14,15 @@ import { IntersectionElementsVisitor } from './intersectionElements';
  * intersections : (intersectionElements) (intersectionMark intersectionElements)*
  * ```
  */
-export class IntersectionsVisitor extends AbstractParseTreeVisitor<IConstraint>
-                                  implements ASN_3gppVisitor<IConstraint> {
-  public defaultResult(): IConstraint {
+export class IntersectionsVisitor extends AbstractParseTreeVisitor<ElementsTypes>
+                                  implements ASN_3gppVisitor<ElementsTypes> {
+  public defaultResult(): ElementsTypes {
     return undefined;
   }
 
-  public visitChildren(intersectionsCtx: IntersectionsContext): IConstraint {
+  public visitChildren(intersectionsCtx: IntersectionsContext): ElementsTypes {
     const childCtxes = intersectionsCtx.children;
-    let intersections: IConstraint;
+    let intersections: ElementsTypes;
     if (childCtxes.length === 1) {
       intersections = childCtxes[0].accept(new IntersectionElementsVisitor());
     } else if (childCtxes.length > 1) {

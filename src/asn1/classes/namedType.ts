@@ -7,6 +7,7 @@ import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { Parameter } from './parameter';
 
@@ -24,9 +25,9 @@ export class NamedType extends Base {
     this.type = type;
   }
 
-  public setConstraint(constraint: ConstraintSpec): NamedType {
-    if (!isEmpty(constraint)) {
-      log.warn(`NamedType could not handle constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): NamedType {
+    if (!isEmpty(constraints)) {
+      log.warn(`NamedType could not handle constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }

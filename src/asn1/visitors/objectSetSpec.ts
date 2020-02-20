@@ -9,7 +9,7 @@ import { ExtensionMarker } from '../classes/extensionMarker';
 import { ObjectSetSpec } from '../classes/objectSetSpec';
 import { getLogWithAsn1 } from '../utils';
 import { AdditionalElementSetSpecVisitor } from './additionalElementSetSpec';
-import { IConstraint } from './elements';
+import { ElementsTypes } from './elements';
 import { RootElementSetSpecVisitor } from './rootElementSetSpec';
 
 /**
@@ -27,7 +27,7 @@ export class ObjectSetSpecVisitor extends AbstractParseTreeVisitor<ObjectSetSpec
   }
 
   public visitChildren(objectSetSpecCtx: ObjectSetSpecContext): ObjectSetSpec {
-    const objectSetSpec: Array<IConstraint | ExtensionMarker> = [];
+    const objectSetSpec: Array<ElementsTypes | ExtensionMarker> = [];
     const { children } = objectSetSpecCtx;
     children.forEach((childCtx) => {
       if (childCtx instanceof RootElementSetSpecContext) {

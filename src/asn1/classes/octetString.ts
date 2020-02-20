@@ -8,6 +8,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class OctetString extends AsnType {
@@ -16,8 +17,8 @@ export class OctetString extends AsnType {
   public sizeMax: BuiltinValue;
   public containing: AsnType;
 
-  public setConstraint(constraint: ConstraintSpec): OctetString {
-    this.constraint = constraint;
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): OctetString {
+    this.constraints = constraints;
     return this;
   }
 
@@ -37,7 +38,7 @@ export class OctetString extends AsnType {
     const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
     const size = this.size !== undefined ? ` (SIZE (${this.size}))` :
     this.sizeMin !== undefined && this.sizeMax !== undefined ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-    return `OCTET STRING${containing}${size}`;
+    return `OCTET STRING${this.constraintsToString()}${size}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,

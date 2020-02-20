@@ -10,8 +10,8 @@ class ObjectClassField extends asnType_1.AsnType {
         this.objectClassReference = objectClassReference;
         this.fieldName = fieldName;
     }
-    setConstraint(constraint) {
-        this.constraint = constraint;
+    setConstraint(constraints) {
+        this.constraints = constraints;
         return this;
     }
     expand(asn1Pool, moduleName) {
@@ -25,7 +25,7 @@ class ObjectClassField extends asnType_1.AsnType {
     }
     toString() {
         const moduleReference = this.moduleReference ? `${this.moduleReference}.` : '';
-        const constraint = this.constraint ? ` (${this.constraint.toString()})` : '';
+        const constraint = this.constraints ? ` (${this.constraints.toString()})` : '';
         return `${moduleReference}${this.objectClassReference}.${this.fieldName}${constraint}`;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {

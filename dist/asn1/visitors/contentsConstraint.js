@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const logging_1 = require("../../utils/logging");
 const utils_1 = require("../utils");
+const containingEncodedByConstraint_1 = require("../classes/containingEncodedByConstraint");
 const asnType_1 = require("./asnType");
 const componentPresenceLists_1 = require("./componentPresenceLists");
 const value_1 = require("./value");
@@ -21,17 +22,14 @@ class ContentsConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParse
     }
     visitChildren(contentsConstraintCtx) {
         const childCtxes = contentsConstraintCtx.children;
-        const contentsConstraint = {};
+        let contentsConstraint = {};
         switch (childCtxes[0].text.toLowerCase()) {
             case 'containing': {
                 const asnTypeCtx = childCtxes[1];
                 const asnType = asnTypeCtx.accept(new asnType_1.AsnTypeVisitor());
-                contentsConstraint.containing = asnType;
                 const valueCtx = childCtxes[4];
-                if (valueCtx) {
-                    const value = valueCtx.accept(new value_1.ValueVisitor());
-                    contentsConstraint.encodedBy = value;
-                }
+                const value = valueCtx ? valueCtx.accept(new value_1.ValueVisitor()) : undefined;
+                contentsConstraint = new containingEncodedByConstraint_1.ContainingEncodedByConstraint(asnType, value);
                 break;
             }
             case 'encoded': {

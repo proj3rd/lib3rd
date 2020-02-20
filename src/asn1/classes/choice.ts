@@ -9,6 +9,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { Parameter } from './parameter';
 
@@ -21,9 +22,9 @@ export class Choice extends AsnType {
     this.choices = choices;
   }
 
-  public setConstraint(constraint: ConstraintSpec): Choice {
-    if (!isEmpty(constraint)) {
-      log.warn(`Choice constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): Choice {
+    if (!isEmpty(constraints)) {
+      log.warn(`Choice constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }

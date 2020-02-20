@@ -4,5 +4,6 @@ import { Constraint } from './constraint';
 import { Parameter } from './parameter';
 export declare abstract class AsnType extends Base {
     parameterList: Parameter[];
-    constraint: Constraint | ConstraintSpec;
+    constraints: Array<Constraint | ConstraintSpec>;
+    constraintsToString(): string;
 }

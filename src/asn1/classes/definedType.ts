@@ -7,6 +7,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { Parameter } from './parameter';
 import { WithComponents } from './withComponents';
 
@@ -21,8 +22,8 @@ export class DefinedType extends AsnType {
   public actualParameterList: ActualParameter[];
   public withComponents: WithComponents;
 
-  public setConstraint(constraint: ConstraintSpec): DefinedType {
-    this.constraint = constraint;
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): DefinedType {
+    this.constraints = constraints;
     return this;
   }
 
@@ -63,7 +64,7 @@ export class DefinedType extends AsnType {
 
   public replaceParameters(parameterMapping: IParameterMapping[]): void {
     if (!this.moduleReference && this.typeReference) {
-      const mappingFound = parameterMapping.find((mapping) => mapping.parameter.parameterName === this.typeReference);
+      const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
       if (!mappingFound) {
         return;
       }

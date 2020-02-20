@@ -18,7 +18,7 @@ export class TableConstraint extends Constraint {
     this.atNotations = atNotations;
   }
 
-  public setConstraint(constraint: ConstraintSpec): never {
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): never {
     throw Error('Constraint cannot be set to constraint');
   }
 

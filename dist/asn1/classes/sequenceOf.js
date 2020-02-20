@@ -9,8 +9,12 @@ class SequenceOf extends asnType_1.AsnType {
         super();
         this.type = type;
     }
-    setConstraint(constraint) {
-        this.constraint = constraint;
+    setConstraint(constraints) {
+        // If constraints (SIZE (X..Y)) of sequenceOf are already set, forbid others replacing them
+        if (this.constraints && this.constraints.length) {
+            return this;
+        }
+        this.constraints = constraints;
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
@@ -31,14 +35,10 @@ class SequenceOf extends asnType_1.AsnType {
         this.type.replaceParameters(parameterMapping);
     }
     toString() {
-        const size = this.size !== null ? ` (SIZE (${this.size}))` :
-            this.sizeMin !== null && this.sizeMax !== null ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-        return `SEQUENCE${size} OF ${this.expandedType ? this.expandedType.toString() : this.type.toString()}`;
+        return `SEQUENCE${this.constraintsToString()} OF ${this.expandedType ? this.expandedType.toString() : this.type.toString()}`;
     }
     toStringUnexpanded() {
-        const size = this.size !== null ? ` (SIZE (${this.size}))` :
-            this.sizeMin !== null && this.sizeMax !== null ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-        return `SEQUENCE${size} OF ${this.type.toString()}`;
+        return `SEQUENCE${this.constraintsToString()} OF ${this.type.toString()}`;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.type = this.toStringUnexpanded();

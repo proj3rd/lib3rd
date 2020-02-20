@@ -5,6 +5,7 @@ import { IModules } from '../visitors/modules';
 import { INamedNumberList } from '../visitors/namedNumberList';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 export declare class Integer extends AsnType {
     namedNumberList: INamedNumberList;
@@ -12,7 +13,7 @@ export declare class Integer extends AsnType {
     min: BuiltinValue;
     max: BuiltinValue;
     constructor(namedNumberList: INamedNumberList);
-    setConstraint(constraint: ConstraintSpec): Integer;
+    setConstraint(constraints: Array<Constraint | ConstraintSpec>): Integer;
     expand(asn1Pool: IModules, moduleName?: string): Integer;
     depthMax(): number;
     replaceParameters(paramterMapping: IParameterMapping[]): void;

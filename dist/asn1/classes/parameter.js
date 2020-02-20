@@ -11,7 +11,7 @@ class Parameter extends base_1.Base {
         this.paramGovernor = paramGovernor;
         this.dummyReference = dummyReference;
     }
-    expand(asn1Pool, moduleName) {
+    expand(asn1Pool, moduleName, parameterList) {
         // Do nothing
         return this;
     }
@@ -25,7 +25,7 @@ class Parameter extends base_1.Base {
     replaceParameters(parameterMapping) {
         // TODO
     }
-    setConstraint(constraint) {
+    setConstraint(constraints) {
         // TODO
         return this;
     }

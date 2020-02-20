@@ -7,6 +7,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
 import { ComponentPresence } from './componentPresence';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { ExtensionMarker } from './extensionMarker';
 
@@ -19,9 +20,9 @@ export class WithComponents extends Base {
     this.components = components;
   }
 
-  public setConstraint(constraint: ConstraintSpec): WithComponents {
-    if (!isEmpty(constraint)) {
-      log.warn(`WithComponents could not handle constraint ${JSON.stringify(constraint)}`);
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): WithComponents {
+    if (!isEmpty(constraints)) {
+      log.warn(`WithComponents could not handle constraint ${JSON.stringify(constraints)}`);
     }
     return this;
   }

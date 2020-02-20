@@ -2,6 +2,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { ContentsConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { ContainingEncodedByConstraint } from '../classes/containingEncodedByConstraint';
 import { BuiltinValue } from './builtinValue';
 import { ComponentPresenceLists } from './componentPresenceLists';
 export interface IContentsConstraint {
@@ -18,7 +19,7 @@ export interface IContentsConstraint {
  *  |  WITH_LITERAL COMPONENTS_LITERAL L_BRACE componentPresenceLists R_BRACE
  * ```
  */
-export declare class ContentsConstraintVisitor extends AbstractParseTreeVisitor<IContentsConstraint> implements ASN_3gppVisitor<IContentsConstraint> {
-    defaultResult(): IContentsConstraint;
-    visitChildren(contentsConstraintCtx: ContentsConstraintContext): IContentsConstraint;
+export declare class ContentsConstraintVisitor extends AbstractParseTreeVisitor<ContainingEncodedByConstraint | IContentsConstraint> implements ASN_3gppVisitor<ContainingEncodedByConstraint | IContentsConstraint> {
+    defaultResult(): ContainingEncodedByConstraint | IContentsConstraint;
+    visitChildren(contentsConstraintCtx: ContentsConstraintContext): ContainingEncodedByConstraint | IContentsConstraint;
 }

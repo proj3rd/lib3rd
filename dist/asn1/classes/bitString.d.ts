@@ -4,13 +4,14 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 export declare class BitString extends AsnType {
     namedBitList: any;
     size: BuiltinValue;
     sizeMin: BuiltinValue;
     sizeMax: BuiltinValue;
-    setConstraint(constraint: ConstraintSpec): BitString;
+    setConstraint(constraints: Array<Constraint | ConstraintSpec>): BitString;
     expand(asn1Pool: IModules, moduleName?: string): BitString;
     depthMax(): number;
     replaceParameters(paramterMapping: IParameterMapping[]): void;

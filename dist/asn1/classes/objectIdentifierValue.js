@@ -24,7 +24,7 @@ class ObjectIdentifierValue extends base_1.Base {
     replaceParameters(parameterMapping) {
         // TODO
     }
-    setConstraint(constraint) {
+    setConstraint(constraints) {
         // Do nothing
         return this;
     }

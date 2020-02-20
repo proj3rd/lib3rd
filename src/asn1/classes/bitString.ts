@@ -8,6 +8,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class BitString extends AsnType {
@@ -16,8 +17,8 @@ export class BitString extends AsnType {
   public sizeMin: BuiltinValue;
   public sizeMax: BuiltinValue;
 
-  public setConstraint(constraint: ConstraintSpec): BitString {
-    this.constraint = constraint;
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): BitString {
+    this.constraints = constraints;
     return this;
   }
 
@@ -34,9 +35,7 @@ export class BitString extends AsnType {
   }
 
   public toString(): string {
-    const valueConstraint = this.size !== undefined ? `(SIZE (${this.size}))` :
-      this.sizeMin !== undefined && this.sizeMax !== undefined ? `(SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-    return `BIT STRING ${valueConstraint}`;
+    return `BIT STRING${this.constraintsToString()}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,

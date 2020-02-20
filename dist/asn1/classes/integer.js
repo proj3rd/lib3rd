@@ -7,8 +7,8 @@ class Integer extends asnType_1.AsnType {
         super();
         this.namedNumberList = namedNumberList;
     }
-    setConstraint(constraint) {
-        this.constraint = constraint;
+    setConstraint(constraints) {
+        this.constraints = constraints;
         return this;
     }
     expand(asn1Pool, moduleName) {
@@ -21,9 +21,7 @@ class Integer extends asnType_1.AsnType {
         // Do nothing
     }
     toString() {
-        const valueConstraint = this.value !== undefined ? `(${this.value})` :
-            this.min !== undefined && this.max !== undefined ? `(${this.min}..${this.max})` : '';
-        return `INTEGER ${valueConstraint}`;
+        return `INTEGER${this.constraintsToString()}`;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.type = this.toString();

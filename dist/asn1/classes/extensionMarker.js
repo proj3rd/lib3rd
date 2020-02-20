@@ -5,9 +5,9 @@ const logging_1 = require("../../utils/logging");
 const xlsx_1 = require("../format/xlsx");
 const base_1 = require("./base");
 class ExtensionMarker extends base_1.Base {
-    setConstraint(constraint) {
-        if (!lodash_1.isEmpty(constraint)) {
-            logging_1.log.warn(`ExtensionMarker could not handle constraint ${JSON.stringify(constraint)}`);
+    setConstraint(constraints) {
+        if (!lodash_1.isEmpty(constraints)) {
+            logging_1.log.warn(`ExtensionMarker could not handle constraint ${JSON.stringify(constraints)}`);
         }
         return this;
     }

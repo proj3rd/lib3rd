@@ -1,12 +1,10 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ElementsContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { BuiltinValue } from './builtinValue';
-export interface IConstraint {
-    min?: BuiltinValue;
-    max?: BuiltinValue;
-    value?: BuiltinValue;
-}
+import { SingleValue } from '../classes/singleValue';
+import { SizeConstraint } from '../classes/sizeConstraint';
+import { ValueRange } from '../classes/valueRange';
+export declare type ElementsTypes = SizeConstraint | SingleValue | ValueRange;
 /**
  * ANTLR4 grammar
  * ```
@@ -18,7 +16,7 @@ export interface IConstraint {
  *  | value
  * ```
  */
-export declare class ElementsVisitor extends AbstractParseTreeVisitor<IConstraint> implements ASN_3gppVisitor<IConstraint> {
-    defaultResult(): IConstraint;
-    visitChildren(elementsCtx: ElementsContext): IConstraint;
+export declare class ElementsVisitor extends AbstractParseTreeVisitor<ElementsTypes> implements ASN_3gppVisitor<ElementsTypes> {
+    defaultResult(): ElementsTypes;
+    visitChildren(elementsCtx: ElementsContext): ElementsTypes;
 }

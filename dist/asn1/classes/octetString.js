@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const xlsx_1 = require("../format/xlsx");
 const asnType_1 = require("./asnType");
 class OctetString extends asnType_1.AsnType {
-    setConstraint(constraint) {
-        this.constraint = constraint;
+    setConstraint(constraints) {
+        this.constraints = constraints;
         return this;
     }
     expand(asn1Pool, moduleName) {
@@ -20,7 +20,7 @@ class OctetString extends asnType_1.AsnType {
         const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
         const size = this.size !== undefined ? ` (SIZE (${this.size}))` :
             this.sizeMin !== undefined && this.sizeMax !== undefined ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
-        return `OCTET STRING${containing}${size}`;
+        return `OCTET STRING${this.constraintsToString()}${size}`;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         ieElem.type = this.toString();

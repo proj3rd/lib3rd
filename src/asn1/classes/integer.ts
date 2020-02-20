@@ -5,6 +5,7 @@ import { IModules } from '../visitors/modules';
 import { INamedNumberList } from '../visitors/namedNumberList';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
+import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 
 export class Integer extends AsnType {
@@ -19,8 +20,8 @@ export class Integer extends AsnType {
     this.namedNumberList = namedNumberList;
   }
 
-  public setConstraint(constraint: ConstraintSpec): Integer {
-    this.constraint = constraint;
+  public setConstraint(constraints: Array<Constraint | ConstraintSpec>): Integer {
+    this.constraints = constraints;
     return this;
   }
 
@@ -37,9 +38,7 @@ export class Integer extends AsnType {
   }
 
   public toString(): string {
-    const valueConstraint = this.value !== undefined ? `(${this.value})` :
-      this.min !== undefined && this.max !== undefined ? `(${this.min}..${this.max})` : '';
-    return `INTEGER ${valueConstraint}`;
+    return `INTEGER${this.constraintsToString()}`;
   }
 
   public fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,

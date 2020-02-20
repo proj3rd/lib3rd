@@ -1,14 +1,14 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { IConstraint } from '../visitors/elements';
+import { ElementsTypes } from '../visitors/elements';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
 import { ExtensionMarker } from './extensionMarker';
 import { Parameter } from './parameter';
 
 export class ObjectSetSpec extends Base {
-  public objectSetSpec: Array<IConstraint | ExtensionMarker>;
+  public objectSetSpec: Array<ElementsTypes | ExtensionMarker>;
 
-  constructor(objectSetSpec: Array<IConstraint | ExtensionMarker>) {
+  constructor(objectSetSpec: Array<ElementsTypes | ExtensionMarker>) {
     super();
 
     this.objectSetSpec = objectSetSpec;

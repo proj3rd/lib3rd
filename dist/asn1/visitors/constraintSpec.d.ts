@@ -1,9 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ConstraintSpecContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { ElementSetSpec } from './elementSetSpecs';
+import { ElementSetSpecs } from './elementSetSpecs';
 import { GeneralConstraint } from './generalConstraint';
-export declare type ConstraintSpec = GeneralConstraint | ElementSetSpec;
+export declare type ConstraintSpec = GeneralConstraint | ElementSetSpecs;
 /**
  * ANTLR4 grammar
  * ```
