@@ -43,6 +43,23 @@ const testCases = [
 }`,
     },
     {
+        testName: 'CLASS',
+        specWithVersion: '36413-g00.asn1',
+        ieName: 'S1AP-PROTOCOL-IES',
+        expectedResult: `S1AP-PROTOCOL-IES ::= CLASS {
+  &id    ProtocolIE-ID    UNIQUE,
+  &criticality    Criticality,
+  &Value,
+  &presence    Presence
+}
+WITH SYNTAX {
+  ID    &id
+  CRITICALITY    &criticality
+  TYPE    &Value
+  PRESENCE    &presence
+}`,
+    },
+    {
         testName: 'CHOICE',
         specWithVersion: '36331-f80',
         ieName: 'BCCH-DL-SCH-MessageType',
