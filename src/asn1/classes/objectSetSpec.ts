@@ -50,7 +50,25 @@ export class ObjectSetSpec extends Base {
   }
 
   public toString(): string {
-    // TODO
-    return '';
+    const stringArray = [];
+    const itemStringArray = [];
+    this.objectSetSpec.forEach((item) => {
+      if (itemStringArray.length === 0) {
+        itemStringArray.push(item);
+      } else if (item instanceof UnionMark) {
+        itemStringArray.push(item);
+        stringArray.push(itemStringArray.join('    '));
+        itemStringArray.length = 0;
+      } else {
+        itemStringArray.push(',');
+        stringArray.push(itemStringArray.join(''));
+        itemStringArray.length = 0;
+        itemStringArray.push(item);
+      }
+    });
+    if (itemStringArray.length !== 0) {
+      stringArray.push(itemStringArray.join(''));
+    }
+    return stringArray.join('\n');
   }
 }

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_1 = require("./base");
 const extensionMarker_1 = require("./extensionMarker");
+const unionMark_1 = require("./unionMark");
 class ObjectSetSpec extends base_1.Base {
     constructor(objectSetSpec) {
         super();
@@ -35,8 +36,28 @@ class ObjectSetSpec extends base_1.Base {
         return this;
     }
     toString() {
-        // TODO
-        return '';
+        const stringArray = [];
+        const itemStringArray = [];
+        this.objectSetSpec.forEach((item) => {
+            if (itemStringArray.length === 0) {
+                itemStringArray.push(item);
+            }
+            else if (item instanceof unionMark_1.UnionMark) {
+                itemStringArray.push(item);
+                stringArray.push(itemStringArray.join('    '));
+                itemStringArray.length = 0;
+            }
+            else {
+                itemStringArray.push(',');
+                stringArray.push(itemStringArray.join(''));
+                itemStringArray.length = 0;
+                itemStringArray.push(item);
+            }
+        });
+        if (itemStringArray.length !== 0) {
+            stringArray.push(itemStringArray.join(''));
+        }
+        return stringArray.join('\n');
     }
 }
 exports.ObjectSetSpec = ObjectSetSpec;

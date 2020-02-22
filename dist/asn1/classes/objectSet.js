@@ -28,7 +28,12 @@ class ObjectSet extends base_1.Base {
         return this;
     }
     toString() {
-        return ` { ${this.objectSetSpec.toString()} }`;
+        const stringArray = [
+            '{',
+            this.indent(this.objectSetSpec.toString()),
+            '}',
+        ];
+        return stringArray.join('\n');
     }
 }
 exports.ObjectSet = ObjectSet;

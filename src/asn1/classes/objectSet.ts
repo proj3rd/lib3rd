@@ -41,6 +41,11 @@ export class ObjectSet extends Base {
   }
 
   public toString(): string {
-    return ` { ${this.objectSetSpec.toString()} }`;
+    const stringArray = [
+      '{',
+      this.indent(this.objectSetSpec.toString()),
+      '}',
+    ];
+    return stringArray.join('\n');
   }
 }
