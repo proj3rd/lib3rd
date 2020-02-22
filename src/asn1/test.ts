@@ -249,6 +249,21 @@ WITH SYNTAX {
 }`,
   },
   {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN2)',
+    specWithVersion: '38331-f80',
+    ieName: 'SetupRelease',
+    expectedResult: `SetupRelease { ElementTypeParam } ::= CHOICE {
+  release                                             NULL,
+  setup                                               ElementTypeParam
+}`,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3)',
+    specWithVersion: '36413-g00',
+    ieName: 'E-RAB-IE-ContainerList',
+    expectedResult: `E-RAB-IE-ContainerList { S1AP-PROTOCOL-IES: IEsSetParam } ::= ProtocolIE-ContainerList { 1, maxnoofE-RABs,  { IEsSetParam } }`,
+  },
+  {
     testName: 'SEQUENCE',
     specWithVersion: '36331-f80',
     ieName: 'CounterCheck',
