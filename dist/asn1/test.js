@@ -44,7 +44,7 @@ const testCases = [
     },
     {
         testName: 'CLASS',
-        specWithVersion: '36413-g00.asn1',
+        specWithVersion: '36413-g00',
         ieName: 'S1AP-PROTOCOL-IES',
         expectedResult: `S1AP-PROTOCOL-IES ::= CLASS {
   &id    ProtocolIE-ID    UNIQUE,
