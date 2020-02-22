@@ -3,9 +3,10 @@ import { AssignmentListContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
 import { ObjectClass } from '../classes/objectClass';
+import { ObjectSet } from '../classes/objectSet';
 import { BuiltinValue } from './builtinValue';
 export interface IAssignments {
-    [referenceName: string]: AsnType | ObjectClass;
+    [referenceName: string]: AsnType | ObjectClass | ObjectSet;
 }
 export interface IConstants {
     [referenceName: string]: BuiltinValue;
