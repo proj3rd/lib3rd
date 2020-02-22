@@ -249,6 +249,43 @@ WITH SYNTAX {
 }`,
   },
   {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN2)',
+    specWithVersion: '38331-f80',
+    ieName: 'SetupRelease',
+    expectedResult: `SetupRelease { ElementTypeParam } ::= CHOICE {
+  release                                             NULL,
+  setup                                               ElementTypeParam
+}`,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3)',
+    specWithVersion: '36413-g00',
+    ieName: 'E-RAB-IE-ContainerList',
+    expectedResult: `E-RAB-IE-ContainerList { S1AP-PROTOCOL-IES: IEsSetParam } ::= ProtocolIE-ContainerList { 1, maxnoofE-RABs, { IEsSetParam } }`,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3)',
+    specWithVersion: '36413-g00',
+    ieName: 'HandoverRequiredIEs',
+    expectedResult: `HandoverRequiredIEs S1AP-PROTOCOL-IES ::= {
+  { ID    id-MME-UE-S1AP-ID    CRITICALITY    reject    TYPE    MME-UE-S1AP-ID    PRESENCE    mandatory }    |
+  { ID    id-eNB-UE-S1AP-ID    CRITICALITY    reject    TYPE    ENB-UE-S1AP-ID    PRESENCE    mandatory }    |
+  { ID    id-HandoverType    CRITICALITY    reject    TYPE    HandoverType    PRESENCE    mandatory }    |
+  { ID    id-Cause    CRITICALITY    ignore    TYPE    Cause    PRESENCE    mandatory }    |
+  { ID    id-TargetID    CRITICALITY    reject    TYPE    TargetID    PRESENCE    mandatory }    |
+  { ID    id-Direct-Forwarding-Path-Availability    CRITICALITY    ignore    TYPE    Direct-Forwarding-Path-Availability    PRESENCE    optional }    |
+  { ID    id-SRVCCHOIndication    CRITICALITY    reject    TYPE    SRVCCHOIndication    PRESENCE    optional }    |
+  { ID    id-Source-ToTarget-TransparentContainer    CRITICALITY    reject    TYPE    Source-ToTarget-TransparentContainer    PRESENCE    mandatory }    |
+  { ID    id-Source-ToTarget-TransparentContainer-Secondary    CRITICALITY    reject    TYPE    Source-ToTarget-TransparentContainer    PRESENCE    optional }    |
+  { ID    id-MSClassmark2    CRITICALITY    reject    TYPE    MSClassmark2    PRESENCE    conditional }    |
+  { ID    id-MSClassmark3    CRITICALITY    ignore    TYPE    MSClassmark3    PRESENCE    conditional }    |
+  { ID    id-CSG-Id    CRITICALITY    reject    TYPE    CSG-Id    PRESENCE    optional }    |
+  { ID    id-CellAccessMode    CRITICALITY    reject    TYPE    CellAccessMode    PRESENCE    optional }    |
+  { ID    id-PS-ServiceNotAvailable    CRITICALITY    ignore    TYPE    PS-ServiceNotAvailable    PRESENCE    optional },
+  ...
+}`,
+  },
+  {
     testName: 'SEQUENCE',
     specWithVersion: '36331-f80',
     ieName: 'CounterCheck',

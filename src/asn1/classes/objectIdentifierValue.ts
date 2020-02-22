@@ -1,15 +1,25 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
+import { BuiltinType } from '../visitors/builtinType';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
+import { AsnBoolean } from './asnBoolean';
 import { Base, IConstantAndModule } from './base';
+import { BitString } from './bitString';
+import { Choice } from './choice';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
+import { Enumerated } from './enumerated';
+import { Integer } from './integer';
+import { Null } from './null';
+import { OctetString } from './octetString';
 import { Parameter } from './parameter';
+import { Sequence } from './sequence';
+import { SequenceOf } from './sequenceOf';
 
 export class ObjectIdentifierValue extends Base {
-  public objIdComponentsList: any[]; // TODO
+  public objIdComponentsList: Array<BuiltinType | string | number>;
 
-  constructor(objIdComponentsList: any[] /* TODO */) {
+  constructor(objIdComponentsList: Array<BuiltinType | string | number>) {
     super();
 
     this.objIdComponentsList = objIdComponentsList;
@@ -18,7 +28,17 @@ export class ObjectIdentifierValue extends Base {
   public depthMax(): number {
     let depthMax = 0;
     this.objIdComponentsList.forEach((objIdComponents) => {
-      depthMax = Math.max(depthMax, objIdComponents.depthMax() + 1);
+      if (objIdComponents instanceof AsnBoolean ||
+          objIdComponents instanceof BitString ||
+          objIdComponents instanceof Choice ||
+          objIdComponents instanceof Enumerated ||
+          objIdComponents instanceof Integer ||
+          objIdComponents instanceof Null ||
+          objIdComponents instanceof OctetString ||
+          objIdComponents instanceof Sequence ||
+          objIdComponents instanceof SequenceOf) {
+        depthMax = Math.max(depthMax, objIdComponents.depthMax() + 1);
+      }
     });
     return depthMax;
   }
@@ -45,7 +65,7 @@ export class ObjectIdentifierValue extends Base {
   }
 
   public toString(): string {
-    return !this.objIdComponentsList.length ? ' { }' :
-      ` { ${this.objIdComponentsList.map((item) => item.toString()).join(', ')} }`;
+    return !this.objIdComponentsList.length ? '{ }' :
+      `{ ${this.objIdComponentsList.map((item) => item.toString()).join('    ')} }`;
   }
 }

@@ -4,6 +4,7 @@ const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisit
 const logging_1 = require("../../utils/logging");
 const TerminalNode_1 = require("antlr4ts/tree/TerminalNode");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
+const comma_1 = require("../classes/comma");
 const extensionMarker_1 = require("../classes/extensionMarker");
 const objectSetSpec_1 = require("../classes/objectSetSpec");
 const utils_1 = require("../utils");
@@ -36,6 +37,9 @@ class ObjectSetSpecVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeV
             else if (childCtx instanceof TerminalNode_1.TerminalNode) {
                 if (childCtx.text === '...') {
                     objectSetSpec.push(new extensionMarker_1.ExtensionMarker());
+                }
+                else if (childCtx.text === ',') {
+                    objectSetSpec.push(new comma_1.Comma());
                 }
             }
             else {

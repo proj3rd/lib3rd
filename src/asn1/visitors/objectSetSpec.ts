@@ -5,6 +5,7 @@ import { log } from '../../utils/logging';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { AdditionalElementSetSpecContext, ObjectSetSpecContext, RootElementSetSpecContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { Comma } from '../classes/comma';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import { ObjectSetSpec } from '../classes/objectSetSpec';
 import { getLogWithAsn1 } from '../utils';
@@ -39,6 +40,8 @@ export class ObjectSetSpecVisitor extends AbstractParseTreeVisitor<ObjectSetSpec
       } else if (childCtx instanceof TerminalNode) {
         if (childCtx.text === '...') {
           objectSetSpec.push(new ExtensionMarker());
+        } else if (childCtx.text === ',') {
+          objectSetSpec.push(new Comma());
         }
       } else {
         log.warn(new Error(getLogWithAsn1(childCtx, 'Not supported ASN.1')));

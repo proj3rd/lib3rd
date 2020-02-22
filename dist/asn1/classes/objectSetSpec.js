@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_1 = require("./base");
+const comma_1 = require("./comma");
 const extensionMarker_1 = require("./extensionMarker");
 const unionMark_1 = require("./unionMark");
 class ObjectSetSpec extends base_1.Base {
@@ -37,25 +38,28 @@ class ObjectSetSpec extends base_1.Base {
     }
     toString() {
         const stringArray = [];
-        const itemStringArray = [];
+        const stringArrayBeforeComma = [];
+        const stringArrayBeforeUnion = [];
         this.objectSetSpec.forEach((item) => {
-            if (itemStringArray.length === 0) {
-                itemStringArray.push(item);
+            if (item instanceof comma_1.Comma) {
+                stringArrayBeforeUnion.push(item.toString());
+                stringArrayBeforeComma.push(stringArrayBeforeUnion.join(''));
+                stringArray.push(stringArrayBeforeComma.join('\n'));
+                stringArrayBeforeUnion.length = 0;
+                stringArrayBeforeComma.length = 0;
             }
             else if (item instanceof unionMark_1.UnionMark) {
-                itemStringArray.push(item);
-                stringArray.push(itemStringArray.join('    '));
-                itemStringArray.length = 0;
+                stringArrayBeforeUnion.push(item.toString());
+                stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
+                stringArrayBeforeUnion.length = 0;
             }
             else {
-                itemStringArray.push(',');
-                stringArray.push(itemStringArray.join(''));
-                itemStringArray.length = 0;
-                itemStringArray.push(item);
+                stringArrayBeforeUnion.push(item.toString());
             }
         });
-        if (itemStringArray.length !== 0) {
-            stringArray.push(itemStringArray.join(''));
+        if (stringArrayBeforeUnion.length) {
+            stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
+            stringArray.push(stringArrayBeforeComma.join('\n'));
         }
         return stringArray.join('\n');
     }
