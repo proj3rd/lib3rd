@@ -163,6 +163,35 @@ WITH SYNTAX {
 }`,
     },
     {
+        testName: 'OBJECT SET',
+        specWithVersion: '36413-g00',
+        ieName: 'S1AP-ELEMENTARY-PROCEDURES-CLASS-1',
+        expectedResult: `S1AP-ELEMENTARY-PROCEDURES-CLASS-1 S1AP-ELEMENTARY-PROCEDURE ::= {
+  handoverPreparation    |
+  handoverResourceAllocation    |
+  pathSwitchRequest    |
+  e-RABSetup    |
+  e-RABModify    |
+  e-RABRelease    |
+  initialContextSetup    |
+  handoverCancel    |
+  kill    |
+  reset    |
+  s1Setup    |
+  uEContextModification    |
+  uEContextRelease    |
+  eNBConfigurationUpdate    |
+  mMEConfigurationUpdate    |
+  writeReplaceWarning,
+  ...,
+  uERadioCapabilityMatch    |
+  e-RABModificationIndication    |
+  uEContextModificationIndication    |
+  uEContextSuspend    |
+  uEContextResume
+}`,
+    },
+    {
         testName: 'OCTET STRING',
         specWithVersion: '36331-f80',
         ieName: 'CSFBParametersRequestCDMA2000-v8a0-IEs',
