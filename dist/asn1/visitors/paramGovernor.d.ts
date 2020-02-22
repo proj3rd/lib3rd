@@ -2,8 +2,8 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { ParamGovernorContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
-import { IDefinedObjectClass } from './definedObjectClass';
-export declare type ParamGovernor = AsnType | IDefinedObjectClass | string;
+import { DefinedObjectClass } from '../classes/definedObjectClass';
+export declare type ParamGovernor = AsnType | DefinedObjectClass | string;
 /**
  * ANTLR4 grammar
  * ```

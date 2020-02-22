@@ -1,14 +1,15 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { ElementsTypes } from '../visitors/elements';
 import { IModules } from '../visitors/modules';
+import { Unions } from '../visitors/unions';
 import { Base, IConstantAndModule } from './base';
 import { ExtensionMarker } from './extensionMarker';
 import { Parameter } from './parameter';
+import { UnionMark } from './unionMark';
 
 export class ObjectSetSpec extends Base {
-  public objectSetSpec: Array<ElementsTypes | ExtensionMarker>;
+  public objectSetSpec: Unions;
 
-  constructor(objectSetSpec: Array<ElementsTypes | ExtensionMarker>) {
+  constructor(objectSetSpec: Unions) {
     super();
 
     this.objectSetSpec = objectSetSpec;
@@ -49,7 +50,25 @@ export class ObjectSetSpec extends Base {
   }
 
   public toString(): string {
-    // TODO
-    return '';
+    const stringArray = [];
+    const itemStringArray = [];
+    this.objectSetSpec.forEach((item) => {
+      if (itemStringArray.length === 0) {
+        itemStringArray.push(item);
+      } else if (item instanceof UnionMark) {
+        itemStringArray.push(item);
+        stringArray.push(itemStringArray.join('    '));
+        itemStringArray.length = 0;
+      } else {
+        itemStringArray.push(',');
+        stringArray.push(itemStringArray.join(''));
+        itemStringArray.length = 0;
+        itemStringArray.push(item);
+      }
+    });
+    if (itemStringArray.length !== 0) {
+      stringArray.push(itemStringArray.join(''));
+    }
+    return stringArray.join('\n');
   }
 }

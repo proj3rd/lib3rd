@@ -1,5 +1,6 @@
 import { log } from '../../utils/logging';
 import { AsnType } from '../classes/asnType';
+import { ObjectSet } from '../classes/objectSet';
 import { IMsgIe } from './common';
 
 /**
@@ -13,7 +14,9 @@ export function format(msgIes: IMsgIe[]): string {
     log.debug(`Formatting ${msgIe.name} in text...`);
     const parameterList = msgIe.definition instanceof AsnType ? msgIe.definition.parameterList : undefined;
     const parameterString = parameterList ? ` { ${parameterList.join(', ')} }` : '';
-    formattedStrings.push(`${msgIe.name}${parameterString} ::= ${msgIe.definition.toString()}`);
+    const definedObjectClass = msgIe.definition instanceof ObjectSet ? msgIe.definition.definedObjectClass : undefined;
+    const definedObjectClassString = definedObjectClass ? ` ${definedObjectClass.toString()}` : '';
+    formattedStrings.push(`${msgIe.name}${parameterString || definedObjectClassString} ::= ${msgIe.definition.toString()}`);
   });
   return formattedStrings.join('\n\n');
 }

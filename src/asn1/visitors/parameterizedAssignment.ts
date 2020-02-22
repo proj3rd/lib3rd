@@ -9,9 +9,11 @@ import { AsnTypeContext, DefinedObjectClassContext, ObjectClassContext,
         ValueContext, ValueSetContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { DefinedObjectClass } from '../classes/definedObjectClass';
+import { ObjectSet } from '../classes/objectSet';
 import { Parameter } from '../classes/parameter';
 import { AsnTypeVisitor } from './asnType';
-import { DefinedObjectClassVisitor, IDefinedObjectClass } from './definedObjectClass';
+import { DefinedObjectClassVisitor } from './definedObjectClass';
 import { ObjectSetVisitor } from './objectSet';
 import { ParameterListVisitor } from './parameterList';
 
@@ -35,17 +37,17 @@ import { ParameterListVisitor } from './parameterList';
  * ;
  * ```
  */
-export class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<AsnType>
-                                            implements ASN_3gppVisitor<AsnType> {
-  public defaultResult(): AsnType {
+export class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<AsnType | ObjectSet>
+                                            implements ASN_3gppVisitor<AsnType | ObjectSet> {
+  public defaultResult(): AsnType | ObjectSet {
     return undefined;
   }
 
-  public visitChildren(parameterizedAssignmentCtx: ParameterizedAssignmentContext): AsnType {
+  public visitChildren(parameterizedAssignmentCtx: ParameterizedAssignmentContext): AsnType | ObjectSet {
     let parameterList: Parameter[];
-    let definedObjectClass: IDefinedObjectClass;
+    let definedObjectClass: DefinedObjectClass;
     let asnType: AsnType;
-    let object: any/* TODO */;
+    let object: ObjectSet;
     const childCtxes = parameterizedAssignmentCtx.children;
     childCtxes.forEach((childCtx) => {
       if (childCtx instanceof ParameterListContext) {

@@ -4,6 +4,7 @@ import { log } from '../utils/logging';
 
 import { AsnType } from './classes/asnType';
 import { ObjectClass } from './classes/objectClass';
+import { ObjectSet } from './classes/objectSet';
 import { BuiltinValue } from './visitors/builtinValue';
 import { IModules } from './visitors/modules';
 
@@ -31,7 +32,8 @@ export function findConstantValue(constant: string, moduleName: string, asn1Pool
   return undefined;
 }
 
-export function findDefinition(typeName: string, moduleName: string, asn1Pool: IModules): AsnType | ObjectClass {
+export function findDefinition(typeName: string, moduleName: string, asn1Pool: IModules)
+    : AsnType | ObjectClass | ObjectSet {
   if (moduleName in asn1Pool) {
     if (typeName in asn1Pool[moduleName].assignments) {
       return asn1Pool[moduleName].assignments[typeName];

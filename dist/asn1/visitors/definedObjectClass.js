@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const definedObjectClass_1 = require("../classes/definedObjectClass");
 /**
  * ANTLR4 grammar
  * ```
@@ -12,21 +13,13 @@ const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisit
  */
 class DefinedObjectClassVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     defaultResult() {
-        return { moduleReference: undefined, objectClassReference: undefined };
+        return undefined;
     }
     visitChildren(definedObjectClassCtx) {
-        const definedObjectClass = {
-            moduleReference: undefined,
-            objectClassReference: undefined,
-        };
-        if (definedObjectClassCtx.childCount === 1) {
-            definedObjectClass.objectClassReference = definedObjectClassCtx.children[0].text;
-        }
-        else {
-            definedObjectClass.moduleReference = definedObjectClassCtx.children[0].text;
-            definedObjectClass.objectClassReference = definedObjectClassCtx.children[1].text;
-        }
-        return definedObjectClass;
+        const childCtxes = definedObjectClassCtx.children;
+        const moduleReference = childCtxes.length === 1 ? undefined : childCtxes[0].text;
+        const objectClassReference = childCtxes.length === 1 ? childCtxes[0].text : childCtxes[1].text;
+        return new definedObjectClass_1.DefinedObjectClass(moduleReference, objectClassReference);
     }
 }
 exports.DefinedObjectClassVisitor = DefinedObjectClassVisitor;

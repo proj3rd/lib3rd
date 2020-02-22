@@ -6,11 +6,11 @@ import { log } from '../../utils/logging';
 import { GovernorContext, ParamGovernorContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { DefinedObjectClass } from '../classes/definedObjectClass';
 import { getLogWithAsn1 } from '../utils';
-import { IDefinedObjectClass } from './definedObjectClass';
 import { GovernorVisitor } from './governor';
 
-export type ParamGovernor = AsnType | IDefinedObjectClass | string;
+export type ParamGovernor = AsnType | DefinedObjectClass | string;
 
 /**
  * ANTLR4 grammar

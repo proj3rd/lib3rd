@@ -1,10 +1,12 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
+import { DefinedObjectClass } from './definedObjectClass';
 import { ObjectSetSpec } from './objectSetSpec';
 import { Parameter } from './parameter';
 export declare class ObjectSet extends Base {
     objectSetSpec: ObjectSetSpec;
+    definedObjectClass: DefinedObjectClass;
     constructor(objectSetSpec: ObjectSetSpec);
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): ObjectSet;
