@@ -2,6 +2,7 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { IModules } from '../visitors/modules';
 import { Unions } from '../visitors/unions';
 import { Base, IConstantAndModule } from './base';
+import { Comma } from './comma';
 import { ExtensionMarker } from './extensionMarker';
 import { Parameter } from './parameter';
 import { UnionMark } from './unionMark';
@@ -50,24 +51,27 @@ export class ObjectSetSpec extends Base {
   }
 
   public toString(): string {
-    const stringArray = [];
-    const itemStringArray = [];
+    const stringArray: string[] = [];
+    const stringArrayBeforeComma: string[] = [];
+    const stringArrayBeforeUnion: string[] = [];
     this.objectSetSpec.forEach((item) => {
-      if (itemStringArray.length === 0) {
-        itemStringArray.push(item);
+      if (item instanceof Comma) {
+        stringArrayBeforeUnion.push(item.toString());
+        stringArrayBeforeComma.push(stringArrayBeforeUnion.join(''));
+        stringArray.push(stringArrayBeforeComma.join('\n'));
+        stringArrayBeforeUnion.length = 0;
+        stringArrayBeforeComma.length = 0;
       } else if (item instanceof UnionMark) {
-        itemStringArray.push(item);
-        stringArray.push(itemStringArray.join('    '));
-        itemStringArray.length = 0;
+        stringArrayBeforeUnion.push(item.toString());
+        stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
+        stringArrayBeforeUnion.length = 0;
       } else {
-        itemStringArray.push(',');
-        stringArray.push(itemStringArray.join(''));
-        itemStringArray.length = 0;
-        itemStringArray.push(item);
+        stringArrayBeforeUnion.push(item.toString());
       }
     });
-    if (itemStringArray.length !== 0) {
-      stringArray.push(itemStringArray.join(''));
+    if (stringArrayBeforeUnion.length) {
+      stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
+      stringArray.push(stringArrayBeforeComma.join('\n'));
     }
     return stringArray.join('\n');
   }
