@@ -9,9 +9,10 @@ import { AsnTypeContext, DefinedObjectClassContext, ObjectClassContext,
         ValueContext, ValueSetContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { DefinedObjectClass } from '../classes/definedObjectClass';
 import { Parameter } from '../classes/parameter';
 import { AsnTypeVisitor } from './asnType';
-import { DefinedObjectClassVisitor, IDefinedObjectClass } from './definedObjectClass';
+import { DefinedObjectClassVisitor } from './definedObjectClass';
 import { ObjectSetVisitor } from './objectSet';
 import { ParameterListVisitor } from './parameterList';
 
@@ -43,7 +44,7 @@ export class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor<Asn
 
   public visitChildren(parameterizedAssignmentCtx: ParameterizedAssignmentContext): AsnType {
     let parameterList: Parameter[];
-    let definedObjectClass: IDefinedObjectClass;
+    let definedObjectClass: DefinedObjectClass;
     let asnType: AsnType;
     let object: any/* TODO */;
     const childCtxes = parameterizedAssignmentCtx.children;

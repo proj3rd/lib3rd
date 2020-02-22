@@ -1,11 +1,13 @@
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
+import { DefinedObjectClass } from './definedObjectClass';
 import { ObjectSetSpec } from './objectSetSpec';
 import { Parameter } from './parameter';
 
 export class ObjectSet extends Base {
   public objectSetSpec: ObjectSetSpec;
+  public definedObjectClass: DefinedObjectClass;
 
   constructor(objectSetSpec: ObjectSetSpec) {
     super();
