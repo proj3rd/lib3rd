@@ -163,7 +163,17 @@ WITH SYNTAX {
 }`,
     },
     {
-        testName: 'OBJECT SET',
+        testName: 'OBJECT SET with Extension Marker',
+        specWithVersion: '36413-g00',
+        ieName: 'S1AP-ELEMENTARY-PROCEDURES',
+        expectedResult: `S1AP-ELEMENTARY-PROCEDURES S1AP-ELEMENTARY-PROCEDURE ::= {
+  S1AP-ELEMENTARY-PROCEDURES-CLASS-1    |
+  S1AP-ELEMENTARY-PROCEDURES-CLASS-2,
+  ...
+}`,
+    },
+    {
+        testName: 'OBJECT SET with Extension Marker and Additional Set Spec',
         specWithVersion: '36413-g00',
         ieName: 'S1AP-ELEMENTARY-PROCEDURES-CLASS-1',
         expectedResult: `S1AP-ELEMENTARY-PROCEDURES-CLASS-1 S1AP-ELEMENTARY-PROCEDURE ::= {
