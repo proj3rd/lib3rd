@@ -45,18 +45,20 @@ const testCases = [
     {
         testName: 'CLASS',
         specWithVersion: '36413-g00',
-        ieName: 'S1AP-PROTOCOL-IES',
-        expectedResult: `S1AP-PROTOCOL-IES ::= CLASS {
-  &id                                                 ProtocolIE-ID    UNIQUE,
-  &criticality                                        Criticality,
-  &Value,
-  &presence                                           Presence
+        ieName: 'S1AP-ELEMENTARY-PROCEDURE',
+        expectedResult: `S1AP-ELEMENTARY-PROCEDURE ::= CLASS {
+  &InitiatingMessage,
+  &SuccessfulOutcome                                  OPTIONAL,
+  &UnsuccessfulOutcome                                OPTIONAL,
+  &procedureCode                                      ProcedureCode    UNIQUE,
+  &criticality                                        Criticality    DEFAULT    ignore
 }
 WITH SYNTAX {
-  ID    &id
-  CRITICALITY    &criticality
-  TYPE    &Value
-  PRESENCE    &presence
+  INITIATING MESSAGE                                  &InitiatingMessage
+  [SUCCESSFUL OUTCOME                                  &SuccessfulOutcome]
+  [UNSUCCESSFUL OUTCOME                                &UnsuccessfulOutcome]
+  PROCEDURE CODE                                      &procedureCode
+  [CRITICALITY                                         &criticality]
 }`,
     },
     {

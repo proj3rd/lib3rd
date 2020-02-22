@@ -17,7 +17,7 @@ export class WithSyntaxSpecVisitor extends AbstractParseTreeVisitor<WithSyntaxSp
   }
 
   public visitChildren(withSyntaxSpecCtx: WithSyntaxSpecContext): WithSyntaxSpec {
-    const syntaxListCtx = withSyntaxSpecCtx.children[0];
+    const syntaxListCtx = withSyntaxSpecCtx.children[2];
     return new WithSyntaxSpec(syntaxListCtx.accept(new SyntaxListVisitor()));
   }
 }

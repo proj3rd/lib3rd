@@ -14,7 +14,7 @@ class WithSyntaxSpecVisitor extends AbstractParseTreeVisitor_1.AbstractParseTree
         return undefined;
     }
     visitChildren(withSyntaxSpecCtx) {
-        const syntaxListCtx = withSyntaxSpecCtx.children[0];
+        const syntaxListCtx = withSyntaxSpecCtx.children[2];
         return new withSyntaxSpec_1.WithSyntaxSpec(syntaxListCtx.accept(new syntaxList_1.SyntaxListVisitor()));
     }
 }
