@@ -1,14 +1,15 @@
 import { IFormatConfig, IIe } from '../format/xlsx';
-import { ElementsTypes } from '../visitors/elements';
 import { IModules } from '../visitors/modules';
+import { Unions } from '../visitors/unions';
 import { Base, IConstantAndModule } from './base';
 import { ExtensionMarker } from './extensionMarker';
 import { Parameter } from './parameter';
+import { UnionMark } from './unionMark';
 
 export class ObjectSetSpec extends Base {
-  public objectSetSpec: Array<ElementsTypes | ExtensionMarker>;
+  public objectSetSpec: Unions;
 
-  constructor(objectSetSpec: Array<ElementsTypes | ExtensionMarker>) {
+  constructor(objectSetSpec: Unions) {
     super();
 
     this.objectSetSpec = objectSetSpec;
