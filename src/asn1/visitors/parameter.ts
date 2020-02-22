@@ -2,9 +2,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 
 import { ParameterContext, ParamGovernorContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { AsnType } from '../classes/asnType';
 import { Parameter } from '../classes/parameter';
-import { IDefinedObjectClass } from './definedObjectClass';
 import { ParamGovernor, ParamGovernorVisitor } from './paramGovernor';
 
 /**
