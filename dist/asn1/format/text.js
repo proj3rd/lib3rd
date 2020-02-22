@@ -11,7 +11,7 @@ function format(msgIes) {
     const formattedStrings = [];
     msgIes.forEach((msgIe) => {
         logging_1.log.debug(`Formatting ${msgIe.name} in text...`);
-        const parameterList = msgIe.definition instanceof asnType_1.AsnType ? msgIe.definition.parameterList : [];
+        const parameterList = msgIe.definition instanceof asnType_1.AsnType ? msgIe.definition.parameterList : undefined;
         const parameterString = parameterList ? ` { ${parameterList.join(', ')} }` : '';
         formattedStrings.push(`${msgIe.name}${parameterString} ::= ${msgIe.definition.toString()}`);
     });

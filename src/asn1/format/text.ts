@@ -11,7 +11,7 @@ export function format(msgIes: IMsgIe[]): string {
   const formattedStrings = [];
   msgIes.forEach((msgIe) => {
     log.debug(`Formatting ${msgIe.name} in text...`);
-    const parameterList = msgIe.definition instanceof AsnType ? msgIe.definition.parameterList : [];
+    const parameterList = msgIe.definition instanceof AsnType ? msgIe.definition.parameterList : undefined;
     const parameterString = parameterList ? ` { ${parameterList.join(', ')} }` : '';
     formattedStrings.push(`${msgIe.name}${parameterString} ::= ${msgIe.definition.toString()}`);
   });

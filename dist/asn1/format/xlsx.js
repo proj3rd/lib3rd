@@ -72,7 +72,7 @@ function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig =
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     [row, col] = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig);
-    const parameterList = msgIe.definition instanceof asnType_1.AsnType ? msgIe.definition.parameterList : [];
+    const parameterList = msgIe.definition instanceof asnType_1.AsnType ? msgIe.definition.parameterList : undefined;
     const parameterString = parameterList ? ` { ${parameterList.join(', ')} }` : '';
     [row, col] = msgIe.definition.fillWorksheet({ ie: `${msgIe.name}${parameterString}` }, ws, row, col, depthMax, constants, formatConfig);
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
