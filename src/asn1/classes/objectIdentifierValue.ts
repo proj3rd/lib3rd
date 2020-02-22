@@ -65,7 +65,7 @@ export class ObjectIdentifierValue extends Base {
   }
 
   public toString(): string {
-    return !this.objIdComponentsList.length ? ' { }' :
-      ` { ${this.objIdComponentsList.map((item) => item.toString()).join(', ')} }`;
+    return !this.objIdComponentsList.length ? '{ }' :
+      `{ ${this.objIdComponentsList.map((item) => item.toString()).join('    ')} }`;
   }
 }

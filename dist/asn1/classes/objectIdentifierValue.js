@@ -48,8 +48,8 @@ class ObjectIdentifierValue extends base_1.Base {
         return this;
     }
     toString() {
-        return !this.objIdComponentsList.length ? ' { }' :
-            ` { ${this.objIdComponentsList.map((item) => item.toString()).join(', ')} }`;
+        return !this.objIdComponentsList.length ? '{ }' :
+            `{ ${this.objIdComponentsList.map((item) => item.toString()).join('    ')} }`;
     }
 }
 exports.ObjectIdentifierValue = ObjectIdentifierValue;
