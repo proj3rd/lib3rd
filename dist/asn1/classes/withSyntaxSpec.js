@@ -24,7 +24,7 @@ class WithSyntaxSpec extends base_1.Base {
     toString() {
         return [
             'WITH SYNTAX {',
-            ...this.syntaxList.map((syntax) => syntax.toString()),
+            ...this.syntaxList.map((syntax) => this.indent(syntax.toString())),
             '}',
         ].join('\n');
     }

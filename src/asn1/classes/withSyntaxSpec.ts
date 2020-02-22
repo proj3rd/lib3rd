@@ -41,7 +41,7 @@ export class WithSyntaxSpec extends Base {
   public toString(): string {
     return [
       'WITH SYNTAX {',
-      ...this.syntaxList.map((syntax) => syntax.toString()),
+      ...this.syntaxList.map((syntax) => this.indent(syntax.toString())),
       '}',
     ].join('\n');
   }
