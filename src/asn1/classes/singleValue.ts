@@ -2,10 +2,10 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
+import { Parameter } from './parameter';
 
 export class SingleValue extends Base {
   public value: BuiltinValue;
@@ -20,7 +20,7 @@ export class SingleValue extends Base {
     return 0;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): SingleValue {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): SingleValue {
     // Do nothing
     return this;
   }

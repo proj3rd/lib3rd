@@ -2,13 +2,13 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { ActualParameter } from '../visitors/actualParameter';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
+import { Parameter } from './parameter';
 import { WithComponents } from './withComponents';
 export interface IParameterMapping {
-    parameter: IParameter;
+    parameter: Parameter;
     actualParameter: ActualParameter;
 }
 export declare class DefinedType extends AsnType {
@@ -17,7 +17,7 @@ export declare class DefinedType extends AsnType {
     actualParameterList: ActualParameter[];
     withComponents: WithComponents;
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): DefinedType;
-    expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): Base;
+    expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): Base;
     depthMax(): number;
     replaceParameters(parameterMapping: IParameterMapping[]): void;
     toString(): string;

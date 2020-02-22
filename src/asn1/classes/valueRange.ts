@@ -2,10 +2,10 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
+import { Parameter } from './parameter';
 
 interface IValueRange {
   min?: BuiltinValue;
@@ -28,7 +28,7 @@ export class ValueRange extends Base {
     return 0;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): ValueRange {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): ValueRange {
     // Do nothing
     return this;
   }

@@ -18,7 +18,7 @@ class DefinedType extends asnType_1.AsnType {
             return this;
         }
         const parameterMapping = [];
-        if (definition.parameterList) {
+        if (definition instanceof asnType_1.AsnType && definition.parameterList) {
             definition.parameterList.forEach((parameter, index) => {
                 /**
                  * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }
@@ -44,7 +44,7 @@ class DefinedType extends asnType_1.AsnType {
     }
     replaceParameters(parameterMapping) {
         if (!this.moduleReference && this.typeReference) {
-            const mappingFound = parameterMapping.find((mapping) => mapping.parameter.parameterName === this.typeReference);
+            const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
             if (!mappingFound) {
                 return;
             }

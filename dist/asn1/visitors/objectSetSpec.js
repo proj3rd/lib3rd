@@ -5,6 +5,7 @@ const logging_1 = require("../../utils/logging");
 const TerminalNode_1 = require("antlr4ts/tree/TerminalNode");
 const ASN_3gppParser_1 = require("../ASN_3gppParser");
 const extensionMarker_1 = require("../classes/extensionMarker");
+const objectSetSpec_1 = require("../classes/objectSetSpec");
 const utils_1 = require("../utils");
 const additionalElementSetSpec_1 = require("./additionalElementSetSpec");
 const rootElementSetSpec_1 = require("./rootElementSetSpec");
@@ -18,7 +19,7 @@ const rootElementSetSpec_1 = require("./rootElementSetSpec");
  */
 class ObjectSetSpecVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     defaultResult() {
-        return [];
+        return new objectSetSpec_1.ObjectSetSpec([]);
     }
     visitChildren(objectSetSpecCtx) {
         const objectSetSpec = [];
@@ -41,7 +42,7 @@ class ObjectSetSpecVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeV
                 logging_1.log.warn(new Error(utils_1.getLogWithAsn1(childCtx, 'Not supported ASN.1')));
             }
         });
-        return objectSetSpec;
+        return new objectSetSpec_1.ObjectSetSpec(objectSetSpec);
     }
 }
 exports.ObjectSetSpecVisitor = ObjectSetSpecVisitor;

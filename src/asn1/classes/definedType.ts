@@ -1,20 +1,18 @@
 import { cloneDeep, isEmpty, isEqual } from 'lodash';
 
-import { log } from '../../utils/logging';
-
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
 import { ActualParameter } from '../visitors/actualParameter';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
+import { Parameter } from './parameter';
 import { WithComponents } from './withComponents';
 
 export interface IParameterMapping {
-  parameter: IParameter;
+  parameter: Parameter;
   actualParameter: ActualParameter;
 }
 
@@ -29,7 +27,7 @@ export class DefinedType extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): Base {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): Base {
     if (parameterList.findIndex((value) => isEqual(value, this.typeReference)) !== -1) {
       return this;
     }
@@ -38,7 +36,7 @@ export class DefinedType extends AsnType {
       return this;
     }
     const parameterMapping: IParameterMapping[] = [];
-    if (definition.parameterList) {
+    if (definition instanceof AsnType && definition.parameterList) {
       definition.parameterList.forEach((parameter, index) => {
         /**
          * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }
@@ -66,7 +64,7 @@ export class DefinedType extends AsnType {
 
   public replaceParameters(parameterMapping: IParameterMapping[]): void {
     if (!this.moduleReference && this.typeReference) {
-      const mappingFound = parameterMapping.find((mapping) => mapping.parameter.parameterName === this.typeReference);
+      const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
       if (!mappingFound) {
         return;
       }

@@ -10,19 +10,21 @@ import { getLogWithAsn1 } from '../utils';
 import { IDefinedObjectClass } from './definedObjectClass';
 import { GovernorVisitor } from './governor';
 
+export type ParamGovernor = AsnType | IDefinedObjectClass | string;
+
 /**
  * ANTLR4 grammar
  * ```
  * paramGovernor : governor | IDENTIFIER
  * ```
  */
-export class ParamGovernorVisitor extends AbstractParseTreeVisitor<AsnType | IDefinedObjectClass | string>
-                                  implements ASN_3gppVisitor<AsnType | IDefinedObjectClass | string> {
-  public defaultResult(): AsnType | IDefinedObjectClass | string {
+export class ParamGovernorVisitor extends AbstractParseTreeVisitor<ParamGovernor>
+                                  implements ASN_3gppVisitor<ParamGovernor> {
+  public defaultResult(): ParamGovernor {
     return undefined;
   }
 
-  public visitChildren(paramGovernorCtx: ParamGovernorContext): AsnType | IDefinedObjectClass | string {
+  public visitChildren(paramGovernorCtx: ParamGovernorContext): ParamGovernor {
     const { children } = paramGovernorCtx;
     if (children[0] instanceof GovernorContext) {
       return children[0].accept(new GovernorVisitor());

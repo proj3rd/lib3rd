@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const logging_1 = require("../../utils/logging");
 const xl = require("excel4node");
 const xlsx_1 = require("../../utils/xlsx");
+const asnType_1 = require("../classes/asnType");
 const utils_1 = require("../utils");
 exports.formatConfigDefault = {
     order: ['ie', 'reference', 'type', 'optional', 'default', 'tag'],
@@ -71,7 +72,7 @@ function fillDefinition(msgIe, ws, row, col, depthMax, constants, formatConfig =
     }
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
     [row, col] = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig);
-    const parameterList = msgIe.definition.parameterList;
+    const parameterList = msgIe.definition instanceof asnType_1.AsnType ? msgIe.definition.parameterList : undefined;
     const parameterString = parameterList ? ` { ${parameterList.join(', ')} }` : '';
     [row, col] = msgIe.definition.fillWorksheet({ ie: `${msgIe.name}${parameterString}` }, ws, row, col, depthMax, constants, formatConfig);
     ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(xlsx_1.styleBorderTop);
