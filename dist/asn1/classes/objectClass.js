@@ -2,10 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_1 = require("./base");
 class ObjectClass extends base_1.Base {
-    constructor(fieldSpec, withSyntaxSpec) {
+    constructor(fieldSpecs, withSyntaxSpec) {
         super();
-        this.fieldSpecs = fieldSpec;
+        this.fieldSpecs = fieldSpecs;
         this.withSyntaxSpec = withSyntaxSpec;
+        this.withSyntaxSpec.syntaxList.forEach((syntax) => {
+            const fieldSpec = this.fieldSpecs.find((item) => item.reference === syntax.primitiveFieldName);
+            fieldSpec.alias = syntax.literal;
+        });
     }
     depthMax() {
         let depthMax = 0;

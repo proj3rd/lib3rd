@@ -12,11 +12,15 @@ export class ObjectClass extends Base {
   public fieldSpecs: FieldSpec[];
   public withSyntaxSpec: WithSyntaxSpec;
 
-  constructor(fieldSpec: FieldSpec[], withSyntaxSpec?: WithSyntaxSpec) {
+  constructor(fieldSpecs: FieldSpec[], withSyntaxSpec?: WithSyntaxSpec) {
     super();
 
-    this.fieldSpecs = fieldSpec;
+    this.fieldSpecs = fieldSpecs;
     this.withSyntaxSpec = withSyntaxSpec;
+    this.withSyntaxSpec.syntaxList.forEach((syntax) => {
+      const fieldSpec = this.fieldSpecs.find((item) => item.reference === syntax.primitiveFieldName);
+      fieldSpec.alias = syntax.literal;
+    });
   }
 
   public depthMax(): number {

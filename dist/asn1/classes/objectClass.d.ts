@@ -10,7 +10,7 @@ import { WithSyntaxSpec } from './withSyntaxSpec';
 export declare class ObjectClass extends Base {
     fieldSpecs: FieldSpec[];
     withSyntaxSpec: WithSyntaxSpec;
-    constructor(fieldSpec: FieldSpec[], withSyntaxSpec?: WithSyntaxSpec);
+    constructor(fieldSpecs: FieldSpec[], withSyntaxSpec?: WithSyntaxSpec);
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): ObjectClass;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
