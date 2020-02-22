@@ -50,6 +50,25 @@ const testCases: ITestCase[] = [
 }`,
   },
   {
+    testName: 'CLASS',
+    specWithVersion: '36413-g00',
+    ieName: 'S1AP-ELEMENTARY-PROCEDURE',
+    expectedResult: `S1AP-ELEMENTARY-PROCEDURE ::= CLASS {
+  &InitiatingMessage,
+  &SuccessfulOutcome                                  OPTIONAL,
+  &UnsuccessfulOutcome                                OPTIONAL,
+  &procedureCode                                      ProcedureCode    UNIQUE,
+  &criticality                                        Criticality    DEFAULT    ignore
+}
+WITH SYNTAX {
+  INITIATING MESSAGE                                  &InitiatingMessage
+  [SUCCESSFUL OUTCOME                                  &SuccessfulOutcome]
+  [UNSUCCESSFUL OUTCOME                                &UnsuccessfulOutcome]
+  PROCEDURE CODE                                      &procedureCode
+  [CRITICALITY                                         &criticality]
+}`,
+  },
+  {
     testName: 'CHOICE',
     specWithVersion: '36331-f80',
     ieName: 'BCCH-DL-SCH-MessageType',

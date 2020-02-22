@@ -3,6 +3,7 @@ import { log } from '../../utils/logging';
 import * as xl from 'excel4node';
 
 import { author, styleBorderLeft, styleBorderTop } from '../../utils/xlsx';
+import { AsnType } from '../classes/asnType';
 import { IConstantAndModule } from '../classes/base';
 import { findConstantValue } from '../utils';
 import { IModules } from '../visitors/modules';
@@ -105,7 +106,7 @@ function fillDefinition(msgIe: IMsgIe, ws: any, row: number, col: number, depthM
   }
   ws.cell(row, col, row, col + depthMax + formatConfig.order.length - 1).style(formatConfig.style.header);
   [row, col] = fillRow(headerDefinition, ws, row, col, depthMax, formatConfig);
-  const parameterList = msgIe.definition.parameterList;
+  const parameterList = msgIe.definition instanceof AsnType ? msgIe.definition.parameterList : undefined;
   const parameterString = parameterList ? ` { ${parameterList.join(', ')} }` : '';
   [row, col] = msgIe.definition.fillWorksheet({ie: `${msgIe.name}${parameterString}`},
     ws, row, col, depthMax, constants, formatConfig);

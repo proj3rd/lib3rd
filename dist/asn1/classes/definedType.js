@@ -18,7 +18,7 @@ class DefinedType extends asnType_1.AsnType {
             return this;
         }
         const parameterMapping = [];
-        if (definition.parameterList) {
+        if (definition instanceof asnType_1.AsnType && definition.parameterList) {
             definition.parameterList.forEach((parameter, index) => {
                 /**
                  * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }

@@ -7,6 +7,7 @@ import { AssignmentContext, AssignmentListContext, ObjectClassAssignmentContext,
          ParameterizedAssignmentContext, TypeAssignmentContext, ValueAssignmentContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { ObjectClass } from '../classes/objectClass';
 import { BuiltinValue } from './builtinValue';
 import { ObjectClassAssignmentVisitor } from './objectClassAssignment';
 import { ParameterizedAssignmentVisitor } from './parameterizedAssignment';
@@ -14,7 +15,7 @@ import { TypeAssignmentVisitor } from './typeAssignment';
 import { ValueAssignmentVisitor } from './valueAssignment';
 
 export interface IAssignments {
-  [referenceName: string]: AsnType;
+  [referenceName: string]: AsnType | ObjectClass;
 }
 
 export interface IConstants {
