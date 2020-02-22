@@ -32,9 +32,11 @@ class ObjectClass extends base_1.Base {
     }
     toString() {
         const stringArray = ['CLASS {'];
-        this.fieldSpecs.forEach((fieldSpec) => stringArray.push(this.indent(fieldSpec.toString())));
+        stringArray.push(this.fieldSpecs.map((fieldSpec) => this.indent(fieldSpec.toString())).join(',\n'));
         stringArray.push('}');
-        stringArray.push(this.withSyntaxSpec.toString());
+        if (this.withSyntaxSpec) {
+            stringArray.push(this.withSyntaxSpec.toString());
+        }
         return stringArray.join('\n');
     }
 }

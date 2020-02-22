@@ -47,10 +47,10 @@ const testCases = [
         specWithVersion: '36413-g00',
         ieName: 'S1AP-PROTOCOL-IES',
         expectedResult: `S1AP-PROTOCOL-IES ::= CLASS {
-  &id    ProtocolIE-ID    UNIQUE,
-  &criticality    Criticality,
+  &id                                                 ProtocolIE-ID    UNIQUE,
+  &criticality                                        Criticality,
   &Value,
-  &presence    Presence
+  &presence                                           Presence
 }
 WITH SYNTAX {
   ID    &id

@@ -24,10 +24,10 @@ export class ObjectClassDefnVisitor extends AbstractParseTreeVisitor<ObjectClass
     const fieldSpecs: FieldSpec[] = [];
     let withSyntaxSpec: WithSyntaxSpec;
     childCtxes.forEach((childCtx) => {
-      if (childCtxes instanceof FieldSpecContext) {
+      if (childCtx instanceof FieldSpecContext) {
         fieldSpecs.push(childCtx.accept(new FieldSpecVisitor()));
       }
-      if (childCtxes instanceof WithSyntaxSpecContext) {
+      if (childCtx instanceof WithSyntaxSpecContext) {
         withSyntaxSpec = childCtx.accept(new WithSyntaxSpecVisitor());
       }
     });

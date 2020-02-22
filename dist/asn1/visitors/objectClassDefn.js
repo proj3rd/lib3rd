@@ -20,10 +20,10 @@ class ObjectClassDefnVisitor extends AbstractParseTreeVisitor_1.AbstractParseTre
         const fieldSpecs = [];
         let withSyntaxSpec;
         childCtxes.forEach((childCtx) => {
-            if (childCtxes instanceof ASN_3gppParser_1.FieldSpecContext) {
+            if (childCtx instanceof ASN_3gppParser_1.FieldSpecContext) {
                 fieldSpecs.push(childCtx.accept(new fieldSpec_1.FieldSpecVisitor()));
             }
-            if (childCtxes instanceof ASN_3gppParser_1.WithSyntaxSpecContext) {
+            if (childCtx instanceof ASN_3gppParser_1.WithSyntaxSpecContext) {
                 withSyntaxSpec = childCtx.accept(new withSyntaxSpec_1.WithSyntaxSpecVisitor());
             }
         });

@@ -10,6 +10,7 @@ import { IParameterMapping } from './definedType';
 import { Parameter } from './parameter';
 export declare class FieldSpec extends Base {
     reference: string;
+    type: AsnType;
     unique: boolean;
     optional: boolean;
     default: AsnType | BuiltinValue;
@@ -19,7 +20,7 @@ export declare class FieldSpec extends Base {
      * }
      */
     alias: string;
-    constructor(reference: string, unique: boolean, optionalitySpec: IOptionalitySpec);
+    constructor(reference: string, type: AsnType, unique: boolean, optionalitySpec?: IOptionalitySpec);
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): FieldSpec;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];

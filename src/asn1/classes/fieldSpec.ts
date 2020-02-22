@@ -12,6 +12,7 @@ import { Parameter } from './parameter';
 
 export class FieldSpec extends Base {
   public reference: string;
+  public type: AsnType;
   public unique: boolean;
   public optional: boolean;
   public default: AsnType | BuiltinValue;
@@ -22,10 +23,12 @@ export class FieldSpec extends Base {
    */
   public alias: string;
 
-  constructor(reference: string, unique: boolean, optionalitySpec: IOptionalitySpec) {
+  constructor(reference: string, type: AsnType, unique: boolean,
+              optionalitySpec: IOptionalitySpec = { optional: false }) {
     super();
 
     this.reference = reference;
+    this.type = type;
     this.unique = unique;
     this.optional = optionalitySpec.optional;
     this.default = optionalitySpec.default;
@@ -59,7 +62,11 @@ export class FieldSpec extends Base {
   }
 
   public toString(): string {
-    const stringArray: string[] = [this.reference.padEnd(48)];
+    const pad = this.type || this.unique || this.optional || this.default ? 48 : 0;
+    const stringArray: string[] = [this.reference.padEnd(pad)];
+    if (this.type) {
+      stringArray.push(this.type.toString());
+    }
     if (this.unique) {
       stringArray.push('UNIQUE');
     }
