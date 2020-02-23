@@ -1,7 +1,9 @@
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { findDefinition } from '../utils';
 import { IModules } from '../visitors/modules';
 import { Base, IConstantAndModule } from './base';
 import { DefinedObjectClass } from './definedObjectClass';
+import { ObjectClass } from './objectClass';
 import { ObjectSetSpec } from './objectSetSpec';
 import { Parameter } from './parameter';
 
@@ -20,7 +22,13 @@ export class ObjectSet extends Base {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): ObjectSet {
-    this.objectSetSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    if (this.definedObjectClass) {
+      const classDefinition = findDefinition(this.definedObjectClass.toString(),
+                                             this.getModuleNameToPass(moduleName), asn1Pool);
+      if (classDefinition && classDefinition instanceof ObjectClass) {
+        this.objectSetSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), [], classDefinition);
+      }
+    }
     return this;
   }
 

@@ -4,6 +4,7 @@ import { Unions } from '../visitors/unions';
 import { Base, IConstantAndModule } from './base';
 import { Comma } from './comma';
 import { ExtensionMarker } from './extensionMarker';
+import { ObjectClass } from './objectClass';
 import { Parameter } from './parameter';
 import { UnionMark } from './unionMark';
 
@@ -26,8 +27,50 @@ export class ObjectSetSpec extends Base {
     return depthMax;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): ObjectSetSpec {
-    // TODO
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = [],
+                classDefinition?: ObjectClass): ObjectSetSpec {
+    /**
+     * Class definition (JSON-like)
+     * "class name": {
+     *   "fieldSpecs": [
+     *     {
+     *       "reference": "&referenceName",
+     *       "type": {
+     *         "typeReference": "referenceName",
+     *         "constraints": [],
+     *       },
+     *       "unique": boolean,
+     *       "optional": boolean,
+     *       "default": defaultValue,
+     *     }
+     *   ]
+     * }
+     */
+    /**
+     * "HandoverRequiredIEs": {
+     *   "objectSetSpec": {
+     *     "objectSetSpec": [
+     *       {
+     *         "value": {
+     *           "objIdComponentsList": [
+     *             "ID",
+     *             "id-MME-UE-S1AP-ID",
+     *             "CRITICALITY",
+     *             "reject",
+     *             "TYPE",
+     *             "MME-UE-S1AP-ID",
+     *             "PRESENCE",
+     *             "mandatory"
+     *           ]
+     *         }
+     *       },
+     *     ],
+     *   },
+     * }
+     */
+    /**
+     * TODO: Replace each objectSetSpec with ObjectClass with specified value
+     */
     return this;
   }
 
