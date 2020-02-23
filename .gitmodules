@@ -1,3 +1,6 @@
 [submodule "specs"]
 	path = specs
 	url = git@github.com:gsongsong/3gpp-specs
+[submodule "src/asn1/grammars-v4"]
+	path = src/asn1/grammars-v4
+	url = git@github.com:gsongsong/grammars-v4
