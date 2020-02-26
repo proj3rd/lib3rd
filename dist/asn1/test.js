@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const assert = require("assert");
 const fs_1 = require("fs");
+const _1 = require(".");
 const format_1 = require("./format");
 const text_1 = require("./format/text");
 const parse_1 = require("./parse");
@@ -279,6 +280,100 @@ WITH SYNTAX {
 }`,
     },
     {
+        testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Expanded',
+        specWithVersion: '36413-g00',
+        ieName: 'HandoverRequiredIEs',
+        expectedResult: `HandoverRequiredIEs S1AP-PROTOCOL-IES ::= {
+CLASS {
+  &id                id-MME-UE-S1AP-ID        UNIQUE,
+  &criticality       reject,
+  &Value             MME-UE-S1AP-ID,
+  &presence          mandatory
+}    |
+CLASS {
+  &id                id-eNB-UE-S1AP-ID        UNIQUE,
+  &criticality       reject
+  &Value             ENB-UE-S1AP-ID
+  &presence          mandatory
+}    |
+CLASS {
+  &id                id-HandoverType        UNIQUE,
+  &criticality       reject
+  &Value             HandoverType
+  &presence          mandatory
+}    |
+CLASS {
+  &id                id-Cause        UNIQUE,
+  &criticality       ignore
+  &Value             Cause
+  &presence          mandatory
+}    |
+CLASS {
+  &id                id-TargetID        UNIQUE,
+  &criticality       reject
+  &Value             TargetID
+  &presence          mandatory
+}    |
+CLASS {
+  &id                id-Direct-Forwarding-Path-Availability        UNIQUE,
+  &criticality       ignore
+  &Value             Direct-Forwarding-Path-Availability
+  &presence          optional
+}    |
+CLASS {
+  &id                id-SRVCCHOIndication        UNIQUE,
+  &criticality       reject
+  &Value             SRVCCHOIndication
+  &presence          optional
+}    |
+CLASS {
+  &id                id-Source-ToTarget-TransparentContainer        UNIQUE,
+  &criticality       reject
+  &Value             Source-ToTarget-TransparentContainer
+  &presence          mandatory
+}    |
+CLASS {
+  &id                id-Source-ToTarget-TransparentContainer-Secondary        UNIQUE,
+  &criticality       reject
+  &Value             Source-ToTarget-TransparentContainer
+  &presence          optional
+}    |
+CLASS {
+  &id                id-MSClassmark2        UNIQUE,
+  &criticality       reject
+  &Value             MSClassmark2
+  &presence          conditional
+}    |
+CLASS {
+  &id                id-MSClassmark3        UNIQUE,
+  &criticality       ignore
+  &Value             MSClassmark3
+  &presence          conditional
+}    |
+CLASS {
+  &id                id-CSG-Id        UNIQUE,
+  &criticality       reject
+  &Value             CSG-Id
+  &presence          optional
+}    |
+CLASS {
+  &id                id-CellAccessMode        UNIQUE,
+  &criticality       reject
+  &Value             CellAccessMode
+  &presence          optional
+}    |
+CLASS {
+  &id                id-PS-ServiceNotAvailable        UNIQUE,
+  &criticality       ignore
+  &Value             PS-ServiceNotAvailable
+  &presence          optional
+},
+...
+}
+`,
+        expandRequired: true,
+    },
+    {
         testName: 'SEQUENCE',
         specWithVersion: '36331-f80',
         ieName: 'CounterCheck',
@@ -338,10 +433,16 @@ specWithVersionSet.forEach((specWithVersion) => {
     asn1Pool[specWithVersion] = asn1Parsed;
 });
 testCases.forEach((testCase) => {
-    const { testName, specWithVersion, ieName, expectedResult } = testCase;
+    const { testName, specWithVersion, ieName, expectedResult, expandRequired } = testCase;
     it(testName, () => {
         const asn1Parsed = asn1Pool[specWithVersion];
-        const ie = format_1.findMsgIes(ieName, asn1Parsed);
-        assert.equal(text_1.format(ie), expectedResult);
+        const ies = format_1.findMsgIes(ieName, asn1Parsed);
+        if (expandRequired) {
+            const iesExpanded = ies.map((ie) => _1.expand(ie, asn1Parsed));
+            assert.equal(text_1.format(iesExpanded), expectedResult);
+        }
+        else {
+            assert.equal(text_1.format(ies), expectedResult);
+        }
     });
 });
