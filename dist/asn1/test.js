@@ -282,92 +282,44 @@ WITH SYNTAX {
     {
         testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Expanded',
         specWithVersion: '36413-g00',
-        ieName: 'HandoverRequiredIEs',
-        expectedResult: `HandoverRequiredIEs S1AP-PROTOCOL-IES ::= {
-CLASS {
-  &id                id-MME-UE-S1AP-ID        UNIQUE,
-  &criticality       reject,
-  &Value             MME-UE-S1AP-ID,
-  &presence          mandatory
-}    |
-CLASS {
-  &id                id-eNB-UE-S1AP-ID        UNIQUE,
-  &criticality       reject
-  &Value             ENB-UE-S1AP-ID
-  &presence          mandatory
-}    |
-CLASS {
-  &id                id-HandoverType        UNIQUE,
-  &criticality       reject
-  &Value             HandoverType
-  &presence          mandatory
-}    |
-CLASS {
-  &id                id-Cause        UNIQUE,
-  &criticality       ignore
-  &Value             Cause
-  &presence          mandatory
-}    |
-CLASS {
-  &id                id-TargetID        UNIQUE,
-  &criticality       reject
-  &Value             TargetID
-  &presence          mandatory
-}    |
-CLASS {
-  &id                id-Direct-Forwarding-Path-Availability        UNIQUE,
-  &criticality       ignore
-  &Value             Direct-Forwarding-Path-Availability
-  &presence          optional
-}    |
-CLASS {
-  &id                id-SRVCCHOIndication        UNIQUE,
-  &criticality       reject
-  &Value             SRVCCHOIndication
-  &presence          optional
-}    |
-CLASS {
-  &id                id-Source-ToTarget-TransparentContainer        UNIQUE,
-  &criticality       reject
-  &Value             Source-ToTarget-TransparentContainer
-  &presence          mandatory
-}    |
-CLASS {
-  &id                id-Source-ToTarget-TransparentContainer-Secondary        UNIQUE,
-  &criticality       reject
-  &Value             Source-ToTarget-TransparentContainer
-  &presence          optional
-}    |
-CLASS {
-  &id                id-MSClassmark2        UNIQUE,
-  &criticality       reject
-  &Value             MSClassmark2
-  &presence          conditional
-}    |
-CLASS {
-  &id                id-MSClassmark3        UNIQUE,
-  &criticality       ignore
-  &Value             MSClassmark3
-  &presence          conditional
-}    |
-CLASS {
-  &id                id-CSG-Id        UNIQUE,
-  &criticality       reject
-  &Value             CSG-Id
-  &presence          optional
-}    |
-CLASS {
-  &id                id-CellAccessMode        UNIQUE,
-  &criticality       reject
-  &Value             CellAccessMode
-  &presence          optional
-}    |
-CLASS {
-  &id                id-PS-ServiceNotAvailable        UNIQUE,
-  &criticality       ignore
-  &Value             PS-ServiceNotAvailable
-  &presence          optional
-},
+        ieName: 'SecondaryRATDataUsageReportIEs',
+        expectedResult: `SecondaryRATDataUsageReportIEs S1AP-PROTOCOL-IES ::= {
+  CLASS {
+    &id                id-MME-UE-S1AP-ID
+    &criticality       ignore
+    &Value             MME-UE-S1AP-ID
+    &presence          mandatory
+  }    |
+  CLASS {
+    &id                id-eNB-UE-S1AP-ID
+    &criticality       ignore
+    &Value             ENB-UE-S1AP-ID
+    &presence          mandatory
+  }    |
+  CLASS {
+    &id                id-SecondaryRATDataUsageReportList
+    &criticality       ignore
+    &Value             SecondaryRATDataUsageReportList
+    &presence          mandatory
+  }    |
+  CLASS {
+    &id                id-HandoverFlag
+    &criticality       ignore
+    &Value             HandoverFlag
+    &presence          optional
+  }    |
+  CLASS {
+    &id                id-UserLocationInformation
+    &criticality       ignore
+    &Value             UserLocationInformation
+    &presence          optional
+  }    |
+  CLASS {
+    &id                id-TimeSinceSecondaryNodeRelease
+    &criticality       ignore
+    &Value             TimeSinceSecondaryNodeRelease
+    &presence          optional
+  },
 ...
 }
 `,
