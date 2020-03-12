@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const xlsx_1 = require("../format/xlsx");
+const utils_1 = require("../utils");
 const base_1 = require("./base");
+const objectClass_1 = require("./objectClass");
 class ObjectSet extends base_1.Base {
     constructor(objectSetSpec) {
         super();
@@ -11,7 +13,12 @@ class ObjectSet extends base_1.Base {
         return this.objectSetSpec.depthMax() + 1;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
-        this.objectSetSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+        if (this.definedObjectClass) {
+            const classDefinition = utils_1.findDefinition(this.definedObjectClass.toString(), this.getModuleNameToPass(moduleName), asn1Pool);
+            if (classDefinition && classDefinition instanceof objectClass_1.ObjectClass) {
+                this.objectSetSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), [], classDefinition);
+            }
+        }
         return this;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
