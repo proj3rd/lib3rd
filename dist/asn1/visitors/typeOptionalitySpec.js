@@ -13,7 +13,7 @@ class TypeOptionalitySpecVisitor extends AbstractParseTreeVisitor_1.AbstractPars
         return undefined;
     }
     visitChildren(typeOptionalitySpecCtx) {
-        const [optionalOrDefaultCtx, asnTypeCtx] = typeOptionalitySpecCtx.children;
+        const [, asnTypeCtx] = typeOptionalitySpecCtx.children;
         if (asnTypeCtx) {
             return {
                 optional: undefined,

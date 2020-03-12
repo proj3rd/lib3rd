@@ -1,4 +1,4 @@
-import { cloneDeep, isEmpty, isEqual } from 'lodash';
+import { cloneDeep, isEqual } from 'lodash';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';

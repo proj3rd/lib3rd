@@ -124,7 +124,6 @@ export declare class ASN_3gppLexer extends Lexer {
     readonly modeNames: string[];
     sempred(_localctx: RuleContext, ruleIndex: number, predIndex: number): boolean;
     private LINE_COMMENT_sempred;
-    private static readonly _serializedATNSegments;
     private static readonly _serializedATNSegment0;
     private static readonly _serializedATNSegment1;
     static readonly _serializedATN: string;

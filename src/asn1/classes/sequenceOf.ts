@@ -1,4 +1,4 @@
-import { cloneDeep, isEmpty } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';

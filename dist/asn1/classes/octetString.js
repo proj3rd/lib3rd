@@ -17,7 +17,6 @@ class OctetString extends asnType_1.AsnType {
         // Do nothing
     }
     toString() {
-        const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
         const size = this.size !== undefined ? ` (SIZE (${this.size}))` :
             this.sizeMin !== undefined && this.sizeMax !== undefined ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
         return `OCTET STRING${this.constraintsToString()}${size}`;

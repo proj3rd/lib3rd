@@ -1,7 +1,3 @@
-import { isEmpty } from 'lodash';
-
-import { log } from '../../utils/logging';
-
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';

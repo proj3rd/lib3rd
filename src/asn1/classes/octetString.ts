@@ -1,7 +1,3 @@
-import { isEmpty } from 'lodash';
-
-import { log } from '../../utils/logging';
-
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
@@ -35,7 +31,6 @@ export class OctetString extends AsnType {
   }
 
   public toString(): string {
-    const containing = this.containing ? ` (CONTAINING ${this.containing.toString()})` : '';
     const size = this.size !== undefined ? ` (SIZE (${this.size}))` :
     this.sizeMin !== undefined && this.sizeMax !== undefined ? ` (SIZE (${this.sizeMin}..${this.sizeMax}))` : '';
     return `OCTET STRING${this.constraintsToString()}${size}`;
