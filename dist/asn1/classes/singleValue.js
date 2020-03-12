@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_1 = require("./base");
+const objectIdentifierValue_1 = require("./objectIdentifierValue");
 class SingleValue extends base_1.Base {
     constructor(value) {
         super();
@@ -9,8 +10,10 @@ class SingleValue extends base_1.Base {
     depthMax() {
         return 0;
     }
-    expand(asn1Pool, moduleName, parameterList) {
-        // Do nothing
+    expand(asn1Pool, moduleName, parameterList, classDefinition) {
+        if (this.value instanceof objectIdentifierValue_1.ObjectIdentifierValue) {
+            this.value.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList, classDefinition);
+        }
         return this;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {

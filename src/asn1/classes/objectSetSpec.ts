@@ -6,6 +6,7 @@ import { Comma } from './comma';
 import { ExtensionMarker } from './extensionMarker';
 import { ObjectClass } from './objectClass';
 import { Parameter } from './parameter';
+import { SingleValue } from './singleValue';
 import { UnionMark } from './unionMark';
 
 export class ObjectSetSpec extends Base {
@@ -29,23 +30,6 @@ export class ObjectSetSpec extends Base {
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = [],
                 classDefinition?: ObjectClass): ObjectSetSpec {
-    /**
-     * Class definition (JSON-like)
-     * "class name": {
-     *   "fieldSpecs": [
-     *     {
-     *       "reference": "&referenceName",
-     *       "type": {
-     *         "typeReference": "referenceName",
-     *         "constraints": [],
-     *       },
-     *       "unique": boolean,
-     *       "optional": boolean,
-     *       "default": defaultValue,
-     *     }
-     *   ]
-     * }
-     */
     /**
      * "HandoverRequiredIEs": {
      *   "objectSetSpec": {
@@ -71,6 +55,11 @@ export class ObjectSetSpec extends Base {
     /**
      * TODO: Replace each objectSetSpec with ObjectClass with specified value
      */
+    this.objectSetSpec.forEach((item) => {
+      if (item instanceof SingleValue) {
+        item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList, classDefinition);
+      }
+    });
     return this;
   }
 
