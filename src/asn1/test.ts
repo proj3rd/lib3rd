@@ -328,7 +328,7 @@ WITH SYNTAX {
     &Value             TimeSinceSecondaryNodeRelease
     &presence          optional
   },
-...
+  ...
 }
 `,
     expandRequired: true,
