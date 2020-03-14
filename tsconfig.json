@@ -5,7 +5,6 @@
     "rootDir": "src",
     "outDir": "dist",
     "declaration": true,
-    "noUnusedLocals": true,
     "newLine": "LF",
   },
   "typedocOptions": {

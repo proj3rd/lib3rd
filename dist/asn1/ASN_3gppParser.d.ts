@@ -416,6 +416,7 @@ export declare class ASN_3gppParser extends Parser {
     namedBitList(): NamedBitListContext;
     namedBit(): NamedBitContext;
     booleanValue(): BooleanValueContext;
+    private static readonly _serializedATNSegments;
     private static readonly _serializedATNSegment0;
     private static readonly _serializedATNSegment1;
     private static readonly _serializedATNSegment2;
