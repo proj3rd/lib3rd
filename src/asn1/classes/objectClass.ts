@@ -17,10 +17,12 @@ export class ObjectClass extends Base {
 
     this.fieldSpecs = fieldSpecs;
     this.withSyntaxSpec = withSyntaxSpec;
-    this.withSyntaxSpec.syntaxList.forEach((syntax) => {
-      const fieldSpec = this.fieldSpecs.find((item) => item.reference === syntax.primitiveFieldName);
-      fieldSpec.alias = syntax.literal;
-    });
+    if (this.withSyntaxSpec) {
+      this.withSyntaxSpec.syntaxList.forEach((syntax) => {
+        const fieldSpec = this.fieldSpecs.find((item) => item.reference === syntax.primitiveFieldName);
+        fieldSpec.alias = syntax.literal;
+      });
+    }
   }
 
   public depthMax(): number {
@@ -55,7 +57,10 @@ export class ObjectClass extends Base {
 
   public toString(): string {
     const stringArray: string[] = ['CLASS {'];
-    stringArray.push(this.fieldSpecs.map((fieldSpec) => this.indent(fieldSpec.toString())).join(',\n'));
+    const stringFieldSpecs = this.fieldSpecs.map((fieldSpec) => this.indent(fieldSpec.toString())).join(',\n');
+    if (stringFieldSpecs.length) {
+      stringArray.push(stringFieldSpecs);
+    }
     stringArray.push('}');
     if (this.withSyntaxSpec) {
       stringArray.push(this.withSyntaxSpec.toString());
