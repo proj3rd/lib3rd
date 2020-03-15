@@ -7,11 +7,14 @@ import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
+import { ObjectClass } from './objectClass';
+import { ObjectSet } from './objectSet';
 import { Parameter } from './parameter';
 export declare class FieldSpec extends Base {
     reference: string;
     type: AsnType;
     actualValue: string;
+    expandedType: AsnType | ObjectClass | ObjectSet;
     unique: boolean;
     optional: boolean;
     default: AsnType | BuiltinValue;

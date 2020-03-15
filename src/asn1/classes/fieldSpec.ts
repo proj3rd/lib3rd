@@ -1,5 +1,6 @@
 import { ObjectIdentifierValue } from '../classes/objectIdentifierValue';
 import { IFormatConfig, IIe } from '../format/xlsx';
+import { findDefinition } from '../utils';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IOptionalitySpec } from '../visitors/fieldSpec';
@@ -8,12 +9,15 @@ import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
+import { ObjectClass } from './objectClass';
+import { ObjectSet } from './objectSet';
 import { Parameter } from './parameter';
 
 export class FieldSpec extends Base {
   public reference: string;
   public type: AsnType;
   public actualValue: string;
+  public expandedType: AsnType | ObjectClass | ObjectSet;
   public unique: boolean;
   public optional: boolean;
   public default: AsnType | BuiltinValue;
@@ -43,7 +47,11 @@ export class FieldSpec extends Base {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): FieldSpec {
-    // TODO
+    const definition = findDefinition(this.actualValue, this.getModuleNameToPass(moduleName), asn1Pool);
+    if (definition !== undefined) {
+      this.expandedType = definition;
+      this.expandedType.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    }
     return this;
   }
 
@@ -63,9 +71,12 @@ export class FieldSpec extends Base {
   }
 
   public toString(): string {
-    const pad = this.actualValue || this.type || this.unique || this.optional || this.default ? 48 : 0;
+    const pad = this.expandedType || this.actualValue || this.type ||
+                this.unique || this.optional || this.default ? 48 : 0;
     const stringArray: string[] = [this.reference.padEnd(pad)];
-    if (this.actualValue) {
+    if (this.expandedType) {
+      stringArray.push(this.expandedType.toString());
+    } else if (this.actualValue) {
       stringArray.push(this.actualValue.toString());
     } else if (this.type) {
       stringArray.push(this.type.toString());
