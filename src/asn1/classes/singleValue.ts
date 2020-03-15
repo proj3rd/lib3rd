@@ -27,6 +27,7 @@ export class SingleValue extends Base {
                 classDefinition?: ObjectClass): SingleValue {
     if (classDefinition) {
       this.instantiateObjectClass(classDefinition);
+      (this.value as ObjectClass).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     }
     return this;
   }
@@ -56,6 +57,7 @@ export class SingleValue extends Base {
       // this.value.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList/*, classDefinition*/);
       const objectClassInstance = cloneDeep(classDefinition);
       objectClassInstance.withSyntaxSpec = undefined;
+      objectClassInstance.moduleName = this.moduleName;
       this.value.objIdComponentsList.forEach((component, index) => {
         if (index % 2 !== 0) {
           return;
