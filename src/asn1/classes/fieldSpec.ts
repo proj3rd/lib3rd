@@ -63,7 +63,7 @@ export class FieldSpec extends Base {
   }
 
   public toString(): string {
-    const pad = this.type || this.unique || this.optional || this.default ? 48 : 0;
+    const pad = this.actualValue || this.type || this.unique || this.optional || this.default ? 48 : 0;
     const stringArray: string[] = [this.reference.padEnd(pad)];
     if (this.actualValue) {
       stringArray.push(this.actualValue.toString());
