@@ -287,13 +287,13 @@ WITH SYNTAX {
   CLASS {
     &id                                                 id-MME-UE-S1AP-ID    UNIQUE,
     &criticality                                        ignore,
-    &Value                                              MME-UE-S1AP-ID,
+    &Value                                              INTEGER (0..4294967295),
     &presence                                           mandatory
   }    |
   CLASS {
     &id                                                 id-eNB-UE-S1AP-ID    UNIQUE,
     &criticality                                        ignore,
-    &Value                                              ENB-UE-S1AP-ID,
+    &Value                                              INTEGER (0..16777215),
     &presence                                           mandatory
   }    |
   CLASS {
@@ -305,7 +305,7 @@ WITH SYNTAX {
   CLASS {
     &id                                                 id-HandoverFlag    UNIQUE,
     &criticality                                        ignore,
-    &Value                                              HandoverFlag,
+    &Value                                              ENUMERATED {handoverPreparation, ...},
     &presence                                           optional
   }    |
   CLASS {
@@ -317,7 +317,7 @@ WITH SYNTAX {
   CLASS {
     &id                                                 id-TimeSinceSecondaryNodeRelease    UNIQUE,
     &criticality                                        ignore,
-    &Value                                              TimeSinceSecondaryNodeRelease,
+    &Value                                              OCTET STRING (SIZE (4)),
     &presence                                           optional
   },
   ...
