@@ -21,45 +21,6 @@ class ObjectSetSpec extends base_1.Base {
     }
     expand(asn1Pool, moduleName, parameterList = [], classDefinition) {
         /**
-         * Class definition (JSON-like)
-         * "class name": {
-         *   "fieldSpecs": [
-         *     {
-         *       "reference": "&referenceName",
-         *       "type": {
-         *         "typeReference": "referenceName",
-         *         "constraints": [],
-         *       },
-         *       "unique": boolean,
-         *       "optional": boolean,
-         *       "default": defaultValue,
-         *     }
-         *   ]
-         * }
-         */
-        /**
-         * "HandoverRequiredIEs": {
-         *   "objectSetSpec": {
-         *     "objectSetSpec": [
-         *       {
-         *         "value": {
-         *           "objIdComponentsList": [
-         *             "ID",
-         *             "id-MME-UE-S1AP-ID",
-         *             "CRITICALITY",
-         *             "reject",
-         *             "TYPE",
-         *             "MME-UE-S1AP-ID",
-         *             "PRESENCE",
-         *             "mandatory"
-         *           ]
-         *         }
-         *       },
-         *     ],
-         *   },
-         * }
-         */
-        /**
          * TODO: Replace each objectSetSpec with ObjectClass with specified value
          */
         this.objectSetSpec.forEach((item) => {

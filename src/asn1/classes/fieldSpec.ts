@@ -13,6 +13,7 @@ import { Parameter } from './parameter';
 export class FieldSpec extends Base {
   public reference: string;
   public type: AsnType;
+  public actualValue: string;
   public unique: boolean;
   public optional: boolean;
   public default: AsnType | BuiltinValue;
@@ -64,7 +65,9 @@ export class FieldSpec extends Base {
   public toString(): string {
     const pad = this.type || this.unique || this.optional || this.default ? 48 : 0;
     const stringArray: string[] = [this.reference.padEnd(pad)];
-    if (this.type) {
+    if (this.actualValue) {
+      stringArray.push(this.actualValue.toString());
+    } else if (this.type) {
       stringArray.push(this.type.toString());
     }
     if (this.unique) {

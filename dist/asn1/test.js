@@ -285,40 +285,40 @@ WITH SYNTAX {
         ieName: 'SecondaryRATDataUsageReportIEs',
         expectedResult: `SecondaryRATDataUsageReportIEs S1AP-PROTOCOL-IES ::= {
   CLASS {
-    &id                id-MME-UE-S1AP-ID
-    &criticality       ignore
-    &Value             MME-UE-S1AP-ID
-    &presence          mandatory
+    &id                                                 id-MME-UE-S1AP-ID    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              MME-UE-S1AP-ID,
+    &presence                                           mandatory
   }    |
   CLASS {
-    &id                id-eNB-UE-S1AP-ID
-    &criticality       ignore
-    &Value             ENB-UE-S1AP-ID
-    &presence          mandatory
+    &id                                                 id-eNB-UE-S1AP-ID    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              ENB-UE-S1AP-ID,
+    &presence                                           mandatory
   }    |
   CLASS {
-    &id                id-SecondaryRATDataUsageReportList
-    &criticality       ignore
-    &Value             SecondaryRATDataUsageReportList
-    &presence          mandatory
+    &id                                                 id-SecondaryRATDataUsageReportList    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              SecondaryRATDataUsageReportList,
+    &presence                                           mandatory
   }    |
   CLASS {
-    &id                id-HandoverFlag
-    &criticality       ignore
-    &Value             HandoverFlag
-    &presence          optional
+    &id                                                 id-HandoverFlag    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              HandoverFlag,
+    &presence                                           optional
   }    |
   CLASS {
-    &id                id-UserLocationInformation
-    &criticality       ignore
-    &Value             UserLocationInformation
-    &presence          optional
+    &id                                                 id-UserLocationInformation    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              UserLocationInformation,
+    &presence                                           optional
   }    |
   CLASS {
-    &id                id-TimeSinceSecondaryNodeRelease
-    &criticality       ignore
-    &Value             TimeSinceSecondaryNodeRelease
-    &presence          optional
+    &id                                                 id-TimeSinceSecondaryNodeRelease    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              TimeSinceSecondaryNodeRelease,
+    &presence                                           optional
   },
   ...
 }

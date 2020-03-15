@@ -35,7 +35,10 @@ class FieldSpec extends base_1.Base {
     toString() {
         const pad = this.type || this.unique || this.optional || this.default ? 48 : 0;
         const stringArray = [this.reference.padEnd(pad)];
-        if (this.type) {
+        if (this.actualValue) {
+            stringArray.push(this.actualValue.toString());
+        }
+        else if (this.type) {
             stringArray.push(this.type.toString());
         }
         if (this.unique) {

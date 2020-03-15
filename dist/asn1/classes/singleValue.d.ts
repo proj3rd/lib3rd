@@ -8,7 +8,7 @@ import { IParameterMapping } from './definedType';
 import { ObjectClass } from './objectClass';
 import { Parameter } from './parameter';
 export declare class SingleValue extends Base {
-    value: BuiltinValue;
+    value: BuiltinValue | ObjectClass;
     constructor(value: BuiltinValue);
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[], classDefinition?: ObjectClass): SingleValue;
@@ -16,4 +16,5 @@ export declare class SingleValue extends Base {
     replaceParameters(parameterMapping: IParameterMapping[]): void;
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): SingleValue;
     toString(): string;
+    private instantiateObjectClass;
 }

@@ -31,28 +31,6 @@ export class ObjectSetSpec extends Base {
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = [],
                 classDefinition?: ObjectClass): ObjectSetSpec {
     /**
-     * "HandoverRequiredIEs": {
-     *   "objectSetSpec": {
-     *     "objectSetSpec": [
-     *       {
-     *         "value": {
-     *           "objIdComponentsList": [
-     *             "ID",
-     *             "id-MME-UE-S1AP-ID",
-     *             "CRITICALITY",
-     *             "reject",
-     *             "TYPE",
-     *             "MME-UE-S1AP-ID",
-     *             "PRESENCE",
-     *             "mandatory"
-     *           ]
-     *         }
-     *       },
-     *     ],
-     *   },
-     * }
-     */
-    /**
      * TODO: Replace each objectSetSpec with ObjectClass with specified value
      */
     this.objectSetSpec.forEach((item) => {

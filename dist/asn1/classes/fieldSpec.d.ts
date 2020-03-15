@@ -11,6 +11,7 @@ import { Parameter } from './parameter';
 export declare class FieldSpec extends Base {
     reference: string;
     type: AsnType;
+    actualValue: string;
     unique: boolean;
     optional: boolean;
     default: AsnType | BuiltinValue;
