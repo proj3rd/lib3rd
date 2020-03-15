@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import { ObjectIdentifierValue } from '../classes/objectIdentifierValue';
 import { IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
@@ -47,7 +48,7 @@ export class FieldSpec extends Base {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): FieldSpec {
-    const definition = findDefinition(this.actualValue, this.getModuleNameToPass(moduleName), asn1Pool);
+    const definition = cloneDeep(findDefinition(this.actualValue, this.getModuleNameToPass(moduleName), asn1Pool));
     if (definition !== undefined) {
       this.expandedType = definition;
       this.expandedType.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);

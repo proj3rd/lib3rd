@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const objectIdentifierValue_1 = require("../classes/objectIdentifierValue");
 const utils_1 = require("../utils");
 const asnType_1 = require("./asnType");
@@ -20,7 +21,7 @@ class FieldSpec extends base_1.Base {
         return 0;
     }
     expand(asn1Pool, moduleName, parameterList) {
-        const definition = utils_1.findDefinition(this.actualValue, this.getModuleNameToPass(moduleName), asn1Pool);
+        const definition = lodash_1.cloneDeep(utils_1.findDefinition(this.actualValue, this.getModuleNameToPass(moduleName), asn1Pool));
         if (definition !== undefined) {
             this.expandedType = definition;
             this.expandedType.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);

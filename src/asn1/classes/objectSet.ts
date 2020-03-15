@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
 import { IModules } from '../visitors/modules';
@@ -23,8 +24,9 @@ export class ObjectSet extends Base {
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): ObjectSet {
     if (this.definedObjectClass) {
-      const classDefinition = findDefinition(this.definedObjectClass.toString(),
-                                             this.getModuleNameToPass(moduleName), asn1Pool);
+      const classDefinition = cloneDeep(findDefinition(this.definedObjectClass.toString(),
+                                                       this.getModuleNameToPass(moduleName),
+                                                       asn1Pool));
       if (classDefinition && classDefinition instanceof ObjectClass) {
         this.objectSetSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), [], classDefinition);
       }
