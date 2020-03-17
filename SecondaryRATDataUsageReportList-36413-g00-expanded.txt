@@ -1,0 +1,1 @@
+SecondaryRATDataUsageReportList ::= SEQUENCE (SIZE (1..maxnoofE-RABs)) OF ProtocolIE-Field { { IEsSetParam } }

@@ -5,7 +5,7 @@ import { IParameter } from '../visitors/parameter';
 import { IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
-import { SingleValue } from './SingleValue';
+import { SingleValue } from './singleValue';
 import { ValueRange } from './valueRange';
 
 export class SizeConstraint extends Constraint {
