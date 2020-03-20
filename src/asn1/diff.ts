@@ -12,7 +12,7 @@ interface IIeWithDiff {
   diff?: string;
 }
 
-interface IIeClassification {
+interface IDiffResult {
   iesOld: IIeWithDiff[];
   iesNew: IIeWithDiff[];
   iesCommon: IIeWithDiff[];
@@ -20,7 +20,7 @@ interface IIeClassification {
 
 const PATCH_LENGTH_WITHOUT_FILENAMES = 92;
 
-export function diff(filePathOld: string, filePathNew: string): IIeClassification {
+export function diff(filePathOld: string, filePathNew: string): IDiffResult {
   const fileNameOld = parsePath(filePathOld).name;
   const fileNameNew = parsePath(filePathNew).name;
   const asn1Old = parse(readFileSync(filePathOld, 'utf8'));
@@ -46,7 +46,7 @@ export function diff(filePathOld: string, filePathNew: string): IIeClassificatio
   return {iesOld, iesNew, iesCommon};
 }
 
-function classifyIes(asn1Old: IModules, asn1New: IModules): IIeClassification {
+function classifyIes(asn1Old: IModules, asn1New: IModules): IDiffResult {
   const iesOld = flattenIes(asn1Old);
   const iesNew = flattenIes(asn1New);
   const iesCommon: IIeWithDiff[] = [];

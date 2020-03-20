@@ -3,10 +3,10 @@ interface IIeWithDiff {
     ieName: string;
     diff?: string;
 }
-interface IIeClassification {
+interface IDiffResult {
     iesOld: IIeWithDiff[];
     iesNew: IIeWithDiff[];
     iesCommon: IIeWithDiff[];
 }
-export declare function diff(filePathOld: string, filePathNew: string): IIeClassification;
+export declare function diff(filePathOld: string, filePathNew: string): IDiffResult;
 export {};
