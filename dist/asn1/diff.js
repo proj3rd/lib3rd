@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const diff_1 = require("diff");
+const diff2html_1 = require("diff2html");
 const fs_1 = require("fs");
 const path_1 = require("path");
+const pug = require("pug");
 const yargs = require("yargs");
 const format_1 = require("./format");
 const parse_1 = require("./parse");
@@ -76,5 +78,16 @@ if (require.main === module) {
     if (!filePathOld || !filePathNew) {
         throw Error('Require 2 arguments, oldFilePath and newFilePath');
     }
-    diff(filePathOld, filePathNew);
+    const { iesOld, iesNew, iesCommon } = diff(filePathOld, filePathNew);
+    iesCommon.forEach((ie) => {
+        if (!ie.diff) {
+            return;
+        }
+        const diffJson = diff2html_1.parse(ie.diff);
+        ie.diffHtml = diff2html_1.html(diffJson, { drawFileList: true });
+    });
+    const rendered = pug.renderFile('./resources/diff.pug', {
+        iesOld, iesNew, iesCommon,
+    });
+    process.stdout.write(rendered);
 }

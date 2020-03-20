@@ -2,6 +2,7 @@ interface IIeWithDiff {
     moduleName: string;
     ieName: string;
     diff?: string;
+    diffHtml?: string;
 }
 interface IDiffResult {
     iesOld: IIeWithDiff[];

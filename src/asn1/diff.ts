@@ -1,6 +1,8 @@
 import { createTwoFilesPatch } from 'diff';
+import { html, parse as parseDiff } from 'diff2html';
 import { readFileSync } from 'fs';
 import { parse as parsePath } from 'path';
+import * as pug from 'pug';
 import * as yargs from 'yargs';
 import { formatTxt } from './format';
 import { parse } from './parse';
@@ -10,6 +12,7 @@ interface IIeWithDiff {
   moduleName: string;
   ieName: string;
   diff?: string;
+  diffHtml?: string;
 }
 
 interface IDiffResult {
@@ -92,5 +95,16 @@ if (require.main === module) {
   if (!filePathOld || !filePathNew) {
     throw Error('Require 2 arguments, oldFilePath and newFilePath');
   }
-  diff(filePathOld, filePathNew);
+  const {iesOld, iesNew, iesCommon} = diff(filePathOld, filePathNew);
+  iesCommon.forEach((ie) => {
+    if (!ie.diff) {
+      return;
+    }
+    const diffJson = parseDiff(ie.diff);
+    ie.diffHtml = html(diffJson, {drawFileList: true});
+  });
+  const rendered = pug.renderFile('./resources/diff.pug', {
+    iesOld, iesNew, iesCommon,
+  });
+  process.stdout.write(rendered);
 }
