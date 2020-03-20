@@ -6,6 +6,11 @@ const parse_1 = require("./parse");
 function diff(filePathOld, filePathNew) {
     const asn1Old = parse_1.parse(fs_1.readFileSync(filePathOld, 'utf8'));
     const asn1New = parse_1.parse(fs_1.readFileSync(filePathNew, 'utf8'));
+    const [iesOld, iesNew, iesCommon] = classifyIes(asn1Old, asn1New);
+    return '';
+}
+exports.diff = diff;
+function classifyIes(asn1Old, asn1New) {
     const iesOld = flattenIes(asn1Old);
     const iesNew = flattenIes(asn1New);
     const iesCommon = [];
@@ -20,9 +25,8 @@ function diff(filePathOld, filePathNew) {
             iesNew.splice(indexNew, 1);
         }
     }
-    return '';
+    return [iesOld, iesNew, iesCommon];
 }
-exports.diff = diff;
 function flattenIes(asn1) {
     const iesFlattened = [];
     // tslint:disable-next-line: forin

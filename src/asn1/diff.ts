@@ -12,6 +12,11 @@ interface IIeReference {
 export function diff(filePathOld: string, filePathNew: string): string {
   const asn1Old = parse(readFileSync(filePathOld, 'utf8'));
   const asn1New = parse(readFileSync(filePathNew, 'utf8'));
+  const [iesOld, iesNew, iesCommon] = classifyIes(asn1Old, asn1New);
+  return '';
+}
+
+function classifyIes(asn1Old: IModules, asn1New: IModules): [IIeReference[], IIeReference[], IIeReference[]] {
   const iesOld = flattenIes(asn1Old);
   const iesNew = flattenIes(asn1New);
   const iesCommon: IIeReference[] = [];
@@ -26,7 +31,7 @@ export function diff(filePathOld: string, filePathNew: string): string {
       iesNew.splice(indexNew, 1);
     }
   }
-  return '';
+  return [iesOld, iesNew, iesCommon];
 }
 
 function flattenIes(asn1: IModules): IIeReference[] {
