@@ -4,9 +4,10 @@ import { formatTxt } from './format';
 import { parse } from './parse';
 import { IModules } from './visitors/modules';
 
-interface IIeReference {
+interface IIeWithDiff {
   moduleName: string;
   ieName: string;
+  diff?: string;
 }
 
 export function diff(filePathOld: string, filePathNew: string): string {
@@ -16,10 +17,10 @@ export function diff(filePathOld: string, filePathNew: string): string {
   return '';
 }
 
-function classifyIes(asn1Old: IModules, asn1New: IModules): [IIeReference[], IIeReference[], IIeReference[]] {
+function classifyIes(asn1Old: IModules, asn1New: IModules): [IIeWithDiff[], IIeWithDiff[], IIeWithDiff[]] {
   const iesOld = flattenIes(asn1Old);
   const iesNew = flattenIes(asn1New);
-  const iesCommon: IIeReference[] = [];
+  const iesCommon: IIeWithDiff[] = [];
   for (let indexOld = iesOld.length - 1; indexOld >= 0; indexOld--) {
     const ieOld = iesOld[indexOld];
     const indexNew = iesNew.findIndex((ieNew) => {
@@ -34,8 +35,8 @@ function classifyIes(asn1Old: IModules, asn1New: IModules): [IIeReference[], IIe
   return [iesOld, iesNew, iesCommon];
 }
 
-function flattenIes(asn1: IModules): IIeReference[] {
-  const iesFlattened: IIeReference[] = [];
+function flattenIes(asn1: IModules): IIeWithDiff[] {
+  const iesFlattened: IIeWithDiff[] = [];
   // tslint:disable-next-line: forin
   for (const moduleName in asn1) {
     // tslint:disable-next-line: forin

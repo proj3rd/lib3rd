@@ -48,6 +48,7 @@
     "antlr4": "^4.7.2",
     "antlr4ts": "^0.5.0-alpha.3",
     "cheerio": "^1.0.0-rc.3",
+    "diff": "^4.0.2",
     "excel4node": "^1.7.2",
     "ftp": "^0.3.10",
     "js-combinatorics": "^0.5.4",
