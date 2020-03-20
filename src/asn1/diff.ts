@@ -1,4 +1,6 @@
+import { createTwoFilesPatch } from 'diff';
 import { readFileSync } from 'fs';
+import { parse as parsePath } from 'path';
 import * as yargs from 'yargs';
 import { formatTxt } from './format';
 import { parse } from './parse';
@@ -10,14 +12,41 @@ interface IIeWithDiff {
   diff?: string;
 }
 
-export function diff(filePathOld: string, filePathNew: string): string {
-  const asn1Old = parse(readFileSync(filePathOld, 'utf8'));
-  const asn1New = parse(readFileSync(filePathNew, 'utf8'));
-  const [iesOld, iesNew, iesCommon] = classifyIes(asn1Old, asn1New);
-  return '';
+interface IIeClassification {
+  iesOld: IIeWithDiff[];
+  iesNew: IIeWithDiff[];
+  iesCommon: IIeWithDiff[];
 }
 
-function classifyIes(asn1Old: IModules, asn1New: IModules): [IIeWithDiff[], IIeWithDiff[], IIeWithDiff[]] {
+const PATCH_LENGTH_WITHOUT_FILENAMES = 92;
+
+export function diff(filePathOld: string, filePathNew: string): IIeClassification {
+  const fileNameOld = parsePath(filePathOld).name;
+  const fileNameNew = parsePath(filePathNew).name;
+  const asn1Old = parse(readFileSync(filePathOld, 'utf8'));
+  const asn1New = parse(readFileSync(filePathNew, 'utf8'));
+  const {iesOld, iesNew, iesCommon} = classifyIes(asn1Old, asn1New);
+  iesCommon.forEach((ie) => {
+    const formattedOld = formatSingle(ie, asn1Old);
+    const formattedNew = formatSingle(ie, asn1New);
+    const patch = createTwoFilesPatch(ie.ieName, ie.ieName, formattedOld, formattedNew, `(${fileNameOld})`, `(${fileNameNew})`, {
+      context: 9999,
+    });
+    if (patch.length - fileNameOld.length - fileNameNew.length - 3 * ie.ieName.length
+        === PATCH_LENGTH_WITHOUT_FILENAMES) {
+      // Ignore the empty diff:
+      // Index: ie.ieName
+      // ===================================================================
+      // --- ie.ieName	oldHeader
+      // +++ ie.ieName	newHeader
+      return;
+    }
+    ie.diff = patch;
+  });
+  return {iesOld, iesNew, iesCommon};
+}
+
+function classifyIes(asn1Old: IModules, asn1New: IModules): IIeClassification {
   const iesOld = flattenIes(asn1Old);
   const iesNew = flattenIes(asn1New);
   const iesCommon: IIeWithDiff[] = [];
@@ -32,7 +61,7 @@ function classifyIes(asn1Old: IModules, asn1New: IModules): [IIeWithDiff[], IIeW
       iesNew.splice(indexNew, 1);
     }
   }
-  return [iesOld, iesNew, iesCommon];
+  return {iesOld, iesNew, iesCommon};
 }
 
 function flattenIes(asn1: IModules): IIeWithDiff[] {
@@ -45,6 +74,13 @@ function flattenIes(asn1: IModules): IIeWithDiff[] {
     }
   }
   return iesFlattened;
+}
+
+function formatSingle(ie: IIeWithDiff, asn1: IModules): string {
+  return formatTxt([{
+    name: ie.ieName,
+    definition: asn1[ie.moduleName].assignments[ie.ieName],
+  }]);
 }
 
 if (require.main === module) {

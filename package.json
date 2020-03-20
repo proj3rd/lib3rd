@@ -29,6 +29,7 @@
   "devDependencies": {
     "@types/antlr4": "^4.7.0",
     "@types/cheerio": "^0.22.13",
+    "@types/diff": "^4.0.2",
     "@types/ftp": "^0.3.29",
     "@types/js-combinatorics": "^0.5.31",
     "@types/lodash": "^4.14.138",
