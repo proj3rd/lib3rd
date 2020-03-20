@@ -1,0 +1,39 @@
+link(rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css')
+style.
+  .removed ul, .added ul {
+    list-style: none;
+  }
+  .removed li:before {
+    content: '-';
+  }
+  .removed li {
+    color: #ff0000;
+  }
+  .added li:before {
+    content: '+';
+  }
+  .added li {
+    color: #008000;
+  }
+div
+  | Removed IEs
+  div(class='removed')
+    ul
+      each ie in iesOld
+        li= ie.ieName
+div
+  | Added IEs
+  div(class='added')
+    ul
+      each ie in iesNew
+        li= ie.ieName
+div
+  | Changed IEs
+  div(class='changed')
+    ul
+      each ie in iesCommon
+        if ie.diff
+          li= ie.ieName
+    each ie in iesCommon
+      if ie.diffHtml
+        div !{ie.diffHtml}
