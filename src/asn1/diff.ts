@@ -55,7 +55,7 @@ export function renderDiff(diffResult: IDiffResult): string {
     const diffJson = parseDiff(ie.diff);
     ie.diffHtml = html(diffJson, {drawFileList: true});
   });
-  const rendered = pug.renderFile('./resources/diff.pug', {
+  const rendered = pug.renderFile(`${__dirname}/../../resources/diff.pug`, {
     iesOld, iesNew, iesCommon,
   });
   return rendered;
