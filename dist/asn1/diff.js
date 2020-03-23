@@ -9,11 +9,7 @@ const yargs = require("yargs");
 const format_1 = require("./format");
 const parse_1 = require("./parse");
 const PATCH_LENGTH_WITHOUT_FILENAMES = 92;
-function diff(filePathOld, filePathNew) {
-    const fileNameOld = path_1.parse(filePathOld).name;
-    const fileNameNew = path_1.parse(filePathNew).name;
-    const asn1Old = parse_1.parse(fs_1.readFileSync(filePathOld, 'utf8'));
-    const asn1New = parse_1.parse(fs_1.readFileSync(filePathNew, 'utf8'));
+function diff(asn1Old, asn1New, fileNameOld = '', fileNameNew = '') {
     const { iesOld, iesNew, iesCommon } = classifyIes(asn1Old, asn1New);
     iesCommon.forEach((ie) => {
         const formattedOld = formatSingle(ie, asn1Old);
@@ -93,7 +89,11 @@ if (require.main === module) {
     if (!filePathOld || !filePathNew) {
         throw Error('Require 2 arguments, oldFilePath and newFilePath');
     }
-    const diffResult = diff(filePathOld, filePathNew);
+    const asn1Old = parse_1.parse(fs_1.readFileSync(filePathOld, 'utf8'));
+    const asn1New = parse_1.parse(fs_1.readFileSync(filePathNew, 'utf8'));
+    const fileNameOld = path_1.parse(filePathOld).name;
+    const fileNameNew = path_1.parse(filePathNew).name;
+    const diffResult = diff(asn1Old, asn1New, fileNameOld, fileNameNew);
     const rendered = renderDiff(diffResult);
     process.stdout.write(rendered);
 }

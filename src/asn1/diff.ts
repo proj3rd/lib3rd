@@ -23,11 +23,8 @@ interface IDiffResult {
 
 const PATCH_LENGTH_WITHOUT_FILENAMES = 92;
 
-export function diff(filePathOld: string, filePathNew: string): IDiffResult {
-  const fileNameOld = parsePath(filePathOld).name;
-  const fileNameNew = parsePath(filePathNew).name;
-  const asn1Old = parse(readFileSync(filePathOld, 'utf8'));
-  const asn1New = parse(readFileSync(filePathNew, 'utf8'));
+export function diff(asn1Old: IModules, asn1New: IModules,
+                     fileNameOld: string = '', fileNameNew: string = ''): IDiffResult {
   const {iesOld, iesNew, iesCommon} = classifyIes(asn1Old, asn1New);
   iesCommon.forEach((ie) => {
     const formattedOld = formatSingle(ie, asn1Old);
@@ -110,7 +107,11 @@ if (require.main === module) {
   if (!filePathOld || !filePathNew) {
     throw Error('Require 2 arguments, oldFilePath and newFilePath');
   }
-  const diffResult = diff(filePathOld, filePathNew);
+  const asn1Old = parse(readFileSync(filePathOld, 'utf8'));
+  const asn1New = parse(readFileSync(filePathNew, 'utf8'));
+  const fileNameOld = parsePath(filePathOld).name;
+  const fileNameNew = parsePath(filePathNew).name;
+  const diffResult = diff(asn1Old, asn1New, fileNameOld, fileNameNew);
   const rendered = renderDiff(diffResult);
   process.stdout.write(rendered);
 }
