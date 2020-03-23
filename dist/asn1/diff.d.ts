@@ -10,4 +10,5 @@ interface IDiffResult {
     iesCommon: IIeWithDiff[];
 }
 export declare function diff(filePathOld: string, filePathNew: string): IDiffResult;
+export declare function renderDiff(diffResult: IDiffResult): string;
 export {};

@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const diff_1 = require("./diff");
+exports.diff = diff_1.diff;
+exports.renderDiff = diff_1.renderDiff;
 const expand_1 = require("./expand");
 exports.expand = expand_1.expand;
 const extract_1 = require("./extract");

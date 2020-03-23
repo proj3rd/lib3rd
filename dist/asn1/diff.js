@@ -35,6 +35,21 @@ function diff(filePathOld, filePathNew) {
     return { iesOld, iesNew, iesCommon };
 }
 exports.diff = diff;
+function renderDiff(diffResult) {
+    const { iesOld, iesNew, iesCommon } = diffResult;
+    iesCommon.forEach((ie) => {
+        if (!ie.diff) {
+            return;
+        }
+        const diffJson = diff2html_1.parse(ie.diff);
+        ie.diffHtml = diff2html_1.html(diffJson, { drawFileList: true });
+    });
+    const rendered = pug.renderFile('./resources/diff.pug', {
+        iesOld, iesNew, iesCommon,
+    });
+    return rendered;
+}
+exports.renderDiff = renderDiff;
 function classifyIes(asn1Old, asn1New) {
     const iesOld = flattenIes(asn1Old);
     const iesNew = flattenIes(asn1New);
@@ -78,16 +93,7 @@ if (require.main === module) {
     if (!filePathOld || !filePathNew) {
         throw Error('Require 2 arguments, oldFilePath and newFilePath');
     }
-    const { iesOld, iesNew, iesCommon } = diff(filePathOld, filePathNew);
-    iesCommon.forEach((ie) => {
-        if (!ie.diff) {
-            return;
-        }
-        const diffJson = diff2html_1.parse(ie.diff);
-        ie.diffHtml = diff2html_1.html(diffJson, { drawFileList: true });
-    });
-    const rendered = pug.renderFile('./resources/diff.pug', {
-        iesOld, iesNew, iesCommon,
-    });
+    const diffResult = diff(filePathOld, filePathNew);
+    const rendered = renderDiff(diffResult);
     process.stdout.write(rendered);
 }
