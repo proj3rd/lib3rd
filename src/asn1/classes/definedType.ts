@@ -29,7 +29,7 @@ export class DefinedType extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): Base {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): AsnType {
     if (parameterList.findIndex((value) => isEqual(value, this.typeReference)) !== -1) {
       return this;
     }
