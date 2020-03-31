@@ -4,7 +4,7 @@ import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
-import { Base, IConstantAndModule } from './base';
+import { IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { WithComponents } from './withComponents';
 export interface IParameterMapping {
@@ -17,7 +17,7 @@ export declare class DefinedType extends AsnType {
     actualParameterList: ActualParameter[];
     withComponents: WithComponents;
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): DefinedType;
-    expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): Base;
+    expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): AsnType;
     depthMax(): number;
     replaceParameters(parameterMapping: IParameterMapping[]): void;
     toString(): string;
