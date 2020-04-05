@@ -47,7 +47,9 @@ exports.findDefinition = findDefinition;
 function sanitizeAsn1(asn1) {
     // Removes comments which are not a Need tag neither a Cond tag
     // Gives one space before a Need tag and a Cond tag
-    return asn1.replace(/--(?!.*(Need|Cond)).*$/gm, '')
+    return asn1
+        .replace(/--.*?--/gm, '')
+        .replace(/--(?!.*(Need|Cond)).*$/gm, '')
         .replace(/(--\s*?(Need|Cond).*?)$/gm, ' $1')
         .replace(/,\.\.\./gm, ', ...');
 }
