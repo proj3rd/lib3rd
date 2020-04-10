@@ -240,14 +240,23 @@ const testCases: ITestCase[] = [
   ...
 }`,
   },
-  /*
   {
-    testName: '',
-    specWithVersion: '',
-    ieName: '',
-    expectedResult: ``,
+    testName: 'TypeAssignment of DefinedType',
+    specWithVersion: '36331-f80',
+    ieName: 'BCCH-BCH-MessageType',
+    expectedResult: `BCCH-BCH-MessageType ::= SEQUENCE {
+  dl-Bandwidth                                        ENUMERATED {n6, n15, n25, n50, n75, n100},
+  phich-Config                                        SEQUENCE {
+    phich-Duration                                      ENUMERATED {normal, extended},
+    phich-Resource                                      ENUMERATED {oneSixth, half, one, two}
   },
-  */
+  systemFrameNumber                                   BIT STRING (SIZE (8)),
+  schedulingInfoSIB1-BR-r13                           INTEGER (0..31),
+  systemInfoUnchanged-BR-r15                          BOOLEAN,
+  spare                                               BIT STRING (SIZE (4))
+}`,
+    expandRequired: true,
+  },
 ];
 
 interface IAsn1Pool {
