@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const assert = require("assert");
 const fs_1 = require("fs");
+const _1 = require(".");
 const format_1 = require("./format");
 const text_1 = require("./format/text");
 const parse_1 = require("./parse");
@@ -243,10 +244,16 @@ specWithVersionSet.forEach((specWithVersion) => {
     asn1Pool[specWithVersion] = asn1Parsed;
 });
 testCases.forEach((testCase) => {
-    const { testName, specWithVersion, ieName, expectedResult } = testCase;
+    const { testName, specWithVersion, ieName, expectedResult, expandRequired } = testCase;
     it(testName, () => {
         const asn1Parsed = asn1Pool[specWithVersion];
-        const ie = format_1.findMsgIes(ieName, asn1Parsed);
-        assert.equal(text_1.format(ie), expectedResult);
+        const ies = format_1.findMsgIes(ieName, asn1Parsed);
+        if (expandRequired) {
+            const iesExpanded = ies.map((ie) => _1.expand(ie, asn1Parsed));
+            assert.equal(text_1.format(iesExpanded), expectedResult);
+        }
+        else {
+            assert.equal(text_1.format(ies), expectedResult);
+        }
     });
 });

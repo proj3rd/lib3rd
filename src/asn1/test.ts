@@ -1,5 +1,6 @@
 import * as assert from 'assert';
 import { readFileSync } from 'fs';
+import { expand } from '.';
 import { findMsgIes } from './format';
 import { format } from './format/text';
 import { parse } from './parse';
@@ -10,6 +11,7 @@ interface ITestCase {
   specWithVersion: string;
   ieName: string;
   expectedResult: string;
+  expandRequired?: boolean;
 }
 
 const testCases: ITestCase[] = [
@@ -265,10 +267,15 @@ specWithVersionSet.forEach((specWithVersion) => {
 });
 
 testCases.forEach((testCase) => {
-  const {testName, specWithVersion, ieName, expectedResult} = testCase;
+  const {testName, specWithVersion, ieName, expectedResult, expandRequired} = testCase;
   it(testName, () => {
     const asn1Parsed = asn1Pool[specWithVersion];
-    const ie = findMsgIes(ieName, asn1Parsed);
-    assert.equal(format(ie), expectedResult);
+    const ies = findMsgIes(ieName, asn1Parsed);
+    if (expandRequired) {
+      const iesExpanded = ies.map((ie) => expand(ie, asn1Parsed));
+      assert.equal(format(iesExpanded), expectedResult);
+    } else {
+      assert.equal(format(ies), expectedResult);
+    }
   });
 });
