@@ -4,6 +4,7 @@ const lodash_1 = require("lodash");
 const xlsx_1 = require("../format/xlsx");
 const utils_1 = require("../utils");
 const asnType_1 = require("./asnType");
+const objectIdentifierValue_1 = require("./objectIdentifierValue");
 class DefinedType extends asnType_1.AsnType {
     setConstraint(constraints) {
         this.constraints = constraints;
@@ -45,10 +46,30 @@ class DefinedType extends asnType_1.AsnType {
     replaceParameters(parameterMapping) {
         if (!this.moduleReference && this.typeReference) {
             const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
-            if (!mappingFound) {
-                return;
+            if (mappingFound) {
+                Object.assign(this, mappingFound.actualParameter);
             }
-            Object.assign(this, mappingFound.actualParameter);
+        }
+        // FIXME: Implemented in a very limited way
+        if (this.actualParameterList) {
+            parameterMapping.forEach((item) => {
+                const { dummyReference } = item.parameter;
+                const index = this.actualParameterList.findIndex((actualParameter) => {
+                    if (!(actualParameter instanceof objectIdentifierValue_1.ObjectIdentifierValue)) {
+                        return false;
+                    }
+                    return actualParameter.objIdComponentsList[0] === dummyReference;
+                });
+                if (index === -1) {
+                    return;
+                }
+                const actualParameterSource = item.actualParameter;
+                const actualParameterTarget = this.actualParameterList[index];
+                if (actualParameterSource instanceof objectIdentifierValue_1.ObjectIdentifierValue &&
+                    actualParameterTarget instanceof objectIdentifierValue_1.ObjectIdentifierValue) {
+                    actualParameterTarget.objIdComponentsList = actualParameterSource.objIdComponentsList;
+                }
+            });
         }
     }
     toString() {

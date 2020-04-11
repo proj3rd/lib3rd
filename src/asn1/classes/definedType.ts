@@ -8,6 +8,7 @@ import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
+import { ObjectIdentifierValue } from './objectIdentifierValue';
 import { Parameter } from './parameter';
 import { WithComponents } from './withComponents';
 
@@ -65,10 +66,30 @@ export class DefinedType extends AsnType {
   public replaceParameters(parameterMapping: IParameterMapping[]): void {
     if (!this.moduleReference && this.typeReference) {
       const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
-      if (!mappingFound) {
-        return;
+      if (mappingFound) {
+        Object.assign(this, mappingFound.actualParameter);
       }
-      Object.assign(this, mappingFound.actualParameter);
+    }
+    // FIXME: Implemented in a very limited way
+    if (this.actualParameterList) {
+      parameterMapping.forEach((item) => {
+        const { dummyReference } = item.parameter;
+        const index = this.actualParameterList.findIndex((actualParameter) => {
+          if (!(actualParameter instanceof ObjectIdentifierValue)) {
+            return false;
+          }
+          return actualParameter.objIdComponentsList[0] === dummyReference;
+        });
+        if (index === -1) {
+          return;
+        }
+        const actualParameterSource = item.actualParameter;
+        const actualParameterTarget = this.actualParameterList[index];
+        if (actualParameterSource instanceof ObjectIdentifierValue &&
+            actualParameterTarget instanceof ObjectIdentifierValue) {
+          actualParameterTarget.objIdComponentsList = actualParameterSource.objIdComponentsList;
+        }
+      });
     }
   }
 
