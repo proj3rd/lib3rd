@@ -21,7 +21,7 @@ class ObjectClassField extends asnType_1.AsnType {
         return 0;
     }
     replaceParameters(paramterMapping) {
-        logging_1.log.warn(new Error('replaceParameters() not supported').stack);
+        logging_1.log.warn(`${__filename}: replaceParameters() not supported`);
     }
     toString() {
         const moduleReference = this.moduleReference ? `${this.moduleReference}.` : '';
