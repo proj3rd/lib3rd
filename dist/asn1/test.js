@@ -261,7 +261,11 @@ WITH SYNTAX {
         testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Expanded',
         specWithVersion: '36413-g00',
         ieName: 'SecondaryRATDataUsageReportList',
-        expectedResult: `SecondaryRATDataUsageReportList ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { { SecondaryRATDataUsageReportItemIEs } }`,
+        expectedResult: `SecondaryRATDataUsageReportList ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF SEQUENCE {
+  id    id-SecondaryRATDataUsageReportItem,
+  criticality    ignore,
+  value    SecondaryRATDataUsageReportItem
+}`,
         expandRequired: true,
     },
     {
