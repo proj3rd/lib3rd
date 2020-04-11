@@ -336,8 +336,7 @@ WITH SYNTAX {
     &presence                                           optional
   },
   ...
-}
-`,
+}`,
     expandRequired: true,
   },
   {
