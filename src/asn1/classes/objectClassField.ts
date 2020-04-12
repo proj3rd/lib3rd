@@ -1,3 +1,4 @@
+import * as colors from 'colors';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
@@ -35,7 +36,12 @@ export class ObjectClassField extends AsnType {
   }
 
   public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    log.warn(`${__filename}: replaceParameters() not supported`);
+    console.debug(colors.blue(__filename), 'replaceParameters()');
+    console.debug(colors.yellow('Current IE'));
+    console.debug(this);
+    console.debug(colors.yellow('Parameter mapping:'));
+    console.debug(JSON.stringify(parameterMapping, null, 2));
+    console.warn(colors.red(`${__filename} replaceParameters() not supported currently`));
   }
 
   public toString(): string {
