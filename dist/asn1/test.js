@@ -261,29 +261,34 @@ WITH SYNTAX {
         testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Expanded',
         specWithVersion: '36413-g00',
         ieName: 'SecondaryRATDataUsageReportList',
-        expectedResult: `SecondaryRATDataUsageReportList ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF SEQUENCE {
-  id             id-SecondaryRATDataUsageReportItem,
-  criticality    ignore,
-  value          SEQUENCE {
-    e-RAB-ID                INTEGER (0..15, ...),
-    secondaryRATType        ENUMERATED {nR, ..., unlicensed},
-    e-RABUsageReportList    SEQUENCE (SIZE(1..maxnooftimeperiods)) OF ProtocolIE-Field { { E-RABUsageReportItemIEs } },
-    e-RABUsageReportList    SEQUENCE (SIZE(1..maxnooftimeperiods)) OF SEQUENCE {
-      id             id-E-RABUsageReportItem,
-      criticality    ignore,
-      value          SEQUENCE {
-        startTimestamp    OCTET STRING (SIZE(4)),
-        endTimestamp      OCTET STRING (SIZE(4)),
-        usageCountUL      INTEGER (0..18446744073709551615),
-        usageCountDL      INTEGER (0..18446744073709551615),
-        iE-Extensions     SEQUENCE (SIZE (1..maxProtocolExtensions)) OF SEQUENCE {} OPTIONAL,
-        ...
-      }
-    },
-    iE-Extensions           SEQUENCE (SIZE (1..maxProtocolExtensions)) OF SEQUENCE {} OPTIONAL,
-    ...
-  }
-}`,
+        expectedResult: `SecondaryRATDataUsageReportList ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF
+  SEQUENCE {
+    id             id-SecondaryRATDataUsageReportItem,
+    criticality    ignore,
+    value          SEQUENCE {
+      e-RAB-ID                INTEGER (0..15, ...),
+      secondaryRATType        ENUMERATED {nR, ..., unlicensed},
+      e-RABUsageReportList    SEQUENCE (SIZE(1..maxnooftimeperiods)) OF
+        SEQUENCE {
+          id             id-E-RABUsageReportItem,
+          criticality    ignore,
+          value          SEQUENCE {
+            startTimestamp    OCTET STRING (SIZE(4)),
+            endTimestamp      OCTET STRING (SIZE(4)),
+            usageCountUL      INTEGER (0..18446744073709551615),
+            usageCountDL      INTEGER (0..18446744073709551615),
+            iE-Extensions     SEQUENCE (SIZE (1..maxProtocolExtensions)) OF
+              SEQUENCE {}
+            OPTIONAL,
+            ...
+          }
+        },
+      iE-Extensions           SEQUENCE (SIZE (1..maxProtocolExtensions)) OF
+        SEQUENCE {}
+      OPTIONAL,
+      ...
+    }
+  }`,
         expandRequired: true,
     },
     {
