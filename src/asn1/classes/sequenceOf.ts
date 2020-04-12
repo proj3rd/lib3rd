@@ -1,3 +1,4 @@
+import * as colors from 'colors';
 import { cloneDeep } from 'lodash';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
@@ -34,6 +35,12 @@ export class SequenceOf extends AsnType {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): SequenceOf {
+    console.log(colors.blue(__filename), 'expand()');
+    console.log(colors.yellow('Current IE'));
+    console.log(JSON.stringify(this, null, 2));
+    console.log(colors.yellow('Parameter list'));
+    console.log(parameterList);
+    // TODO: Need to check this.type.actualParameterList[0].objIdComponentList[0] is Object Set ?
     const typeToExpand = cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     // This should always be true
     if (typeToExpand instanceof AsnType || typeToExpand instanceof NamedType) {
