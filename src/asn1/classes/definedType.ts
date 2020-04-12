@@ -55,8 +55,7 @@ export class DefinedType extends AsnType {
       });
     }
     definition.replaceParameters(parameterMapping);
-    const definitionNew = definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
-    return definitionNew;
+    return definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
   }
 
   public depthMax(): number {

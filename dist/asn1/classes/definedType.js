@@ -37,8 +37,7 @@ class DefinedType extends asnType_1.AsnType {
             });
         }
         definition.replaceParameters(parameterMapping);
-        const definitionNew = definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
-        return definitionNew;
+        return definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     }
     depthMax() {
         return 0;
