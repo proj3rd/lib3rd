@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const colors = require("colors");
 const lodash_1 = require("lodash");
 const logging_1 = require("../../utils/logging");
 const xlsx_1 = require("../format/xlsx");
@@ -29,6 +30,15 @@ class Sequence extends asnType_1.AsnType {
         return depthMax;
     }
     replaceParameters(parameterMapping) {
+        console.log(colors.blue(__filename), 'replaceParameters()');
+        console.log(colors.yellow('Current IE'));
+        console.log(JSON.stringify(this, null, 2));
+        console.log(colors.yellow('Parameter mapping'));
+        console.log(JSON.stringify(parameterMapping, null, 2));
+        /** TODO
+         * If parameterMapping points Object Set,
+         * duplicate Sequnce as many as te number of items in the Object Set
+         */
         this.items.forEach((item) => {
             item.replaceParameters(parameterMapping);
         });

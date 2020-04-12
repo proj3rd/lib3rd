@@ -1,3 +1,4 @@
+import * as colors from 'colors';
 import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
@@ -44,6 +45,15 @@ export class Sequence extends AsnType {
   }
 
   public replaceParameters(parameterMapping: IParameterMapping[]): void {
+    console.log(colors.blue(__filename), 'replaceParameters()');
+    console.log(colors.yellow('Current IE'));
+    console.log(JSON.stringify(this, null, 2));
+    console.log(colors.yellow('Parameter mapping'));
+    console.log(JSON.stringify(parameterMapping, null, 2));
+    /** TODO
+     * If parameterMapping points Object Set,
+     * duplicate Sequnce as many as te number of items in the Object Set
+     */
     this.items.forEach((item) => {
       item.replaceParameters(parameterMapping);
     });

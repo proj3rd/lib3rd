@@ -24,7 +24,6 @@ class SequenceOf extends asnType_1.AsnType {
         console.log(JSON.stringify(this, null, 2));
         console.log(colors.yellow('Parameter list'));
         console.log(parameterList);
-        // TODO: Need to check this.type.actualParameterList[0].objIdComponentList[0] is Object Set ?
         const typeToExpand = lodash_1.cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         // This should always be true
         if (typeToExpand instanceof asnType_1.AsnType || typeToExpand instanceof namedType_1.NamedType) {

@@ -40,7 +40,6 @@ export class SequenceOf extends AsnType {
     console.log(JSON.stringify(this, null, 2));
     console.log(colors.yellow('Parameter list'));
     console.log(parameterList);
-    // TODO: Need to check this.type.actualParameterList[0].objIdComponentList[0] is Object Set ?
     const typeToExpand = cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     // This should always be true
     if (typeToExpand instanceof AsnType || typeToExpand instanceof NamedType) {
