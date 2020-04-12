@@ -1,3 +1,4 @@
+import * as colors from 'colors';
 import { cloneDeep, isEqual } from 'lodash';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
@@ -29,13 +30,19 @@ export class DefinedType extends AsnType {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): Base {
+    console.log(colors.blue(__filename), 'expand()');
+    console.log(colors.yellow('Current IE'), `(type: ${this.constructor.name})`);
+    console.log(JSON.stringify(this, null, 2));
     if (parameterList.findIndex((value) => isEqual(value, this.typeReference)) !== -1) {
       return this;
     }
     const definition = cloneDeep(findDefinition(this.typeReference, this.getModuleNameToPass(moduleName), asn1Pool));
     if (!definition) {
+      console.log(colors.gray('IE not found. Exit expand()'));
       return this;
     }
+    console.log(colors.yellow('IE found'), `(type: ${definition.constructor.name})`);
+    console.log(JSON.stringify(definition, null, 2));
     const parameterMapping: IParameterMapping[] = [];
     if (definition instanceof AsnType && definition.parameterList) {
       definition.parameterList.forEach((parameter, index) => {

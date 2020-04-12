@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const colors = require("colors");
 const lodash_1 = require("lodash");
 const xlsx_1 = require("../format/xlsx");
 const utils_1 = require("../utils");
@@ -11,13 +12,19 @@ class DefinedType extends asnType_1.AsnType {
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
+        console.log(colors.blue(__filename), 'expand()');
+        console.log(colors.yellow('Current IE'), `(type: ${this.constructor.name})`);
+        console.log(JSON.stringify(this, null, 2));
         if (parameterList.findIndex((value) => lodash_1.isEqual(value, this.typeReference)) !== -1) {
             return this;
         }
         const definition = lodash_1.cloneDeep(utils_1.findDefinition(this.typeReference, this.getModuleNameToPass(moduleName), asn1Pool));
         if (!definition) {
+            console.log(colors.gray('IE not found. Exit expand()'));
             return this;
         }
+        console.log(colors.yellow('IE found'), `(type: ${definition.constructor.name})`);
+        console.log(JSON.stringify(definition, null, 2));
         const parameterMapping = [];
         if (definition instanceof asnType_1.AsnType && definition.parameterList) {
             definition.parameterList.forEach((parameter, index) => {
