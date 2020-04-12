@@ -34,7 +34,7 @@ export class ObjectClassField extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): void {
     log.warn(`${__filename}: replaceParameters() not supported`);
   }
 

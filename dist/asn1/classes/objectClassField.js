@@ -20,7 +20,7 @@ class ObjectClassField extends asnType_1.AsnType {
     depthMax() {
         return 0;
     }
-    replaceParameters(paramterMapping) {
+    replaceParameters(parameterMapping) {
         logging_1.log.warn(`${__filename}: replaceParameters() not supported`);
     }
     toString() {
