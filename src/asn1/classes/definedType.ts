@@ -61,7 +61,7 @@ export class DefinedType extends AsnType {
         typeReference: `${this.toString()}`,
       });
     }
-    definition.replaceParameters(parameterMapping);
+    definition.replaceParameters(parameterMapping, asn1Pool, this.getModuleNameToPass(moduleName));
     return definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
   }
 
