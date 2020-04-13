@@ -5,6 +5,7 @@ const lodash_1 = require("lodash");
 const logging_1 = require("../../utils/logging");
 const xlsx_1 = require("../format/xlsx");
 const asnType_1 = require("./asnType");
+const objectIdentifierValue_1 = require("./objectIdentifierValue");
 class Sequence extends asnType_1.AsnType {
     constructor(items) {
         super();
@@ -34,7 +35,19 @@ class Sequence extends asnType_1.AsnType {
         console.log(colors.yellow('Current IE'));
         console.log(JSON.stringify(this, null, 2));
         console.log(colors.yellow('Parameter mapping'));
-        console.log(JSON.stringify(parameterMapping, null, 2));
+        parameterMapping.forEach((item, index) => {
+            console.log(colors.yellow(`[${index}]`), `(actualParameter: ${item.actualParameter.constructor.name})`);
+            console.log(JSON.stringify(item, null, 2));
+        });
+        if (parameterMapping && parameterMapping.length > 0) {
+            const paramFirst = parameterMapping[0].actualParameter;
+            if (parameterMapping.length > 1) {
+                console.log(colors.red('parameterMapping has more than 1'));
+            }
+            if (paramFirst instanceof objectIdentifierValue_1.ObjectIdentifierValue) {
+                // TODO
+            }
+        }
         /** TODO
          * If parameterMapping points Object Set,
          * duplicate Sequnce as many as te number of items in the Object Set

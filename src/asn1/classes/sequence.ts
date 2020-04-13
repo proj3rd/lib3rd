@@ -11,6 +11,7 @@ import { IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
+import { ObjectIdentifierValue } from './objectIdentifierValue';
 import { Parameter } from './parameter';
 
 export class Sequence extends AsnType {
@@ -49,7 +50,19 @@ export class Sequence extends AsnType {
     console.log(colors.yellow('Current IE'));
     console.log(JSON.stringify(this, null, 2));
     console.log(colors.yellow('Parameter mapping'));
-    console.log(JSON.stringify(parameterMapping, null, 2));
+    parameterMapping.forEach((item, index) => {
+      console.log(colors.yellow(`[${index}]`), `(actualParameter: ${item.actualParameter.constructor.name})`);
+      console.log(JSON.stringify(item, null, 2));
+    });
+    if (parameterMapping && parameterMapping.length > 0) {
+      const paramFirst = parameterMapping[0].actualParameter;
+      if (parameterMapping.length > 1) {
+        console.log(colors.red('parameterMapping has more than 1'));
+      }
+      if (paramFirst instanceof ObjectIdentifierValue) {
+        // TODO
+      }
+    }
     /** TODO
      * If parameterMapping points Object Set,
      * duplicate Sequnce as many as te number of items in the Object Set
