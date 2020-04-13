@@ -39,6 +39,7 @@ export function findDefinition(typeName: string, moduleName: string, asn1Pool: I
   const definition = findDefinitionHelper(typeName, moduleName, asn1Pool);
   if (definition) {
     console.log(colors.yellow('IE found'), `(type: ${definition.constructor.name})`);
+    console.log(JSON.stringify(definition, null, 2));
     return definition;
   }
   console.log(colors.red('Fallback to exhaustive search'));
@@ -47,6 +48,7 @@ export function findDefinition(typeName: string, moduleName: string, asn1Pool: I
     const definitionFallback = findDefinitionHelper(typeName, moduleNameFallback, asn1Pool);
     if (definitionFallback) {
       console.log(colors.yellow('IE found'), `(type: ${definitionFallback.constructor.name})`);
+      console.log(JSON.stringify(definitionFallback, null, 2));
       return definitionFallback;
     }
   }
