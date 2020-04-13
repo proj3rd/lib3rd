@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { findDefinition } from '../utils';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
@@ -45,7 +46,7 @@ export class Sequence extends AsnType {
     return depthMax;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[], asn1Pool: IModules, moduleName: string): void {
     console.log(colors.blue(__filename), 'replaceParameters()');
     console.log(colors.yellow('Current IE'));
     console.log(JSON.stringify(this, null, 2));
@@ -60,7 +61,11 @@ export class Sequence extends AsnType {
         console.log(colors.red('parameterMapping has more than 1'));
       }
       if (paramFirst instanceof ObjectIdentifierValue) {
-        // TODO
+        const definition = findDefinition(paramFirst.objIdComponentsList[0] as string,
+                                          this.getModuleNameToPass(moduleName), asn1Pool);
+        if (definition) {
+          // TODO
+        }
       }
     }
     /** TODO

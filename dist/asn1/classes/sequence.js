@@ -4,6 +4,7 @@ const colors = require("colors");
 const lodash_1 = require("lodash");
 const logging_1 = require("../../utils/logging");
 const xlsx_1 = require("../format/xlsx");
+const utils_1 = require("../utils");
 const asnType_1 = require("./asnType");
 const objectIdentifierValue_1 = require("./objectIdentifierValue");
 class Sequence extends asnType_1.AsnType {
@@ -30,7 +31,7 @@ class Sequence extends asnType_1.AsnType {
         });
         return depthMax;
     }
-    replaceParameters(parameterMapping) {
+    replaceParameters(parameterMapping, asn1Pool, moduleName) {
         console.log(colors.blue(__filename), 'replaceParameters()');
         console.log(colors.yellow('Current IE'));
         console.log(JSON.stringify(this, null, 2));
@@ -45,7 +46,10 @@ class Sequence extends asnType_1.AsnType {
                 console.log(colors.red('parameterMapping has more than 1'));
             }
             if (paramFirst instanceof objectIdentifierValue_1.ObjectIdentifierValue) {
-                // TODO
+                const definition = utils_1.findDefinition(paramFirst.objIdComponentsList[0], this.getModuleNameToPass(moduleName), asn1Pool);
+                if (definition) {
+                    // TODO
+                }
             }
         }
         /** TODO
