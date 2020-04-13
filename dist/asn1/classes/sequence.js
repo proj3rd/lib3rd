@@ -7,6 +7,7 @@ const xlsx_1 = require("../format/xlsx");
 const utils_1 = require("../utils");
 const asnType_1 = require("./asnType");
 const objectIdentifierValue_1 = require("./objectIdentifierValue");
+const objectSet_1 = require("./objectSet");
 class Sequence extends asnType_1.AsnType {
     constructor(items) {
         super();
@@ -47,8 +48,8 @@ class Sequence extends asnType_1.AsnType {
             }
             if (paramFirst instanceof objectIdentifierValue_1.ObjectIdentifierValue) {
                 const definition = utils_1.findDefinition(paramFirst.objIdComponentsList[0], this.getModuleNameToPass(moduleName), asn1Pool);
-                if (definition) {
-                    // TODO
+                if (definition && definition instanceof objectSet_1.ObjectSet) {
+                    // TODO: Return Sequence[]
                 }
             }
         }

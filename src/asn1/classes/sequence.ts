@@ -13,6 +13,7 @@ import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
 import { ObjectIdentifierValue } from './objectIdentifierValue';
+import { ObjectSet } from './objectSet';
 import { Parameter } from './parameter';
 
 export class Sequence extends AsnType {
@@ -63,8 +64,8 @@ export class Sequence extends AsnType {
       if (paramFirst instanceof ObjectIdentifierValue) {
         const definition = findDefinition(paramFirst.objIdComponentsList[0] as string,
                                           this.getModuleNameToPass(moduleName), asn1Pool);
-        if (definition) {
-          // TODO
+        if (definition && definition instanceof ObjectSet) {
+          // TODO: Return Sequence[]
         }
       }
     }
