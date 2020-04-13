@@ -23,7 +23,8 @@ export abstract class Base {
                                 constants: IConstantAndModule[], formatConfig: IFormatConfig,
                                 depth?: number): [number, number];
   public abstract setConstraint(constraints: Array<Constraint | ConstraintSpec>): Base;
-  public abstract replaceParameters(parameterMapping: IParameterMapping[]): void;
+  public abstract replaceParameters(parameterMapping: IParameterMapping[],
+                                    asn1Pool?: IModules, moduleName?: string): void;
 
   protected indent(text: string): string {
     return text.replace(/^/gm, '  ');
