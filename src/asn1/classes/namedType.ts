@@ -42,8 +42,9 @@ export class NamedType extends Base {
     return this.type.depthMax();
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): NamedType {
     this.type.replaceParameters(parameterMapping);
+    return this;
   }
 
   public toString(): string {

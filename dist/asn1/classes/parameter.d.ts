@@ -11,7 +11,7 @@ export declare class Parameter extends Base {
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): Parameter;
     depthMax(): number;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): Parameter;
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): Parameter;
     toString(): string;
 }

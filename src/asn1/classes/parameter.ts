@@ -36,8 +36,8 @@ export class Parameter extends Base {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // TODO
+  public replaceParameters(parameterMapping: IParameterMapping[]): Parameter {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): Parameter {

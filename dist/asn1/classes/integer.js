@@ -18,7 +18,7 @@ class Integer extends asnType_1.AsnType {
         return 0;
     }
     replaceParameters(paramterMapping) {
-        // Do nothing
+        return this;
     }
     toString() {
         return `INTEGER${this.constraintsToString()}`;

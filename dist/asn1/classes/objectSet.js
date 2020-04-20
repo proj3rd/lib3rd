@@ -29,7 +29,7 @@ class ObjectSet extends base_1.Base {
         return [row, col];
     }
     replaceParameters() {
-        // TODO
+        return this;
     }
     setConstraint() {
         // TODO

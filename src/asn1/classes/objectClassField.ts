@@ -35,13 +35,14 @@ export class ObjectClassField extends AsnType {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): ObjectClassField {
     console.log(colors.blue(__filename), 'replaceParameters()');
     console.log(colors.yellow('Current IE'));
     console.log(this);
     console.log(colors.yellow('Parameter mapping:'));
     console.log(JSON.stringify(parameterMapping, null, 2));
     console.warn(colors.red(`${__filename} replaceParameters() not supported currently`));
+    return this;
   }
 
   public toString(): string {

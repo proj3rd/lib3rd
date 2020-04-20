@@ -24,7 +24,7 @@ export abstract class Base {
                                 depth?: number): [number, number];
   public abstract setConstraint(constraints: Array<Constraint | ConstraintSpec>): Base;
   public abstract replaceParameters(parameterMapping: IParameterMapping[],
-                                    asn1Pool?: IModules, moduleName?: string): void;
+                                    asn1Pool?: IModules, moduleName?: string): Base;
 
   protected indent(text: string): string {
     return text.replace(/^/gm, '  ');

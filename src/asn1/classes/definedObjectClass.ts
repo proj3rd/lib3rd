@@ -34,8 +34,8 @@ export class DefinedObjectClass extends Base {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // TODO
+  public replaceParameters(parameterMapping: IParameterMapping[]): DefinedObjectClass {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): DefinedObjectClass {

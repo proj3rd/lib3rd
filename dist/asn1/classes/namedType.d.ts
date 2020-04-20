@@ -16,7 +16,7 @@ export declare class NamedType extends Base {
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): NamedType;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): NamedType;
     depthMax(): number;
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): NamedType;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
     private getOptionalString;

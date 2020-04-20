@@ -12,7 +12,7 @@ export declare class ExtensionAdditionAlternativesGroup extends Base {
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): ExtensionAdditionAlternativesGroup;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): ExtensionAdditionAlternativesGroup;
     depthMax(): number;
-    replaceParameters(paramterMapping: IParameterMapping[]): void;
+    replaceParameters(paramterMapping: IParameterMapping[]): ExtensionAdditionAlternativesGroup;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }

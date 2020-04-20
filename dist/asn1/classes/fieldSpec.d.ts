@@ -28,7 +28,7 @@ export declare class FieldSpec extends Base {
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): FieldSpec;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): FieldSpec;
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): FieldSpec;
     toString(): string;
 }

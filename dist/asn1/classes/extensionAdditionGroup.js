@@ -35,6 +35,7 @@ class ExtensionAdditionGroup extends base_1.Base {
         this.componentTypeList.forEach((item) => {
             item.replaceParameters(paramterMapping);
         });
+        return this;
     }
     toString() {
         const itemString = [];

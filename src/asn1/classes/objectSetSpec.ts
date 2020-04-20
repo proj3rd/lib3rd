@@ -51,8 +51,8 @@ export class ObjectSetSpec extends Base {
     return [row, col];
   }
 
-  public replaceParameters(): void {
-    // TODO
+  public replaceParameters(): ObjectSetSpec {
+    return this;
   }
 
   public setConstraint(): ObjectSetSpec {

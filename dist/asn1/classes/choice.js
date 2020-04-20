@@ -32,6 +32,7 @@ class Choice extends asnType_1.AsnType {
         this.choices.forEach((choice) => {
             choice.replaceParameters(parameterMapping);
         });
+        return this;
     }
     toString() {
         return !this.choices.length ? 'CHOICE {}' : [

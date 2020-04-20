@@ -30,8 +30,8 @@ export class WithSyntaxSpec extends Base {
     throw Error('WithSyntaxSpec.fillWorksheet() shall not be called independently');
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): WithSyntaxSpec {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): WithSyntaxSpec {

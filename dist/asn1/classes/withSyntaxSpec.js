@@ -16,7 +16,7 @@ class WithSyntaxSpec extends base_1.Base {
         throw Error('WithSyntaxSpec.fillWorksheet() shall not be called independently');
     }
     replaceParameters(parameterMapping) {
-        // Do nothing
+        return this;
     }
     setConstraint(constraints) {
         return this;

@@ -27,6 +27,7 @@ class ObjectClassField extends asnType_1.AsnType {
         console.log(colors.yellow('Parameter mapping:'));
         console.log(JSON.stringify(parameterMapping, null, 2));
         console.warn(colors.red(`${__filename} replaceParameters() not supported currently`));
+        return this;
     }
     toString() {
         const moduleReference = this.moduleReference ? `${this.moduleReference}.` : '';

@@ -13,7 +13,7 @@ export declare class Syntax extends Base {
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): Syntax;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): Syntax;
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): Syntax;
     toString(): string;
 }

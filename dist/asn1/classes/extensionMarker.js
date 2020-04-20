@@ -18,7 +18,7 @@ class ExtensionMarker extends base_1.Base {
         return 0;
     }
     replaceParameters(paramterMapping) {
-        // Do nothing
+        return this;
     }
     toString() {
         return '...';

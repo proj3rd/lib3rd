@@ -14,7 +14,7 @@ export declare class ContainingEncodedByConstraint extends Constraint {
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): ContainingEncodedByConstraint;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): ContainingEncodedByConstraint;
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): ContainingEncodedByConstraint;
     toString(): string;
 }

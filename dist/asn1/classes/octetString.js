@@ -14,7 +14,7 @@ class OctetString extends asnType_1.AsnType {
         return 0;
     }
     replaceParameters(paramterMapping) {
-        // Do nothing
+        return this;
     }
     toString() {
         const size = this.size !== undefined ? ` (SIZE (${this.size}))` :

@@ -33,8 +33,8 @@ export class ContainingEncodedByConstraint extends Constraint {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): ContainingEncodedByConstraint {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ContainingEncodedByConstraint {

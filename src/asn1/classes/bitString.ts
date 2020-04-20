@@ -26,8 +26,8 @@ export class BitString extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(paramterMapping: IParameterMapping[]): BitString {
+    return this;
   }
 
   public toString(): string {

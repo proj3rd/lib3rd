@@ -40,8 +40,8 @@ export class ValueRange extends Base {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): ValueRange {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ValueRange {

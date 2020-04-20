@@ -18,7 +18,7 @@ class Syntax extends base_1.Base {
         throw Error('Syntax.fillWorksheet() shall not be called independently');
     }
     replaceParameters(parameterMapping) {
-        // Do nothing
+        return this;
     }
     setConstraint(constraints) {
         return this;

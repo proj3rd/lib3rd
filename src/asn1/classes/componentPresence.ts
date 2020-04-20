@@ -35,8 +35,8 @@ export class ComponentPresence extends Base {
     throw Error('Depth of this class is not valid');
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): ComponentPresence {
+    return this;
   }
 
   public toString(): string {

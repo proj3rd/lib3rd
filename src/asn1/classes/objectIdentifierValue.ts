@@ -55,8 +55,8 @@ export class ObjectIdentifierValue extends Base {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // TODO
+  public replaceParameters(parameterMapping: IParameterMapping[]): ObjectIdentifierValue {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ObjectIdentifierValue {

@@ -39,6 +39,7 @@ class SequenceOf extends asnType_1.AsnType {
     }
     replaceParameters(parameterMapping) {
         this.type.replaceParameters(parameterMapping);
+        return this;
     }
     toString() {
         return `SEQUENCE${this.constraintsToString()} OF ${this.expandedType ? this.expandedType.toString() : this.type.toString()}`;

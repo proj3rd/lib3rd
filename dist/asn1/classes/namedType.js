@@ -25,6 +25,7 @@ class NamedType extends base_1.Base {
     }
     replaceParameters(parameterMapping) {
         this.type.replaceParameters(parameterMapping);
+        return this;
     }
     toString() {
         return `${this.name.padEnd(48)}    ${this.type}${this.getOptionalString()}`;

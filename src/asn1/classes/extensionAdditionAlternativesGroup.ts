@@ -46,10 +46,11 @@ export class ExtensionAdditionAlternativesGroup extends Base {
     return depthMax;
   }
 
-  public replaceParameters(paramterMapping: IParameterMapping[]): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): ExtensionAdditionAlternativesGroup {
     this.alternativeTypeList.forEach((item) => {
       item.replaceParameters(paramterMapping);
     });
+    return this;
   }
 
   public toString(): string {

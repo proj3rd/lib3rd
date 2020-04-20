@@ -20,7 +20,7 @@ class DefinedObjectClass extends base_1.Base {
         return [row, col];
     }
     replaceParameters(parameterMapping) {
-        // TODO
+        return this;
     }
     setConstraint(constraints) {
         // TODO

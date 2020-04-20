@@ -33,7 +33,7 @@ class FieldSpec extends base_1.Base {
         return [row, col];
     }
     replaceParameters(parameterMapping) {
-        // Do nothing
+        return this;
     }
     setConstraint(constraints) {
         return this;

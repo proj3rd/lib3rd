@@ -18,7 +18,7 @@ class SizeConstraint extends constraint_1.Constraint {
         return [row, col];
     }
     replaceParameters(parameterMapping) {
-        // Do nothing
+        return this;
     }
     setConstraint(constraints) {
         // Do nothing

@@ -47,8 +47,8 @@ export class ObjectClass extends Base {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // TODO
+  public replaceParameters(parameterMapping: IParameterMapping[]): ObjectClass {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ObjectClass {

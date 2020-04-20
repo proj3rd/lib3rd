@@ -10,7 +10,7 @@ export declare class ObjectSetSpec extends Base {
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[], classDefinition?: ObjectClass): ObjectSetSpec;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
-    replaceParameters(): void;
+    replaceParameters(): ObjectSetSpec;
     setConstraint(): ObjectSetSpec;
     toString(): string;
 }

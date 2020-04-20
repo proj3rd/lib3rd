@@ -43,8 +43,8 @@ export class ObjectSet extends Base {
     return [row, col];
   }
 
-  public replaceParameters(): void {
-    // TODO
+  public replaceParameters(): ObjectSet {
+    return this;
   }
 
   public setConstraint(): ObjectSet {

@@ -35,6 +35,7 @@ class ExtensionAdditionAlternativesGroup extends base_1.Base {
         this.alternativeTypeList.forEach((item) => {
             item.replaceParameters(paramterMapping);
         });
+        return this;
     }
     toString() {
         return [

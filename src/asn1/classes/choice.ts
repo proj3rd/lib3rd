@@ -44,10 +44,11 @@ export class Choice extends AsnType {
     return depthMax;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): Choice {
     this.choices.forEach((choice) => {
       choice.replaceParameters(parameterMapping);
     });
+    return this;
   }
 
   public toString(): string {

@@ -55,8 +55,9 @@ export class SequenceOf extends AsnType {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): SequenceOf {
     this.type.replaceParameters(parameterMapping);
+    return this;
   }
 
   public toString(): string {

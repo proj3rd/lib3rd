@@ -45,10 +45,11 @@ export class ExtensionAdditionGroup extends Base {
     return depthMax;
   }
 
-  public replaceParameters(paramterMapping: IParameterMapping[]): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): ExtensionAdditionGroup {
     this.componentTypeList.forEach((item) => {
       item.replaceParameters(paramterMapping);
     });
+    return this;
   }
 
   public toString(): string {

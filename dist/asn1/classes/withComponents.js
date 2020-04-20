@@ -21,7 +21,7 @@ class WithComponents extends base_1.Base {
         throw Error('Depth of this class is not valid');
     }
     replaceParameters(paramterMapping) {
-        // Do nothing
+        return this;
     }
     toString() {
         return `{${this.components.map((component) => component.toString()).join(', ')}}`;
