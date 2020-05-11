@@ -23,8 +23,6 @@ class DefinedType extends asnType_1.AsnType {
             console.log(colors.gray('IE not found. Exit expand()'));
             return this;
         }
-        console.log(colors.yellow('IE found'), `(type: ${definition.constructor.name})`);
-        console.log(JSON.stringify(definition, null, 2));
         const parameterMapping = [];
         if (definition instanceof asnType_1.AsnType && definition.parameterList) {
             definition.parameterList.forEach((parameter, index) => {
@@ -43,8 +41,8 @@ class DefinedType extends asnType_1.AsnType {
                 typeReference: `${this.toString()}`,
             });
         }
-        definition.replaceParameters(parameterMapping, asn1Pool, this.getModuleNameToPass(moduleName));
-        return definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+        const definitionInstantiated = definition.replaceParameters(parameterMapping, asn1Pool, this.getModuleNameToPass(moduleName));
+        return definitionInstantiated.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     }
     depthMax() {
         return 0;
@@ -77,6 +75,7 @@ class DefinedType extends asnType_1.AsnType {
                 }
             });
         }
+        return this;
     }
     toString() {
         const actualParameterListString = this.getActualParameterListString();

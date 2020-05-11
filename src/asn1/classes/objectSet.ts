@@ -7,6 +7,7 @@ import { DefinedObjectClass } from './definedObjectClass';
 import { ObjectClass } from './objectClass';
 import { ObjectSetSpec } from './objectSetSpec';
 import { Parameter } from './parameter';
+import { Sequence } from './sequence';
 
 export class ObjectSet extends Base {
   public objectSetSpec: ObjectSetSpec;
@@ -41,6 +42,12 @@ export class ObjectSet extends Base {
     [row, col] = fillRow(ieElem, ws, row, col, depth, formatConfig, depth);
     [row, col] = this.objectSetSpec.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
     return [row, col];
+  }
+
+  public instantiate(template: Sequence, asn1Pool: IModules): ObjectSet {
+    this.objectSetSpec.instantiate(template, asn1Pool);
+    this.definedObjectClass = null;
+    return this;
   }
 
   public replaceParameters(): ObjectSet {

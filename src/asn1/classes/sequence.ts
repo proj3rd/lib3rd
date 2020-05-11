@@ -47,7 +47,8 @@ export class Sequence extends AsnType {
     return depthMax;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[], asn1Pool: IModules, moduleName: string): void {
+  public replaceParameters(parameterMapping: IParameterMapping[], asn1Pool: IModules, moduleName: string)
+      : Sequence | ObjectSet {
     console.log(colors.blue(__filename), 'replaceParameters()');
     console.log(colors.yellow('Current IE'));
     console.log(JSON.stringify(this, null, 2));
@@ -65,7 +66,12 @@ export class Sequence extends AsnType {
         const definition = findDefinition(paramFirst.objIdComponentsList[0] as string,
                                           this.getModuleNameToPass(moduleName), asn1Pool);
         if (definition && definition instanceof ObjectSet) {
-          // TODO: Return Sequence[]
+          console.log(colors.yellow('ObjectSet found. Need to INSTANTIATE'));
+          const template = new Sequence(this.items);
+          definition.instantiate(template, asn1Pool);
+          console.log(colors.yellow('INSTANTIATE result'));
+          console.log(JSON.stringify(definition, null, 2));
+          return definition;
         }
       }
     }
@@ -76,6 +82,7 @@ export class Sequence extends AsnType {
     this.items.forEach((item) => {
       item.replaceParameters(parameterMapping);
     });
+    return this;
   }
 
   public toString(): string {

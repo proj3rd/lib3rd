@@ -19,7 +19,7 @@ export declare class DefinedType extends AsnType {
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): DefinedType;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): Base;
     depthMax(): number;
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): DefinedType;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
     private getActualParameterListString;

@@ -49,7 +49,12 @@ class Sequence extends asnType_1.AsnType {
             if (paramFirst instanceof objectIdentifierValue_1.ObjectIdentifierValue) {
                 const definition = utils_1.findDefinition(paramFirst.objIdComponentsList[0], this.getModuleNameToPass(moduleName), asn1Pool);
                 if (definition && definition instanceof objectSet_1.ObjectSet) {
-                    // TODO: Return Sequence[]
+                    console.log(colors.yellow('ObjectSet found. Need to INSTANTIATE'));
+                    const template = new Sequence(this.items);
+                    definition.instantiate(template, asn1Pool);
+                    console.log(colors.yellow('INSTANTIATE result'));
+                    console.log(JSON.stringify(definition, null, 2));
+                    return definition;
                 }
             }
         }
@@ -60,6 +65,7 @@ class Sequence extends asnType_1.AsnType {
         this.items.forEach((item) => {
             item.replaceParameters(parameterMapping);
         });
+        return this;
     }
     toString() {
         if (!this.items.length) {

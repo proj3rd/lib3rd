@@ -13,6 +13,8 @@ export class ObjectClassField extends AsnType {
   public moduleReference: string;
   public objectClassReference: string;
   public fieldName: string;
+  public alias: string;
+  public typeReference: string;
 
   constructor(moduleReference: string, objectClassReference: string, fieldName: string) {
     super();

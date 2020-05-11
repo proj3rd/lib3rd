@@ -28,6 +28,11 @@ class ObjectSet extends base_1.Base {
         [row, col] = this.objectSetSpec.fillWorksheet({}, ws, row, col, depthMax, constants, formatConfig, depth + 1);
         return [row, col];
     }
+    instantiate(template, asn1Pool) {
+        this.objectSetSpec.instantiate(template, asn1Pool);
+        this.definedObjectClass = null;
+        return this;
+    }
     replaceParameters() {
         return this;
     }

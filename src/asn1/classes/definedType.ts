@@ -41,8 +41,6 @@ export class DefinedType extends AsnType {
       console.log(colors.gray('IE not found. Exit expand()'));
       return this;
     }
-    console.log(colors.yellow('IE found'), `(type: ${definition.constructor.name})`);
-    console.log(JSON.stringify(definition, null, 2));
     const parameterMapping: IParameterMapping[] = [];
     if (definition instanceof AsnType && definition.parameterList) {
       definition.parameterList.forEach((parameter, index) => {
@@ -61,15 +59,16 @@ export class DefinedType extends AsnType {
         typeReference: `${this.toString()}`,
       });
     }
-    definition.replaceParameters(parameterMapping, asn1Pool, this.getModuleNameToPass(moduleName));
-    return definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    const definitionInstantiated = definition.replaceParameters(parameterMapping, asn1Pool,
+                                                                this.getModuleNameToPass(moduleName));
+    return definitionInstantiated.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
   }
 
   public depthMax(): number {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): DefinedType {
     if (!this.moduleReference && this.typeReference) {
       const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
       if (mappingFound) {
@@ -97,6 +96,7 @@ export class DefinedType extends AsnType {
         }
       });
     }
+    return this;
   }
 
   public toString(): string {
