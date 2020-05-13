@@ -27,7 +27,7 @@ export class SingleValue extends Base {
                 classDefinition?: ObjectClass): SingleValue {
     if (classDefinition) {
       this.instantiateObjectClass(classDefinition);
-      (this.value as ObjectClass).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+      this.value = (this.value as ObjectClass).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     }
     return this;
   }
