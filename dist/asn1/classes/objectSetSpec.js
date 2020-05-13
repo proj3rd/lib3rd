@@ -142,31 +142,38 @@ class ObjectSetSpec extends base_1.Base {
         return this;
     }
     toString() {
-        const stringArray = [];
-        const stringArrayBeforeComma = [];
-        const stringArrayBeforeUnion = [];
-        this.objectSetSpec.forEach((item) => {
-            if (item instanceof comma_1.Comma) {
-                stringArrayBeforeUnion.push(item.toString());
-                stringArrayBeforeComma.push(stringArrayBeforeUnion.join(''));
-                stringArray.push(stringArrayBeforeComma.join('\n'));
-                stringArrayBeforeUnion.length = 0;
-                stringArrayBeforeComma.length = 0;
-            }
-            else if (item instanceof unionMark_1.UnionMark) {
-                stringArrayBeforeUnion.push(item.toString());
-                stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
-                stringArrayBeforeUnion.length = 0;
-            }
-            else {
-                stringArrayBeforeUnion.push(item.toString());
-            }
-        });
-        if (stringArrayBeforeUnion.length) {
-            stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
-            stringArray.push(stringArrayBeforeComma.join('\n'));
+        if (this.instantiatedMembers) {
+            return this.instantiatedMembers.map((value) => {
+                return value.toString();
+            }).join('\n');
         }
-        return stringArray.join('\n');
+        else {
+            const stringArray = [];
+            const stringArrayBeforeComma = [];
+            const stringArrayBeforeUnion = [];
+            this.objectSetSpec.forEach((item) => {
+                if (item instanceof comma_1.Comma) {
+                    stringArrayBeforeUnion.push(item.toString());
+                    stringArrayBeforeComma.push(stringArrayBeforeUnion.join(''));
+                    stringArray.push(stringArrayBeforeComma.join('\n'));
+                    stringArrayBeforeUnion.length = 0;
+                    stringArrayBeforeComma.length = 0;
+                }
+                else if (item instanceof unionMark_1.UnionMark) {
+                    stringArrayBeforeUnion.push(item.toString());
+                    stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
+                    stringArrayBeforeUnion.length = 0;
+                }
+                else {
+                    stringArrayBeforeUnion.push(item.toString());
+                }
+            });
+            if (stringArrayBeforeUnion.length) {
+                stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
+                stringArray.push(stringArrayBeforeComma.join('\n'));
+            }
+            return stringArray.join('\n');
+        }
     }
 }
 exports.ObjectSetSpec = ObjectSetSpec;

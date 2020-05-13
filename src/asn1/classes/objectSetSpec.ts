@@ -172,28 +172,34 @@ export class ObjectSetSpec extends Base {
   }
 
   public toString(): string {
-    const stringArray: string[] = [];
-    const stringArrayBeforeComma: string[] = [];
-    const stringArrayBeforeUnion: string[] = [];
-    this.objectSetSpec.forEach((item) => {
-      if (item instanceof Comma) {
-        stringArrayBeforeUnion.push(item.toString());
-        stringArrayBeforeComma.push(stringArrayBeforeUnion.join(''));
-        stringArray.push(stringArrayBeforeComma.join('\n'));
-        stringArrayBeforeUnion.length = 0;
-        stringArrayBeforeComma.length = 0;
-      } else if (item instanceof UnionMark) {
-        stringArrayBeforeUnion.push(item.toString());
+    if (this.instantiatedMembers) {
+      return this.instantiatedMembers.map((value) => {
+        return value.toString();
+      }).join('\n');
+    } else {
+      const stringArray: string[] = [];
+      const stringArrayBeforeComma: string[] = [];
+      const stringArrayBeforeUnion: string[] = [];
+      this.objectSetSpec.forEach((item) => {
+        if (item instanceof Comma) {
+          stringArrayBeforeUnion.push(item.toString());
+          stringArrayBeforeComma.push(stringArrayBeforeUnion.join(''));
+          stringArray.push(stringArrayBeforeComma.join('\n'));
+          stringArrayBeforeUnion.length = 0;
+          stringArrayBeforeComma.length = 0;
+        } else if (item instanceof UnionMark) {
+          stringArrayBeforeUnion.push(item.toString());
+          stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
+          stringArrayBeforeUnion.length = 0;
+        } else {
+          stringArrayBeforeUnion.push(item.toString());
+        }
+      });
+      if (stringArrayBeforeUnion.length) {
         stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
-        stringArrayBeforeUnion.length = 0;
-      } else {
-        stringArrayBeforeUnion.push(item.toString());
+        stringArray.push(stringArrayBeforeComma.join('\n'));
       }
-    });
-    if (stringArrayBeforeUnion.length) {
-      stringArrayBeforeComma.push(stringArrayBeforeUnion.join('    '));
-      stringArray.push(stringArrayBeforeComma.join('\n'));
+      return stringArray.join('\n');
     }
-    return stringArray.join('\n');
   }
 }
