@@ -44,7 +44,7 @@ class NamedType extends base_1.Base {
     }
     getOptionalString() {
         return this.optional ? '    OPTIONAL' :
-            this.default !== undefined ? `    DEFAULT    ${this.default.toString()}` : '';
+            this.default !== undefined && this.default !== null ? `    DEFAULT    ${this.default.toString()}` : '';
     }
 }
 exports.NamedType = NamedType;

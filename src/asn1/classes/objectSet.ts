@@ -29,7 +29,8 @@ export class ObjectSet extends Base {
                                                        this.getModuleNameToPass(moduleName),
                                                        asn1Pool));
       if (classDefinition && classDefinition instanceof ObjectClass) {
-        this.objectSetSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), [], classDefinition);
+        this.objectSetSpec = this.objectSetSpec.expand(
+          asn1Pool, this.getModuleNameToPass(moduleName), [], classDefinition);
       }
     }
     return this;

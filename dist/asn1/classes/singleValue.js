@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const base_1 = require("./base");
+const objectClass_1 = require("./objectClass");
 const objectIdentifierValue_1 = require("./objectIdentifierValue");
 class SingleValue extends base_1.Base {
     constructor(value) {
@@ -14,7 +15,9 @@ class SingleValue extends base_1.Base {
     expand(asn1Pool, moduleName, parameterList, classDefinition) {
         if (classDefinition) {
             this.instantiateObjectClass(classDefinition);
-            this.value.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+            if (this.value instanceof objectClass_1.ObjectClass) {
+                this.value = this.value.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+            }
         }
         return this;
     }

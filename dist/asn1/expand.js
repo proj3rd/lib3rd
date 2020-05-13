@@ -5,7 +5,7 @@ const asnType_1 = require("./classes/asnType");
 function expand(msgIe, asn1Pool) {
     const msgIeClone = lodash_1.cloneDeep(msgIe);
     const parameterList = msgIeClone.definition instanceof asnType_1.AsnType ? msgIeClone.definition.parameterList : [];
-    msgIeClone.definition.expand(asn1Pool, undefined, parameterList);
+    msgIeClone.definition = msgIeClone.definition.expand(asn1Pool, undefined, parameterList) /* TODO */;
     return msgIeClone;
 }
 exports.expand = expand;

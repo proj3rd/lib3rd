@@ -68,6 +68,6 @@ export class NamedType extends Base {
 
   private getOptionalString(): string {
     return this.optional ? '    OPTIONAL' :
-      this.default !== undefined ? `    DEFAULT    ${this.default.toString()}` : '';
+      this.default !== undefined && this.default !== null ? `    DEFAULT    ${this.default.toString()}` : '';
   }
 }

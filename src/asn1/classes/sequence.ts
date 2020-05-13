@@ -33,8 +33,8 @@ export class Sequence extends AsnType {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): Sequence {
-    this.items.forEach((item) => {
-      item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    this.items = this.items.map((item) => {
+      return item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
     return this;
   }

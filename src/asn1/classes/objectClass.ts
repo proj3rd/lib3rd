@@ -34,8 +34,8 @@ export class ObjectClass extends Base {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): ObjectClass {
-    this.fieldSpecs.forEach((fieldSpec) => {
-      fieldSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    this.fieldSpecs = this.fieldSpecs.map((fieldSpec) => {
+      return fieldSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
     return this;
   }
