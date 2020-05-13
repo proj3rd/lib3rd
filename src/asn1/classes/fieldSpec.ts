@@ -50,8 +50,8 @@ export class FieldSpec extends Base {
   public expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): FieldSpec {
     const definition = cloneDeep(findDefinition(this.actualValue, this.getModuleNameToPass(moduleName), asn1Pool));
     if (definition !== undefined) {
-      this.expandedType = definition;
-      this.expandedType.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+      this.expandedType = definition.expand(
+        asn1Pool, this.getModuleNameToPass(moduleName), parameterList) as any /* TODO */;
     }
     return this;
   }
