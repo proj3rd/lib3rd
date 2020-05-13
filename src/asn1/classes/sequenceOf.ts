@@ -40,10 +40,11 @@ export class SequenceOf extends AsnType {
     console.log(JSON.stringify(this, null, 2));
     console.log(colors.yellow('Parameter list'));
     console.log(parameterList);
-    const typeToExpand = cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    const typeToExpand = cloneDeep(this.type);
     // This should always be true
     if (typeToExpand instanceof AsnType || typeToExpand instanceof NamedType) {
-      this.expandedType = typeToExpand;
+      this.expandedType = typeToExpand.expand(
+        asn1Pool, this.getModuleNameToPass(moduleName), parameterList) as any /* TODO */;
     }
     return this;
   }
