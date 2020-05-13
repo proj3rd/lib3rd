@@ -19,8 +19,8 @@ class ExtensionAdditionAlternativesGroup extends base_1.Base {
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
-        this.alternativeTypeList.forEach((item) => {
-            item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+        this.alternativeTypeList = this.alternativeTypeList.map((item) => {
+            return item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
     }

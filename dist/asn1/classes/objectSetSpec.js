@@ -33,15 +33,16 @@ class ObjectSetSpec extends base_1.Base {
          * TODO: Replace each objectSetSpec with ObjectClass with specified value
          */
         if (this.instantiatedMembers) {
-            this.instantiatedMembers.forEach((member) => {
-                member.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+            this.instantiatedMembers = this.instantiatedMembers.map((member) => {
+                return member.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
             });
         }
         else {
-            this.objectSetSpec.forEach((item) => {
+            this.objectSetSpec = this.objectSetSpec.map((item) => {
                 if (item instanceof singleValue_1.SingleValue) {
-                    item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList, classDefinition);
+                    return item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList, classDefinition);
                 }
+                return item;
             });
         }
         return this;

@@ -21,8 +21,8 @@ class ObjectClass extends base_1.Base {
         return depthMax;
     }
     expand(asn1Pool, moduleName, parameterList) {
-        this.fieldSpecs.forEach((fieldSpec) => {
-            fieldSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+        this.fieldSpecs = this.fieldSpecs.map((fieldSpec) => {
+            return fieldSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
     }

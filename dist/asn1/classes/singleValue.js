@@ -14,7 +14,7 @@ class SingleValue extends base_1.Base {
     expand(asn1Pool, moduleName, parameterList, classDefinition) {
         if (classDefinition) {
             this.instantiateObjectClass(classDefinition);
-            this.value.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+            this.value = this.value.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         }
         return this;
     }

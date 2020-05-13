@@ -17,7 +17,7 @@ class ObjectSet extends base_1.Base {
         if (this.definedObjectClass) {
             const classDefinition = lodash_1.cloneDeep(utils_1.findDefinition(this.definedObjectClass.toString(), this.getModuleNameToPass(moduleName), asn1Pool));
             if (classDefinition && classDefinition instanceof objectClass_1.ObjectClass) {
-                this.objectSetSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), [], classDefinition);
+                this.objectSetSpec = this.objectSetSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), [], classDefinition);
             }
         }
         return this;

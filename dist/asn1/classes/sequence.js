@@ -20,8 +20,8 @@ class Sequence extends asnType_1.AsnType {
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
-        this.items.forEach((item) => {
-            item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+        this.items = this.items.map((item) => {
+            return item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
     }

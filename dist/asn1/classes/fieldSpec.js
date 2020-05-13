@@ -23,8 +23,7 @@ class FieldSpec extends base_1.Base {
     expand(asn1Pool, moduleName, parameterList) {
         const definition = lodash_1.cloneDeep(utils_1.findDefinition(this.actualValue, this.getModuleNameToPass(moduleName), asn1Pool));
         if (definition !== undefined) {
-            this.expandedType = definition;
-            this.expandedType.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+            this.expandedType = definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList) /* TODO */;
         }
         return this;
     }
