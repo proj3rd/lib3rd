@@ -266,40 +266,6 @@ WITH SYNTAX {
     expectedResult: `E-RAB-IE-ContainerList { S1AP-PROTOCOL-IES: IEsSetParam } ::= ProtocolIE-ContainerList { 1, maxnoofE-RABs, { IEsSetParam } }`,
   },
   {
-    testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Expanded',
-    specWithVersion: '36413-g00',
-    ieName: 'SecondaryRATDataUsageReportList',
-    expectedResult: `SecondaryRATDataUsageReportList ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF
-  SEQUENCE {
-    id             id-SecondaryRATDataUsageReportItem,
-    criticality    ignore,
-    value          SEQUENCE {
-      e-RAB-ID                INTEGER (0..15, ...),
-      secondaryRATType        ENUMERATED {nR, ..., unlicensed},
-      e-RABUsageReportList    SEQUENCE (SIZE(1..maxnooftimeperiods)) OF
-        SEQUENCE {
-          id             id-E-RABUsageReportItem,
-          criticality    ignore,
-          value          SEQUENCE {
-            startTimestamp    OCTET STRING (SIZE(4)),
-            endTimestamp      OCTET STRING (SIZE(4)),
-            usageCountUL      INTEGER (0..18446744073709551615),
-            usageCountDL      INTEGER (0..18446744073709551615),
-            iE-Extensions     SEQUENCE (SIZE (1..maxProtocolExtensions)) OF
-              SEQUENCE {}
-            OPTIONAL,
-            ...
-          }
-        },
-      iE-Extensions           SEQUENCE (SIZE (1..maxProtocolExtensions)) OF
-        SEQUENCE {}
-      OPTIONAL,
-      ...
-    }
-  }`,
-    expandRequired: true,
-  },
-  {
     testName: 'PARAMETERIZED ASSIGNMENT (RAN3)',
     specWithVersion: '36413-g00',
     ieName: 'HandoverRequiredIEs',
@@ -324,6 +290,40 @@ WITH SYNTAX {
   {
     testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Expanded',
     specWithVersion: '36413-g00',
+    ieName: 'SecondaryRATDataUsageReportList',
+    expectedResult: `SecondaryRATDataUsageReportList ::= SEQUENCE (SIZE (1..maxnoofE-RABs)) OF {
+  SEQUENCE {
+    &id                                                 INTEGER (0..65535)    DEFAULT    id-SecondaryRATDataUsageReportItem,
+    &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+    &Value                                              SEQUENCE {
+      e-RAB-ID                                            INTEGER (0..15,...),
+      secondaryRATType                                    ENUMERATED {nR, ..., unlicensed},
+      e-RABUsageReportList                                SEQUENCE (SIZE (1..maxnooftimeperiods)) OF {
+        SEQUENCE {
+          &id                                                 INTEGER (0..65535)    DEFAULT    id-E-RABUsageReportItem,
+          &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+          &Value                                              SEQUENCE {
+            startTimestamp                                      OCTET STRING (SIZE (4)),
+            endTimestamp                                        OCTET STRING (SIZE (4)),
+            usageCountUL                                        INTEGER (0..18446744073709552000),
+            usageCountDL                                        INTEGER (0..18446744073709552000),
+            iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+            }    OPTIONAL,
+            ...
+          }
+        }
+      },
+      iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+      }    OPTIONAL,
+      ...
+    }
+  }
+}`,
+    expandRequired: true,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Instantiated',
+    specWithVersion: '36413-g00',
     ieName: 'SecondaryRATDataUsageReportIEs',
     expectedResult: `SecondaryRATDataUsageReportIEs S1AP-PROTOCOL-IES ::= {
   CLASS {
@@ -341,7 +341,34 @@ WITH SYNTAX {
   CLASS {
     &id                                                 id-SecondaryRATDataUsageReportList    UNIQUE,
     &criticality                                        ignore,
-    &Value                                              SecondaryRATDataUsageReportList,
+    &Value                                              SEQUENCE (SIZE (1..maxnoofE-RABs)) OF {
+      SEQUENCE {
+        &id                                                 INTEGER (0..65535)    DEFAULT    id-SecondaryRATDataUsageReportItem,
+        &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+        &Value                                              SEQUENCE {
+          e-RAB-ID                                            INTEGER (0..15,...),
+          secondaryRATType                                    ENUMERATED {nR, ..., unlicensed},
+          e-RABUsageReportList                                SEQUENCE (SIZE (1..maxnooftimeperiods)) OF {
+            SEQUENCE {
+              &id                                                 INTEGER (0..65535)    DEFAULT    id-E-RABUsageReportItem,
+              &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+              &Value                                              SEQUENCE {
+                startTimestamp                                      OCTET STRING (SIZE (4)),
+                endTimestamp                                        OCTET STRING (SIZE (4)),
+                usageCountUL                                        INTEGER (0..18446744073709552000),
+                usageCountDL                                        INTEGER (0..18446744073709552000),
+                iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+                }    OPTIONAL,
+                ...
+              }
+            }
+          },
+          iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+          }    OPTIONAL,
+          ...
+        }
+      }
+    },
     &presence                                           mandatory
   }    |
   CLASS {
@@ -353,7 +380,41 @@ WITH SYNTAX {
   CLASS {
     &id                                                 id-UserLocationInformation    UNIQUE,
     &criticality                                        ignore,
-    &Value                                              UserLocationInformation,
+    &Value                                              SEQUENCE {
+      eutran-cgi                                          SEQUENCE {
+        pLMNidentity                                        OCTET STRING (SIZE (3)),
+        cell-ID                                             BIT STRING (SIZE (28)),
+        iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+        }    OPTIONAL,
+        ...
+      },
+      tai                                                 SEQUENCE {
+        pLMNidentity                                        OCTET STRING (SIZE (3)),
+        tAC                                                 OCTET STRING (SIZE (2)),
+        iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+        }    OPTIONAL,
+        ...
+      },
+      iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+        SEQUENCE {
+          &id                                                 INTEGER (0..65535)    DEFAULT    id-PSCellInformation,
+          &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+          &Extension                                          SEQUENCE {
+            nCGI                                                SEQUENCE {
+              pLMNIdentity                                        OCTET STRING (SIZE (3)),
+              nRCellIdentity                                      BIT STRING (SIZE (36)),
+              iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+              }    OPTIONAL,
+              ...
+            },
+            iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+            }    OPTIONAL,
+            ...
+          }
+        }
+      }    OPTIONAL,
+      ...
+    },
     &presence                                           optional
   }    |
   CLASS {
