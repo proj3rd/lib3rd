@@ -129,7 +129,7 @@ class ObjectSetSpec extends base_1.Base {
                     items.push(sequenceItem);
                 }
             });
-            const sequenceInstantiated = new sequence_1.Sequence(items);
+            const sequenceInstantiated = new sequence_1.Sequence(items).expand(asn1Pool);
             this.instantiatedMembers.push(sequenceInstantiated);
         });
         return this;
