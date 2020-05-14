@@ -30,8 +30,8 @@ export class Choice extends AsnType {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): Choice {
-    this.choices.forEach((choice) => {
-      choice.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    this.choices = this.choices.map((choice) => {
+      return choice.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
     return this;
   }
@@ -44,10 +44,11 @@ export class Choice extends AsnType {
     return depthMax;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): Choice {
     this.choices.forEach((choice) => {
       choice.replaceParameters(parameterMapping);
     });
+    return this;
   }
 
   public toString(): string {

@@ -12,7 +12,7 @@ export declare class Enumerated extends AsnType {
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): Enumerated;
     expand(asn1Pool: IModules, moduleName?: string): Enumerated;
     depthMax(): number;
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): Enumerated;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }

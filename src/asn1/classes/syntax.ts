@@ -33,8 +33,8 @@ export class Syntax extends Base {
     throw Error('Syntax.fillWorksheet() shall not be called independently');
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): Syntax {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): Syntax {

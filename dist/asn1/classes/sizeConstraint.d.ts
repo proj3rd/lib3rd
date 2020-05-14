@@ -13,7 +13,7 @@ export declare class SizeConstraint extends Constraint {
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): SizeConstraint;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): SizeConstraint;
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): SizeConstraint;
     toString(): string;
 }

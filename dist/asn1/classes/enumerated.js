@@ -22,7 +22,7 @@ class Enumerated extends asnType_1.AsnType {
         return 0;
     }
     replaceParameters(parameterMapping) {
-        // Do nothing
+        return this;
     }
     toString() {
         return `ENUMERATED {${this.items.join(', ')}}`;

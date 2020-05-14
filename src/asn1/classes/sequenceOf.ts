@@ -1,4 +1,5 @@
-import { cloneDeep, isEmpty } from 'lodash';
+import * as colors from 'colors';
+import { cloneDeep } from 'lodash';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
@@ -34,10 +35,16 @@ export class SequenceOf extends AsnType {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): SequenceOf {
-    const typeToExpand = cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    console.log(colors.blue(__filename), 'expand()');
+    console.log(colors.yellow('Current IE'));
+    console.log(JSON.stringify(this, null, 2));
+    console.log(colors.yellow('Parameter list'));
+    console.log(parameterList);
+    const typeToExpand = cloneDeep(this.type);
     // This should always be true
     if (typeToExpand instanceof AsnType || typeToExpand instanceof NamedType) {
-      this.expandedType = typeToExpand;
+      this.expandedType = typeToExpand.expand(
+        asn1Pool, this.getModuleNameToPass(moduleName), parameterList) as any /* TODO */;
     }
     return this;
   }
@@ -49,8 +56,9 @@ export class SequenceOf extends AsnType {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): SequenceOf {
     this.type.replaceParameters(parameterMapping);
+    return this;
   }
 
   public toString(): string {

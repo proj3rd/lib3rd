@@ -31,8 +31,8 @@ export class ExtensionAdditionGroup extends Base {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): ExtensionAdditionGroup {
-    this.componentTypeList.forEach((item) => {
-      item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    this.componentTypeList = this.componentTypeList.map((item) => {
+      return item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
     return this;
   }
@@ -45,10 +45,11 @@ export class ExtensionAdditionGroup extends Base {
     return depthMax;
   }
 
-  public replaceParameters(paramterMapping: IParameterMapping[]): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): ExtensionAdditionGroup {
     this.componentTypeList.forEach((item) => {
       item.replaceParameters(paramterMapping);
     });
+    return this;
   }
 
   public toString(): string {

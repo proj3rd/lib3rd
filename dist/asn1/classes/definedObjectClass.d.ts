@@ -12,7 +12,7 @@ export declare class DefinedObjectClass extends Base {
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): DefinedObjectClass;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): DefinedObjectClass;
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): DefinedObjectClass;
     toString(): string;
 }

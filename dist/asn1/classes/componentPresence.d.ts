@@ -11,7 +11,7 @@ export declare class ComponentPresence extends Base {
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): ComponentPresence;
     expand(asn1Pool: IModules, moduleName?: string): never;
     depthMax(): never;
-    replaceParameters(parameterMapping: IParameterMapping[]): void;
+    replaceParameters(parameterMapping: IParameterMapping[]): ComponentPresence;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): never;
 }

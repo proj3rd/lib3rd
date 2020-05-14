@@ -1,20 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const colors = require("colors");
 const lodash_1 = require("lodash");
 const xlsx_1 = require("../format/xlsx");
 const utils_1 = require("../utils");
 const asnType_1 = require("./asnType");
+const objectIdentifierValue_1 = require("./objectIdentifierValue");
 class DefinedType extends asnType_1.AsnType {
     setConstraint(constraints) {
         this.constraints = constraints;
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
+        console.log(colors.blue(__filename), 'expand()');
+        console.log(colors.yellow('Current IE'), `(type: ${this.constructor.name})`);
+        console.log(JSON.stringify(this, null, 2));
         if (parameterList.findIndex((value) => lodash_1.isEqual(value, this.typeReference)) !== -1) {
             return this;
         }
         const definition = lodash_1.cloneDeep(utils_1.findDefinition(this.typeReference, this.getModuleNameToPass(moduleName), asn1Pool));
         if (!definition) {
+            console.log(colors.gray('IE not found. Exit expand()'));
             return this;
         }
         const parameterMapping = [];
@@ -35,9 +41,8 @@ class DefinedType extends asnType_1.AsnType {
                 typeReference: `${this.toString()}`,
             });
         }
-        definition.replaceParameters(parameterMapping);
-        definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
-        return definition;
+        const definitionInstantiated = definition.replaceParameters(parameterMapping, asn1Pool, this.getModuleNameToPass(moduleName));
+        return definitionInstantiated.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     }
     depthMax() {
         return 0;
@@ -45,11 +50,32 @@ class DefinedType extends asnType_1.AsnType {
     replaceParameters(parameterMapping) {
         if (!this.moduleReference && this.typeReference) {
             const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
-            if (!mappingFound) {
-                return;
+            if (mappingFound) {
+                Object.assign(this, mappingFound.actualParameter);
             }
-            Object.assign(this, mappingFound.actualParameter);
         }
+        // FIXME: Implemented in a very limited way
+        if (this.actualParameterList) {
+            parameterMapping.forEach((item) => {
+                const { dummyReference } = item.parameter;
+                const index = this.actualParameterList.findIndex((actualParameter) => {
+                    if (!(actualParameter instanceof objectIdentifierValue_1.ObjectIdentifierValue)) {
+                        return false;
+                    }
+                    return actualParameter.objIdComponentsList[0] === dummyReference;
+                });
+                if (index === -1) {
+                    return;
+                }
+                const actualParameterSource = item.actualParameter;
+                const actualParameterTarget = this.actualParameterList[index];
+                if (actualParameterSource instanceof objectIdentifierValue_1.ObjectIdentifierValue &&
+                    actualParameterTarget instanceof objectIdentifierValue_1.ObjectIdentifierValue) {
+                    actualParameterTarget.objIdComponentsList = actualParameterSource.objIdComponentsList;
+                }
+            });
+        }
+        return this;
     }
     toString() {
         const actualParameterListString = this.getActualParameterListString();

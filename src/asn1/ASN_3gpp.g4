@@ -474,7 +474,7 @@ objIdComponentsList
 objIdComponents  :
 	    	NUMBER
 	|    	IDENTIFIER (L_PARAN (NUMBER | definedValue ) R_PARAN)?
-	|    	builtinType
+	|    	builtinType constraint?
 	|    	definedValue
 ;
 

@@ -22,7 +22,7 @@ class ComponentPresence extends base_1.Base {
         throw Error('Depth of this class is not valid');
     }
     replaceParameters(parameterMapping) {
-        // Do nothing
+        return this;
     }
     toString() {
         return `${this.identifier} ${this.absentPresent}`;

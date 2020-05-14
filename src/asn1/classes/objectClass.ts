@@ -17,10 +17,12 @@ export class ObjectClass extends Base {
 
     this.fieldSpecs = fieldSpecs;
     this.withSyntaxSpec = withSyntaxSpec;
-    this.withSyntaxSpec.syntaxList.forEach((syntax) => {
-      const fieldSpec = this.fieldSpecs.find((item) => item.reference === syntax.primitiveFieldName);
-      fieldSpec.alias = syntax.literal;
-    });
+    if (this.withSyntaxSpec) {
+      this.withSyntaxSpec.syntaxList.forEach((syntax) => {
+        const fieldSpec = this.fieldSpecs.find((item) => item.reference === syntax.primitiveFieldName);
+        fieldSpec.alias = syntax.literal;
+      });
+    }
   }
 
   public depthMax(): number {
@@ -32,8 +34,8 @@ export class ObjectClass extends Base {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): ObjectClass {
-    this.fieldSpecs.forEach((fieldSpec) => {
-      fieldSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+    this.fieldSpecs = this.fieldSpecs.map((fieldSpec) => {
+      return fieldSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
     return this;
   }
@@ -45,8 +47,8 @@ export class ObjectClass extends Base {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // TODO
+  public replaceParameters(parameterMapping: IParameterMapping[]): ObjectClass {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ObjectClass {
@@ -55,7 +57,10 @@ export class ObjectClass extends Base {
 
   public toString(): string {
     const stringArray: string[] = ['CLASS {'];
-    stringArray.push(this.fieldSpecs.map((fieldSpec) => this.indent(fieldSpec.toString())).join(',\n'));
+    const stringFieldSpecs = this.fieldSpecs.map((fieldSpec) => this.indent(fieldSpec.toString())).join(',\n');
+    if (stringFieldSpecs.length) {
+      stringArray.push(stringFieldSpecs);
+    }
     stringArray.push('}');
     if (this.withSyntaxSpec) {
       stringArray.push(this.withSyntaxSpec.toString());

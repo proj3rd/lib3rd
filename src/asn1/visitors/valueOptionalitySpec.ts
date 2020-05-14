@@ -17,7 +17,7 @@ export class ValueOptionalitySpecVisitor extends AbstractParseTreeVisitor<IOptio
   }
 
   public visitChildren(valueOptionalitySpecCtx: ValueOptionalitySpecContext): IOptionalitySpec {
-    const [optionalOrDefaultCtx, valueCtx] = valueOptionalitySpecCtx.children;
+    const [, valueCtx] = valueOptionalitySpecCtx.children;
     if (valueCtx) {
       return {
         optional: undefined,

@@ -33,8 +33,8 @@ export class SizeConstraint extends Constraint {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): SizeConstraint {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): SizeConstraint {

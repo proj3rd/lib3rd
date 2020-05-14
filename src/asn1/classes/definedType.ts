@@ -1,4 +1,5 @@
-import { cloneDeep, isEmpty, isEqual } from 'lodash';
+import * as colors from 'colors';
+import { cloneDeep, isEqual } from 'lodash';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
@@ -8,6 +9,7 @@ import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
+import { ObjectIdentifierValue } from './objectIdentifierValue';
 import { Parameter } from './parameter';
 import { WithComponents } from './withComponents';
 
@@ -28,11 +30,15 @@ export class DefinedType extends AsnType {
   }
 
   public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): Base {
+    console.log(colors.blue(__filename), 'expand()');
+    console.log(colors.yellow('Current IE'), `(type: ${this.constructor.name})`);
+    console.log(JSON.stringify(this, null, 2));
     if (parameterList.findIndex((value) => isEqual(value, this.typeReference)) !== -1) {
       return this;
     }
     const definition = cloneDeep(findDefinition(this.typeReference, this.getModuleNameToPass(moduleName), asn1Pool));
     if (!definition) {
+      console.log(colors.gray('IE not found. Exit expand()'));
       return this;
     }
     const parameterMapping: IParameterMapping[] = [];
@@ -53,23 +59,44 @@ export class DefinedType extends AsnType {
         typeReference: `${this.toString()}`,
       });
     }
-    definition.replaceParameters(parameterMapping);
-    definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
-    return definition;
+    const definitionInstantiated = definition.replaceParameters(parameterMapping, asn1Pool,
+                                                                this.getModuleNameToPass(moduleName));
+    return definitionInstantiated.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
   }
 
   public depthMax(): number {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): DefinedType {
     if (!this.moduleReference && this.typeReference) {
       const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
-      if (!mappingFound) {
-        return;
+      if (mappingFound) {
+        Object.assign(this, mappingFound.actualParameter);
       }
-      Object.assign(this, mappingFound.actualParameter);
     }
+    // FIXME: Implemented in a very limited way
+    if (this.actualParameterList) {
+      parameterMapping.forEach((item) => {
+        const { dummyReference } = item.parameter;
+        const index = this.actualParameterList.findIndex((actualParameter) => {
+          if (!(actualParameter instanceof ObjectIdentifierValue)) {
+            return false;
+          }
+          return actualParameter.objIdComponentsList[0] === dummyReference;
+        });
+        if (index === -1) {
+          return;
+        }
+        const actualParameterSource = item.actualParameter;
+        const actualParameterTarget = this.actualParameterList[index];
+        if (actualParameterSource instanceof ObjectIdentifierValue &&
+            actualParameterTarget instanceof ObjectIdentifierValue) {
+          actualParameterTarget.objIdComponentsList = actualParameterSource.objIdComponentsList;
+        }
+      });
+    }
+    return this;
   }
 
   public toString(): string {

@@ -42,8 +42,9 @@ export class NamedType extends Base {
     return this.type.depthMax();
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): NamedType {
     this.type.replaceParameters(parameterMapping);
+    return this;
   }
 
   public toString(): string {
@@ -67,6 +68,6 @@ export class NamedType extends Base {
 
   private getOptionalString(): string {
     return this.optional ? '    OPTIONAL' :
-      this.default !== undefined ? `    DEFAULT    ${this.default.toString()}` : '';
+      this.default !== undefined && this.default !== null ? `    DEFAULT    ${this.default.toString()}` : '';
   }
 }

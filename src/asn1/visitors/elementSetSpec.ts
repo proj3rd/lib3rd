@@ -5,7 +5,6 @@ import { getLogWithAsn1 } from '../utils';
 
 import { ElementSetSpecContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { ElementsTypes } from './elements';
 import { Unions, UnionsVisitor } from './unions';
 
 /**

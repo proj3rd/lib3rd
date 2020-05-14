@@ -14,7 +14,7 @@ export declare class BitString extends AsnType {
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): BitString;
     expand(asn1Pool: IModules, moduleName?: string): BitString;
     depthMax(): number;
-    replaceParameters(paramterMapping: IParameterMapping[]): void;
+    replaceParameters(paramterMapping: IParameterMapping[]): BitString;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }

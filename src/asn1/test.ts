@@ -1,5 +1,6 @@
 import * as assert from 'assert';
 import { readFileSync } from 'fs';
+import { expand } from '.';
 import { findMsgIes } from './format';
 import { format } from './format/text';
 import { parse } from './parse';
@@ -10,6 +11,7 @@ interface ITestCase {
   specWithVersion: string;
   ieName: string;
   expectedResult: string;
+  expandRequired?: boolean;
 }
 
 const testCases: ITestCase[] = [
@@ -286,6 +288,146 @@ WITH SYNTAX {
 }`,
   },
   {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Expanded',
+    specWithVersion: '36413-g00',
+    ieName: 'SecondaryRATDataUsageReportList',
+    expectedResult: `SecondaryRATDataUsageReportList ::= SEQUENCE (SIZE (1..maxnoofE-RABs)) OF {
+  SEQUENCE {
+    &id                                                 INTEGER (0..65535)    DEFAULT    id-SecondaryRATDataUsageReportItem,
+    &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+    &Value                                              SEQUENCE {
+      e-RAB-ID                                            INTEGER (0..15,...),
+      secondaryRATType                                    ENUMERATED {nR, ..., unlicensed},
+      e-RABUsageReportList                                SEQUENCE (SIZE (1..maxnooftimeperiods)) OF {
+        SEQUENCE {
+          &id                                                 INTEGER (0..65535)    DEFAULT    id-E-RABUsageReportItem,
+          &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+          &Value                                              SEQUENCE {
+            startTimestamp                                      OCTET STRING (SIZE (4)),
+            endTimestamp                                        OCTET STRING (SIZE (4)),
+            usageCountUL                                        INTEGER (0..18446744073709552000),
+            usageCountDL                                        INTEGER (0..18446744073709552000),
+            iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+            }    OPTIONAL,
+            ...
+          }
+        }
+      },
+      iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+      }    OPTIONAL,
+      ...
+    }
+  }
+}`,
+    expandRequired: true,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Instantiated',
+    specWithVersion: '36413-g00',
+    ieName: 'SecondaryRATDataUsageReportIEs',
+    expectedResult: `SecondaryRATDataUsageReportIEs S1AP-PROTOCOL-IES ::= {
+  CLASS {
+    &id                                                 id-MME-UE-S1AP-ID    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              INTEGER (0..4294967295),
+    &presence                                           mandatory
+  }    |
+  CLASS {
+    &id                                                 id-eNB-UE-S1AP-ID    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              INTEGER (0..16777215),
+    &presence                                           mandatory
+  }    |
+  CLASS {
+    &id                                                 id-SecondaryRATDataUsageReportList    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              SEQUENCE (SIZE (1..maxnoofE-RABs)) OF {
+      SEQUENCE {
+        &id                                                 INTEGER (0..65535)    DEFAULT    id-SecondaryRATDataUsageReportItem,
+        &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+        &Value                                              SEQUENCE {
+          e-RAB-ID                                            INTEGER (0..15,...),
+          secondaryRATType                                    ENUMERATED {nR, ..., unlicensed},
+          e-RABUsageReportList                                SEQUENCE (SIZE (1..maxnooftimeperiods)) OF {
+            SEQUENCE {
+              &id                                                 INTEGER (0..65535)    DEFAULT    id-E-RABUsageReportItem,
+              &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+              &Value                                              SEQUENCE {
+                startTimestamp                                      OCTET STRING (SIZE (4)),
+                endTimestamp                                        OCTET STRING (SIZE (4)),
+                usageCountUL                                        INTEGER (0..18446744073709552000),
+                usageCountDL                                        INTEGER (0..18446744073709552000),
+                iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+                }    OPTIONAL,
+                ...
+              }
+            }
+          },
+          iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+          }    OPTIONAL,
+          ...
+        }
+      }
+    },
+    &presence                                           mandatory
+  }    |
+  CLASS {
+    &id                                                 id-HandoverFlag    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              ENUMERATED {handoverPreparation, ...},
+    &presence                                           optional
+  }    |
+  CLASS {
+    &id                                                 id-UserLocationInformation    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              SEQUENCE {
+      eutran-cgi                                          SEQUENCE {
+        pLMNidentity                                        OCTET STRING (SIZE (3)),
+        cell-ID                                             BIT STRING (SIZE (28)),
+        iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+        }    OPTIONAL,
+        ...
+      },
+      tai                                                 SEQUENCE {
+        pLMNidentity                                        OCTET STRING (SIZE (3)),
+        tAC                                                 OCTET STRING (SIZE (2)),
+        iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+        }    OPTIONAL,
+        ...
+      },
+      iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+        SEQUENCE {
+          &id                                                 INTEGER (0..65535)    DEFAULT    id-PSCellInformation,
+          &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+          &Extension                                          SEQUENCE {
+            nCGI                                                SEQUENCE {
+              pLMNIdentity                                        OCTET STRING (SIZE (3)),
+              nRCellIdentity                                      BIT STRING (SIZE (36)),
+              iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+              }    OPTIONAL,
+              ...
+            },
+            iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+            }    OPTIONAL,
+            ...
+          }
+        }
+      }    OPTIONAL,
+      ...
+    },
+    &presence                                           optional
+  }    |
+  CLASS {
+    &id                                                 id-TimeSinceSecondaryNodeRelease    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              OCTET STRING (SIZE (4)),
+    &presence                                           optional
+  },
+  ...
+}`,
+    expandRequired: true,
+  },
+  {
     testName: 'SEQUENCE',
     specWithVersion: '36331-f80',
     ieName: 'CounterCheck',
@@ -360,10 +502,15 @@ specWithVersionSet.forEach((specWithVersion) => {
 });
 
 testCases.forEach((testCase) => {
-  const {testName, specWithVersion, ieName, expectedResult} = testCase;
+  const {testName, specWithVersion, ieName, expectedResult, expandRequired} = testCase;
   it(testName, () => {
     const asn1Parsed = asn1Pool[specWithVersion];
-    const ie = findMsgIes(ieName, asn1Parsed);
-    assert.equal(format(ie), expectedResult);
+    const ies = findMsgIes(ieName, asn1Parsed);
+    if (expandRequired) {
+      const iesExpanded = ies.map((ie) => expand(ie, asn1Parsed));
+      assert.equal(format(iesExpanded), expectedResult);
+    } else {
+      assert.equal(format(ies), expectedResult);
+    }
   });
 });

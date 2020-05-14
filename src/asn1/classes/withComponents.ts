@@ -35,8 +35,8 @@ export class WithComponents extends Base {
     throw Error('Depth of this class is not valid');
   }
 
-  public replaceParameters(paramterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(paramterMapping: IParameterMapping[]): WithComponents {
+    return this;
   }
 
   public toString(): string {

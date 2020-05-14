@@ -6,10 +6,12 @@ class ObjectClass extends base_1.Base {
         super();
         this.fieldSpecs = fieldSpecs;
         this.withSyntaxSpec = withSyntaxSpec;
-        this.withSyntaxSpec.syntaxList.forEach((syntax) => {
-            const fieldSpec = this.fieldSpecs.find((item) => item.reference === syntax.primitiveFieldName);
-            fieldSpec.alias = syntax.literal;
-        });
+        if (this.withSyntaxSpec) {
+            this.withSyntaxSpec.syntaxList.forEach((syntax) => {
+                const fieldSpec = this.fieldSpecs.find((item) => item.reference === syntax.primitiveFieldName);
+                fieldSpec.alias = syntax.literal;
+            });
+        }
     }
     depthMax() {
         let depthMax = 0;
@@ -19,8 +21,8 @@ class ObjectClass extends base_1.Base {
         return depthMax;
     }
     expand(asn1Pool, moduleName, parameterList) {
-        this.fieldSpecs.forEach((fieldSpec) => {
-            fieldSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+        this.fieldSpecs = this.fieldSpecs.map((fieldSpec) => {
+            return fieldSpec.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
     }
@@ -29,14 +31,17 @@ class ObjectClass extends base_1.Base {
         return [row, col];
     }
     replaceParameters(parameterMapping) {
-        // TODO
+        return this;
     }
     setConstraint(constraints) {
         return this;
     }
     toString() {
         const stringArray = ['CLASS {'];
-        stringArray.push(this.fieldSpecs.map((fieldSpec) => this.indent(fieldSpec.toString())).join(',\n'));
+        const stringFieldSpecs = this.fieldSpecs.map((fieldSpec) => this.indent(fieldSpec.toString())).join(',\n');
+        if (stringFieldSpecs.length) {
+            stringArray.push(stringFieldSpecs);
+        }
         stringArray.push('}');
         if (this.withSyntaxSpec) {
             stringArray.push(this.withSyntaxSpec.toString());

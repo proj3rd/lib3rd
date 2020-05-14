@@ -14,7 +14,7 @@ export declare class OctetString extends AsnType {
     setConstraint(constraints: Array<Constraint | ConstraintSpec>): OctetString;
     expand(asn1Pool: IModules, moduleName?: string): OctetString;
     depthMax(): number;
-    replaceParameters(paramterMapping: IParameterMapping[]): void;
+    replaceParameters(paramterMapping: IParameterMapping[]): OctetString;
     toString(): string;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
 }

@@ -4,6 +4,7 @@ import { Base, IConstantAndModule } from './base';
 import { DefinedObjectClass } from './definedObjectClass';
 import { ObjectSetSpec } from './objectSetSpec';
 import { Parameter } from './parameter';
+import { Sequence } from './sequence';
 export declare class ObjectSet extends Base {
     objectSetSpec: ObjectSetSpec;
     definedObjectClass: DefinedObjectClass;
@@ -11,7 +12,8 @@ export declare class ObjectSet extends Base {
     depthMax(): number;
     expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): ObjectSet;
     fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number, constants: IConstantAndModule[], formatConfig: IFormatConfig, depth?: number): [number, number];
-    replaceParameters(): void;
+    instantiate(template: Sequence, asn1Pool: IModules): ObjectSet;
+    replaceParameters(): ObjectSet;
     setConstraint(): ObjectSet;
     toString(): string;
 }

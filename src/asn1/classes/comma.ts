@@ -21,8 +21,8 @@ export class Comma extends Base {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): Comma {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): Comma {

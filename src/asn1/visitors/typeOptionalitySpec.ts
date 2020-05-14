@@ -17,7 +17,7 @@ export class TypeOptionalitySpecVisitor extends AbstractParseTreeVisitor<IOption
   }
 
   public visitChildren(typeOptionalitySpecCtx: TypeOptionalitySpecContext): IOptionalitySpec {
-    const [optionalOrDefaultCtx, asnTypeCtx] = typeOptionalitySpecCtx.children;
+    const [, asnTypeCtx] = typeOptionalitySpecCtx.children;
     if (asnTypeCtx) {
       return {
         optional: undefined,
