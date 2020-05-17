@@ -22,7 +22,8 @@ class TableConstraint extends constraint_1.Constraint {
     }
     toString() {
         const definedObjectSet = `${this.moduleReference ? this.moduleReference + '.' : ''}${this.objectSetReference}`;
-        return `{${definedObjectSet}} ({${this.atNotations.join(', ')}})`;
+        const atNotations = !this.atNotations.length ? '' : ` ({${this.atNotations.join(', ')}})`;
+        return `{${definedObjectSet}}${atNotations}`;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth = 0) {
         throw Error('fillWorksheet() of Constraint cannot be called independently');

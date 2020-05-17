@@ -8,10 +8,11 @@ import { BooleanValueContext, BuiltinValueContext, ChoiceValueContext, Enumerate
          IntegerValueContext, ObjectIdentifierValueContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 
+import { ObjectIdentifierValue } from '../classes/objectIdentifierValue';
 import { EnumeratedValueVisitor } from './enumeratedValue';
 import { ObjectIdentifierValueVisitor } from './objectIdentifierValue';
 
-export type BuiltinValue = string | boolean | number;
+export type BuiltinValue = string | boolean | number | ObjectIdentifierValue;
 
 /**
  * ANTLR4 grammar

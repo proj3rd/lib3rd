@@ -8,7 +8,6 @@ import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { SingleValue } from '../classes/singleValue';
 import { SizeConstraint } from '../classes/sizeConstraint';
 import { ValueRange } from '../classes/valueRange';
-import { BuiltinValue } from './builtinValue';
 import { SizeConstraintVisitor } from './sizeConstraint';
 import { ValueVisitor } from './value';
 

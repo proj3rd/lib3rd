@@ -19,8 +19,8 @@ class ExtensionAdditionGroup extends base_1.Base {
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
-        this.componentTypeList.forEach((item) => {
-            item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+        this.componentTypeList = this.componentTypeList.map((item) => {
+            return item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
         });
         return this;
     }
@@ -35,6 +35,7 @@ class ExtensionAdditionGroup extends base_1.Base {
         this.componentTypeList.forEach((item) => {
             item.replaceParameters(paramterMapping);
         });
+        return this;
     }
     toString() {
         const itemString = [];

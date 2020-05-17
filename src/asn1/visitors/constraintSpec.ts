@@ -5,7 +5,6 @@ import { getLogWithAsn1 } from '../utils';
 
 import { ConstraintSpecContext, GeneralConstraintContext, SubtypeConstraintContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { ElementsTypes } from './elements';
 import { ElementSetSpecs } from './elementSetSpecs';
 import { GeneralConstraint, GeneralConstraintVisitor } from './generalConstraint';
 import { SubtypeConstraintVisitor } from './subtypeConstraint';

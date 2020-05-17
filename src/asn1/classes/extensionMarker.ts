@@ -25,8 +25,8 @@ export class ExtensionMarker extends Base {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(paramterMapping: IParameterMapping[]): ExtensionMarker {
+    return this;
   }
 
   public toString(): string {

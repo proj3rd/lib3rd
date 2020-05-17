@@ -1,10 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { DefinedObjectClassContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-export interface IDefinedObjectClass {
-    moduleReference: string;
-    objectClassReference: string;
-}
+import { DefinedObjectClass } from '../classes/definedObjectClass';
 /**
  * ANTLR4 grammar
  * ```
@@ -14,7 +11,7 @@ export interface IDefinedObjectClass {
  *    |  ABSTRACT_SYNTAX_LITERAL
  * ```
  */
-export declare class DefinedObjectClassVisitor extends AbstractParseTreeVisitor<IDefinedObjectClass> implements ASN_3gppVisitor<IDefinedObjectClass> {
-    defaultResult(): IDefinedObjectClass;
-    visitChildren(definedObjectClassCtx: DefinedObjectClassContext): IDefinedObjectClass;
+export declare class DefinedObjectClassVisitor extends AbstractParseTreeVisitor<DefinedObjectClass> implements ASN_3gppVisitor<DefinedObjectClass> {
+    defaultResult(): DefinedObjectClass;
+    visitChildren(definedObjectClassCtx: DefinedObjectClassContext): DefinedObjectClass;
 }

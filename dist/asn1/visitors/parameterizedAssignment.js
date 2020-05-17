@@ -37,7 +37,7 @@ class ParameterizedAssignmentVisitor extends AbstractParseTreeVisitor_1.Abstract
         let parameterList;
         let definedObjectClass;
         let asnType;
-        let object /* TODO */;
+        let object;
         const childCtxes = parameterizedAssignmentCtx.children;
         childCtxes.forEach((childCtx) => {
             if (childCtx instanceof ASN_3gppParser_1.ParameterListContext) {

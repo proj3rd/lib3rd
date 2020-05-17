@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const base_1 = require("./base");
+const objectClass_1 = require("./objectClass");
+const objectIdentifierValue_1 = require("./objectIdentifierValue");
 class SingleValue extends base_1.Base {
     constructor(value) {
         super();
@@ -9,8 +12,13 @@ class SingleValue extends base_1.Base {
     depthMax() {
         return 0;
     }
-    expand(asn1Pool, moduleName, parameterList) {
-        // Do nothing
+    expand(asn1Pool, moduleName, parameterList, classDefinition) {
+        if (classDefinition) {
+            this.instantiateObjectClass(classDefinition);
+            if (this.value instanceof objectClass_1.ObjectClass) {
+                this.value = this.value.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+            }
+        }
         return this;
     }
     fillWorksheet(ieElem, ws, row, col, depthMax, constants, formatConfig, depth) {
@@ -18,7 +26,7 @@ class SingleValue extends base_1.Base {
         return [row, col];
     }
     replaceParameters(parameterMapping) {
-        // Do nothing
+        return this;
     }
     setConstraint(constraints) {
         // Do nothing
@@ -26,6 +34,61 @@ class SingleValue extends base_1.Base {
     }
     toString() {
         return this.value.toString();
+    }
+    instantiateObjectClass(classDefinition) {
+        if (this.value instanceof objectIdentifierValue_1.ObjectIdentifierValue) {
+            // this.value.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList/*, classDefinition*/);
+            const objectClassInstance = lodash_1.cloneDeep(classDefinition);
+            objectClassInstance.withSyntaxSpec = undefined;
+            objectClassInstance.moduleName = this.moduleName;
+            this.value.objIdComponentsList.forEach((component, index) => {
+                if (index % 2 !== 0) {
+                    return;
+                }
+                const syntax = classDefinition.withSyntaxSpec.syntaxList.find((item) => {
+                    return item.literal === component;
+                });
+                if (syntax === undefined) {
+                    return;
+                }
+                const { primitiveFieldName: reference } = syntax;
+                const fieldSpec = objectClassInstance.fieldSpecs.find((item) => item.reference === reference);
+                if (fieldSpec === undefined) {
+                    return;
+                }
+                const actualValue = this.value.objIdComponentsList[index + 1];
+                fieldSpec.actualValue = actualValue;
+            });
+            this.value = objectClassInstance;
+            // TODO: "Instantiate" Class
+            /**
+             * "ObjectIdentifierValue" {
+             *   "objIdComponentsList": [
+             *     "ID",          "id-MME-UE-S1AP-ID",
+             *     "CRITICALITY", "reject",
+             *     "TYPE",        "MME-UE-S1AP-ID",
+             *     "PRESENCE",    "mandatory"
+             *   ]
+             * }
+             */
+            /**
+             * Class definition (JSON-like)
+             * "ObjectClass": {
+             *   "fieldSpecs": [
+             *     {
+             *       "reference": "&referenceName",
+             *       "actualValue": "string",
+             *     }
+             *   ],
+             *   "withSyntaxSpec": {
+             *     "syntaxList": [
+             *       "literal": "ID",
+             *       "primitiveFieldName": "&id",
+             *     ]
+             *   }
+             * }
+             */
+        }
     }
 }
 exports.SingleValue = SingleValue;

@@ -2,14 +2,8 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 
 import { ParameterContext, ParamGovernorContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
-import { AsnType } from '../classes/asnType';
-import { IDefinedObjectClass } from './definedObjectClass';
-import { ParamGovernorVisitor } from './paramGovernor';
-
-export interface IParameter {
-  paramGovernor: AsnType | IDefinedObjectClass | string;
-  parameterName: string;
-}
+import { Parameter } from '../classes/parameter';
+import { ParamGovernor, ParamGovernorVisitor } from './paramGovernor';
 
 /**
  * ANTLR4 grammar
@@ -17,23 +11,21 @@ export interface IParameter {
  * parameter : (paramGovernor COLON)? IDENTIFIER
  * ```
  */
-export class ParameterVisitor extends AbstractParseTreeVisitor<IParameter> implements ASN_3gppVisitor<IParameter> {
-  public defaultResult(): IParameter {
+export class ParameterVisitor extends AbstractParseTreeVisitor<Parameter> implements ASN_3gppVisitor<Parameter> {
+  public defaultResult(): Parameter {
     return undefined;
   }
 
-  public visitChildren(parameterCtx: ParameterContext): IParameter {
+  public visitChildren(parameterCtx: ParameterContext): Parameter {
     const { children } = parameterCtx;
-    const parameter: IParameter = {
-      paramGovernor: undefined,
-      parameterName: undefined,
-    };
+    let paramGovernor: ParamGovernor;
+    let dummyReference: string;
     if (children[0] instanceof ParamGovernorContext) {
-      parameter.paramGovernor = children[0].accept(new ParamGovernorVisitor());
-      parameter.parameterName = children[2].text;
+      paramGovernor = children[0].accept(new ParamGovernorVisitor());
+      dummyReference = children[2].text;
     } else {
-      parameter.parameterName = children[0].text;
+      dummyReference = children[0].text;
     }
-    return parameter;
+    return new Parameter(paramGovernor, dummyReference);
   }
 }

@@ -5,13 +5,13 @@ import { log } from '../../utils/logging';
 import { TerminalNode } from 'antlr4ts/tree/TerminalNode';
 import { AdditionalElementSetSpecContext, ObjectSetSpecContext, RootElementSetSpecContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { Comma } from '../classes/comma';
 import { ExtensionMarker } from '../classes/extensionMarker';
+import { ObjectSetSpec } from '../classes/objectSetSpec';
 import { getLogWithAsn1 } from '../utils';
 import { AdditionalElementSetSpecVisitor } from './additionalElementSetSpec';
-import { ElementsTypes } from './elements';
 import { RootElementSetSpecVisitor } from './rootElementSetSpec';
-
-type ObjectSetSpec = Array<ElementsTypes | ExtensionMarker>;
+import { Unions } from './unions';
 
 /**
  * ANTLR4 grammar
@@ -24,11 +24,11 @@ type ObjectSetSpec = Array<ElementsTypes | ExtensionMarker>;
 export class ObjectSetSpecVisitor extends AbstractParseTreeVisitor<ObjectSetSpec>
                                   implements ASN_3gppVisitor<ObjectSetSpec> {
   public defaultResult(): ObjectSetSpec {
-    return [];
+    return new ObjectSetSpec([]);
   }
 
   public visitChildren(objectSetSpecCtx: ObjectSetSpecContext): ObjectSetSpec {
-    const objectSetSpec: ObjectSetSpec = [];
+    const objectSetSpec: Unions = [];
     const { children } = objectSetSpecCtx;
     children.forEach((childCtx) => {
       if (childCtx instanceof RootElementSetSpecContext) {
@@ -40,11 +40,13 @@ export class ObjectSetSpecVisitor extends AbstractParseTreeVisitor<ObjectSetSpec
       } else if (childCtx instanceof TerminalNode) {
         if (childCtx.text === '...') {
           objectSetSpec.push(new ExtensionMarker());
+        } else if (childCtx.text === ',') {
+          objectSetSpec.push(new Comma());
         }
       } else {
         log.warn(new Error(getLogWithAsn1(childCtx, 'Not supported ASN.1')));
       }
     });
-    return objectSetSpec;
+    return new ObjectSetSpec(objectSetSpec);
   }
 }

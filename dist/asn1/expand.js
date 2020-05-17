@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
+const asnType_1 = require("./classes/asnType");
 function expand(msgIe, asn1Pool) {
     const msgIeClone = lodash_1.cloneDeep(msgIe);
-    const expandedDefinition = msgIeClone.definition.expand(asn1Pool, undefined, msgIeClone.definition.parameterList);
-    msgIeClone.definition = expandedDefinition;
+    const parameterList = msgIeClone.definition instanceof asnType_1.AsnType ? msgIeClone.definition.parameterList : [];
+    msgIeClone.definition = msgIeClone.definition.expand(asn1Pool, undefined, parameterList) /* TODO */;
     return msgIeClone;
 }
 exports.expand = expand;

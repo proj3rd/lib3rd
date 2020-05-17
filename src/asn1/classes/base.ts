@@ -4,9 +4,9 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
+import { Parameter } from './parameter';
 
 export interface IConstantAndModule {
   constant: BuiltinValue;
@@ -16,14 +16,15 @@ export interface IConstantAndModule {
 export abstract class Base {
   public moduleName: string;
 
-  public abstract expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): Base;
+  public abstract expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): Base;
   public abstract depthMax(): number;
   public abstract toString(): string;
   public abstract fillWorksheet(ieElem: IIe, ws: any, row: number, col: number, depthMax: number,
                                 constants: IConstantAndModule[], formatConfig: IFormatConfig,
                                 depth?: number): [number, number];
   public abstract setConstraint(constraints: Array<Constraint | ConstraintSpec>): Base;
-  public abstract replaceParameters(parameterMapping: IParameterMapping[]): void;
+  public abstract replaceParameters(parameterMapping: IParameterMapping[],
+                                    asn1Pool?: IModules, moduleName?: string): Base;
 
   protected indent(text: string): string {
     return text.replace(/^/gm, '  ');

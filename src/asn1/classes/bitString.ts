@@ -1,7 +1,3 @@
-import { isEmpty } from 'lodash';
-
-import { log } from '../../utils/logging';
-
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
@@ -30,8 +26,8 @@ export class BitString extends AsnType {
     return 0;
   }
 
-  public replaceParameters(paramterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(paramterMapping: IParameterMapping[]): BitString {
+    return this;
   }
 
   public toString(): string {

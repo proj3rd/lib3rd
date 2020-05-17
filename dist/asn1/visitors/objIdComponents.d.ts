@@ -1,6 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ObjIdComponentsContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
+import { BuiltinType } from './builtinType';
 /**
  * ANTLR4 grammar
  * ```
@@ -11,7 +12,7 @@ import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
  * 	|    	definedValue
  * ```
  */
-export declare class ObjIdComponentsVisitor extends AbstractParseTreeVisitor<any> implements ASN_3gppVisitor<any> {
-    defaultResult(): any;
-    visitChildren(objIdComponentsCtx: ObjIdComponentsContext): any;
+export declare class ObjIdComponentsVisitor extends AbstractParseTreeVisitor<BuiltinType | string | number> implements ASN_3gppVisitor<BuiltinType | string | number> {
+    defaultResult(): BuiltinType | string | number;
+    visitChildren(objIdComponentsCtx: ObjIdComponentsContext): BuiltinType | string | number;
 }

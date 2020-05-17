@@ -5,9 +5,10 @@ import { log } from '../../utils/logging';
 import { AsnTypeContext, DefinedObjectClassContext, GovernorContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { DefinedObjectClass } from '../classes/definedObjectClass';
 import { getLogWithAsn1 } from '../utils';
 import { AsnTypeVisitor } from './asnType';
-import { DefinedObjectClassVisitor, IDefinedObjectClass } from './definedObjectClass';
+import { DefinedObjectClassVisitor } from './definedObjectClass';
 
 /**
  * ANTLR4 grammar
@@ -15,13 +16,13 @@ import { DefinedObjectClassVisitor, IDefinedObjectClass } from './definedObjectC
  * governor : asnType | definedObjectClass
  * ```
  */
-export class GovernorVisitor extends AbstractParseTreeVisitor<AsnType | IDefinedObjectClass>
-                                  implements ASN_3gppVisitor<AsnType | IDefinedObjectClass> {
-  public defaultResult(): AsnType | IDefinedObjectClass {
+export class GovernorVisitor extends AbstractParseTreeVisitor<AsnType | DefinedObjectClass>
+                                  implements ASN_3gppVisitor<AsnType | DefinedObjectClass> {
+  public defaultResult(): AsnType | DefinedObjectClass {
     return undefined;
   }
 
-  public visitChildren(governorCtx: GovernorContext): AsnType | IDefinedObjectClass {
+  public visitChildren(governorCtx: GovernorContext): AsnType | DefinedObjectClass {
     const childCtx = governorCtx.children[0];
     if (childCtx instanceof AsnTypeContext) {
       return childCtx.accept(new AsnTypeVisitor());

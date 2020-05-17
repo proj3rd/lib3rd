@@ -1,5 +1,6 @@
 import * as assert from 'assert';
 import { readFileSync } from 'fs';
+import { expand } from '.';
 import { findMsgIes } from './format';
 import { format } from './format/text';
 import { parse } from './parse';
@@ -10,6 +11,7 @@ interface ITestCase {
   specWithVersion: string;
   ieName: string;
   expectedResult: string;
+  expandRequired?: boolean;
 }
 
 const testCases: ITestCase[] = [
@@ -47,6 +49,25 @@ const testCases: ITestCase[] = [
     expectedResult: `SS-RSSI-Measurement-r15 ::= SEQUENCE {
   measurementSlots-r15                                BIT STRING (SIZE (1..80)),
   endSymbol-r15                                       INTEGER (0..3)
+}`,
+  },
+  {
+    testName: 'CLASS',
+    specWithVersion: '36413-g00',
+    ieName: 'S1AP-ELEMENTARY-PROCEDURE',
+    expectedResult: `S1AP-ELEMENTARY-PROCEDURE ::= CLASS {
+  &InitiatingMessage,
+  &SuccessfulOutcome                                  OPTIONAL,
+  &UnsuccessfulOutcome                                OPTIONAL,
+  &procedureCode                                      ProcedureCode    UNIQUE,
+  &criticality                                        Criticality    DEFAULT    ignore
+}
+WITH SYNTAX {
+  INITIATING MESSAGE                                  &InitiatingMessage
+  [SUCCESSFUL OUTCOME                                  &SuccessfulOutcome]
+  [UNSUCCESSFUL OUTCOME                                &UnsuccessfulOutcome]
+  PROCEDURE CODE                                      &procedureCode
+  [CRITICALITY                                         &criticality]
 }`,
   },
   {
@@ -151,6 +172,45 @@ const testCases: ITestCase[] = [
 }`,
   },
   {
+    testName: 'OBJECT SET with Extension Marker',
+    specWithVersion: '36413-g00',
+    ieName: 'S1AP-ELEMENTARY-PROCEDURES',
+    expectedResult: `S1AP-ELEMENTARY-PROCEDURES S1AP-ELEMENTARY-PROCEDURE ::= {
+  S1AP-ELEMENTARY-PROCEDURES-CLASS-1    |
+  S1AP-ELEMENTARY-PROCEDURES-CLASS-2,
+  ...
+}`,
+  },
+  {
+    testName: 'OBJECT SET with Extension Marker and Additional Set Spec',
+    specWithVersion: '36413-g00',
+    ieName: 'S1AP-ELEMENTARY-PROCEDURES-CLASS-1',
+    expectedResult: `S1AP-ELEMENTARY-PROCEDURES-CLASS-1 S1AP-ELEMENTARY-PROCEDURE ::= {
+  handoverPreparation    |
+  handoverResourceAllocation    |
+  pathSwitchRequest    |
+  e-RABSetup    |
+  e-RABModify    |
+  e-RABRelease    |
+  initialContextSetup    |
+  handoverCancel    |
+  kill    |
+  reset    |
+  s1Setup    |
+  uEContextModification    |
+  uEContextRelease    |
+  eNBConfigurationUpdate    |
+  mMEConfigurationUpdate    |
+  writeReplaceWarning,
+  ...,
+  uERadioCapabilityMatch    |
+  e-RABModificationIndication    |
+  uEContextModificationIndication    |
+  uEContextSuspend    |
+  uEContextResume
+}`,
+  },
+  {
     testName: 'OCTET STRING',
     specWithVersion: '36331-f80',
     ieName: 'CSFBParametersRequestCDMA2000-v8a0-IEs',
@@ -189,6 +249,183 @@ const testCases: ITestCase[] = [
     expectedResult: `AS-Context-v1320 ::= SEQUENCE {
   wlanConnectionStatusReport-r13                      OCTET STRING (CONTAINING WLANConnectionStatusReport-r13)    OPTIONAL    -- Cond HO2
 }`,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN2)',
+    specWithVersion: '38331-f80',
+    ieName: 'SetupRelease',
+    expectedResult: `SetupRelease { ElementTypeParam } ::= CHOICE {
+  release                                             NULL,
+  setup                                               ElementTypeParam
+}`,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3)',
+    specWithVersion: '36413-g00',
+    ieName: 'E-RAB-IE-ContainerList',
+    expectedResult: `E-RAB-IE-ContainerList { S1AP-PROTOCOL-IES: IEsSetParam } ::= ProtocolIE-ContainerList { 1, maxnoofE-RABs, { IEsSetParam } }`,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3)',
+    specWithVersion: '36413-g00',
+    ieName: 'HandoverRequiredIEs',
+    expectedResult: `HandoverRequiredIEs S1AP-PROTOCOL-IES ::= {
+  { ID    id-MME-UE-S1AP-ID    CRITICALITY    reject    TYPE    MME-UE-S1AP-ID    PRESENCE    mandatory }    |
+  { ID    id-eNB-UE-S1AP-ID    CRITICALITY    reject    TYPE    ENB-UE-S1AP-ID    PRESENCE    mandatory }    |
+  { ID    id-HandoverType    CRITICALITY    reject    TYPE    HandoverType    PRESENCE    mandatory }    |
+  { ID    id-Cause    CRITICALITY    ignore    TYPE    Cause    PRESENCE    mandatory }    |
+  { ID    id-TargetID    CRITICALITY    reject    TYPE    TargetID    PRESENCE    mandatory }    |
+  { ID    id-Direct-Forwarding-Path-Availability    CRITICALITY    ignore    TYPE    Direct-Forwarding-Path-Availability    PRESENCE    optional }    |
+  { ID    id-SRVCCHOIndication    CRITICALITY    reject    TYPE    SRVCCHOIndication    PRESENCE    optional }    |
+  { ID    id-Source-ToTarget-TransparentContainer    CRITICALITY    reject    TYPE    Source-ToTarget-TransparentContainer    PRESENCE    mandatory }    |
+  { ID    id-Source-ToTarget-TransparentContainer-Secondary    CRITICALITY    reject    TYPE    Source-ToTarget-TransparentContainer    PRESENCE    optional }    |
+  { ID    id-MSClassmark2    CRITICALITY    reject    TYPE    MSClassmark2    PRESENCE    conditional }    |
+  { ID    id-MSClassmark3    CRITICALITY    ignore    TYPE    MSClassmark3    PRESENCE    conditional }    |
+  { ID    id-CSG-Id    CRITICALITY    reject    TYPE    CSG-Id    PRESENCE    optional }    |
+  { ID    id-CellAccessMode    CRITICALITY    reject    TYPE    CellAccessMode    PRESENCE    optional }    |
+  { ID    id-PS-ServiceNotAvailable    CRITICALITY    ignore    TYPE    PS-ServiceNotAvailable    PRESENCE    optional },
+  ...
+}`,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Expanded',
+    specWithVersion: '36413-g00',
+    ieName: 'SecondaryRATDataUsageReportList',
+    expectedResult: `SecondaryRATDataUsageReportList ::= SEQUENCE (SIZE (1..maxnoofE-RABs)) OF {
+  SEQUENCE {
+    &id                                                 INTEGER (0..65535)    DEFAULT    id-SecondaryRATDataUsageReportItem,
+    &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+    &Value                                              SEQUENCE {
+      e-RAB-ID                                            INTEGER (0..15,...),
+      secondaryRATType                                    ENUMERATED {nR, ..., unlicensed},
+      e-RABUsageReportList                                SEQUENCE (SIZE (1..maxnooftimeperiods)) OF {
+        SEQUENCE {
+          &id                                                 INTEGER (0..65535)    DEFAULT    id-E-RABUsageReportItem,
+          &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+          &Value                                              SEQUENCE {
+            startTimestamp                                      OCTET STRING (SIZE (4)),
+            endTimestamp                                        OCTET STRING (SIZE (4)),
+            usageCountUL                                        INTEGER (0..18446744073709552000),
+            usageCountDL                                        INTEGER (0..18446744073709552000),
+            iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+            }    OPTIONAL,
+            ...
+          }
+        }
+      },
+      iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+      }    OPTIONAL,
+      ...
+    }
+  }
+}`,
+    expandRequired: true,
+  },
+  {
+    testName: 'PARAMETERIZED ASSIGNMENT (RAN3) Instantiated',
+    specWithVersion: '36413-g00',
+    ieName: 'SecondaryRATDataUsageReportIEs',
+    expectedResult: `SecondaryRATDataUsageReportIEs S1AP-PROTOCOL-IES ::= {
+  CLASS {
+    &id                                                 id-MME-UE-S1AP-ID    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              INTEGER (0..4294967295),
+    &presence                                           mandatory
+  }    |
+  CLASS {
+    &id                                                 id-eNB-UE-S1AP-ID    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              INTEGER (0..16777215),
+    &presence                                           mandatory
+  }    |
+  CLASS {
+    &id                                                 id-SecondaryRATDataUsageReportList    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              SEQUENCE (SIZE (1..maxnoofE-RABs)) OF {
+      SEQUENCE {
+        &id                                                 INTEGER (0..65535)    DEFAULT    id-SecondaryRATDataUsageReportItem,
+        &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+        &Value                                              SEQUENCE {
+          e-RAB-ID                                            INTEGER (0..15,...),
+          secondaryRATType                                    ENUMERATED {nR, ..., unlicensed},
+          e-RABUsageReportList                                SEQUENCE (SIZE (1..maxnooftimeperiods)) OF {
+            SEQUENCE {
+              &id                                                 INTEGER (0..65535)    DEFAULT    id-E-RABUsageReportItem,
+              &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+              &Value                                              SEQUENCE {
+                startTimestamp                                      OCTET STRING (SIZE (4)),
+                endTimestamp                                        OCTET STRING (SIZE (4)),
+                usageCountUL                                        INTEGER (0..18446744073709552000),
+                usageCountDL                                        INTEGER (0..18446744073709552000),
+                iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+                }    OPTIONAL,
+                ...
+              }
+            }
+          },
+          iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+          }    OPTIONAL,
+          ...
+        }
+      }
+    },
+    &presence                                           mandatory
+  }    |
+  CLASS {
+    &id                                                 id-HandoverFlag    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              ENUMERATED {handoverPreparation, ...},
+    &presence                                           optional
+  }    |
+  CLASS {
+    &id                                                 id-UserLocationInformation    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              SEQUENCE {
+      eutran-cgi                                          SEQUENCE {
+        pLMNidentity                                        OCTET STRING (SIZE (3)),
+        cell-ID                                             BIT STRING (SIZE (28)),
+        iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+        }    OPTIONAL,
+        ...
+      },
+      tai                                                 SEQUENCE {
+        pLMNidentity                                        OCTET STRING (SIZE (3)),
+        tAC                                                 OCTET STRING (SIZE (2)),
+        iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+        }    OPTIONAL,
+        ...
+      },
+      iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+        SEQUENCE {
+          &id                                                 INTEGER (0..65535)    DEFAULT    id-PSCellInformation,
+          &criticality                                        ENUMERATED {reject, ignore, notify}    DEFAULT    ignore,
+          &Extension                                          SEQUENCE {
+            nCGI                                                SEQUENCE {
+              pLMNIdentity                                        OCTET STRING (SIZE (3)),
+              nRCellIdentity                                      BIT STRING (SIZE (36)),
+              iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+              }    OPTIONAL,
+              ...
+            },
+            iE-Extensions                                       SEQUENCE (SIZE (1..maxProtocolExtensions)) OF {
+            }    OPTIONAL,
+            ...
+          }
+        }
+      }    OPTIONAL,
+      ...
+    },
+    &presence                                           optional
+  }    |
+  CLASS {
+    &id                                                 id-TimeSinceSecondaryNodeRelease    UNIQUE,
+    &criticality                                        ignore,
+    &Value                                              OCTET STRING (SIZE (4)),
+    &presence                                           optional
+  },
+  ...
+}`,
+    expandRequired: true,
   },
   {
     testName: 'SEQUENCE',
@@ -238,14 +475,23 @@ const testCases: ITestCase[] = [
   ...
 }`,
   },
-  /*
   {
-    testName: '',
-    specWithVersion: '',
-    ieName: '',
-    expectedResult: ``,
+    testName: 'TypeAssignment of DefinedType',
+    specWithVersion: '36331-f80',
+    ieName: 'BCCH-BCH-MessageType',
+    expectedResult: `BCCH-BCH-MessageType ::= SEQUENCE {
+  dl-Bandwidth                                        ENUMERATED {n6, n15, n25, n50, n75, n100},
+  phich-Config                                        SEQUENCE {
+    phich-Duration                                      ENUMERATED {normal, extended},
+    phich-Resource                                      ENUMERATED {oneSixth, half, one, two}
   },
-  */
+  systemFrameNumber                                   BIT STRING (SIZE (8)),
+  schedulingInfoSIB1-BR-r13                           INTEGER (0..31),
+  systemInfoUnchanged-BR-r15                          BOOLEAN,
+  spare                                               BIT STRING (SIZE (4))
+}`,
+    expandRequired: true,
+  },
 ];
 
 interface IAsn1Pool {
@@ -265,10 +511,16 @@ specWithVersionSet.forEach((specWithVersion) => {
 });
 
 testCases.forEach((testCase) => {
-  const {testName, specWithVersion, ieName, expectedResult} = testCase;
-  it(testName, () => {
+  const {testName, specWithVersion, ieName, expectedResult, expandRequired} = testCase;
+  it(testName, function(): void {
+    this.timeout(0);
     const asn1Parsed = asn1Pool[specWithVersion];
-    const ie = findMsgIes(ieName, asn1Parsed);
-    assert.equal(format(ie), expectedResult);
+    const ies = findMsgIes(ieName, asn1Parsed);
+    if (expandRequired) {
+      const iesExpanded = ies.map((ie) => expand(ie, asn1Parsed));
+      assert.equal(format(iesExpanded), expectedResult);
+    } else {
+      assert.equal(format(ies), expectedResult);
+    }
   });
 });

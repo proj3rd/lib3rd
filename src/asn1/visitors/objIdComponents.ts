@@ -18,13 +18,13 @@ import { BuiltinType, BuiltinTypeVisitor } from './builtinType';
  * 	|    	definedValue
  * ```
  */
-export class ObjIdComponentsVisitor extends AbstractParseTreeVisitor<any /* TODO */>
-                                  implements ASN_3gppVisitor<any /* TODO */> {
-  public defaultResult(): any /* TODO */ {
+export class ObjIdComponentsVisitor extends AbstractParseTreeVisitor<BuiltinType | string | number>
+                                  implements ASN_3gppVisitor<BuiltinType | string | number> {
+  public defaultResult(): BuiltinType | string | number {
     return undefined;
   }
 
-  public visitChildren(objIdComponentsCtx: ObjIdComponentsContext): any /* TODO */ {
+  public visitChildren(objIdComponentsCtx: ObjIdComponentsContext): BuiltinType | string | number {
     const { children } = objIdComponentsCtx;
     let objIdComponents: BuiltinType | string | number;
     const firstCtx = children[0];
