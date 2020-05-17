@@ -3,7 +3,7 @@ import { ActualParameter } from '../visitors/actualParameter';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
 import { AsnType } from './asnType';
-import { IConstantAndModule } from './base';
+import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { Parameter } from './parameter';
 import { WithComponents } from './withComponents';
