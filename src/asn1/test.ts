@@ -512,7 +512,8 @@ specWithVersionSet.forEach((specWithVersion) => {
 
 testCases.forEach((testCase) => {
   const {testName, specWithVersion, ieName, expectedResult, expandRequired} = testCase;
-  it(testName, () => {
+  it(testName, function(): void {
+    this.timeout(0);
     const asn1Parsed = asn1Pool[specWithVersion];
     const ies = findMsgIes(ieName, asn1Parsed);
     if (expandRequired) {
