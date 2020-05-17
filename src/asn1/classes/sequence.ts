@@ -1,16 +1,20 @@
+import * as colors from 'colors';
 import { isEmpty } from 'lodash';
 
 import { log } from '../../utils/logging';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
+import { findDefinition } from '../utils';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
+import { ObjectIdentifierValue } from './objectIdentifierValue';
+import { ObjectSet } from './objectSet';
+import { Parameter } from './parameter';
 
 export class Sequence extends AsnType {
   public items: NamedType[];
@@ -28,9 +32,9 @@ export class Sequence extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): Sequence {
-    this.items.forEach((item) => {
-      item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): Sequence {
+    this.items = this.items.map((item) => {
+      return item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
     return this;
   }
@@ -43,10 +47,42 @@ export class Sequence extends AsnType {
     return depthMax;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[], asn1Pool: IModules, moduleName: string)
+      : Sequence | ObjectSet {
+    console.log(colors.blue(__filename), 'replaceParameters()');
+    console.log(colors.yellow('Current IE'));
+    console.log(JSON.stringify(this, null, 2));
+    console.log(colors.yellow('Parameter mapping'));
+    parameterMapping.forEach((item, index) => {
+      console.log(colors.yellow(`[${index}]`), `(actualParameter: ${item.actualParameter.constructor.name})`);
+      console.log(JSON.stringify(item, null, 2));
+    });
+    if (parameterMapping && parameterMapping.length > 0) {
+      const paramFirst = parameterMapping[0].actualParameter;
+      if (parameterMapping.length > 1) {
+        console.log(colors.red('parameterMapping has more than 1'));
+      }
+      if (paramFirst instanceof ObjectIdentifierValue) {
+        const definition = findDefinition(paramFirst.objIdComponentsList[0] as string,
+                                          this.getModuleNameToPass(moduleName), asn1Pool);
+        if (definition && definition instanceof ObjectSet) {
+          console.log(colors.yellow('ObjectSet found. Need to INSTANTIATE'));
+          const template = new Sequence(this.items);
+          definition.instantiate(template, asn1Pool);
+          console.log(colors.yellow('INSTANTIATE result'));
+          console.log(JSON.stringify(definition, null, 2));
+          return definition;
+        }
+      }
+    }
+    /** TODO
+     * If parameterMapping points Object Set,
+     * duplicate Sequnce as many as te number of items in the Object Set
+     */
     this.items.forEach((item) => {
       item.replaceParameters(parameterMapping);
     });
+    return this;
   }
 
   public toString(): string {

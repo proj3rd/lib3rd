@@ -17,7 +17,7 @@ class ContainingEncodedByConstraint extends constraint_1.Constraint {
         return [row, col];
     }
     replaceParameters(parameterMapping) {
-        // Do nothing
+        return this;
     }
     setConstraint(constraints) {
         return this;

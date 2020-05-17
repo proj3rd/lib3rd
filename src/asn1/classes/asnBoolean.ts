@@ -26,8 +26,8 @@ export class AsnBoolean extends AsnType {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): AsnBoolean {
+    return this;
   }
 
   public toString(): string {

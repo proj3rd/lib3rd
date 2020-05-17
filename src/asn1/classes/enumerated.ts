@@ -35,8 +35,8 @@ export class Enumerated extends AsnType {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): Enumerated {
+    return this;
   }
 
   public toString(): string {

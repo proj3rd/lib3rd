@@ -1,6 +1,3 @@
-import { log } from '../../utils/logging';
-import { getLogWithAsn1 } from '../utils';
-
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 
 import { IntegerTypeContext, NamedNumberListContext } from '../ASN_3gppParser';

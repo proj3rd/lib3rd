@@ -1,20 +1,20 @@
-import { cloneDeep, isEmpty, isEqual } from 'lodash';
-
-import { log } from '../../utils/logging';
+import * as colors from 'colors';
+import { cloneDeep, isEqual } from 'lodash';
 
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { findDefinition } from '../utils';
 import { ActualParameter } from '../visitors/actualParameter';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
+import { ObjectIdentifierValue } from './objectIdentifierValue';
+import { Parameter } from './parameter';
 import { WithComponents } from './withComponents';
 
 export interface IParameterMapping {
-  parameter: IParameter;
+  parameter: Parameter;
   actualParameter: ActualParameter;
 }
 
@@ -29,16 +29,20 @@ export class DefinedType extends AsnType {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): AsnType {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): Base {
+    console.log(colors.blue(__filename), 'expand()');
+    console.log(colors.yellow('Current IE'), `(type: ${this.constructor.name})`);
+    console.log(JSON.stringify(this, null, 2));
     if (parameterList.findIndex((value) => isEqual(value, this.typeReference)) !== -1) {
       return this;
     }
     const definition = cloneDeep(findDefinition(this.typeReference, this.getModuleNameToPass(moduleName), asn1Pool));
     if (!definition) {
+      console.log(colors.gray('IE not found. Exit expand()'));
       return this;
     }
     const parameterMapping: IParameterMapping[] = [];
-    if (definition.parameterList) {
+    if (definition instanceof AsnType && definition.parameterList) {
       definition.parameterList.forEach((parameter, index) => {
         /**
          * e.g. ElementTypeParam: DefinedType { typeReference: 'XXX' }
@@ -55,23 +59,44 @@ export class DefinedType extends AsnType {
         typeReference: `${this.toString()}`,
       });
     }
-    definition.replaceParameters(parameterMapping);
-    definition.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
-    return definition;
+    const definitionInstantiated = definition.replaceParameters(parameterMapping, asn1Pool,
+                                                                this.getModuleNameToPass(moduleName));
+    return definitionInstantiated.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
   }
 
   public depthMax(): number {
     return 0;
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
+  public replaceParameters(parameterMapping: IParameterMapping[]): DefinedType {
     if (!this.moduleReference && this.typeReference) {
-      const mappingFound = parameterMapping.find((mapping) => mapping.parameter.parameterName === this.typeReference);
-      if (!mappingFound) {
-        return;
+      const mappingFound = parameterMapping.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
+      if (mappingFound) {
+        Object.assign(this, mappingFound.actualParameter);
       }
-      Object.assign(this, mappingFound.actualParameter);
     }
+    // FIXME: Implemented in a very limited way
+    if (this.actualParameterList) {
+      parameterMapping.forEach((item) => {
+        const { dummyReference } = item.parameter;
+        const index = this.actualParameterList.findIndex((actualParameter) => {
+          if (!(actualParameter instanceof ObjectIdentifierValue)) {
+            return false;
+          }
+          return actualParameter.objIdComponentsList[0] === dummyReference;
+        });
+        if (index === -1) {
+          return;
+        }
+        const actualParameterSource = item.actualParameter;
+        const actualParameterTarget = this.actualParameterList[index];
+        if (actualParameterSource instanceof ObjectIdentifierValue &&
+            actualParameterTarget instanceof ObjectIdentifierValue) {
+          actualParameterTarget.objIdComponentsList = actualParameterSource.objIdComponentsList;
+        }
+      });
+    }
+    return this;
   }
 
   public toString(): string {

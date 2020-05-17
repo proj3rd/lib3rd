@@ -5,11 +5,11 @@ import { log } from '../../utils/logging';
 import { fillRow, IFormatConfig, IIe } from '../format/xlsx';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { Base, IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
 import { NamedType } from './namedType';
+import { Parameter } from './parameter';
 
 export class ExtensionAdditionGroup extends Base {
   public componentTypeList: NamedType[];
@@ -30,9 +30,9 @@ export class ExtensionAdditionGroup extends Base {
     return this;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList: IParameter[] = []): ExtensionAdditionGroup {
-    this.componentTypeList.forEach((item) => {
-      item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList: Parameter[] = []): ExtensionAdditionGroup {
+    this.componentTypeList = this.componentTypeList.map((item) => {
+      return item.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
     });
     return this;
   }
@@ -45,10 +45,11 @@ export class ExtensionAdditionGroup extends Base {
     return depthMax;
   }
 
-  public replaceParameters(paramterMapping: IParameterMapping[]): void {
+  public replaceParameters(paramterMapping: IParameterMapping[]): ExtensionAdditionGroup {
     this.componentTypeList.forEach((item) => {
       item.replaceParameters(paramterMapping);
     });
+    return this;
   }
 
   public toString(): string {

@@ -2,11 +2,11 @@ import { IFormatConfig, IIe } from '../format/xlsx';
 import { BuiltinValue } from '../visitors/builtinValue';
 import { ConstraintSpec } from '../visitors/constraintSpec';
 import { IModules } from '../visitors/modules';
-import { IParameter } from '../visitors/parameter';
 import { AsnType } from './asnType';
 import { IConstantAndModule } from './base';
 import { Constraint } from './constraint';
 import { IParameterMapping } from './definedType';
+import { Parameter } from './parameter';
 
 export class ContainingEncodedByConstraint extends Constraint {
   public containing: AsnType;
@@ -23,7 +23,7 @@ export class ContainingEncodedByConstraint extends Constraint {
     return 0;
   }
 
-  public expand(asn1Pool: IModules, moduleName?: string, parameterList?: IParameter[]): ContainingEncodedByConstraint {
+  public expand(asn1Pool: IModules, moduleName?: string, parameterList?: Parameter[]): ContainingEncodedByConstraint {
     return this;
   }
 
@@ -33,8 +33,8 @@ export class ContainingEncodedByConstraint extends Constraint {
     return [row, col];
   }
 
-  public replaceParameters(parameterMapping: IParameterMapping[]): void {
-    // Do nothing
+  public replaceParameters(parameterMapping: IParameterMapping[]): ContainingEncodedByConstraint {
+    return this;
   }
 
   public setConstraint(constraints: Array<Constraint | ConstraintSpec>): ContainingEncodedByConstraint {

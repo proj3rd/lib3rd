@@ -6,9 +6,11 @@ import { log } from '../../utils/logging';
 import { GovernorContext, ParamGovernorContext } from '../ASN_3gppParser';
 import { ASN_3gppVisitor } from '../ASN_3gppVisitor';
 import { AsnType } from '../classes/asnType';
+import { DefinedObjectClass } from '../classes/definedObjectClass';
 import { getLogWithAsn1 } from '../utils';
-import { IDefinedObjectClass } from './definedObjectClass';
 import { GovernorVisitor } from './governor';
+
+export type ParamGovernor = AsnType | DefinedObjectClass | string;
 
 /**
  * ANTLR4 grammar
@@ -16,13 +18,13 @@ import { GovernorVisitor } from './governor';
  * paramGovernor : governor | IDENTIFIER
  * ```
  */
-export class ParamGovernorVisitor extends AbstractParseTreeVisitor<AsnType | IDefinedObjectClass | string>
-                                  implements ASN_3gppVisitor<AsnType | IDefinedObjectClass | string> {
-  public defaultResult(): AsnType | IDefinedObjectClass | string {
+export class ParamGovernorVisitor extends AbstractParseTreeVisitor<ParamGovernor>
+                                  implements ASN_3gppVisitor<ParamGovernor> {
+  public defaultResult(): ParamGovernor {
     return undefined;
   }
 
-  public visitChildren(paramGovernorCtx: ParamGovernorContext): AsnType | IDefinedObjectClass | string {
+  public visitChildren(paramGovernorCtx: ParamGovernorContext): ParamGovernor {
     const { children } = paramGovernorCtx;
     if (children[0] instanceof GovernorContext) {
       return children[0].accept(new GovernorVisitor());

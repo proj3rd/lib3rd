@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const logging_1 = require("../../utils/logging");
+const colors = require("colors");
 const xlsx_1 = require("../format/xlsx");
 const asnType_1 = require("./asnType");
 class ObjectClassField extends asnType_1.AsnType {
@@ -20,8 +20,14 @@ class ObjectClassField extends asnType_1.AsnType {
     depthMax() {
         return 0;
     }
-    replaceParameters(paramterMapping) {
-        logging_1.log.warn(new Error('replaceParameters() not supported').stack);
+    replaceParameters(parameterMapping) {
+        console.log(colors.blue(__filename), 'replaceParameters()');
+        console.log(colors.yellow('Current IE'));
+        console.log(this);
+        console.log(colors.yellow('Parameter mapping:'));
+        console.log(JSON.stringify(parameterMapping, null, 2));
+        console.warn(colors.red(`${__filename} replaceParameters() not supported currently`));
+        return this;
     }
     toString() {
         const moduleReference = this.moduleReference ? `${this.moduleReference}.` : '';

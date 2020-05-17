@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const colors = require("colors");
 const lodash_1 = require("lodash");
 const xlsx_1 = require("../format/xlsx");
 const asnType_1 = require("./asnType");
@@ -18,10 +19,15 @@ class SequenceOf extends asnType_1.AsnType {
         return this;
     }
     expand(asn1Pool, moduleName, parameterList = []) {
-        const typeToExpand = lodash_1.cloneDeep(this.type).expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList);
+        console.log(colors.blue(__filename), 'expand()');
+        console.log(colors.yellow('Current IE'));
+        console.log(JSON.stringify(this, null, 2));
+        console.log(colors.yellow('Parameter list'));
+        console.log(parameterList);
+        const typeToExpand = lodash_1.cloneDeep(this.type);
         // This should always be true
         if (typeToExpand instanceof asnType_1.AsnType || typeToExpand instanceof namedType_1.NamedType) {
-            this.expandedType = typeToExpand;
+            this.expandedType = typeToExpand.expand(asn1Pool, this.getModuleNameToPass(moduleName), parameterList) /* TODO */;
         }
         return this;
     }
@@ -33,6 +39,7 @@ class SequenceOf extends asnType_1.AsnType {
     }
     replaceParameters(parameterMapping) {
         this.type.replaceParameters(parameterMapping);
+        return this;
     }
     toString() {
         return `SEQUENCE${this.constraintsToString()} OF ${this.expandedType ? this.expandedType.toString() : this.type.toString()}`;

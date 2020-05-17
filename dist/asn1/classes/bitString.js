@@ -14,7 +14,7 @@ class BitString extends asnType_1.AsnType {
         return 0;
     }
     replaceParameters(paramterMapping) {
-        // Do nothing
+        return this;
     }
     toString() {
         return `BIT STRING${this.constraintsToString()}`;

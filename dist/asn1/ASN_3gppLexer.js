@@ -49,7 +49,6 @@ class ASN_3gppLexer extends Lexer_1.Lexer {
         return ASN_3gppLexer.__ATN;
     }
 }
-exports.ASN_3gppLexer = ASN_3gppLexer;
 ASN_3gppLexer.TAG = 1;
 ASN_3gppLexer.A_ROND = 2;
 ASN_3gppLexer.STAR = 3;
@@ -664,3 +663,4 @@ ASN_3gppLexer._serializedATN = Utils.join([
     ASN_3gppLexer._serializedATNSegment0,
     ASN_3gppLexer._serializedATNSegment1,
 ], "");
+exports.ASN_3gppLexer = ASN_3gppLexer;
