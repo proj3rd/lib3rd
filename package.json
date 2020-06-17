@@ -5,7 +5,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "antlr4ts": "antlr4ts -visitor src/asn1/grammar/ASN_3gpp.g4",
+    "antlr4ts": "antlr4ts -visitor -no-listener src/asn1/grammar/ASN_3gpp.g4 -o src/asn1/grammar",
+    "antlr4ts-help": "antlr4ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
