@@ -5,6 +5,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "antlr4ts": "antlr4ts -visitor src/asn1/grammar/ASN_3gpp.g4",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/gsongsong/3gpp/issues"
   },
-  "homepage": "https://github.com/gsongsong/3gpp#readme"
+  "homepage": "https://github.com/gsongsong/3gpp#readme",
+  "devDependencies": {
+    "@types/node": "^14.0.13",
+    "antlr4ts-cli": "^0.5.0-alpha.3"
+  },
+  "dependencies": {
+    "antlr4ts": "^0.5.0-alpha.3"
+  }
 }
