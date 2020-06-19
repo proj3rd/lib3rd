@@ -1,4 +1,4 @@
-import {extract} from './extractor';
+import { extract } from './extractor';
 
 export default {
   extract,
