@@ -8,6 +8,7 @@
     "antlr4ts": "antlr4ts -visitor -no-listener src/asn1/grammar/ASN_3gpp.g4 -o src/asn1/grammar",
     "antlr4ts-help": "antlr4ts",
     "extract": "node  dist/asn1/extractor",
+    "prettier": "npx prettier@2.0.5 . --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
