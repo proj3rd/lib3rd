@@ -1,0 +1,18 @@
+{
+	"ANTLR4 visitor": {
+		"scope": "typescript",
+		"prefix": "visitor",
+		"body": [
+			"import {AbstractParseTreeVisitor} from 'antlr4ts/tree/AbstractParseTreeVisitor';",
+			"import { ${3:ContextName} } from '../grammar/ASN_3gppParser';",
+			"import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';",
+			"",
+			"export class ${1:VisitorName} extends AbstractParseTreeVisitor<${2:ReturnType}> implements ASN_3gppVisitor<${2:ReturnType}> {",
+			"	public visitChildren(ctx: ${3:ContextName}): ${2:ReturnType} {}",
+			"",
+			"	protected defaultResult(): ${2:ReturnType} {}",
+			"}",
+		],
+		"description": "ANTLR4 visitor skeleton"
+	}
+}

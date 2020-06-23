@@ -8,8 +8,13 @@
     "antlr4ts": "antlr4ts -visitor -no-listener src/asn1/grammar/ASN_3gpp.g4 -o src/asn1/grammar",
     "antlr4ts-help": "antlr4ts",
     "extract": "node  dist/asn1/extractor",
-    "prettier": "npx prettier@2.0.5 . --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier": "npx prettier@2.0.5 src --write",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-parser": "mocha dist/asn1/parser",
+    "typedoc": "typedoc --out doc src",
+    "//": "Why a specific version of typedoc is required:",
+    "//": "https://stackoverflow.com/a/60796968/3278063",
+    "typedoc-install": "npm i -g typedoc@0.16.11"
   },
   "repository": {
     "type": "git",
@@ -22,8 +27,10 @@
   },
   "homepage": "https://github.com/gsongsong/3gpp#readme",
   "devDependencies": {
+    "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.13",
-    "antlr4ts-cli": "^0.5.0-alpha.3"
+    "antlr4ts-cli": "^0.5.0-alpha.3",
+    "mocha": "^8.0.1"
   },
   "dependencies": {
     "antlr4ts": "^0.5.0-alpha.3"
