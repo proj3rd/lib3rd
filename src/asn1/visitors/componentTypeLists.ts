@@ -23,9 +23,9 @@ type ComponentTypeLists = Array<NamedType | ExtensionMarker | ExtensionAddition>
  *  componentTypeLists :
  *     rootComponentTypeList
  *       (tag | (COMMA tag? extensionAndException  extensionAdditions
- *                 (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
+ *                 (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?)?))?))?
  *    |  extensionAndException  extensionAdditions
- *         (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
+ *         (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?)?))?
  * ```
  */
 export class ComponentTypeListsVisitor extends AbstractParseTreeVisitor<ComponentTypeLists>

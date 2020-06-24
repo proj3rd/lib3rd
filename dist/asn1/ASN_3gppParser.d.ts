@@ -263,10 +263,10 @@ export declare class ASN_3gppParser extends Parser {
     private static readonly _LITERAL_NAMES;
     private static readonly _SYMBOLIC_NAMES;
     static readonly VOCABULARY: Vocabulary;
-    readonly vocabulary: Vocabulary;
-    readonly grammarFileName: string;
-    readonly ruleNames: string[];
-    readonly serializedATN: string;
+    get vocabulary(): Vocabulary;
+    get grammarFileName(): string;
+    get ruleNames(): string[];
+    get serializedATN(): string;
     constructor(input: TokenStream);
     modules(): ModulesContext;
     moduleDefinition(): ModuleDefinitionContext;
@@ -422,13 +422,13 @@ export declare class ASN_3gppParser extends Parser {
     private static readonly _serializedATNSegment2;
     static readonly _serializedATN: string;
     static __ATN: ATN;
-    static readonly _ATN: ATN;
+    static get _ATN(): ATN;
 }
 export declare class ModulesContext extends ParserRuleContext {
     moduleDefinition(): ModuleDefinitionContext[];
     moduleDefinition(i: number): ModuleDefinitionContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ModuleDefinitionContext extends ParserRuleContext {
@@ -450,7 +450,7 @@ export declare class ModuleDefinitionContext extends ParserRuleContext {
     R_PARAN(): TerminalNode[];
     R_PARAN(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class TagDefaultContext extends ParserRuleContext {
@@ -459,14 +459,14 @@ export declare class TagDefaultContext extends ParserRuleContext {
     IMPLICIT_LITERAL(): TerminalNode | undefined;
     AUTOMATIC_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionDefaultContext extends ParserRuleContext {
     EXTENSIBILITY_LITERAL(): TerminalNode | undefined;
     IMPLIED_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ModuleBodyContext extends ParserRuleContext {
@@ -474,7 +474,7 @@ export declare class ModuleBodyContext extends ParserRuleContext {
     imports(): ImportsContext | undefined;
     assignmentList(): AssignmentListContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExportsContext extends ParserRuleContext {
@@ -483,13 +483,13 @@ export declare class ExportsContext extends ParserRuleContext {
     SEMI_COLON(): TerminalNode | undefined;
     ALL_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SymbolsExportedContext extends ParserRuleContext {
     symbolList(): SymbolListContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ImportsContext extends ParserRuleContext {
@@ -497,20 +497,20 @@ export declare class ImportsContext extends ParserRuleContext {
     symbolsImported(): SymbolsImportedContext | undefined;
     SEMI_COLON(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SymbolsImportedContext extends ParserRuleContext {
     symbolsFromModuleList(): SymbolsFromModuleListContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SymbolsFromModuleListContext extends ParserRuleContext {
     symbolsFromModule(): SymbolsFromModuleContext[];
     symbolsFromModule(i: number): SymbolsFromModuleContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SymbolsFromModuleContext extends ParserRuleContext {
@@ -518,19 +518,19 @@ export declare class SymbolsFromModuleContext extends ParserRuleContext {
     FROM_LITERAL(): TerminalNode;
     globalModuleReference(): GlobalModuleReferenceContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class GlobalModuleReferenceContext extends ParserRuleContext {
     IDENTIFIER(): TerminalNode;
     assignedIdentifier(): AssignedIdentifierContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class AssignedIdentifierContext extends ParserRuleContext {
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SymbolListContext extends ParserRuleContext {
@@ -539,7 +539,7 @@ export declare class SymbolListContext extends ParserRuleContext {
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SymbolContext extends ParserRuleContext {
@@ -547,14 +547,14 @@ export declare class SymbolContext extends ParserRuleContext {
     L_BRACE(): TerminalNode | undefined;
     R_BRACE(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class AssignmentListContext extends ParserRuleContext {
     assignment(): AssignmentContext[];
     assignment(i: number): AssignmentContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class AssignmentContext extends ParserRuleContext {
@@ -564,7 +564,7 @@ export declare class AssignmentContext extends ParserRuleContext {
     parameterizedAssignment(): ParameterizedAssignmentContext | undefined;
     objectClassAssignment(): ObjectClassAssignmentContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SequenceTypeContext extends ParserRuleContext {
@@ -575,21 +575,21 @@ export declare class SequenceTypeContext extends ParserRuleContext {
     optionalExtensionMarker(): OptionalExtensionMarkerContext | undefined;
     componentTypeLists(): ComponentTypeListsContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionAndExceptionContext extends ParserRuleContext {
     ELLIPSIS(): TerminalNode;
     exceptionSpec(): ExceptionSpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class OptionalExtensionMarkerContext extends ParserRuleContext {
     COMMA(): TerminalNode | undefined;
     ELLIPSIS(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ComponentTypeListsContext extends ParserRuleContext {
@@ -601,15 +601,16 @@ export declare class ComponentTypeListsContext extends ParserRuleContext {
     COMMA(i: number): TerminalNode;
     extensionAndException(): ExtensionAndExceptionContext | undefined;
     extensionAdditions(): ExtensionAdditionsContext | undefined;
-    ELLIPSIS(): TerminalNode | undefined;
+    optionalExtensionMarker(): OptionalExtensionMarkerContext | undefined;
+    EXTENSTIONENDMARKER(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class RootComponentTypeListContext extends ParserRuleContext {
     componentTypeList(): ComponentTypeListContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ComponentTypeListContext extends ParserRuleContext {
@@ -620,7 +621,7 @@ export declare class ComponentTypeListContext extends ParserRuleContext {
     tag(): TagContext[];
     tag(i: number): TagContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ComponentTypeContext extends ParserRuleContext {
@@ -632,20 +633,20 @@ export declare class ComponentTypeContext extends ParserRuleContext {
     OF_LITERAL(): TerminalNode | undefined;
     asnType(): AsnTypeContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class TagContext extends ParserRuleContext {
     TAG(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionAdditionsContext extends ParserRuleContext {
     COMMA(): TerminalNode | undefined;
     extensionAdditionList(): ExtensionAdditionListContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionAdditionListContext extends ParserRuleContext {
@@ -656,14 +657,14 @@ export declare class ExtensionAdditionListContext extends ParserRuleContext {
     tag(): TagContext[];
     tag(i: number): TagContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionAdditionContext extends ParserRuleContext {
     componentType(): ComponentTypeContext | undefined;
     extensionAdditionGroup(): ExtensionAdditionGroupContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionAdditionGroupContext extends ParserRuleContext {
@@ -673,14 +674,14 @@ export declare class ExtensionAdditionGroupContext extends ParserRuleContext {
     DOUBLE_R_BRACKET(): TerminalNode;
     tag(): TagContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class VersionNumberContext extends ParserRuleContext {
     NUMBER(): TerminalNode | undefined;
     COLON(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SequenceOfTypeContext extends ParserRuleContext {
@@ -693,14 +694,14 @@ export declare class SequenceOfTypeContext extends ParserRuleContext {
     constraint(): ConstraintContext | undefined;
     sizeConstraint(): SizeConstraintContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SizeConstraintContext extends ParserRuleContext {
     SIZE_LITERAL(): TerminalNode;
     constraint(): ConstraintContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ParameterizedAssignmentContext extends ParserRuleContext {
@@ -714,7 +715,7 @@ export declare class ParameterizedAssignmentContext extends ParserRuleContext {
     objectClass(): ObjectClassContext | undefined;
     objectSet(): ObjectSetContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ParameterListContext extends ParserRuleContext {
@@ -725,7 +726,7 @@ export declare class ParameterListContext extends ParserRuleContext {
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ParameterContext extends ParserRuleContext {
@@ -733,35 +734,35 @@ export declare class ParameterContext extends ParserRuleContext {
     paramGovernor(): ParamGovernorContext | undefined;
     COLON(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ParamGovernorContext extends ParserRuleContext {
     governor(): GovernorContext | undefined;
     IDENTIFIER(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class GovernorContext extends ParserRuleContext {
     asnType(): AsnTypeContext | undefined;
     definedObjectClass(): DefinedObjectClassContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectClassAssignmentContext extends ParserRuleContext {
     ASSIGN_OP(): TerminalNode;
     objectClass(): ObjectClassContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectClassContext extends ParserRuleContext {
     definedObjectClass(): DefinedObjectClassContext | undefined;
     objectClassDefn(): ObjectClassDefnContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class DefinedObjectClassContext extends ParserRuleContext {
@@ -771,14 +772,14 @@ export declare class DefinedObjectClassContext extends ParserRuleContext {
     TYPE_IDENTIFIER_LITERAL(): TerminalNode | undefined;
     ABSTRACT_SYNTAX_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class UsefulObjectClassReferenceContext extends ParserRuleContext {
     TYPE_IDENTIFIER_LITERAL(): TerminalNode | undefined;
     ABSTRACT_SYNTAX_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExternalObjectClassReferenceContext extends ParserRuleContext {
@@ -786,7 +787,7 @@ export declare class ExternalObjectClassReferenceContext extends ParserRuleConte
     IDENTIFIER(i: number): TerminalNode;
     DOT(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectClassDefnContext extends ParserRuleContext {
@@ -799,7 +800,7 @@ export declare class ObjectClassDefnContext extends ParserRuleContext {
     COMMA(i: number): TerminalNode;
     withSyntaxSpec(): WithSyntaxSpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class WithSyntaxSpecContext extends ParserRuleContext {
@@ -807,7 +808,7 @@ export declare class WithSyntaxSpecContext extends ParserRuleContext {
     SYNTAX_LITERAL(): TerminalNode;
     syntaxList(): SyntaxListContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SyntaxListContext extends ParserRuleContext {
@@ -816,14 +817,14 @@ export declare class SyntaxListContext extends ParserRuleContext {
     tokenOrGroupSpec(): TokenOrGroupSpecContext[];
     tokenOrGroupSpec(i: number): TokenOrGroupSpecContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class TokenOrGroupSpecContext extends ParserRuleContext {
     requiredToken(): RequiredTokenContext | undefined;
     optionalGroup(): OptionalGroupContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class OptionalGroupContext extends ParserRuleContext {
@@ -832,28 +833,28 @@ export declare class OptionalGroupContext extends ParserRuleContext {
     tokenOrGroupSpec(): TokenOrGroupSpecContext[];
     tokenOrGroupSpec(i: number): TokenOrGroupSpecContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class RequiredTokenContext extends ParserRuleContext {
     literal(): LiteralContext | undefined;
     primitiveFieldName(): PrimitiveFieldNameContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class LiteralContext extends ParserRuleContext {
     IDENTIFIER(): TerminalNode | undefined;
     COMMA(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class PrimitiveFieldNameContext extends ParserRuleContext {
     AMPERSAND(): TerminalNode;
     IDENTIFIER(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class FieldSpecContext extends ParserRuleContext {
@@ -873,7 +874,7 @@ export declare class FieldSpecContext extends ParserRuleContext {
     objectSet(): ObjectSetContext | undefined;
     object(): ObjectContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class TypeFieldSpecContext extends ParserRuleContext {
@@ -881,7 +882,7 @@ export declare class TypeFieldSpecContext extends ParserRuleContext {
     IDENTIFIER(): TerminalNode;
     typeOptionalitySpec(): TypeOptionalitySpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class TypeOptionalitySpecContext extends ParserRuleContext {
@@ -889,7 +890,7 @@ export declare class TypeOptionalitySpecContext extends ParserRuleContext {
     DEFAULT_LITERAL(): TerminalNode | undefined;
     asnType(): AsnTypeContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class FixedTypeValueFieldSpecContext extends ParserRuleContext {
@@ -899,7 +900,7 @@ export declare class FixedTypeValueFieldSpecContext extends ParserRuleContext {
     UNIQUE_LITERAL(): TerminalNode | undefined;
     valueOptionalitySpec(): ValueOptionalitySpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ValueOptionalitySpecContext extends ParserRuleContext {
@@ -907,7 +908,7 @@ export declare class ValueOptionalitySpecContext extends ParserRuleContext {
     DEFAULT_LITERAL(): TerminalNode | undefined;
     value(): ValueContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class VariableTypeValueFieldSpecContext extends ParserRuleContext {
@@ -916,7 +917,7 @@ export declare class VariableTypeValueFieldSpecContext extends ParserRuleContext
     fieldName(): FieldNameContext;
     valueOptionalitySpec(): ValueOptionalitySpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class FixedTypeValueSetFieldSpecContext extends ParserRuleContext {
@@ -925,7 +926,7 @@ export declare class FixedTypeValueSetFieldSpecContext extends ParserRuleContext
     asnType(): AsnTypeContext;
     valueSetOptionalitySpec(): ValueSetOptionalitySpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ValueSetOptionalitySpecContext extends ParserRuleContext {
@@ -933,28 +934,28 @@ export declare class ValueSetOptionalitySpecContext extends ParserRuleContext {
     DEFAULT_LITERAL(): TerminalNode | undefined;
     valueSet(): ValueSetContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectContext extends ParserRuleContext {
     definedObject(): DefinedObjectContext | undefined;
     parameterizedObject(): ParameterizedObjectContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ParameterizedObjectContext extends ParserRuleContext {
     definedObject(): DefinedObjectContext;
     actualParameterList(): ActualParameterListContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class DefinedObjectContext extends ParserRuleContext {
     IDENTIFIER(): TerminalNode;
     DOT(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectSetContext extends ParserRuleContext {
@@ -962,7 +963,7 @@ export declare class ObjectSetContext extends ParserRuleContext {
     objectSetSpec(): ObjectSetSpecContext;
     R_BRACE(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectSetSpecContext extends ParserRuleContext {
@@ -972,7 +973,7 @@ export declare class ObjectSetSpecContext extends ParserRuleContext {
     ELLIPSIS(): TerminalNode | undefined;
     additionalElementSetSpec(): AdditionalElementSetSpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class FieldNameContext extends ParserRuleContext {
@@ -983,7 +984,7 @@ export declare class FieldNameContext extends ParserRuleContext {
     DOT(): TerminalNode[];
     DOT(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ValueSetContext extends ParserRuleContext {
@@ -991,7 +992,7 @@ export declare class ValueSetContext extends ParserRuleContext {
     elementSetSpecs(): ElementSetSpecsContext;
     R_BRACE(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ElementSetSpecsContext extends ParserRuleContext {
@@ -1001,19 +1002,19 @@ export declare class ElementSetSpecsContext extends ParserRuleContext {
     ELLIPSIS(): TerminalNode | undefined;
     additionalElementSetSpec(): AdditionalElementSetSpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class RootElementSetSpecContext extends ParserRuleContext {
     elementSetSpec(): ElementSetSpecContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class AdditionalElementSetSpecContext extends ParserRuleContext {
     elementSetSpec(): ElementSetSpecContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ElementSetSpecContext extends ParserRuleContext {
@@ -1021,7 +1022,7 @@ export declare class ElementSetSpecContext extends ParserRuleContext {
     ALL_LITERAL(): TerminalNode | undefined;
     exclusions(): ExclusionsContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class UnionsContext extends ParserRuleContext {
@@ -1030,14 +1031,14 @@ export declare class UnionsContext extends ParserRuleContext {
     unionMark(): UnionMarkContext[];
     unionMark(i: number): UnionMarkContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExclusionsContext extends ParserRuleContext {
     EXCEPT_LITERAL(): TerminalNode;
     elements(): ElementsContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class IntersectionsContext extends ParserRuleContext {
@@ -1046,41 +1047,41 @@ export declare class IntersectionsContext extends ParserRuleContext {
     intersectionMark(): IntersectionMarkContext[];
     intersectionMark(i: number): IntersectionMarkContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class UnionMarkContext extends ParserRuleContext {
     PIPE(): TerminalNode | undefined;
     UNION_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class IntersectionMarkContext extends ParserRuleContext {
     POWER(): TerminalNode | undefined;
     INTERSECTION_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ElementsContext extends ParserRuleContext {
     subtypeElements(): SubtypeElementsContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectSetElementsContext extends ParserRuleContext {
     object(): ObjectContext | undefined;
     definedObject(): DefinedObjectContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class IntersectionElementsContext extends ParserRuleContext {
     elements(): ElementsContext;
     exclusions(): ExclusionsContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SubtypeElementsContext extends ParserRuleContext {
@@ -1094,7 +1095,7 @@ export declare class SubtypeElementsContext extends ParserRuleContext {
     sizeConstraint(): SizeConstraintContext | undefined;
     PATTERN_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class VariableTypeValueSetFieldSpecContext extends ParserRuleContext {
@@ -1103,7 +1104,7 @@ export declare class VariableTypeValueSetFieldSpecContext extends ParserRuleCont
     fieldName(): FieldNameContext;
     valueSetOptionalitySpec(): ValueSetOptionalitySpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectFieldSpecContext extends ParserRuleContext {
@@ -1112,7 +1113,7 @@ export declare class ObjectFieldSpecContext extends ParserRuleContext {
     definedObjectClass(): DefinedObjectClassContext;
     objectOptionalitySpec(): ObjectOptionalitySpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectOptionalitySpecContext extends ParserRuleContext {
@@ -1120,7 +1121,7 @@ export declare class ObjectOptionalitySpecContext extends ParserRuleContext {
     DEFAULT_LITERAL(): TerminalNode | undefined;
     object(): ObjectContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectSetFieldSpecContext extends ParserRuleContext {
@@ -1129,7 +1130,7 @@ export declare class ObjectSetFieldSpecContext extends ParserRuleContext {
     definedObjectClass(): DefinedObjectClassContext;
     objectSetOptionalitySpec(): ObjectSetOptionalitySpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectSetOptionalitySpecContext extends ParserRuleContext {
@@ -1137,14 +1138,14 @@ export declare class ObjectSetOptionalitySpecContext extends ParserRuleContext {
     DEFAULT_LITERAL(): TerminalNode | undefined;
     objectSet(): ObjectSetContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class TypeAssignmentContext extends ParserRuleContext {
     ASSIGN_OP(): TerminalNode;
     asnType(): AsnTypeContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ValueAssignmentContext extends ParserRuleContext {
@@ -1152,7 +1153,7 @@ export declare class ValueAssignmentContext extends ParserRuleContext {
     ASSIGN_OP(): TerminalNode;
     value(): ValueContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class AsnTypeContext extends ParserRuleContext {
@@ -1161,7 +1162,7 @@ export declare class AsnTypeContext extends ParserRuleContext {
     constraint(): ConstraintContext[];
     constraint(i: number): ConstraintContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class BuiltinTypeContext extends ParserRuleContext {
@@ -1179,7 +1180,7 @@ export declare class BuiltinTypeContext extends ParserRuleContext {
     BOOLEAN_LITERAL(): TerminalNode | undefined;
     NULL_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectClassFieldTypeContext extends ParserRuleContext {
@@ -1187,7 +1188,7 @@ export declare class ObjectClassFieldTypeContext extends ParserRuleContext {
     DOT(): TerminalNode;
     fieldName(): FieldNameContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SetTypeContext extends ParserRuleContext {
@@ -1198,7 +1199,7 @@ export declare class SetTypeContext extends ParserRuleContext {
     optionalExtensionMarker(): OptionalExtensionMarkerContext | undefined;
     componentTypeLists(): ComponentTypeListsContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SetOfTypeContext extends ParserRuleContext {
@@ -1209,13 +1210,13 @@ export declare class SetOfTypeContext extends ParserRuleContext {
     constraint(): ConstraintContext | undefined;
     sizeConstraint(): SizeConstraintContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ReferencedTypeContext extends ParserRuleContext {
     definedType(): DefinedTypeContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class DefinedTypeContext extends ParserRuleContext {
@@ -1224,7 +1225,7 @@ export declare class DefinedTypeContext extends ParserRuleContext {
     DOT(): TerminalNode | undefined;
     actualParameterList(): ActualParameterListContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ConstraintContext extends ParserRuleContext {
@@ -1233,14 +1234,14 @@ export declare class ConstraintContext extends ParserRuleContext {
     R_PARAN(): TerminalNode;
     exceptionSpec(): ExceptionSpecContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ConstraintSpecContext extends ParserRuleContext {
     generalConstraint(): GeneralConstraintContext | undefined;
     subtypeConstraint(): SubtypeConstraintContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class UserDefinedConstraintContext extends ParserRuleContext {
@@ -1253,7 +1254,7 @@ export declare class UserDefinedConstraintContext extends ParserRuleContext {
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class GeneralConstraintContext extends ParserRuleContext {
@@ -1261,7 +1262,7 @@ export declare class GeneralConstraintContext extends ParserRuleContext {
     tableConstraint(): TableConstraintContext | undefined;
     contentsConstraint(): ContentsConstraintContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class UserDefinedConstraintParameterContext extends ParserRuleContext {
@@ -1272,19 +1273,19 @@ export declare class UserDefinedConstraintParameterContext extends ParserRuleCon
     object(): ObjectContext | undefined;
     objectSet(): ObjectSetContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class TableConstraintContext extends ParserRuleContext {
     componentRelationConstraint(): ComponentRelationConstraintContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SimpleTableConstraintContext extends ParserRuleContext {
     objectSet(): ObjectSetContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ContentsConstraintContext extends ParserRuleContext {
@@ -1299,7 +1300,7 @@ export declare class ContentsConstraintContext extends ParserRuleContext {
     componentPresenceLists(): ComponentPresenceListsContext | undefined;
     R_BRACE(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ComponentPresenceListsContext extends ParserRuleContext {
@@ -1309,7 +1310,7 @@ export declare class ComponentPresenceListsContext extends ParserRuleContext {
     COMMA(i: number): TerminalNode;
     ELLIPSIS(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ComponentPresenceListContext extends ParserRuleContext {
@@ -1318,7 +1319,7 @@ export declare class ComponentPresenceListContext extends ParserRuleContext {
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ComponentPresenceContext extends ParserRuleContext {
@@ -1326,19 +1327,19 @@ export declare class ComponentPresenceContext extends ParserRuleContext {
     ABSENT_LITERAL(): TerminalNode | undefined;
     PRESENT_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SubtypeConstraintContext extends ParserRuleContext {
     elementSetSpecs(): ElementSetSpecsContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ValueContext extends ParserRuleContext {
     builtinValue(): BuiltinValueContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class BuiltinValueContext extends ParserRuleContext {
@@ -1350,7 +1351,7 @@ export declare class BuiltinValueContext extends ParserRuleContext {
     CSTRING(): TerminalNode | undefined;
     BSTRING(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectIdentifierValueContext extends ParserRuleContext {
@@ -1358,14 +1359,14 @@ export declare class ObjectIdentifierValueContext extends ParserRuleContext {
     objIdComponentsList(): ObjIdComponentsListContext;
     R_BRACE(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjIdComponentsListContext extends ParserRuleContext {
     objIdComponents(): ObjIdComponentsContext[];
     objIdComponents(i: number): ObjIdComponentsContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjIdComponentsContext extends ParserRuleContext {
@@ -1374,17 +1375,15 @@ export declare class ObjIdComponentsContext extends ParserRuleContext {
     L_PARAN(): TerminalNode | undefined;
     R_PARAN(): TerminalNode | undefined;
     definedValue(): DefinedValueContext | undefined;
-    builtinType(): BuiltinTypeContext | undefined;
-    constraint(): ConstraintContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class IntegerValueContext extends ParserRuleContext {
     signedNumber(): SignedNumberContext | undefined;
     IDENTIFIER(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ChoiceValueContext extends ParserRuleContext {
@@ -1392,20 +1391,20 @@ export declare class ChoiceValueContext extends ParserRuleContext {
     COLON(): TerminalNode;
     value(): ValueContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class EnumeratedValueContext extends ParserRuleContext {
     IDENTIFIER(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SignedNumberContext extends ParserRuleContext {
     NUMBER(): TerminalNode;
     MINUS(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ChoiceTypeContext extends ParserRuleContext {
@@ -1414,7 +1413,7 @@ export declare class ChoiceTypeContext extends ParserRuleContext {
     alternativeTypeLists(): AlternativeTypeListsContext;
     R_BRACE(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class AlternativeTypeListsContext extends ParserRuleContext {
@@ -1424,14 +1423,14 @@ export declare class AlternativeTypeListsContext extends ParserRuleContext {
     extensionAdditionAlternatives(): ExtensionAdditionAlternativesContext | undefined;
     optionalExtensionMarker(): OptionalExtensionMarkerContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionAdditionAlternativesContext extends ParserRuleContext {
     COMMA(): TerminalNode | undefined;
     extensionAdditionAlternativesList(): ExtensionAdditionAlternativesListContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionAdditionAlternativesListContext extends ParserRuleContext {
@@ -1440,14 +1439,14 @@ export declare class ExtensionAdditionAlternativesListContext extends ParserRule
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionAdditionAlternativeContext extends ParserRuleContext {
     extensionAdditionAlternativesGroup(): ExtensionAdditionAlternativesGroupContext | undefined;
     namedType(): NamedTypeContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExtensionAdditionAlternativesGroupContext extends ParserRuleContext {
@@ -1456,13 +1455,13 @@ export declare class ExtensionAdditionAlternativesGroupContext extends ParserRul
     alternativeTypeList(): AlternativeTypeListContext;
     DOUBLE_R_BRACKET(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class RootAlternativeTypeListContext extends ParserRuleContext {
     alternativeTypeList(): AlternativeTypeListContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class AlternativeTypeListContext extends ParserRuleContext {
@@ -1471,14 +1470,14 @@ export declare class AlternativeTypeListContext extends ParserRuleContext {
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class NamedTypeContext extends ParserRuleContext {
     IDENTIFIER(): TerminalNode;
     asnType(): AsnTypeContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class EnumeratedTypeContext extends ParserRuleContext {
@@ -1487,7 +1486,7 @@ export declare class EnumeratedTypeContext extends ParserRuleContext {
     enumerations(): EnumerationsContext;
     R_BRACE(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class EnumerationsContext extends ParserRuleContext {
@@ -1498,13 +1497,13 @@ export declare class EnumerationsContext extends ParserRuleContext {
     exceptionSpec(): ExceptionSpecContext | undefined;
     additionalEnumeration(): AdditionalEnumerationContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class RootEnumerationContext extends ParserRuleContext {
     enumeration(): EnumerationContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class EnumerationContext extends ParserRuleContext {
@@ -1513,7 +1512,7 @@ export declare class EnumerationContext extends ParserRuleContext {
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class EnumerationItemContext extends ParserRuleContext {
@@ -1521,7 +1520,7 @@ export declare class EnumerationItemContext extends ParserRuleContext {
     namedNumber(): NamedNumberContext | undefined;
     value(): ValueContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class NamedNumberContext extends ParserRuleContext {
@@ -1531,20 +1530,20 @@ export declare class NamedNumberContext extends ParserRuleContext {
     signedNumber(): SignedNumberContext | undefined;
     definedValue(): DefinedValueContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class DefinedValueContext extends ParserRuleContext {
     parameterizedValue(): ParameterizedValueContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ParameterizedValueContext extends ParserRuleContext {
     simpleDefinedValue(): SimpleDefinedValueContext;
     actualParameterList(): ActualParameterListContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class SimpleDefinedValueContext extends ParserRuleContext {
@@ -1552,7 +1551,7 @@ export declare class SimpleDefinedValueContext extends ParserRuleContext {
     IDENTIFIER(i: number): TerminalNode;
     DOT(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ActualParameterListContext extends ParserRuleContext {
@@ -1563,21 +1562,21 @@ export declare class ActualParameterListContext extends ParserRuleContext {
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ActualParameterContext extends ParserRuleContext {
     asnType(): AsnTypeContext | undefined;
     value(): ValueContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExceptionSpecContext extends ParserRuleContext {
     EXCLAM(): TerminalNode;
     exceptionIdentification(): ExceptionIdentificationContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ExceptionIdentificationContext extends ParserRuleContext {
@@ -1587,13 +1586,13 @@ export declare class ExceptionIdentificationContext extends ParserRuleContext {
     COLON(): TerminalNode | undefined;
     value(): ValueContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class AdditionalEnumerationContext extends ParserRuleContext {
     enumeration(): EnumerationContext;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class IntegerTypeContext extends ParserRuleContext {
@@ -1602,7 +1601,7 @@ export declare class IntegerTypeContext extends ParserRuleContext {
     namedNumberList(): NamedNumberListContext | undefined;
     R_BRACE(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class NamedNumberListContext extends ParserRuleContext {
@@ -1611,14 +1610,14 @@ export declare class NamedNumberListContext extends ParserRuleContext {
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ObjectidentifiertypeContext extends ParserRuleContext {
     OBJECT_LITERAL(): TerminalNode;
     IDENTIFIER_LITERAL(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ComponentRelationConstraintContext extends ParserRuleContext {
@@ -1634,7 +1633,7 @@ export declare class ComponentRelationConstraintContext extends ParserRuleContex
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class AtNotationContext extends ParserRuleContext {
@@ -1643,14 +1642,14 @@ export declare class AtNotationContext extends ParserRuleContext {
     A_ROND_DOT(): TerminalNode | undefined;
     level(): LevelContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class LevelContext extends ParserRuleContext {
     DOT(): TerminalNode | undefined;
     level(): LevelContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class ComponentIdListContext extends ParserRuleContext {
@@ -1659,14 +1658,14 @@ export declare class ComponentIdListContext extends ParserRuleContext {
     DOT(): TerminalNode[];
     DOT(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class OctetStringTypeContext extends ParserRuleContext {
     OCTET_LITERAL(): TerminalNode;
     STRING_LITERAL(): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class BitStringTypeContext extends ParserRuleContext {
@@ -1676,7 +1675,7 @@ export declare class BitStringTypeContext extends ParserRuleContext {
     namedBitList(): NamedBitListContext | undefined;
     R_BRACE(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class NamedBitListContext extends ParserRuleContext {
@@ -1685,7 +1684,7 @@ export declare class NamedBitListContext extends ParserRuleContext {
     COMMA(): TerminalNode[];
     COMMA(i: number): TerminalNode;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class NamedBitContext extends ParserRuleContext {
@@ -1695,7 +1694,7 @@ export declare class NamedBitContext extends ParserRuleContext {
     NUMBER(): TerminalNode | undefined;
     definedValue(): DefinedValueContext | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }
 export declare class BooleanValueContext extends ParserRuleContext {
@@ -1704,6 +1703,6 @@ export declare class BooleanValueContext extends ParserRuleContext {
     TRUE_SMALL_LITERAL(): TerminalNode | undefined;
     FALSE_SMALL_LITERAL(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
-    readonly ruleIndex: number;
+    get ruleIndex(): number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
 }

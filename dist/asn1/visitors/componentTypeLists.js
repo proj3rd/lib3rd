@@ -16,9 +16,9 @@ const tag_1 = require("./tag");
  *  componentTypeLists :
  *     rootComponentTypeList
  *       (tag | (COMMA tag? extensionAndException  extensionAdditions
- *                 (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
+ *                 (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?)?))?))?
  *    |  extensionAndException  extensionAdditions
- *         (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
+ *         (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?)?))?
  * ```
  */
 class ComponentTypeListsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
@@ -47,6 +47,7 @@ class ComponentTypeListsVisitor extends AbstractParseTreeVisitor_1.AbstractParse
             }
             else {
                 // COMMA or EXTENSIONENDMARKER
+                console.log(`>>>${childCtx.text}<<<`);
                 switch (childCtx.text) {
                     case ', ...': {
                         componentTypeLists.push(new extensionMarker_1.ExtensionMarker());

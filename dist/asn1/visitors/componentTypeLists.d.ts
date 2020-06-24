@@ -11,9 +11,9 @@ declare type ComponentTypeLists = Array<NamedType | ExtensionMarker | ExtensionA
  *  componentTypeLists :
  *     rootComponentTypeList
  *       (tag | (COMMA tag? extensionAndException  extensionAdditions
- *                 (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
+ *                 (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?)?))?))?
  *    |  extensionAndException  extensionAdditions
- *         (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
+ *         (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?)?))?
  * ```
  */
 export declare class ComponentTypeListsVisitor extends AbstractParseTreeVisitor<ComponentTypeLists> implements ASN_3gppVisitor<ComponentTypeLists> {

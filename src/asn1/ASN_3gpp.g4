@@ -131,10 +131,10 @@ optionalExtensionMarker :  ( COMMA  ELLIPSIS )?
 ;
 
 componentTypeLists :
-   rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA  rootComponentTypeList tag?)?))?))?
+   rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions   (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
 //  |  rootComponentTypeList  COMMA  extensionAndException  extensionAdditions    optionalExtensionMarker
 //  |  rootComponentTypeList  COMMA  extensionAndException  extensionAdditions     EXTENSTIONENDMARKER  COMMA  rootComponentTypeList
-  |  extensionAndException  extensionAdditions (tag | (COMMA tag? ELLIPSIS  (COMMA    rootComponentTypeList tag?)?))?
+  |  extensionAndException  extensionAdditions  (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?))
 //  |  extensionAndException  extensionAdditions  optionalExtensionMarker
 ;
 rootComponentTypeList  : componentTypeList
@@ -474,7 +474,6 @@ objIdComponentsList
 objIdComponents  :
 	    	NUMBER
 	|    	IDENTIFIER (L_PARAN (NUMBER | definedValue ) R_PARAN)?
-	|    	builtinType constraint?
 	|    	definedValue
 ;
 
