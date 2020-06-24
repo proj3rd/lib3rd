@@ -10,8 +10,8 @@
     "extract": "node  dist/asn1/extractor",
     "prettier": "npx prettier@2.0.5 src --write",
     "test-parser": "mocha --enable-source-maps dist/asn1/parser",
-    "test-parser-36331": "mocha --enable-source-maps dist/asn1/parser --grep 36331 ",
-    "test-parser-38331": "mocha --enable-source-maps dist/asn1/parser --grep 38331",
+    "test-parser-36331": "mocha --enable-source-maps dist/asn1/parser --grep parse_36331",
+    "test-parser-38331": "mocha --enable-source-maps dist/asn1/parser --grep parse_38331",
     "typedoc": "typedoc --out doc src",
     "typedoc-install": "npm i -g typedoc@0.16.11",
     "// Why a specific version of typedoc is required": "https://stackoverflow.com/a/60796968/3278063"

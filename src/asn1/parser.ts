@@ -17,17 +17,17 @@ export function parse(asn1: string): Modules {
 }
 
 // tslint:disable-next-line: only-arrow-functions
-describe('Parse ASN.1', function () {
+describe('Parse ASN.1 [parse_all]', function () {
   this.timeout(0);
 
   // tslint:disable-next-line: only-arrow-functions
-  it('LTE RRC (36331)', function () {
+  it('LTE RRC (36331) [parse_36331]', function () {
     const asn1 = readFileSync('resources/36331-g00.asn1', 'utf8');
     parse(asn1);
   });
 
   // tslint:disable-next-line: only-arrow-functions
-  it('NR RRC (38331)', function () {
+  it('NR RRC (38331) [parse_38331]', function () {
     const asn1 = readFileSync('resources/38331-g00.asn1', 'utf8');
     parse(asn1);
   });
