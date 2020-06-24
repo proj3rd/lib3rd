@@ -13,9 +13,8 @@
     "test-parser-36331": "mocha --enable-source-maps dist/asn1/parser --grep 36331 ",
     "test-parser-38331": "mocha --enable-source-maps dist/asn1/parser --grep 38331",
     "typedoc": "typedoc --out doc src",
-    "//": "Why a specific version of typedoc is required:",
-    "//": "https://stackoverflow.com/a/60796968/3278063",
-    "typedoc-install": "npm i -g typedoc@0.16.11"
+    "typedoc-install": "npm i -g typedoc@0.16.11",
+    "// Why a specific version of typedoc is required": "https://stackoverflow.com/a/60796968/3278063"
   },
   "repository": {
     "type": "git",
