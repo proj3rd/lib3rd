@@ -1,4 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { unimpl } from '../../_devUtils';
 import { EnumerationItem } from '../classes/enumeratedType';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import {
@@ -8,7 +9,6 @@ import {
   RootEnumerationContext,
 } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { unimpl } from './_devUtils';
 import { AdditionalEnumerationVisitor } from './additionalEnumerationVisitor';
 import { RootEnumerationVisitor } from './rootEnumerationVisitor';
 
@@ -29,7 +29,7 @@ export class EnumerationsVisitor
         const rootEnumeration = childCtx.accept(new RootEnumerationVisitor());
         enumerationItems.push(...rootEnumeration);
       } else if (childCtx instanceof ExceptionSpecContext) {
-        unimpl(ctx);
+        unimpl(ctx.text);
       } else if (childCtx instanceof AdditionalEnumerationContext) {
         const additionalEnumeration = childCtx.accept(
           new AdditionalEnumerationVisitor()

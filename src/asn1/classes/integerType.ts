@@ -1,12 +1,12 @@
-import { unimpl } from '../visitors/_devUtils';
+import { unimpl } from '../../_devUtils';
 import { BooleanValue } from './booleanValue';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
+import { InnerTypeConstraints } from './innerTypeConstraints';
 import { IntegerValue } from './integerValue';
 import { SizeConstraint } from './sizeConstraint';
 import { ValueRange } from './valueRange';
-import { InnerTypeConstraints } from './innerTypeConstraints';
 
 export class IntegerType {
   public constraint: IntegerValue | ValueRange | undefined;

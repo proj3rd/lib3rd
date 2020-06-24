@@ -1,4 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { unimpl } from '../../_devUtils';
 import { BooleanValue } from '../classes/booleanValue';
 import { EnumerationItem } from '../classes/enumeratedType';
 import {
@@ -7,7 +8,6 @@ import {
   ValueContext,
 } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { unimpl } from './_devUtils';
 import { ValueVisitor } from './valueVisitor';
 
 /**
@@ -22,7 +22,7 @@ export class EnumerationItemVisitor
   public visitChildren(ctx: EnumerationItemContext): EnumerationItem {
     const childCtx = ctx.getChild(0);
     if (childCtx instanceof NamedNumberContext) {
-      unimpl(ctx);
+      unimpl(ctx.text);
     } else if (childCtx instanceof ValueContext) {
       const value = childCtx.accept(new ValueVisitor());
       if (value instanceof BooleanValue) {

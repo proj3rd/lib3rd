@@ -1,8 +1,8 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { unimpl } from '../../_devUtils';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import { ExtensionAndExceptionContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { unimpl } from './_devUtils';
 
 /**
  * # Grammar
@@ -16,7 +16,7 @@ export class ExtensionAndExceptionVisitor
   public visitChildren(ctx: ExtensionAndExceptionContext): ExtensionMarker {
     const exceptionSpecCtx = ctx.exceptionSpec();
     if (exceptionSpecCtx !== undefined) {
-      unimpl(ctx);
+      unimpl(ctx.text);
     }
     return ExtensionMarker.getInstance();
   }

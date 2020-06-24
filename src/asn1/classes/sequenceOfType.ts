@@ -1,4 +1,4 @@
-import { unimpl } from '../visitors/_devUtils';
+import { unimpl } from '../../_devUtils';
 import { AsnType } from './asnType';
 import { _Constraint } from './constraint';
 import { NamedType } from './namedType';

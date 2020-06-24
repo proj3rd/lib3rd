@@ -1,4 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { unimpl } from '../../_devUtils';
 import { BuiltinType } from '../classes/asnType';
 import { BooleanType } from '../classes/booleanType';
 import { NullType } from '../classes/nullType';
@@ -17,7 +18,6 @@ import {
   SetTypeContext,
 } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { unimpl } from './_devUtils';
 import { BitStringTypeVisitor } from './bitStringTypeVisitor';
 import { ChoiceTypeVisitor } from './choiceTypeVisitor';
 import { EnumeratedTypeVisitor } from './enumeratedTypeVisitor';
@@ -64,13 +64,13 @@ export class BuiltinTypeVisitor extends AbstractParseTreeVisitor<BuiltinType>
     } else if (firstCtx instanceof SequenceOfTypeContext) {
       return firstCtx.accept(new SequenceOfTypeVisitor());
     } else if (firstCtx instanceof SetTypeContext) {
-      return unimpl(ctx);
+      return unimpl(ctx.text);
     } else if (firstCtx instanceof SetOfTypeContext) {
-      return unimpl(ctx);
+      return unimpl(ctx.text);
     } else if (firstCtx instanceof ObjectidentifiertypeContext) {
-      return unimpl(ctx);
+      return unimpl(ctx.text);
     } else if (firstCtx instanceof ObjectClassFieldTypeContext) {
-      return unimpl(ctx);
+      return unimpl(ctx.text);
     } else {
       switch (ctx.text) {
         case 'BOOLEAN': {

@@ -1,4 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { unimpl } from '../../_devUtils';
 import { BuiltinValue } from '../classes/value';
 import {
   BooleanValueContext,
@@ -9,7 +10,6 @@ import {
   ObjectIdentifierValueContext,
 } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { unimpl } from './_devUtils';
 import { BooleanValueVisitor } from './booleanValueVisitor';
 import { EnumeratedValueVisitor } from './enumeratedValueVisitor';
 import { IntegerValueVisitor } from './integerValueVisitor';
@@ -36,9 +36,9 @@ export class BuiltinValueVisitor extends AbstractParseTreeVisitor<BuiltinValue>
     } else if (childCtx instanceof IntegerValueContext) {
       return childCtx.accept(new IntegerValueVisitor());
     } else if (childCtx instanceof ChoiceValueContext) {
-      return unimpl(ctx);
+      return unimpl(ctx.text);
     } else if (childCtx instanceof ObjectIdentifierValueContext) {
-      return unimpl(ctx);
+      return unimpl(ctx.text);
     } else if (childCtx instanceof BooleanValueContext) {
       return childCtx.accept(new BooleanValueVisitor());
     } else {

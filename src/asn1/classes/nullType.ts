@@ -1,4 +1,4 @@
-import { unimpl } from '../visitors/_devUtils';
+import { unimpl } from '../../_devUtils';
 import { _Constraint } from './constraint';
 
 export class NullType {

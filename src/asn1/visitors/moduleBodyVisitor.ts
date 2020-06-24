@@ -1,5 +1,4 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { TypeAssignment } from '../classes/assignment';
 import { IModuleBody } from '../classes/moduleDefinition';
 import { ModuleBodyContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';

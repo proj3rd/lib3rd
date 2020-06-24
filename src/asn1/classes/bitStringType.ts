@@ -1,4 +1,4 @@
-import { unimpl } from '../visitors/_devUtils';
+import { unimpl } from '../../_devUtils';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';

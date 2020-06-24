@@ -1,8 +1,8 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { unimpl } from '../../_devUtils';
 import { _ElementSetSpec } from '../classes/constraint';
 import { ElementSetSpecContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { unimpl } from './_devUtils';
 import { UnionsVisitor } from './unionsVisitor';
 
 /**
@@ -21,7 +21,7 @@ export class ElementSetSpecVisitor
     }
     const exclusionsCtx = ctx.exclusions();
     if (exclusionsCtx !== undefined) {
-      unimpl(ctx);
+      unimpl(ctx.text);
     }
     throw Error();
   }

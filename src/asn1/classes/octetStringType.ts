@@ -1,5 +1,5 @@
+import { unimpl } from '../../_devUtils';
 import { SizeConstraint } from '../classes/sizeConstraint';
-import { unimpl } from '../visitors/_devUtils';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';

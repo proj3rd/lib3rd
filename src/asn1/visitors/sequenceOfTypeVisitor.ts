@@ -1,4 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { unimpl } from '../../_devUtils';
 import { AsnType } from '../classes/asnType';
 import { NamedType } from '../classes/namedType';
 import { NullType } from '../classes/nullType';
@@ -6,7 +7,6 @@ import { SequenceOfType } from '../classes/sequenceOfType';
 import { SizeConstraint } from '../classes/sizeConstraint';
 import { SequenceOfTypeContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { unimpl } from './_devUtils';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { NamedTypeVisitor } from './namedTypeVisitor';
 import { SizeConstraintVisitor } from './sizeConstraintVisitor';
@@ -25,7 +25,7 @@ export class SequenceOfTypeVisitor
     let constraint: SizeConstraint | undefined;
     const constraintCtx = ctx.constraint();
     if (constraintCtx !== undefined) {
-      unimpl(ctx);
+      unimpl(ctx.text);
     }
     const sizeConstraintCtx = ctx.sizeConstraint();
     if (sizeConstraintCtx !== undefined) {

@@ -1,8 +1,8 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { unimpl } from '../../_devUtils';
 import { _Constraint } from '../classes/constraint';
 import { ConstraintContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { unimpl } from './_devUtils';
 import { ConstraintSpecVisitor } from './constraintSpecVisitor';
 
 /**
@@ -18,7 +18,7 @@ export class ConstraintVisitor extends AbstractParseTreeVisitor<_Constraint>
     const constraint = constraintSpecCtx.accept(new ConstraintSpecVisitor());
     const exceptionSpecCtx = ctx.exceptionSpec();
     if (exceptionSpecCtx !== undefined) {
-      unimpl(ctx);
+      unimpl(ctx.text);
     }
     return constraint;
   }
