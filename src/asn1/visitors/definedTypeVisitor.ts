@@ -4,6 +4,8 @@ import { ExternalTypeReference } from '../classes/externalTypeReference';
 import { TypeReference } from '../classes/typeReference';
 import { DefinedTypeContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ActualParameterListVisitor } from './actualParameterListVisitor';
+import { ParameterizedType } from '../classes/parameterizedType';
 
 /**
  * # Grammar
@@ -20,7 +22,15 @@ export class DefinedTypeVisitor extends AbstractParseTreeVisitor<DefinedType>
         return new TypeReference(typeReference);
       }
       case 2: {
-        throw Error('Not implemented');
+        const typeReference = ctx.getChild(0).text;
+        const actualParameterListCtx = ctx.getChild(1);
+        const actualParameterList = actualParameterListCtx.accept(
+          new ActualParameterListVisitor()
+        );
+        return new ParameterizedType(
+          new TypeReference(typeReference),
+          actualParameterList
+        );
       }
       case 3: {
         const moduleReference = ctx.getChild(0).text;

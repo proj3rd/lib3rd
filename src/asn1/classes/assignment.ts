@@ -1,7 +1,11 @@
 import { AsnType } from './asnType';
+import { Parameter } from './parameter';
 import { Value } from './value';
 
-export type Assignment = TypeAssignment | ValueAssignment;
+export type Assignment =
+  | TypeAssignment
+  | ParameterizedTypeAssignment
+  | ValueAssignment;
 
 export class TypeAssignment {
   public name: string;
@@ -11,6 +15,20 @@ export class TypeAssignment {
 
   constructor(name: string, asnType: AsnType) {
     this.name = name;
+    this.asnType = asnType;
+  }
+}
+
+export class ParameterizedTypeAssignment {
+  public name: string;
+  public parameters: Parameter[];
+  public asnType: AsnType;
+
+  private parameterizedTypeAssignmentTag: undefined;
+
+  constructor(name: string, parameters: Parameter[], asnType: AsnType) {
+    this.name = name;
+    this.parameters = parameters;
     this.asnType = asnType;
   }
 }

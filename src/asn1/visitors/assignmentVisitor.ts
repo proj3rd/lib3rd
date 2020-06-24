@@ -1,12 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import {
   Assignment,
+  ParameterizedTypeAssignment,
   TypeAssignment,
   ValueAssignment,
 } from '../classes/assignment';
 import { NullType } from '../classes/nullType';
 import { AssignmentContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ParameterizedAssignmentVisitor } from './parameterizedAssignmentVisitor';
 import { TypeAssignmentVisitor } from './typeAssignmentVisitor';
 import { ValueAssignmentVisitor } from './valueAssignmentVisitor';
 
@@ -38,9 +40,12 @@ export class AssignmentVisitor extends AbstractParseTreeVisitor<Assignment>
       const asnType = typeAssignmentCtx.accept(new TypeAssignmentVisitor());
       return new TypeAssignment(name, asnType);
     }
-    const parameterizedAssignment = ctx.parameterizedAssignment();
-    if (parameterizedAssignment !== undefined) {
-      throw Error('Not implemented');
+    const parameterizedAssignmentCtx = ctx.parameterizedAssignment();
+    if (parameterizedAssignmentCtx !== undefined) {
+      const { parameters, asnType } = parameterizedAssignmentCtx.accept(
+        new ParameterizedAssignmentVisitor()
+      );
+      return new ParameterizedTypeAssignment(name, parameters, asnType);
     }
     const objectClassAssignment = ctx.objectClassAssignment();
     if (objectClassAssignment !== undefined) {

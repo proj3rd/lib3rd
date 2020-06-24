@@ -156,7 +156,7 @@ TAG
 
 extensionAdditions  :  (COMMA  extensionAdditionList)?
 ;
-extensionAdditionList  :  (extensionAddition) (COMMA  extensionAddition)*
+extensionAdditionList  :  (extensionAddition) (COMMA tag? extensionAddition)*
 ;
 extensionAddition  : componentType  |  extensionAdditionGroup
 ;

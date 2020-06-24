@@ -6,6 +6,7 @@ import { ExternalTypeReference } from './externalTypeReference';
 import { IntegerType } from './integerType';
 import { NullType } from './nullType';
 import { OctetStringType } from './octetStringType';
+import { ParameterizedType } from './parameterizedType';
 import { SequenceOfType } from './sequenceOfType';
 import { SequenceType } from './sequenceType';
 import { TypeReference } from './typeReference';
@@ -29,6 +30,8 @@ export type BuiltinType =
 
 export type ReferencedType = DefinedType;
 
-export type DefinedType = ExternalTypeReference | TypeReference;
-// ParameterizedType |
+export type DefinedType =
+  | ExternalTypeReference
+  | TypeReference
+  | ParameterizedType;
 // ParamterizedValueSetType
