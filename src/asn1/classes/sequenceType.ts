@@ -1,10 +1,36 @@
 import { unimpl } from '../../_devUtils';
-import { _COMMA, indent, toStringWithComma } from '../formatter';
+import { indent } from '../formatter';
 import { AsnType } from './asnType';
 import { _Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { NamedType } from './namedType';
 import { Optionality } from './optionality';
+
+/**
+ * This is a comma placeholder for a sequence component.
+ * `ComponentType.toString()` will put this placeholder for the item.
+ * `SequenceType` and `ExtensionAdditionGroup` will replace with with either
+ * ',' or '' (empty) based on its position in a sequence by using
+ * `toStringWithComma()`.
+ */
+const _COMMA = '_COMMA_';
+
+function toStringWithComma(
+  component: RootSequenceComponents,
+  shouldInsert: boolean
+): string {
+  const componentString = component.toString();
+  const charToInsert = shouldInsert ? ',' : '';
+  if (component instanceof ComponentType) {
+    return componentString.replace(_COMMA, charToInsert);
+  } else if (component instanceof ExtensionAdditionGroup) {
+    return `${componentString}${charToInsert}`;
+  } else if (component instanceof ExtensionMarker) {
+    return `${componentString}${charToInsert}`;
+  } else {
+    return unimpl();
+  }
+}
 
 export class SequenceType {
   public components: RootSequenceComponents[];

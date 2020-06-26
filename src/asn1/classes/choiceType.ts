@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { indent, toStringWithComma } from '../formatter';
+import { indent } from '../formatter';
 import { _Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { NamedType } from './namedType';
@@ -25,13 +25,8 @@ export class ChoiceType {
     }
     const arrToString = ['CHOICE {'];
     const componentsString = this.components
-      .map((component, index) => {
-        return toStringWithComma(
-          component,
-          index !== this.components.length - 1
-        );
-      })
-      .join('\n');
+      .map((component) => component.toString())
+      .join(',\n');
     arrToString.push(indent(componentsString));
     arrToString.push('}');
     return arrToString.join('\n');
@@ -74,13 +69,8 @@ export class ExtensionAdditionAlternativeGroup {
       arrToString.push('[[');
     }
     const componentsString = this.components
-      .map((component, index) => {
-        return toStringWithComma(
-          component,
-          index !== this.components.length - 1
-        );
-      })
-      .join('\n');
+      .map((component) => component.toString())
+      .join(',\n');
     arrToString.push(indent(componentsString));
     arrToString.push(']]');
     return arrToString.join('\n');
