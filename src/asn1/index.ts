@@ -1,7 +1,2 @@
-import { extract } from './extractor';
-import { parse } from './parser';
-
-export {
-  extract,
-  parse,
-};
+export { extract } from './extractor';
+export { parse } from './parser';

@@ -29,6 +29,13 @@ export class ModuleDefinition implements IModuleBody {
     this.assignments = assignments;
   }
 
+  public findAssignment(name: string): Assignment | undefined {
+    if (this.assignments === null) {
+      return undefined;
+    }
+    return this.assignments.find((assignment) => assignment.name === name);
+  }
+
   public toString(): string {
     const arrToString: string[] = [];
     arrToString.push(

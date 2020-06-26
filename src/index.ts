@@ -1,3 +1,1 @@
-import asn1 from './asn1';
-
-export { asn1 };
+export { extract, parse } from './asn1';
