@@ -42,4 +42,12 @@ export class BitStringType {
       }
     }
   }
+
+  public toString(): string {
+    const arrToString = ['BIT STRING'];
+    if (this.constraint !== undefined) {
+      arrToString.push(`(${this.constraint.toString()})`);
+    }
+    return arrToString.join(' ');
+  }
 }

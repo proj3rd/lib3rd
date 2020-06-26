@@ -16,6 +16,17 @@ export class EnumeratedType {
       unimpl();
     }
   }
+
+  public toString(): string {
+    if (this.items.length === 0) {
+      return 'ENUMERATED {}';
+    }
+    const arrToString = ['ENUMERATED {'];
+    const itemsString = this.items.map((item) => item.toString()).join(', ');
+    arrToString.push(itemsString);
+    arrToString.push('}');
+    return arrToString.join(' ');
+  }
 }
 
 export type EnumerationItem = string | ExtensionMarker;

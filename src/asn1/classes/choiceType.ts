@@ -1,4 +1,5 @@
 import { unimpl } from '../../_devUtils';
+import { indent, toStringWithComma } from '../formatter';
 import { _Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { NamedType } from './namedType';
@@ -17,11 +18,33 @@ export class ChoiceType {
       unimpl();
     }
   }
+
+  public toString(): string {
+    if (this.components.length === 0) {
+      return 'CHOICE {}';
+    }
+    const arrToString = ['CHOICE {'];
+    const componentsString = this.components
+      .map((component, index) => {
+        return toStringWithComma(
+          component,
+          index !== this.components.length - 1
+        );
+      })
+      .join('\n');
+    arrToString.push(indent(componentsString));
+    arrToString.push('}');
+    return arrToString.join('\n');
+  }
 }
 
 export type RootChoiceComponents =
   | NamedType
   | ExtensionMarker
+  | ExtensionAdditionAlternativeGroup;
+
+export type ExtensionAdditionAlternative =
+  | NamedType
   | ExtensionAdditionAlternativeGroup;
 
 export class ExtensionAdditionAlternativeGroup {
@@ -33,5 +56,33 @@ export class ExtensionAdditionAlternativeGroup {
   constructor(version: number | undefined, components: NamedType[]) {
     this.version = version;
     this.components = components;
+  }
+
+  public toString(): string {
+    if (this.components.length === 0) {
+      const arrToStringEmpty = ['[['];
+      if (this.version !== undefined) {
+        arrToStringEmpty.push(this.version.toString());
+      }
+      arrToStringEmpty.push(']]');
+      return arrToStringEmpty.join(' ');
+    }
+    const arrToString: string[] = [];
+    if (this.version !== undefined) {
+      arrToString.push(`[[ ${this.version.toString()}`);
+    } else {
+      arrToString.push('[[');
+    }
+    const componentsString = this.components
+      .map((component, index) => {
+        return toStringWithComma(
+          component,
+          index !== this.components.length - 1
+        );
+      })
+      .join('\n');
+    arrToString.push(indent(componentsString));
+    arrToString.push(']]');
+    return arrToString.join('\n');
   }
 }

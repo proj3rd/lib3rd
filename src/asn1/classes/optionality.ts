@@ -8,12 +8,6 @@ import { Value } from './value';
  * instantiate a new instance: `new Optionality(defaultValue)`.
  */
 export class Optionality {
-  public static getInstance() {
-    return Optionality.instance;
-  }
-
-  private static instance: Optionality = new Optionality();
-
   private optionalityTag: undefined;
 
   private defaultValue: Value | undefined;
@@ -24,5 +18,12 @@ export class Optionality {
 
   public getDefaultValue(): Value | undefined {
     return this.defaultValue;
+  }
+
+  public toString(): string {
+    if (this.defaultValue !== undefined) {
+      return `DEFAULT ${this.defaultValue.toString()}`;
+    }
+    return 'OPTIONAL';
   }
 }

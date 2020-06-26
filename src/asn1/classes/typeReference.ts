@@ -29,4 +29,11 @@ export class TypeReference {
       return unimpl();
     }
   }
+
+  public toString(): string {
+    if (this.constraint === undefined) {
+      return this.typeReference;
+    }
+    return `${this.typeReference} (${this.constraint.toString()})`;
+  }
 }

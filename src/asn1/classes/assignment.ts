@@ -1,3 +1,4 @@
+import { unimpl } from '../../_devUtils';
 import { AsnType } from './asnType';
 import { Parameter } from './parameter';
 import { Value } from './value';
@@ -17,6 +18,10 @@ export class TypeAssignment {
     this.name = name;
     this.asnType = asnType;
   }
+
+  public toString(): string {
+    return `${this.name} ::= ${this.asnType.toString()}`;
+  }
 }
 
 export class ParameterizedTypeAssignment {
@@ -31,6 +36,17 @@ export class ParameterizedTypeAssignment {
     this.parameters = parameters;
     this.asnType = asnType;
   }
+
+  public toString(): string {
+    const arrToString = [this.name];
+    const parametersString = this.parameters
+      .map((parameter) => parameter.toString())
+      .join(', ');
+    arrToString.push(`{ ${parametersString} }`);
+    arrToString.push('::=');
+    arrToString.push(this.asnType.toString());
+    return arrToString.join(' ');
+  }
 }
 
 export class ValueAssignment {
@@ -44,6 +60,12 @@ export class ValueAssignment {
     this.name = name;
     this.asnType = asnType;
     this.value = value;
+  }
+
+  public toString(): string {
+    return `${
+      this.name
+    }  ${this.asnType.toString()} ::= ${this.value.toString()}`;
   }
 }
 

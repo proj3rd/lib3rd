@@ -17,4 +17,8 @@ export class NullType {
       unimpl();
     }
   }
+
+  public toString(): string {
+    return 'NULL';
+  }
 }

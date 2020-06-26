@@ -25,6 +25,16 @@ export class ParameterizedType {
     }
     unimpl();
   }
+
+  public toString(): string {
+    const arrToString = [this.simpleDefinedType.toString()];
+    arrToString.push('{');
+    arrToString.push(
+      this.actualParameters.map((parameter) => parameter.toString()).join(', ')
+    );
+    arrToString.push('}');
+    return arrToString.join(' ');
+  }
 }
 
 export type ActualParameter = AsnType | Value;

@@ -42,4 +42,12 @@ export class OctetStringType {
       }
     }
   }
+
+  public toString(): string {
+    const arrToString = ['OCTET STRING'];
+    if (this.constraint !== undefined) {
+      arrToString.push(`(${this.constraint.toString()})`);
+    }
+    return arrToString.join(' ');
+  }
 }

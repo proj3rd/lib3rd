@@ -10,4 +10,8 @@ export class NamedType {
     this.name = name;
     this.asnType = asnType;
   }
+
+  public toString(): string {
+    return `${this.name}    ${this.asnType.toString()}`;
+  }
 }

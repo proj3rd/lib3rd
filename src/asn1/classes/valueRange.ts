@@ -10,4 +10,8 @@ export class ValueRange {
     this.lower = lower;
     this.upper = upper;
   }
+
+  public toString(): string {
+    return `${this.lower.toString()}..${this.upper.toString()}`;
+  }
 }

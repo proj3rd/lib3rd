@@ -29,7 +29,7 @@ export class ComponentTypeVisitor
         const secondCtx = ctx.getChild(1);
         switch (secondCtx.text) {
           case 'OPTIONAL': {
-            optionality = Optionality.getInstance();
+            optionality = new Optionality();
             break;
           }
           case 'DEFAULT': {

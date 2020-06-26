@@ -23,4 +23,14 @@ export class SequenceOfType {
       unimpl();
     }
   }
+
+  public toString(): string {
+    const arrToString = ['SEQUENCE'];
+    if (this.constraint) {
+      arrToString.push(`(${this.constraint.toString()})`);
+    }
+    arrToString.push('OF');
+    arrToString.push(this.baseType.toString());
+    return arrToString.join(' ');
+  }
 }

@@ -9,4 +9,8 @@ export class SizeConstraint {
   constructor(constraint: IntegerValue | ValueRange) {
     this.constraint = constraint;
   }
+
+  public toString(): string {
+    return `SIZE (${this.constraint.toString()})`;
+  }
 }

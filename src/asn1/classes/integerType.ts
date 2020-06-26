@@ -53,4 +53,12 @@ export class IntegerType {
       }
     }
   }
+
+  public toString(): string {
+    const arrToString = ['INTEGER'];
+    if (this.constraint !== undefined) {
+      arrToString.push(`(${this.constraint.toString()})`);
+    }
+    return arrToString.join(' ');
+  }
 }

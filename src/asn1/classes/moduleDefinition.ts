@@ -1,3 +1,5 @@
+import { unimpl } from '../../_devUtils';
+import { indent } from '../formatter';
 import { AsnSymbol } from './asnSymbol';
 import { Assignment } from './assignment';
 import { Imports } from './imports';
@@ -25,6 +27,34 @@ export class ModuleDefinition implements IModuleBody {
     this.exports = exports;
     this.imports = imports;
     this.assignments = assignments;
+  }
+
+  public toString(): string {
+    const arrToString: string[] = [];
+    arrToString.push(
+      [
+        this.name,
+        'DEFINITIONS',
+        this.tagDefault,
+        this.extensionDefault,
+        '::=',
+      ].join(' ')
+    );
+    arrToString.push('BEGIN');
+    if (this.exports !== null) {
+      return unimpl();
+    }
+    if (this.imports !== null) {
+      arrToString.push(indent(this.imports.toString()));
+    }
+    if (this.assignments !== null) {
+      const assignmentsString = this.assignments
+        .map((assignment) => assignment.toString())
+        .join('\n\n');
+      arrToString.push(indent(assignmentsString));
+    }
+    arrToString.push('END');
+    return arrToString.join('\n\n');
   }
 }
 

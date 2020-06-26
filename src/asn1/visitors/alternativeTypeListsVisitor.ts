@@ -8,6 +8,8 @@ import {
   RootAlternativeTypeListContext,
 } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ExtensionAdditionAlternativesVisitor } from './extensionAdditionAlternativesVisitor';
+import { ExtensionAndExceptionVisitor } from './extensionAndExceptionVisitor';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarkerVisitor';
 import { RootAlternativeTypeListVisitor } from './rootAlternativeTypeList';
 
@@ -26,15 +28,21 @@ export class AlternativeTypeListsVisitor
   ): RootChoiceComponents[] {
     const rootComponents: RootChoiceComponents[] = [];
     for (let i = 0; i < ctx.childCount; i++) {
-      const childCtx = ctx.getChild(0);
+      const childCtx = ctx.getChild(i);
       if (childCtx instanceof RootAlternativeTypeListContext) {
         rootComponents.push(
           ...childCtx.accept(new RootAlternativeTypeListVisitor())
         );
       } else if (childCtx instanceof ExtensionAndExceptionContext) {
-        throw Error('Not implemented');
+        const extensionAndException = childCtx.accept(
+          new ExtensionAndExceptionVisitor()
+        );
+        rootComponents.push(extensionAndException);
       } else if (childCtx instanceof ExtensionAdditionAlternativesContext) {
-        throw Error('Not implemented');
+        const extensionAdditionAlternatives = childCtx.accept(
+          new ExtensionAdditionAlternativesVisitor()
+        );
+        rootComponents.push(...extensionAdditionAlternatives);
       } else if (childCtx instanceof OptionalExtensionMarkerContext) {
         const optionalExtensionMarker = childCtx.accept(
           new OptionalExtensionMarkerVisitor()

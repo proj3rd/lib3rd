@@ -14,4 +14,8 @@ export class BooleanValue {
       throw Error();
     }
   }
+
+  public toString(): string {
+    return this.literal;
+  }
 }

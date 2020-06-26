@@ -17,4 +17,8 @@ export class ExternalTypeReference {
       unimpl();
     }
   }
+
+  public toString(): string {
+    return `${this.moduleReference}.${this.typeReference}`;
+  }
 }

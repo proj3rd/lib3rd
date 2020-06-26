@@ -1,11 +1,11 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { DefinedType } from '../classes/asnType';
 import { ExternalTypeReference } from '../classes/externalTypeReference';
+import { ParameterizedType } from '../classes/parameterizedType';
 import { TypeReference } from '../classes/typeReference';
 import { DefinedTypeContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 import { ActualParameterListVisitor } from './actualParameterListVisitor';
-import { ParameterizedType } from '../classes/parameterizedType';
 
 /**
  * # Grammar

@@ -1,3 +1,5 @@
+import { unimpl } from '../../_devUtils';
+
 export class ValueReference {
   public valueReference: string;
 
@@ -5,5 +7,9 @@ export class ValueReference {
 
   constructor(valueReference: string) {
     this.valueReference = valueReference;
+  }
+
+  public toString(): string {
+    return this.valueReference;
   }
 }

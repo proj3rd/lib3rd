@@ -15,4 +15,8 @@ export class IntegerValue {
       this.value = value;
     }
   }
+
+  public toString(): string {
+    return this.literal;
+  }
 }

@@ -1,15 +1,29 @@
+import { unimpl } from '../../_devUtils';
 import { AsnType } from './asnType';
 import { Value } from './value';
 
 export class ContentsConstraint {
   public asnType: AsnType | undefined;
-  public valule: Value | undefined;
+  public value: Value | undefined;
 
   constructor(asnType: AsnType | undefined, value: Value | undefined) {
     if (asnType === undefined && value === undefined) {
       throw Error();
     }
     this.asnType = asnType;
-    this.valule = value;
+    this.value = value;
+  }
+
+  public toString(): string {
+    const arrToString: string[] = [];
+    if (this.asnType !== undefined) {
+      arrToString.push('CONTAINING');
+      arrToString.push(this.asnType.toString());
+    }
+    if (this.value !== undefined) {
+      arrToString.push('ENCODED BY');
+      arrToString.push(this.value.toString());
+    }
+    return arrToString.join(' ');
   }
 }

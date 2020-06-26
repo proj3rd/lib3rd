@@ -1,3 +1,5 @@
+import { unimpl } from '../../_devUtils';
+
 export class Parameter {
   public dummyReference: string;
 
@@ -5,5 +7,9 @@ export class Parameter {
 
   constructor(dummyReference: string) {
     this.dummyReference = dummyReference;
+  }
+
+  public toString(): string {
+    return this.dummyReference;
   }
 }

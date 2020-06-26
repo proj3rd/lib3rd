@@ -17,4 +17,8 @@ export class BooleanType {
       unimpl();
     }
   }
+
+  public toString(): string {
+    return 'BOOLEAN';
+  }
 }

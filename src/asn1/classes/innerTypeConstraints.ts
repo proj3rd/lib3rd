@@ -1,5 +1,8 @@
 import { ExtensionMarker } from './extensionMarker';
 
+/**
+ * Currently it supports only MultipleTypeConstraints
+ */
 export class InnerTypeConstraints {
   public components: TypeConstraintsComponent[];
 
@@ -7,6 +10,16 @@ export class InnerTypeConstraints {
 
   constructor(components: TypeConstraintsComponent[]) {
     this.components = components;
+  }
+
+  public toString(): string {
+    const arrToString = ['WITH COMPONENTS'];
+    arrToString.push('{');
+    arrToString.push(
+      this.components.map((component) => component.toString()).join(', ')
+    );
+    arrToString.push('}');
+    return arrToString.join(' ');
   }
 }
 
@@ -22,6 +35,10 @@ export class ComponentPresence {
     }
     this.name = name;
     this.presence = presence;
+  }
+
+  public toString(): string {
+    return `${this.name} ${this.presence}`;
   }
 }
 

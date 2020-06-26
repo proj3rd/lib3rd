@@ -8,4 +8,8 @@ export class Modules {
   constructor(modules: ModuleDefinition[] = []) {
     this.modules = modules;
   }
+
+  public toString(): string {
+    return this.modules.map((module) => module.toString()).join('\n\n');
+  }
 }
