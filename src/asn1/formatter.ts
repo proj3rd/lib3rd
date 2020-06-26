@@ -1,5 +1,4 @@
-import assert from 'assert';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { unimpl } from '../_devUtils';
 import {
   ExtensionAdditionAlternativeGroup,
@@ -51,7 +50,7 @@ describe('Format Modules [format_all]', function () {
     const asn1 = readFileSync('resources/36331-g00.asn1', 'utf8');
     const modules = parse(asn1);
     const formatted = modules.toString();
-    assert.equal(formatted, '');
+    writeFileSync('36331-g00.asn1', formatted);
   });
 
   // tslint:disable-next-line: only-arrow-functions
@@ -59,6 +58,6 @@ describe('Format Modules [format_all]', function () {
     const asn1 = readFileSync('resources/38331-g00.asn1', 'utf8');
     const modules = parse(asn1);
     const formatted = modules.toString();
-    assert.equal(formatted, '');
+    writeFileSync('38331-g00.asn1', formatted);
   });
 });
