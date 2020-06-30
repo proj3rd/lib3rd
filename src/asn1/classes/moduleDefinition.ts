@@ -3,6 +3,7 @@ import { indent } from '../formatter';
 import { AsnSymbol } from './asnSymbol';
 import { Assignment } from './assignment';
 import { Imports } from './imports';
+import { Modules } from './modules';
 
 export class ModuleDefinition implements IModuleBody {
   public name: string;
@@ -10,7 +11,7 @@ export class ModuleDefinition implements IModuleBody {
   public extensionDefault: ExtensionDefault;
   public exports: Exports | null;
   public imports: Imports | null;
-  public assignments: Assignment[] | null;
+  public assignments: Assignment[];
 
   private moduleDefinitionTag: undefined;
 
@@ -30,9 +31,6 @@ export class ModuleDefinition implements IModuleBody {
   }
 
   public findAssignment(name: string): Assignment | undefined {
-    if (this.assignments === null) {
-      return undefined;
-    }
     return this.assignments.find((assignment) => assignment.name === name);
   }
 
@@ -54,12 +52,10 @@ export class ModuleDefinition implements IModuleBody {
     if (this.imports !== null) {
       arrToString.push(indent(this.imports.toString()));
     }
-    if (this.assignments !== null) {
-      const assignmentsString = this.assignments
-        .map((assignment) => assignment.toString())
-        .join('\n\n');
-      arrToString.push(indent(assignmentsString));
-    }
+    const assignmentsString = this.assignments
+      .map((assignment) => assignment.toString())
+      .join('\n\n');
+    arrToString.push(indent(assignmentsString));
     arrToString.push('END');
     return arrToString.join('\n\n');
   }
@@ -79,7 +75,7 @@ export type ExtensionDefault = 'EXTENSIBILITY IMPLIED' | '';
 export interface IModuleBody {
   exports: Exports | null;
   imports: Imports | null;
-  assignments: Assignment[] | null;
+  assignments: Assignment[];
 }
 
 export type Exports = 'ALL' | AsnSymbol[];

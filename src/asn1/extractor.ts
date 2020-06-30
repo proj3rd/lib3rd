@@ -1,5 +1,8 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { parse } from 'path';
+import { Logger } from '../logger';
+
+const logger = Logger.getLogger('asn1.extracter');
 
 export function extract(text: string): string {
   let asn1 = '';
@@ -14,7 +17,7 @@ export function extract(text: string): string {
 
     const resultStop = reStop.exec(text);
     if (resultStop === null) {
-      console.error(
+      logger.error(
         'This is strange. The start token is found but the end token is not found. Extractor stops here and outputs the current state.'
       );
       return asn1;
@@ -54,7 +57,7 @@ function selectRegExp(text: string): { reStart: RegExp; reStop: RegExp } {
 if (require.main === module) {
   const inputPath = process.argv[2];
   if (inputPath === undefined) {
-    console.error('Filepath is not given. Exit.');
+    logger.error('Filepath is not given. Exit.');
     process.exit(-1);
   }
   const text = readFileSync(inputPath, 'utf8');

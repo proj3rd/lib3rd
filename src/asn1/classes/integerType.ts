@@ -1,10 +1,12 @@
 import { unimpl } from '../../_devUtils';
+import { IExpandOption } from '../expander';
 import { BooleanValue } from './booleanValue';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
 import { InnerTypeConstraints } from './innerTypeConstraints';
 import { IntegerValue } from './integerValue';
+import { Modules } from './modules';
 import { SizeConstraint } from './sizeConstraint';
 import { ValueRange } from './valueRange';
 
@@ -12,6 +14,10 @@ export class IntegerType {
   public constraint: IntegerValue | ValueRange | undefined;
 
   private integerTypeTag: undefined;
+
+  public expand(modules: Modules, expandOption: IExpandOption): IntegerType {
+    return this;
+  }
 
   public setConstraints(constraints: _Constraint[]) {
     if (constraints.length === 0) {

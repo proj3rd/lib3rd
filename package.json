@@ -15,6 +15,7 @@
     "test-formatter": "mocha --enable-source-maps dist/asn1/formatter --grep format_all",
     "test-formatter-36331": "mocha --enable-source-maps dist/asn1/formatter --grep format_36331",
     "test-formatter-38331": "mocha --enable-source-maps dist/asn1/formatter --grep format_38331",
+    "test-logger": "mocha --enable-source-maps dist/logger --grep logger_all",
     "typedoc": "typedoc --out doc src",
     "typedoc-install": "npm i -g typedoc@0.16.11",
     "// Why a specific version of typedoc is required": "https://stackoverflow.com/a/60796968/3278063"
@@ -36,6 +37,7 @@
     "mocha": "^8.0.1"
   },
   "dependencies": {
-    "antlr4ts": "^0.5.0-alpha.3"
+    "antlr4ts": "^0.5.0-alpha.3",
+    "winston": "^3.3.3"
   }
 }

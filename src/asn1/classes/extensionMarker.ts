@@ -1,4 +1,5 @@
-import { unimpl } from '../../_devUtils';
+import { IExpandOption } from '../expander';
+import { Modules } from './modules';
 
 export class ExtensionMarker {
   public static getInstance() {
@@ -10,6 +11,13 @@ export class ExtensionMarker {
   private extensionMarkerTag: undefined;
 
   private constructor() {}
+
+  public expand(
+    modules: Modules,
+    expandOption: IExpandOption
+  ): ExtensionMarker {
+    return this;
+  }
 
   public toString(): string {
     return '...';

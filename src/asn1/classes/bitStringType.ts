@@ -1,14 +1,20 @@
 import { unimpl } from '../../_devUtils';
+import { IExpandOption } from '../expander';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
 import { InnerTypeConstraints } from './innerTypeConstraints';
+import { Modules } from './modules';
 import { SizeConstraint } from './sizeConstraint';
 
 export class BitStringType {
   public constraint: SizeConstraint | undefined;
 
   private bitStringTypeTag: undefined;
+
+  public expand(modules: Modules, expandOption: IExpandOption): BitStringType {
+    return this;
+  }
 
   public setConstraints(constraints: _Constraint[]) {
     if (constraints.length === 0) {

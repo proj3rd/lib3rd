@@ -1,7 +1,9 @@
 import { unimpl } from '../../_devUtils';
+import { IExpandOption } from '../expander';
 import { indent } from '../formatter';
 import { _Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
+import { Modules } from './modules';
 import { NamedType } from './namedType';
 
 export class ChoiceType {
@@ -11,6 +13,14 @@ export class ChoiceType {
 
   constructor(components: RootChoiceComponents[]) {
     this.components = components;
+  }
+
+  public expand(modules: Modules, expandOption: IExpandOption): ChoiceType {
+    this.components.forEach((component, index) => {
+      const expandedComponent = component.expand(modules, expandOption);
+      this.components[index] = expandedComponent;
+    });
+    return this;
   }
 
   public setConstraints(constraints: _Constraint[]) {
@@ -51,6 +61,17 @@ export class ExtensionAdditionAlternativeGroup {
   constructor(version: number | undefined, components: NamedType[]) {
     this.version = version;
     this.components = components;
+  }
+
+  public expand(
+    modules: Modules,
+    expandOption: IExpandOption
+  ): ExtensionAdditionAlternativeGroup {
+    this.components.forEach((component, index) => {
+      const expandedComponent = component.expand(modules, expandOption);
+      this.components[index] = expandedComponent;
+    });
+    return this;
   }
 
   public toString(): string {

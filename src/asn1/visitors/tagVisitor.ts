@@ -1,7 +1,10 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { Logger } from '../../logger';
 import { Tag } from '../classes/sequenceType';
 import { TagContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+
+const logger = Logger.getLogger('asn1.parser.tagVisitor');
 
 const RE_COND = /--\s*?Cond\s+?.+?/;
 const RE_NEED = /--\s*?Need\s+?.+?/;
@@ -20,8 +23,8 @@ export class TagVisitor extends AbstractParseTreeVisitor<Tag>
     if (RE_COND.test(tagText) || RE_NEED.test(tagText)) {
       return tagText;
     }
-    console.warn(`Need to check if tag contains a human error:
-  ${tagText}`);
+    logger.warn(`Need to check if tag contains a human error:
+${tagText}`);
     return '';
   }
 

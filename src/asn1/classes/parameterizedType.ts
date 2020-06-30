@@ -1,7 +1,9 @@
 import { unimpl } from '../../_devUtils';
+import { IExpandOption } from '../expander';
 import { AsnType } from './asnType';
 import { _Constraint } from './constraint';
 import { ExternalTypeReference } from './externalTypeReference';
+import { Modules } from './modules';
 import { TypeReference } from './typeReference';
 import { Value } from './value';
 
@@ -17,6 +19,13 @@ export class ParameterizedType {
   ) {
     this.simpleDefinedType = simpleDefinedType;
     this.actualParameters = actualParameters;
+  }
+
+  public expand(
+    modules: Modules,
+    expandOption: IExpandOption
+  ): AsnType | undefined {
+    return unimpl();
   }
 
   public setConstraints(constraints: _Constraint[]) {

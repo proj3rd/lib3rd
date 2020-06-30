@@ -1,6 +1,8 @@
 import { unimpl } from '../../_devUtils';
+import { IExpandOption } from '../expander';
 import { AsnType } from './asnType';
 import { _Constraint } from './constraint';
+import { Modules } from './modules';
 import { NamedType } from './namedType';
 import { SizeConstraint } from './sizeConstraint';
 
@@ -16,6 +18,14 @@ export class SequenceOfType {
   ) {
     this.baseType = baseType;
     this.constraint = constraint;
+  }
+
+  public expand(modules: Modules, expandOption: IExpandOption): SequenceOfType {
+    const expandedBaseType = this.baseType.expand(modules, expandOption);
+    if (expandedBaseType !== undefined) {
+      this.baseType = expandedBaseType;
+    }
+    return this;
   }
 
   public setConstraints(constraints: _Constraint[]) {

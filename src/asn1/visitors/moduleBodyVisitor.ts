@@ -1,4 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { unimpl } from '../../_devUtils';
 import { IModuleBody } from '../classes/moduleDefinition';
 import { ModuleBodyContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
@@ -24,16 +25,12 @@ export class ModuleBodyVisitor extends AbstractParseTreeVisitor<IModuleBody>
     const assignmentListCtx = ctx.assignmentList();
     const assignments =
       assignmentListCtx === undefined
-        ? null
+        ? []
         : assignmentListCtx.accept(new AssignmentListVisitor());
     return { exports, imports, assignments };
   }
 
   protected defaultResult(): IModuleBody {
-    return {
-      exports: null,
-      imports: null,
-      assignments: null,
-    };
+    return unimpl();
   }
 }

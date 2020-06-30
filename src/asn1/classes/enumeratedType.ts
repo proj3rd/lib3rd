@@ -1,6 +1,8 @@
 import { unimpl } from '../../_devUtils';
+import { IExpandOption } from '../expander';
 import { _Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
+import { Modules } from './modules';
 
 export class EnumeratedType {
   public items: EnumerationItem[];
@@ -9,6 +11,10 @@ export class EnumeratedType {
 
   constructor(items: EnumerationItem[]) {
     this.items = items;
+  }
+
+  public expand(modules: Modules, expandOption: IExpandOption): EnumeratedType {
+    return this;
   }
 
   public setConstraints(constraints: _Constraint[]) {

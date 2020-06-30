@@ -1,8 +1,10 @@
 import { unimpl } from '../../_devUtils';
+import { IExpandOption } from '../expander';
 import { indent } from '../formatter';
 import { AsnType } from './asnType';
 import { _Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
+import { Modules } from './modules';
 import { NamedType } from './namedType';
 import { Optionality } from './optionality';
 
@@ -39,6 +41,14 @@ export class SequenceType {
 
   constructor(components: RootSequenceComponents[]) {
     this.components = components;
+  }
+
+  public expand(modules: Modules, expandOption: IExpandOption): SequenceType {
+    this.components.forEach((component, index) => {
+      const expandedComponent = component.expand(modules, expandOption);
+      this.components[index] = expandedComponent;
+    });
+    return this;
   }
 
   public setConstraints(constraints: _Constraint[]) {
@@ -93,6 +103,14 @@ export class ComponentType {
     this.tag = tag;
   }
 
+  public expand(modules: Modules, expandOption: IExpandOption): ComponentType {
+    const expandedType = this.asnType.expand(modules, expandOption);
+    if (expandedType) {
+      this.asnType = expandedType;
+    }
+    return this;
+  }
+
   /**
    * This method will return a string with a comma placeholder.
    * And it is discouraged to call `ComponentType.toString()` outside of
@@ -124,6 +142,17 @@ export class ExtensionAdditionGroup {
   constructor(version: number | undefined, components: ComponentType[]) {
     this.version = version;
     this.components = components;
+  }
+
+  public expand(
+    modules: Modules,
+    expandOption: IExpandOption
+  ): ExtensionAdditionGroup {
+    this.components.forEach((component, index) => {
+      const expandedComponent = component.expand(modules, expandOption);
+      this.components[index] = expandedComponent;
+    });
+    return this;
   }
 
   public toString(): string {

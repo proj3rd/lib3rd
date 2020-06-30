@@ -1,14 +1,23 @@
 import { unimpl } from '../../_devUtils';
 import { SizeConstraint } from '../classes/sizeConstraint';
+import { IExpandOption } from '../expander';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
 import { InnerTypeConstraints } from './innerTypeConstraints';
+import { Modules } from './modules';
 
 export class OctetStringType {
   public constraint: ContentsConstraint | SizeConstraint | undefined;
 
   private octetStringTypeTag: undefined;
+
+  public expand(
+    modules: Modules,
+    expandOption: IExpandOption
+  ): OctetStringType {
+    return this;
+  }
 
   public setConstraints(constraints: _Constraint[]) {
     if (constraints.length === 0) {
