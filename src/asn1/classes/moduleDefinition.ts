@@ -3,7 +3,6 @@ import { indent } from '../formatter';
 import { AsnSymbol } from './asnSymbol';
 import { Assignment } from './assignment';
 import { Imports } from './imports';
-import { Modules } from './modules';
 
 export class ModuleDefinition implements IModuleBody {
   public name: string;
