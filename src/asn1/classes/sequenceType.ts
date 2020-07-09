@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { AsnType } from './asnType';
 import { _Constraint } from './constraint';
@@ -43,9 +43,12 @@ export class SequenceType {
     this.components = components;
   }
 
-  public expand(modules: Modules, expandOption: IExpandOption): SequenceType {
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): SequenceType {
     this.components.forEach((component, index) => {
-      const expandedComponent = component.expand(modules, expandOption);
+      const expandedComponent = component.expand(modules, parameterMappings);
       this.components[index] = expandedComponent;
     });
     return this;
@@ -103,8 +106,11 @@ export class ComponentType {
     this.tag = tag;
   }
 
-  public expand(modules: Modules, expandOption: IExpandOption): ComponentType {
-    const expandedType = this.asnType.expand(modules, expandOption);
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): ComponentType {
+    const expandedType = this.asnType.expand(modules, parameterMappings);
     if (expandedType) {
       this.asnType = expandedType;
     }
@@ -146,10 +152,10 @@ export class ExtensionAdditionGroup {
 
   public expand(
     modules: Modules,
-    expandOption: IExpandOption
+    parameterMappings: IParameterMapping[]
   ): ExtensionAdditionGroup {
     this.components.forEach((component, index) => {
-      const expandedComponent = component.expand(modules, expandOption);
+      const expandedComponent = component.expand(modules, parameterMappings);
       this.components[index] = expandedComponent;
     });
     return this;

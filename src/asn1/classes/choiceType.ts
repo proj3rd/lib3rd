@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { _Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
@@ -15,9 +15,12 @@ export class ChoiceType {
     this.components = components;
   }
 
-  public expand(modules: Modules, expandOption: IExpandOption): ChoiceType {
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): ChoiceType {
     this.components.forEach((component, index) => {
-      const expandedComponent = component.expand(modules, expandOption);
+      const expandedComponent = component.expand(modules, parameterMappings);
       this.components[index] = expandedComponent;
     });
     return this;
@@ -65,10 +68,10 @@ export class ExtensionAdditionAlternativeGroup {
 
   public expand(
     modules: Modules,
-    expandOption: IExpandOption
+    parameterMappings: IParameterMapping[]
   ): ExtensionAdditionAlternativeGroup {
     this.components.forEach((component, index) => {
-      const expandedComponent = component.expand(modules, expandOption);
+      const expandedComponent = component.expand(modules, parameterMappings);
       this.components[index] = expandedComponent;
     });
     return this;

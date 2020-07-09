@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
@@ -12,7 +12,10 @@ export class BitStringType {
 
   private bitStringTypeTag: undefined;
 
-  public expand(modules: Modules, expandOption: IExpandOption): BitStringType {
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): BitStringType {
     return this;
   }
 

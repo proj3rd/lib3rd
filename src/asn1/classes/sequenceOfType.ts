@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { AsnType } from './asnType';
 import { _Constraint } from './constraint';
 import { Modules } from './modules';
@@ -20,8 +20,11 @@ export class SequenceOfType {
     this.constraint = constraint;
   }
 
-  public expand(modules: Modules, expandOption: IExpandOption): SequenceOfType {
-    const expandedBaseType = this.baseType.expand(modules, expandOption);
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): SequenceOfType {
+    const expandedBaseType = this.baseType.expand(modules, parameterMappings);
     if (expandedBaseType !== undefined) {
       this.baseType = expandedBaseType;
     }

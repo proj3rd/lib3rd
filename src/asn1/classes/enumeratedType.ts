@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { _Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
@@ -13,7 +13,10 @@ export class EnumeratedType {
     this.items = items;
   }
 
-  public expand(modules: Modules, expandOption: IExpandOption): EnumeratedType {
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): EnumeratedType {
     return this;
   }
 

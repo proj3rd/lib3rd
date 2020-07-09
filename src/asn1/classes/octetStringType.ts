@@ -1,6 +1,6 @@
 import { unimpl } from '../../_devUtils';
 import { SizeConstraint } from '../classes/sizeConstraint';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
@@ -14,7 +14,7 @@ export class OctetStringType {
 
   public expand(
     modules: Modules,
-    expandOption: IExpandOption
+    parameterMappings: IParameterMapping[]
   ): OctetStringType {
     return this;
   }

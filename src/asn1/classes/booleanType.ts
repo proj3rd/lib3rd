@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { _Constraint } from './constraint';
 import { Modules } from './modules';
 
@@ -14,7 +14,10 @@ export class BooleanType {
 
   private constructor() {}
 
-  public expand(modules: Modules, expandOption: IExpandOption): BooleanType {
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): BooleanType {
     return this;
   }
 

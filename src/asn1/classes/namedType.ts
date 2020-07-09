@@ -1,4 +1,4 @@
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 
@@ -13,8 +13,11 @@ export class NamedType {
     this.asnType = asnType;
   }
 
-  public expand(modules: Modules, expandOption: IExpandOption): NamedType {
-    const expandedType = this.asnType.expand(modules, expandOption);
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): NamedType {
+    const expandedType = this.asnType.expand(modules, parameterMappings);
     if (expandedType !== undefined) {
       this.asnType = expandedType;
     }

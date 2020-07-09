@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { AsnType } from './asnType';
 import {
   ParameterizedTypeAssignment,
@@ -23,23 +23,42 @@ export class TypeReference {
 
   public expand(
     modules: Modules,
-    expandOption: IExpandOption
-  ): AsnType | undefined {
-    const referencedAssignment = modules.findAssignment(this.typeReference);
-    if (referencedAssignment === undefined) {
-      return undefined;
-    } else if (referencedAssignment instanceof TypeAssignment) {
-      const { asnType } = referencedAssignment;
-      const expandOptionNew: IExpandOption = {
-        parameters: [],
-      };
-      const expandedType = asnType.expand(modules, expandOptionNew);
-      return expandedType;
-    } else if (referencedAssignment instanceof ParameterizedTypeAssignment) {
-      return unimpl();
-    } else if (referencedAssignment instanceof ValueAssignment) {
-      return unimpl();
+    parameterMappings: IParameterMapping[]
+  ): AsnType {
+    const parameterMapping = parameterMappings.find(
+      (mapping) => mapping.parameter.dummyReference === this.typeReference
+    );
+    if (parameterMapping === undefined) {
+      // A case that typeReference references another IE.
+      const referencedAssignment = modules.findAssignment(this.typeReference);
+      if (referencedAssignment === undefined) {
+        return this;
+      } else if (referencedAssignment instanceof TypeAssignment) {
+        const { asnType } = referencedAssignment;
+        const expandedType = asnType.expand(modules, []);
+        return expandedType;
+      } else if (referencedAssignment instanceof ParameterizedTypeAssignment) {
+        return unimpl();
+      } else if (referencedAssignment instanceof ValueAssignment) {
+        return unimpl();
+      }
+    } else if (parameterMapping.actualParameter === undefined) {
+      // A case that typeReference is a dummyReference.
+      return this;
+    } else {
+      // A case that typeReference shall be substituted with an actualParameter.
+      const { actualParameter } = parameterMapping;
+      if (actualParameter instanceof TypeReference) {
+        const expandedType = actualParameter.expand(modules, []);
+        if (expandedType === undefined) {
+          return actualParameter;
+        }
+        return expandedType;
+      } else {
+        return unimpl(actualParameter.constructor.name);
+      }
     }
+    throw Error();
   }
 
   public setConstraints(constraints: _Constraint[]) {

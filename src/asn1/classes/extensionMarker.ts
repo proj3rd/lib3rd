@@ -1,4 +1,4 @@
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { Modules } from './modules';
 
 export class ExtensionMarker {
@@ -14,7 +14,7 @@ export class ExtensionMarker {
 
   public expand(
     modules: Modules,
-    expandOption: IExpandOption
+    parameterMappings: IParameterMapping[]
   ): ExtensionMarker {
     return this;
   }

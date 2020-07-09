@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { AsnType } from './asnType';
 import {
   ParameterizedTypeAssignment,
@@ -22,26 +22,24 @@ export class ExternalTypeReference {
 
   public expand(
     modules: Modules,
-    expandOption: IExpandOption
-  ): AsnType | undefined {
+    parameterMappings: IParameterMapping[]
+  ): AsnType {
     const referencedAssignment = modules.findAssignment(
       this.typeReference,
       this.moduleReference
     );
     if (referencedAssignment === undefined) {
-      return undefined;
+      return this;
     } else if (referencedAssignment instanceof TypeAssignment) {
       const { asnType } = referencedAssignment;
-      const expandOptionNew: IExpandOption = {
-        parameters: [],
-      };
-      const expandedType = asnType.expand(modules, expandOptionNew);
+      const expandedType = asnType.expand(modules, []);
       return expandedType;
     } else if (referencedAssignment instanceof ParameterizedTypeAssignment) {
       return unimpl();
     } else if (referencedAssignment instanceof ValueAssignment) {
       return unimpl();
     }
+    throw Error();
   }
 
   public setConstraints(constraints: _Constraint[]) {

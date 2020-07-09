@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { BooleanValue } from './booleanValue';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -15,7 +15,10 @@ export class IntegerType {
 
   private integerTypeTag: undefined;
 
-  public expand(modules: Modules, expandOption: IExpandOption): IntegerType {
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): IntegerType {
     return this;
   }
 

@@ -1,5 +1,5 @@
 import { unimpl } from '../../_devUtils';
-import { IExpandOption } from '../expander';
+import { IParameterMapping } from '../expander';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { Parameter } from './parameter';
@@ -21,8 +21,11 @@ export class TypeAssignment {
     this.asnType = asnType;
   }
 
-  public expand(modules: Modules, expandOption: IExpandOption): TypeAssignment {
-    const expandedType = this.asnType.expand(modules, expandOption);
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): TypeAssignment {
+    const expandedType = this.asnType.expand(modules, parameterMappings);
     if (expandedType !== undefined) {
       this.asnType = expandedType;
     }
@@ -49,9 +52,21 @@ export class ParameterizedTypeAssignment {
 
   public expand(
     modules: Modules,
-    expandOption: IExpandOption
+    parameterMappings: IParameterMapping[]
   ): ParameterizedTypeAssignment {
-    return unimpl();
+    const parameterMappingsNew: IParameterMapping[] = this.parameters.map(
+      (parameter) => {
+        return {
+          actualParameter: undefined,
+          parameter,
+        };
+      }
+    );
+    const expandedType = this.asnType.expand(modules, parameterMappingsNew);
+    if (expandedType !== undefined) {
+      this.asnType = expandedType;
+    }
+    return this;
   }
 
   public toString(): string {
@@ -81,7 +96,7 @@ export class ValueAssignment {
 
   public expand(
     modules: Modules,
-    expandOption: IExpandOption
+    parameterMappings: IParameterMapping[]
   ): ValueAssignment {
     return this;
   }

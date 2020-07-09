@@ -6145,7 +6145,11 @@ RACH-ConfigCommonIAB-r16 ::=            SEQUENCE {
 
 
 RACH-ConfigCommonTwoStepRA-r16 ::=                   SEQUENCE {
-    rach-ConfigGenericTwoStepRA-r16                      RACH-ConfigCommonTwoStepRA-r16,
+    -- NOTE: 38331-g00 has error
+    -- rach-ConfigGenericTwoStepRA-r16 refers RACH-ConfigCommonTwoStepRA-r16,
+    -- which introduces recursive referencing.
+    -- Temporarily fixed with R2-2006178
+    rach-ConfigGenericTwoStepRA-r16                      RACH-ConfigGenericTwoStepRA-r16,
     msgA-TotalNumberOfRA-Preambles-r16                   INTEGER (1..63)                                    OPTIONAL,  -- Need S
     msgA-SSB-PerRACH-OccasionAndCB-PreamblesPerSSB-r16   CHOICE {
         oneEighth                                            ENUMERATED {n4,n8,n12,n16,n20,n24,n28,n32,n36,n40,n44,n48,n52,n56,n60,n64},
