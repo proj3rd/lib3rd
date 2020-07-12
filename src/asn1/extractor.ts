@@ -73,9 +73,9 @@ function selectRegExp(
 }
 
 // tslint:disable-next-line: only-arrow-functions
-describe('Extract ASN.1 [extract_all]', function() {
+describe('Extract ASN.1 [extract_all]', function () {
   // tslint:disable-next-line: only-arrow-functions
-  it ('Normal token [extract_normal_token]', function () {
+  it('Normal token [extract_normal_token]', function () {
     const input = `
 -- ASN1START
 First ASN.1 content
@@ -96,7 +96,7 @@ Second ASN.1 content
   });
 
   // tslint:disable-next-line: only-arrow-functions
-  it ('Old RAN3 token [extract_old_ran3_token]', function () {
+  it('Old RAN3 token [extract_old_ran3_token]', function () {
     const input = `
 -- ************************************
 First ASN.1 content
