@@ -1,5 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { _GeneralConstraint } from '../classes/constraint';
 import {
   ContentsConstraintContext,
@@ -9,6 +9,7 @@ import {
 } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 import { ContentsConstraintVisitor } from './contentsConstraintVisitor';
+import { TableConstraintVisitor } from './tableConstraintVisitor';
 
 /**
  * # Grammar
@@ -24,7 +25,7 @@ export class GeneralConstraintVisitor
     if (childCtx instanceof UserDefinedConstraintContext) {
       return unimpl();
     } else if (childCtx instanceof TableConstraintContext) {
-      return unimpl();
+      return childCtx.accept(new TableConstraintVisitor());
     } else if (childCtx instanceof ContentsConstraintContext) {
       return childCtx.accept(new ContentsConstraintVisitor());
     } else {

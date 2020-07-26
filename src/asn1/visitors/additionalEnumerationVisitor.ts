@@ -1,5 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { EnumerationItem } from '../classes/enumeratedType';
 import { AdditionalEnumerationContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';

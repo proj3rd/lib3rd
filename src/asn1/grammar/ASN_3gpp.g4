@@ -368,6 +368,7 @@ asnType : (builtinType | referencedType) (constraint)*
 builtinType :
    octetStringType
  | bitStringType
+ | characterStringType
  | choiceType
  | enumeratedType
  | integerType
@@ -381,6 +382,26 @@ builtinType :
  | NULL_LITERAL
 
 	;
+
+characterStringType:
+    restrictedCharacterStringType
+  // | unrestrictedCharacterStringType
+  ;
+
+restrictedCharacterStringType:
+    BMP_STRING_LITERAL
+  | GRAPHIC_STRING_LITERAL
+  | IA5_STRING_LITERAL
+  | ISO646_STRING_LITERAL
+  | NUMERIC_STRING_LITERAL
+  | PRINTABLE_STRING_LITERAL
+  | TELETEXT_STRING_LITERAL
+  | T61_STRING_LITERAL
+  | UNIVERSAL_STRING_LITERAL
+  | UTF8_STRING_LITERAL
+  | VIDEOTEX_STRING_LITERAL
+  | VISIBLE_STRING_LITERAL
+  ;
 
 objectClassFieldType : definedObjectClass DOT fieldName
 ;
@@ -475,6 +496,8 @@ objIdComponents  :
 	    	NUMBER
 	|    	IDENTIFIER (L_PARAN (NUMBER | definedValue ) R_PARAN)?
 	|    	definedValue
+	// 3GPP-specific: Syntactic sugar for {BIT, OCTET} STRING and other complex definition
+	|    	builtinType constraint?
 ;
 
 
@@ -664,6 +687,20 @@ R_PARAN
 MINUS
 	:	'-'
 	;
+
+BMP_STRING_LITERAL: 'BMPString';
+GENREAL_STRING_LITERAL: 'GeneralString';
+GRAPHIC_STRING_LITERAL: 'GraphicString';
+IA5_STRING_LITERAL: 'IA5String';
+ISO646_STRING_LITERAL: 'ISO646String';
+NUMERIC_STRING_LITERAL: 'NumericString';
+PRINTABLE_STRING_LITERAL: 'PrintableString';
+TELETEXT_STRING_LITERAL: 'TeletexString';
+T61_STRING_LITERAL: 'T61String';
+UNIVERSAL_STRING_LITERAL: 'UniversalString';
+UTF8_STRING_LITERAL: 'UTF8String';
+VIDEOTEX_STRING_LITERAL: 'VideotexString';
+VISIBLE_STRING_LITERAL: 'VisibleString';
 
 ENUMERATED_LITERAL
 	:	'ENUMERATED'

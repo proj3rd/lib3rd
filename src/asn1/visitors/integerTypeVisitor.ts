@@ -1,8 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from '../../_devUtils';
 import { IntegerType } from '../classes/integerType';
 import { IntegerTypeContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { INamedNumber } from '../types';
+import { NamedNumberListVisitor } from './namedNumberListVisitor';
 
 /**
  * # Grammar
@@ -13,12 +14,14 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 export class IntegerTypeVisitor extends AbstractParseTreeVisitor<IntegerType>
   implements ASN_3gppVisitor<IntegerType> {
   public visitChildren(ctx: IntegerTypeContext): IntegerType {
-    const integerType = new IntegerType();
-    const namedNumberList = ctx.namedNumberList();
-    if (namedNumberList !== undefined) {
-      unimpl();
+    const namedNumberList: INamedNumber[] = [];
+    const namedNumberListCtx = ctx.namedNumberList();
+    if (namedNumberListCtx !== undefined) {
+      namedNumberList.push(
+        ...namedNumberListCtx.accept(new NamedNumberListVisitor())
+      );
     }
-    return integerType;
+    return new IntegerType(namedNumberList);
   }
 
   protected defaultResult(): IntegerType {

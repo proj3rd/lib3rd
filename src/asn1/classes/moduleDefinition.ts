@@ -1,11 +1,13 @@
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { indent } from '../formatter';
 import { AsnSymbol } from './asnSymbol';
 import { Assignment } from './assignment';
+import { DefinitiveIdentification } from './definitiveIdentification';
 import { Imports } from './imports';
 
 export class ModuleDefinition implements IModuleBody {
   public name: string;
+  public definitiveIdentification: DefinitiveIdentification;
   public tagDefault: TagDefault;
   public extensionDefault: ExtensionDefault;
   public exports: Exports | null;
@@ -16,11 +18,13 @@ export class ModuleDefinition implements IModuleBody {
 
   constructor(
     name: string,
+    definitiveIdentification: DefinitiveIdentification,
     tagDefault: TagDefault,
     extensionDefault: ExtensionDefault,
     moduleBody: IModuleBody
   ) {
     this.name = name;
+    this.definitiveIdentification = definitiveIdentification;
     this.tagDefault = tagDefault;
     this.extensionDefault = extensionDefault;
     const { exports, imports, assignments } = moduleBody;
@@ -38,6 +42,7 @@ export class ModuleDefinition implements IModuleBody {
     arrToString.push(
       [
         this.name,
+        this.definitiveIdentification.toString(),
         'DEFINITIONS',
         this.tagDefault,
         this.extensionDefault,

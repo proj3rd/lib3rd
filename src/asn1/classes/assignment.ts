@@ -1,12 +1,16 @@
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
+import { ObjectClass } from './objectClass';
+import { ObjectSetAssignment } from './objectSetAssignment';
 import { Parameter } from './parameter';
 import { Value } from './value';
 
 export type Assignment =
   | TypeAssignment
+  | ObjectClassAssignment
+  | ObjectSetAssignment
   | ParameterizedTypeAssignment
   | ValueAssignment;
 
@@ -34,6 +38,25 @@ export class TypeAssignment {
 
   public toString(): string {
     return `${this.name} ::= ${this.asnType.toString()}`;
+  }
+}
+
+export class ObjectClassAssignment {
+  public name: string;
+  public objectClass: ObjectClass;
+
+  private objectClassAssignmentTag: undefined;
+
+  constructor(name: string, objectClass: ObjectClass) {
+    this.name = name;
+    this.objectClass = objectClass;
+  }
+
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): ObjectClassAssignment {
+    return unimpl();
   }
 }
 

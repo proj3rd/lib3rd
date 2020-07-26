@@ -1,10 +1,14 @@
 import { BitStringType } from './bitStringType';
 import { BooleanType } from './booleanType';
+import { CharacterStringType } from './characterStringType';
 import { ChoiceType } from './choiceType';
 import { EnumeratedType } from './enumeratedType';
 import { ExternalTypeReference } from './externalTypeReference';
 import { IntegerType } from './integerType';
 import { NullType } from './nullType';
+import { ObjectClassFieldType } from './objectClassFieldType';
+import { ObjectClassReference } from './objectClassReference';
+import { ObjectIdentifierType } from './objectIdentifierType';
 import { OctetStringType } from './octetStringType';
 import { ParameterizedType } from './parameterizedType';
 import { SequenceOfType } from './sequenceOfType';
@@ -16,6 +20,7 @@ export type AsnType = BuiltinType | ReferencedType;
 export type BuiltinType =
   | OctetStringType
   | BitStringType
+  | CharacterStringType
   | ChoiceType
   | EnumeratedType
   | IntegerType
@@ -23,8 +28,8 @@ export type BuiltinType =
   | SequenceOfType
   // SetType |
   // SetOfType |
-  // ObjectIdentifierType |
-  // ObjectClassFieldType |
+  | ObjectIdentifierType
+  | ObjectClassFieldType
   | BooleanType
   | NullType;
 
@@ -35,3 +40,7 @@ export type DefinedType =
   | TypeReference
   | ParameterizedType;
 // ParamterizedValueSetType
+
+export type DefinedObjectClass = ObjectClassReference;
+// ExternalObjectClassReference
+//  UsefuleObjectClassReference

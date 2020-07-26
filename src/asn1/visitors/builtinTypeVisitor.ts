@@ -1,11 +1,12 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { BuiltinType } from '../classes/asnType';
 import { BooleanType } from '../classes/booleanType';
 import { NullType } from '../classes/nullType';
 import {
   BitStringTypeContext,
   BuiltinTypeContext,
+  CharacterStringTypeContext,
   ChoiceTypeContext,
   EnumeratedTypeContext,
   IntegerTypeContext,
@@ -19,9 +20,12 @@ import {
 } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 import { BitStringTypeVisitor } from './bitStringTypeVisitor';
+import { CharacterStringTypeVisitor } from './characterStringTypeVisitor';
 import { ChoiceTypeVisitor } from './choiceTypeVisitor';
 import { EnumeratedTypeVisitor } from './enumeratedTypeVisitor';
 import { IntegerTypeVisitor } from './integerTypeVisitor';
+import { ObjectClassFieldTypeVisitor } from './objectClassFieldTypeVisitor';
+import { ObjectidentifiertypeVisitor } from './objectIdentifierTypeVisitor';
 import { OctetStringTypeVisitor } from './octetStringTypeVisitor';
 import { SequenceOfTypeVisitor } from './sequenceOfTypeVisitor';
 import { SequenceTypeVisitor } from './sequenceTypeVisitor';
@@ -32,6 +36,7 @@ import { SequenceTypeVisitor } from './sequenceTypeVisitor';
  * builtinType:
  *   octetStringType
  * | bitStringType
+ * | characterStringType
  * | choiceType
  * | enumeratedType
  * | integerType
@@ -68,9 +73,11 @@ export class BuiltinTypeVisitor extends AbstractParseTreeVisitor<BuiltinType>
     } else if (firstCtx instanceof SetOfTypeContext) {
       return unimpl(ctx.text);
     } else if (firstCtx instanceof ObjectidentifiertypeContext) {
-      return unimpl(ctx.text);
+      return firstCtx.accept(new ObjectidentifiertypeVisitor());
     } else if (firstCtx instanceof ObjectClassFieldTypeContext) {
-      return unimpl(ctx.text);
+      return firstCtx.accept(new ObjectClassFieldTypeVisitor());
+    } else if (firstCtx instanceof CharacterStringTypeContext) {
+      return firstCtx.accept(new CharacterStringTypeVisitor());
     } else {
       switch (ctx.text) {
         case 'BOOLEAN': {

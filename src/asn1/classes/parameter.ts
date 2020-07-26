@@ -1,13 +1,23 @@
+import { ParamGovernor } from '../types';
+
 export class Parameter {
   public dummyReference: string;
+  public paramGovernor: ParamGovernor | undefined;
 
   private parameterTag: undefined;
 
-  constructor(dummyReference: string) {
+  constructor(
+    dummyReference: string,
+    paramGovernor: ParamGovernor | undefined
+  ) {
     this.dummyReference = dummyReference;
+    this.paramGovernor = paramGovernor;
   }
 
   public toString(): string {
-    return this.dummyReference;
+    if (this.paramGovernor === undefined) {
+      return this.dummyReference;
+    }
+    return `${this.paramGovernor.toString()}: ${this.dummyReference}`;
   }
 }

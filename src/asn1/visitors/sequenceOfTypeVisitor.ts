@@ -1,5 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { AsnType } from '../classes/asnType';
 import { NamedType } from '../classes/namedType';
 import { NullType } from '../classes/nullType';

@@ -1,4 +1,9 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
+import { Logger } from '../../logger';
+import {
+  DefinitiveIdentification,
+  IDefinitiveObjIdComponent,
+} from '../classes/definitiveIdentification';
 import { ModuleDefinition } from '../classes/moduleDefinition';
 import { ModuleDefinitionContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
@@ -23,16 +28,34 @@ export class ModuleDefinitionVisitor
   extends AbstractParseTreeVisitor<ModuleDefinition>
   implements ASN_3gppVisitor<ModuleDefinition> {
   public visitChildren(ctx: ModuleDefinitionContext): ModuleDefinition {
-    if (ctx.childCount > 8) {
-      throw Error('DefinitiveIdentification is not implemented');
-    }
     const name = ctx.getChild(0).text;
+    const definitiveIdentificationArr: IDefinitiveObjIdComponent[] = [];
+    if (ctx.childCount > 8) {
+      const indexStart = 2;
+      const indexStop = ctx.childCount - 8;
+      for (let i = indexStart; i < indexStop; i += 4) {
+        // tslint:disable-next-line: no-shadowed-variable
+        const name = ctx.getChild(i).text;
+        // tslint:disable-next-line: variable-name
+        const number = ctx.getChild(i + 2).text;
+        definitiveIdentificationArr.push({ name, number });
+      }
+    }
+    const definitiveIdentification = new DefinitiveIdentification(
+      definitiveIdentificationArr
+    );
     const tagDefault = ctx.tagDefault().accept(new TagDefaultVisitor());
     const extensionDefault = ctx
       .extensionDefault()
       .accept(new ExtensionDefaultVisitor());
     const moduleBody = ctx.moduleBody().accept(new ModuleBodyVisitor());
-    return new ModuleDefinition(name, tagDefault, extensionDefault, moduleBody);
+    return new ModuleDefinition(
+      name,
+      definitiveIdentification,
+      tagDefault,
+      extensionDefault,
+      moduleBody
+    );
   }
 
   protected defaultResult(): ModuleDefinition {

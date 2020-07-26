@@ -1,11 +1,13 @@
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { SizeConstraint } from '../classes/sizeConstraint';
 import { IParameterMapping } from '../expander';
+import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
 import { InnerTypeConstraints } from './innerTypeConstraints';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 
 export class OctetStringType {
   public constraint: ContentsConstraint | SizeConstraint | undefined;
@@ -30,6 +32,10 @@ export class OctetStringType {
     if (constraint instanceof ContentsConstraint) {
       this.constraint = constraint;
     } else if (constraint instanceof InnerTypeConstraints) {
+      return unimpl();
+    } else if (constraint instanceof ObjectSet) {
+      return unimpl();
+    } else if (constraint instanceof ComponentRelationConstraint) {
       return unimpl();
     } else {
       if (constraint.length !== 1) {

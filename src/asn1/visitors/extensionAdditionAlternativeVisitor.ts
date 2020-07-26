@@ -1,5 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { ExtensionAdditionAlternative } from '../classes/choiceType';
 import {
   ExtensionAdditionAlternativeContext,

@@ -1,4 +1,4 @@
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { Assignment } from './assignment';
 import { ModuleDefinition } from './moduleDefinition';
 

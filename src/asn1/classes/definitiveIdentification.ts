@@ -1,0 +1,22 @@
+export class DefinitiveIdentification {
+  public definitiveOID: IDefinitiveObjIdComponent[];
+
+  constructor(definitiveOID: IDefinitiveObjIdComponent[]) {
+    this.definitiveOID = definitiveOID;
+  }
+
+  public toString(): string {
+    if (this.definitiveOID.length === 0) {
+      return '';
+    }
+    const innerString = this.definitiveOID
+      .map((item) => `${item.name} (${item.number})`)
+      .join(' ');
+    return `{ ${innerString} }`;
+  }
+}
+
+export interface IDefinitiveObjIdComponent {
+  name: string;
+  number: string;
+}

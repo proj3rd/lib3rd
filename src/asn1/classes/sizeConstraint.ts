@@ -1,16 +1,18 @@
+import { todo } from 'unimpl';
+import { ExtensionMarker } from './extensionMarker';
 import { IntegerValue } from './integerValue';
 import { ValueRange } from './valueRange';
 
 export class SizeConstraint {
-  public constraint: IntegerValue | ValueRange;
+  public constraint: Array<ExtensionMarker | IntegerValue | ValueRange>;
 
   private sizeConstraintTag: undefined;
 
-  constructor(constraint: IntegerValue | ValueRange) {
+  constructor(constraint: Array<ExtensionMarker | IntegerValue | ValueRange>) {
     this.constraint = constraint;
   }
 
   public toString(): string {
-    return `SIZE (${this.constraint.toString()})`;
+    return todo();
   }
 }

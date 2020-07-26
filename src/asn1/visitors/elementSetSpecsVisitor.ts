@@ -1,8 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from '../../_devUtils';
+import { todo, unimpl } from 'unimpl';
 import { _ElementSetSpecs } from '../classes/constraint';
-import { ElementSetSpecsContext } from '../grammar/ASN_3gppParser';
+import { ExtensionMarker } from '../classes/extensionMarker';
+import {
+  AdditionalElementSetSpecContext,
+  ElementSetSpecsContext,
+  RootElementSetSpecContext,
+} from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { AdditionalElementSetSpecVisitor } from './additionalElementSetSpecVisitor';
 import { RootElementSetSpecVisitor } from './rootElementSetSpecVisitor';
 
 /**
@@ -16,13 +22,33 @@ export class ElementSetSpecsVisitor
   implements ASN_3gppVisitor<_ElementSetSpecs> {
   public visitChildren(ctx: ElementSetSpecsContext): _ElementSetSpecs {
     const elementSetSpecs: _ElementSetSpecs = [];
-    const rootElementSetSpecCtx = ctx.rootElementSetSpec();
-    const rootElementSetSpec = rootElementSetSpecCtx.accept(
-      new RootElementSetSpecVisitor()
-    );
-    elementSetSpecs.push(rootElementSetSpec);
-    if (ctx.childCount > 1) {
-      unimpl();
+    const { childCount } = ctx;
+    for (let i = 0; i < childCount; i++) {
+      const childCtx = ctx.getChild(i);
+      if (childCtx instanceof RootElementSetSpecContext) {
+        const rootElementSetSpec = childCtx.accept(
+          new RootElementSetSpecVisitor()
+        );
+        elementSetSpecs.push(rootElementSetSpec);
+      } else if (childCtx instanceof AdditionalElementSetSpecContext) {
+        const additionalElementSetSpec = childCtx.accept(
+          new AdditionalElementSetSpecVisitor()
+        );
+        elementSetSpecs.push(additionalElementSetSpec);
+      } else {
+        switch (childCtx.text) {
+          case ',': {
+            break;
+          }
+          case '...': {
+            elementSetSpecs.push(ExtensionMarker.getInstance());
+            break;
+          }
+          default: {
+            throw Error();
+          }
+        }
+      }
     }
     return elementSetSpecs;
   }

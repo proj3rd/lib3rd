@@ -90,6 +90,8 @@ import { TypeAssignmentContext } from "./ASN_3gppParser";
 import { ValueAssignmentContext } from "./ASN_3gppParser";
 import { AsnTypeContext } from "./ASN_3gppParser";
 import { BuiltinTypeContext } from "./ASN_3gppParser";
+import { CharacterStringTypeContext } from "./ASN_3gppParser";
+import { RestrictedCharacterStringTypeContext } from "./ASN_3gppParser";
 import { ObjectClassFieldTypeContext } from "./ASN_3gppParser";
 import { SetTypeContext } from "./ASN_3gppParser";
 import { SetOfTypeContext } from "./ASN_3gppParser";
@@ -769,6 +771,20 @@ export interface ASN_3gppVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitBuiltinType?: (ctx: BuiltinTypeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `ASN_3gppParser.characterStringType`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitCharacterStringType?: (ctx: CharacterStringTypeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `ASN_3gppParser.restrictedCharacterStringType`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitRestrictedCharacterStringType?: (ctx: RestrictedCharacterStringTypeContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `ASN_3gppParser.objectClassFieldType`.

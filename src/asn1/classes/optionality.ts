@@ -1,3 +1,4 @@
+import { AsnType } from './asnType';
 import { Value } from './value';
 
 /**
@@ -10,13 +11,13 @@ import { Value } from './value';
 export class Optionality {
   private optionalityTag: undefined;
 
-  private defaultValue: Value | undefined;
+  private defaultValue: AsnType | Value | undefined;
 
-  constructor(defaultValue?: Value) {
+  constructor(defaultValue?: AsnType | Value) {
     this.defaultValue = defaultValue;
   }
 
-  public getDefaultValue(): Value | undefined {
+  public getDefaultValue(): AsnType | Value | undefined {
     return this.defaultValue;
   }
 

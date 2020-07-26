@@ -1,4 +1,4 @@
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { _Constraint } from './constraint';

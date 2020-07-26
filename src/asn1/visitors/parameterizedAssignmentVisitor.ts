@@ -1,6 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from '../../_devUtils';
-import { AsnType } from '../classes/asnType';
+import { unimpl } from 'unimpl';
+import { AsnType, DefinedObjectClass } from '../classes/asnType';
+import { ObjectSet } from '../classes/objectSet';
 import { Parameter } from '../classes/parameter';
 import {
   AsnTypeContext,
@@ -13,6 +14,8 @@ import {
 } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 import { AsnTypeVisitor } from './asnTypeVisitor';
+import { DefinedObjectClassVisitor } from './definedObjectClassVisitor';
+import { ObjectSetVisitor } from './objectSetVisitor';
 import { ParameterListVisitor } from './parameterListVisitor';
 
 /**
@@ -25,18 +28,18 @@ import { ParameterListVisitor } from './parameterListVisitor';
  */
 
 export class ParameterizedAssignmentVisitor
-  extends AbstractParseTreeVisitor<IParameterizedTypeAssignmentElements>
-  implements ASN_3gppVisitor<IParameterizedTypeAssignmentElements> {
+  extends AbstractParseTreeVisitor<IParameterizedAssignmentElements>
+  implements ASN_3gppVisitor<IParameterizedAssignmentElements> {
   public visitChildren(
     ctx: ParameterizedAssignmentContext
-  ): IParameterizedTypeAssignmentElements {
+  ): IParameterizedAssignmentElements {
     const parameterListCtx = ctx.parameterList();
     const thirdCtx = ctx.getChild(2);
     if (parameterListCtx !== undefined) {
       const parameters = parameterListCtx.accept(new ParameterListVisitor());
       if (thirdCtx instanceof AsnTypeContext) {
         const asnType = thirdCtx.accept(new AsnTypeVisitor());
-        return { parameters, asnType };
+        return { parameterizedTypeAssignmentElements: { parameters, asnType } };
       } else if (thirdCtx instanceof ValueContext) {
         return unimpl();
       } else if (thirdCtx instanceof ValueSetContext) {
@@ -46,24 +49,40 @@ export class ParameterizedAssignmentVisitor
     }
     const definedObjectClassCtx = ctx.definedObjectClass();
     if (definedObjectClassCtx !== undefined) {
+      const definedObjectClass = definedObjectClassCtx.accept(
+        new DefinedObjectClassVisitor()
+      );
       if (thirdCtx instanceof ObjectContext) {
         return unimpl();
       } else if (thirdCtx instanceof ObjectClassContext) {
         return unimpl();
       } else if (thirdCtx instanceof ObjectSetContext) {
-        return unimpl();
+        const objectSet = thirdCtx.accept(new ObjectSetVisitor());
+        return {
+          objectSetAssignmentElements: { definedObjectClass, objectSet },
+        };
       }
       throw Error();
     }
     throw Error();
   }
 
-  protected defaultResult(): IParameterizedTypeAssignmentElements {
+  protected defaultResult(): IParameterizedAssignmentElements {
     return unimpl();
   }
+}
+
+interface IParameterizedAssignmentElements {
+  parameterizedTypeAssignmentElements?: IParameterizedTypeAssignmentElements;
+  objectSetAssignmentElements?: IObjectSetAssignmentElements;
 }
 
 interface IParameterizedTypeAssignmentElements {
   parameters: Parameter[];
   asnType: AsnType;
+}
+
+interface IObjectSetAssignmentElements {
+  definedObjectClass: DefinedObjectClass;
+  objectSet: ObjectSet;
 }

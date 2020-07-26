@@ -1,5 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { EnumerationItem } from '../classes/enumeratedType';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import {

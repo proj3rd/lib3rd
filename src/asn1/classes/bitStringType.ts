@@ -1,16 +1,24 @@
-import { unimpl } from '../../_devUtils';
+import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
+import { INamedBit } from '../types';
+import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { _Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
 import { InnerTypeConstraints } from './innerTypeConstraints';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 import { SizeConstraint } from './sizeConstraint';
 
 export class BitStringType {
   public constraint: SizeConstraint | undefined;
+  public namedBitList: INamedBit[];
 
   private bitStringTypeTag: undefined;
+
+  constructor(namedBitList: INamedBit[] = []) {
+    this.namedBitList = namedBitList;
+  }
 
   public expand(
     modules: Modules,
@@ -30,6 +38,10 @@ export class BitStringType {
     if (constraint instanceof ContentsConstraint) {
       return unimpl();
     } else if (constraint instanceof InnerTypeConstraints) {
+      return unimpl();
+    } else if (constraint instanceof ObjectSet) {
+      return unimpl();
+    } else if (constraint instanceof ComponentRelationConstraint) {
       return unimpl();
     } else {
       if (constraint.length !== 1) {
@@ -54,6 +66,15 @@ export class BitStringType {
 
   public toString(): string {
     const arrToString = ['BIT STRING'];
+    if (this.namedBitList.length > 0) {
+      arrToString.push('{');
+      this.namedBitList
+        .map((namedBit) => {
+          return `${namedBit.name} (${namedBit.valueLiteral})`;
+        })
+        .join(', ');
+      arrToString.push('}');
+    }
     if (this.constraint !== undefined) {
       arrToString.push(`(${this.constraint.toString()})`);
     }
