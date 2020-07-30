@@ -1,8 +1,8 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
+import { ComponentRelationConstraint } from '../classes/componentRelationConstraint';
 import { TableConstraintContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { TableConstraint } from '../types';
 import { ComponentRelationConstraintVisitor } from './componentRelationConstraintVisitor';
 
 /**
@@ -12,16 +12,18 @@ import { ComponentRelationConstraintVisitor } from './componentRelationConstrain
  * ```
  */
 export class TableConstraintVisitor
-  extends AbstractParseTreeVisitor<TableConstraint>
-  implements ASN_3gppVisitor<TableConstraint> {
-  public visitChildren(ctx: TableConstraintContext): TableConstraint {
+  extends AbstractParseTreeVisitor<ComponentRelationConstraint>
+  implements ASN_3gppVisitor<ComponentRelationConstraint> {
+  public visitChildren(
+    ctx: TableConstraintContext
+  ): ComponentRelationConstraint {
     const componentRelationConstraintCtx = ctx.componentRelationConstraint();
     return componentRelationConstraintCtx.accept(
       new ComponentRelationConstraintVisitor()
     );
   }
 
-  protected defaultResult(): TableConstraint {
+  protected defaultResult(): ComponentRelationConstraint {
     return unimpl();
   }
 }

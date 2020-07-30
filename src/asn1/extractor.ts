@@ -1,9 +1,7 @@
-import assert from 'assert';
-import { readFileSync, writeFileSync } from 'fs';
-import { parse } from 'path';
+import { normalize } from '.';
 import { Logger } from '../logger';
 
-const logger = Logger.getLogger('asn1.extracter');
+const logger = Logger.getLogger('asn1.extractor');
 
 export function extract(text: string): string {
   let asn1 = '';
@@ -11,7 +9,7 @@ export function extract(text: string): string {
   while (true) {
     const resultStart = reStart.exec(text);
     if (resultStart === null) {
-      return asn1;
+      return normalize(asn1);
     }
     const start = resultStart.index + (trimStart ? resultStart[0].length : 0);
     reStop.lastIndex = start;
@@ -21,7 +19,7 @@ export function extract(text: string): string {
       logger.error(
         'This is strange. The start token is found but the end token is not found. Extractor stops here and outputs the current state.'
       );
-      return asn1;
+      return normalize(asn1);
     }
     const end = resultStop.index + (trimStop ? 0 : resultStop[0].length);
     reStart.lastIndex = end;
@@ -70,62 +68,4 @@ function selectRegExp(
   reStart.lastIndex = 0;
   reStop.lastIndex = 0;
   return { reStart, trimStart, reStop, trimStop };
-}
-
-// tslint:disable-next-line: only-arrow-functions
-describe('Extract ASN.1 [extract_all]', function () {
-  // tslint:disable-next-line: only-arrow-functions
-  it('Normal token [extract_normal_token]', function () {
-    const input = `
--- ASN1START
-First ASN.1 content
--- ASN1STOP
-This is not ASN.1 content
--- ASN1START
-Second ASN.1 content
--- ASN1STOP
-`;
-    const expected = `
-First ASN.1 content
-
-
-Second ASN.1 content
-
-`;
-    assert.equal(extract(input), expected);
-  });
-
-  // tslint:disable-next-line: only-arrow-functions
-  it('Old RAN3 token [extract_old_ran3_token]', function () {
-    const input = `
--- ************************************
-First ASN.1 content
-END
-This is not ASN.1 content
--- ************************************
-Second ASN.1 content
-END
-`;
-    const expected = `-- ************************************
-First ASN.1 content
-END
--- ************************************
-Second ASN.1 content
-END
-`;
-    assert.equal(extract(input), expected);
-  });
-});
-
-if (require.main === module) {
-  const inputPath = process.argv[2];
-  if (inputPath === undefined) {
-    logger.error('Filepath is not given. Exit.');
-    process.exit(-1);
-  }
-  const text = readFileSync(inputPath, 'utf8');
-  const asn1 = extract(text);
-  const parsedPath = parse(inputPath);
-  const outputName = `${parsedPath.name}.asn1`;
-  writeFileSync(outputName, asn1);
 }

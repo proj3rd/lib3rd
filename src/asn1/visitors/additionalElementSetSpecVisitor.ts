@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _Unions } from '../classes/constraint';
+import { Unions } from '../classes/unions';
 import { AdditionalElementSetSpecContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 import { ElementSetSpecVisitor } from './elementSetSpecVisitor';
@@ -12,14 +12,14 @@ import { ElementSetSpecVisitor } from './elementSetSpecVisitor';
  * ```
  */
 export class AdditionalElementSetSpecVisitor
-  extends AbstractParseTreeVisitor<_Unions>
-  implements ASN_3gppVisitor<_Unions> {
-  public visitChildren(ctx: AdditionalElementSetSpecContext): _Unions {
+  extends AbstractParseTreeVisitor<Unions>
+  implements ASN_3gppVisitor<Unions> {
+  public visitChildren(ctx: AdditionalElementSetSpecContext): Unions {
     const elementSetSpecCtx = ctx.elementSetSpec();
     return elementSetSpecCtx.accept(new ElementSetSpecVisitor());
   }
 
-  protected defaultResult(): _Unions {
+  protected defaultResult(): Unions {
     return unimpl();
   }
 }

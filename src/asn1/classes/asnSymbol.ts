@@ -12,10 +12,9 @@ export class Reference {
   }
 
   public toString(): string {
-    const arrToString = [this.name];
     if (this.parameterized) {
-      arrToString.push('{}');
+      return `${this.name}{}`;
     }
-    return arrToString.join(' ');
+    return this.name;
   }
 }

@@ -18,9 +18,9 @@ export class Syntax {
   }
 
   public toString(): string {
-    if (this.optional === false) {
-      return `${this.literal}    ${this.primitiveFieldName.toString()}`;
+    if (this.optional) {
+      return `[${this.literal}    ${this.primitiveFieldName.toString()}]`;
     }
-    return `[${this.literal}    ${this.primitiveFieldName.toString()}]`;
+    return `${this.literal}    ${this.primitiveFieldName.toString()}`;
   }
 }

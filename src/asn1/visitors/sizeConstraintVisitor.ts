@@ -37,11 +37,14 @@ export class SizeConstraintVisitor
       const sizeConstraint: Array<
         ExtensionMarker | IntegerValue | ValueRange
       > = [];
-      for (const elementSetSpec of constraint) {
+      for (const elementSetSpec of constraint.elementSetSpecList) {
         if (elementSetSpec instanceof ExtensionMarker) {
           sizeConstraint.push(elementSetSpec);
         } else {
-          const intersections = elementSetSpec[0];
+          if (elementSetSpec.intersectionsList.length > 1) {
+            return unimpl();
+          }
+          const intersections = elementSetSpec.intersectionsList[0];
           if (intersections.length !== 1) {
             throw Error();
           }

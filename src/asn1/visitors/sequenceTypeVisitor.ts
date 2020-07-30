@@ -20,7 +20,10 @@ export class SequenceTypeVisitor extends AbstractParseTreeVisitor<SequenceType>
     const componentTypes: RootSequenceComponents[] = [];
     const extensionAndExceptionCtx = ctx.extensionAndException();
     if (extensionAndExceptionCtx !== undefined) {
-      extensionAndExceptionCtx.accept(new ExtensionAndExceptionVisitor());
+      const extensionAndException = extensionAndExceptionCtx.accept(
+        new ExtensionAndExceptionVisitor()
+      );
+      componentTypes.push(extensionAndException);
     }
     const optionalExtensionMarkerCtx = ctx.optionalExtensionMarker();
     if (optionalExtensionMarkerCtx !== undefined) {

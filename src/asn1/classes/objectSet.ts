@@ -1,4 +1,4 @@
-import { DefinedObjectSet } from '../types';
+import { indent } from '../formatter';
 import { _ElementSetSpecs } from './constraint';
 
 /**
@@ -15,6 +15,10 @@ export class ObjectSet {
   }
 
   public toString(): string {
-    return `{${this.objectSetSpec.toString()}}`;
+    const innerString = this.objectSetSpec
+      .map((elementSetSpec) => elementSetSpec.toString())
+      .join(',\n');
+    const arrToString: string[] = ['{', indent(innerString), '}'];
+    return arrToString.join('\n');
   }
 }

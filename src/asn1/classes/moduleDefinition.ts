@@ -38,18 +38,13 @@ export class ModuleDefinition implements IModuleBody {
   }
 
   public toString(): string {
-    const arrToString: string[] = [];
-    arrToString.push(
-      [
-        this.name,
-        this.definitiveIdentification.toString(),
-        'DEFINITIONS',
-        this.tagDefault,
-        this.extensionDefault,
-        '::=',
-      ].join(' ')
-    );
-    arrToString.push('BEGIN');
+    const headerString = [
+      this.name,
+      this.definitiveIdentification.toString(),
+      `DEFINITIONS ${this.tagDefault} ${this.extensionDefault} ::=`,
+      'BEGIN',
+    ].join('\n');
+    const arrToString: string[] = [headerString];
     if (this.exports !== null) {
       return unimpl();
     }

@@ -42,13 +42,10 @@ export class ParameterizedType {
   }
 
   public toString(): string {
-    const arrToString = [this.simpleDefinedType.toString()];
-    arrToString.push('{');
-    arrToString.push(
-      this.actualParameters.map((parameter) => parameter.toString()).join(', ')
-    );
-    arrToString.push('}');
-    return arrToString.join(' ');
+    const innerString = this.actualParameters
+      .map((parameter) => parameter.toString())
+      .join(', ');
+    return `${this.simpleDefinedType.toString()} {${innerString}}`;
   }
 
   private expandExternalTypeReference(

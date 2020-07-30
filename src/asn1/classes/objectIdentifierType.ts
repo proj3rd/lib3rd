@@ -18,4 +18,8 @@ export class ObjectIdentifierType {
       return todo();
     }
   }
+
+  public toString(): string {
+    return 'OBJECT IDENTIFIER';
+  }
 }

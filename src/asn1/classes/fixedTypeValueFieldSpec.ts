@@ -1,4 +1,3 @@
-import { unimpl } from 'unimpl';
 import { AsnType } from './asnType';
 import { Optionality } from './optionality';
 import { PrimitiveFieldName } from './primitiveFieldName';
@@ -24,6 +23,16 @@ export class FixedTypeValueFieldSpec {
   }
 
   public toString(): string {
-    return unimpl();
+    const arrToString: string[] = [
+      this.fieldReference.toString(),
+      this.asnType.toString(),
+    ];
+    if (this.unique) {
+      arrToString.push('UNIQUE');
+    }
+    if (this.optionality !== undefined) {
+      arrToString.push(this.optionality.toString());
+    }
+    return arrToString.join(' ');
   }
 }

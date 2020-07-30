@@ -4,6 +4,12 @@ import { DefinedObjectClass } from './asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 
+/**
+ * X.681 clause 12.1
+ * ```
+ * name definedObjectClass ::= objectSet
+ * ```
+ */
 export class ObjectSetAssignment {
   public name: string;
   public definedObjectClass: DefinedObjectClass;
@@ -29,6 +35,8 @@ export class ObjectSetAssignment {
   }
 
   public toString(): string {
-    return todo();
+    return `${
+      this.name
+    } ${this.definedObjectClass.toString()} ::= ${this.objectSet.toString()}`;
   }
 }

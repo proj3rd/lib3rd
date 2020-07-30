@@ -1,28 +1,50 @@
 import { readFileSync, writeFileSync } from 'fs';
+import { normalize } from '.';
+import { ExtensionMarker } from './classes/extensionMarker';
+import { IntegerValue } from './classes/integerValue';
+import { ValueRange } from './classes/valueRange';
 import { parse } from './parser';
 
 const RE_START_OF_LINE = /^/gm;
 
+function getConstraintSeparator(
+  constraints: Array<ExtensionMarker | IntegerValue | ValueRange>,
+  index: number
+): '|' | ',' {
+  if (index === 0) {
+    throw RangeError();
+  }
+  const prevIsExtensionMarker =
+    constraints[index - 1] instanceof ExtensionMarker;
+  const currIsExtensionMarker = constraints[index] instanceof ExtensionMarker;
+  if (!prevIsExtensionMarker && !currIsExtensionMarker) {
+    return '|';
+  } else {
+    return ',';
+  }
+}
+
+/**
+ * Use case: `SIZE (...)` and `INTEGER (...)`
+ * @param constraints
+ */
+export function getPermittedIntegerValues(
+  constraints: Array<ExtensionMarker | IntegerValue | ValueRange>
+): string {
+  if (constraints.length === 0) {
+    return '';
+  }
+  const arrToString = ['('];
+  constraints.forEach((c, index) => {
+    if (index !== 0) {
+      arrToString.push(getConstraintSeparator(constraints, index));
+    }
+    arrToString.push(c.toString());
+  });
+  arrToString.push(')');
+  return arrToString.join(' ');
+}
+
 export function indent(text: string, tabSize: number = 4): string {
   return text.replace(RE_START_OF_LINE, ' '.repeat(tabSize));
 }
-
-describe('Format Modules [format_all]', function () {
-  this.timeout(0);
-
-  // tslint:disable-next-line: only-arrow-functions
-  it('LTE RRC (36331) [format_36331]', function () {
-    const asn1 = readFileSync('resources/36331-g00.asn1', 'utf8');
-    const modules = parse(asn1);
-    const formatted = modules.toString();
-    writeFileSync('36331-g00.asn1', formatted);
-  });
-
-  // tslint:disable-next-line: only-arrow-functions
-  it('NR RRC (38331) [format_38331]', function () {
-    const asn1 = readFileSync('resources/38331-g00.asn1', 'utf8');
-    const modules = parse(asn1);
-    const formatted = modules.toString();
-    writeFileSync('38331-g00.asn1', formatted);
-  });
-});

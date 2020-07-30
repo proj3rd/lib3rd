@@ -13,13 +13,10 @@ export class InnerTypeConstraints {
   }
 
   public toString(): string {
-    const arrToString = ['WITH COMPONENTS'];
-    arrToString.push('{');
-    arrToString.push(
-      this.components.map((component) => component.toString()).join(', ')
-    );
-    arrToString.push('}');
-    return arrToString.join(' ');
+    const componentsString = this.components
+      .map((component) => component.toString())
+      .join(', ');
+    return `WITH COMPONENTS {${componentsString}}`;
   }
 }
 

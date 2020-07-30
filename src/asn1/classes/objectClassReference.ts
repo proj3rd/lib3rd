@@ -1,5 +1,6 @@
-import { unimpl } from 'unimpl';
-
+/**
+ * X.681 clause 7.1
+ */
 export class ObjectClassReference {
   public objectClassReference: string;
 
@@ -10,6 +11,6 @@ export class ObjectClassReference {
   }
 
   public toString(): string {
-    return unimpl();
+    return this.objectClassReference;
   }
 }

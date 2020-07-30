@@ -58,6 +58,10 @@ export class ObjectClassAssignment {
   ): ObjectClassAssignment {
     return unimpl();
   }
+
+  public toString(): string {
+    return `${this.name} ::= ${this.objectClass.toString()}`;
+  }
 }
 
 export class ParameterizedTypeAssignment {
@@ -93,14 +97,10 @@ export class ParameterizedTypeAssignment {
   }
 
   public toString(): string {
-    const arrToString = [this.name];
     const parametersString = this.parameters
       .map((parameter) => parameter.toString())
       .join(', ');
-    arrToString.push(`{ ${parametersString} }`);
-    arrToString.push('::=');
-    arrToString.push(this.asnType.toString());
-    return arrToString.join(' ');
+    return `${this.name} {${parametersString}} ::= ${this.asnType.toString()}`;
   }
 }
 

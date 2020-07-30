@@ -38,14 +38,17 @@ export class OctetStringType {
     } else if (constraint instanceof ComponentRelationConstraint) {
       return unimpl();
     } else {
-      if (constraint.length !== 1) {
+      if (constraint.elementSetSpecList.length !== 1) {
         return unimpl();
       }
-      const elementSetSpec = constraint[0];
+      const elementSetSpec = constraint.elementSetSpecList[0];
       if (elementSetSpec instanceof ExtensionMarker) {
         throw Error('Not implemented');
       }
-      const intersections = elementSetSpec[0];
+      if (elementSetSpec.intersectionsList.length > 1) {
+        return unimpl();
+      }
+      const intersections = elementSetSpec.intersectionsList[0];
       if (intersections.length !== 1) {
         return unimpl();
       }
@@ -59,10 +62,9 @@ export class OctetStringType {
   }
 
   public toString(): string {
-    const arrToString = ['OCTET STRING'];
-    if (this.constraint !== undefined) {
-      arrToString.push(`(${this.constraint.toString()})`);
+    if (this.constraint === undefined) {
+      return 'OCTET STRING';
     }
-    return arrToString.join(' ');
+    return `OCTET STRING (${this.constraint.toString()})`;
   }
 }

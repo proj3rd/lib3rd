@@ -44,14 +44,17 @@ export class BitStringType {
     } else if (constraint instanceof ComponentRelationConstraint) {
       return unimpl();
     } else {
-      if (constraint.length !== 1) {
+      if (constraint.elementSetSpecList.length !== 1) {
         return unimpl();
       }
-      const elementSetSpec = constraint[0];
+      const elementSetSpec = constraint.elementSetSpecList[0];
       if (elementSetSpec instanceof ExtensionMarker) {
         throw Error('Not implemented');
       }
-      const intersections = elementSetSpec[0];
+      if (elementSetSpec.intersectionsList.length > 1) {
+        return unimpl();
+      }
+      const intersections = elementSetSpec.intersectionsList[0];
       if (intersections.length !== 1) {
         return unimpl();
       }
@@ -67,13 +70,12 @@ export class BitStringType {
   public toString(): string {
     const arrToString = ['BIT STRING'];
     if (this.namedBitList.length > 0) {
-      arrToString.push('{');
-      this.namedBitList
+      const namedBitListString = this.namedBitList
         .map((namedBit) => {
           return `${namedBit.name} (${namedBit.valueLiteral})`;
         })
         .join(', ');
-      arrToString.push('}');
+      arrToString.push(`{${namedBitListString}}`);
     }
     if (this.constraint !== undefined) {
       arrToString.push(`(${this.constraint.toString()})`);

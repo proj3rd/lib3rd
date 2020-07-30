@@ -8,6 +8,6 @@ export class PrimitiveFieldName {
   }
 
   public toString(): string {
-    return `@${this.name}`;
+    return `&${this.name}`;
   }
 }

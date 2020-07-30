@@ -1,6 +1,5 @@
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { TableConstraint } from '../types';
 import { DefinedObjectClass } from './asnType';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { _Constraint } from './constraint';
@@ -10,10 +9,16 @@ import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 import { PrimitiveFieldName } from './primitiveFieldName';
 
+/**
+ * X.681 clause 14
+ * ```
+ * definedObjectClass.primitiveFieldName[0]....primitiveFieldName[n-1] ( constraint )
+ * ```
+ */
 export class ObjectClassFieldType {
   public definedObjectClass: DefinedObjectClass;
   public fieldName: PrimitiveFieldName[];
-  public constraint: TableConstraint | undefined;
+  public constraint: ComponentRelationConstraint | undefined;
 
   private objectClassFieldType: undefined;
 
@@ -45,7 +50,7 @@ export class ObjectClassFieldType {
     } else if (constraint instanceof InnerTypeConstraints) {
       unimpl();
     } else if (constraint instanceof ObjectSet) {
-      this.constraint = constraint;
+      unimpl();
     } else if (constraint instanceof ComponentRelationConstraint) {
       this.constraint = constraint;
     } else {
@@ -54,6 +59,13 @@ export class ObjectClassFieldType {
   }
 
   public toString(): string {
-    return unimpl();
+    const fieldNamesString = this.fieldName
+      .map((primitiveFieldName) => primitiveFieldName.toString())
+      .join('.');
+    const outerString = `${this.definedObjectClass.toString()}.${fieldNamesString}`;
+    if (this.constraint === undefined) {
+      return outerString;
+    }
+    return `${outerString} (${this.constraint.toString()})`;
   }
 }

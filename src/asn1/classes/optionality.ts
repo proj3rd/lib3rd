@@ -9,9 +9,9 @@ import { Value } from './value';
  * instantiate a new instance: `new Optionality(defaultValue)`.
  */
 export class Optionality {
-  private optionalityTag: undefined;
+  public defaultValue: AsnType | Value | undefined;
 
-  private defaultValue: AsnType | Value | undefined;
+  private optionalityTag: undefined;
 
   constructor(defaultValue?: AsnType | Value) {
     this.defaultValue = defaultValue;

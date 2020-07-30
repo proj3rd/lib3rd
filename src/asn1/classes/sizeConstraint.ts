@@ -1,4 +1,4 @@
-import { todo } from 'unimpl';
+import { getPermittedIntegerValues } from '../formatter';
 import { ExtensionMarker } from './extensionMarker';
 import { IntegerValue } from './integerValue';
 import { ValueRange } from './valueRange';
@@ -13,6 +13,6 @@ export class SizeConstraint {
   }
 
   public toString(): string {
-    return todo();
+    return `SIZE ${getPermittedIntegerValues(this.constraint)}`;
   }
 }

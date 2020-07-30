@@ -1,3 +1,5 @@
 .antlr/
 node_modules/
 dist/
+*.class
+*.java

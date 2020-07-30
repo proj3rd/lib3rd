@@ -1,6 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _Intersections, _Unions } from '../classes/constraint';
+import { _Intersections } from '../classes/constraint';
+import { Unions } from '../classes/unions';
 import { UnionsContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 import { IntersectionsVisitor } from './intersectionsVisitor';
@@ -11,16 +12,17 @@ import { IntersectionsVisitor } from './intersectionsVisitor';
  * unions: (intersections) (unionMark intersections)*
  * ```
  */
-export class UnionsVisitor extends AbstractParseTreeVisitor<_Unions>
-  implements ASN_3gppVisitor<_Unions> {
-  public visitChildren(ctx: UnionsContext): _Unions {
+export class UnionsVisitor extends AbstractParseTreeVisitor<Unions>
+  implements ASN_3gppVisitor<Unions> {
+  public visitChildren(ctx: UnionsContext): Unions {
     const intersectionsCtxes = ctx.intersections();
-    return intersectionsCtxes.map((intersectionsCtx) =>
+    const intersectionsList = intersectionsCtxes.map((intersectionsCtx) =>
       intersectionsCtx.accept(new IntersectionsVisitor())
     );
+    return new Unions(intersectionsList);
   }
 
-  protected defaultResult(): _Unions {
+  protected defaultResult(): Unions {
     return unimpl();
   }
 }

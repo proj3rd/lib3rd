@@ -2425,7 +2425,7 @@ BeamFailureRecoveryConfig ::=       SEQUENCE {
     ]],
     [[
     ra-PrioritizationTwoStep-r16        RA-Prioritization                                                         OPTIONAL,  -- Need R
-    candidateBeamRSListExt-r16          SEQUENCE (SIZE(0..maxNrofCandidateBeamsExt-r16)) OF PRACH-ResourceDedicatedBFR OPTIONAL  -- Need
+    candidateBeamRSListExt-r16          SEQUENCE (SIZE(0..maxNrofCandidateBeamsExt-r16)) OF PRACH-ResourceDedicatedBFR OPTIONAL  -- Need M
     ]]
 }
 

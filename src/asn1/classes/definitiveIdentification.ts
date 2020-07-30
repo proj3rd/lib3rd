@@ -1,6 +1,8 @@
 export class DefinitiveIdentification {
   public definitiveOID: IDefinitiveObjIdComponent[];
 
+  private definitiveIdentificationTag: undefined;
+
   constructor(definitiveOID: IDefinitiveObjIdComponent[]) {
     this.definitiveOID = definitiveOID;
   }
@@ -12,7 +14,7 @@ export class DefinitiveIdentification {
     const innerString = this.definitiveOID
       .map((item) => `${item.name} (${item.number})`)
       .join(' ');
-    return `{ ${innerString} }`;
+    return `{${innerString}}`;
   }
 }
 

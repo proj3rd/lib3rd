@@ -27,14 +27,12 @@ export class EnumeratedType {
   }
 
   public toString(): string {
-    if (this.items.length === 0) {
-      return 'ENUMERATED {}';
-    }
-    const arrToString = ['ENUMERATED {'];
-    const itemsString = this.items.map((item) => item.toString()).join(', ');
-    arrToString.push(itemsString);
-    arrToString.push('}');
-    return arrToString.join(' ');
+    const arrToString: string[] = [
+      'ENUMERATED {',
+      this.items.map((item) => item.toString()).join(', '),
+      '}',
+    ];
+    return arrToString.join('');
   }
 }
 

@@ -1,4 +1,3 @@
-import { unimpl } from 'unimpl';
 import { Optionality } from './optionality';
 import { PrimitiveFieldName } from './primitiveFieldName';
 
@@ -14,6 +13,9 @@ export class TypeFieldSpec {
   }
 
   public toString(): string {
-    return unimpl();
+    if (this.optionality === undefined) {
+      return this.fieldReference.toString();
+    }
+    return `${this.fieldReference.toString()} ${this.optionality.toString()}`;
   }
 }

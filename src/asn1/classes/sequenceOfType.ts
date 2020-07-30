@@ -38,12 +38,9 @@ export class SequenceOfType {
   }
 
   public toString(): string {
-    const arrToString = ['SEQUENCE'];
-    if (this.constraint) {
-      arrToString.push(`(${this.constraint.toString()})`);
+    if (this.constraint === undefined) {
+      return `SEQUENCE OF ${this.baseType.toString()}`;
     }
-    arrToString.push('OF');
-    arrToString.push(this.baseType.toString());
-    return arrToString.join(' ');
+    return `SEQUENCE (${this.constraint.toString()}) OF ${this.baseType.toString()}`;
   }
 }

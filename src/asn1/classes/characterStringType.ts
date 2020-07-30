@@ -9,6 +9,12 @@ import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 import { SizeConstraint } from './sizeConstraint';
 
+/**
+ * X.680 clause 40
+ * ```
+ * characterStringTypeLiteral ( sizeConstraint )?
+ * ```
+ */
 export class CharacterStringType {
   public characterStringTypeLiteral: CharacterStringTypeLiteral;
   public constraint: SizeConstraint | undefined;
@@ -43,14 +49,17 @@ export class CharacterStringType {
     } else if (constraint instanceof ComponentRelationConstraint) {
       return unimpl();
     } else {
-      if (constraint.length !== 1) {
+      if (constraint.elementSetSpecList.length !== 1) {
         return unimpl();
       }
-      const elementSetSpec = constraint[0];
+      const elementSetSpec = constraint.elementSetSpecList[0];
       if (elementSetSpec instanceof ExtensionMarker) {
         throw Error('Not implemented');
       }
-      const intersections = elementSetSpec[0];
+      if (elementSetSpec.intersectionsList.length > 1) {
+        return unimpl();
+      }
+      const intersections = elementSetSpec.intersectionsList[0];
       if (intersections.length !== 1) {
         return unimpl();
       }
@@ -64,7 +73,10 @@ export class CharacterStringType {
   }
 
   public toString(): string {
-    return todo();
+    if (this.constraint === undefined) {
+      return this.characterStringTypeLiteral;
+    }
+    return `${this.characterStringTypeLiteral} (${this.constraint.toString()})`;
   }
 }
 

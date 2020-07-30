@@ -16,12 +16,10 @@ export class ContentsConstraint {
   public toString(): string {
     const arrToString: string[] = [];
     if (this.asnType !== undefined) {
-      arrToString.push('CONTAINING');
-      arrToString.push(this.asnType.toString());
+      arrToString.push(`CONTAINING ${this.asnType.toString()}`);
     }
     if (this.value !== undefined) {
-      arrToString.push('ENCODED BY');
-      arrToString.push(this.value.toString());
+      arrToString.push(`ENCODED BY ${this.value.toString()}`);
     }
     return arrToString.join(' ');
   }
