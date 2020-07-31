@@ -3354,15 +3354,15 @@ export class ASN_3gppParser extends Parser {
 			this.state = 758;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (_la === ASN_3gppParser.AMPERSAND) {
+			while (_la === ASN_3gppParser.DOT) {
 				{
 				{
 				this.state = 753;
-				this.match(ASN_3gppParser.AMPERSAND);
-				this.state = 754;
-				this.match(ASN_3gppParser.IDENTIFIER);
-				this.state = 755;
 				this.match(ASN_3gppParser.DOT);
+				this.state = 754;
+				this.match(ASN_3gppParser.AMPERSAND);
+				this.state = 755;
+				this.match(ASN_3gppParser.IDENTIFIER);
 				}
 				}
 				this.state = 760;
@@ -7444,12 +7444,12 @@ export class ASN_3gppParser extends Parser {
 		"\x88E\x02\u02EC\u02EA\x03\x02\x02\x02\u02EC\u02ED\x03\x02\x02\x02\u02ED" +
 		"\u02EF\x03\x02\x02\x02\u02EE\u02E0\x03\x02\x02\x02\u02EE\u02E9\x03\x02" +
 		"\x02\x02\u02EF\x7F\x03\x02\x02\x02\u02F0\u02F1\x07\x0E\x02\x02\u02F1\u02F2" +
-		"\x07x\x02\x02\u02F2\u02F8\x03\x02\x02\x02\u02F3\u02F4\x07\x0E\x02\x02" +
-		"\u02F4\u02F5\x07x\x02\x02\u02F5\u02F7\x07\n\x02\x02\u02F6\u02F3\x03\x02" +
-		"\x02\x02\u02F7\u02FA\x03\x02\x02\x02\u02F8\u02F6\x03\x02\x02\x02\u02F8" +
-		"\u02F9\x03\x02\x02\x02\u02F9\x81\x03\x02\x02\x02\u02FA\u02F8\x03\x02\x02" +
-		"\x02\u02FB\u02FC\x07\x16\x02\x02\u02FC\u02FD\x05\x84C\x02\u02FD\u02FE" +
-		"\x07\x17\x02\x02\u02FE\x83\x03\x02\x02\x02\u02FF\u0306\x05\x86D\x02\u0300" +
+		"\x07x\x02\x02\u02F2\u02F8\x03\x02\x02\x02\u02F3\u02F4\x07\n\x02\x02\u02F4" +
+		"\u02F5\x07\x0E\x02\x02\u02F5\u02F7\x07x\x02\x02\u02F6\u02F3\x03\x02\x02" +
+		"\x02\u02F7\u02FA\x03\x02\x02\x02\u02F8\u02F6\x03\x02\x02\x02\u02F8\u02F9" +
+		"\x03\x02\x02\x02\u02F9\x81\x03\x02\x02\x02\u02FA\u02F8\x03\x02\x02\x02" +
+		"\u02FB\u02FC\x07\x16\x02\x02\u02FC\u02FD\x05\x84C\x02\u02FD\u02FE\x07" +
+		"\x17\x02\x02\u02FE\x83\x03\x02\x02\x02\u02FF\u0306\x05\x86D\x02\u0300" +
 		"\u0301\x07\x18\x02\x02\u0301\u0304\x07\f\x02\x02\u0302\u0303\x07\x18\x02" +
 		"\x02\u0303\u0305\x05\x88E\x02\u0304\u0302\x03\x02\x02\x02\u0304\u0305" +
 		"\x03\x02\x02\x02\u0305\u0307\x03\x02\x02\x02\u0306\u0300\x03\x02\x02\x02" +
