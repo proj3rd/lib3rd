@@ -1,6 +1,6 @@
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { _Constraint } from './constraint';
+import { Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
 
@@ -20,7 +20,7 @@ export class EnumeratedType {
     return this;
   }
 
-  public setConstraints(constraints: _Constraint[]) {
+  public setConstraints(constraints: Constraint[]) {
     if (constraints.length > 0) {
       unimpl();
     }

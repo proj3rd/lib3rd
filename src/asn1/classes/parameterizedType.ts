@@ -2,7 +2,7 @@ import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { AsnType } from './asnType';
 import { ParameterizedTypeAssignment } from './assignment';
-import { _Constraint } from './constraint';
+import { Constraint } from './constraint';
 import { ExternalTypeReference } from './externalTypeReference';
 import { Modules } from './modules';
 import { TypeReference } from './typeReference';
@@ -34,7 +34,7 @@ export class ParameterizedType {
     throw Error();
   }
 
-  public setConstraints(constraints: _Constraint[]) {
+  public setConstraints(constraints: Constraint[]) {
     if (constraints.length === 0) {
       return;
     }

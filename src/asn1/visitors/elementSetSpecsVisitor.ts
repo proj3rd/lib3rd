@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { todo, unimpl } from 'unimpl';
-import { _ElementSetSpecs } from '../classes/constraint';
+import { _ElementSetSpecs } from '../types';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import {
   AdditionalElementSetSpecContext,

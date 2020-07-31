@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _IntersectionElements } from '../classes/constraint';
+import { _IntersectionElements } from '../types';
 import { IntersectionElementsContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 import { ElementsVisitor } from './elementsVisitor';

@@ -1,5 +1,5 @@
 import { indent } from '../formatter';
-import { _ElementSetSpecs } from './constraint';
+import { _ElementSetSpecs } from '../types';
 
 /**
  * TODO: ObjectSet only supports DefinedObjectSet currently.

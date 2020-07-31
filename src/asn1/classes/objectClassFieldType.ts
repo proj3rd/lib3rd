@@ -2,7 +2,7 @@ import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { DefinedObjectClass } from './asnType';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
-import { _Constraint } from './constraint';
+import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { InnerTypeConstraints } from './innerTypeConstraints';
 import { Modules } from './modules';
@@ -18,7 +18,7 @@ import { PrimitiveFieldName } from './primitiveFieldName';
 export class ObjectClassFieldType {
   public definedObjectClass: DefinedObjectClass;
   public fieldName: PrimitiveFieldName[];
-  public constraint: ComponentRelationConstraint | undefined;
+  public constraint: Constraint | undefined;
 
   private objectClassFieldType: undefined;
 
@@ -37,7 +37,7 @@ export class ObjectClassFieldType {
     return unimpl();
   }
 
-  public setConstraints(constraints: _Constraint[]) {
+  public setConstraints(constraints: Constraint[]) {
     if (constraints.length === 0) {
       return;
     }
@@ -45,13 +45,14 @@ export class ObjectClassFieldType {
       unimpl();
     }
     const constraint = constraints[0];
-    if (constraint instanceof ContentsConstraint) {
+    const { constraintSpec, exceptionSpec } = constraint;
+    if (constraintSpec instanceof ContentsConstraint) {
       unimpl();
-    } else if (constraint instanceof InnerTypeConstraints) {
+    } else if (constraintSpec instanceof InnerTypeConstraints) {
       unimpl();
-    } else if (constraint instanceof ObjectSet) {
+    } else if (constraintSpec instanceof ObjectSet) {
       unimpl();
-    } else if (constraint instanceof ComponentRelationConstraint) {
+    } else if (constraintSpec instanceof ComponentRelationConstraint) {
       this.constraint = constraint;
     } else {
       unimpl();
@@ -66,6 +67,6 @@ export class ObjectClassFieldType {
     if (this.constraint === undefined) {
       return outerString;
     }
-    return `${outerString} (${this.constraint.toString()})`;
+    return `${outerString} ${this.constraint.toString()}`;
   }
 }

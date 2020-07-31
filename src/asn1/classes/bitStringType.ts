@@ -2,7 +2,7 @@ import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { INamedBit } from '../types';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
-import { _Constraint } from './constraint';
+import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
 import { InnerTypeConstraints } from './innerTypeConstraints';
@@ -11,7 +11,7 @@ import { ObjectSet } from './objectSet';
 import { SizeConstraint } from './sizeConstraint';
 
 export class BitStringType {
-  public constraint: SizeConstraint | undefined;
+  public constraint: Constraint | undefined;
   public namedBitList: INamedBit[];
 
   private bitStringTypeTag: undefined;
@@ -27,7 +27,7 @@ export class BitStringType {
     return this;
   }
 
-  public setConstraints(constraints: _Constraint[]) {
+  public setConstraints(constraints: Constraint[]) {
     if (constraints.length === 0) {
       return;
     }
@@ -35,19 +35,20 @@ export class BitStringType {
       return unimpl();
     }
     const constraint = constraints[0];
-    if (constraint instanceof ContentsConstraint) {
+    const { constraintSpec, exceptionSpec } = constraint;
+    if (constraintSpec instanceof ContentsConstraint) {
       return unimpl();
-    } else if (constraint instanceof InnerTypeConstraints) {
+    } else if (constraintSpec instanceof InnerTypeConstraints) {
       return unimpl();
-    } else if (constraint instanceof ObjectSet) {
+    } else if (constraintSpec instanceof ObjectSet) {
       return unimpl();
-    } else if (constraint instanceof ComponentRelationConstraint) {
+    } else if (constraintSpec instanceof ComponentRelationConstraint) {
       return unimpl();
     } else {
-      if (constraint.elementSetSpecList.length !== 1) {
+      if (constraintSpec.elementSetSpecList.length !== 1) {
         return unimpl();
       }
-      const elementSetSpec = constraint.elementSetSpecList[0];
+      const elementSetSpec = constraintSpec.elementSetSpecList[0];
       if (elementSetSpec instanceof ExtensionMarker) {
         throw Error('Not implemented');
       }
@@ -60,7 +61,7 @@ export class BitStringType {
       }
       const intersectionElements = intersections[0];
       if (intersectionElements instanceof SizeConstraint) {
-        this.constraint = intersectionElements;
+        this.constraint = constraint;
       } else {
         unimpl();
       }
@@ -78,7 +79,7 @@ export class BitStringType {
       arrToString.push(`{${namedBitListString}}`);
     }
     if (this.constraint !== undefined) {
-      arrToString.push(`(${this.constraint.toString()})`);
+      arrToString.push(`${this.constraint.toString()}`);
     }
     return arrToString.join(' ');
   }

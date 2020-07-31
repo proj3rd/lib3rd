@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _SubtypeElements } from '../classes/constraint';
+import { _SubtypeElements } from '../types';
 import { ValueRange } from '../classes/valueRange';
 import { SubtypeElementsContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';

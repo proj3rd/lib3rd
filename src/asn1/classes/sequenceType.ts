@@ -2,7 +2,7 @@ import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { AsnType } from './asnType';
-import { _Constraint } from './constraint';
+import { Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
@@ -54,7 +54,7 @@ export class SequenceType {
     return this;
   }
 
-  public setConstraints(constraints: _Constraint[]) {
+  public setConstraints(constraints: Constraint[]) {
     if (constraints.length > 0) {
       unimpl();
     }

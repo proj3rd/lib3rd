@@ -35,7 +35,6 @@ export class ${visitorName} extends AbstractParseTreeVisitor<ReturnType> impleme
 }`;
   const srcDirname = __dirname.replace(/\bdist\b/, 'src');
   const fileName = join(srcDirname, getFileName(ruleName));
-  console.log(fileName);
   writeFileSync(fileName, content);
 }
 
@@ -46,8 +45,8 @@ function getVisitorName(ruleName: string): string {
 if (require.main === module) {
   const { argv } = yargs.command({
     command: 'new <ruleName>',
-    handler: (argv) => {
-      const { ruleName } = argv;
+    handler: (args) => {
+      const { ruleName } = args;
       if (typeof ruleName !== 'string') {
         throw Error();
       }

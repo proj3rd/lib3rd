@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { AsnType } from '../classes/asnType';
-import { _GeneralConstraint } from '../classes/constraint';
+import { _GeneralConstraint } from '../types';
 import { ContentsConstraint } from '../classes/contentsConstraint';
 import { InnerTypeConstraints } from '../classes/innerTypeConstraints';
 import { Value } from '../classes/value';

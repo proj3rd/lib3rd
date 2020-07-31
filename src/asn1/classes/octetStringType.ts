@@ -2,7 +2,7 @@ import { unimpl } from 'unimpl';
 import { SizeConstraint } from '../classes/sizeConstraint';
 import { IParameterMapping } from '../expander';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
-import { _Constraint } from './constraint';
+import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { ExtensionMarker } from './extensionMarker';
 import { InnerTypeConstraints } from './innerTypeConstraints';
@@ -10,7 +10,7 @@ import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 
 export class OctetStringType {
-  public constraint: ContentsConstraint | SizeConstraint | undefined;
+  public constraint: Constraint | undefined;
 
   private octetStringTypeTag: undefined;
 
@@ -21,7 +21,7 @@ export class OctetStringType {
     return this;
   }
 
-  public setConstraints(constraints: _Constraint[]) {
+  public setConstraints(constraints: Constraint[]) {
     if (constraints.length === 0) {
       return;
     }
@@ -29,19 +29,20 @@ export class OctetStringType {
       return unimpl();
     }
     const constraint = constraints[0];
-    if (constraint instanceof ContentsConstraint) {
+    const { constraintSpec, exceptionSpec } = constraint;
+    if (constraintSpec instanceof ContentsConstraint) {
       this.constraint = constraint;
-    } else if (constraint instanceof InnerTypeConstraints) {
+    } else if (constraintSpec instanceof InnerTypeConstraints) {
       return unimpl();
-    } else if (constraint instanceof ObjectSet) {
+    } else if (constraintSpec instanceof ObjectSet) {
       return unimpl();
-    } else if (constraint instanceof ComponentRelationConstraint) {
+    } else if (constraintSpec instanceof ComponentRelationConstraint) {
       return unimpl();
     } else {
-      if (constraint.elementSetSpecList.length !== 1) {
+      if (constraintSpec.elementSetSpecList.length !== 1) {
         return unimpl();
       }
-      const elementSetSpec = constraint.elementSetSpecList[0];
+      const elementSetSpec = constraintSpec.elementSetSpecList[0];
       if (elementSetSpec instanceof ExtensionMarker) {
         throw Error('Not implemented');
       }
@@ -54,7 +55,7 @@ export class OctetStringType {
       }
       const intersectionElements = intersections[0];
       if (intersectionElements instanceof SizeConstraint) {
-        this.constraint = intersectionElements;
+        this.constraint = constraint;
       } else {
         unimpl();
       }
@@ -65,6 +66,6 @@ export class OctetStringType {
     if (this.constraint === undefined) {
       return 'OCTET STRING';
     }
-    return `OCTET STRING (${this.constraint.toString()})`;
+    return `OCTET STRING ${this.constraint.toString()}`;
   }
 }

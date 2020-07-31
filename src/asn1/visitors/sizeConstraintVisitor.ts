@@ -25,19 +25,23 @@ export class SizeConstraintVisitor
   public visitChildren(ctx: SizeConstraintContext): SizeConstraint {
     const constraintCtx = ctx.constraint();
     const constraint = constraintCtx.accept(new ConstraintVisitor());
-    if (constraint instanceof ContentsConstraint) {
+    const { constraintSpec, exceptionSpec } = constraint;
+    if (exceptionSpec !== undefined) {
       return unimpl();
-    } else if (constraint instanceof InnerTypeConstraints) {
+    }
+    if (constraintSpec instanceof ContentsConstraint) {
       return unimpl();
-    } else if (constraint instanceof ObjectSet) {
+    } else if (constraintSpec instanceof InnerTypeConstraints) {
       return unimpl();
-    } else if (constraint instanceof ComponentRelationConstraint) {
+    } else if (constraintSpec instanceof ObjectSet) {
+      return unimpl();
+    } else if (constraintSpec instanceof ComponentRelationConstraint) {
       return unimpl();
     } else {
       const sizeConstraint: Array<
         ExtensionMarker | IntegerValue | ValueRange
       > = [];
-      for (const elementSetSpec of constraint.elementSetSpecList) {
+      for (const elementSetSpec of constraintSpec.elementSetSpecList) {
         if (elementSetSpec instanceof ExtensionMarker) {
           sizeConstraint.push(elementSetSpec);
         } else {

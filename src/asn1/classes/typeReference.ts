@@ -6,14 +6,14 @@ import {
   TypeAssignment,
   ValueAssignment,
 } from './assignment';
-import { _Constraint } from './constraint';
+import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { InnerTypeConstraints } from './innerTypeConstraints';
 import { Modules } from './modules';
 
 export class TypeReference {
   public typeReference: string;
-  public constraint: InnerTypeConstraints | undefined;
+  public constraint: Constraint | undefined;
 
   private typeReferenceTag: undefined;
 
@@ -61,7 +61,7 @@ export class TypeReference {
     throw Error();
   }
 
-  public setConstraints(constraints: _Constraint[]) {
+  public setConstraints(constraints: Constraint[]) {
     if (constraints.length === 0) {
       return;
     }
@@ -69,9 +69,10 @@ export class TypeReference {
       unimpl();
     }
     const constraint = constraints[0];
-    if (constraint instanceof ContentsConstraint) {
+    const { constraintSpec, exceptionSpec } = constraint;
+    if (constraintSpec instanceof ContentsConstraint) {
       return unimpl();
-    } else if (constraint instanceof InnerTypeConstraints) {
+    } else if (constraintSpec instanceof InnerTypeConstraints) {
       this.constraint = constraint;
     } else {
       return unimpl();
@@ -82,6 +83,6 @@ export class TypeReference {
     if (this.constraint === undefined) {
       return this.typeReference;
     }
-    return `${this.typeReference} (${this.constraint.toString()})`;
+    return `${this.typeReference} ${this.constraint.toString()}`;
   }
 }

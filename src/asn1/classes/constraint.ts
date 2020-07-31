@@ -1,37 +1,28 @@
-import { DefinedObjectSet, TableConstraint } from '../types';
-import { ContentsConstraint } from './contentsConstraint';
-import { ExtensionMarker } from './extensionMarker';
-import { InnerTypeConstraints } from './innerTypeConstraints';
+import { unreach } from 'unimpl';
+import { _ConstraintSpec } from '../types';
 import { SizeConstraint } from './sizeConstraint';
 import { SubtypeConstraint } from './subtypeConstraint';
 import { Unions } from './unions';
-import { BuiltinValue } from './value';
-import { ValueRange } from './valueRange';
 
-export type _Constraint = _ConstraintSpec;
+export class Constraint {
+  public constraintSpec: _ConstraintSpec;
+  public exceptionSpec: undefined;
 
-export type _ConstraintSpec = _GeneralConstraint | SubtypeConstraint;
+  private constraintTag: undefined;
 
-export type _GeneralConstraint =
-  | ContentsConstraint
-  | InnerTypeConstraints
-  | TableConstraint;
+  constructor(constraint: _ConstraintSpec | SizeConstraint) {
+    if (constraint instanceof SizeConstraint) {
+      const unions = new Unions([[constraint]]);
+      this.constraintSpec = new SubtypeConstraint([unions]);
+    } else {
+      this.constraintSpec = constraint;
+    }
+  }
 
-export type _ElementSetSpecs = Array<_ElementSetSpec | ExtensionMarker>;
-
-export type _ElementSetSpec = Unions;
-
-export type _Intersections = _IntersectionElements[];
-
-export type _IntersectionElements = _Elements;
-
-// X.680 clause 50.5
-export type _Elements = _SubtypeElements | _ObjectSetElements;
-
-// X.681 clause 12.10
-export type _ObjectSetElements = DefinedObjectSet;
-// Object
-// ObjectSetFromObjects
-// ParameterizedObjectSet
-
-export type _SubtypeElements = SizeConstraint | BuiltinValue | ValueRange;
+  public toString(): string {
+    if (this.exceptionSpec === undefined) {
+      return `(${this.constraintSpec.toString()})`;
+    }
+    return unreach();
+  }
+}

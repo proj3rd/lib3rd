@@ -1,4 +1,4 @@
-import { _Intersections } from './constraint';
+import { _Intersections } from '../types';
 
 export class Unions {
   public intersectionsList: _Intersections[];

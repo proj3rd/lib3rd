@@ -1,4 +1,4 @@
-import { _ElementSetSpec } from './constraint';
+import { _ElementSetSpec } from '../types';
 import { ExtensionMarker } from './extensionMarker';
 
 export type ElementSetSpecList = Array<_ElementSetSpec | ExtensionMarker>;
@@ -13,9 +13,8 @@ export class SubtypeConstraint {
   }
 
   public toString(): string {
-    const innerString = this.elementSetSpecList
+    return this.elementSetSpecList
       .map((elementSetSpec) => elementSetSpec.toString())
       .join(', ');
-    return `(${innerString})`; // FIXME: parentheses shall be removed
   }
 }
