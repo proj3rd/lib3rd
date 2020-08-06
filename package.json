@@ -7,9 +7,12 @@
   "scripts": {
     "antlr4ts": "antlr4ts -visitor -no-listener src/asn1/grammar/ASN_3gpp.g4 -o src/asn1/grammar",
     "antlr4ts-help": "antlr4ts",
-    "class": "node dist/asn1/classes",
-    "extract": "node  dist/asn1/extractor",
+    "asn1": "node --enable-source-maps dist/asn1",
+    "class": "node --enable-source-maps dist/asn1/classes",
+    "extract": "node --enable-source-maps dist/asn1/extractor",
     "prettier": "npx prettier@2.0.5 src --write",
+    "test-diff": "mocha --enable-source-maps dist/asn1/test_diff --grep diff_all",
+    "test-diff-render": "mocha --enable-source-maps dist/asn1/test_diff --grep diff_render",
     "test-expander": "mocha --enable-source-maps dist/asn1/test_expander --grep expand_all",
     "test-expander-36331": "mocha --enable-source-maps dist/asn1/test_expander --grep expand_36331",
     "test-expander-38331": "mocha --enable-source-maps dist/asn1/test_expander --grep expand_38331",
@@ -38,7 +41,7 @@
     "typedoc": "typedoc --out doc src",
     "typedoc-install": "npm i -g typedoc@0.16.11",
     "// Why a specific version of typedoc is required": "https://stackoverflow.com/a/60796968/3278063",
-    "visitor": "node dist/asn1/visitors"
+    "visitor": "node --enable-source-maps dist/asn1/visitors"
   },
   "repository": {
     "type": "git",
@@ -51,16 +54,22 @@
   },
   "homepage": "https://github.com/gsongsong/3gpp#readme",
   "devDependencies": {
+    "@types/diff": "^4.0.2",
+    "@types/hogan.js": "^3.0.0",
     "@types/lodash": "^4.14.158",
     "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.13",
+    "@types/pug": "^2.0.4",
     "@types/yargs": "^15.0.5",
     "antlr4ts-cli": "^0.5.0-alpha.3",
     "mocha": "^8.0.1"
   },
   "dependencies": {
     "antlr4ts": "^0.5.0-alpha.3",
+    "diff": "^4.0.2",
+    "diff2html": "^3.1.11",
     "lodash": "^4.17.19",
+    "pug": "^3.0.0",
     "unimpl": "^1.2.4",
     "winston": "^3.3.3",
     "yargs": "^15.4.1"
