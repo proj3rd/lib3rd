@@ -10,53 +10,48 @@ html
     link(rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css')
     link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css')
     style.
-      /* Prevent the rightmost scrollbar goiong outside */
-      .ui.grid {
-        margin-left: 0;
-        margin-right: 0;
+      html. body {
+        height: 100%;
       }
-      .ui.grid > div.row {
-        height: calc(100vh - 7rem);
+      /* Prevent contents goiong outside */
+      .ui.grid {
+        height: 100%;
+        margin: 0;
       }
       aside, main {
         height: 100%;
         overflow-y: scroll;
       }
       /* Hide diff2html unnecessary part */
-      .d2h-file-list-wrapper, .d2h-file-header {
+      .d2h-file-header {
         display: none;
       }
 
   body
     div(class='ui grid')
-      header(class='row')
-        div(class='column')
-          h1(class='ui header') !{specOld} → !{specNew}
-
-      div(class='row')
-        aside(class='four wide column')
-          ol(class='ui list')
-            each patch in patchList
-              li(value=patch.labelText)
-                a(href='#'+patch.moduleName+'.'+patch.assignmentName) !{patch.assignmentName}
-
-        main(class='twelve wide column')
+      aside(class='four wide column')
+        h1(class='ui header') !{specOld} → !{specNew}
+        ol(class='ui list')
           each patch in patchList
-            section(id=patch.moduleName+'.'+patch.assignmentName class=patch.change)
-              h2(class='ui header')
-                | !{patch.labelText}
-                |
-                if patch.change == 'modified'
-                  | !{patch.assignmentName1}
-                  div(class='ui label') !{patch.moduleName1}
-                  | → !{patch.assignmentName2}
-                  div(class='ui label') !{patch.moduleName2}
-                else
-                  | !{patch.assignmentName}
-                  div(class='ui label') !{patch.moduleName}
-              div !{patch.patchHtml}
+            li(value=patch.labelText)
+              a(href='#'+patch.moduleName+'.'+patch.assignmentName) !{patch.assignmentName}
 
-      footer(class='row')
+      main(class='twelve wide column')
+        each patch in patchList
+          section(id=patch.moduleName+'.'+patch.assignmentName class=patch.change)
+            h2(class='ui header')
+              | !{patch.labelText}
+              |
+              if patch.change == 'modified'
+                | !{patch.assignmentName1}
+                div(class='ui label') !{patch.moduleName1}
+                | → !{patch.assignmentName2}
+                div(class='ui label') !{patch.moduleName2}
+              else
+                | !{patch.assignmentName}
+                div(class='ui label') !{patch.moduleName}
+            div !{patch.patchHtml}
+
         div(class='column right aligned')
           | Powered by
           |

@@ -158,6 +158,7 @@ export function renderDiff(diffResult: IDiffResult): string {
   const { patchList } = diffResult;
   patchList.forEach((patch) => {
     patch.patchHtml = html(parse(patch.patch), {
+      drawFileList: false,
       outputFormat: 'line-by-line', // side-by-side has layout issue https://github.com/rtfpessoa/diff2html/issues/155
     });
   });
