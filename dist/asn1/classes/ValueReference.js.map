@@ -1,0 +1,1 @@
+{"version":3,"file":"ValueReference.js","sourceRoot":"","sources":["../../../src/asn1/classes/ValueReference.ts"],"names":[],"mappings":";;AAAA,MAAa,cAAc;IAKzB,YAAY,cAAsB;QAChC,IAAI,CAAC,cAAc,GAAG,cAAc,CAAC;IACvC,CAAC;IAEM,QAAQ;QACb,OAAO,IAAI,CAAC,cAAc,CAAC;IAC7B,CAAC;CACF;AAZD,wCAYC"}

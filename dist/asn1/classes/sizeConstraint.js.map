@@ -1,0 +1,1 @@
+{"version":3,"file":"sizeConstraint.js","sourceRoot":"","sources":["../../../src/asn1/classes/sizeConstraint.ts"],"names":[],"mappings":";;AAAA,4CAAyD;AAKzD,MAAa,cAAc;IAKzB,YAAY,UAA8D;QACxE,IAAI,CAAC,UAAU,GAAG,UAAU,CAAC;IAC/B,CAAC;IAEM,QAAQ;QACb,OAAO,QAAQ,qCAAyB,CAAC,IAAI,CAAC,UAAU,CAAC,EAAE,CAAC;IAC9D,CAAC;CACF;AAZD,wCAYC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"unions.js","sourceRoot":"","sources":["../../../src/asn1/classes/unions.ts"],"names":[],"mappings":";;AAEA,MAAa,MAAM;IAKjB,YAAY,aAA+B;QACzC,IAAI,CAAC,iBAAiB,GAAG,aAAa,CAAC;IACzC,CAAC;IAEM,QAAQ;QACb,OAAO,IAAI,CAAC,iBAAiB;aAC1B,GAAG,CAAC,CAAC,aAAa,EAAE,EAAE,CAAC,aAAa,CAAC,QAAQ,EAAE,CAAC;aAChD,IAAI,CAAC,MAAM,CAAC,CAAC;IAClB,CAAC;CACF;AAdD,wBAcC"}
