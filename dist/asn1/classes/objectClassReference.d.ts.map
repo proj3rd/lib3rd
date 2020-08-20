@@ -1,0 +1,1 @@
+{"version":3,"file":"objectClassReference.d.ts","sourceRoot":"","sources":["../../../src/asn1/classes/objectClassReference.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,qBAAa,oBAAoB;IACxB,oBAAoB,EAAE,MAAM,CAAC;IAEpC,OAAO,CAAC,uBAAuB,CAAY;gBAE/B,oBAAoB,EAAE,MAAM;IAIjC,QAAQ,IAAI,MAAM;CAG1B"}

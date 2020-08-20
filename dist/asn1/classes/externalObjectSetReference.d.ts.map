@@ -1,0 +1,1 @@
+{"version":3,"file":"externalObjectSetReference.d.ts","sourceRoot":"","sources":["../../../src/asn1/classes/externalObjectSetReference.ts"],"names":[],"mappings":"AAAA,qBAAa,0BAA0B;IAC9B,eAAe,EAAE,MAAM,CAAC;IACxB,kBAAkB,EAAE,MAAM,CAAC;IAElC,OAAO,CAAC,6BAA6B,CAAY;gBAErC,eAAe,EAAE,MAAM,EAAE,kBAAkB,EAAE,MAAM;IAKxD,QAAQ,IAAI,MAAM;CAG1B"}

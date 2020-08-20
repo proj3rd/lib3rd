@@ -1,0 +1,1 @@
+{"version":3,"file":"objectSetReference.d.ts","sourceRoot":"","sources":["../../../src/asn1/classes/objectSetReference.ts"],"names":[],"mappings":"AAAA,qBAAa,kBAAkB;IACtB,kBAAkB,EAAE,MAAM,CAAC;IAElC,OAAO,CAAC,qBAAqB,CAAY;gBAE7B,kBAAkB,EAAE,MAAM;IAI/B,QAAQ,IAAI,MAAM;CAG1B"}

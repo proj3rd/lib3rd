@@ -1,0 +1,1 @@
+{"version":3,"file":"parameter.d.ts","sourceRoot":"","sources":["../../../src/asn1/classes/parameter.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,UAAU,CAAC;AAEzC,qBAAa,SAAS;IACb,cAAc,EAAE,MAAM,CAAC;IACvB,aAAa,EAAE,aAAa,GAAG,SAAS,CAAC;IAEhD,OAAO,CAAC,YAAY,CAAY;gBAG9B,cAAc,EAAE,MAAM,EACtB,aAAa,EAAE,aAAa,GAAG,SAAS;IAMnC,QAAQ,IAAI,MAAM;CAM1B"}

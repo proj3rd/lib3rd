@@ -1,0 +1,1 @@
+{"version":3,"file":"atNotation.d.ts","sourceRoot":"","sources":["../../../src/asn1/classes/atNotation.ts"],"names":[],"mappings":"AAAA;;;;;GAKG;AACH,qBAAa,UAAU;IACd,KAAK,EAAE,MAAM,CAAC;IACd,eAAe,EAAE,MAAM,EAAE,CAAC;IAEjC,OAAO,CAAC,aAAa,CAAY;gBAErB,KAAK,EAAE,MAAM,EAAE,eAAe,EAAE,MAAM,EAAE;IAK7C,QAAQ,IAAI,MAAM;CAS1B"}

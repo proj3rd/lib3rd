@@ -1,0 +1,1 @@
+{"version":3,"file":"ValueReference.d.ts","sourceRoot":"","sources":["../../../src/asn1/classes/ValueReference.ts"],"names":[],"mappings":"AAAA,qBAAa,cAAc;IAClB,cAAc,EAAE,MAAM,CAAC;IAE9B,OAAO,CAAC,iBAAiB,CAAY;gBAEzB,cAAc,EAAE,MAAM;IAI3B,QAAQ,IAAI,MAAM;CAG1B"}

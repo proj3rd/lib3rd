@@ -1,0 +1,1 @@
+{"version":3,"file":"unions.d.ts","sourceRoot":"","sources":["../../../src/asn1/classes/unions.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,UAAU,CAAC;AAE1C,qBAAa,MAAM;IACV,iBAAiB,EAAE,cAAc,EAAE,CAAC;IAE3C,OAAO,CAAC,SAAS,CAAY;gBAEjB,aAAa,EAAE,cAAc,EAAE;IAIpC,QAAQ,IAAI,MAAM;CAK1B"}
