@@ -162,5 +162,5 @@ export function renderDiff(diffResult: IDiffResult): string {
       outputFormat: 'line-by-line', // side-by-side has layout issue https://github.com/rtfpessoa/diff2html/issues/155
     });
   });
-  return renderFile('resources/diff.pug', diffResult);
+  return renderFile(`${__dirname}/../../resources/diff.pug`, diffResult);
 }

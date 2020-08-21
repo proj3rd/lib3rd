@@ -104,7 +104,7 @@ function renderDiff(diffResult) {
             outputFormat: 'line-by-line',
         });
     });
-    return pug_1.renderFile('resources/diff.pug', diffResult);
+    return pug_1.renderFile(`${__dirname}/../../resources/diff.pug`, diffResult);
 }
 exports.renderDiff = renderDiff;
 //# sourceMappingURL=diff.js.map
