@@ -1,10 +1,10 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { parse as parsePath } from 'path';
-import { todo } from 'unimpl';
 import yargs from 'yargs';
 import { diff, renderDiff } from './diff';
 import { parse } from './parser';
 
+export { diff, renderDiff } from './diff';
 export { extract } from './extractor';
 export { parse } from './parser';
 
