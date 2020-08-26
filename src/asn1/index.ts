@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { parse as parsePath } from 'path';
 import yargs from 'yargs';
 import { diff, renderDiff } from './diff';
+import { extract } from './extractor';
 import { parse } from './parser';
 
 export { diff, renderDiff } from './diff';
@@ -41,6 +42,19 @@ if (require.main === module) {
       const rendered = renderDiff({ specOld, specNew, patchList });
       const path = `diff_${specOld}_${specNew}.html`;
       writeFileSync(path, rendered);
+    },
+  }).command({
+    command: 'extract <file>',
+    handler: (args) => {
+      const { file } = args;
+      if (typeof file !== 'string') {
+        throw Error();
+      }
+      const { name: spec } = parsePath(file);
+      const text = readFileSync(file, 'utf8');
+      const extracted = extract(text);
+      const path = `${spec}.asn1`;
+      writeFileSync(path, extracted);
     },
   });
 }
