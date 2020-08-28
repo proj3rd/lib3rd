@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
 const formatter_1 = require("../formatter");
+const valueAssignment_1 = require("./valueAssignment");
 class ModuleDefinition {
     constructor(name, definitiveIdentification, tagDefault, extensionDefault, moduleBody) {
         this.name = name;
@@ -15,6 +16,16 @@ class ModuleDefinition {
     }
     findAssignment(name) {
         return this.assignments.find((assignment) => assignment.name === name);
+    }
+    toSpreadsheet(workbook) {
+        const wb = formatter_1.getWorkbook(workbook);
+        this.assignments.forEach((assignment) => {
+            if (assignment instanceof valueAssignment_1.ValueAssignment) {
+                return;
+            }
+            assignment.toSpreadsheet(wb);
+        });
+        return wb;
     }
     toString() {
         const headerString = [

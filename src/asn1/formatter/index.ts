@@ -1,9 +1,7 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { normalize } from '.';
-import { ExtensionMarker } from './classes/extensionMarker';
-import { IntegerValue } from './classes/integerValue';
-import { ValueRange } from './classes/valueRange';
-import { parse } from './parser';
+import { ExtensionMarker } from '../classes/extensionMarker';
+import { IntegerValue } from '../classes/integerValue';
+import { ValueRange } from '../classes/valueRange';
+export { addWorksheet, getWorkbook } from './spreadsheet';
 
 const RE_START_OF_LINE = /^/gm;
 

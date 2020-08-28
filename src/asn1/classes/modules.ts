@@ -1,5 +1,7 @@
+import { Workbook } from 'exceljs';
 import { unimpl } from 'unimpl';
-import { Assignment } from './assignment';
+import { getWorkbook } from '../formatter';
+import { Assignment } from '../types';
 import { ModuleDefinition } from './moduleDefinition';
 
 export class Modules {
@@ -26,6 +28,12 @@ export class Modules {
       assignment = module.findAssignment(name);
     });
     return assignment;
+  }
+
+  public toSpreadsheet(): Workbook {
+    const workbook = getWorkbook();
+    this.modules.forEach((module) => module.toSpreadsheet(workbook));
+    return workbook;
   }
 
   public toString(): string {

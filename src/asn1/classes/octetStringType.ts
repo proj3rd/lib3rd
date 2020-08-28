@@ -1,6 +1,8 @@
+import { Row, Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { SizeConstraint } from '../classes/sizeConstraint';
 import { IParameterMapping } from '../expander';
+import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -19,6 +21,10 @@ export class OctetStringType {
     parameterMappings: IParameterMapping[]
   ): OctetStringType {
     return this;
+  }
+
+  public getDepth(): number {
+    return 0;
   }
 
   public setConstraints(constraints: Constraint[]) {
@@ -60,6 +66,12 @@ export class OctetStringType {
         unimpl();
       }
     }
+  }
+
+  public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    row[HEADER_TYPE] = this.toString();
+    const r = worksheet.addRow(row);
+    drawBorder(worksheet, r, depth);
   }
 
   public toString(): string {

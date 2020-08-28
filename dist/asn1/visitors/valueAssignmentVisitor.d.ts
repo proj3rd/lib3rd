@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { ITypeAndValue } from '../classes/assignment';
 import { ValueAssignmentContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ITypeAndValue } from '../types';
 /**
  * # Grammar
  * ```

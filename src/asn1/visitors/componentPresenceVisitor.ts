@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { ComponentPresence } from '../classes/innerTypeConstraints';
+import { ComponentPresence } from '../classes/componentPresence';
 import { ComponentPresenceContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 

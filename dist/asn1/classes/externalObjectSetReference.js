@@ -5,6 +5,9 @@ class ExternalObjectSetReference {
         this.moduleReference = moduleReference;
         this.objectSetReference = objectSetReference;
     }
+    getDepth() {
+        return 0;
+    }
     toString() {
         return `${this.moduleReference}.${this.objectSetReference}`;
     }

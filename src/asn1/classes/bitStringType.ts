@@ -1,5 +1,7 @@
+import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { INamedBit } from '../types';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
@@ -25,6 +27,10 @@ export class BitStringType {
     parameterMappings: IParameterMapping[]
   ): BitStringType {
     return this;
+  }
+
+  public getDepth(): number {
+    return 0;
   }
 
   public setConstraints(constraints: Constraint[]) {
@@ -66,6 +72,12 @@ export class BitStringType {
         unimpl();
       }
     }
+  }
+
+  public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    row[HEADER_TYPE] = this.toString();
+    const r = worksheet.addRow(row);
+    drawBorder(worksheet, r, depth);
   }
 
   public toString(): string {

@@ -12,6 +12,9 @@ class IntegerValue {
             this.value = value;
         }
     }
+    getDepth() {
+        return 0;
+    }
     toString() {
         return this.literal;
     }

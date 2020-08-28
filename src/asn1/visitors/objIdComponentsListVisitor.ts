@@ -2,8 +2,8 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { unimpl } from 'unimpl';
 import { ObjIdComponentsListContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
-import { ObjIdComponentsVisitor } from './objIdComponentsVisitor';
 import { ObjectIdComponents } from '../types';
+import { ObjIdComponentsVisitor } from './objIdComponentsVisitor';
 
 /**
  * # Grammar

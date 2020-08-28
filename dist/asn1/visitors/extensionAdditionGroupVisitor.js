@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
-const sequenceType_1 = require("../classes/sequenceType");
+const extensionAdditionGroup_1 = require("../classes/extensionAdditionGroup");
 const componentTypeListVisitor_1 = require("./componentTypeListVisitor");
 const tagVisitor_1 = require("./tagVisitor");
 const versionNumberVisitor_1 = require("./versionNumberVisitor");
@@ -28,7 +28,7 @@ class ExtensionAdditionGroupVisitor extends AbstractParseTreeVisitor_1.AbstractP
             const lastComponentType = componentTypeList[length - 1];
             lastComponentType.tag = tag;
         }
-        return new sequenceType_1.ExtensionAdditionGroup(versionNumber, componentTypeList);
+        return new extensionAdditionGroup_1.ExtensionAdditionGroup(versionNumber, componentTypeList);
     }
     defaultResult() {
         return unimpl_1.unimpl();

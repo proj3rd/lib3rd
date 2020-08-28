@@ -11,6 +11,10 @@ export class ValueRange {
     this.upper = upper;
   }
 
+  public getDepth(): number {
+    return 0;
+  }
+
   public toString(): string {
     return `${this.lower.toString()}..${this.upper.toString()}`;
   }

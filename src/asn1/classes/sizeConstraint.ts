@@ -12,6 +12,10 @@ export class SizeConstraint {
     this.constraint = constraint;
   }
 
+  public getDepth(): number {
+    return 0;
+  }
+
   public toString(): string {
     return `SIZE ${getPermittedIntegerValues(this.constraint)}`;
   }

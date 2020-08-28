@@ -1,5 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { Imports, SymbolsFromModule } from '../classes/imports';
+import { Imports } from '../classes/imports';
+import { SymbolsFromModule } from '../classes/symbolsFromModule';
 import {
   GlobalModuleReferenceContext,
   ImportsContext,

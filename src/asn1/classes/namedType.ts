@@ -1,4 +1,10 @@
+import { Worksheet } from 'exceljs';
 import { IParameterMapping } from '../expander';
+import {
+  HEADER_NAME_BASE,
+  headerIndexed,
+  IRowInput,
+} from '../formatter/spreadsheet';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 
@@ -22,6 +28,20 @@ export class NamedType {
       this.asnType = expandedType;
     }
     return this;
+  }
+
+  public getDepth(): number {
+    return this.asnType.getDepth();
+  }
+
+  public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    this.asnType.toSpreadsheet(
+      worksheet,
+      {
+        [headerIndexed(HEADER_NAME_BASE, depth)]: this.name,
+      },
+      depth
+    );
   }
 
   public toString(): string {

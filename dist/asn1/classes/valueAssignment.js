@@ -1,0 +1,23 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class ValueAssignment {
+    constructor(name, asnType, value) {
+        this.name = name;
+        this.asnType = asnType;
+        this.value = value;
+    }
+    expand(modules, parameterMappings) {
+        return this;
+    }
+    getDepth() {
+        if (typeof this.value === 'string') {
+            return 0;
+        }
+        return this.value.getDepth();
+    }
+    toString() {
+        return `${this.name}  ${this.asnType.toString()} ::= ${this.value.toString()}`;
+    }
+}
+exports.ValueAssignment = ValueAssignment;
+//# sourceMappingURL=valueAssignment.js.map

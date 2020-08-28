@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
-const assignment_1 = require("./assignment");
+const spreadsheet_1 = require("../formatter/spreadsheet");
 const externalTypeReference_1 = require("./externalTypeReference");
+const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
 const typeReference_1 = require("./typeReference");
 class ParameterizedType {
     constructor(simpleDefinedType, actualParameters) {
@@ -18,11 +19,19 @@ class ParameterizedType {
         }
         throw Error();
     }
+    getDepth() {
+        return 0;
+    }
     setConstraints(constraints) {
         if (constraints.length === 0) {
             return;
         }
         unimpl_1.unimpl();
+    }
+    toSpreadsheet(worksheet, row, depth) {
+        row[spreadsheet_1.HEADER_REFERENCE] = this.toString();
+        const r = worksheet.addRow(row);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {
         const innerString = this.actualParameters
@@ -39,7 +48,7 @@ class ParameterizedType {
         if (assignment === undefined) {
             return this;
         }
-        else if (assignment instanceof assignment_1.ParameterizedTypeAssignment) {
+        else if (assignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
             return unimpl_1.unimpl();
         }
         else {
@@ -58,7 +67,7 @@ class ParameterizedType {
             if (assignment === undefined) {
                 return this;
             }
-            if (!(assignment instanceof assignment_1.ParameterizedTypeAssignment)) {
+            if (!(assignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment)) {
                 throw Error();
             }
             const { asnType, parameters } = assignment;

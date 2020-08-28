@@ -1,4 +1,6 @@
+import { Worksheet } from 'exceljs';
 import { indent } from '../formatter';
+import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
 import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { Syntax } from './syntax';
 import { TypeFieldSpec } from './typeFieldSpec';
@@ -18,6 +20,34 @@ export class ObjectClassDefinition {
   constructor(fieldSpecs: FieldSpec[], syntaxList: Syntax[]) {
     this.fieldSpecs = fieldSpecs;
     this.syntaxList = syntaxList;
+  }
+
+  public getDepth(): number {
+    const depthFieldSpecs = this.fieldSpecs.reduce((prev, curr) => {
+      return Math.max(prev, curr.getDepth() + 1);
+    }, 0);
+    const depthSyntaxList = this.syntaxList.reduce((prev, curr) => {
+      return Math.max(prev, curr.getDepth() + 1);
+    }, 0);
+    return Math.max(depthFieldSpecs, depthSyntaxList);
+  }
+
+  public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    row[HEADER_TYPE] = 'CLASS';
+    let r = worksheet.addRow(row);
+    drawBorder(worksheet, r, depth);
+    this.fieldSpecs.forEach((fieldSpec) => {
+      fieldSpec.toSpreadsheet(worksheet, {}, depth + 1);
+    });
+    if (this.syntaxList.length > 0) {
+      r = worksheet.addRow({
+        [HEADER_TYPE]: 'WITH SYNTAX',
+      });
+      drawBorder(worksheet, r, depth);
+      this.syntaxList.forEach((syntax) => {
+        syntax.toSpreadsheet(worksheet, {}, depth + 1);
+      });
+    }
   }
 
   public toString(): string {

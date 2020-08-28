@@ -3,6 +3,7 @@ export declare class ExternalObjectSetReference {
     objectSetReference: string;
     private externalObjectSetReferenceTag;
     constructor(moduleReference: string, objectSetReference: string);
+    getDepth(): number;
     toString(): string;
 }
 //# sourceMappingURL=externalObjectSetReference.d.ts.map

@@ -9,6 +9,10 @@ export class ExternalObjectSetReference {
     this.objectSetReference = objectSetReference;
   }
 
+  public getDepth(): number {
+    return 0;
+  }
+
   public toString(): string {
     return `${this.moduleReference}.${this.objectSetReference}`;
   }

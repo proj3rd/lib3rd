@@ -4,6 +4,7 @@ export declare class IntegerValue {
     value: number | ValueReference;
     private integerValueTag;
     constructor(literal: string);
+    getDepth(): number;
     toString(): string;
 }
 //# sourceMappingURL=integerValue.d.ts.map

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
-const innerTypeConstraints_1 = require("../classes/innerTypeConstraints");
+const componentPresence_1 = require("../classes/componentPresence");
 /**
  * # Grammar
  * ```
@@ -18,7 +18,7 @@ class ComponentPresenceVisitor extends AbstractParseTreeVisitor_1.AbstractParseT
         if (presence !== 'ABSENT' && presence !== 'PRESENT') {
             throw Error();
         }
-        return new innerTypeConstraints_1.ComponentPresence(name, presence);
+        return new componentPresence_1.ComponentPresence(name, presence);
     }
     defaultResult() {
         return unimpl_1.unimpl();

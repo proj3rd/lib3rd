@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const imports_1 = require("../classes/imports");
+const symbolsFromModule_1 = require("../classes/symbolsFromModule");
 const symbolListVisitor_1 = require("./symbolListVisitor");
 /**
  * # Grammar
@@ -74,10 +75,10 @@ class SymbolsFromModuleVisitor extends AbstractParseTreeVisitor_1.AbstractParseT
         const moduleName = ctx
             .globalModuleReference()
             .accept(new GlobalModuleReferenceVisitor());
-        return new imports_1.SymbolsFromModule(moduleName, symbols);
+        return new symbolsFromModule_1.SymbolsFromModule(moduleName, symbols);
     }
     defaultResult() {
-        return new imports_1.SymbolsFromModule('', []);
+        return new symbolsFromModule_1.SymbolsFromModule('', []);
     }
 }
 /**

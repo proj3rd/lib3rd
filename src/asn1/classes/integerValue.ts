@@ -16,6 +16,10 @@ export class IntegerValue {
     }
   }
 
+  public getDepth(): number {
+    return 0;
+  }
+
   public toString(): string {
     return this.literal;
   }

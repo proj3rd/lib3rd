@@ -1,6 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { ComponentType, ExtensionAddition } from '../classes/sequenceType';
+import { ComponentType } from '../classes/componentType';
+import { ExtensionAddition } from '../classes/sequenceType';
 import {
   ExtensionAdditionContext,
   ExtensionAdditionListContext,

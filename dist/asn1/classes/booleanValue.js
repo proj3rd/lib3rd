@@ -13,6 +13,9 @@ class BooleanValue {
             throw Error();
         }
     }
+    getDepth() {
+        return 0;
+    }
     toString() {
         return this.literal;
     }

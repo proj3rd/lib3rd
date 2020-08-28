@@ -1,10 +1,7 @@
-import { indent } from '../formatter';
-import { AsnSymbol } from './asnSymbol';
+import { SymbolsFromModule } from './symbolsFromModule';
 
 export class Imports {
   public symbolsFromModule: SymbolsFromModule[];
-
-  private importsTag: undefined;
 
   constructor(symbolsFromModule: SymbolsFromModule[]) {
     this.symbolsFromModule = symbolsFromModule;
@@ -16,25 +13,5 @@ export class Imports {
       arrToString.push(symbolsFromModule.toString());
     });
     return arrToString.join('\n') + ';';
-  }
-}
-
-export class SymbolsFromModule {
-  public moduleName: string;
-  public symbols: AsnSymbol[];
-
-  private symbolsFromModuleTag: undefined;
-
-  constructor(moduleName: string, symbols: AsnSymbol[]) {
-    this.moduleName = moduleName;
-    this.symbols = symbols;
-  }
-
-  public toString(): string {
-    const arrToString = [
-      indent(this.symbols.map((symbol) => symbol.toString()).join(',\n')),
-    ];
-    arrToString.push(`FROM ${this.moduleName}`);
-    return arrToString.join('\n');
   }
 }

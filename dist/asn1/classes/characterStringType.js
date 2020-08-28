@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
+const spreadsheet_1 = require("../formatter/spreadsheet");
 const componentRelationConstraint_1 = require("./componentRelationConstraint");
 const contentsConstraint_1 = require("./contentsConstraint");
 const extensionMarker_1 = require("./extensionMarker");
@@ -19,6 +20,9 @@ class CharacterStringType {
     }
     expand(modules, parameterMappings) {
         return unimpl_1.todo();
+    }
+    getDepth() {
+        return 0;
     }
     setConstraints(constraints) {
         if (constraints.length === 0) {
@@ -64,6 +68,11 @@ class CharacterStringType {
                 unimpl_1.unimpl();
             }
         }
+    }
+    toSpreadsheet(worksheet, row, depth) {
+        row[spreadsheet_1.HEADER_TYPE] = this.toString();
+        const r = worksheet.addRow(row);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {
         if (this.constraint === undefined) {

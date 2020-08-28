@@ -5,6 +5,9 @@ class ValueRange {
         this.lower = lower;
         this.upper = upper;
     }
+    getDepth() {
+        return 0;
+    }
     toString() {
         return `${this.lower.toString()}..${this.upper.toString()}`;
     }

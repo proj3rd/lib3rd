@@ -5,6 +5,9 @@ class SizeConstraint {
     constructor(constraint) {
         this.constraint = constraint;
     }
+    getDepth() {
+        return 0;
+    }
     toString() {
         return `SIZE ${formatter_1.getPermittedIntegerValues(this.constraint)}`;
     }

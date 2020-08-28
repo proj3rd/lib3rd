@@ -1,9 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const spreadsheet_1 = require("../formatter/spreadsheet");
 class TypeFieldSpec {
     constructor(fieldRerence, optionality) {
         this.fieldReference = fieldRerence;
         this.optionality = optionality;
+    }
+    getDepth() {
+        return 0;
+    }
+    toSpreadsheet(worksheet, row, depth) {
+        row[spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)] = this.fieldReference.toString();
+        row[spreadsheet_1.HEADER_OPTIONAL] = this.optionality
+            ? this.optionality.toString()
+            : undefined;
+        const r = worksheet.addRow(row);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {
         if (this.optionality === undefined) {

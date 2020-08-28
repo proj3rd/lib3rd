@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
+const componentType_1 = require("../classes/componentType");
 const optionality_1 = require("../classes/optionality");
-const sequenceType_1 = require("../classes/sequenceType");
 const namedTypeVisitor_1 = require("./namedTypeVisitor");
 const valueVisitor_1 = require("./valueVisitor");
 /**
@@ -46,7 +46,7 @@ class ComponentTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeV
         if (namedType === undefined) {
             throw Error('Not implemented');
         }
-        return new sequenceType_1.ComponentType(namedType, optionality, '');
+        return new componentType_1.ComponentType(namedType, optionality, '');
     }
     defaultResult() {
         return unimpl_1.unimpl();

@@ -1,3 +1,5 @@
+import { Worksheet } from 'exceljs';
+import { IRowInput } from '../formatter/spreadsheet';
 import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { Syntax } from './syntax';
 import { TypeFieldSpec } from './typeFieldSpec';
@@ -12,6 +14,8 @@ export declare class ObjectClassDefinition {
     fieldSpecs: FieldSpec[];
     syntaxList: Syntax[];
     constructor(fieldSpecs: FieldSpec[], syntaxList: Syntax[]);
+    getDepth(): number;
+    toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
     toString(): string;
 }
 export declare type FieldSpec = TypeFieldSpec | FixedTypeValueFieldSpec;

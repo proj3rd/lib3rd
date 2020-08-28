@@ -1,3 +1,4 @@
+import { Workbook } from 'exceljs';
 import { IParameterMapping } from '../expander';
 import { DefinedObjectClass } from './asnType';
 import { Modules } from './modules';
@@ -15,6 +16,9 @@ export declare class ObjectSetAssignment {
     private objectSetAssignmentTag;
     constructor(name: string, definedObjectClass: DefinedObjectClass, objectSet: ObjectSet);
     expand(modules: Modules, parameterMappings: IParameterMapping[]): ObjectSetAssignment;
+    getDepth(): number;
+    toSpreadsheet(workbook?: Workbook): Workbook;
     toString(): string;
+    private fullName;
 }
 //# sourceMappingURL=objectSetAssignment.d.ts.map

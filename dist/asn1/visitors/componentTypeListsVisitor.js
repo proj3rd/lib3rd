@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
+const componentType_1 = require("../classes/componentType");
 const extensionMarker_1 = require("../classes/extensionMarker");
-const sequenceType_1 = require("../classes/sequenceType");
 const ASN_3gppParser_1 = require("../grammar/ASN_3gppParser");
 const extensionAdditionsVisitor_1 = require("./extensionAdditionsVisitor");
 const extensionAndExceptionVisitor_1 = require("./extensionAndExceptionVisitor");
@@ -30,7 +30,7 @@ class ComponentTypeListsVisitor extends AbstractParseTreeVisitor_1.AbstractParse
                 const tag = childCtx.accept(new tagVisitor_1.TagVisitor());
                 const length = rootSequenceComponents.length;
                 const lastComponent = rootSequenceComponents[length - 1];
-                if (lastComponent instanceof sequenceType_1.ComponentType) {
+                if (lastComponent instanceof componentType_1.ComponentType) {
                     lastComponent.tag = tag;
                 }
                 else {

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const formatter_1 = require("../formatter");
+const spreadsheet_1 = require("../formatter/spreadsheet");
 /**
  * X.681 clause 9.3
  * ```
@@ -11,6 +12,32 @@ class ObjectClassDefinition {
     constructor(fieldSpecs, syntaxList) {
         this.fieldSpecs = fieldSpecs;
         this.syntaxList = syntaxList;
+    }
+    getDepth() {
+        const depthFieldSpecs = this.fieldSpecs.reduce((prev, curr) => {
+            return Math.max(prev, curr.getDepth() + 1);
+        }, 0);
+        const depthSyntaxList = this.syntaxList.reduce((prev, curr) => {
+            return Math.max(prev, curr.getDepth() + 1);
+        }, 0);
+        return Math.max(depthFieldSpecs, depthSyntaxList);
+    }
+    toSpreadsheet(worksheet, row, depth) {
+        row[spreadsheet_1.HEADER_TYPE] = 'CLASS';
+        let r = worksheet.addRow(row);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
+        this.fieldSpecs.forEach((fieldSpec) => {
+            fieldSpec.toSpreadsheet(worksheet, {}, depth + 1);
+        });
+        if (this.syntaxList.length > 0) {
+            r = worksheet.addRow({
+                [spreadsheet_1.HEADER_TYPE]: 'WITH SYNTAX',
+            });
+            spreadsheet_1.drawBorder(worksheet, r, depth);
+            this.syntaxList.forEach((syntax) => {
+                syntax.toSpreadsheet(worksheet, {}, depth + 1);
+            });
+        }
     }
     toString() {
         const arrToString = [

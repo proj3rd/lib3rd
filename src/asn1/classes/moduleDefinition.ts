@@ -1,9 +1,11 @@
+import { Workbook } from 'exceljs';
 import { unimpl } from 'unimpl';
-import { indent } from '../formatter';
+import { getWorkbook, indent } from '../formatter';
+import { Assignment } from '../types';
 import { AsnSymbol } from './asnSymbol';
-import { Assignment } from './assignment';
 import { DefinitiveIdentification } from './definitiveIdentification';
 import { Imports } from './imports';
+import { ValueAssignment } from './valueAssignment';
 
 export class ModuleDefinition implements IModuleBody {
   public name: string;
@@ -35,6 +37,17 @@ export class ModuleDefinition implements IModuleBody {
 
   public findAssignment(name: string): Assignment | undefined {
     return this.assignments.find((assignment) => assignment.name === name);
+  }
+
+  public toSpreadsheet(workbook?: Workbook): Workbook {
+    const wb = getWorkbook(workbook);
+    this.assignments.forEach((assignment) => {
+      if (assignment instanceof ValueAssignment) {
+        return;
+      }
+      assignment.toSpreadsheet(wb);
+    });
+    return wb;
   }
 
   public toString(): string {

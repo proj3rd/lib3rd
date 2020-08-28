@@ -4,6 +4,9 @@ class ObjectSetReference {
     constructor(objectSetReference) {
         this.objectSetReference = objectSetReference;
     }
+    getDepth() {
+        return 0;
+    }
     toString() {
         return this.objectSetReference;
     }

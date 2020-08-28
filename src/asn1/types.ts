@@ -4,14 +4,26 @@ import { ContentsConstraint } from './classes/contentsConstraint';
 import { ExtensionMarker } from './classes/extensionMarker';
 import { ExternalObjectSetReference } from './classes/externalObjectSetReference';
 import { InnerTypeConstraints } from './classes/innerTypeConstraints';
+import { ObjectClassAssignment } from './classes/objectClassAssignment';
 import { ObjectClassReference } from './classes/objectClassReference';
 import { ObjectSet } from './classes/objectSet';
+import { ObjectSetAssignment } from './classes/objectSetAssignment';
 import { ObjectSetReference } from './classes/objectSetReference';
+import { ParameterizedTypeAssignment } from './classes/parameterizedTypeAssignment';
 import { SizeConstraint } from './classes/sizeConstraint';
 import { SubtypeConstraint } from './classes/subtypeConstraint';
+import { TypeAssignment } from './classes/typeAssignment';
 import { Unions } from './classes/unions';
-import { BuiltinValue } from './classes/value';
+import { BuiltinValue, Value } from './classes/value';
+import { ValueAssignment } from './classes/valueAssignment';
 import { ValueRange } from './classes/valueRange';
+
+export type Assignment =
+  | TypeAssignment
+  | ObjectClassAssignment
+  | ObjectSetAssignment
+  | ParameterizedTypeAssignment
+  | ValueAssignment;
 
 export type _ConstraintSpec = _GeneralConstraint | SubtypeConstraint;
 
@@ -51,6 +63,11 @@ export type _ObjectSetElements = DefinedObjectSet;
 // ParameterizedObjectSet
 
 export type ParamGovernor = Governor | string;
+
+export interface ITypeAndValue {
+  asnType: AsnType;
+  value: Value;
+}
 
 export type SimpleTableConstraint = ObjectSet;
 

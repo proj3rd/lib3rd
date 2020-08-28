@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const extensionMarker_1 = require("./classes/extensionMarker");
+const extensionMarker_1 = require("../classes/extensionMarker");
+var spreadsheet_1 = require("./spreadsheet");
+exports.addWorksheet = spreadsheet_1.addWorksheet;
+exports.getWorkbook = spreadsheet_1.getWorkbook;
 const RE_START_OF_LINE = /^/gm;
 function getConstraintSeparator(constraints, index) {
     if (index === 0) {
@@ -38,4 +41,4 @@ function indent(text, tabSize = 4) {
     return text.replace(RE_START_OF_LINE, ' '.repeat(tabSize));
 }
 exports.indent = indent;
-//# sourceMappingURL=formatter.js.map
+//# sourceMappingURL=index.js.map

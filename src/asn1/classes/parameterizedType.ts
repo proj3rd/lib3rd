@@ -1,10 +1,16 @@
+import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
+import {
+  HEADER_REFERENCE,
+  IRowInput,
+  drawBorder,
+} from '../formatter/spreadsheet';
 import { AsnType } from './asnType';
-import { ParameterizedTypeAssignment } from './assignment';
 import { Constraint } from './constraint';
 import { ExternalTypeReference } from './externalTypeReference';
 import { Modules } from './modules';
+import { ParameterizedTypeAssignment } from './parameterizedTypeAssignment';
 import { TypeReference } from './typeReference';
 import { Value } from './value';
 
@@ -34,11 +40,21 @@ export class ParameterizedType {
     throw Error();
   }
 
+  public getDepth(): number {
+    return 0;
+  }
+
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length === 0) {
       return;
     }
     unimpl();
+  }
+
+  public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    row[HEADER_REFERENCE] = this.toString();
+    const r = worksheet.addRow(row);
+    drawBorder(worksheet, r, depth);
   }
 
   public toString(): string {

@@ -1,0 +1,58 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const formatter_1 = require("../formatter");
+const spreadsheet_1 = require("../formatter/spreadsheet");
+class ExtensionAdditionAlternativeGroup {
+    constructor(version, components) {
+        this.version = version;
+        this.components = components;
+    }
+    expand(modules, parameterMappings) {
+        this.components.forEach((component, index) => {
+            const expandedComponent = component.expand(modules, parameterMappings);
+            this.components[index] = expandedComponent;
+        });
+        return this;
+    }
+    getDepth() {
+        return this.components.reduce((prev, curr) => {
+            return Math.max(prev, curr.getDepth() + 1);
+        }, 0);
+    }
+    toSpreadsheet(worksheet, row, depth) {
+        let r = worksheet.addRow({
+            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: this.openingBracket(),
+        });
+        spreadsheet_1.drawBorder(worksheet, r, depth);
+        this.components.forEach((component) => {
+            component.toSpreadsheet(worksheet, {}, depth + 1);
+        });
+        r = worksheet.addRow({
+            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: ']]',
+        });
+        spreadsheet_1.drawBorder(worksheet, r, depth);
+    }
+    toString() {
+        if (this.components.length === 0) {
+            const arrToStringEmpty = [this.openingBracket()];
+            arrToStringEmpty.push(']]');
+            return arrToStringEmpty.join(' ');
+        }
+        const arrToString = [];
+        arrToString.push(this.openingBracket());
+        const componentsString = this.components
+            .map((component) => component.toString())
+            .join(',\n');
+        arrToString.push(formatter_1.indent(componentsString));
+        arrToString.push(']]');
+        return arrToString.join('\n');
+    }
+    openingBracket() {
+        if (this.version === undefined) {
+            return '[[';
+        }
+        return `[[ ${this.version.toString()}`;
+    }
+}
+exports.ExtensionAdditionAlternativeGroup = ExtensionAdditionAlternativeGroup;
+//# sourceMappingURL=extensionAdditionAlternativeGroup.js.map

@@ -1,5 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { ComponentType } from '../classes/sequenceType';
+import { ComponentType } from '../classes/componentType';
 import {
   ComponentTypeContext,
   ComponentTypeListContext,

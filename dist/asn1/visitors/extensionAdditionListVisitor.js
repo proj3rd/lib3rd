@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
-const sequenceType_1 = require("../classes/sequenceType");
+const componentType_1 = require("../classes/componentType");
 const ASN_3gppParser_1 = require("../grammar/ASN_3gppParser");
 const extensionAdditionVisitor_1 = require("./extensionAdditionVisitor");
 const tagVisitor_1 = require("./tagVisitor");
@@ -24,7 +24,7 @@ class ExtensionAdditionListVisitor extends AbstractParseTreeVisitor_1.AbstractPa
                 const tag = childCtx.accept(new tagVisitor_1.TagVisitor());
                 const { length } = extensionAdditionList;
                 const lastComponent = extensionAdditionList[length - 1];
-                if (lastComponent instanceof sequenceType_1.ComponentType) {
+                if (lastComponent instanceof componentType_1.ComponentType) {
                     lastComponent.tag = tag;
                 }
                 else {

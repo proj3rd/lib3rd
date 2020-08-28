@@ -1,16 +1,13 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { todo } from 'unimpl';
-import {
-  Assignment,
-  ObjectClassAssignment,
-  ParameterizedTypeAssignment,
-  TypeAssignment,
-  ValueAssignment,
-} from '../classes/assignment';
 import { NullType } from '../classes/nullType';
+import { ObjectClassAssignment } from '../classes/objectClassAssignment';
 import { ObjectSetAssignment } from '../classes/objectSetAssignment';
+import { ParameterizedTypeAssignment } from '../classes/parameterizedTypeAssignment';
+import { TypeAssignment } from '../classes/typeAssignment';
+import { ValueAssignment } from '../classes/valueAssignment';
 import { AssignmentContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { Assignment } from '../types';
 import { ObjectClassAssignmentVisitor } from './objectClassAssignmentVisitor';
 import { ParameterizedAssignmentVisitor } from './parameterizedAssignmentVisitor';
 import { TypeAssignmentVisitor } from './typeAssignmentVisitor';

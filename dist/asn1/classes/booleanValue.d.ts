@@ -3,6 +3,7 @@ export declare class BooleanValue {
     value: boolean;
     private booleanValueTag;
     constructor(literal: string);
+    getDepth(): number;
     toString(): string;
 }
 //# sourceMappingURL=booleanValue.d.ts.map

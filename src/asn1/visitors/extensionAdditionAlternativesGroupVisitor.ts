@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { ExtensionAdditionAlternativeGroup } from '../classes/choiceType';
+import { ExtensionAdditionAlternativeGroup } from '../classes/extensionAdditionAlternativeGroup';
 import { ExtensionAdditionAlternativesGroupContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
 import { AlternativeTypeListVisitor } from './alternativeTypeListVisitor';

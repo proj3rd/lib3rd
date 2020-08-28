@@ -1,7 +1,10 @@
+import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
+import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
+import { ExtensionAdditionAlternativeGroup } from './extensionAdditionAlternativeGroup';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
@@ -26,10 +29,25 @@ export class ChoiceType {
     return this;
   }
 
+  public getDepth(): number {
+    return this.components.reduce((prev, curr) => {
+      return Math.max(prev, curr.getDepth() + 1);
+    }, 0);
+  }
+
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length > 0) {
       unimpl();
     }
+  }
+
+  public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    row[HEADER_TYPE] = 'CHOICE';
+    const r = worksheet.addRow(row);
+    drawBorder(worksheet, r, depth);
+    this.components.forEach((component) => {
+      component.toSpreadsheet(worksheet, {}, depth + 1);
+    });
   }
 
   public toString(): string {
@@ -54,49 +72,3 @@ export type RootChoiceComponents =
 export type ExtensionAdditionAlternative =
   | NamedType
   | ExtensionAdditionAlternativeGroup;
-
-export class ExtensionAdditionAlternativeGroup {
-  public version: number | undefined;
-  public components: NamedType[];
-
-  private extensionAdditionAlternativeGroupTag: undefined;
-
-  constructor(version: number | undefined, components: NamedType[]) {
-    this.version = version;
-    this.components = components;
-  }
-
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): ExtensionAdditionAlternativeGroup {
-    this.components.forEach((component, index) => {
-      const expandedComponent = component.expand(modules, parameterMappings);
-      this.components[index] = expandedComponent;
-    });
-    return this;
-  }
-
-  public toString(): string {
-    if (this.components.length === 0) {
-      const arrToStringEmpty = ['[['];
-      if (this.version !== undefined) {
-        arrToStringEmpty.push(this.version.toString());
-      }
-      arrToStringEmpty.push(']]');
-      return arrToStringEmpty.join(' ');
-    }
-    const arrToString: string[] = [];
-    if (this.version !== undefined) {
-      arrToString.push(`[[ ${this.version.toString()}`);
-    } else {
-      arrToString.push('[[');
-    }
-    const componentsString = this.components
-      .map((component) => component.toString())
-      .join(',\n');
-    arrToString.push(indent(componentsString));
-    arrToString.push(']]');
-    return arrToString.join('\n');
-  }
-}

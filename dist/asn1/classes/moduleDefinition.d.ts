@@ -1,5 +1,6 @@
+import { Workbook } from 'exceljs';
+import { Assignment } from '../types';
 import { AsnSymbol } from './asnSymbol';
-import { Assignment } from './assignment';
 import { DefinitiveIdentification } from './definitiveIdentification';
 import { Imports } from './imports';
 export declare class ModuleDefinition implements IModuleBody {
@@ -13,6 +14,7 @@ export declare class ModuleDefinition implements IModuleBody {
     private moduleDefinitionTag;
     constructor(name: string, definitiveIdentification: DefinitiveIdentification, tagDefault: TagDefault, extensionDefault: ExtensionDefault, moduleBody: IModuleBody);
     findAssignment(name: string): Assignment | undefined;
+    toSpreadsheet(workbook?: Workbook): Workbook;
     toString(): string;
 }
 export declare type TagDefault = 'EXPLICIT TAGS' | 'IMPLICIT TAGS' | 'AUTOMATIC TAGS' | '';

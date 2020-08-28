@@ -1,10 +1,11 @@
+import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
+import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
 import { AsnType } from './asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
-import { SizeConstraint } from './sizeConstraint';
 
 export class SequenceOfType {
   public baseType: AsnType | NamedType;
@@ -31,10 +32,21 @@ export class SequenceOfType {
     return this;
   }
 
+  public getDepth(): number {
+    return this.baseType.getDepth();
+  }
+
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length > 0) {
       unimpl();
     }
+  }
+
+  public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // TODO: Is it enough ?
+    row[HEADER_TYPE] = this.toString();
+    const r = worksheet.addRow(row);
+    drawBorder(worksheet, r, depth);
   }
 
   public toString(): string {

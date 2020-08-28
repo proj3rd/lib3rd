@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
 const formatter_1 = require("../formatter");
+const spreadsheet_1 = require("../formatter/spreadsheet");
 class ChoiceType {
     constructor(components) {
         this.components = components;
@@ -13,10 +14,23 @@ class ChoiceType {
         });
         return this;
     }
+    getDepth() {
+        return this.components.reduce((prev, curr) => {
+            return Math.max(prev, curr.getDepth() + 1);
+        }, 0);
+    }
     setConstraints(constraints) {
         if (constraints.length > 0) {
             unimpl_1.unimpl();
         }
+    }
+    toSpreadsheet(worksheet, row, depth) {
+        row[spreadsheet_1.HEADER_TYPE] = 'CHOICE';
+        const r = worksheet.addRow(row);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
+        this.components.forEach((component) => {
+            component.toSpreadsheet(worksheet, {}, depth + 1);
+        });
     }
     toString() {
         if (this.components.length === 0) {
@@ -32,41 +46,4 @@ class ChoiceType {
     }
 }
 exports.ChoiceType = ChoiceType;
-class ExtensionAdditionAlternativeGroup {
-    constructor(version, components) {
-        this.version = version;
-        this.components = components;
-    }
-    expand(modules, parameterMappings) {
-        this.components.forEach((component, index) => {
-            const expandedComponent = component.expand(modules, parameterMappings);
-            this.components[index] = expandedComponent;
-        });
-        return this;
-    }
-    toString() {
-        if (this.components.length === 0) {
-            const arrToStringEmpty = ['[['];
-            if (this.version !== undefined) {
-                arrToStringEmpty.push(this.version.toString());
-            }
-            arrToStringEmpty.push(']]');
-            return arrToStringEmpty.join(' ');
-        }
-        const arrToString = [];
-        if (this.version !== undefined) {
-            arrToString.push(`[[ ${this.version.toString()}`);
-        }
-        else {
-            arrToString.push('[[');
-        }
-        const componentsString = this.components
-            .map((component) => component.toString())
-            .join(',\n');
-        arrToString.push(formatter_1.indent(componentsString));
-        arrToString.push(']]');
-        return arrToString.join('\n');
-    }
-}
-exports.ExtensionAdditionAlternativeGroup = ExtensionAdditionAlternativeGroup;
 //# sourceMappingURL=choiceType.js.map

@@ -1,12 +1,13 @@
+import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { AsnType } from './asnType';
+import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
+import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
+import { ExtensionAdditionGroup } from './extensionAdditionGroup';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
-import { NamedType } from './namedType';
-import { Optionality } from './optionality';
 
 /**
  * This is a comma placeholder for a sequence component.
@@ -15,9 +16,9 @@ import { Optionality } from './optionality';
  * ',' or '' (empty) based on its position in a sequence by using
  * `toStringWithComma()`.
  */
-const _COMMA = '_COMMA_';
+export const _COMMA = '_COMMA_';
 
-function toStringWithComma(
+export function toStringWithComma(
   component: RootSequenceComponents,
   shouldInsert: boolean
 ): string {
@@ -37,8 +38,6 @@ function toStringWithComma(
 export class SequenceType {
   public components: RootSequenceComponents[];
 
-  private sequenceTypeTag: undefined;
-
   constructor(components: RootSequenceComponents[]) {
     this.components = components;
   }
@@ -54,10 +53,25 @@ export class SequenceType {
     return this;
   }
 
+  public getDepth(): number {
+    return this.components.reduce((prev, curr) => {
+      return Math.max(prev, curr.getDepth() + 1);
+    }, 0);
+  }
+
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length > 0) {
       unimpl();
     }
+  }
+
+  public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    row[HEADER_TYPE] = 'SEQUENCE';
+    const r = worksheet.addRow(row);
+    drawBorder(worksheet, r, depth);
+    this.components.forEach((component) => {
+      component.toSpreadsheet(worksheet, {}, depth + 1);
+    });
   }
 
   public toString(): string {
@@ -86,106 +100,4 @@ export type RootSequenceComponents =
 
 export type ExtensionAddition = ComponentType | ExtensionAdditionGroup;
 
-export class ComponentType {
-  public name: string;
-  public asnType: AsnType;
-  public optionality: Optionality | undefined;
-  public tag: Tag;
-
-  private componentTypeTag: undefined;
-
-  constructor(
-    namedType: NamedType,
-    optionality: Optionality | undefined,
-    tag: Tag
-  ) {
-    const { name, asnType } = namedType;
-    this.name = name;
-    this.asnType = asnType;
-    this.optionality = optionality;
-    this.tag = tag;
-  }
-
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): ComponentType {
-    const expandedType = this.asnType.expand(modules, parameterMappings);
-    if (expandedType) {
-      this.asnType = expandedType;
-    }
-    return this;
-  }
-
-  /**
-   * This method will return a string with a comma placeholder.
-   * And it is discouraged to call `ComponentType.toString()` outside of
-   * `SequenceType` and `ExtensionAdditionGroup`.
-   */
-  public toString(): string {
-    const arrToString = [this.name];
-    if (this.optionality === undefined) {
-      arrToString.push(`${this.asnType.toString()}${_COMMA}`);
-    } else if (this.optionality !== undefined) {
-      arrToString.push(this.asnType.toString());
-      arrToString.push(`${this.optionality.toString()}${_COMMA}`);
-    }
-    if (this.tag.length > 0) {
-      arrToString.push(this.tag);
-    }
-    return arrToString.join('    ');
-  }
-}
-
 export type Tag = string;
-
-export class ExtensionAdditionGroup {
-  public version: number | undefined;
-  public components: ComponentType[];
-
-  private extensionAdditionGroupTag: undefined;
-
-  constructor(version: number | undefined, components: ComponentType[]) {
-    this.version = version;
-    this.components = components;
-  }
-
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): ExtensionAdditionGroup {
-    this.components.forEach((component, index) => {
-      const expandedComponent = component.expand(modules, parameterMappings);
-      this.components[index] = expandedComponent;
-    });
-    return this;
-  }
-
-  public toString(): string {
-    if (this.components.length === 0) {
-      const arrToStringEmpty = ['[['];
-      if (this.version !== undefined) {
-        arrToStringEmpty.push(this.version.toString());
-      }
-      arrToStringEmpty.push(']]');
-      return arrToStringEmpty.join(' ');
-    }
-    const arrToString: string[] = [];
-    if (this.version !== undefined) {
-      arrToString.push(`[[ ${this.version.toString()}`);
-    } else {
-      arrToString.push('[[');
-    }
-    const componentsString = this.components
-      .map((component, index) => {
-        return toStringWithComma(
-          component,
-          index !== this.components.length - 1
-        );
-      })
-      .join('\n');
-    arrToString.push(indent(componentsString));
-    arrToString.push(']]');
-    return arrToString.join('\n');
-  }
-}

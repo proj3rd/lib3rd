@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { Assignment } from '../classes/assignment';
 import { AssignmentListContext } from '../grammar/ASN_3gppParser';
 import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { Assignment } from '../types';
 import { AssignmentVisitor } from './assignmentVisitor';
 
 /**

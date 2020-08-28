@@ -1,5 +1,11 @@
+import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
+import {
+  HEADER_REFERENCE,
+  IRowInput,
+  drawBorder,
+} from '../formatter/spreadsheet';
 import { DefinedObjectClass } from './asnType';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
@@ -37,6 +43,10 @@ export class ObjectClassFieldType {
     return unimpl();
   }
 
+  public getDepth(): number {
+    return 0;
+  }
+
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length === 0) {
       return;
@@ -57,6 +67,12 @@ export class ObjectClassFieldType {
     } else {
       unimpl();
     }
+  }
+
+  public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    row[HEADER_REFERENCE] = this.toString();
+    const r = worksheet.addRow(row);
+    drawBorder(worksheet, r, depth);
   }
 
   public toString(): string {
