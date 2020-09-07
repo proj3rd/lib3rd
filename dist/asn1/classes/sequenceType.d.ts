@@ -6,6 +6,7 @@ import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 /**
  * This is a comma placeholder for a sequence component.
  * `ComponentType.toString()` will put this placeholder for the item.
@@ -18,11 +19,20 @@ export declare function toStringWithComma(component: RootSequenceComponents, sho
 export declare class SequenceType {
     components: RootSequenceComponents[];
     constructor(components: RootSequenceComponents[]);
-    expand(modules: Modules, parameterMappings: IParameterMapping[]): SequenceType;
+    /**
+     * Expand `components` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     * @returns Returns {@link SequenceType} of {@link ObjectSet}.
+     * {@link ObjectSet} is only applicable when expanding RAN3 ASN.1 spec.
+     */
+    expand(modules: Modules, parameterMappings: IParameterMapping[]): SequenceType | ObjectSet;
     getDepth(): number;
     setConstraints(constraints: Constraint[]): void;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
     toString(): string;
+    private expandFallback;
+    private parameterToInstantiate;
 }
 export declare type RootSequenceComponents = ComponentType | ExtensionMarker | ExtensionAdditionGroup;
 export declare type ExtensionAddition = ComponentType | ExtensionAdditionGroup;

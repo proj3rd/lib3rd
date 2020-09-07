@@ -1,3 +1,7 @@
+import { unimpl } from 'unimpl';
+import { IParameterMapping } from '../expander';
+import { Modules } from './modules';
+
 export class ObjectSetReference {
   public objectSetReference: string;
 
@@ -5,6 +9,10 @@ export class ObjectSetReference {
 
   constructor(objectSetReference: string) {
     this.objectSetReference = objectSetReference;
+  }
+
+  public expand(modules: Modules, parameterMappings: IParameterMapping[]) {
+    return unimpl();
   }
 
   public getDepth(): number {

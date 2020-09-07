@@ -1,12 +1,17 @@
 import { Worksheet } from 'exceljs';
 import { todo } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 
-// TODO: Make it singleont
 export class ObjectIdentifierType {
+  public static getInstance() {
+    return ObjectIdentifierType.instance;
+  }
+
+  private static instance: ObjectIdentifierType = new ObjectIdentifierType();
+
   private objectIdentifierTypeTag: undefined;
 
   public expand(

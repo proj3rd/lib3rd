@@ -1,4 +1,6 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
+import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import {
   HEADER_NAME_BASE,
@@ -10,12 +12,13 @@ import {
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
+import { ObjectSet } from './objectSet';
 import { Optionality } from './optionality';
 import { _COMMA, Tag } from './sequenceType';
 
 export class ComponentType {
   public name: string;
-  public asnType: AsnType;
+  public asnType: AsnType | ObjectSet /* applicable after expand */;
   public optionality: Optionality | undefined;
   public tag: Tag;
 
@@ -31,14 +34,30 @@ export class ComponentType {
     this.asnType = asnType;
     this.optionality = optionality;
     this.tag = tag;
+    if (asnType instanceof ObjectSet) {
+      return unimpl(
+        'ObjectSet cannot be used in instantiating but expanding ComponentType'
+      );
+    }
   }
 
+  /**
+   * Expand `asnType` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   */
   public expand(
     modules: Modules,
     parameterMappings: IParameterMapping[]
   ): ComponentType {
-    const expandedType = this.asnType.expand(modules, parameterMappings);
-    if (expandedType) {
+    const expandedType = cloneDeep(this.asnType).expand(
+      modules,
+      parameterMappings
+    );
+    if (expandedType instanceof ObjectSet) {
+      return unimpl();
+    }
+    if (!isEqual(expandedType, this.asnType)) {
       this.asnType = expandedType;
     }
     return this;

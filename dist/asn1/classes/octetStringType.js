@@ -10,6 +10,9 @@ const innerTypeConstraints_1 = require("./innerTypeConstraints");
 const objectSet_1 = require("./objectSet");
 class OctetStringType {
     expand(modules, parameterMappings) {
+        if (parameterMappings.length) {
+            return unimpl_1.unimpl(this, parameterMappings);
+        }
         return this;
     }
     getDepth() {

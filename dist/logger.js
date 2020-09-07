@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const winston_1 = require("winston");
 const { combine, printf, timestamp } = winston_1.format;
-const logFormat = printf(({ level, message, timestamp, name }) => {
+const logFormat = printf(({ level, message, timestamp: ts, name }) => {
     const arrToString = [
-        timestamp,
+        ts,
         `[${name}]`,
         `[${level.toUpperCase()}]`,
         message,
@@ -26,11 +26,19 @@ class Logger {
 }
 exports.Logger = Logger;
 Logger.defaultLogger = winston_1.createLogger({
-    format: combine(timestamp(), logFormat),
+    format: combine(timestamp({
+        format: () => {
+            const date = new Date();
+            const timezoneOffsetMinutes = date.getTimezoneOffset();
+            date.setMinutes(date.getMinutes() - timezoneOffsetMinutes);
+            return date.toISOString();
+        },
+    }), logFormat),
     transports: [
         new winston_1.transports.File({
             filename: 'log',
         }),
+        new winston_1.transports.Console({}),
     ],
 });
 Logger.childLoggers = new Map();

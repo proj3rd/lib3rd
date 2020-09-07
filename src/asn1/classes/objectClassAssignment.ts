@@ -1,6 +1,5 @@
 import { Workbook } from 'exceljs';
-import { unimpl } from 'unimpl';
-import { IParameterMapping } from '../expander';
+import { cloneDeep, isEqual } from 'lodash';
 import { getWorkbook } from '../formatter';
 import {
   addHeader,
@@ -26,11 +25,16 @@ export class ObjectClassAssignment {
     this.objectClass = objectClass;
   }
 
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): ObjectClassAssignment {
-    return unimpl();
+  /**
+   * Expand `objectClass` property. This will mutate the object itself.
+   * @param modules
+   */
+  public expand(modules: Modules): ObjectClassAssignment {
+    const expandedType = cloneDeep(this.objectClass).expand(modules, []);
+    if (!isEqual(expandedType, this.objectClass)) {
+      this.objectClass = expandedType;
+    }
+    return this;
   }
 
   public getDepth(): number {

@@ -1,5 +1,7 @@
 import { Worksheet } from 'exceljs';
-import { unreach } from 'unimpl';
+import { cloneDeep, isEqual } from 'lodash';
+import { unimpl, unreach } from 'unimpl';
+import { IParameterMapping } from '../expander';
 import {
   drawBorder,
   HEADER_NAME_BASE,
@@ -10,9 +12,12 @@ import { _Intersections } from '../types';
 import { BooleanValue } from './booleanValue';
 import { ExternalObjectSetReference } from './externalObjectSetReference';
 import { IntegerValue } from './integerValue';
+import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 import { ObjectSetReference } from './objectSetReference';
 import { SizeConstraint } from './sizeConstraint';
 import { ValueRange } from './valueRange';
+import { ValueReference } from './ValueReference';
 
 export class Unions {
   public intersectionsList: _Intersections[];
@@ -23,13 +28,45 @@ export class Unions {
     this.intersectionsList = intersections;
   }
 
+  /**
+   * Expand `intersectionsList` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   */
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): Unions {
+    this.intersectionsList = this.intersectionsList.map(
+      (intersections, index) => {
+        return intersections.map((elements, indexElements) => {
+          if (typeof elements === 'string') {
+            return elements;
+          }
+          const expandedType = cloneDeep(elements).expand(
+            modules,
+            parameterMappings
+          );
+          if (isEqual(expandedType, elements)) {
+            return elements;
+          }
+          if (expandedType instanceof ObjectSet) {
+            return unimpl();
+          }
+          return expandedType;
+        });
+      }
+    );
+    return this;
+  }
+
   public getDepth(): number {
-    return this.intersectionsList.reduce((prev, curr) => {
-      const depthIntersections = curr.reduce((prev, curr) => {
-        const depthCurr = typeof curr === 'string' ? 0 : curr.getDepth();
-        return Math.max(prev, depthCurr);
+    return this.intersectionsList.reduce((prev1, curr1) => {
+      const depthIntersections = curr1.reduce((prev2, curr2) => {
+        const depthCurr = typeof curr2 === 'string' ? 0 : curr2.getDepth();
+        return Math.max(prev2, depthCurr);
       }, 0);
-      return Math.max(prev, depthIntersections);
+      return Math.max(prev1, depthIntersections);
     }, 0);
   }
 
@@ -54,6 +91,8 @@ export class Unions {
         } else if (elements instanceof SizeConstraint) {
           unreach(elements);
         } else if (elements instanceof ValueRange) {
+          unreach(elements);
+        } else if (elements instanceof ValueReference) {
           unreach(elements);
         } else {
           elements.toSpreadsheet(worksheet, {}, depth + 1);

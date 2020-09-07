@@ -1,5 +1,4 @@
 import { Workbook } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { Modules } from './modules';
 import { ObjectClass } from './objectClass';
 export declare class ObjectClassAssignment {
@@ -7,7 +6,11 @@ export declare class ObjectClassAssignment {
     objectClass: ObjectClass;
     private objectClassAssignmentTag;
     constructor(name: string, objectClass: ObjectClass);
-    expand(modules: Modules, parameterMappings: IParameterMapping[]): ObjectClassAssignment;
+    /**
+     * Expand `objectClass` property. This will mutate the object itself.
+     * @param modules
+     */
+    expand(modules: Modules): ObjectClassAssignment;
     getDepth(): number;
     toSpreadsheet(workbook?: Workbook): Workbook;
     toString(): string;

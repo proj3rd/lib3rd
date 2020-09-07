@@ -4,6 +4,7 @@ import { ContentsConstraint } from './classes/contentsConstraint';
 import { ExtensionMarker } from './classes/extensionMarker';
 import { ExternalObjectSetReference } from './classes/externalObjectSetReference';
 import { InnerTypeConstraints } from './classes/innerTypeConstraints';
+import { ObjectClass } from './classes/objectClass';
 import { ObjectClassAssignment } from './classes/objectClassAssignment';
 import { ObjectClassReference } from './classes/objectClassReference';
 import { ObjectSet } from './classes/objectSet';
@@ -14,7 +15,7 @@ import { SizeConstraint } from './classes/sizeConstraint';
 import { SubtypeConstraint } from './classes/subtypeConstraint';
 import { TypeAssignment } from './classes/typeAssignment';
 import { Unions } from './classes/unions';
-import { BuiltinValue, Value } from './classes/value';
+import { Value } from './classes/value';
 import { ValueAssignment } from './classes/valueAssignment';
 import { ValueRange } from './classes/valueRange';
 
@@ -30,7 +31,12 @@ export type _ConstraintSpec = _GeneralConstraint | SubtypeConstraint;
 export type DefinedObjectSet = ExternalObjectSetReference | ObjectSetReference;
 
 // X.680 clause 50.5
-export type _Elements = _SubtypeElements | _ObjectSetElements;
+export type _Elements =
+  | _SubtypeElements
+  | _ObjectSetElements
+  // Valid after expand
+  | AsnType
+  | ObjectClass;
 
 export type _ElementSetSpec = Unions;
 
@@ -71,8 +77,16 @@ export interface ITypeAndValue {
 
 export type SimpleTableConstraint = ObjectSet;
 
-export type _SubtypeElements = SizeConstraint | BuiltinValue | ValueRange;
+export type _SubtypeElements =
+  | SizeConstraint
+  | SingleValue
+  | ValueRange
+  | TypeConstraint;
+
+export type SingleValue = Value;
 
 export type TableConstraint =
   | SimpleTableConstraint
   | ComponentRelationConstraint;
+
+export type TypeConstraint = AsnType;

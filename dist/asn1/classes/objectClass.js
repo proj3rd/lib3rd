@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
+const unimpl_1 = require("unimpl");
 const formatter_1 = require("../formatter");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 /**
@@ -12,6 +14,20 @@ class ObjectClassDefinition {
     constructor(fieldSpecs, syntaxList) {
         this.fieldSpecs = fieldSpecs;
         this.syntaxList = syntaxList;
+    }
+    /**
+     * Expand `fieldSpecs` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
+    expand(modules, parameterMappings) {
+        if (parameterMappings.length) {
+            return unimpl_1.unimpl();
+        }
+        this.fieldSpecs = this.fieldSpecs.map((fieldSpec) => {
+            return lodash_1.cloneDeep(fieldSpec).expand(modules, parameterMappings);
+        });
+        return this;
     }
     getDepth() {
         const depthFieldSpecs = this.fieldSpecs.reduce((prev, curr) => {

@@ -1,13 +1,21 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
+import { Logger } from '../../logger';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
+import { ObjectClassFieldType } from './objectClassFieldType';
+import { ObjectSet } from './objectSet';
+import { ObjectSetAssignment } from './objectSetAssignment';
+import { TypeReference } from './typeReference';
+
+const logger = Logger.getLogger('asn1.class.SequenceType');
 
 /**
  * This is a comma placeholder for a sequence component.
@@ -42,15 +50,40 @@ export class SequenceType {
     this.components = components;
   }
 
+  /**
+   * Expand `components` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   * @returns Returns {@link SequenceType} of {@link ObjectSet}.
+   * {@link ObjectSet} is only applicable when expanding RAN3 ASN.1 spec.
+   */
   public expand(
     modules: Modules,
     parameterMappings: IParameterMapping[]
-  ): SequenceType {
-    this.components.forEach((component, index) => {
-      const expandedComponent = component.expand(modules, parameterMappings);
-      this.components[index] = expandedComponent;
-    });
-    return this;
+  ): SequenceType | ObjectSet {
+    logger.debug('expand()');
+    const paramToInstantiate = this.parameterToInstantiate(parameterMappings);
+    if (paramToInstantiate) {
+      const { actualParameter } = paramToInstantiate;
+      if (typeof actualParameter !== 'string') {
+        return this.expandFallback(modules, parameterMappings);
+      }
+      const assignment = modules.findAssignment(actualParameter);
+      if (assignment === undefined) {
+        return unimpl();
+      }
+      if (!(assignment instanceof ObjectSetAssignment)) {
+        return unimpl();
+      }
+      const { objectSet } = assignment;
+      const expandedObjectSet = cloneDeep(objectSet).expand(modules, []);
+      if (isEqual(expandedObjectSet, objectSet)) {
+        return objectSet;
+      }
+      return expandedObjectSet;
+    } else {
+      return this.expandFallback(modules, parameterMappings);
+    }
   }
 
   public getDepth(): number {
@@ -90,6 +123,50 @@ export class SequenceType {
     arrToString.push(indent(componentsString));
     arrToString.push('}');
     return arrToString.join('\n');
+  }
+
+  private expandFallback(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): SequenceType {
+    this.components = this.components.map((component) => {
+      const expandedComponent = cloneDeep(component).expand(
+        modules,
+        parameterMappings
+      );
+      if (isEqual(expandedComponent, component)) {
+        return component;
+      }
+      return expandedComponent;
+    });
+    return this;
+  }
+
+  private parameterToInstantiate(
+    parameterMappings: IParameterMapping[]
+  ): IParameterMapping | undefined {
+    return parameterMappings.find((paramMap) => {
+      const { parameter } = paramMap;
+      const { paramGovernor } = parameter;
+      if (!(paramGovernor instanceof TypeReference)) {
+        return false;
+      }
+      const component = this.components.find((compo) => {
+        if (compo instanceof ComponentType) {
+          const { asnType } = compo;
+          if (!(asnType instanceof ObjectClassFieldType)) {
+            return false;
+          }
+          const { definedObjectClass } = asnType;
+          const { objectClassReference } = definedObjectClass;
+          if (paramGovernor.typeReference === objectClassReference) {
+            return true;
+          }
+        }
+        // TODO: ExtensionAdditionGroup
+      });
+      return component !== undefined;
+    });
   }
 }
 

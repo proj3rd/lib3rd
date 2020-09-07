@@ -1,10 +1,11 @@
 import { Worksheet } from 'exceljs';
 import { IParameterMapping } from '../expander';
 import { IRowInput } from '../formatter/spreadsheet';
-import { AsnType } from './asnType';
+import { AsnType, DefinedObjectClass } from './asnType';
 import { Constraint } from './constraint';
 import { ExternalTypeReference } from './externalTypeReference';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 import { TypeReference } from './typeReference';
 import { Value } from './value';
 export declare class ParameterizedType {
@@ -12,13 +13,18 @@ export declare class ParameterizedType {
     actualParameters: ActualParameter[];
     private paramterizedTypeTag;
     constructor(simpleDefinedType: TypeReference | ExternalTypeReference, actualParameters: ActualParameter[]);
-    expand(modules: Modules, parameterMappings: IParameterMapping[]): AsnType;
+    /**
+     * Expand the parameterized type.
+     * @param modules
+     * @param parameterMappings
+     * @returns Returns {@link AsnType} of {@link ObjectSet}.
+     * {@link ObjectSet} is only applicable when expanding RAN3 ASN.1 spec.
+     */
+    expand(modules: Modules, parameterMappings: IParameterMapping[]): AsnType | ObjectSet;
     getDepth(): number;
     setConstraints(constraints: Constraint[]): void;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
     toString(): string;
-    private expandExternalTypeReference;
-    private expandTypeReference;
 }
-export declare type ActualParameter = AsnType | Value;
+export declare type ActualParameter = AsnType | Value | DefinedObjectClass | ObjectSet;
 //# sourceMappingURL=parameterizedType.d.ts.map

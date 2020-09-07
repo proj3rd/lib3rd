@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const unimpl_1 = require("unimpl");
+const lodash_1 = require("lodash");
 const formatter_1 = require("../formatter");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 const style_1 = require("../formatter/style");
@@ -9,8 +9,16 @@ class ObjectClassAssignment {
         this.name = name;
         this.objectClass = objectClass;
     }
-    expand(modules, parameterMappings) {
-        return unimpl_1.unimpl();
+    /**
+     * Expand `objectClass` property. This will mutate the object itself.
+     * @param modules
+     */
+    expand(modules) {
+        const expandedType = lodash_1.cloneDeep(this.objectClass).expand(modules, []);
+        if (!lodash_1.isEqual(expandedType, this.objectClass)) {
+            this.objectClass = expandedType;
+        }
+        return this;
     }
     getDepth() {
         return this.objectClass.getDepth();

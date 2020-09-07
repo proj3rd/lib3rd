@@ -1,5 +1,4 @@
 import { Workbook } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { DefinedObjectClass } from './asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
@@ -15,7 +14,11 @@ export declare class ObjectSetAssignment {
     objectSet: ObjectSet;
     private objectSetAssignmentTag;
     constructor(name: string, definedObjectClass: DefinedObjectClass, objectSet: ObjectSet);
-    expand(modules: Modules, parameterMappings: IParameterMapping[]): ObjectSetAssignment;
+    /**
+     * Expand `objectSet` property. This will mutate the object itself.
+     * @param modules
+     */
+    expand(modules: Modules): ObjectSetAssignment;
     getDepth(): number;
     toSpreadsheet(workbook?: Workbook): Workbook;
     toString(): string;

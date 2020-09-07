@@ -13,6 +13,9 @@ class BitStringType {
         this.namedBitList = namedBitList;
     }
     expand(modules, parameterMappings) {
+        if (parameterMappings.length) {
+            return unimpl_1.unimpl(this, parameterMappings);
+        }
         return this;
     }
     getDepth() {

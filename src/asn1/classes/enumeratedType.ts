@@ -1,7 +1,7 @@
 import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';

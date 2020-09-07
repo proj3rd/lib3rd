@@ -1,14 +1,19 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { AsnType } from './asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
+import { ObjectSet } from './objectSet';
 
 export class SequenceOfType {
-  public baseType: AsnType | NamedType;
+  /**
+   * @property {@link ObjectSet} is only applicable when expanding RAN3 ASN.1 spec.
+   */
+  public baseType: AsnType | NamedType | ObjectSet;
   public constraint: Constraint | undefined;
 
   private sequenceOfTypeTag: undefined;
@@ -21,13 +26,30 @@ export class SequenceOfType {
     this.constraint = constraint;
   }
 
+  /**
+   * Expand `baseType` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   */
   public expand(
     modules: Modules,
     parameterMappings: IParameterMapping[]
   ): SequenceOfType {
-    const expandedBaseType = this.baseType.expand(modules, parameterMappings);
-    if (expandedBaseType !== undefined) {
+    const expandedBaseType = cloneDeep(this.baseType).expand(
+      modules,
+      parameterMappings
+    );
+    if (!isEqual(expandedBaseType, this.baseType)) {
       this.baseType = expandedBaseType;
+    }
+    if (this.constraint !== undefined) {
+      const expandedConstraint = cloneDeep(this.constraint).expand(
+        modules,
+        parameterMappings
+      );
+      if (!isEqual(expandedConstraint, this.constraint)) {
+        this.constraint = expandedConstraint;
+      }
     }
     return this;
   }

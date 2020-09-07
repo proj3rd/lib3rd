@@ -1,4 +1,3 @@
-import { IParameterMapping } from '../expander';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { Value } from './value';
@@ -8,7 +7,7 @@ export declare class ValueAssignment {
     value: Value;
     private valueAssignmentTag;
     constructor(name: string, asnType: AsnType, value: Value);
-    expand(modules: Modules, parameterMappings: IParameterMapping[]): ValueAssignment;
+    expand(modules: Modules): ValueAssignment;
     getDepth(): number;
     toString(): string;
 }

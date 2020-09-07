@@ -1,6 +1,10 @@
 import { Worksheet } from 'exceljs';
+import { IParameterMapping } from '../expander';
 import { IRowInput } from '../formatter/spreadsheet';
 import { ObjectIdComponents } from '../types';
+import { AsnType } from './asnType';
+import { Modules } from './modules';
+import { Value } from './value';
 /**
  * X.680 clause 32.3
  * ```
@@ -10,16 +14,18 @@ import { ObjectIdComponents } from '../types';
  * A form of `{ definedValue objectIdComponentsList }` is not supported
  */
 export declare class ObjectIdentifierValue {
-    objectIdComponentsList: ObjectIdComponents[];
+    objectIdComponentsList: Array<ObjectIdComponents | AsnType | Value>;
     private objectIdentifierValueTag;
     private compoundComponentList;
     constructor(objectIdComponentsList: ObjectIdComponents[]);
+    /**
+     * Expand `objectIdComponentsList` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
+    expand(modules: Modules, parameterMappings: IParameterMapping[]): ObjectIdentifierValue;
     getDepth(): number;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
-    /** TODO
-     * Need to improve formatting for RAN3 procedure definitions.
-     * Branching by the length is a workaround and not ideal.
-     */
     toString(): string;
     private compoundComponent;
 }

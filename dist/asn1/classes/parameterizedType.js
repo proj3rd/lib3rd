@@ -1,23 +1,106 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 const externalTypeReference_1 = require("./externalTypeReference");
+const objectClassAssignment_1 = require("./objectClassAssignment");
+const objectIdentifierValue_1 = require("./objectIdentifierValue");
+const objectSetAssignment_1 = require("./objectSetAssignment");
 const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
-const typeReference_1 = require("./typeReference");
+const typeAssignment_1 = require("./typeAssignment");
+const valueAssignment_1 = require("./valueAssignment");
 class ParameterizedType {
     constructor(simpleDefinedType, actualParameters) {
         this.simpleDefinedType = simpleDefinedType;
         this.actualParameters = actualParameters;
     }
+    /**
+     * Expand the parameterized type.
+     * @param modules
+     * @param parameterMappings
+     * @returns Returns {@link AsnType} of {@link ObjectSet}.
+     * {@link ObjectSet} is only applicable when expanding RAN3 ASN.1 spec.
+     */
     expand(modules, parameterMappings) {
-        if (this.simpleDefinedType instanceof typeReference_1.TypeReference) {
-            return this.expandTypeReference(modules, parameterMappings);
+        if (this.simpleDefinedType instanceof externalTypeReference_1.ExternalTypeReference) {
+            return unimpl_1.unimpl();
         }
-        else if (this.simpleDefinedType instanceof externalTypeReference_1.ExternalTypeReference) {
-            return this.expandExternalTypeReference(modules, parameterMappings);
+        const parameterMappedToReference = parameterMappings.find((parameterMapping) => {
+            return (parameterMapping.parameter.dummyReference ===
+                this.simpleDefinedType.typeReference);
+        });
+        if (parameterMappedToReference === undefined) {
+            // A case that TypeReference shall be expanded
+            const assignment = modules.findAssignment(this.simpleDefinedType.typeReference);
+            if (assignment === undefined) {
+                return unimpl_1.unimpl();
+            }
+            else {
+                if (assignment instanceof typeAssignment_1.TypeAssignment) {
+                    return unimpl_1.unimpl();
+                }
+                if (assignment instanceof objectClassAssignment_1.ObjectClassAssignment) {
+                    return unimpl_1.unimpl();
+                }
+                if (assignment instanceof objectSetAssignment_1.ObjectSetAssignment) {
+                    return unimpl_1.unimpl();
+                }
+                if (assignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
+                    // Prepare the base of parameter mapping
+                    const parameterMappingsNew = assignment.parameters.map((parameter) => {
+                        return { parameter, actualParameter: undefined };
+                    });
+                    // Substitute an actual parameter with the passed parameter
+                    const actualParametersNew = this.actualParameters.map((actualParameter, index) => {
+                        if (!(actualParameter instanceof objectIdentifierValue_1.ObjectIdentifierValue)) {
+                            return actualParameter;
+                        }
+                        const { objectIdComponentsList } = actualParameter;
+                        if (objectIdComponentsList.length !== 1) {
+                            return unimpl_1.unimpl();
+                        }
+                        const objectIdComponents = objectIdComponentsList[0];
+                        if (typeof objectIdComponents !== 'string') {
+                            return unimpl_1.unimpl();
+                        }
+                        const parameter = parameterMappings.find((parameterMapping) => {
+                            return parameterMapping.parameter.dummyReference === objectIdComponents;
+                        });
+                        if (parameter === undefined) {
+                            return objectIdComponents;
+                        }
+                        if (parameter.actualParameter === undefined) {
+                            return actualParameter;
+                        }
+                        return parameter.actualParameter;
+                    });
+                    // Map each parameter and actual parameter
+                    if (parameterMappingsNew.length !== actualParametersNew.length) {
+                        return unimpl_1.unimpl();
+                    }
+                    parameterMappingsNew.forEach((parameterMapping, index) => {
+                        parameterMapping.actualParameter = actualParametersNew[index];
+                    });
+                    const expandedType = lodash_1.cloneDeep(assignment.asnType).expand(modules, parameterMappingsNew);
+                    if (lodash_1.isEqual(expandedType, assignment.asnType)) {
+                        return assignment.asnType;
+                    }
+                    return expandedType;
+                }
+                if (assignment instanceof valueAssignment_1.ValueAssignment) {
+                    return unimpl_1.unimpl();
+                }
+            }
         }
-        throw Error();
+        else if (parameterMappedToReference.actualParameter === undefined) {
+            // A case that a type reference shall be left as-is. Do nothing.
+            return this;
+        }
+        else {
+            return unimpl_1.unimpl();
+        }
+        return unimpl_1.unreach();
     }
     getDepth() {
         return 0;
@@ -38,59 +121,6 @@ class ParameterizedType {
             .map((parameter) => parameter.toString())
             .join(', ');
         return `${this.simpleDefinedType.toString()} {${innerString}}`;
-    }
-    expandExternalTypeReference(modules, parameterMappings) {
-        if (!(this.simpleDefinedType instanceof externalTypeReference_1.ExternalTypeReference)) {
-            throw Error();
-        }
-        const { typeReference, moduleReference } = this.simpleDefinedType;
-        const assignment = modules.findAssignment(typeReference, moduleReference);
-        if (assignment === undefined) {
-            return this;
-        }
-        else if (assignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
-            return unimpl_1.unimpl();
-        }
-        else {
-            throw Error();
-        }
-    }
-    expandTypeReference(modules, parameterMappings) {
-        if (!(this.simpleDefinedType instanceof typeReference_1.TypeReference)) {
-            throw Error();
-        }
-        const { typeReference } = this.simpleDefinedType;
-        const parameterMapping = parameterMappings.find((mapping) => mapping.parameter.dummyReference === typeReference);
-        if (parameterMapping === undefined) {
-            // A case that typeReference references another IE.
-            const assignment = modules.findAssignment(typeReference);
-            if (assignment === undefined) {
-                return this;
-            }
-            if (!(assignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment)) {
-                throw Error();
-            }
-            const { asnType, parameters } = assignment;
-            if (parameters.length !== this.actualParameters.length) {
-                throw Error();
-            }
-            const parameterMappingsNew = this.actualParameters.map((actualParameter, index) => {
-                return {
-                    parameter: parameters[index],
-                    actualParameter,
-                };
-            });
-            const expandedType = asnType.expand(modules, parameterMappingsNew);
-            return expandedType;
-        }
-        else if (parameterMapping.actualParameter === undefined) {
-            // A case that typeReference is a dummyReference
-            return this;
-        }
-        else {
-            // A case that typeReference shall be substituted with an actualParameter.
-            return unimpl_1.unimpl();
-        }
     }
 }
 exports.ParameterizedType = ParameterizedType;

@@ -36,7 +36,8 @@ function normalize(asn1) {
 }
 exports.normalize = normalize;
 if (require.main === module) {
-    const { argv } = yargs_1.default.command({
+    const { argv } = yargs_1.default
+        .command({
         command: 'diff <file1> <file2>',
         handler: (args) => {
             const { file1, file2 } = args;
@@ -54,7 +55,28 @@ if (require.main === module) {
             const path = `diff_${specOld}_${specNew}.html`;
             fs_1.writeFileSync(path, rendered);
         },
-    }).command({
+    })
+        .command({
+        command: 'expand <file> <name>',
+        handler: (args) => {
+            const { file, name } = args;
+            if (typeof file !== 'string') {
+                throw Error();
+            }
+            if (typeof name !== 'string') {
+                throw Error();
+            }
+            const text = fs_1.readFileSync(file, 'utf8');
+            const parsed = parser_1.parse(normalize(text));
+            const assignment = parsed.findAssignment(name);
+            if (assignment === undefined) {
+                throw Error(`${name} not found in ${file}`);
+            }
+            const expanded = assignment.expand(parsed);
+            process.stdout.write(expanded.toString());
+        },
+    })
+        .command({
         command: 'extract <file>',
         handler: (args) => {
             const { file } = args;
@@ -67,7 +89,8 @@ if (require.main === module) {
             const path = `${spec}.asn1`;
             fs_1.writeFileSync(path, extracted);
         },
-    }).command({
+    })
+        .command({
         command: 'parse <file>',
         handler: (args) => {
             const { file } = args;

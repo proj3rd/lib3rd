@@ -1,10 +1,10 @@
 import { Worksheet } from 'exceljs';
 import { IParameterMapping } from '../expander';
 import {
+  drawBorder,
   HEADER_NAME_BASE,
   headerIndexed,
   IRowInput,
-  drawBorder,
 } from '../formatter/spreadsheet';
 import { Modules } from './modules';
 

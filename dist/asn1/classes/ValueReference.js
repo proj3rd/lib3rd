@@ -4,6 +4,12 @@ class ValueReference {
     constructor(valueReference) {
         this.valueReference = valueReference;
     }
+    expand(modules, parameterMappings) {
+        return this;
+    }
+    getDepth() {
+        return 0;
+    }
     toString() {
         return this.valueReference;
     }

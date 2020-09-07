@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 class SequenceOfType {
@@ -7,10 +8,21 @@ class SequenceOfType {
         this.baseType = baseType;
         this.constraint = constraint;
     }
+    /**
+     * Expand `baseType` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
     expand(modules, parameterMappings) {
-        const expandedBaseType = this.baseType.expand(modules, parameterMappings);
-        if (expandedBaseType !== undefined) {
+        const expandedBaseType = lodash_1.cloneDeep(this.baseType).expand(modules, parameterMappings);
+        if (!lodash_1.isEqual(expandedBaseType, this.baseType)) {
             this.baseType = expandedBaseType;
+        }
+        if (this.constraint !== undefined) {
+            const expandedConstraint = lodash_1.cloneDeep(this.constraint).expand(modules, parameterMappings);
+            if (!lodash_1.isEqual(expandedConstraint, this.constraint)) {
+                this.constraint = expandedConstraint;
+            }
         }
         return this;
     }

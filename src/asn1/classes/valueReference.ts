@@ -1,3 +1,6 @@
+import { IParameterMapping } from '../expander';
+import { Modules } from './modules';
+
 export class ValueReference {
   public valueReference: string;
 
@@ -5,6 +8,17 @@ export class ValueReference {
 
   constructor(valueReference: string) {
     this.valueReference = valueReference;
+  }
+
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): ValueReference {
+    return this;
+  }
+
+  public getDepth(): number {
+    return 0;
   }
 
   public toString(): string {

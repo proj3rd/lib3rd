@@ -4,6 +4,7 @@ import { ContentsConstraint } from './classes/contentsConstraint';
 import { ExtensionMarker } from './classes/extensionMarker';
 import { ExternalObjectSetReference } from './classes/externalObjectSetReference';
 import { InnerTypeConstraints } from './classes/innerTypeConstraints';
+import { ObjectClass } from './classes/objectClass';
 import { ObjectClassAssignment } from './classes/objectClassAssignment';
 import { ObjectClassReference } from './classes/objectClassReference';
 import { ObjectSet } from './classes/objectSet';
@@ -14,13 +15,13 @@ import { SizeConstraint } from './classes/sizeConstraint';
 import { SubtypeConstraint } from './classes/subtypeConstraint';
 import { TypeAssignment } from './classes/typeAssignment';
 import { Unions } from './classes/unions';
-import { BuiltinValue, Value } from './classes/value';
+import { Value } from './classes/value';
 import { ValueAssignment } from './classes/valueAssignment';
 import { ValueRange } from './classes/valueRange';
 export declare type Assignment = TypeAssignment | ObjectClassAssignment | ObjectSetAssignment | ParameterizedTypeAssignment | ValueAssignment;
 export declare type _ConstraintSpec = _GeneralConstraint | SubtypeConstraint;
 export declare type DefinedObjectSet = ExternalObjectSetReference | ObjectSetReference;
-export declare type _Elements = _SubtypeElements | _ObjectSetElements;
+export declare type _Elements = _SubtypeElements | _ObjectSetElements | AsnType | ObjectClass;
 export declare type _ElementSetSpec = Unions;
 export declare type _ElementSetSpecs = Array<_ElementSetSpec | ExtensionMarker>;
 export declare type _GeneralConstraint = ContentsConstraint | InnerTypeConstraints | TableConstraint;
@@ -40,6 +41,8 @@ export interface ITypeAndValue {
     value: Value;
 }
 export declare type SimpleTableConstraint = ObjectSet;
-export declare type _SubtypeElements = SizeConstraint | BuiltinValue | ValueRange;
+export declare type _SubtypeElements = SizeConstraint | SingleValue | ValueRange | TypeConstraint;
+export declare type SingleValue = Value;
 export declare type TableConstraint = SimpleTableConstraint | ComponentRelationConstraint;
+export declare type TypeConstraint = AsnType;
 //# sourceMappingURL=types.d.ts.map

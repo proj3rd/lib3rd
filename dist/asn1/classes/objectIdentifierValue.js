@@ -1,9 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const formatter_1 = require("../formatter");
 const spreadsheet_1 = require("../formatter/spreadsheet");
+const objectClassAssignment_1 = require("./objectClassAssignment");
+const objectSet_1 = require("./objectSet");
+const objectSetAssignment_1 = require("./objectSetAssignment");
 const octetStringType_1 = require("./octetStringType");
+const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
+const typeAssignment_1 = require("./typeAssignment");
+const valueAssignment_1 = require("./valueAssignment");
 /**
  * X.680 clause 32.3
  * ```
@@ -26,6 +33,65 @@ class ObjectIdentifierValue {
             'SECOND TYPE',
         ];
         this.objectIdComponentsList = this.compoundComponent(objectIdComponentsList);
+        // TODO: Check `objectIdComponentsList[i]` is instance of `ObjectIdComponents`
+    }
+    /**
+     * Expand `objectIdComponentsList` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
+    expand(modules, parameterMappings) {
+        if (parameterMappings.length) {
+            return unimpl_1.unimpl();
+        }
+        this.objectIdComponentsList = this.objectIdComponentsList.map((objectIdComponents, index) => {
+            if (index % 2 === 0) {
+                return objectIdComponents;
+            }
+            if (typeof objectIdComponents === 'string') {
+                const assignment = modules.findAssignment(objectIdComponents);
+                if (assignment === undefined) {
+                    return objectIdComponents;
+                }
+                if (assignment instanceof typeAssignment_1.TypeAssignment) {
+                    const { asnType } = assignment;
+                    const expandedType = lodash_1.cloneDeep(asnType).expand(modules, []);
+                    if (lodash_1.isEqual(expandedType, asnType)) {
+                        if (asnType instanceof objectSet_1.ObjectSet) {
+                            return unimpl_1.unimpl();
+                        }
+                        return asnType;
+                    }
+                    if (expandedType instanceof objectSet_1.ObjectSet) {
+                        return unimpl_1.unimpl();
+                    }
+                    return expandedType;
+                }
+                if (assignment instanceof objectClassAssignment_1.ObjectClassAssignment) {
+                    return unimpl_1.unimpl();
+                }
+                if (assignment instanceof objectSetAssignment_1.ObjectSetAssignment) {
+                    return unimpl_1.unimpl();
+                }
+                if (assignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
+                    return unimpl_1.unimpl();
+                }
+                if (assignment instanceof valueAssignment_1.ValueAssignment) {
+                    const { value } = assignment;
+                    return value;
+                }
+                return unimpl_1.unreach();
+            }
+            const expandedType = lodash_1.cloneDeep(objectIdComponents).expand(modules, parameterMappings);
+            if (lodash_1.isEqual(expandedType, objectIdComponents)) {
+                return objectIdComponents;
+            }
+            if (expandedType instanceof objectSet_1.ObjectSet) {
+                return unimpl_1.unimpl();
+            }
+            return expandedType;
+        });
+        return this;
     }
     getDepth() {
         return this.objectIdComponentsList.reduce((prev, curr) => {
@@ -55,6 +121,7 @@ class ObjectIdentifierValue {
                     !(componentsNext instanceof octetStringType_1.OctetStringType)) {
                     unimpl_1.unreach(componentsNext);
                 }
+                // TODO: componentsNext.toSpreadsheet(...)
                 worksheet.addRow({
                     [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: components,
                     [spreadsheet_1.HEADER_REFERENCE]: componentsNext,
@@ -62,10 +129,6 @@ class ObjectIdentifierValue {
             }
         });
     }
-    /** TODO
-     * Need to improve formatting for RAN3 procedure definitions.
-     * Branching by the length is a workaround and not ideal.
-     */
     toString() {
         if (this.objectIdComponentsList.length === 1) {
             return `{${this.objectIdComponentsList[0].toString()}}`;

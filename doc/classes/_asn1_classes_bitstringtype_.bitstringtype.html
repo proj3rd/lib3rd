@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BitStringType | 3gpp</title>
+	<title>BitStringType | lib3rd</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">3gpp</a>
+					<a href="../index.html" class="title">lib3rd</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -82,19 +82,56 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_asn1_classes_bitstringtype_.bitstringtype.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_asn1_classes_bitstringtype_.bitstringtype.html#bitstringtypetag" class="tsd-kind-icon">bit<wbr>String<wbr>Type<wbr>Tag</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_asn1_classes_bitstringtype_.bitstringtype.html#constraint" class="tsd-kind-icon">constraint</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_asn1_classes_bitstringtype_.bitstringtype.html#namedbitlist" class="tsd-kind-icon">named<wbr>Bit<wbr>List</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_bitstringtype_.bitstringtype.html#expand" class="tsd-kind-icon">expand</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_bitstringtype_.bitstringtype.html#getdepth" class="tsd-kind-icon">get<wbr>Depth</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_bitstringtype_.bitstringtype.html#setconstraints" class="tsd-kind-icon">set<wbr>Constraints</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_bitstringtype_.bitstringtype.html#tospreadsheet" class="tsd-kind-icon">to<wbr>Spreadsheet</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_bitstringtype_.bitstringtype.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Bit<wbr>String<wbr>Type<span class="tsd-signature-symbol">(</span>namedBitList<span class="tsd-signature-symbol">?: </span><a href="../modules/_asn1_types_.html#inamedbit" class="tsd-signature-type">INamedBit</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asn1_classes_bitstringtype_.bitstringtype.html" class="tsd-signature-type">BitStringType</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/bitStringType.ts#L19">src/asn1/classes/bitStringType.ts:19</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> namedBitList: <a href="../modules/_asn1_types_.html#inamedbit" class="tsd-signature-type">INamedBit</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_asn1_classes_bitstringtype_.bitstringtype.html" class="tsd-signature-type">BitStringType</a></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -105,17 +142,27 @@
 					<div class="tsd-signature tsd-kind-icon">bit<wbr>String<wbr>Type<wbr>Tag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/bitStringType.ts#L11">src/asn1/classes/bitStringType.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/bitStringType.ts#L19">src/asn1/classes/bitStringType.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="constraint" class="tsd-anchor"></a>
 					<h3>constraint</h3>
-					<div class="tsd-signature tsd-kind-icon">constraint<span class="tsd-signature-symbol">:</span> <a href="_asn1_classes_sizeconstraint_.sizeconstraint.html" class="tsd-signature-type">SizeConstraint</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<div class="tsd-signature tsd-kind-icon">constraint<span class="tsd-signature-symbol">:</span> <a href="_asn1_classes_constraint_.constraint.html" class="tsd-signature-type">Constraint</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/bitStringType.ts#L9">src/asn1/classes/bitStringType.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/bitStringType.ts#L16">src/asn1/classes/bitStringType.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="namedbitlist" class="tsd-anchor"></a>
+					<h3>named<wbr>Bit<wbr>List</h3>
+					<div class="tsd-signature tsd-kind-icon">named<wbr>Bit<wbr>List<span class="tsd-signature-symbol">:</span> <a href="../modules/_asn1_types_.html#inamedbit" class="tsd-signature-type">INamedBit</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/bitStringType.ts#L17">src/asn1/classes/bitStringType.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -123,25 +170,114 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="setconstraints" class="tsd-anchor"></a>
-					<h3>set<wbr>Constraints</h3>
+					<a name="expand" class="tsd-anchor"></a>
+					<h3>expand</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Constraints<span class="tsd-signature-symbol">(</span>constraints<span class="tsd-signature-symbol">: </span><a href="../modules/_asn1_classes_constraint_.html#_constraint" class="tsd-signature-type">_Constraint</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span></li>
+						<li class="tsd-signature tsd-kind-icon">expand<span class="tsd-signature-symbol">(</span>modules<span class="tsd-signature-symbol">: </span><a href="_asn1_classes_modules_.modules.html" class="tsd-signature-type">Modules</a>, parameterMappings<span class="tsd-signature-symbol">: </span><a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asn1_classes_bitstringtype_.bitstringtype.html" class="tsd-signature-type">BitStringType</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/bitStringType.ts#L13">src/asn1/classes/bitStringType.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/bitStringType.ts#L25">src/asn1/classes/bitStringType.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>constraints: <a href="../modules/_asn1_classes_constraint_.html#_constraint" class="tsd-signature-type">_Constraint</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>modules: <a href="_asn1_classes_modules_.modules.html" class="tsd-signature-type">Modules</a></h5>
+								</li>
+								<li>
+									<h5>parameterMappings: <a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_asn1_classes_bitstringtype_.bitstringtype.html" class="tsd-signature-type">BitStringType</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getdepth" class="tsd-anchor"></a>
+					<h3>get<wbr>Depth</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Depth<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/bitStringType.ts#L35">src/asn1/classes/bitStringType.ts:35</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setconstraints" class="tsd-anchor"></a>
+					<h3>set<wbr>Constraints</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Constraints<span class="tsd-signature-symbol">(</span>constraints<span class="tsd-signature-symbol">: </span><a href="_asn1_classes_constraint_.constraint.html" class="tsd-signature-type">Constraint</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/bitStringType.ts#L39">src/asn1/classes/bitStringType.ts:39</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>constraints: <a href="_asn1_classes_constraint_.constraint.html" class="tsd-signature-type">Constraint</a><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tospreadsheet" class="tsd-anchor"></a>
+					<h3>to<wbr>Spreadsheet</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Spreadsheet<span class="tsd-signature-symbol">(</span>worksheet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Worksheet</span>, row<span class="tsd-signature-symbol">: </span><a href="../interfaces/_asn1_formatter_spreadsheet_.irowinput.html" class="tsd-signature-type">IRowInput</a>, depth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/bitStringType.ts#L80">src/asn1/classes/bitStringType.ts:80</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>worksheet: <span class="tsd-signature-type">Worksheet</span></h5>
+								</li>
+								<li>
+									<h5>row: <a href="../interfaces/_asn1_formatter_spreadsheet_.irowinput.html" class="tsd-signature-type">IRowInput</a></h5>
+								</li>
+								<li>
+									<h5>depth: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/bitStringType.ts#L86">src/asn1/classes/bitStringType.ts:86</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -165,14 +301,32 @@
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_asn1_classes_bitstringtype_.bitstringtype.html" class="tsd-kind-icon">Bit<wbr>String<wbr>Type</a>
 						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_asn1_classes_bitstringtype_.bitstringtype.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_asn1_classes_bitstringtype_.bitstringtype.html#bitstringtypetag" class="tsd-kind-icon">bit<wbr>String<wbr>Type<wbr>Tag</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_asn1_classes_bitstringtype_.bitstringtype.html#constraint" class="tsd-kind-icon">constraint</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_asn1_classes_bitstringtype_.bitstringtype.html#namedbitlist" class="tsd-kind-icon">named<wbr>Bit<wbr>List</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_bitstringtype_.bitstringtype.html#expand" class="tsd-kind-icon">expand</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_bitstringtype_.bitstringtype.html#getdepth" class="tsd-kind-icon">get<wbr>Depth</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_asn1_classes_bitstringtype_.bitstringtype.html#setconstraints" class="tsd-kind-icon">set<wbr>Constraints</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_bitstringtype_.bitstringtype.html#tospreadsheet" class="tsd-kind-icon">to<wbr>Spreadsheet</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_bitstringtype_.bitstringtype.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>
 					</li>

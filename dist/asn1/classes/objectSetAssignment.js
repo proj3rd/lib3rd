@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const unimpl_1 = require("unimpl");
+const lodash_1 = require("lodash");
 const formatter_1 = require("../formatter");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 const style_1 = require("../formatter/style");
@@ -16,8 +16,16 @@ class ObjectSetAssignment {
         this.definedObjectClass = definedObjectClass;
         this.objectSet = objectSet;
     }
-    expand(modules, parameterMappings) {
-        return unimpl_1.todo();
+    /**
+     * Expand `objectSet` property. This will mutate the object itself.
+     * @param modules
+     */
+    expand(modules) {
+        const expandedType = lodash_1.cloneDeep(this.objectSet).expand(modules, []);
+        if (!lodash_1.isEqual(expandedType, this.objectSet)) {
+            this.objectSet = expandedType;
+        }
+        return this;
     }
     getDepth() {
         return this.objectSet.getDepth();

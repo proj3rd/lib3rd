@@ -1,3 +1,6 @@
+import { IParameterMapping } from '../expander';
+import { Modules } from './modules';
+
 export class BooleanValue {
   public literal: string;
   public value: boolean;
@@ -13,6 +16,13 @@ export class BooleanValue {
     } else {
       throw Error();
     }
+  }
+
+  public expand(
+    moduleS: Modules,
+    parameterMappings: IParameterMapping[]
+  ): BooleanValue {
+    return this;
   }
 
   public getDepth(): number {

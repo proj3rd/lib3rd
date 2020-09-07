@@ -1,5 +1,8 @@
-import { unreach } from 'unimpl';
+import { cloneDeep, isEqual } from 'lodash';
+import { unimpl, unreach } from 'unimpl';
+import { IParameterMapping } from '../expander';
 import { _ConstraintSpec } from '../types';
+import { Modules } from './modules';
 import { SizeConstraint } from './sizeConstraint';
 import { SubtypeConstraint } from './subtypeConstraint';
 import { Unions } from './unions';
@@ -17,6 +20,28 @@ export class Constraint {
     } else {
       this.constraintSpec = constraint;
     }
+  }
+
+  /**
+   * Expand `constraintSpec` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   */
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): Constraint {
+    if (!(this.constraintSpec instanceof SubtypeConstraint)) {
+      return unimpl();
+    }
+    const expandedConstraint = cloneDeep(this.constraintSpec).expand(
+      modules,
+      parameterMappings
+    );
+    if (!isEqual(expandedConstraint, this.constraintSpec)) {
+      this.constraintSpec = expandedConstraint;
+    }
+    return this;
   }
 
   public toString(): string {

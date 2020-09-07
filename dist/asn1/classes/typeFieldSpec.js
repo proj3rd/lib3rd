@@ -6,6 +6,10 @@ class TypeFieldSpec {
         this.fieldReference = fieldRerence;
         this.optionality = optionality;
     }
+    expand(modules, parameterMappings) {
+        // TODO: Shall `optionality` be expanded?
+        return this;
+    }
     getDepth() {
         return 0;
     }

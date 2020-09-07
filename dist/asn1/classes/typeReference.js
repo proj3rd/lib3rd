@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 const contentsConstraint_1 = require("./contentsConstraint");
@@ -11,6 +12,13 @@ class TypeReference {
     constructor(typeReference) {
         this.typeReference = typeReference;
     }
+    /**
+     * Expand `typeReference` property.
+     * @param modules
+     * @param parameterMappings
+     * @returns Returns {@link AsnType} of {@link ObjectSet}.
+     * {@link ObjectSet} is only applicable when expanding RAN3 ASN.1 spec.
+     */
     expand(modules, parameterMappings) {
         const parameterMapping = parameterMappings.find((mapping) => mapping.parameter.dummyReference === this.typeReference);
         if (parameterMapping === undefined) {
@@ -21,7 +29,10 @@ class TypeReference {
             }
             else if (referencedAssignment instanceof typeAssignment_1.TypeAssignment) {
                 const { asnType } = referencedAssignment;
-                const expandedType = asnType.expand(modules, []);
+                const expandedType = lodash_1.cloneDeep(asnType).expand(modules, []);
+                if (lodash_1.isEqual(expandedType, asnType)) {
+                    return asnType;
+                }
                 return expandedType;
             }
             else if (referencedAssignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
@@ -39,8 +50,8 @@ class TypeReference {
             // A case that typeReference shall be substituted with an actualParameter.
             const { actualParameter } = parameterMapping;
             if (actualParameter instanceof TypeReference) {
-                const expandedType = actualParameter.expand(modules, []);
-                if (expandedType === undefined) {
+                const expandedType = lodash_1.cloneDeep(actualParameter).expand(modules, []);
+                if (lodash_1.isEqual(expandedType, actualParameter)) {
                     return actualParameter;
                 }
                 return expandedType;

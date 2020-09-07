@@ -8,6 +8,11 @@ export declare class ExtensionAdditionAlternativeGroup {
     components: NamedType[];
     private extensionAdditionAlternativeGroupTag;
     constructor(version: number | undefined, components: NamedType[]);
+    /**
+     * Expand `components` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
     expand(modules: Modules, parameterMappings: IParameterMapping[]): ExtensionAdditionAlternativeGroup;
     getDepth(): number;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;

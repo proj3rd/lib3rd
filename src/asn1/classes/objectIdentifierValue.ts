@@ -1,5 +1,7 @@
 import { Worksheet } from 'exceljs';
-import { unreach } from 'unimpl';
+import { cloneDeep, isEqual } from 'lodash';
+import { unimpl, unreach } from 'unimpl';
+import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import {
   HEADER_NAME_BASE,
@@ -8,7 +10,16 @@ import {
   IRowInput,
 } from '../formatter/spreadsheet';
 import { ObjectIdComponents } from '../types';
+import { AsnType } from './asnType';
+import { Modules } from './modules';
+import { ObjectClassAssignment } from './objectClassAssignment';
+import { ObjectSet } from './objectSet';
+import { ObjectSetAssignment } from './objectSetAssignment';
 import { OctetStringType } from './octetStringType';
+import { ParameterizedTypeAssignment } from './parameterizedTypeAssignment';
+import { TypeAssignment } from './typeAssignment';
+import { Value } from './value';
+import { ValueAssignment } from './valueAssignment';
 
 /**
  * X.680 clause 32.3
@@ -19,7 +30,11 @@ import { OctetStringType } from './octetStringType';
  * A form of `{ definedValue objectIdComponentsList }` is not supported
  */
 export class ObjectIdentifierValue {
-  public objectIdComponentsList: ObjectIdComponents[];
+  public objectIdComponentsList: Array<
+    | ObjectIdComponents
+    | /* the rest are applicable when expand */ AsnType
+    | Value
+  >;
 
   private objectIdentifierValueTag: undefined;
 
@@ -39,6 +54,74 @@ export class ObjectIdentifierValue {
     this.objectIdComponentsList = this.compoundComponent(
       objectIdComponentsList
     );
+    // TODO: Check `objectIdComponentsList[i]` is instance of `ObjectIdComponents`
+  }
+
+  /**
+   * Expand `objectIdComponentsList` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   */
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): ObjectIdentifierValue {
+    if (parameterMappings.length) {
+      return unimpl();
+    }
+    this.objectIdComponentsList = this.objectIdComponentsList.map(
+      (objectIdComponents, index) => {
+        if (index % 2 === 0) {
+          return objectIdComponents;
+        }
+        if (typeof objectIdComponents === 'string') {
+          const assignment = modules.findAssignment(objectIdComponents);
+          if (assignment === undefined) {
+            return objectIdComponents;
+          }
+          if (assignment instanceof TypeAssignment) {
+            const { asnType } = assignment;
+            const expandedType = cloneDeep(asnType).expand(modules, []);
+            if (isEqual(expandedType, asnType)) {
+              if (asnType instanceof ObjectSet) {
+                return unimpl();
+              }
+              return asnType;
+            }
+            if (expandedType instanceof ObjectSet) {
+              return unimpl();
+            }
+            return expandedType;
+          }
+          if (assignment instanceof ObjectClassAssignment) {
+            return unimpl();
+          }
+          if (assignment instanceof ObjectSetAssignment) {
+            return unimpl();
+          }
+          if (assignment instanceof ParameterizedTypeAssignment) {
+            return unimpl();
+          }
+          if (assignment instanceof ValueAssignment) {
+            const { value } = assignment;
+            return value;
+          }
+          return unreach();
+        }
+        const expandedType = cloneDeep(objectIdComponents).expand(
+          modules,
+          parameterMappings
+        );
+        if (isEqual(expandedType, objectIdComponents)) {
+          return objectIdComponents;
+        }
+        if (expandedType instanceof ObjectSet) {
+          return unimpl();
+        }
+        return expandedType;
+      }
+    );
+    return this;
   }
 
   public getDepth(): number {
@@ -71,6 +154,7 @@ export class ObjectIdentifierValue {
         ) {
           unreach(componentsNext);
         }
+        // TODO: componentsNext.toSpreadsheet(...)
         worksheet.addRow({
           [headerIndexed(HEADER_NAME_BASE, depth)]: components,
           [HEADER_REFERENCE]: componentsNext,
@@ -79,10 +163,6 @@ export class ObjectIdentifierValue {
     });
   }
 
-  /** TODO
-   * Need to improve formatting for RAN3 procedure definitions.
-   * Branching by the length is a workaround and not ideal.
-   */
   public toString(): string {
     if (this.objectIdComponentsList.length === 1) {
       return `{${this.objectIdComponentsList[0].toString()}}`;

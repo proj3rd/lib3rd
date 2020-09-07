@@ -1,23 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
+const unimpl_1 = require("unimpl");
 const formatter_1 = require("../formatter");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 const style_1 = require("../formatter/style");
+const objectSet_1 = require("./objectSet");
 class ParameterizedTypeAssignment {
     constructor(name, parameters, asnType) {
         this.name = name;
         this.parameters = parameters;
         this.asnType = asnType;
     }
-    expand(modules, parameterMappings) {
-        const parameterMappingsNew = this.parameters.map((parameter) => {
+    /**
+     * Expand `asnType` property. This will mutate the object itself.
+     * @param modules
+     */
+    expand(modules) {
+        const parameterMappings = this.parameters.map((parameter) => {
             return {
-                actualParameter: undefined,
                 parameter,
+                actualParameter: undefined,
             };
         });
-        const expandedType = this.asnType.expand(modules, parameterMappingsNew);
-        if (expandedType !== undefined) {
+        const expandedType = lodash_1.cloneDeep(this.asnType).expand(modules, parameterMappings);
+        if (expandedType instanceof objectSet_1.ObjectSet) {
+            return unimpl_1.unimpl();
+        }
+        if (!lodash_1.isEqual(expandedType, this.asnType)) {
             this.asnType = expandedType;
         }
         return this;

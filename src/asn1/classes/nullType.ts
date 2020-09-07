@@ -1,9 +1,9 @@
+import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
-import { Worksheet } from 'exceljs';
-import { IRowInput, HEADER_TYPE, drawBorder } from '../formatter/spreadsheet';
 
 export class NullType {
   public static getInstance() {

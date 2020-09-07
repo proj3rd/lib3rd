@@ -1,8 +1,8 @@
+import { Worksheet } from 'exceljs';
 import { IParameterMapping } from '../expander';
+import { IRowInput } from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
-import { Worksheet } from 'exceljs';
-import { IRowInput } from '../formatter/spreadsheet';
 export declare class NullType {
     static getInstance(): NullType;
     private static instance;

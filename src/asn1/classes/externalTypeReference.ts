@@ -1,14 +1,16 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import {
+  drawBorder,
   HEADER_REFERENCE,
   IRowInput,
-  drawBorder,
 } from '../formatter/spreadsheet';
 import { AsnType } from './asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 import { ParameterizedTypeAssignment } from './parameterizedTypeAssignment';
 import { TypeAssignment } from './typeAssignment';
 import { ValueAssignment } from './valueAssignment';
@@ -24,6 +26,12 @@ export class ExternalTypeReference {
     this.typeReference = typeReference;
   }
 
+  /**
+   * Find an Assignment indicated by ExternalTypeReference and
+   * returns an expanded copy of it.
+   * @param modules
+   * @param parameterMappings
+   */
   public expand(
     modules: Modules,
     parameterMappings: IParameterMapping[]
@@ -36,7 +44,16 @@ export class ExternalTypeReference {
       return this;
     } else if (referencedAssignment instanceof TypeAssignment) {
       const { asnType } = referencedAssignment;
-      const expandedType = asnType.expand(modules, []);
+      const expandedType = cloneDeep(asnType).expand(modules, []);
+      if (asnType instanceof ObjectSet) {
+        return unimpl();
+      }
+      if (isEqual(expandedType, asnType)) {
+        return asnType;
+      }
+      if (expandedType instanceof ObjectSet) {
+        return unimpl();
+      }
       return expandedType;
     } else if (referencedAssignment instanceof ParameterizedTypeAssignment) {
       return unimpl();

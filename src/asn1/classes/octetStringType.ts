@@ -2,7 +2,7 @@ import { Row, Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { SizeConstraint } from '../classes/sizeConstraint';
 import { IParameterMapping } from '../expander';
-import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -20,6 +20,9 @@ export class OctetStringType {
     modules: Modules,
     parameterMappings: IParameterMapping[]
   ): OctetStringType {
+    if (parameterMappings.length) {
+      return unimpl(this, parameterMappings);
+    }
     return this;
   }
 

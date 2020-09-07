@@ -1,5 +1,6 @@
 import { Workbook } from 'exceljs';
-import { IParameterMapping } from '../expander';
+import { cloneDeep, isEqual } from 'lodash';
+import { unimpl } from 'unimpl';
 import { addWorksheet, getWorkbook } from '../formatter';
 import {
   addHeader,
@@ -12,24 +13,31 @@ import {
 import { BorderTop } from '../formatter/style';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 
 export class TypeAssignment {
   public name: string;
-  public asnType: AsnType;
+  public asnType: AsnType | ObjectSet /* applicable after expand */;
 
   private typeAssignmentTag: undefined;
 
   constructor(name: string, asnType: AsnType) {
     this.name = name;
     this.asnType = asnType;
+    if (asnType instanceof ObjectSet) {
+      return unimpl(
+        'ObjectSet cannot be used in instantiating but expanding TypeAssignment'
+      );
+    }
   }
 
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): TypeAssignment {
-    const expandedType = this.asnType.expand(modules, parameterMappings);
-    if (expandedType !== undefined) {
+  /**
+   * Expand `asnTye` property. This will mutate the object itself.
+   * @param modules
+   */
+  public expand(modules: Modules): TypeAssignment {
+    const expandedType = cloneDeep(this.asnType).expand(modules, []);
+    if (!isEqual(expandedType, this.asnType)) {
       this.asnType = expandedType;
     }
     return this;

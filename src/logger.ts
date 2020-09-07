@@ -3,13 +3,8 @@ import winston, { createLogger, format, transports } from 'winston';
 const { combine, printf, timestamp } = format;
 
 const logFormat = printf(
-  ({ level, message, timestamp, name }: TransformableInfo) => {
-    const arrToString = [
-      timestamp,
-      `[${name}]`,
-      `[${level.toUpperCase()}]`,
-      message,
-    ];
+  ({ level, message, timestamp: ts, name }: TransformableInfo) => {
+    const arrToString = [ts, `[${name}]`, `[${level.toUpperCase()}]`, message];
     return arrToString.join(' ');
   }
 );
@@ -26,11 +21,22 @@ export class Logger {
   }
 
   private static defaultLogger = createLogger({
-    format: combine(timestamp(), logFormat),
+    format: combine(
+      timestamp({
+        format: () => {
+          const date = new Date();
+          const timezoneOffsetMinutes = date.getTimezoneOffset();
+          date.setMinutes(date.getMinutes() - timezoneOffsetMinutes);
+          return date.toISOString();
+        },
+      }),
+      logFormat
+    ),
     transports: [
       new transports.File({
         filename: 'log',
       }),
+      new transports.Console({}),
     ],
   });
   private static childLoggers = new Map<string, winston.Logger>();

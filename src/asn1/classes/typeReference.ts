@@ -1,16 +1,18 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import {
+  drawBorder,
   HEADER_REFERENCE,
   IRowInput,
-  drawBorder,
 } from '../formatter/spreadsheet';
 import { AsnType } from './asnType';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { InnerTypeConstraints } from './innerTypeConstraints';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 import { ParameterizedTypeAssignment } from './parameterizedTypeAssignment';
 import { TypeAssignment } from './typeAssignment';
 import { ValueAssignment } from './valueAssignment';
@@ -25,10 +27,17 @@ export class TypeReference {
     this.typeReference = typeReference;
   }
 
+  /**
+   * Expand `typeReference` property.
+   * @param modules
+   * @param parameterMappings
+   * @returns Returns {@link AsnType} of {@link ObjectSet}.
+   * {@link ObjectSet} is only applicable when expanding RAN3 ASN.1 spec.
+   */
   public expand(
     modules: Modules,
     parameterMappings: IParameterMapping[]
-  ): AsnType {
+  ): AsnType | ObjectSet {
     const parameterMapping = parameterMappings.find(
       (mapping) => mapping.parameter.dummyReference === this.typeReference
     );
@@ -39,7 +48,10 @@ export class TypeReference {
         return this;
       } else if (referencedAssignment instanceof TypeAssignment) {
         const { asnType } = referencedAssignment;
-        const expandedType = asnType.expand(modules, []);
+        const expandedType = cloneDeep(asnType).expand(modules, []);
+        if (isEqual(expandedType, asnType)) {
+          return asnType;
+        }
         return expandedType;
       } else if (referencedAssignment instanceof ParameterizedTypeAssignment) {
         return unimpl();
@@ -53,8 +65,8 @@ export class TypeReference {
       // A case that typeReference shall be substituted with an actualParameter.
       const { actualParameter } = parameterMapping;
       if (actualParameter instanceof TypeReference) {
-        const expandedType = actualParameter.expand(modules, []);
-        if (expandedType === undefined) {
+        const expandedType = cloneDeep(actualParameter).expand(modules, []);
+        if (isEqual(expandedType, actualParameter)) {
           return actualParameter;
         }
         return expandedType;

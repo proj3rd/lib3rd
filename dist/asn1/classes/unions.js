@@ -1,24 +1,50 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 const booleanValue_1 = require("./booleanValue");
 const externalObjectSetReference_1 = require("./externalObjectSetReference");
 const integerValue_1 = require("./integerValue");
+const objectSet_1 = require("./objectSet");
 const objectSetReference_1 = require("./objectSetReference");
 const sizeConstraint_1 = require("./sizeConstraint");
 const valueRange_1 = require("./valueRange");
+const ValueReference_1 = require("./ValueReference");
 class Unions {
     constructor(intersections) {
         this.intersectionsList = intersections;
     }
+    /**
+     * Expand `intersectionsList` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
+    expand(modules, parameterMappings) {
+        this.intersectionsList = this.intersectionsList.map((intersections, index) => {
+            return intersections.map((elements, indexElements) => {
+                if (typeof elements === 'string') {
+                    return elements;
+                }
+                const expandedType = lodash_1.cloneDeep(elements).expand(modules, parameterMappings);
+                if (lodash_1.isEqual(expandedType, elements)) {
+                    return elements;
+                }
+                if (expandedType instanceof objectSet_1.ObjectSet) {
+                    return unimpl_1.unimpl();
+                }
+                return expandedType;
+            });
+        });
+        return this;
+    }
     getDepth() {
-        return this.intersectionsList.reduce((prev, curr) => {
-            const depthIntersections = curr.reduce((prev, curr) => {
-                const depthCurr = typeof curr === 'string' ? 0 : curr.getDepth();
-                return Math.max(prev, depthCurr);
+        return this.intersectionsList.reduce((prev1, curr1) => {
+            const depthIntersections = curr1.reduce((prev2, curr2) => {
+                const depthCurr = typeof curr2 === 'string' ? 0 : curr2.getDepth();
+                return Math.max(prev2, depthCurr);
             }, 0);
-            return Math.max(prev, depthIntersections);
+            return Math.max(prev1, depthIntersections);
         }, 0);
     }
     toSpreadsheet(worksheet, row, depth) {
@@ -48,6 +74,9 @@ class Unions {
                     unimpl_1.unreach(elements);
                 }
                 else if (elements instanceof valueRange_1.ValueRange) {
+                    unimpl_1.unreach(elements);
+                }
+                else if (elements instanceof ValueReference_1.ValueReference) {
                     unimpl_1.unreach(elements);
                 }
                 else {

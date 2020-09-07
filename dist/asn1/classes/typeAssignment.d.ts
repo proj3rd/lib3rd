@@ -1,13 +1,17 @@
 import { Workbook } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 export declare class TypeAssignment {
     name: string;
-    asnType: AsnType;
+    asnType: AsnType | ObjectSet;
     private typeAssignmentTag;
     constructor(name: string, asnType: AsnType);
-    expand(modules: Modules, parameterMappings: IParameterMapping[]): TypeAssignment;
+    /**
+     * Expand `asnTye` property. This will mutate the object itself.
+     * @param modules
+     */
+    expand(modules: Modules): TypeAssignment;
     getDepth(): number;
     toSpreadsheet(workbook?: Workbook): Workbook;
     toString(): string;

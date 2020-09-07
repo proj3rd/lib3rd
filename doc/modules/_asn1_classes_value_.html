@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;asn1/classes/value&quot; | 3gpp</title>
+	<title>&quot;asn1/classes/value&quot; | lib3rd</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">3gpp</a>
+					<a href="../index.html" class="title">lib3rd</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -74,6 +74,8 @@
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_asn1_classes_value_.html#builtinvalue" class="tsd-kind-icon">Builtin<wbr>Value</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_asn1_classes_value_.html#definedvalue" class="tsd-kind-icon">Defined<wbr>Value</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_asn1_classes_value_.html#referencedvalue" class="tsd-kind-icon">Referenced<wbr>Value</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_asn1_classes_value_.html#value" class="tsd-kind-icon">Value</a></li>
 							</ul>
 						</section>
@@ -85,20 +87,40 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
 					<a name="builtinvalue" class="tsd-anchor"></a>
 					<h3>Builtin<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">Builtin<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../classes/_asn1_classes_booleanvalue_.booleanvalue.html" class="tsd-signature-type">BooleanValue</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_asn1_classes_integervalue_.integervalue.html" class="tsd-signature-type">IntegerValue</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">Builtin<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../classes/_asn1_classes_booleanvalue_.booleanvalue.html" class="tsd-signature-type">BooleanValue</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_asn1_classes_integervalue_.integervalue.html" class="tsd-signature-type">IntegerValue</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_asn1_classes_objectidentifiervalue_.objectidentifiervalue.html" class="tsd-signature-type">ObjectIdentifierValue</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/value.ts#L6">src/asn1/classes/value.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/value.ts#L8">src/asn1/classes/value.ts:8</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
+					<a name="definedvalue" class="tsd-anchor"></a>
+					<h3>Defined<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">Defined<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../classes/_asn1_classes_valuereference_.valuereference.html" class="tsd-signature-type">ValueReference</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/value.ts#L14">src/asn1/classes/value.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
+					<a name="referencedvalue" class="tsd-anchor"></a>
+					<h3>Referenced<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">Referenced<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="_asn1_classes_value_.html#definedvalue" class="tsd-signature-type">DefinedValue</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/value.ts#L16">src/asn1/classes/value.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
 					<a name="value" class="tsd-anchor"></a>
 					<h3>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">Value<span class="tsd-signature-symbol">:</span> <a href="_asn1_classes_value_.html#builtinvalue" class="tsd-signature-type">BuiltinValue</a></div>
+					<div class="tsd-signature tsd-kind-icon">Value<span class="tsd-signature-symbol">:</span> <a href="_asn1_classes_value_.html#builtinvalue" class="tsd-signature-type">BuiltinValue</a><span class="tsd-signature-symbol"> | </span><a href="_asn1_classes_value_.html#referencedvalue" class="tsd-signature-type">ReferencedValue</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/value.ts#L4">src/asn1/classes/value.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/value.ts#L6">src/asn1/classes/value.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -119,6 +141,12 @@
 				<ul class="before-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_asn1_classes_value_.html#builtinvalue" class="tsd-kind-icon">Builtin<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="_asn1_classes_value_.html#definedvalue" class="tsd-kind-icon">Defined<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="_asn1_classes_value_.html#referencedvalue" class="tsd-kind-icon">Referenced<wbr>Value</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_asn1_classes_value_.html#value" class="tsd-kind-icon">Value</a>

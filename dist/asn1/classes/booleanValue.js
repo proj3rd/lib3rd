@@ -13,6 +13,9 @@ class BooleanValue {
             throw Error();
         }
     }
+    expand(moduleS, parameterMappings) {
+        return this;
+    }
     getDepth() {
         return 0;
     }

@@ -1,4 +1,6 @@
 import { Workbook } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
+import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { addWorksheet, getWorkbook } from '../formatter';
 import {
@@ -12,6 +14,7 @@ import {
 import { BorderTop } from '../formatter/style';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 import { Parameter } from './parameter';
 
 export class ParameterizedTypeAssignment {
@@ -27,20 +30,27 @@ export class ParameterizedTypeAssignment {
     this.asnType = asnType;
   }
 
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): ParameterizedTypeAssignment {
-    const parameterMappingsNew: IParameterMapping[] = this.parameters.map(
+  /**
+   * Expand `asnType` property. This will mutate the object itself.
+   * @param modules
+   */
+  public expand(modules: Modules): ParameterizedTypeAssignment {
+    const parameterMappings: IParameterMapping[] = this.parameters.map(
       (parameter) => {
         return {
-          actualParameter: undefined,
           parameter,
+          actualParameter: undefined,
         };
       }
     );
-    const expandedType = this.asnType.expand(modules, parameterMappingsNew);
-    if (expandedType !== undefined) {
+    const expandedType = cloneDeep(this.asnType).expand(
+      modules,
+      parameterMappings
+    );
+    if (expandedType instanceof ObjectSet) {
+      return unimpl();
+    }
+    if (!isEqual(expandedType, this.asnType)) {
       this.asnType = expandedType;
     }
     return this;

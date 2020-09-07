@@ -1,11 +1,12 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import {
+  drawBorder,
   HEADER_NAME_BASE,
   headerIndexed,
   IRowInput,
-  drawBorder,
 } from '../formatter/spreadsheet';
 import { ComponentType } from './componentType';
 import { Modules } from './modules';
@@ -22,13 +23,24 @@ export class ExtensionAdditionGroup {
     this.components = components;
   }
 
+  /**
+   * Expand `components` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   */
   public expand(
     modules: Modules,
     parameterMappings: IParameterMapping[]
   ): ExtensionAdditionGroup {
-    this.components.forEach((component, index) => {
-      const expandedComponent = component.expand(modules, parameterMappings);
-      this.components[index] = expandedComponent;
+    this.components = this.components.map((component) => {
+      const expandedComponent = cloneDeep(component).expand(
+        modules,
+        parameterMappings
+      );
+      if (isEqual(expandedComponent, component)) {
+        return component;
+      }
+      return expandedComponent;
     });
     return this;
   }

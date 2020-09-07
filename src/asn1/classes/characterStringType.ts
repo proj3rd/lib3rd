@@ -1,7 +1,7 @@
 import { Worksheet } from 'exceljs';
-import { todo, unimpl } from 'unimpl';
+import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -31,7 +31,10 @@ export class CharacterStringType {
     modules: Modules,
     parameterMappings: IParameterMapping[]
   ): CharacterStringType {
-    return todo();
+    if (parameterMappings.length) {
+      return unimpl(this, parameterMappings);
+    }
+    return this;
   }
 
   public getDepth(): number {

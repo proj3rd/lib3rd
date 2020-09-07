@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SequenceType | 3gpp</title>
+	<title>SequenceType | lib3rd</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">3gpp</a>
+					<a href="../index.html" class="title">lib3rd</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -91,13 +91,18 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_asn1_classes_sequencetype_.sequencetype.html#components" class="tsd-kind-icon">components</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_asn1_classes_sequencetype_.sequencetype.html#sequencetypetag" class="tsd-kind-icon">sequence<wbr>Type<wbr>Tag</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_sequencetype_.sequencetype.html#expand" class="tsd-kind-icon">expand</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_asn1_classes_sequencetype_.sequencetype.html#expandfallback" class="tsd-kind-icon">expand<wbr>Fallback</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_sequencetype_.sequencetype.html#getdepth" class="tsd-kind-icon">get<wbr>Depth</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_asn1_classes_sequencetype_.sequencetype.html#parametertoinstantiate" class="tsd-kind-icon">parameter<wbr>ToInstantiate</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_sequencetype_.sequencetype.html#setconstraints" class="tsd-kind-icon">set<wbr>Constraints</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_sequencetype_.sequencetype.html#tospreadsheet" class="tsd-kind-icon">to<wbr>Spreadsheet</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_sequencetype_.sequencetype.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -115,7 +120,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/sequenceType.ts#L10">src/asn1/classes/sequenceType.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/sequenceType.ts#L47">src/asn1/classes/sequenceType.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -137,17 +142,7 @@
 					<div class="tsd-signature tsd-kind-icon">components<span class="tsd-signature-symbol">:</span> <a href="../modules/_asn1_classes_sequencetype_.html#rootsequencecomponents" class="tsd-signature-type">RootSequenceComponents</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/sequenceType.ts#L8">src/asn1/classes/sequenceType.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="sequencetypetag" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> sequence<wbr>Type<wbr>Tag</h3>
-					<div class="tsd-signature tsd-kind-icon">sequence<wbr>Type<wbr>Tag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/sequenceType.ts#L10">src/asn1/classes/sequenceType.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/sequenceType.ts#L47">src/asn1/classes/sequenceType.ts:47</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -155,25 +150,170 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="setconstraints" class="tsd-anchor"></a>
-					<h3>set<wbr>Constraints</h3>
+					<a name="expand" class="tsd-anchor"></a>
+					<h3>expand</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Constraints<span class="tsd-signature-symbol">(</span>constraints<span class="tsd-signature-symbol">: </span><a href="../modules/_asn1_classes_constraint_.html#_constraint" class="tsd-signature-type">_Constraint</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">expand<span class="tsd-signature-symbol">(</span>modules<span class="tsd-signature-symbol">: </span><a href="_asn1_classes_modules_.modules.html" class="tsd-signature-type">Modules</a>, parameterMappings<span class="tsd-signature-symbol">: </span><a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asn1_classes_sequencetype_.sequencetype.html" class="tsd-signature-type">SequenceType</a><span class="tsd-signature-symbol"> | </span><a href="_asn1_classes_objectset_.objectset.html" class="tsd-signature-type">ObjectSet</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/sequenceType.ts#L16">src/asn1/classes/sequenceType.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/sequenceType.ts#L60">src/asn1/classes/sequenceType.ts:60</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Expand <code>components</code> property. This will mutate the object itself.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>modules: <a href="_asn1_classes_modules_.modules.html" class="tsd-signature-type">Modules</a></h5>
+								</li>
+								<li>
+									<h5>parameterMappings: <a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_asn1_classes_sequencetype_.sequencetype.html" class="tsd-signature-type">SequenceType</a><span class="tsd-signature-symbol"> | </span><a href="_asn1_classes_objectset_.objectset.html" class="tsd-signature-type">ObjectSet</a></h4>
+							<p>Returns <a href="_asn1_classes_sequencetype_.sequencetype.html">SequenceType</a> of <a href="_asn1_classes_objectset_.objectset.html">ObjectSet</a>.
+							<a href="_asn1_classes_objectset_.objectset.html">ObjectSet</a> is only applicable when expanding RAN3 ASN.1 spec.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="expandfallback" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> expand<wbr>Fallback</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">expand<wbr>Fallback<span class="tsd-signature-symbol">(</span>modules<span class="tsd-signature-symbol">: </span><a href="_asn1_classes_modules_.modules.html" class="tsd-signature-type">Modules</a>, parameterMappings<span class="tsd-signature-symbol">: </span><a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asn1_classes_sequencetype_.sequencetype.html" class="tsd-signature-type">SequenceType</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/sequenceType.ts#L128">src/asn1/classes/sequenceType.ts:128</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>constraints: <a href="../modules/_asn1_classes_constraint_.html#_constraint" class="tsd-signature-type">_Constraint</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>modules: <a href="_asn1_classes_modules_.modules.html" class="tsd-signature-type">Modules</a></h5>
+								</li>
+								<li>
+									<h5>parameterMappings: <a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_asn1_classes_sequencetype_.sequencetype.html" class="tsd-signature-type">SequenceType</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getdepth" class="tsd-anchor"></a>
+					<h3>get<wbr>Depth</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Depth<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/sequenceType.ts#L89">src/asn1/classes/sequenceType.ts:89</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="parametertoinstantiate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> parameter<wbr>ToInstantiate</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">parameter<wbr>ToInstantiate<span class="tsd-signature-symbol">(</span>parameterMappings<span class="tsd-signature-symbol">: </span><a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/sequenceType.ts#L145">src/asn1/classes/sequenceType.ts:145</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>parameterMappings: <a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_asn1_expander_.iparametermapping.html" class="tsd-signature-type">IParameterMapping</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setconstraints" class="tsd-anchor"></a>
+					<h3>set<wbr>Constraints</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Constraints<span class="tsd-signature-symbol">(</span>constraints<span class="tsd-signature-symbol">: </span><a href="_asn1_classes_constraint_.constraint.html" class="tsd-signature-type">Constraint</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/sequenceType.ts#L95">src/asn1/classes/sequenceType.ts:95</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>constraints: <a href="_asn1_classes_constraint_.constraint.html" class="tsd-signature-type">Constraint</a><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tospreadsheet" class="tsd-anchor"></a>
+					<h3>to<wbr>Spreadsheet</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Spreadsheet<span class="tsd-signature-symbol">(</span>worksheet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Worksheet</span>, row<span class="tsd-signature-symbol">: </span><a href="../interfaces/_asn1_formatter_spreadsheet_.irowinput.html" class="tsd-signature-type">IRowInput</a>, depth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/sequenceType.ts#L101">src/asn1/classes/sequenceType.ts:101</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>worksheet: <span class="tsd-signature-type">Worksheet</span></h5>
+								</li>
+								<li>
+									<h5>row: <a href="../interfaces/_asn1_formatter_spreadsheet_.irowinput.html" class="tsd-signature-type">IRowInput</a></h5>
+								</li>
+								<li>
+									<h5>depth: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/sequenceType.ts#L110">src/asn1/classes/sequenceType.ts:110</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -192,12 +332,6 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_asn1_classes_sequencetype_.componenttype.html" class="tsd-kind-icon">Component<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_asn1_classes_sequencetype_.extensionadditiongroup.html" class="tsd-kind-icon">Extension<wbr>Addition<wbr>Group</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
@@ -209,11 +343,26 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_asn1_classes_sequencetype_.sequencetype.html#components" class="tsd-kind-icon">components</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_asn1_classes_sequencetype_.sequencetype.html#sequencetypetag" class="tsd-kind-icon">sequence<wbr>Type<wbr>Tag</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_sequencetype_.sequencetype.html#expand" class="tsd-kind-icon">expand</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_asn1_classes_sequencetype_.sequencetype.html#expandfallback" class="tsd-kind-icon">expand<wbr>Fallback</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_sequencetype_.sequencetype.html#getdepth" class="tsd-kind-icon">get<wbr>Depth</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_asn1_classes_sequencetype_.sequencetype.html#parametertoinstantiate" class="tsd-kind-icon">parameter<wbr>ToInstantiate</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_asn1_classes_sequencetype_.sequencetype.html#setconstraints" class="tsd-kind-icon">set<wbr>Constraints</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_sequencetype_.sequencetype.html#tospreadsheet" class="tsd-kind-icon">to<wbr>Spreadsheet</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_sequencetype_.sequencetype.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>
 					</li>
@@ -227,6 +376,15 @@
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_asn1_classes_sequencetype_.html#tag" class="tsd-kind-icon">Tag</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_asn1_classes_sequencetype_.html#_comma" class="tsd-kind-icon">_COMMA</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_asn1_classes_sequencetype_.html#logger" class="tsd-kind-icon">logger</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_asn1_classes_sequencetype_.html#tostringwithcomma" class="tsd-kind-icon">to<wbr>String<wbr>With<wbr>Comma</a>
 					</li>
 				</ul>
 			</nav>

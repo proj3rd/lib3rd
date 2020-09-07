@@ -1,7 +1,8 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { INamedNumber } from '../types';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
@@ -25,6 +26,15 @@ export class IntegerType {
     modules: Modules,
     parameterMappings: IParameterMapping[]
   ): IntegerType {
+    if (parameterMappings.length && this.constraint !== undefined) {
+      const expandedConstraint = cloneDeep(this.constraint).expand(
+        modules,
+        parameterMappings
+      );
+      if (!isEqual(expandedConstraint, this.constraint)) {
+        this.constraint = expandedConstraint;
+      }
+    }
     return this;
   }
 
@@ -73,7 +83,10 @@ export class IntegerType {
       arrToString.push(`{${namedNumberListString}}`);
     }
     if (this.constraint !== undefined) {
-      arrToString.push(this.constraint.toString());
+      const constraintString = this.constraint
+        .toString()
+        .replace(/(\s|\n)+/g, ' ');
+      arrToString.push(constraintString);
     }
     return arrToString.join(' ');
   }

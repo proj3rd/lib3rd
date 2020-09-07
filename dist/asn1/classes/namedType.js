@@ -1,14 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
+const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
+const objectSet_1 = require("./objectSet");
 class NamedType {
     constructor(name, asnType) {
         this.name = name;
         this.asnType = asnType;
+        if (asnType instanceof objectSet_1.ObjectSet) {
+            return unimpl_1.unimpl('ObjectSet cannot be used in instantiating but expanding NamedType');
+        }
     }
+    /**
+     * Expand `asnType` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
     expand(modules, parameterMappings) {
-        const expandedType = this.asnType.expand(modules, parameterMappings);
-        if (expandedType !== undefined) {
+        const expandedType = lodash_1.cloneDeep(this.asnType).expand(modules, parameterMappings);
+        if (!lodash_1.isEqual(expandedType, this.asnType)) {
             this.asnType = expandedType;
         }
         return this;

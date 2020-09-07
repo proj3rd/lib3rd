@@ -1,4 +1,7 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
+import { unimpl } from 'unimpl';
+import { IParameterMapping } from '../expander';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
@@ -7,8 +10,10 @@ import {
   IRowInput,
 } from '../formatter/spreadsheet';
 import { AsnType } from './asnType';
+import { Modules } from './modules';
 import { Optionality } from './optionality';
 import { PrimitiveFieldName } from './primitiveFieldName';
+import { ObjectSet } from './objectSet';
 
 export class FixedTypeValueFieldSpec {
   public fieldReference: PrimitiveFieldName;
@@ -28,6 +33,32 @@ export class FixedTypeValueFieldSpec {
     this.asnType = asnType;
     this.unique = unique;
     this.optionality = optionality;
+  }
+
+  /**
+   * Expand `asnType` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   */
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): FixedTypeValueFieldSpec {
+    if (parameterMappings.length) {
+      return unimpl();
+    }
+    const expandedType = cloneDeep(this.asnType).expand(
+      modules,
+      parameterMappings
+    );
+    if (expandedType instanceof ObjectSet) {
+      return unimpl();
+    }
+    if (!isEqual(expandedType, this.asnType)) {
+      this.asnType = expandedType;
+    }
+    // TODO: Shall `optionality` be expanded?
+    return this;
   }
 
   public getDepth(): number {

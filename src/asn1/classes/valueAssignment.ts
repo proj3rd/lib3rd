@@ -1,7 +1,3 @@
-import { Workbook } from 'exceljs';
-import { todo } from 'unimpl';
-import { IParameterMapping } from '../expander';
-import { getWorkbook } from '../formatter';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { Value } from './value';
@@ -19,10 +15,8 @@ export class ValueAssignment {
     this.value = value;
   }
 
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): ValueAssignment {
+  public expand(modules: Modules): ValueAssignment {
+    // TODO: Shall `Value::ObjectIdentifierValue` be expanded?
     return this;
   }
 

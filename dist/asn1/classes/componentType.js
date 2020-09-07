@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
+const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
+const objectSet_1 = require("./objectSet");
 const sequenceType_1 = require("./sequenceType");
 class ComponentType {
     constructor(namedType, optionality, tag) {
@@ -9,10 +12,21 @@ class ComponentType {
         this.asnType = asnType;
         this.optionality = optionality;
         this.tag = tag;
+        if (asnType instanceof objectSet_1.ObjectSet) {
+            return unimpl_1.unimpl('ObjectSet cannot be used in instantiating but expanding ComponentType');
+        }
     }
+    /**
+     * Expand `asnType` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
     expand(modules, parameterMappings) {
-        const expandedType = this.asnType.expand(modules, parameterMappings);
-        if (expandedType) {
+        const expandedType = lodash_1.cloneDeep(this.asnType).expand(modules, parameterMappings);
+        if (expandedType instanceof objectSet_1.ObjectSet) {
+            return unimpl_1.unimpl();
+        }
+        if (!lodash_1.isEqual(expandedType, this.asnType)) {
             this.asnType = expandedType;
         }
         return this;

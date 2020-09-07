@@ -1,7 +1,11 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep } from 'lodash';
+import { unimpl } from 'unimpl';
+import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { HEADER_TYPE, IRowInput, drawBorder } from '../formatter/spreadsheet';
+import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
+import { Modules } from './modules';
 import { Syntax } from './syntax';
 import { TypeFieldSpec } from './typeFieldSpec';
 
@@ -20,6 +24,24 @@ export class ObjectClassDefinition {
   constructor(fieldSpecs: FieldSpec[], syntaxList: Syntax[]) {
     this.fieldSpecs = fieldSpecs;
     this.syntaxList = syntaxList;
+  }
+
+  /**
+   * Expand `fieldSpecs` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   */
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): ObjectClassDefinition {
+    if (parameterMappings.length) {
+      return unimpl();
+    }
+    this.fieldSpecs = this.fieldSpecs.map((fieldSpec) => {
+      return cloneDeep(fieldSpec).expand(modules, parameterMappings);
+    });
+    return this;
   }
 
   public getDepth(): number {

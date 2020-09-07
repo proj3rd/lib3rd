@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
-// TODO: Make it singleont
 class ObjectIdentifierType {
+    static getInstance() {
+        return ObjectIdentifierType.instance;
+    }
     expand(modules, parameterMappings) {
         return this;
     }
@@ -25,4 +27,5 @@ class ObjectIdentifierType {
     }
 }
 exports.ObjectIdentifierType = ObjectIdentifierType;
+ObjectIdentifierType.instance = new ObjectIdentifierType();
 //# sourceMappingURL=objectIdentifierType.js.map

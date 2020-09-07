@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Optionality | 3gpp</title>
+	<title>Optionality | lib3rd</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">3gpp</a>
+					<a href="../index.html" class="title">lib3rd</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -98,19 +98,18 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_asn1_classes_optionality_.optionality.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_asn1_classes_optionality_.optionality.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_asn1_classes_optionality_.optionality.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_asn1_classes_optionality_.optionality.html#optionalitytag" class="tsd-kind-icon">optionality<wbr>Tag</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="_asn1_classes_optionality_.optionality.html#instance" class="tsd-kind-icon">instance</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_optionality_.optionality.html#getdefaultvalue" class="tsd-kind-icon">get<wbr>Default<wbr>Value</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_asn1_classes_optionality_.optionality.html#getinstance" class="tsd-kind-icon">get<wbr>Instance</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_optionality_.optionality.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,19 +121,19 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Optionality<span class="tsd-signature-symbol">(</span>defaultValue<span class="tsd-signature-symbol">?: </span><a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asn1_classes_optionality_.optionality.html" class="tsd-signature-type">Optionality</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Optionality<span class="tsd-signature-symbol">(</span>defaultValue<span class="tsd-signature-symbol">?: </span><a href="../modules/_asn1_classes_asntype_.html#asntype" class="tsd-signature-type">AsnType</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asn1_classes_optionality_.optionality.html" class="tsd-signature-type">Optionality</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/optionality.ts#L19">src/asn1/classes/optionality.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/optionality.ts#L14">src/asn1/classes/optionality.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultValue: <a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultValue: <a href="../modules/_asn1_classes_asntype_.html#asntype" class="tsd-signature-type">AsnType</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_asn1_classes_optionality_.optionality.html" class="tsd-signature-type">Optionality</a></h4>
@@ -142,15 +141,15 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="defaultvalue" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> default<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">default<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<h3>default<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="../modules/_asn1_classes_asntype_.html#asntype" class="tsd-signature-type">AsnType</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/optionality.ts#L19">src/asn1/classes/optionality.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/optionality.ts#L12">src/asn1/classes/optionality.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -160,17 +159,7 @@
 					<div class="tsd-signature tsd-kind-icon">optionality<wbr>Tag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/optionality.ts#L17">src/asn1/classes/optionality.ts:17</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
-					<a name="instance" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagPrivate">Private</span> instance</h3>
-					<div class="tsd-signature tsd-kind-icon">instance<span class="tsd-signature-symbol">:</span> <a href="_asn1_classes_optionality_.optionality.html" class="tsd-signature-type">Optionality</a><span class="tsd-signature-symbol"> = new Optionality()</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/optionality.ts#L15">src/asn1/classes/optionality.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/optionality.ts#L14">src/asn1/classes/optionality.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -181,33 +170,33 @@
 					<a name="getdefaultvalue" class="tsd-anchor"></a>
 					<h3>get<wbr>Default<wbr>Value</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Default<wbr>Value<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Default<wbr>Value<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/_asn1_classes_asntype_.html#asntype" class="tsd-signature-type">AsnType</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/optionality.ts#L25">src/asn1/classes/optionality.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/optionality.ts#L20">src/asn1/classes/optionality.ts:20</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/_asn1_classes_asntype_.html#asntype" class="tsd-signature-type">AsnType</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_asn1_classes_value_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="getinstance" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Instance</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Instance<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_asn1_classes_optionality_.optionality.html" class="tsd-signature-type">Optionality</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/optionality.ts#L11">src/asn1/classes/optionality.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/optionality.ts#L24">src/asn1/classes/optionality.ts:24</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_asn1_classes_optionality_.optionality.html" class="tsd-signature-type">Optionality</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -234,20 +223,17 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_asn1_classes_optionality_.optionality.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_asn1_classes_optionality_.optionality.html#defaultvalue" class="tsd-kind-icon">default<wbr>Value</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_asn1_classes_optionality_.optionality.html#optionalitytag" class="tsd-kind-icon">optionality<wbr>Tag</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
-								<a href="_asn1_classes_optionality_.optionality.html#instance" class="tsd-kind-icon">instance</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_asn1_classes_optionality_.optionality.html#getdefaultvalue" class="tsd-kind-icon">get<wbr>Default<wbr>Value</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="_asn1_classes_optionality_.optionality.html#getinstance" class="tsd-kind-icon">get<wbr>Instance</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_optionality_.optionality.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>
 					</li>

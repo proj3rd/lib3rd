@@ -26,6 +26,9 @@ export class BitStringType {
     modules: Modules,
     parameterMappings: IParameterMapping[]
   ): BitStringType {
+    if (parameterMappings.length) {
+      return unimpl(this, parameterMappings);
+    }
     return this;
   }
 

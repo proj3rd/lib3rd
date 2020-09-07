@@ -19,7 +19,10 @@ class CharacterStringType {
         this.characterStringTypeLiteral = characterStringTypeLiteral;
     }
     expand(modules, parameterMappings) {
-        return unimpl_1.todo();
+        if (parameterMappings.length) {
+            return unimpl_1.unimpl(this, parameterMappings);
+        }
+        return this;
     }
     getDepth() {
         return 0;

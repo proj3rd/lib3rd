@@ -4,6 +4,8 @@ import { IRowInput } from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 export declare class ObjectIdentifierType {
+    static getInstance(): ObjectIdentifierType;
+    private static instance;
     private objectIdentifierTypeTag;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): ObjectIdentifierType;
     getDepth(): number;

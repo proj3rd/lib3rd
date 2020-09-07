@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
+const objectSet_1 = require("./objectSet");
 const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
 const typeAssignment_1 = require("./typeAssignment");
 const valueAssignment_1 = require("./valueAssignment");
@@ -10,6 +12,12 @@ class ExternalTypeReference {
         this.moduleReference = moduleReference;
         this.typeReference = typeReference;
     }
+    /**
+     * Find an Assignment indicated by ExternalTypeReference and
+     * returns an expanded copy of it.
+     * @param modules
+     * @param parameterMappings
+     */
     expand(modules, parameterMappings) {
         const referencedAssignment = modules.findAssignment(this.typeReference, this.moduleReference);
         if (referencedAssignment === undefined) {
@@ -17,7 +25,16 @@ class ExternalTypeReference {
         }
         else if (referencedAssignment instanceof typeAssignment_1.TypeAssignment) {
             const { asnType } = referencedAssignment;
-            const expandedType = asnType.expand(modules, []);
+            const expandedType = lodash_1.cloneDeep(asnType).expand(modules, []);
+            if (asnType instanceof objectSet_1.ObjectSet) {
+                return unimpl_1.unimpl();
+            }
+            if (lodash_1.isEqual(expandedType, asnType)) {
+                return asnType;
+            }
+            if (expandedType instanceof objectSet_1.ObjectSet) {
+                return unimpl_1.unimpl();
+            }
             return expandedType;
         }
         else if (referencedAssignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {

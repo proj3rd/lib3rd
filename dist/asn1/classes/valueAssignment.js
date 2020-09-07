@@ -6,7 +6,8 @@ class ValueAssignment {
         this.asnType = asnType;
         this.value = value;
     }
-    expand(modules, parameterMappings) {
+    expand(modules) {
+        // TODO: Shall `Value::ObjectIdentifierValue` be expanded?
         return this;
     }
     getDepth() {

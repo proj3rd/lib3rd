@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Modules | 3gpp</title>
+	<title>Modules | lib3rd</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">3gpp</a>
+					<a href="../index.html" class="title">lib3rd</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -94,6 +94,14 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_asn1_classes_modules_.modules.html#modulestag" class="tsd-kind-icon">modules<wbr>Tag</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_modules_.modules.html#findassignment" class="tsd-kind-icon">find<wbr>Assignment</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_modules_.modules.html#tospreadsheet" class="tsd-kind-icon">to<wbr>Spreadsheet</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_asn1_classes_modules_.modules.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+							</ul>
+						</section>
 					</div>
 				</section>
 			</section>
@@ -109,7 +117,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/modules.ts#L6">src/asn1/classes/modules.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/modules.ts#L10">src/asn1/classes/modules.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -131,7 +139,7 @@
 					<div class="tsd-signature tsd-kind-icon">modules<span class="tsd-signature-symbol">:</span> <a href="_asn1_classes_moduledefinition_.moduledefinition.html" class="tsd-signature-type">ModuleDefinition</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/modules.ts#L4">src/asn1/classes/modules.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/modules.ts#L8">src/asn1/classes/modules.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -141,9 +149,72 @@
 					<div class="tsd-signature tsd-kind-icon">modules<wbr>Tag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gsongsong/3gpp/blob/9052eb7/src/asn1/classes/modules.ts#L6">src/asn1/classes/modules.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/modules.ts#L10">src/asn1/classes/modules.ts:10</a></li>
 						</ul>
 					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="findassignment" class="tsd-anchor"></a>
+					<h3>find<wbr>Assignment</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>Assignment<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, moduleName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/_asn1_types_.html#assignment" class="tsd-signature-type">Assignment</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/modules.ts#L16">src/asn1/classes/modules.ts:16</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> moduleName: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/_asn1_types_.html#assignment" class="tsd-signature-type">Assignment</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tospreadsheet" class="tsd-anchor"></a>
+					<h3>to<wbr>Spreadsheet</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Spreadsheet<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Workbook</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/modules.ts#L33">src/asn1/classes/modules.ts:33</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Workbook</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/3gpp-network/lib3rd/blob/12d1dcf/src/asn1/classes/modules.ts#L39">src/asn1/classes/modules.ts:39</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -173,6 +244,15 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_asn1_classes_modules_.modules.html#modulestag" class="tsd-kind-icon">modules<wbr>Tag</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_modules_.modules.html#findassignment" class="tsd-kind-icon">find<wbr>Assignment</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_modules_.modules.html#tospreadsheet" class="tsd-kind-icon">to<wbr>Spreadsheet</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_asn1_classes_modules_.modules.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>
 					</li>

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const sizeConstraint_1 = require("./sizeConstraint");
 const subtypeConstraint_1 = require("./subtypeConstraint");
@@ -13,6 +14,21 @@ class Constraint {
         else {
             this.constraintSpec = constraint;
         }
+    }
+    /**
+     * Expand `constraintSpec` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
+    expand(modules, parameterMappings) {
+        if (!(this.constraintSpec instanceof subtypeConstraint_1.SubtypeConstraint)) {
+            return unimpl_1.unimpl();
+        }
+        const expandedConstraint = lodash_1.cloneDeep(this.constraintSpec).expand(modules, parameterMappings);
+        if (!lodash_1.isEqual(expandedConstraint, this.constraintSpec)) {
+            this.constraintSpec = expandedConstraint;
+        }
+        return this;
     }
     toString() {
         if (this.exceptionSpec === undefined) {

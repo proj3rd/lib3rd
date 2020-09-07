@@ -10,6 +10,11 @@ export declare class ChoiceType {
     components: RootChoiceComponents[];
     private choiceTypeTag;
     constructor(components: RootChoiceComponents[]);
+    /**
+     * Expand `components` property. This will mutate the object itself.
+     * @param modules
+     * @param parameterMappings
+     */
     expand(modules: Modules, parameterMappings: IParameterMapping[]): ChoiceType;
     getDepth(): number;
     setConstraints(constraints: Constraint[]): void;

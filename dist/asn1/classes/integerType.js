@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 const componentRelationConstraint_1 = require("./componentRelationConstraint");
@@ -12,6 +13,12 @@ class IntegerType {
         this.namedNumberList = namedNumberList;
     }
     expand(modules, parameterMappings) {
+        if (parameterMappings.length && this.constraint !== undefined) {
+            const expandedConstraint = lodash_1.cloneDeep(this.constraint).expand(modules, parameterMappings);
+            if (!lodash_1.isEqual(expandedConstraint, this.constraint)) {
+                this.constraint = expandedConstraint;
+            }
+        }
         return this;
     }
     getDepth() {
@@ -61,7 +68,8 @@ class IntegerType {
             arrToString.push(`{${namedNumberListString}}`);
         }
         if (this.constraint !== undefined) {
-            arrToString.push(this.constraint.toString());
+            const constraintString = this.constraint.toString().replace(/(\s|\n)+/g, ' ');
+            arrToString.push(constraintString);
         }
         return arrToString.join(' ');
     }

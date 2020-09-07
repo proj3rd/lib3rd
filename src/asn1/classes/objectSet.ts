@@ -1,7 +1,11 @@
 import { Worksheet } from 'exceljs';
+import { cloneDeep, isEqual } from 'lodash';
+import { unimpl } from 'unimpl';
+import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
 import { _ElementSetSpecs } from '../types';
+import { Modules } from './modules';
 
 /**
  * TODO: ObjectSet only supports DefinedObjectSet currently.
@@ -14,6 +18,31 @@ export class ObjectSet {
 
   constructor(objectSetSpec: _ElementSetSpecs) {
     this.objectSetSpec = objectSetSpec;
+  }
+
+  /**
+   * Expand `objectSetSpec` property. This will mutate the object itself.
+   * @param modules
+   * @param parameterMappings
+   */
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): ObjectSet {
+    if (parameterMappings.length) {
+      return unimpl();
+    }
+    this.objectSetSpec = this.objectSetSpec.map((elementSetSpec, index) => {
+      const expandedType = cloneDeep(elementSetSpec).expand(
+        modules,
+        parameterMappings
+      );
+      if (isEqual(expandedType, elementSetSpec)) {
+        return elementSetSpec;
+      }
+      return expandedType;
+    });
+    return this;
   }
 
   public getDepth(): number {

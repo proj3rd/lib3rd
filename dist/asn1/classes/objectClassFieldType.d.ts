@@ -1,7 +1,7 @@
 import { Worksheet } from 'exceljs';
 import { IParameterMapping } from '../expander';
 import { IRowInput } from '../formatter/spreadsheet';
-import { DefinedObjectClass } from './asnType';
+import { AsnType, DefinedObjectClass } from './asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 import { PrimitiveFieldName } from './primitiveFieldName';
@@ -17,7 +17,7 @@ export declare class ObjectClassFieldType {
     constraint: Constraint | undefined;
     private objectClassFieldType;
     constructor(definedObjectClass: DefinedObjectClass, fieldName: PrimitiveFieldName[]);
-    expand(modules: Modules, parameterMappings: IParameterMapping[]): ObjectClassFieldType;
+    expand(modules: Modules, parameterMappings: IParameterMapping[]): AsnType;
     getDepth(): number;
     setConstraints(constraints: Constraint[]): void;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;

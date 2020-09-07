@@ -1,11 +1,13 @@
 import { Worksheet } from 'exceljs';
+import { IParameterMapping } from '../expander';
 import {
+  drawBorder,
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
   headerIndexed,
   IRowInput,
-  drawBorder,
 } from '../formatter/spreadsheet';
+import { Modules } from './modules';
 import { Optionality } from './optionality';
 import { PrimitiveFieldName } from './primitiveFieldName';
 
@@ -18,6 +20,14 @@ export class TypeFieldSpec {
   constructor(fieldRerence: PrimitiveFieldName, optionality?: Optionality) {
     this.fieldReference = fieldRerence;
     this.optionality = optionality;
+  }
+
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): TypeFieldSpec {
+    // TODO: Shall `optionality` be expanded?
+    return this;
   }
 
   public getDepth(): number {
