@@ -6,6 +6,7 @@ import {
   drawBorder,
   HEADER_REFERENCE,
   IRowInput,
+  setOutlineLevel,
 } from '../formatter/spreadsheet';
 import { AsnType, DefinedObjectClass } from './asnType';
 import { Constraint } from './constraint';
@@ -153,6 +154,7 @@ export class ParameterizedType {
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
     row[HEADER_REFERENCE] = this.toString();
     const r = worksheet.addRow(row);
+    setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);
   }
 

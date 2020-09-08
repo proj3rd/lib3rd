@@ -3,7 +3,12 @@ import { cloneDeep } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
+import {
+  drawBorder,
+  HEADER_TYPE,
+  IRowInput,
+  setOutlineLevel,
+} from '../formatter/spreadsheet';
 import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { Modules } from './modules';
 import { Syntax } from './syntax';
@@ -56,16 +61,18 @@ export class ObjectClassDefinition {
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
     row[HEADER_TYPE] = 'CLASS';
-    let r = worksheet.addRow(row);
-    drawBorder(worksheet, r, depth);
+    const r1 = worksheet.addRow(row);
+    setOutlineLevel(r1, depth);
+    drawBorder(worksheet, r1, depth);
     this.fieldSpecs.forEach((fieldSpec) => {
       fieldSpec.toSpreadsheet(worksheet, {}, depth + 1);
     });
     if (this.syntaxList.length > 0) {
-      r = worksheet.addRow({
+      const r2 = worksheet.addRow({
         [HEADER_TYPE]: 'WITH SYNTAX',
       });
-      drawBorder(worksheet, r, depth);
+      setOutlineLevel(r2, depth);
+      drawBorder(worksheet, r2, depth);
       this.syntaxList.forEach((syntax) => {
         syntax.toSpreadsheet(worksheet, {}, depth + 1);
       });

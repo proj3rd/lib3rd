@@ -16,6 +16,7 @@ class Syntax {
             [spreadsheet_1.HEADER_REFERENCE]: this.primitiveFieldName.toString(),
             [spreadsheet_1.HEADER_OPTIONAL]: this.optional ? 'OPTIONAL' : undefined,
         });
+        spreadsheet_1.setOutlineLevel(r, depth);
         spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {

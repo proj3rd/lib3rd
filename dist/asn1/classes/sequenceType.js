@@ -87,6 +87,7 @@ class SequenceType {
     toSpreadsheet(worksheet, row, depth) {
         row[spreadsheet_1.HEADER_TYPE] = 'SEQUENCE';
         const r = worksheet.addRow(row);
+        spreadsheet_1.setOutlineLevel(r, depth);
         spreadsheet_1.drawBorder(worksheet, r, depth);
         this.components.forEach((component) => {
             component.toSpreadsheet(worksheet, {}, depth + 1);

@@ -37,14 +37,24 @@ class ObjectSet {
     }
     toSpreadsheet(worksheet, row, depth) {
         if (this.objectSetSpec.length === 0) {
-            row[spreadsheet_1.HEADER_TYPE] = '{}';
+            spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, '{}');
             const r = worksheet.addRow(row);
+            spreadsheet_1.setOutlineLevel(r, depth);
             spreadsheet_1.drawBorder(worksheet, r, depth);
             return;
         }
+        spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, '{');
+        const r1 = worksheet.addRow(row);
+        spreadsheet_1.setOutlineLevel(r1, depth);
+        spreadsheet_1.drawBorder(worksheet, r1, depth);
         this.objectSetSpec.forEach((elementSetSpec) => {
             elementSetSpec.toSpreadsheet(worksheet, {}, depth + 1);
         });
+        const r2 = worksheet.addRow({
+            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: '}',
+        });
+        spreadsheet_1.setOutlineLevel(r2, depth);
+        spreadsheet_1.drawBorder(worksheet, r2, depth);
     }
     toString() {
         const innerString = this.objectSetSpec

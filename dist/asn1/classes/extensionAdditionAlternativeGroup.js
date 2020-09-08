@@ -29,17 +29,19 @@ class ExtensionAdditionAlternativeGroup {
         }, 0);
     }
     toSpreadsheet(worksheet, row, depth) {
-        let r = worksheet.addRow({
+        const r1 = worksheet.addRow({
             [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: this.openingBracket(),
         });
-        spreadsheet_1.drawBorder(worksheet, r, depth);
+        spreadsheet_1.setOutlineLevel(r1, depth);
+        spreadsheet_1.drawBorder(worksheet, r1, depth);
         this.components.forEach((component) => {
             component.toSpreadsheet(worksheet, {}, depth + 1);
         });
-        r = worksheet.addRow({
+        const r2 = worksheet.addRow({
             [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: ']]',
         });
-        spreadsheet_1.drawBorder(worksheet, r, depth);
+        spreadsheet_1.setOutlineLevel(r2, depth);
+        spreadsheet_1.drawBorder(worksheet, r2, depth);
     }
     toString() {
         if (this.components.length === 0) {

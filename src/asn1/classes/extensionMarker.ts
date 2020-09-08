@@ -5,6 +5,7 @@ import {
   HEADER_NAME_BASE,
   headerIndexed,
   IRowInput,
+  setOutlineLevel,
 } from '../formatter/spreadsheet';
 import { Modules } from './modules';
 
@@ -34,6 +35,7 @@ export class ExtensionMarker {
     const r = worksheet.addRow({
       [headerIndexed(HEADER_NAME_BASE, depth)]: this.toString(),
     });
+    setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);
   }
 

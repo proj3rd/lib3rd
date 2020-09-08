@@ -64,9 +64,23 @@ export function addTitle(worksheet: Worksheet, title: string) {
 }
 
 export function addWorksheet(workbook: Workbook, name: string): Worksheet {
-  return workbook.addWorksheet(name, {
+  const ws = workbook.addWorksheet(name, {
     views: [{ state: 'frozen', xSplit: 0, ySplit: 3, showGridLines: false }],
   });
+  /**
+   * TODO
+   * [BUG] outlineProperties does not exist on type ' WorksheetProperties
+   * https://github.com/exceljs/exceljs/issues/1351
+   */
+  (ws.properties as any).outlineProperties = {
+    summaryBelow: false,
+  };
+  return ws;
+}
+
+export function appendInColumn(row: IRowInput, column: string, value: string) {
+  const col = row[column];
+  row[column] = col === undefined ? value : `${col} ${value}`;
 }
 
 export function drawBorder(
@@ -104,6 +118,10 @@ export function getWorkbook(workbook?: Workbook) {
 
 export function headerIndexed(header: string, index: number): string {
   return `${header}[${index}]`;
+}
+
+export function setOutlineLevel(row: Row, depth: number) {
+  row.outlineLevel = Math.min(depth + 1, 7);
 }
 
 export function uniqueSheetname(workbook: Workbook, name: string) {

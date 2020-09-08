@@ -24,5 +24,6 @@ export declare class SequenceOfType {
     setConstraints(constraints: Constraint[]): void;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
     toString(): string;
+    private stringPrefix;
 }
 //# sourceMappingURL=sequenceOfType.d.ts.map

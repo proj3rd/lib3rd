@@ -35,16 +35,17 @@ class SequenceOfType {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
-        // TODO: Is it enough ?
-        row[spreadsheet_1.HEADER_TYPE] = this.toString();
-        const r = worksheet.addRow(row);
-        spreadsheet_1.drawBorder(worksheet, r, depth);
+        spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, this.stringPrefix());
+        this.baseType.toSpreadsheet(worksheet, row, depth);
     }
     toString() {
+        return `${this.stringPrefix()} ${this.baseType.toString()}`;
+    }
+    stringPrefix() {
         if (this.constraint === undefined) {
-            return `SEQUENCE OF ${this.baseType.toString()}`;
+            return 'SEQUENCE OF';
         }
-        return `SEQUENCE ${this.constraint.toString()} OF ${this.baseType.toString()}`;
+        return `SEQUENCE ${this.constraint.toString()} OF`;
     }
 }
 exports.SequenceOfType = SequenceOfType;

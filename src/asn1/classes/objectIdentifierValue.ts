@@ -4,10 +4,14 @@ import { unimpl, unreach } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import {
+  appendInColumn,
+  drawBorder,
   HEADER_NAME_BASE,
   HEADER_REFERENCE,
+  HEADER_TYPE,
   headerIndexed,
   IRowInput,
+  setOutlineLevel,
 } from '../formatter/spreadsheet';
 import { ObjectIdComponents } from '../types';
 import { AsnType } from './asnType';
@@ -103,8 +107,7 @@ export class ObjectIdentifierValue {
             return unimpl();
           }
           if (assignment instanceof ValueAssignment) {
-            const { value } = assignment;
-            return value;
+            return objectIdComponents;
           }
           return unreach();
         }
@@ -135,32 +138,41 @@ export class ObjectIdentifierValue {
     if (this.objectIdComponentsList.length === 1) {
       unreach();
     }
+    appendInColumn(row, headerIndexed(HEADER_NAME_BASE, depth), '{');
+    const r1 = worksheet.addRow(row);
+    setOutlineLevel(r1, depth);
+    drawBorder(worksheet, r1, depth);
     this.objectIdComponentsList.forEach((components, index) => {
       if (index % 2 !== 0) {
         return;
       }
       if (typeof components !== 'string') {
-        unreach(components);
+        return unreach(components);
       }
+      const rowComponents: IRowInput = {
+        [headerIndexed(HEADER_NAME_BASE, depth + 1)]: components,
+      };
       const componentsNext = this.objectIdComponentsList[index + 1];
       if (componentsNext === undefined) {
-        worksheet.addRow({
-          [headerIndexed(HEADER_NAME_BASE, depth)]: components,
-        });
+        const rComponents = worksheet.addRow(rowComponents);
+        setOutlineLevel(rComponents, depth);
+        drawBorder(worksheet, rComponents, depth + 1);
       } else {
-        if (
-          typeof componentsNext !== 'string' &&
-          !(componentsNext instanceof OctetStringType)
-        ) {
-          unreach(componentsNext);
+        if (typeof componentsNext === 'string') {
+          rowComponents[HEADER_REFERENCE] = componentsNext;
+          const rComponents = worksheet.addRow(rowComponents);
+          setOutlineLevel(rComponents, depth);
+          drawBorder(worksheet, rComponents, depth + 1);
+        } else {
+          componentsNext.toSpreadsheet(worksheet, rowComponents, depth + 1);
         }
-        // TODO: componentsNext.toSpreadsheet(...)
-        worksheet.addRow({
-          [headerIndexed(HEADER_NAME_BASE, depth)]: components,
-          [HEADER_REFERENCE]: componentsNext,
-        });
       }
     });
+    const r2 = worksheet.addRow({
+      [headerIndexed(HEADER_NAME_BASE, depth)]: '}',
+    });
+    setOutlineLevel(r2, depth);
+    drawBorder(worksheet, r2, depth);
   }
 
   public toString(): string {

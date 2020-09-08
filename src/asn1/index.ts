@@ -1,6 +1,8 @@
 import { readFileSync, writeFileSync } from 'fs';
+import { cloneDeep } from 'lodash';
 import { parse as parsePath } from 'path';
 import yargs from 'yargs';
+import { ValueAssignment } from './classes/valueAssignment';
 import { diff, renderDiff } from './diff';
 import { extract } from './extractor';
 import { parse } from './parser';
@@ -81,6 +83,61 @@ if (require.main === module) {
         const extracted = extract(text);
         const path = `${spec}.asn1`;
         writeFileSync(path, extracted);
+      },
+    })
+    .command({
+      command: 'format <file> <name>',
+      builder: (args) => {
+        return args.options({
+          f: {
+            alias: 'format',
+            choices: ['text', 'xlsx'],
+            default: 'text',
+          },
+          e: {
+            alias: 'expand',
+            default: false,
+            type: 'boolean',
+          },
+        });
+      },
+      handler: (args) => {
+        const { file, name, format, expand } = args;
+        if (
+          typeof file !== 'string' ||
+          typeof name !== 'string' ||
+          typeof format !== 'string' ||
+          typeof expand !== 'boolean'
+        ) {
+          throw Error();
+        }
+        const text = readFileSync(file, 'utf8');
+        const parsed = parse(text);
+        const assignment = parsed.findAssignment(name);
+        if (assignment === undefined) {
+          throw Error(`${name} not found in ${file}`);
+        }
+        if (
+          assignment instanceof ValueAssignment &&
+          format === 'xlsx' &&
+          expand
+        ) {
+          throw Error();
+        }
+        const assignmentNew = expand
+          ? cloneDeep(assignment).expand(parsed)
+          : assignment;
+        if (format === 'text') {
+          process.stdout.write(assignmentNew.toString());
+        } else {
+          if (assignmentNew instanceof ValueAssignment) {
+            throw Error();
+          }
+          const wb = assignmentNew.toSpreadsheet();
+          const { base } = parsePath(file);
+          const arrToFilename = [name, base, expand ? 'expand' : ''];
+          wb.xlsx.writeFile(`${arrToFilename.join('_')}.xlsx`);
+        }
       },
     })
     .command({

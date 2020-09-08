@@ -6,6 +6,7 @@ import {
   headerIndexed,
   IRowInput,
   drawBorder,
+  setOutlineLevel,
 } from '../formatter/spreadsheet';
 import { PrimitiveFieldName } from './primitiveFieldName';
 
@@ -36,6 +37,7 @@ export class Syntax {
       [HEADER_REFERENCE]: this.primitiveFieldName.toString(),
       [HEADER_OPTIONAL]: this.optional ? 'OPTIONAL' : undefined,
     });
+    setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);
   }
 

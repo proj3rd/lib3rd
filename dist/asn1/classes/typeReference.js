@@ -87,6 +87,7 @@ class TypeReference {
     toSpreadsheet(worksheet, row, depth) {
         row[spreadsheet_1.HEADER_REFERENCE] = this.toString();
         const r = worksheet.addRow(row);
+        spreadsheet_1.setOutlineLevel(r, depth);
         spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {

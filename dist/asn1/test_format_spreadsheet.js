@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
+const lodash_1 = require("lodash");
 const valueAssignment_1 = require("./classes/valueAssignment");
 const formatter_1 = require("./formatter");
 const parser_1 = require("./parser");
@@ -19,7 +20,7 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
     testCaseList.forEach((testCase) => {
         const { name, specNumber, filename } = testCase;
         // tslint:disable-next-line: only-arrow-functions
-        it(`${name} (${specNumber}) [format_spreadsheet_ie_all_${specNumber}]`, function () {
+        describe(`${name} (${specNumber}) [format_spreadsheet_ie_all_${specNumber}]`, function () {
             const asn1 = fs_1.readFileSync(`resources/${filename}`, 'utf8');
             const modules = parser_1.parse(asn1);
             modules.modules.forEach((module) => {
@@ -27,8 +28,29 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
                     if (assignment instanceof valueAssignment_1.ValueAssignment) {
                         return;
                     }
-                    const wb = formatter_1.getWorkbook();
-                    assignment.toSpreadsheet(wb);
+                    // tslint:disable-next-line: only-arrow-functions
+                    it(`${module.name}.${assignment.name}`, function () {
+                        const wb = formatter_1.getWorkbook();
+                        assignment.toSpreadsheet(wb);
+                    });
+                });
+            });
+        });
+        // tslint:disable-next-line: only-arrow-functions
+        describe(`${name} (${specNumber}) [format_spreadsheet_ie_all_expanded_${specNumber}]`, function () {
+            const asn1 = fs_1.readFileSync(`resources/${filename}`, 'utf8');
+            const modules = parser_1.parse(asn1);
+            modules.modules.forEach((module) => {
+                module.assignments.forEach((assignment) => {
+                    if (assignment instanceof valueAssignment_1.ValueAssignment) {
+                        return;
+                    }
+                    // tslint:disable-next-line: only-arrow-functions
+                    it(`${module.name}.${assignment.name}`, function () {
+                        const expandedAssignment = lodash_1.cloneDeep(assignment).expand(modules);
+                        const wb = formatter_1.getWorkbook();
+                        expandedAssignment.toSpreadsheet(wb);
+                    });
                 });
             });
         });

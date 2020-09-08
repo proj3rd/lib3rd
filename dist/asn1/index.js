@@ -4,8 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
+const lodash_1 = require("lodash");
 const path_1 = require("path");
 const yargs_1 = __importDefault(require("yargs"));
+const valueAssignment_1 = require("./classes/valueAssignment");
 const diff_1 = require("./diff");
 const extractor_1 = require("./extractor");
 const parser_1 = require("./parser");
@@ -88,6 +90,58 @@ if (require.main === module) {
             const extracted = extractor_1.extract(text);
             const path = `${spec}.asn1`;
             fs_1.writeFileSync(path, extracted);
+        },
+    })
+        .command({
+        command: 'format <file> <name>',
+        builder: (args) => {
+            return args.options({
+                f: {
+                    alias: 'format',
+                    choices: ['text', 'xlsx'],
+                    default: 'text',
+                },
+                e: {
+                    alias: 'expand',
+                    default: false,
+                    type: 'boolean',
+                },
+            });
+        },
+        handler: (args) => {
+            const { file, name, format, expand } = args;
+            if (typeof file !== 'string' ||
+                typeof name !== 'string' ||
+                typeof format !== 'string' ||
+                typeof expand !== 'boolean') {
+                throw Error();
+            }
+            const text = fs_1.readFileSync(file, 'utf8');
+            const parsed = parser_1.parse(text);
+            const assignment = parsed.findAssignment(name);
+            if (assignment === undefined) {
+                throw Error(`${name} not found in ${file}`);
+            }
+            if (assignment instanceof valueAssignment_1.ValueAssignment &&
+                format === 'xlsx' &&
+                expand) {
+                throw Error();
+            }
+            const assignmentNew = expand
+                ? lodash_1.cloneDeep(assignment).expand(parsed)
+                : assignment;
+            if (format === 'text') {
+                process.stdout.write(assignmentNew.toString());
+            }
+            else {
+                if (assignmentNew instanceof valueAssignment_1.ValueAssignment) {
+                    throw Error();
+                }
+                const wb = assignmentNew.toSpreadsheet();
+                const { base } = path_1.parse(file);
+                const arrToFilename = [name, base, expand ? 'expand' : ''];
+                wb.xlsx.writeFile(`${arrToFilename.join('_')}.xlsx`);
+            }
         },
     })
         .command({

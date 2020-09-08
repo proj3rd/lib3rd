@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import { cloneDeep } from 'lodash';
 import { ValueAssignment } from './classes/valueAssignment';
 import { getWorkbook } from './formatter';
 import { parse } from './parser';
@@ -21,7 +22,7 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
     const { name, specNumber, filename } = testCase;
 
     // tslint:disable-next-line: only-arrow-functions
-    it(`${name} (${specNumber}) [format_spreadsheet_ie_all_${specNumber}]`, function () {
+    describe(`${name} (${specNumber}) [format_spreadsheet_ie_all_${specNumber}]`, function () {
       const asn1 = readFileSync(`resources/${filename}`, 'utf8');
       const modules = parse(asn1);
       modules.modules.forEach((module) => {
@@ -29,8 +30,30 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
           if (assignment instanceof ValueAssignment) {
             return;
           }
-          const wb = getWorkbook();
-          assignment.toSpreadsheet(wb);
+          // tslint:disable-next-line: only-arrow-functions
+          it(`${module.name}.${assignment.name}`, function () {
+            const wb = getWorkbook();
+            assignment.toSpreadsheet(wb);
+          });
+        });
+      });
+    });
+
+    // tslint:disable-next-line: only-arrow-functions
+    describe(`${name} (${specNumber}) [format_spreadsheet_ie_all_expanded_${specNumber}]`, function () {
+      const asn1 = readFileSync(`resources/${filename}`, 'utf8');
+      const modules = parse(asn1);
+      modules.modules.forEach((module) => {
+        module.assignments.forEach((assignment) => {
+          if (assignment instanceof ValueAssignment) {
+            return;
+          }
+          // tslint:disable-next-line: only-arrow-functions
+          it(`${module.name}.${assignment.name}`, function () {
+            const expandedAssignment = cloneDeep(assignment).expand(modules);
+            const wb = getWorkbook();
+            expandedAssignment.toSpreadsheet(wb);
+          });
         });
       });
     });

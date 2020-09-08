@@ -54,9 +54,10 @@ class Unions {
             intersections.forEach((elements, indexIntersections) => {
                 if (typeof elements === 'string') {
                     const r = worksheet.addRow({
-                        [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth + 1)]: elements,
+                        [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: elements,
                     });
-                    spreadsheet_1.drawBorder(worksheet, r, depth + 1);
+                    spreadsheet_1.setOutlineLevel(r, depth);
+                    spreadsheet_1.drawBorder(worksheet, r, depth);
                 }
                 else if (elements instanceof booleanValue_1.BooleanValue) {
                     unimpl_1.unreach(elements);
@@ -80,20 +81,22 @@ class Unions {
                     unimpl_1.unreach(elements);
                 }
                 else {
-                    elements.toSpreadsheet(worksheet, {}, depth + 1);
+                    elements.toSpreadsheet(worksheet, {}, depth);
                 }
                 if (indexIntersections !== lengthIntersections - 1) {
                     const r = worksheet.addRow({
-                        [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth + 1)]: '∩',
+                        [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: '∩',
                     });
-                    spreadsheet_1.drawBorder(worksheet, r, depth + 1);
+                    spreadsheet_1.setOutlineLevel(r, depth);
+                    spreadsheet_1.drawBorder(worksheet, r, depth);
                 }
             });
             if (indexUnions !== lengthUnions - 1) {
                 const r = worksheet.addRow({
-                    [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth + 1)]: '∪',
+                    [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: '∪',
                 });
-                spreadsheet_1.drawBorder(worksheet, r, depth + 1);
+                spreadsheet_1.setOutlineLevel(r, depth);
+                spreadsheet_1.drawBorder(worksheet, r, depth);
             }
         });
     }

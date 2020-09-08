@@ -6,6 +6,7 @@ import {
   HEADER_OPTIONAL,
   headerIndexed,
   IRowInput,
+  setOutlineLevel,
 } from '../formatter/spreadsheet';
 import { Modules } from './modules';
 import { Optionality } from './optionality';
@@ -42,6 +43,7 @@ export class TypeFieldSpec {
       ? this.optionality.toString()
       : undefined;
     const r = worksheet.addRow(row);
+    setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);
   }
 

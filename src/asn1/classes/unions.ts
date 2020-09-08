@@ -7,6 +7,7 @@ import {
   HEADER_NAME_BASE,
   headerIndexed,
   IRowInput,
+  setOutlineLevel,
 } from '../formatter/spreadsheet';
 import { _Intersections } from '../types';
 import { BooleanValue } from './booleanValue';
@@ -77,9 +78,10 @@ export class Unions {
       intersections.forEach((elements, indexIntersections) => {
         if (typeof elements === 'string') {
           const r = worksheet.addRow({
-            [headerIndexed(HEADER_NAME_BASE, depth + 1)]: elements,
+            [headerIndexed(HEADER_NAME_BASE, depth)]: elements,
           });
-          drawBorder(worksheet, r, depth + 1);
+          setOutlineLevel(r, depth);
+          drawBorder(worksheet, r, depth);
         } else if (elements instanceof BooleanValue) {
           unreach(elements);
         } else if (elements instanceof ExternalObjectSetReference) {
@@ -95,20 +97,22 @@ export class Unions {
         } else if (elements instanceof ValueReference) {
           unreach(elements);
         } else {
-          elements.toSpreadsheet(worksheet, {}, depth + 1);
+          elements.toSpreadsheet(worksheet, {}, depth);
         }
         if (indexIntersections !== lengthIntersections - 1) {
           const r = worksheet.addRow({
-            [headerIndexed(HEADER_NAME_BASE, depth + 1)]: '∩',
+            [headerIndexed(HEADER_NAME_BASE, depth)]: '∩',
           });
-          drawBorder(worksheet, r, depth + 1);
+          setOutlineLevel(r, depth);
+          drawBorder(worksheet, r, depth);
         }
       });
       if (indexUnions !== lengthUnions - 1) {
         const r = worksheet.addRow({
-          [headerIndexed(HEADER_NAME_BASE, depth + 1)]: '∪',
+          [headerIndexed(HEADER_NAME_BASE, depth)]: '∪',
         });
-        drawBorder(worksheet, r, depth + 1);
+        setOutlineLevel(r, depth);
+        drawBorder(worksheet, r, depth);
       }
     });
   }

@@ -3,7 +3,15 @@ import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
+import {
+  appendInColumn,
+  drawBorder,
+  HEADER_NAME_BASE,
+  HEADER_TYPE,
+  headerIndexed,
+  IRowInput,
+  setOutlineLevel,
+} from '../formatter/spreadsheet';
 import { _ElementSetSpecs } from '../types';
 import { Modules } from './modules';
 
@@ -53,14 +61,24 @@ export class ObjectSet {
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
     if (this.objectSetSpec.length === 0) {
-      row[HEADER_TYPE] = '{}';
+      appendInColumn(row, HEADER_TYPE, '{}');
       const r = worksheet.addRow(row);
+      setOutlineLevel(r, depth);
       drawBorder(worksheet, r, depth);
       return;
     }
+    appendInColumn(row, HEADER_TYPE, '{');
+    const r1 = worksheet.addRow(row);
+    setOutlineLevel(r1, depth);
+    drawBorder(worksheet, r1, depth);
     this.objectSetSpec.forEach((elementSetSpec) => {
       elementSetSpec.toSpreadsheet(worksheet, {}, depth + 1);
     });
+    const r2 = worksheet.addRow({
+      [headerIndexed(HEADER_NAME_BASE, depth)]: '}',
+    });
+    setOutlineLevel(r2, depth);
+    drawBorder(worksheet, r2, depth);
   }
 
   public toString(): string {

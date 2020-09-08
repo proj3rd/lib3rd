@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
+const spreadsheet_1 = require("../formatter/spreadsheet");
 const ValueReference_1 = require("./ValueReference");
 class IntegerValue {
     constructor(literal) {
@@ -35,6 +36,12 @@ class IntegerValue {
     }
     getDepth() {
         return 0;
+    }
+    toSpreadsheet(worksheet, row, depth) {
+        spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, this.toString());
+        const r = worksheet.addRow(row);
+        spreadsheet_1.setOutlineLevel(r, depth);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {
         return this.literal;

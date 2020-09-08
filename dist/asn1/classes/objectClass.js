@@ -40,16 +40,18 @@ class ObjectClassDefinition {
     }
     toSpreadsheet(worksheet, row, depth) {
         row[spreadsheet_1.HEADER_TYPE] = 'CLASS';
-        let r = worksheet.addRow(row);
-        spreadsheet_1.drawBorder(worksheet, r, depth);
+        const r1 = worksheet.addRow(row);
+        spreadsheet_1.setOutlineLevel(r1, depth);
+        spreadsheet_1.drawBorder(worksheet, r1, depth);
         this.fieldSpecs.forEach((fieldSpec) => {
             fieldSpec.toSpreadsheet(worksheet, {}, depth + 1);
         });
         if (this.syntaxList.length > 0) {
-            r = worksheet.addRow({
+            const r2 = worksheet.addRow({
                 [spreadsheet_1.HEADER_TYPE]: 'WITH SYNTAX',
             });
-            spreadsheet_1.drawBorder(worksheet, r, depth);
+            spreadsheet_1.setOutlineLevel(r2, depth);
+            spreadsheet_1.drawBorder(worksheet, r2, depth);
             this.syntaxList.forEach((syntax) => {
                 syntax.toSpreadsheet(worksheet, {}, depth + 1);
             });

@@ -55,6 +55,7 @@ class IntegerType {
     toSpreadsheet(worksheet, row, depth) {
         row[spreadsheet_1.HEADER_TYPE] = this.toString();
         const r = worksheet.addRow(row);
+        spreadsheet_1.setOutlineLevel(r, depth);
         spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {
@@ -68,7 +69,9 @@ class IntegerType {
             arrToString.push(`{${namedNumberListString}}`);
         }
         if (this.constraint !== undefined) {
-            const constraintString = this.constraint.toString().replace(/(\s|\n)+/g, ' ');
+            const constraintString = this.constraint
+                .toString()
+                .replace(/(\s|\n)+/g, ' ');
             arrToString.push(constraintString);
         }
         return arrToString.join(' ');

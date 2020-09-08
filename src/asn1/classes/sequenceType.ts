@@ -4,7 +4,12 @@ import { unimpl } from 'unimpl';
 import { Logger } from '../../logger';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
+import {
+  drawBorder,
+  HEADER_TYPE,
+  IRowInput,
+  setOutlineLevel,
+} from '../formatter/spreadsheet';
 import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
@@ -101,6 +106,7 @@ export class SequenceType {
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
     row[HEADER_TYPE] = 'SEQUENCE';
     const r = worksheet.addRow(row);
+    setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);
     this.components.forEach((component) => {
       component.toSpreadsheet(worksheet, {}, depth + 1);

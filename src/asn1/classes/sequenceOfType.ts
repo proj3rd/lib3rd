@@ -2,7 +2,11 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
+import {
+  appendInColumn,
+  HEADER_TYPE,
+  IRowInput,
+} from '../formatter/spreadsheet';
 import { AsnType } from './asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
@@ -65,16 +69,18 @@ export class SequenceOfType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
-    // TODO: Is it enough ?
-    row[HEADER_TYPE] = this.toString();
-    const r = worksheet.addRow(row);
-    drawBorder(worksheet, r, depth);
+    appendInColumn(row, HEADER_TYPE, this.stringPrefix());
+    this.baseType.toSpreadsheet(worksheet, row, depth);
   }
 
   public toString(): string {
+    return `${this.stringPrefix()} ${this.baseType.toString()}`;
+  }
+
+  private stringPrefix(): string {
     if (this.constraint === undefined) {
-      return `SEQUENCE OF ${this.baseType.toString()}`;
+      return 'SEQUENCE OF';
     }
-    return `SEQUENCE ${this.constraint.toString()} OF ${this.baseType.toString()}`;
+    return `SEQUENCE ${this.constraint.toString()} OF`;
   }
 }

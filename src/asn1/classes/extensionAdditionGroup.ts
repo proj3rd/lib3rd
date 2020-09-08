@@ -7,6 +7,7 @@ import {
   HEADER_NAME_BASE,
   headerIndexed,
   IRowInput,
+  setOutlineLevel,
 } from '../formatter/spreadsheet';
 import { ComponentType } from './componentType';
 import { Modules } from './modules';
@@ -52,17 +53,19 @@ export class ExtensionAdditionGroup {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
-    let r = worksheet.addRow({
+    const r1 = worksheet.addRow({
       [headerIndexed(HEADER_NAME_BASE, depth)]: this.openingBracket(),
     });
-    drawBorder(worksheet, r, depth);
+    setOutlineLevel(r1, depth);
+    drawBorder(worksheet, r1, depth);
     this.components.forEach((component) => {
       component.toSpreadsheet(worksheet, {}, depth + 1);
     });
-    r = worksheet.addRow({
+    const r2 = worksheet.addRow({
       [headerIndexed(HEADER_NAME_BASE, depth)]: ']]',
     });
-    drawBorder(worksheet, r, depth);
+    setOutlineLevel(r2, depth);
+    drawBorder(worksheet, r2, depth);
   }
 
   public toString(): string {

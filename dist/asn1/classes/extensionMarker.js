@@ -17,6 +17,7 @@ class ExtensionMarker {
         const r = worksheet.addRow({
             [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: this.toString(),
         });
+        spreadsheet_1.setOutlineLevel(r, depth);
         spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {

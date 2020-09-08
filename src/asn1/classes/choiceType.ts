@@ -3,7 +3,12 @@ import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
+import {
+  drawBorder,
+  HEADER_TYPE,
+  IRowInput,
+  setOutlineLevel,
+} from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
 import { ExtensionAdditionAlternativeGroup } from './extensionAdditionAlternativeGroup';
 import { ExtensionMarker } from './extensionMarker';
@@ -56,6 +61,7 @@ export class ChoiceType {
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
     row[HEADER_TYPE] = 'CHOICE';
     const r = worksheet.addRow(row);
+    setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);
     this.components.forEach((component) => {
       component.toSpreadsheet(worksheet, {}, depth + 1);

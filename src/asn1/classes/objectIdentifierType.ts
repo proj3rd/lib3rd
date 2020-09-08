@@ -1,7 +1,12 @@
 import { Worksheet } from 'exceljs';
 import { todo } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { drawBorder, HEADER_TYPE, IRowInput } from '../formatter/spreadsheet';
+import {
+  drawBorder,
+  HEADER_TYPE,
+  IRowInput,
+  setOutlineLevel,
+} from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 
@@ -34,6 +39,7 @@ export class ObjectIdentifierType {
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
     row[HEADER_TYPE] = this.toString();
     const r = worksheet.addRow(row);
+    setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);
   }
 
