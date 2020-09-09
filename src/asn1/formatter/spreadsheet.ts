@@ -121,7 +121,10 @@ export function headerIndexed(header: string, index: number): string {
 }
 
 export function setOutlineLevel(row: Row, depth: number) {
-  row.outlineLevel = Math.min(depth + 1, 7);
+  if (depth === 0) {
+    return;
+  }
+  row.outlineLevel = Math.min(depth, 7);
 }
 
 export function uniqueSheetname(workbook: Workbook, name: string) {

@@ -155,13 +155,13 @@ export class ObjectIdentifierValue {
       const componentsNext = this.objectIdComponentsList[index + 1];
       if (componentsNext === undefined) {
         const rComponents = worksheet.addRow(rowComponents);
-        setOutlineLevel(rComponents, depth);
+        setOutlineLevel(rComponents, depth + 1);
         drawBorder(worksheet, rComponents, depth + 1);
       } else {
         if (typeof componentsNext === 'string') {
           rowComponents[HEADER_REFERENCE] = componentsNext;
           const rComponents = worksheet.addRow(rowComponents);
-          setOutlineLevel(rComponents, depth);
+          setOutlineLevel(rComponents, depth + 1);
           drawBorder(worksheet, rComponents, depth + 1);
         } else {
           componentsNext.toSpreadsheet(worksheet, rowComponents, depth + 1);
