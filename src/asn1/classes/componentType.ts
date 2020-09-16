@@ -1,14 +1,14 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
+import { headerIndexed } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
   HEADER_TAG,
-  headerIndexed,
-  IRowInput,
 } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { NamedType } from './namedType';

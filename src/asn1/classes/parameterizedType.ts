@@ -1,13 +1,11 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl, unreach } from 'unimpl';
+import { setOutlineLevel } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import {
-  drawBorder,
-  HEADER_REFERENCE,
-  IRowInput,
-  setOutlineLevel,
-} from '../formatter/spreadsheet';
+import { HEADER_REFERENCE } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { AsnType, DefinedObjectClass } from './asnType';
 import { Constraint } from './constraint';
 import { ExternalTypeReference } from './externalTypeReference';

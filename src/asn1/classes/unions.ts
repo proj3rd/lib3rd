@@ -1,14 +1,11 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl, unreach } from 'unimpl';
+import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import {
-  drawBorder,
-  HEADER_NAME_BASE,
-  headerIndexed,
-  IRowInput,
-  setOutlineLevel,
-} from '../formatter/spreadsheet';
+import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { _Intersections } from '../types';
 import { BooleanValue } from './booleanValue';
 import { ExternalObjectSetReference } from './externalObjectSetReference';

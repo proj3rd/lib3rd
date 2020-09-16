@@ -1,12 +1,9 @@
 import { Worksheet } from 'exceljs';
+import { setOutlineLevel } from '../../common/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import {
-  appendInColumn,
-  drawBorder,
-  HEADER_TYPE,
-  IRowInput,
-  setOutlineLevel,
-} from '../formatter/spreadsheet';
+import { appendInColumn, HEADER_TYPE } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
 import { Modules } from './modules';
 
 export class ValueReference {

@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
+const spreadsheet_1 = require("../../common/spreadsheet");
 const formatter_1 = require("../formatter");
-const spreadsheet_1 = require("../formatter/spreadsheet");
+const spreadsheet_2 = require("../formatter/spreadsheet");
+const spreadsheet_3 = require("../../common/spreadsheet");
 const objectClassAssignment_1 = require("./objectClassAssignment");
 const objectSet_1 = require("./objectSet");
 const objectSetAssignment_1 = require("./objectSetAssignment");
@@ -101,10 +103,10 @@ class ObjectIdentifierValue {
         if (this.objectIdComponentsList.length === 1) {
             unimpl_1.unreach();
         }
-        spreadsheet_1.appendInColumn(row, spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth), '{');
+        spreadsheet_2.appendInColumn(row, spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth), '{');
         const r1 = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r1, depth);
-        spreadsheet_1.drawBorder(worksheet, r1, depth);
+        spreadsheet_3.drawBorder(worksheet, r1, depth);
         this.objectIdComponentsList.forEach((components, index) => {
             if (index % 2 !== 0) {
                 return;
@@ -113,20 +115,20 @@ class ObjectIdentifierValue {
                 return unimpl_1.unreach(components);
             }
             const rowComponents = {
-                [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth + 1)]: components,
+                [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth + 1)]: components,
             };
             const componentsNext = this.objectIdComponentsList[index + 1];
             if (componentsNext === undefined) {
                 const rComponents = worksheet.addRow(rowComponents);
                 spreadsheet_1.setOutlineLevel(rComponents, depth + 1);
-                spreadsheet_1.drawBorder(worksheet, rComponents, depth + 1);
+                spreadsheet_3.drawBorder(worksheet, rComponents, depth + 1);
             }
             else {
                 if (typeof componentsNext === 'string') {
-                    rowComponents[spreadsheet_1.HEADER_REFERENCE] = componentsNext;
+                    rowComponents[spreadsheet_2.HEADER_REFERENCE] = componentsNext;
                     const rComponents = worksheet.addRow(rowComponents);
                     spreadsheet_1.setOutlineLevel(rComponents, depth + 1);
-                    spreadsheet_1.drawBorder(worksheet, rComponents, depth + 1);
+                    spreadsheet_3.drawBorder(worksheet, rComponents, depth + 1);
                 }
                 else {
                     componentsNext.toSpreadsheet(worksheet, rowComponents, depth + 1);
@@ -134,10 +136,10 @@ class ObjectIdentifierValue {
             }
         });
         const r2 = worksheet.addRow({
-            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: '}',
+            [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: '}',
         });
         spreadsheet_1.setOutlineLevel(r2, depth);
-        spreadsheet_1.drawBorder(worksheet, r2, depth);
+        spreadsheet_3.drawBorder(worksheet, r2, depth);
     }
     toString() {
         if (this.objectIdComponentsList.length === 1) {

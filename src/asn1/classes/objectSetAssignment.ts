@@ -1,16 +1,16 @@
 import { Workbook } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { getWorkbook } from '../formatter';
 import {
   addHeader,
   addTitle,
   addWorksheet,
-  drawBorder,
-  HEADER_NAME_BASE,
+  getWorkbook,
   headerIndexed,
   uniqueSheetname,
-} from '../formatter/spreadsheet';
-import { BorderTop } from '../formatter/style';
+} from '../../common/spreadsheet';
+import { BorderTop } from '../../common/spreadsheet/style';
+import { HEADER_LIST, HEADER_NAME_BASE } from '../formatter/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { DefinedObjectClass } from './asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
@@ -57,11 +57,11 @@ export class ObjectSetAssignment {
   public toSpreadsheet(workbook?: Workbook): Workbook {
     const wb = getWorkbook(workbook);
     const sheetname = uniqueSheetname(wb, this.fullName());
-    const ws = addWorksheet(wb, sheetname);
+    const ws = addWorksheet(wb, sheetname, 3);
     const depth = this.getDepth();
     addTitle(ws, this.name);
     ws.addRow([]);
-    addHeader(ws, depth);
+    addHeader(ws, HEADER_LIST, depth);
     this.objectSet.toSpreadsheet(
       ws,
       {

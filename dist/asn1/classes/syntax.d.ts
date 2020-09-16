@@ -1,5 +1,5 @@
 import { Worksheet } from 'exceljs';
-import { IRowInput } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
 import { PrimitiveFieldName } from './primitiveFieldName';
 export declare class Syntax {
     literal: string;

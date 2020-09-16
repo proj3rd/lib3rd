@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
-const spreadsheet_1 = require("../formatter/spreadsheet");
+const spreadsheet_1 = require("../../common/spreadsheet");
+const spreadsheet_2 = require("../formatter/spreadsheet");
 const objectSet_1 = require("./objectSet");
 class FixedTypeValueFieldSpec {
     constructor(fieldRerence, asnType, unique, optionality) {
@@ -35,11 +36,11 @@ class FixedTypeValueFieldSpec {
     }
     toSpreadsheet(worksheet, row, depth) {
         this.asnType.toSpreadsheet(worksheet, {
-            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: this.fieldReference.toString(),
-            [spreadsheet_1.HEADER_OPTIONAL]: this.optionality
+            [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: this.fieldReference.toString(),
+            [spreadsheet_2.HEADER_OPTIONAL]: this.optionality
                 ? this.optionality.toString()
                 : undefined,
-            [spreadsheet_1.HEADER_UNIQUE]: this.unique ? 'UNIQUE' : undefined,
+            [spreadsheet_2.HEADER_UNIQUE]: this.unique ? 'UNIQUE' : undefined,
         }, depth);
     }
     toString() {

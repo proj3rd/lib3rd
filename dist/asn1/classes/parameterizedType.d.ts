@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { IParameterMapping } from '../expander';
-import { IRowInput } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
 import { AsnType, DefinedObjectClass } from './asnType';
 import { Constraint } from './constraint';
 import { ExternalTypeReference } from './externalTypeReference';

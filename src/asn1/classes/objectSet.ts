@@ -1,17 +1,16 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
+import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import {
   appendInColumn,
-  drawBorder,
   HEADER_NAME_BASE,
   HEADER_TYPE,
-  headerIndexed,
-  IRowInput,
-  setOutlineLevel,
 } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { _ElementSetSpecs } from '../types';
 import { Modules } from './modules';
 

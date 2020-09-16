@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
+const spreadsheet_1 = require("../../common/spreadsheet");
 const formatter_1 = require("../formatter");
 const valueAssignment_1 = require("./valueAssignment");
 class ModuleDefinition {
@@ -18,7 +19,7 @@ class ModuleDefinition {
         return this.assignments.find((assignment) => assignment.name === name);
     }
     toSpreadsheet(workbook) {
-        const wb = formatter_1.getWorkbook(workbook);
+        const wb = spreadsheet_1.getWorkbook(workbook);
         this.assignments.forEach((assignment) => {
             if (assignment instanceof valueAssignment_1.ValueAssignment) {
                 return;

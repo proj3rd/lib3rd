@@ -1,6 +1,6 @@
 import { Workbook } from 'exceljs';
 import { unimpl } from 'unimpl';
-import { getWorkbook } from '../formatter';
+import { getWorkbook } from '../../common/spreadsheet';
 import { Assignment } from '../types';
 import { ModuleDefinition } from './moduleDefinition';
 

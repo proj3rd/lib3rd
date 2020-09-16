@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
-const spreadsheet_1 = require("../formatter/spreadsheet");
+const spreadsheet_1 = require("../../common/spreadsheet");
+const spreadsheet_2 = require("../formatter/spreadsheet");
 const objectSet_1 = require("./objectSet");
 class NamedType {
     constructor(name, asnType) {
@@ -29,7 +30,7 @@ class NamedType {
     }
     toSpreadsheet(worksheet, row, depth) {
         this.asnType.toSpreadsheet(worksheet, {
-            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: this.name,
+            [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: this.name,
         }, depth);
     }
     toString() {

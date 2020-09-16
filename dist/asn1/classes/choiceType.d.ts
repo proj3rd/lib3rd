@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { IParameterMapping } from '../expander';
-import { IRowInput } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
 import { Constraint } from './constraint';
 import { ExtensionAdditionAlternativeGroup } from './extensionAdditionAlternativeGroup';
 import { ExtensionMarker } from './extensionMarker';

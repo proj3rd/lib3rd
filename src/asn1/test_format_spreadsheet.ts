@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { cloneDeep } from 'lodash';
+import { getWorkbook } from '../common/spreadsheet';
 import { ValueAssignment } from './classes/valueAssignment';
-import { getWorkbook } from './formatter';
 import { parse } from './parser';
 
 describe('Format in spreadsheets [format_spreadsheet_all]', function () {

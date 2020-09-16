@@ -1,12 +1,10 @@
 import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
+import { setOutlineLevel } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import {
-  drawBorder,
-  HEADER_TYPE,
-  IRowInput,
-  setOutlineLevel,
-} from '../formatter/spreadsheet';
+import { HEADER_TYPE } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 

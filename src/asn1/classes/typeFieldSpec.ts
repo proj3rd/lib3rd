@@ -1,13 +1,9 @@
 import { Worksheet } from 'exceljs';
+import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import {
-  drawBorder,
-  HEADER_NAME_BASE,
-  HEADER_OPTIONAL,
-  headerIndexed,
-  IRowInput,
-  setOutlineLevel,
-} from '../formatter/spreadsheet';
+import { HEADER_NAME_BASE, HEADER_OPTIONAL } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { Modules } from './modules';
 import { Optionality } from './optionality';
 import { PrimitiveFieldName } from './primitiveFieldName';

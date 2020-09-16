@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
-const formatter_1 = require("../formatter");
-const spreadsheet_1 = require("../formatter/spreadsheet");
-const style_1 = require("../formatter/style");
+const spreadsheet_1 = require("../../common/spreadsheet");
+const style_1 = require("../../common/spreadsheet/style");
+const spreadsheet_2 = require("../formatter/spreadsheet");
+const spreadsheet_3 = require("../../common/spreadsheet");
 const objectSet_1 = require("./objectSet");
 class TypeAssignment {
     constructor(name, asnType) {
@@ -29,17 +30,17 @@ class TypeAssignment {
         return this.asnType.getDepth();
     }
     toSpreadsheet(workbook) {
-        const wb = formatter_1.getWorkbook(workbook);
+        const wb = spreadsheet_1.getWorkbook(workbook);
         const sheetname = spreadsheet_1.uniqueSheetname(wb, this.name);
-        const ws = formatter_1.addWorksheet(wb, sheetname);
+        const ws = spreadsheet_1.addWorksheet(wb, sheetname, 3);
         const depth = this.getDepth();
         spreadsheet_1.addTitle(ws, this.name);
         ws.addRow([]);
-        spreadsheet_1.addHeader(ws, depth);
+        spreadsheet_1.addHeader(ws, spreadsheet_2.HEADER_LIST, depth);
         this.asnType.toSpreadsheet(ws, {
-            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, 0)]: this.name,
+            [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, 0)]: this.name,
         }, 0);
-        spreadsheet_1.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
+        spreadsheet_3.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
         return wb;
     }
     toString() {

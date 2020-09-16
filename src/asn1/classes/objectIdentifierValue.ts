@@ -1,25 +1,22 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl, unreach } from 'unimpl';
+import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import {
   appendInColumn,
-  drawBorder,
   HEADER_NAME_BASE,
   HEADER_REFERENCE,
-  HEADER_TYPE,
-  headerIndexed,
-  IRowInput,
-  setOutlineLevel,
 } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { ObjectIdComponents } from '../types';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { ObjectClassAssignment } from './objectClassAssignment';
 import { ObjectSet } from './objectSet';
 import { ObjectSetAssignment } from './objectSetAssignment';
-import { OctetStringType } from './octetStringType';
 import { ParameterizedTypeAssignment } from './parameterizedTypeAssignment';
 import { TypeAssignment } from './typeAssignment';
 import { Value } from './value';

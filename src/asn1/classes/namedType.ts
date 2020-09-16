@@ -1,12 +1,10 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
+import { headerIndexed } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import {
-  HEADER_NAME_BASE,
-  headerIndexed,
-  IRowInput,
-} from '../formatter/spreadsheet';
+import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';

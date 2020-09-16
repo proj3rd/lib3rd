@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const lodash_1 = require("lodash");
+const spreadsheet_1 = require("../common/spreadsheet");
 const valueAssignment_1 = require("./classes/valueAssignment");
-const formatter_1 = require("./formatter");
 const parser_1 = require("./parser");
 describe('Format in spreadsheets [format_spreadsheet_all]', function () {
     this.timeout(0);
@@ -30,7 +30,7 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
                     }
                     // tslint:disable-next-line: only-arrow-functions
                     it(`${module.name}.${assignment.name}`, function () {
-                        const wb = formatter_1.getWorkbook();
+                        const wb = spreadsheet_1.getWorkbook();
                         assignment.toSpreadsheet(wb);
                     });
                 });
@@ -48,7 +48,7 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
                     // tslint:disable-next-line: only-arrow-functions
                     it(`${module.name}.${assignment.name}`, function () {
                         const expandedAssignment = lodash_1.cloneDeep(assignment).expand(modules);
-                        const wb = formatter_1.getWorkbook();
+                        const wb = spreadsheet_1.getWorkbook();
                         expandedAssignment.toSpreadsheet(wb);
                     });
                 });

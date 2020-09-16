@@ -1,13 +1,12 @@
 import { Worksheet } from 'exceljs';
+import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
   HEADER_REFERENCE,
-  headerIndexed,
-  IRowInput,
-  drawBorder,
-  setOutlineLevel,
 } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { PrimitiveFieldName } from './primitiveFieldName';
 
 export class Syntax {

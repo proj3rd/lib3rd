@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
+const spreadsheet_1 = require("../../common/spreadsheet");
 const formatter_1 = require("../formatter");
-const spreadsheet_1 = require("../formatter/spreadsheet");
+const spreadsheet_2 = require("../formatter/spreadsheet");
+const spreadsheet_3 = require("../../common/spreadsheet");
 class ExtensionAdditionAlternativeGroup {
     constructor(version, components) {
         this.version = version;
@@ -30,18 +32,18 @@ class ExtensionAdditionAlternativeGroup {
     }
     toSpreadsheet(worksheet, row, depth) {
         const r1 = worksheet.addRow({
-            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: this.openingBracket(),
+            [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: this.openingBracket(),
         });
         spreadsheet_1.setOutlineLevel(r1, depth);
-        spreadsheet_1.drawBorder(worksheet, r1, depth);
+        spreadsheet_3.drawBorder(worksheet, r1, depth);
         this.components.forEach((component) => {
             component.toSpreadsheet(worksheet, {}, depth + 1);
         });
         const r2 = worksheet.addRow({
-            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: ']]',
+            [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: ']]',
         });
         spreadsheet_1.setOutlineLevel(r2, depth);
-        spreadsheet_1.drawBorder(worksheet, r2, depth);
+        spreadsheet_3.drawBorder(worksheet, r2, depth);
     }
     toString() {
         if (this.components.length === 0) {

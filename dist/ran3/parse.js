@@ -28,20 +28,17 @@ function matchColumns(element, columnList) {
     const trList = cheerio_1.default('tr', element);
     const trHeader = trList[0];
     const tdList = cheerio_1.default('td', trHeader);
-    return tdList.length >= columnList.length &&
+    return (tdList.length >= columnList.length &&
         columnList.every((column, index) => {
             const normalizedText = normalizeHtmlText(cheerio_1.default(tdList[index]).text());
             return normalizedText === column;
-        });
+        }));
 }
 function isConditionTable(element) {
     if (element.type !== 'tag' || element.name !== 'table') {
         return false;
     }
-    const columnList = [
-        'Condition',
-        'Explanation',
-    ];
+    const columnList = ['Condition', 'Explanation'];
     return matchColumns(element, columnList);
 }
 function isDefinitionTable(element) {
@@ -75,10 +72,7 @@ function isRangeTable(element) {
     if (element.type !== 'tag' || element.name !== 'table') {
         return false;
     }
-    const columnList = [
-        'Range bound',
-        'Explanation',
-    ];
+    const columnList = ['Range bound', 'Explanation'];
     return matchColumns(element, columnList);
 }
 function getSectionInfo(element) {
@@ -97,12 +91,15 @@ function getSectionInfo(element) {
 function parseDefinitionTable(element) {
     const trList = cheerio_1.default('tr', element);
     const trBodyList = trList.slice(1);
-    return trBodyList.map((index, trElement) => {
+    return trBodyList
+        .map((index, trElement) => {
         const tdList = cheerio_1.default('td', trElement);
         const tdFirst = normalizeHtmlText(cheerio_1.default(tdList[0]).text());
         const name = tdFirst.replace(/^>+/, '').trim();
         const matchResult = tdFirst.match(reDepth);
-        const depth = !matchResult || !matchResult.groups ? 0 : matchResult.groups.depth.length;
+        const depth = !matchResult || !matchResult.groups
+            ? 0
+            : matchResult.groups.depth.length;
         return {
             name,
             presence: normalizeHtmlText(cheerio_1.default(tdList[1]).text()),
@@ -113,38 +110,46 @@ function parseDefinitionTable(element) {
             assignedCriticality: normalizeHtmlText(cheerio_1.default(tdList[6]).text()),
             depth,
         };
-    }).get();
+    })
+        .get();
 }
 function parseRangeTable(element) {
     const trList = cheerio_1.default('tr', element);
     const trBodyList = trList.slice(1);
-    const rangeBoundList = trBodyList.map((index, trElement) => {
+    const rangeBoundList = trBodyList
+        .map((index, trElement) => {
         const tdList = cheerio_1.default('td', trElement);
         return {
             rangeBound: cheerio_1.default(tdList[0]).text().trim(),
             explanation: cheerio_1.default(tdList[1]).text().trim(),
         };
-    }).get();
+    })
+        .get();
     return rangeBoundList;
 }
 function parseConditionTable(element) {
     const trList = cheerio_1.default('tr', element);
     const trBodyList = trList.slice(1);
-    const conditionList = trBodyList.map((index, trElement) => {
+    const conditionList = trBodyList
+        .map((index, trElement) => {
         const tdList = cheerio_1.default('td', trElement);
         return {
             condition: cheerio_1.default(tdList[0]).text().trim(),
             explanation: cheerio_1.default(tdList[1]).text().trim(),
         };
-    }).get();
+    })
+        .get();
     return conditionList;
 }
 function parse(html) {
     // Break down the document into elements and put them into the list
     // The last element shall be put into the list first and popped from it last
-    const elementList = cheerio_1.default(html).map((index, element) => {
+    const elementList = cheerio_1.default(html)
+        .map((index, element) => {
         return element;
-    }).get().reverse();
+    })
+        .get()
+        .reverse();
     const definitionList = [];
     const definition = {
         sectionNumber: '',

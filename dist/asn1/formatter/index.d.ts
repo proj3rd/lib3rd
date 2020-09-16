@@ -1,7 +1,6 @@
 import { ExtensionMarker } from '../classes/extensionMarker';
 import { IntegerValue } from '../classes/integerValue';
 import { ValueRange } from '../classes/valueRange';
-export { addWorksheet, getWorkbook } from './spreadsheet';
 /**
  * Use case: `SIZE (...)` and `INTEGER (...)`
  * @param constraints

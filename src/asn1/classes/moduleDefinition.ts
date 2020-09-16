@@ -1,6 +1,7 @@
 import { Workbook } from 'exceljs';
 import { unimpl } from 'unimpl';
-import { getWorkbook, indent } from '../formatter';
+import { getWorkbook } from '../../common/spreadsheet';
+import { indent } from '../formatter';
 import { Assignment } from '../types';
 import { AsnSymbol } from './asnSymbol';
 import { DefinitiveIdentification } from './definitiveIdentification';

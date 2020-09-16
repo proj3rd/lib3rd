@@ -4,7 +4,12 @@ import { cloneDeep } from 'lodash';
 import { todo } from 'unimpl';
 import { Definition } from './classes/definition';
 import { Definitions } from './classes/definitions';
-import { ICondition, IDefinition, IInformationElement, IRangeBound } from './types';
+import {
+  ICondition,
+  IDefinition,
+  IInformationElement,
+  IRangeBound,
+} from './types';
 
 /**
  * Regular expression for section. Following expressions are supported
@@ -14,7 +19,7 @@ import { ICondition, IDefinition, IInformationElement, IRangeBound } from './typ
  * - A.1.2.3a
  */
 const reSection = /^(?<sectionNumber>[1-9A-Z]\d*?(\.[1-9]\d*?)*?\.[1-9]\w*?)\s+?(?<title>.+)$/;
-                                  // ^ Head      ^ Middle       ^ Tail
+// ^ Head      ^ Middle       ^ Tail
 
 /**
  * Regular expression for section. The number of '>' is equal to the depth.
@@ -29,21 +34,20 @@ function matchColumns(element: CheerioElement, columnList: string[]): boolean {
   const trList = $('tr', element);
   const trHeader = trList[0];
   const tdList = $('td', trHeader);
-  return tdList.length >= columnList.length &&
+  return (
+    tdList.length >= columnList.length &&
     columnList.every((column, index) => {
       const normalizedText = normalizeHtmlText($(tdList[index]).text());
       return normalizedText === column;
-    });
+    })
+  );
 }
 
 function isConditionTable(element: CheerioElement): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
   }
-  const columnList = [
-    'Condition',
-    'Explanation',
-  ];
+  const columnList = ['Condition', 'Explanation'];
   return matchColumns(element, columnList);
 }
 
@@ -81,14 +85,13 @@ function isRangeTable(element: CheerioElement): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
   }
-  const columnList = [
-    'Range bound',
-    'Explanation',
-  ];
+  const columnList = ['Range bound', 'Explanation'];
   return matchColumns(element, columnList);
 }
 
-function getSectionInfo(element: CheerioElement): { sectionNumber: string, title: string } | null {
+function getSectionInfo(
+  element: CheerioElement
+): { sectionNumber: string; title: string } | null {
   const sectionTagList = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
   if (element.type !== 'tag' || !sectionTagList.includes(element.name)) {
     return null;
@@ -105,57 +108,71 @@ function getSectionInfo(element: CheerioElement): { sectionNumber: string, title
 function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
-  return trBodyList.map((index, trElement): IInformationElement => {
-    const tdList = $('td', trElement);
-    const tdFirst = normalizeHtmlText($(tdList[0]).text());
-    const name = tdFirst.replace(/^>+/, '').trim();
-    const matchResult = tdFirst.match(reDepth);
-    const depth = !matchResult || !matchResult.groups ? 0 : matchResult.groups.depth.length;
-    return {
-      name,
-      presence: normalizeHtmlText($(tdList[1]).text()),
-      range: normalizeHtmlText($(tdList[2]).text()),
-      typeAndRef: normalizeHtmlText($(tdList[3]).text()),
-      description: normalizeHtmlText($(tdList[4]).text()),
-      criticality: normalizeHtmlText($(tdList[5]).text()),
-      assignedCriticality: normalizeHtmlText($(tdList[6]).text()),
-      depth,
-    };
-  }).get() as IInformationElement[];
+  return trBodyList
+    .map(
+      (index, trElement): IInformationElement => {
+        const tdList = $('td', trElement);
+        const tdFirst = normalizeHtmlText($(tdList[0]).text());
+        const name = tdFirst.replace(/^>+/, '').trim();
+        const matchResult = tdFirst.match(reDepth);
+        const depth =
+          !matchResult || !matchResult.groups
+            ? 0
+            : matchResult.groups.depth.length;
+        return {
+          name,
+          presence: normalizeHtmlText($(tdList[1]).text()),
+          range: normalizeHtmlText($(tdList[2]).text()),
+          typeAndRef: normalizeHtmlText($(tdList[3]).text()),
+          description: normalizeHtmlText($(tdList[4]).text()),
+          criticality: normalizeHtmlText($(tdList[5]).text()),
+          assignedCriticality: normalizeHtmlText($(tdList[6]).text()),
+          depth,
+        };
+      }
+    )
+    .get() as IInformationElement[];
 }
 
 function parseRangeTable(element: CheerioElement): IRangeBound[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
-  const rangeBoundList: IRangeBound[] = trBodyList.map((index, trElement) => {
-    const tdList = $('td', trElement);
-    return {
-      rangeBound: $(tdList[0]).text().trim(),
-      explanation: $(tdList[1]).text().trim(),
-    };
-  }).get();
+  const rangeBoundList: IRangeBound[] = trBodyList
+    .map((index, trElement) => {
+      const tdList = $('td', trElement);
+      return {
+        rangeBound: $(tdList[0]).text().trim(),
+        explanation: $(tdList[1]).text().trim(),
+      };
+    })
+    .get();
   return rangeBoundList;
 }
 
 function parseConditionTable(element: CheerioElement): ICondition[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
-  const conditionList: ICondition[] = trBodyList.map((index, trElement) => {
-    const tdList = $('td', trElement);
-    return {
-      condition: $(tdList[0]).text().trim(),
-      explanation: $(tdList[1]).text().trim(),
-    };
-  }).get();
+  const conditionList: ICondition[] = trBodyList
+    .map((index, trElement) => {
+      const tdList = $('td', trElement);
+      return {
+        condition: $(tdList[0]).text().trim(),
+        explanation: $(tdList[1]).text().trim(),
+      };
+    })
+    .get();
   return conditionList;
 }
 
 export function parse(html: string): Definitions {
   // Break down the document into elements and put them into the list
   // The last element shall be put into the list first and popped from it last
-  const elementList: CheerioElement[] = $(html).map((index, element) => {
-    return element;
-  }).get().reverse();
+  const elementList: CheerioElement[] = $(html)
+    .map((index, element) => {
+      return element;
+    })
+    .get()
+    .reverse();
 
   const definitionList: Definition[] = [];
   const definition: IDefinition = {

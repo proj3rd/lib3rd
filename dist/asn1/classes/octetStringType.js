@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
+const spreadsheet_1 = require("../../common/spreadsheet");
 const sizeConstraint_1 = require("../classes/sizeConstraint");
-const spreadsheet_1 = require("../formatter/spreadsheet");
+const spreadsheet_2 = require("../formatter/spreadsheet");
+const spreadsheet_3 = require("../../common/spreadsheet");
 const componentRelationConstraint_1 = require("./componentRelationConstraint");
 const contentsConstraint_1 = require("./contentsConstraint");
 const extensionMarker_1 = require("./extensionMarker");
@@ -64,10 +66,10 @@ class OctetStringType {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
-        row[spreadsheet_1.HEADER_TYPE] = this.toString();
+        row[spreadsheet_2.HEADER_TYPE] = this.toString();
         const r = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r, depth);
-        spreadsheet_1.drawBorder(worksheet, r, depth);
+        spreadsheet_3.drawBorder(worksheet, r, depth);
     }
     toString() {
         if (this.constraint === undefined) {

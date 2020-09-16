@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
-const spreadsheet_1 = require("../formatter/spreadsheet");
+const spreadsheet_1 = require("../../common/spreadsheet");
+const spreadsheet_2 = require("../formatter/spreadsheet");
+const spreadsheet_3 = require("../../common/spreadsheet");
 const objectSet_1 = require("./objectSet");
 const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
 const typeAssignment_1 = require("./typeAssignment");
@@ -54,10 +56,10 @@ class ExternalTypeReference {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
-        row[spreadsheet_1.HEADER_REFERENCE] = this.toString();
+        row[spreadsheet_2.HEADER_REFERENCE] = this.toString();
         const r = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r, depth);
-        spreadsheet_1.drawBorder(worksheet, r, depth);
+        spreadsheet_3.drawBorder(worksheet, r, depth);
     }
     toString() {
         return `${this.moduleReference}.${this.typeReference}`;

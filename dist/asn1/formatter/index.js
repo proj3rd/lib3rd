@@ -1,9 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const extensionMarker_1 = require("../classes/extensionMarker");
-var spreadsheet_1 = require("./spreadsheet");
-exports.addWorksheet = spreadsheet_1.addWorksheet;
-exports.getWorkbook = spreadsheet_1.getWorkbook;
 const RE_START_OF_LINE = /^/gm;
 function getConstraintSeparator(constraints, index) {
     if (index === 0) {

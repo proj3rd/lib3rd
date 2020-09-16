@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
-const spreadsheet_1 = require("../formatter/spreadsheet");
+const spreadsheet_1 = require("../../common/spreadsheet");
+const spreadsheet_2 = require("../formatter/spreadsheet");
+const spreadsheet_3 = require("../../common/spreadsheet");
 const booleanValue_1 = require("./booleanValue");
 const externalObjectSetReference_1 = require("./externalObjectSetReference");
 const integerValue_1 = require("./integerValue");
@@ -54,10 +56,10 @@ class Unions {
             intersections.forEach((elements, indexIntersections) => {
                 if (typeof elements === 'string') {
                     const r = worksheet.addRow({
-                        [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: elements,
+                        [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: elements,
                     });
                     spreadsheet_1.setOutlineLevel(r, depth);
-                    spreadsheet_1.drawBorder(worksheet, r, depth);
+                    spreadsheet_3.drawBorder(worksheet, r, depth);
                 }
                 else if (elements instanceof booleanValue_1.BooleanValue) {
                     unimpl_1.unreach(elements);
@@ -85,18 +87,18 @@ class Unions {
                 }
                 if (indexIntersections !== lengthIntersections - 1) {
                     const r = worksheet.addRow({
-                        [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: '∩',
+                        [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: '∩',
                     });
                     spreadsheet_1.setOutlineLevel(r, depth);
-                    spreadsheet_1.drawBorder(worksheet, r, depth);
+                    spreadsheet_3.drawBorder(worksheet, r, depth);
                 }
             });
             if (indexUnions !== lengthUnions - 1) {
                 const r = worksheet.addRow({
-                    [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: '∪',
+                    [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: '∪',
                 });
                 spreadsheet_1.setOutlineLevel(r, depth);
-                spreadsheet_1.drawBorder(worksheet, r, depth);
+                spreadsheet_3.drawBorder(worksheet, r, depth);
             }
         });
     }

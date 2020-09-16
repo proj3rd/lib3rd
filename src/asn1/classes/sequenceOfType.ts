@@ -2,11 +2,8 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import {
-  appendInColumn,
-  HEADER_TYPE,
-  IRowInput,
-} from '../formatter/spreadsheet';
+import { appendInColumn, HEADER_TYPE } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
 import { AsnType } from './asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';

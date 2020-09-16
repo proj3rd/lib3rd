@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const spreadsheet_1 = require("../formatter/spreadsheet");
+const spreadsheet_1 = require("../../common/spreadsheet");
+const spreadsheet_2 = require("../formatter/spreadsheet");
+const spreadsheet_3 = require("../../common/spreadsheet");
 class Syntax {
     constructor(literal, primitiveFieldName, optional) {
         this.literal = literal;
@@ -12,12 +14,12 @@ class Syntax {
     }
     toSpreadsheet(worksheet, row, depth) {
         const r = worksheet.addRow({
-            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: this.literal,
-            [spreadsheet_1.HEADER_REFERENCE]: this.primitiveFieldName.toString(),
-            [spreadsheet_1.HEADER_OPTIONAL]: this.optional ? 'OPTIONAL' : undefined,
+            [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: this.literal,
+            [spreadsheet_2.HEADER_REFERENCE]: this.primitiveFieldName.toString(),
+            [spreadsheet_2.HEADER_OPTIONAL]: this.optional ? 'OPTIONAL' : undefined,
         });
         spreadsheet_1.setOutlineLevel(r, depth);
-        spreadsheet_1.drawBorder(worksheet, r, depth);
+        spreadsheet_3.drawBorder(worksheet, r, depth);
     }
     toString() {
         if (this.optional) {

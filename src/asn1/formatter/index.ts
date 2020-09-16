@@ -1,7 +1,6 @@
 import { ExtensionMarker } from '../classes/extensionMarker';
 import { IntegerValue } from '../classes/integerValue';
 import { ValueRange } from '../classes/valueRange';
-export { addWorksheet, getWorkbook } from './spreadsheet';
 
 const RE_START_OF_LINE = /^/gm;
 

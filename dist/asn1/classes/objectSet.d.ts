@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { IParameterMapping } from '../expander';
-import { IRowInput } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
 import { _ElementSetSpecs } from '../types';
 import { Modules } from './modules';
 /**

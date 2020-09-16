@@ -1,1 +1,1 @@
-{"version":3,"file":"conditions.d.ts","sourceRoot":"","sources":["../../../src/ran3/classes/conditions.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,UAAU,CAAC;AAEtC,qBAAa,UAAU;IACd,aAAa,EAAE,UAAU,EAAE,CAAC;gBAEvB,aAAa,EAAE,UAAU,EAAE;CAGxC"}
+{"version":3,"file":"conditions.d.ts","sourceRoot":"","sources":["../../../src/ran3/classes/conditions.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,SAAS,CAAC;AAGpC,OAAO,EAAE,UAAU,EAAE,MAAM,UAAU,CAAC;AAGtC,qBAAa,UAAU;IACd,aAAa,EAAE,UAAU,EAAE,CAAC;gBAEvB,aAAa,EAAE,UAAU,EAAE;IAIhC,aAAa,CAAC,SAAS,EAAE,SAAS;CAgB1C"}

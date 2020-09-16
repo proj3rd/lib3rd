@@ -1,19 +1,19 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
+import { headerIndexed } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
   HEADER_UNIQUE,
-  headerIndexed,
-  IRowInput,
 } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
+import { ObjectSet } from './objectSet';
 import { Optionality } from './optionality';
 import { PrimitiveFieldName } from './primitiveFieldName';
-import { ObjectSet } from './objectSet';
 
 export class FixedTypeValueFieldSpec {
   public fieldReference: PrimitiveFieldName;

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
-const formatter_1 = require("../formatter");
+const spreadsheet_1 = require("../../common/spreadsheet");
 class Modules {
     constructor(modules = []) {
         this.modules = modules;
@@ -20,7 +20,7 @@ class Modules {
         return assignment;
     }
     toSpreadsheet() {
-        const workbook = formatter_1.getWorkbook();
+        const workbook = spreadsheet_1.getWorkbook();
         this.modules.forEach((module) => module.toSpreadsheet(workbook));
         return workbook;
     }

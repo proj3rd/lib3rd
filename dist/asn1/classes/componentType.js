@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
-const spreadsheet_1 = require("../formatter/spreadsheet");
+const spreadsheet_1 = require("../../common/spreadsheet");
+const spreadsheet_2 = require("../formatter/spreadsheet");
 const objectSet_1 = require("./objectSet");
 const sequenceType_1 = require("./sequenceType");
 class ComponentType {
@@ -36,11 +37,11 @@ class ComponentType {
     }
     toSpreadsheet(worksheet, row, depth) {
         this.asnType.toSpreadsheet(worksheet, {
-            [spreadsheet_1.headerIndexed(spreadsheet_1.HEADER_NAME_BASE, depth)]: this.name,
-            [spreadsheet_1.HEADER_OPTIONAL]: this.optionality
+            [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: this.name,
+            [spreadsheet_2.HEADER_OPTIONAL]: this.optionality
                 ? this.optionality.toString()
                 : undefined,
-            [spreadsheet_1.HEADER_TAG]: this.tag.toString(),
+            [spreadsheet_2.HEADER_TAG]: this.tag.toString(),
         }, depth);
     }
     /**

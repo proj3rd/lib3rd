@@ -1,12 +1,9 @@
 import { Worksheet } from 'exceljs';
+import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import {
-  drawBorder,
-  HEADER_NAME_BASE,
-  headerIndexed,
-  IRowInput,
-  setOutlineLevel,
-} from '../formatter/spreadsheet';
+import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
+import { IRowInput } from '../../common/spreadsheet';
+import { drawBorder } from '../../common/spreadsheet';
 import { Modules } from './modules';
 
 export class ExtensionMarker {
