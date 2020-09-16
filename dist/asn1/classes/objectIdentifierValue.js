@@ -118,14 +118,14 @@ class ObjectIdentifierValue {
             const componentsNext = this.objectIdComponentsList[index + 1];
             if (componentsNext === undefined) {
                 const rComponents = worksheet.addRow(rowComponents);
-                spreadsheet_1.setOutlineLevel(rComponents, depth);
+                spreadsheet_1.setOutlineLevel(rComponents, depth + 1);
                 spreadsheet_1.drawBorder(worksheet, rComponents, depth + 1);
             }
             else {
                 if (typeof componentsNext === 'string') {
                     rowComponents[spreadsheet_1.HEADER_REFERENCE] = componentsNext;
                     const rComponents = worksheet.addRow(rowComponents);
-                    spreadsheet_1.setOutlineLevel(rComponents, depth);
+                    spreadsheet_1.setOutlineLevel(rComponents, depth + 1);
                     spreadsheet_1.drawBorder(worksheet, rComponents, depth + 1);
                 }
                 else {

@@ -103,7 +103,10 @@ function headerIndexed(header, index) {
 }
 exports.headerIndexed = headerIndexed;
 function setOutlineLevel(row, depth) {
-    row.outlineLevel = Math.min(depth + 1, 7);
+    if (depth === 0) {
+        return;
+    }
+    row.outlineLevel = Math.min(depth, 7);
 }
 exports.setOutlineLevel = setOutlineLevel;
 function uniqueSheetname(workbook, name) {
