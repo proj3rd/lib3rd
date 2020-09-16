@@ -1,0 +1,1 @@
+{"version":3,"file":"definitions.d.ts","sourceRoot":"","sources":["../../../src/ran3/classes/definitions.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,cAAc,CAAC;AAE1C,qBAAa,WAAW;IACf,cAAc,EAAE,UAAU,EAAE,CAAC;gBAExB,cAAc,EAAE,UAAU,EAAE;IAIjC,cAAc,CAAC,mBAAmB,EAAE,MAAM,GAAG,UAAU,GAAG,SAAS;CAM3E"}
