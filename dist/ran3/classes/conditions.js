@@ -7,6 +7,15 @@ class Conditions {
     constructor(conditionList) {
         this.conditionList = conditionList;
     }
+    add(condition) {
+        const cond = this.conditionList.find((cond) => {
+            return cond.condition === condition.condition;
+        });
+        if (cond) {
+            return;
+        }
+        this.conditionList.push(condition);
+    }
     toSpreadsheet(worksheet) {
         worksheet.addRow({
             [spreadsheet_1.headerIndexed(definition_1.HEADER_NAME_BASE, 0)]: 'Condition',

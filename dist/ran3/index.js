@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
+const lodash_1 = require("lodash");
 const path_1 = require("path");
-const unimpl_1 = require("unimpl");
 const yargs_1 = __importDefault(require("yargs"));
 const parse_1 = require("./parse");
 exports.parse = parse_1.parse;
@@ -35,7 +35,9 @@ if (require.main === module) {
             if (definition === undefined) {
                 throw Error(`${name} not found in ${file}`);
             }
-            const definitionNew = expand ? unimpl_1.todo() : definition;
+            const definitionNew = expand
+                ? lodash_1.cloneDeep(definition).expand(parsed)
+                : definition;
             const wb = definitionNew.toSpreadsheet();
             const { base } = path_1.parse(file);
             const arrToFilename = [name, base, expand ? 'expand' : ''];

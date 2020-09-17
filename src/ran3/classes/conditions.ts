@@ -11,6 +11,16 @@ export class Conditions {
     this.conditionList = conditionList;
   }
 
+  public add(condition: ICondition) {
+    const cond = this.conditionList.find((cond) => {
+      return cond.condition === condition.condition;
+    });
+    if (cond) {
+      return;
+    }
+    this.conditionList.push(condition);
+  }
+
   public toSpreadsheet(worksheet: Worksheet) {
     worksheet.addRow({
       [headerIndexed(HEADER_NAME_BASE, 0)]: 'Condition',

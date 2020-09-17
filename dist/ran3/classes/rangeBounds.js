@@ -7,6 +7,15 @@ class RangeBounds {
     constructor(rangeBoundList) {
         this.rangeBoundList = rangeBoundList;
     }
+    add(rangeBound) {
+        const range = this.rangeBoundList.find((range) => {
+            return range.rangeBound === rangeBound.rangeBound;
+        });
+        if (range) {
+            return;
+        }
+        this.rangeBoundList.push(rangeBound);
+    }
     toSpreadsheet(worksheet) {
         worksheet.addRow({
             [spreadsheet_1.headerIndexed(definition_1.HEADER_NAME_BASE, 0)]: 'Condition',

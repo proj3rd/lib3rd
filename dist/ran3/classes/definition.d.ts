@@ -1,6 +1,7 @@
 import { Workbook } from 'exceljs';
 import { IDefinition, IInformationElement } from '../types';
 import { Conditions } from './conditions';
+import { Definitions } from './definitions';
 import { RangeBounds } from './rangeBounds';
 export declare const HEADER_NAME_BASE = "IE/Group Name";
 export declare const HEADER_DESCRIPTION = "Semantics description";
@@ -13,6 +14,10 @@ export declare class Definition {
     rangeBounds: RangeBounds;
     conditions: Conditions;
     constructor(definition: IDefinition);
+    /**
+     * Expand `elementList`, `rangeBounds` and `condition`. This will mutate the object itself.
+     */
+    expand(definitions: Definitions): Definition;
     getDepth(): number;
     toSpreadsheet(workbook?: Workbook): Workbook;
 }

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
 const conditions_1 = require("./conditions");
@@ -20,6 +21,15 @@ const HEADER_LIST = [
     HEADER_CRITICALITY,
     HEADER_ASSIGNED_CRITICALITY,
 ];
+/**
+ * Regular expression for section number. Following expressions are supported
+ * - 9.1.2.3
+ * - 9.1.2.3a
+ * - A.1.2.3
+ * - A.1.2.3a
+ */
+const reSectionNumber = /\b[1-9A-Z]\d*?(\.[1-9]\d*?)*\.[1-9]\w*?\b/;
+//                         ^ Head      ^ Middle        ^ Tail
 class Definition {
     constructor(definition) {
         const { sectionNumber, name, descriptionList, direction, elementList, rangeBoundList, conditionList, } = definition;
@@ -30,6 +40,51 @@ class Definition {
         this.elementList = elementList;
         this.rangeBounds = new rangeBounds_1.RangeBounds(rangeBoundList);
         this.conditions = new conditions_1.Conditions(conditionList);
+    }
+    /**
+     * Expand `elementList`, `rangeBounds` and `condition`. This will mutate the object itself.
+     */
+    expand(definitions) {
+        const elementListExpanded = lodash_1.cloneDeep(this.elementList);
+        const rangeBoundsExpanded = lodash_1.cloneDeep(this.rangeBounds);
+        const conditionsExpanded = lodash_1.cloneDeep(this.conditions);
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = elementListExpanded.length - 1; i >= 0; i--) {
+            const element = elementListExpanded[i];
+            const { typeAndRef } = element;
+            const matchResult = typeAndRef.match(reSectionNumber);
+            if (!matchResult) {
+                continue;
+            }
+            const sectionNumber = matchResult[0];
+            const definitionReferenced = definitions.findDefinition(sectionNumber);
+            if (!definitionReferenced) {
+                continue;
+            }
+            const definitionExpanded = lodash_1.cloneDeep(definitionReferenced).expand(definitions);
+            const { elementList: elementListReferenced, rangeBounds: rangeBoundsReferenced, conditions: conditionsReferenced, } = definitionExpanded;
+            // TODO: Check single-rooted
+            elementListReferenced.forEach((elementReferenced) => {
+                elementReferenced.depth += element.depth + 1;
+            });
+            elementListExpanded.splice(i + 1, 0, ...elementListReferenced);
+            if (!lodash_1.isEqual(elementListExpanded, this.elementList)) {
+                this.elementList = elementListExpanded;
+            }
+            rangeBoundsReferenced.rangeBoundList.forEach((rangeBound) => {
+                rangeBoundsExpanded.add(rangeBound);
+            });
+            conditionsReferenced.conditionList.forEach((condition) => {
+                conditionsExpanded.add(condition);
+            });
+        }
+        if (!lodash_1.isEqual(rangeBoundsExpanded, this.rangeBounds)) {
+            this.rangeBounds = rangeBoundsExpanded;
+        }
+        if (!lodash_1.isEqual(conditionsExpanded, this.conditions)) {
+            this.conditions = conditionsExpanded;
+        }
+        return this;
     }
     getDepth() {
         return this.elementList.reduce((prev, curr) => {

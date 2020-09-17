@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
+import { cloneDeep } from 'lodash';
 import { parse as parsePath } from 'path';
-import { todo } from 'unimpl';
 import yargs from 'yargs';
 import { parse } from './parse';
 
@@ -34,7 +34,9 @@ if (require.main === module) {
         if (definition === undefined) {
           throw Error(`${name} not found in ${file}`);
         }
-        const definitionNew = expand ? todo() : definition;
+        const definitionNew = expand
+          ? cloneDeep(definition).expand(parsed)
+          : definition;
         const wb = definitionNew.toSpreadsheet();
         const { base } = parsePath(file);
         const arrToFilename = [name, base, expand ? 'expand' : ''];

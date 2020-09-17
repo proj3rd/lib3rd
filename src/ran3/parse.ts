@@ -19,7 +19,7 @@ import {
  * - A.1.2.3a
  */
 const reSection = /^(?<sectionNumber>[1-9A-Z]\d*?(\.[1-9]\d*?)*?\.[1-9]\w*?)\s+?(?<title>.+)$/;
-// ^ Head      ^ Middle       ^ Tail
+//                                   ^ Head      ^ Middle       ^ Tail
 
 /**
  * Regular expression for section. The number of '>' is equal to the depth.

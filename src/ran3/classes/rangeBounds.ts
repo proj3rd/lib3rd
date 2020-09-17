@@ -11,6 +11,16 @@ export class RangeBounds {
     this.rangeBoundList = rangeBoundList;
   }
 
+  public add(rangeBound: IRangeBound) {
+    const range = this.rangeBoundList.find((range) => {
+      return range.rangeBound === rangeBound.rangeBound;
+    });
+    if (range) {
+      return;
+    }
+    this.rangeBoundList.push(rangeBound);
+  }
+
   public toSpreadsheet(worksheet: Worksheet) {
     worksheet.addRow({
       [headerIndexed(HEADER_NAME_BASE, 0)]: 'Condition',
