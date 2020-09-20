@@ -10,6 +10,7 @@ import {
   headerIndexed,
   IRowInput,
   setOutlineLevel,
+  uniqueSheetname,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
 import { IDefinition, IInformationElement } from '../types';
@@ -133,7 +134,7 @@ export class Definition {
 
   public toSpreadsheet(workbook?: Workbook): Workbook {
     const wb = getWorkbook(workbook);
-    const sheetname = `${this.sectionNumber} ${this.name}`.substring(0, 31);
+    const sheetname = uniqueSheetname(wb, `${this.sectionNumber} ${this.name}`);
     const ws = addWorksheet(wb, sheetname, 5);
     const depth = this.getDepth();
     addTitle(ws, this.name);

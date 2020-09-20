@@ -93,7 +93,7 @@ class Definition {
     }
     toSpreadsheet(workbook) {
         const wb = spreadsheet_1.getWorkbook(workbook);
-        const sheetname = `${this.sectionNumber} ${this.name}`.substring(0, 31);
+        const sheetname = spreadsheet_1.uniqueSheetname(wb, `${this.sectionNumber} ${this.name}`);
         const ws = spreadsheet_1.addWorksheet(wb, sheetname, 5);
         const depth = this.getDepth();
         spreadsheet_1.addTitle(ws, this.name);
