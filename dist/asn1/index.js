@@ -21,8 +21,11 @@ exports.parse = parser_2.parse;
 /**
  * Normalize ASN.1 definition with the followings:
  * - Move a tag in a separate line to inline
+ * - Add a space before a tag
  * - Remove an inline comment
  * - Remove a line comment
+ * - Remove a comment after a version bracket
+ * - Remove a comment after a curly brace
  * - Add a space after a comman (e.g. `,...` to `, ...`)
  * - Fix an idiographic space (U+3000)
  * - Trim whitespaces
@@ -30,8 +33,11 @@ exports.parse = parser_2.parse;
 function normalize(asn1) {
     return asn1
         .replace(/\n\s*?(--\s*?(Need|Cond)\s+?.+?)$/gm, '$1')
+        .replace(/(--\s*?(Need|Cond)\s+?.+?)$/gm, ' $1')
         .replace(/--.*?--/gm, '')
         .replace(/^\s*?--.*?$/gm, '')
+        .replace(/\[\[[\t ]*?--.*?$/gm, '[[')
+        .replace(/\{[\t ]*?--.*?$/gm, '{')
         .replace(/,/g, ', ')
         .replace(/　/g, ' ')
         .trim();
