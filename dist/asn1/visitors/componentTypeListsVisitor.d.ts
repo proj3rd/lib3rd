@@ -6,7 +6,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * # Grammar
  * ```
  * componentTypeLists :
- *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions   (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
+ *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions tag?  (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
  *    |  extensionAndException  extensionAdditions  (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?))
  * ```
  */

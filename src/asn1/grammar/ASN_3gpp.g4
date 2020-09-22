@@ -131,7 +131,7 @@ optionalExtensionMarker :  ( COMMA  ELLIPSIS )?
 ;
 
 componentTypeLists :
-   rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions   (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
+   rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions tag?  (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
 //  |  rootComponentTypeList  COMMA  extensionAndException  extensionAdditions    optionalExtensionMarker
 //  |  rootComponentTypeList  COMMA  extensionAndException  extensionAdditions     EXTENSTIONENDMARKER  COMMA  rootComponentTypeList
   |  extensionAndException  extensionAdditions  (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?))
