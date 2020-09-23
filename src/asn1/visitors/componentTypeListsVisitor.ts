@@ -21,8 +21,16 @@ import { TagVisitor } from './tagVisitor';
  * # Grammar
  * ```
  * componentTypeLists :
- *     rootComponentTypeList (tag | (COMMA tag? extensionAndException  extensionAdditions tag?  (optionalExtensionMarker|(EXTENSTIONENDMARKER  COMMA  rootComponentTypeList tag?))))?
- *    |  extensionAndException  extensionAdditions  (optionalExtensionMarker | (EXTENSTIONENDMARKER  COMMA    rootComponentTypeList tag?))
+ *     // RootComponentTypeList
+ *     rootComponentTypeList tag?
+ *     // | RootComponentTypeList "," ExtensionAndException ExtensionAdditions OptionalExtensionMarker
+ *     // | RootComponentTypeList "," ExtensionAndException ExtensionAdditions ExtensionEndMarker "," RootComponentTypeList
+ *   | rootComponentTypeList COMMA tag? extensionAndException extensionAdditions tag?
+ *   | rootComponentTypeList COMMA tag? extensionAndException extensionAdditions (COMMA tag? ELLIPSIS (COMMA rootComponentTypeList tag?)?)?
+ *     // | ExtensionAndException ExtensionAdditions ExtensionEndMarker "," RootComponentTypeList
+ *     // | ExtensionAndException ExtensionAdditions OptionalExtensionMarker
+ *   | extensionAndException extensionAdditions tag?
+ *   | extensionAndException extensionAdditions (COMMA tag? ELLIPSIS (COMMA rootComponentTypeList tag?))?
  * ```
  */
 export class ComponentTypeListsVisitor

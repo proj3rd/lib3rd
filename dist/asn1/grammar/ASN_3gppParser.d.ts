@@ -618,8 +618,7 @@ export declare class ComponentTypeListsContext extends ParserRuleContext {
     COMMA(i: number): TerminalNode;
     extensionAndException(): ExtensionAndExceptionContext | undefined;
     extensionAdditions(): ExtensionAdditionsContext | undefined;
-    optionalExtensionMarker(): OptionalExtensionMarkerContext | undefined;
-    EXTENSTIONENDMARKER(): TerminalNode | undefined;
+    ELLIPSIS(): TerminalNode | undefined;
     constructor(parent: ParserRuleContext | undefined, invokingState: number);
     readonly ruleIndex: number;
     accept<Result>(visitor: ASN_3gppVisitor<Result>): Result;
