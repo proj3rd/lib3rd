@@ -26,6 +26,15 @@ const reSection = /^(?<sectionNumber>[1-9A-Z]\d*?(\.[1-9]\d*?)*?\.[1-9]\w*?)\s+?
  */
 const reDepth = /^(?<depth>>+)/;
 
+/**
+ * Normalize HTML text with the followings:
+ * - Fix a replacement character (U+FFFD)
+ */
+function normalize(text: string) {
+  return text
+    .replace(/\uFFFD/g, ' ');
+}
+
 function normalizeHtmlText(text: string) {
   return text.replace(/(\s|\n)+/g, ' ').trim();
 }
@@ -108,66 +117,112 @@ function getSectionInfo(
 function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
-  return trBodyList
-    .map(
-      (index, trElement): IInformationElement => {
+  const ieList: IInformationElement[] = [];
+  trBodyList
+    .each(
+      (index, trElement) => {
         const tdList = $('td', trElement);
-        const tdFirst = normalizeHtmlText($(tdList[0]).text());
+        let i = 0 ;
+        for (; i < tdList.length; i++) {
+          const td = normalizeHtmlText($(tdList[i]).text());
+          if (td !== '') {
+            break;
+          }
+        }
+        if (i === tdList.length) {
+          return;
+        }
+        const tdFirst = normalizeHtmlText($(tdList[i++]).text());
         const name = tdFirst.replace(/^>+/, '').trim();
         const matchResult = tdFirst.match(reDepth);
         const depth =
           !matchResult || !matchResult.groups
             ? 0
             : matchResult.groups.depth.length;
-        return {
+        const informationElement: IInformationElement = {
           name,
-          presence: normalizeHtmlText($(tdList[1]).text()),
-          range: normalizeHtmlText($(tdList[2]).text()),
-          typeAndRef: normalizeHtmlText($(tdList[3]).text()),
-          description: normalizeHtmlText($(tdList[4]).text()),
-          criticality: normalizeHtmlText($(tdList[5]).text()),
-          assignedCriticality: normalizeHtmlText($(tdList[6]).text()),
+          presence: normalizeHtmlText($(tdList[i++]).text()),
+          range: normalizeHtmlText($(tdList[i++]).text()),
+          typeAndRef: normalizeHtmlText($(tdList[i++]).text()),
+          description: normalizeHtmlText($(tdList[i++]).text()),
+          criticality: normalizeHtmlText($(tdList[i++]).text()),
+          assignedCriticality: normalizeHtmlText($(tdList[i++]).text()),
           depth,
         };
+        if (name === '') {
+          console.log('Empty leading cell found');
+          console.log(JSON.stringify(informationElement, null, 4));
+        }
+        ieList.push(informationElement);
       }
-    )
-    .get() as IInformationElement[];
+    );
+  return ieList;
 }
 
 function parseRangeTable(element: CheerioElement): IRangeBound[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
-  const rangeBoundList: IRangeBound[] = trBodyList
-    .map((index, trElement) => {
+  const rangeBoundList: IRangeBound[] = [];
+  trBodyList
+    .each((index, trElement) => {
       const tdList = $('td', trElement);
-      return {
-        rangeBound: $(tdList[0]).text().trim(),
-        explanation: $(tdList[1]).text().trim(),
+      let i = 0 ;
+      for (; i < tdList.length; i++) {
+        const td = normalizeHtmlText($(tdList[i]).text());
+        if (td !== '') {
+          break;
+        }
+      }
+      if (i === tdList.length) {
+        return;
+      }
+      const rangeBound: IRangeBound = {
+        rangeBound: $(tdList[i++]).text().trim(),
+        explanation: $(tdList[i++]).text().trim(),
       };
-    })
-    .get();
+      if (rangeBound.rangeBound === '') {
+        console.log('Empty leading cell found');
+        console.log(JSON.stringify(rangeBound, null, 4));
+      }
+      rangeBoundList.push(rangeBound);
+    });
   return rangeBoundList;
 }
 
 function parseConditionTable(element: CheerioElement): ICondition[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
-  const conditionList: ICondition[] = trBodyList
-    .map((index, trElement) => {
+  const conditionList: ICondition[] = [];
+  trBodyList
+    .each((index, trElement) => {
       const tdList = $('td', trElement);
-      return {
-        condition: $(tdList[0]).text().trim(),
-        explanation: $(tdList[1]).text().trim(),
+      let i = 0 ;
+      for (; i < tdList.length; i++) {
+        const td = normalizeHtmlText($(tdList[i]).text());
+        if (td !== '') {
+          break;
+        }
+      }
+      if (i === tdList.length) {
+        return;
+      }
+      const condition: ICondition = {
+        condition: $(tdList[i++]).text().trim(),
+        explanation: $(tdList[i++]).text().trim(),
       };
-    })
-    .get();
+      if (condition.condition === '') {
+        console.log('Empty leading cell found');
+        console.log(JSON.stringify(condition, null, 4));
+      }
+      conditionList.push(condition);
+    });
   return conditionList;
 }
 
 export function parse(html: string): Definitions {
   // Break down the document into elements and put them into the list
   // The last element shall be put into the list first and popped from it last
-  const elementList: CheerioElement[] = $(html)
+  const elementList: CheerioElement[] = $(normalize(html))
     .map((index, element) => {
       return element;
     })
