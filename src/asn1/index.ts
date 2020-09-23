@@ -21,6 +21,7 @@ export { parse } from './parser';
  * - Remove a comment after a curly brace
  * - Add a space after a comman (e.g. `,...` to `, ...`)
  * - Fix an idiographic space (U+3000)
+ * - Fix a replacement character (U+FFFD)
  * - Trim whitespaces
  */
 export function normalize(asn1: string): string {
@@ -32,7 +33,8 @@ export function normalize(asn1: string): string {
     .replace(/\[\[[\t ]*?--.*?$/gm, '[[')
     .replace(/\{[\t ]*?--.*?$/gm, '{')
     .replace(/,/g, ', ')
-    .replace(/　/g, ' ')
+    .replace(/\u3000/g, ' ')
+    .replace(/\uFFFD/g, ' ')
     .trim();
 }
 

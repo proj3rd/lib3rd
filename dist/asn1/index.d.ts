@@ -11,6 +11,7 @@ export { parse } from './parser';
  * - Remove a comment after a curly brace
  * - Add a space after a comman (e.g. `,...` to `, ...`)
  * - Fix an idiographic space (U+3000)
+ * - Fix a replacement character (U+FFFD)
  * - Trim whitespaces
  */
 export declare function normalize(asn1: string): string;
