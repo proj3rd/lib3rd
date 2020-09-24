@@ -100,6 +100,7 @@ function parseDefinitionTable(element) {
     const trList = cheerio_1.default('tr', element);
     const trBodyList = trList.slice(1);
     const ieList = [];
+    let depthMin = Infinity;
     trBodyList
         .each((index, trElement) => {
         const tdList = cheerio_1.default('td', trElement);
@@ -119,6 +120,7 @@ function parseDefinitionTable(element) {
         const depth = !matchResult || !matchResult.groups
             ? 0
             : matchResult.groups.depth.length;
+        depthMin = Math.min(depthMin, depth);
         const informationElement = {
             name,
             presence: normalizeHtmlText(cheerio_1.default(tdList[i++]).text()),
@@ -134,6 +136,9 @@ function parseDefinitionTable(element) {
             console.log(JSON.stringify(informationElement, null, 4));
         }
         ieList.push(informationElement);
+    });
+    ieList.forEach((ie) => {
+        ie.depth -= depthMin;
     });
     return ieList;
 }

@@ -118,6 +118,7 @@ function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
   const ieList: IInformationElement[] = [];
+  let depthMin = Infinity;
   trBodyList
     .each(
       (index, trElement) => {
@@ -139,6 +140,7 @@ function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
           !matchResult || !matchResult.groups
             ? 0
             : matchResult.groups.depth.length;
+        depthMin = Math.min(depthMin, depth);
         const informationElement: IInformationElement = {
           name,
           presence: normalizeHtmlText($(tdList[i++]).text()),
@@ -156,6 +158,9 @@ function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
         ieList.push(informationElement);
       }
     );
+  ieList.forEach((ie) => {
+    ie.depth -= depthMin;
+  });
   return ieList;
 }
 

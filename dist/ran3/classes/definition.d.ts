@@ -19,6 +19,7 @@ export declare class Definition {
      */
     expand(definitions: Definitions): Definition;
     getDepth(): number;
+    hasSingleRoot(): boolean;
     toSpreadsheet(workbook?: Workbook): Workbook;
 }
 //# sourceMappingURL=definition.d.ts.map

@@ -46,6 +46,54 @@ const HEADER_LIST = [
 const reSectionNumber = /\b[1-9A-Z]\d*?(\.[1-9]\d*?)*\.[1-9]\w*?\b/;
 //                         ^ Head      ^ Middle        ^ Tail
 
+function canMerge(parent: IInformationElement, child: Definition): boolean {
+  if (!child.hasSingleRoot()) {
+    return false;
+  }
+  const { elementList } = child;
+  const firstElement = elementList[0];
+  if (
+    parent.presence !== '' && parent.presence !== 'M' && parent.presence !== 'O' &&
+    firstElement.presence !== '' && firstElement.presence !== 'M' && firstElement.presence !== 'O' &&
+    parent.presence !== firstElement.presence
+  ) {
+    return false;
+  }
+  if (parent.range !== '' && firstElement.range !== '') {
+    return false;
+  }
+  if (
+    parent.criticality !== '' && firstElement.criticality !== '' &&
+    parent.criticality !== firstElement.criticality
+  ) {
+    return false;
+  }
+  if (
+    parent.assignedCriticality !== '' && firstElement.assignedCriticality !== '' &&
+    parent.assignedCriticality !== firstElement.assignedCriticality
+  ) {
+    return false;
+  }
+  return true;
+}
+
+function merge(parent: IInformationElement, child: IInformationElement) {
+  if (child.name.toUpperCase().startsWith('CHOICE')) {
+    parent.name = `CHOICE ${parent.name}`;
+  }
+  if (parent.presence === 'O' || child.presence === 'O') {
+    parent.presence = 'O';
+  } else {
+    parent.presence = parent.presence || child.presence;
+  }
+  if (child.typeAndRef !== '') {
+    parent.typeAndRef = child.typeAndRef;
+  }
+  parent.description = `${parent.description}
+
+${child.description}`;
+}
+
 export class Definition {
   public sectionNumber: string;
   public name: string;
@@ -102,11 +150,18 @@ export class Definition {
         rangeBounds: rangeBoundsReferenced,
         conditions: conditionsReferenced,
       } = definitionExpanded;
-      // TODO: Check single-rooted
-      elementListReferenced.forEach((elementReferenced) => {
-        elementReferenced.depth += element.depth + 1;
-      });
-      elementListExpanded.splice(i + 1, 0, ...elementListReferenced);
+      if (canMerge(elementListExpanded[i], definitionExpanded)) {
+        elementListReferenced.forEach((elementReferenced) => {
+          elementReferenced.depth += element.depth;
+        });
+        merge(elementListExpanded[i], elementListReferenced[0]);
+        elementListExpanded.splice(i + 1, 0, ...elementListReferenced.slice(1));
+      } else {
+        elementListReferenced.forEach((elementReferenced) => {
+          elementReferenced.depth += element.depth + 1;
+        });
+        elementListExpanded.splice(i + 1, 0, ...elementListReferenced);
+      }
       if (!isEqual(elementListExpanded, this.elementList)) {
         this.elementList = elementListExpanded;
       }
@@ -130,6 +185,28 @@ export class Definition {
     return this.elementList.reduce((prev, curr) => {
       return Math.max(prev, curr.depth);
     }, 0);
+  }
+
+  public hasSingleRoot(): boolean {
+    if (this.elementList.length === 0) {
+      return false;
+    }
+    const depthAndCount = this.elementList.reduce((prev, curr) => {
+      if (curr.depth < prev.depth) {
+        return {
+          depth: curr.depth,
+          count: 1,
+        };
+      }
+      if (curr.depth === prev.depth) {
+        return {
+          depth: prev.depth,
+          count: prev.count + 1,
+        };
+      }
+      return prev;
+    }, { depth: Infinity, count: 0 });
+    return depthAndCount.count === 1;
   }
 
   public toSpreadsheet(workbook?: Workbook): Workbook {
