@@ -11,7 +11,8 @@ describe('Diff ASN.1 [diff_all]', function () {
     );
     const diffResult = JSON.parse(diffFile) as IDiffResult;
     const { specOld, specNew } = diffResult;
-    const rendered = renderDiff(diffResult);
+    const template = readFileSync(`${__dirname}/../../resources/diff.pug`, 'utf8');
+    const rendered = renderDiff(diffResult, template);
     const path = `diff_${specOld}_${specNew}.html`;
     writeFileSync(path, rendered);
   });

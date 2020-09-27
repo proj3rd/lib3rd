@@ -1,6 +1,6 @@
 import { createTwoFilesPatch } from 'diff';
 import { html, parse } from 'diff2html';
-import { renderFile } from 'pug';
+import { render, renderFile } from 'pug';
 import { unreach } from 'unimpl';
 import { Modules } from './classes/modules';
 import { Assignment } from './types';
@@ -154,7 +154,7 @@ export function diff(modules1: Modules, modules2: Modules): IPatch[] {
   return patchList;
 }
 
-export function renderDiff(diffResult: IDiffResult): string {
+export function renderDiff(diffResult: IDiffResult, template: string): string {
   const { patchList } = diffResult;
   patchList.forEach((patch) => {
     patch.patchHtml = html(parse(patch.patch), {
@@ -162,5 +162,5 @@ export function renderDiff(diffResult: IDiffResult): string {
       outputFormat: 'line-by-line', // side-by-side has layout issue https://github.com/rtfpessoa/diff2html/issues/155
     });
   });
-  return renderFile(`${__dirname}/../../resources/diff.pug`, diffResult);
+  return render(template, diffResult);
 }

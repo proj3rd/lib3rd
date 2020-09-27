@@ -61,7 +61,8 @@ if (require.main === module) {
             const modules1 = parser_1.parse(normalize(asn1));
             const modules2 = parser_1.parse(normalize(asn2));
             const patchList = diff_1.diff(modules1, modules2);
-            const rendered = diff_1.renderDiff({ specOld, specNew, patchList });
+            const template = fs_1.readFileSync(`${__dirname}/../../resources/diff.pug`, 'utf8');
+            const rendered = diff_1.renderDiff({ specOld, specNew, patchList }, template);
             const path = `diff_${specOld}_${specNew}.html`;
             fs_1.writeFileSync(path, rendered);
         },

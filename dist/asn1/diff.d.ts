@@ -14,6 +14,6 @@ interface IPatch {
     patchHtml?: string;
 }
 export declare function diff(modules1: Modules, modules2: Modules): IPatch[];
-export declare function renderDiff(diffResult: IDiffResult): string;
+export declare function renderDiff(diffResult: IDiffResult, template: string): string;
 export {};
 //# sourceMappingURL=diff.d.ts.map

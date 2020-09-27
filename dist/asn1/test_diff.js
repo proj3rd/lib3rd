@@ -9,7 +9,8 @@ describe('Diff ASN.1 [diff_all]', function () {
         const diffFile = fs_1.readFileSync('resources/diff_36331-f90.asn1_36331-g00.asn1.json', 'utf8');
         const diffResult = JSON.parse(diffFile);
         const { specOld, specNew } = diffResult;
-        const rendered = diff_1.renderDiff(diffResult);
+        const template = fs_1.readFileSync(`${__dirname}/../../resources/diff.pug`, 'utf8');
+        const rendered = diff_1.renderDiff(diffResult, template);
         const path = `diff_${specOld}_${specNew}.html`;
         fs_1.writeFileSync(path, rendered);
     });

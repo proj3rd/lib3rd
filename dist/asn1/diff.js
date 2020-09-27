@@ -96,7 +96,7 @@ function diff(modules1, modules2) {
     return patchList;
 }
 exports.diff = diff;
-function renderDiff(diffResult) {
+function renderDiff(diffResult, template) {
     const { patchList } = diffResult;
     patchList.forEach((patch) => {
         patch.patchHtml = diff2html_1.html(diff2html_1.parse(patch.patch), {
@@ -104,7 +104,7 @@ function renderDiff(diffResult) {
             outputFormat: 'line-by-line',
         });
     });
-    return pug_1.renderFile(`${__dirname}/../../resources/diff.pug`, diffResult);
+    return pug_1.render(template, diffResult);
 }
 exports.renderDiff = renderDiff;
 //# sourceMappingURL=diff.js.map
