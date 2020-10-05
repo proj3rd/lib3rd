@@ -12,6 +12,7 @@ export { parse } from './parser';
  * - Add a space after a comman (e.g. `,...` to `, ...`)
  * - Fix an idiographic space (U+3000)
  * - Fix a replacement character (U+FFFD)
+ * - Fix a no-break space (U+00A0)
  * - Trim whitespaces
  */
 export declare function normalize(asn1: string): string;
