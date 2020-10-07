@@ -6,10 +6,8 @@ class Definitions {
         this.definitionList = definitionList;
     }
     findDefinition(sectionNumberOrName) {
-        const definition = this.definitionList.find((def) => {
-            return (def.sectionNumber === sectionNumberOrName ||
-                def.name === sectionNumberOrName);
-        });
+        const definition = this.definitionList.find((def) => (def.sectionNumber === sectionNumberOrName
+            || def.name === sectionNumberOrName));
         return definition;
     }
     toSpreadsheet() {

@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ObjectClassFieldType } from '../classes/objectClassFieldType';
-import { ObjectClassFieldTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ObjectClassFieldTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { DefinedObjectClassVisitor } from './definedObjectClassVisitor';
 import { FieldNameVisitor } from './fieldNameVisitor';
 
@@ -14,11 +15,11 @@ import { FieldNameVisitor } from './fieldNameVisitor';
  */
 export class ObjectClassFieldTypeVisitor
   extends AbstractParseTreeVisitor<ObjectClassFieldType>
-  implements ASN_3gppVisitor<ObjectClassFieldType> {
+  implements grammar3rdVisitor<ObjectClassFieldType> {
   public visitChildren(ctx: ObjectClassFieldTypeContext): ObjectClassFieldType {
     const definedObjectClassCtx = ctx.definedObjectClass();
     const definedObjectClass = definedObjectClassCtx.accept(
-      new DefinedObjectClassVisitor()
+      new DefinedObjectClassVisitor(),
     );
     const fieldNameCtx = ctx.fieldName();
     const fieldName = fieldNameCtx.accept(new FieldNameVisitor());

@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-const ASN_3gppParser_1 = require("../grammar/ASN_3gppParser");
+const grammar3rdParser_1 = require("../grammar/grammar3rdParser");
 const componentTypeVisitor_1 = require("./componentTypeVisitor");
 const tagVisitor_1 = require("./tagVisitor");
 /**
@@ -13,13 +14,13 @@ const tagVisitor_1 = require("./tagVisitor");
 class ComponentTypeListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
         const sequenceComponents = [];
-        const childCount = ctx.childCount;
-        for (let i = 0; i < childCount; i++) {
+        const { childCount } = ctx;
+        for (let i = 0; i < childCount; i += 1) {
             const childCtx = ctx.getChild(i);
-            if (childCtx instanceof ASN_3gppParser_1.ComponentTypeContext) {
+            if (childCtx instanceof grammar3rdParser_1.ComponentTypeContext) {
                 sequenceComponents.push(childCtx.accept(new componentTypeVisitor_1.ComponentTypeVisitor()));
             }
-            else if (childCtx instanceof ASN_3gppParser_1.TagContext) {
+            else if (childCtx instanceof grammar3rdParser_1.TagContext) {
                 const tag = childCtx.accept(new tagVisitor_1.TagVisitor());
                 const { length } = sequenceComponents;
                 const lastComponent = sequenceComponents[length - 1];

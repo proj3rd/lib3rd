@@ -2,16 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const spreadsheet_1 = require("../../common/spreadsheet");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 class ExtensionMarker {
-    constructor() {
-    }
     static getInstance() {
         return ExtensionMarker.instance;
     }
+    // eslint-disable-next-line no-unused-vars
     expand(modules, parameterMappings) {
         return this;
     }
+    // eslint-disable-next-line class-methods-use-this
     getDepth() {
         return 0;
     }
@@ -20,8 +19,9 @@ class ExtensionMarker {
             [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: this.toString(),
         });
         spreadsheet_1.setOutlineLevel(r, depth);
-        spreadsheet_3.drawBorder(worksheet, r, depth);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
     }
+    // eslint-disable-next-line class-methods-use-this
     toString() {
         return '...';
     }

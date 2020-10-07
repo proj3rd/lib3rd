@@ -7,7 +7,7 @@ import { Modules } from './modules';
 import { ObjectIdentifierValue } from './objectIdentifierValue';
 import { TypeReference } from './typeReference';
 import { Value } from './value';
-import { ValueReference } from './ValueReference';
+import { ValueReference } from './valueReference';
 
 export class ValueRange {
   public lower: Value;
@@ -27,12 +27,12 @@ export class ValueRange {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): ValueRange {
     const expandedLower = this.expandValue(
       this.lower,
       modules,
-      parameterMappings
+      parameterMappings,
     );
     if (!isEqual(expandedLower, this.lower)) {
       this.lower = expandedLower;
@@ -40,7 +40,7 @@ export class ValueRange {
     const expandedUpper = this.expandValue(
       this.upper,
       modules,
-      parameterMappings
+      parameterMappings,
     );
     if (!isEqual(expandedUpper, this.upper)) {
       this.upper = expandedUpper;
@@ -48,6 +48,7 @@ export class ValueRange {
     return this;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }
@@ -56,15 +57,13 @@ export class ValueRange {
     return `${this.lower.toString()}..${this.upper.toString()}`;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private expandValue(
-    value: Value,
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
+    value: Value, modules: Modules, parameterMappings: IParameterMapping[],
   ): Value {
     if (typeof value === 'string') {
-      const parameterMapping = parameterMappings.find((paramMap) => {
-        return paramMap.parameter.dummyReference === value;
-      });
+      const parameterMapping = parameterMappings
+        .find((paramMap) => paramMap.parameter.dummyReference === value);
       if (parameterMapping === undefined) {
         return value;
         // Necessary to get the actual value?
@@ -76,59 +75,56 @@ export class ValueRange {
         //   return unimpl();
         // }
         // return assignment.value;
-      } else {
-        const { actualParameter } = parameterMapping;
-        if (actualParameter === undefined) {
-          return value;
-          // Necessary to get the actual value?
-          // const assignment = modules.findAssignment(value);
-          // if (assignment === undefined) {
-          //   return value;
-          // }
-          // if (!(assignment instanceof ValueAssignment)) {
-          //   return unimpl();
-          // }
-          // return assignment.value;
-        } else {
-          if (typeof actualParameter === 'string') {
-            return actualParameter;
-          }
-          if (
-            actualParameter instanceof BooleanValue ||
-            actualParameter instanceof IntegerValue ||
-            actualParameter instanceof ObjectIdentifierValue ||
-            typeof actualParameter === 'string'
-          ) {
-            return actualParameter;
-            // Necessary to get the actual value?
-          }
-          if (actualParameter instanceof TypeReference) {
-            return new ValueReference(actualParameter.typeReference);
-          }
-          // if (actualParameter instanceof ObjectClassReference) {
-          //   return unimpl();
-          // }
-          // const expandedValue = cloneDeep(actualParameter).expand(modules, parameterMappings);
-          // if (isEqual(expandedValue, value)) {
-          //   return value;
-          // }
-          // if (
-          //   expandedValue instanceof BooleanValue ||
-          //   expandedValue instanceof IntegerValue ||
-          //   expandedValue instanceof ObjectIdentifierValue ||
-          //   typeof expandedValue === 'string'
-          // ) {
-          //   return expandedValue;
-          // }
-          return unimpl();
-        }
       }
-    } else {
-      const expandedValue = cloneDeep(value).expand(modules, parameterMappings);
-      if (isEqual(expandedValue, value)) {
+      const { actualParameter } = parameterMapping;
+      if (actualParameter === undefined) {
         return value;
+        // Necessary to get the actual value?
+        // const assignment = modules.findAssignment(value);
+        // if (assignment === undefined) {
+        //   return value;
+        // }
+        // if (!(assignment instanceof ValueAssignment)) {
+        //   return unimpl();
+        // }
+        // return assignment.value;
       }
-      return expandedValue;
+      if (typeof actualParameter === 'string') {
+        return actualParameter;
+      }
+      if (
+        actualParameter instanceof BooleanValue
+            || actualParameter instanceof IntegerValue
+            || actualParameter instanceof ObjectIdentifierValue
+            || typeof actualParameter === 'string'
+      ) {
+        return actualParameter;
+        // Necessary to get the actual value?
+      }
+      if (actualParameter instanceof TypeReference) {
+        return new ValueReference(actualParameter.typeReference);
+      }
+      // if (actualParameter instanceof ObjectClassReference) {
+      //   return unimpl();
+      // }
+      // const expandedValue = cloneDeep(actualParameter).expand(modules, parameterMappings);
+      // if (isEqual(expandedValue, value)) {
+      //   return value;
+      // }
+      // if (
+      //   expandedValue instanceof BooleanValue ||
+      //   expandedValue instanceof IntegerValue ||
+      //   expandedValue instanceof ObjectIdentifierValue ||
+      //   typeof expandedValue === 'string'
+      // ) {
+      //   return expandedValue;
+      // }
+      return unimpl();
     }
+    const expandedValue = cloneDeep(value).expand(modules, parameterMappings);
+    if (isEqual(expandedValue, value)) {
+      return value;
+    }
+    return expandedValue;
   }
 }

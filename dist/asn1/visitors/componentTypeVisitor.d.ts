@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ComponentType } from '../classes/componentType';
-import { ComponentTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ComponentTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
@@ -10,7 +10,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  *   COMPONENTS_LITERAL OF_LITERAL asnType
  * ```
  */
-export declare class ComponentTypeVisitor extends AbstractParseTreeVisitor<ComponentType> implements ASN_3gppVisitor<ComponentType> {
+export declare class ComponentTypeVisitor extends AbstractParseTreeVisitor<ComponentType> implements grammar3rdVisitor<ComponentType> {
     visitChildren(ctx: ComponentTypeContext): ComponentType;
     protected defaultResult(): ComponentType;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ActualParameter } from '../classes/parameterizedType';
@@ -5,8 +6,8 @@ import {
   ActualParameterContext,
   AsnTypeContext,
   ValueContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { ValueVisitor } from './valueVisitor';
 
@@ -18,16 +19,15 @@ import { ValueVisitor } from './valueVisitor';
  */
 export class ActualParameterVisitor
   extends AbstractParseTreeVisitor<ActualParameter>
-  implements ASN_3gppVisitor<ActualParameter> {
+  implements grammar3rdVisitor<ActualParameter> {
   public visitChildren(ctx: ActualParameterContext): ActualParameter {
     const childCtx = ctx.getChild(0);
     if (childCtx instanceof AsnTypeContext) {
       return childCtx.accept(new AsnTypeVisitor());
-    } else if (childCtx instanceof ValueContext) {
+    } if (childCtx instanceof ValueContext) {
       return childCtx.accept(new ValueVisitor());
-    } else {
-      throw Error();
     }
+    throw Error();
   }
 
   protected defaultResult(): ActualParameter {

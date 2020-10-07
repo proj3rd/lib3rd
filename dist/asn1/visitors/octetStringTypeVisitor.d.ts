@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { OctetStringType } from '../classes/octetStringType';
-import { OctetStringTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { OctetStringTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * octetStringType: OCTET_LITERAL STRING_LITERAL
  * ```
  */
-export declare class OctetStringTypeVisitor extends AbstractParseTreeVisitor<OctetStringType> implements ASN_3gppVisitor<OctetStringType> {
+export declare class OctetStringTypeVisitor extends AbstractParseTreeVisitor<OctetStringType> implements grammar3rdVisitor<OctetStringType> {
     visitChildren(ctx: OctetStringTypeContext): OctetStringType;
     protected defaultResult(): OctetStringType;
 }

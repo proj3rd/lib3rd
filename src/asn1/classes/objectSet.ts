@@ -1,7 +1,9 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
-import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
+import {
+  headerIndexed, setOutlineLevel, IRowInput, drawBorder,
+} from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import {
@@ -9,8 +11,7 @@ import {
   HEADER_NAME_BASE,
   HEADER_TYPE,
 } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
+
 import { _ElementSetSpecs } from '../types';
 import { Modules } from './modules';
 
@@ -34,15 +35,15 @@ export class ObjectSet {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): ObjectSet {
     if (parameterMappings.length) {
       return unimpl();
     }
-    this.objectSetSpec = this.objectSetSpec.map((elementSetSpec, index) => {
+    this.objectSetSpec = this.objectSetSpec.map((elementSetSpec) => {
       const expandedType = cloneDeep(elementSetSpec).expand(
         modules,
-        parameterMappings
+        parameterMappings,
       );
       if (isEqual(expandedType, elementSetSpec)) {
         return elementSetSpec;
@@ -53,9 +54,7 @@ export class ObjectSet {
   }
 
   public getDepth(): number {
-    return this.objectSetSpec.reduce((prev, curr) => {
-      return Math.max(prev, curr.getDepth() + 1);
-    }, 0);
+    return this.objectSetSpec.reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {

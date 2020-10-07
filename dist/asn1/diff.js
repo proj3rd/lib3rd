@@ -47,8 +47,8 @@ function diff(modules1, modules2) {
     const patchList = [];
     assignmentFlattenedPairList.forEach((assignmentFlattenedPair) => {
         const { assignmentFlattened1, assignmentFlattened2, } = assignmentFlattenedPair;
-        if (assignmentFlattened1 === undefined &&
-            assignmentFlattened2 === undefined) {
+        if (assignmentFlattened1 === undefined
+            && assignmentFlattened2 === undefined) {
             unimpl_1.unreach();
         }
         const moduleName1 = assignmentFlattened1
@@ -71,16 +71,21 @@ function diff(modules1, modules2) {
         const formatted2 = assignmentFlattened2
             ? assignmentFlattened2.assignment.toString()
             : '';
-        if (moduleName1 === moduleName2 &&
-            assignmentName1 === assignmentName2 &&
-            formatted1 === formatted2) {
+        if (moduleName1 === moduleName2
+            && assignmentName1 === assignmentName2
+            && formatted1 === formatted2) {
             return;
         }
-        const change = formatted1 === '' && formatted2 !== ''
-            ? 'added'
-            : formatted1 !== '' && formatted2 === ''
-                ? 'removed'
-                : 'modified';
+        let change;
+        if (formatted1 === '' && formatted2 !== '') {
+            change = 'added';
+        }
+        else if (formatted1 !== '' && formatted2 === '') {
+            change = 'removed';
+        }
+        else {
+            change = 'modified';
+        }
         const patch = diff_1.createTwoFilesPatch(filename1, filename2, formatted1, formatted2, '', '', {
             context: Number.MAX_SAFE_INTEGER,
         });
@@ -99,6 +104,7 @@ exports.diff = diff;
 function renderDiff(diffResult, template) {
     const { patchList } = diffResult;
     patchList.forEach((patch) => {
+        // eslint-disable-next-line no-param-reassign
         patch.patchHtml = diff2html_1.html(diff2html_1.parse(patch.patch), {
             drawFileList: false,
             outputFormat: 'line-by-line',

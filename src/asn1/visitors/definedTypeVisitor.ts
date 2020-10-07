@@ -1,10 +1,11 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { DefinedType } from '../classes/asnType';
 import { ExternalTypeReference } from '../classes/externalTypeReference';
 import { ParameterizedType } from '../classes/parameterizedType';
 import { TypeReference } from '../classes/typeReference';
-import { DefinedTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { DefinedTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ActualParameterListVisitor } from './actualParameterListVisitor';
 
 /**
@@ -14,7 +15,7 @@ import { ActualParameterListVisitor } from './actualParameterListVisitor';
  * ```
  */
 export class DefinedTypeVisitor extends AbstractParseTreeVisitor<DefinedType>
-  implements ASN_3gppVisitor<DefinedType> {
+  implements grammar3rdVisitor<DefinedType> {
   public visitChildren(ctx: DefinedTypeContext): DefinedType {
     switch (ctx.childCount) {
       case 1: {
@@ -25,11 +26,11 @@ export class DefinedTypeVisitor extends AbstractParseTreeVisitor<DefinedType>
         const typeReference = ctx.getChild(0).text;
         const actualParameterListCtx = ctx.getChild(1);
         const actualParameterList = actualParameterListCtx.accept(
-          new ActualParameterListVisitor()
+          new ActualParameterListVisitor(),
         );
         return new ParameterizedType(
           new TypeReference(typeReference),
-          actualParameterList
+          actualParameterList,
         );
       }
       case 3: {

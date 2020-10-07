@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { EnumerationItem } from '../classes/enumeratedType';
-import { RootEnumerationContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { RootEnumerationContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * rootEnumeration: enumeration
  * ```
  */
-export declare class RootEnumerationVisitor extends AbstractParseTreeVisitor<EnumerationItem[]> implements ASN_3gppVisitor<EnumerationItem[]> {
+export declare class RootEnumerationVisitor extends AbstractParseTreeVisitor<EnumerationItem[]> implements grammar3rdVisitor<EnumerationItem[]> {
     visitChildren(ctx: RootEnumerationContext): EnumerationItem[];
     protected defaultResult(): EnumerationItem[];
 }

@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { _IntersectionElements } from '../types';
-import { IntersectionElementsContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { IntersectionElementsContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ElementsVisitor } from './elementsVisitor';
 
 /**
@@ -13,9 +14,9 @@ import { ElementsVisitor } from './elementsVisitor';
  */
 export class IntersectionElementsVisitor
   extends AbstractParseTreeVisitor<_IntersectionElements>
-  implements ASN_3gppVisitor<_IntersectionElements> {
+  implements grammar3rdVisitor<_IntersectionElements> {
   public visitChildren(
-    ctx: IntersectionElementsContext
+    ctx: IntersectionElementsContext,
   ): _IntersectionElements {
     const elementsCtx = ctx.elements();
     const elements = elementsCtx.accept(new ElementsVisitor());

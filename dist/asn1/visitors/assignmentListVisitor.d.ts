@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { AssignmentListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { AssignmentListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { Assignment } from '../types';
 /**
  * # Grammar
@@ -8,7 +8,7 @@ import { Assignment } from '../types';
  * assignmentList: (assignment) (assignment)*
  * ```
  */
-export declare class AssignmentListVisitor extends AbstractParseTreeVisitor<Assignment[]> implements ASN_3gppVisitor<Assignment[]> {
+export declare class AssignmentListVisitor extends AbstractParseTreeVisitor<Assignment[]> implements grammar3rdVisitor<Assignment[]> {
     visitChildren(ctx: AssignmentListContext): Assignment[];
     protected defaultResult(): Assignment[];
 }

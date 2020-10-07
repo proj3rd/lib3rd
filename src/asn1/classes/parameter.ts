@@ -8,7 +8,7 @@ export class Parameter {
 
   constructor(
     dummyReference: string,
-    paramGovernor: ParamGovernor | undefined
+    paramGovernor: ParamGovernor | undefined,
   ) {
     this.dummyReference = dummyReference;
     this.paramGovernor = paramGovernor;

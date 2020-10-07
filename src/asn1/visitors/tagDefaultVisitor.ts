@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { TagDefault } from '../classes/moduleDefinition';
-import { TagDefaultContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { TagDefaultContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -10,7 +11,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * ```
  */
 export class TagDefaultVisitor extends AbstractParseTreeVisitor<TagDefault>
-  implements ASN_3gppVisitor<TagDefault> {
+  implements grammar3rdVisitor<TagDefault> {
   public visitChildren(ctx: TagDefaultContext): TagDefault {
     if (ctx.childCount === 0) {
       return '';

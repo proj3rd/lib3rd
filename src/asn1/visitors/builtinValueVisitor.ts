@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { BuiltinValue } from '../classes/value';
@@ -8,8 +9,8 @@ import {
   EnumeratedValueContext,
   IntegerValueContext,
   ObjectIdentifierValueContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { BooleanValueVisitor } from './booleanValueVisitor';
 import { EnumeratedValueVisitor } from './enumeratedValueVisitor';
 import { IntegerValueVisitor } from './integerValueVisitor';
@@ -29,22 +30,21 @@ import { ObjectIdentifierValueVisitor } from './objectIdentifierValueVisitor';
  * ```
  */
 export class BuiltinValueVisitor extends AbstractParseTreeVisitor<BuiltinValue>
-  implements ASN_3gppVisitor<BuiltinValue> {
+  implements grammar3rdVisitor<BuiltinValue> {
   public visitChildren(ctx: BuiltinValueContext): BuiltinValue {
     const childCtx = ctx.getChild(0);
     if (childCtx instanceof EnumeratedValueContext) {
       return childCtx.accept(new EnumeratedValueVisitor());
-    } else if (childCtx instanceof IntegerValueContext) {
+    } if (childCtx instanceof IntegerValueContext) {
       return childCtx.accept(new IntegerValueVisitor());
-    } else if (childCtx instanceof ChoiceValueContext) {
+    } if (childCtx instanceof ChoiceValueContext) {
       return unimpl(ctx.text);
-    } else if (childCtx instanceof ObjectIdentifierValueContext) {
+    } if (childCtx instanceof ObjectIdentifierValueContext) {
       return childCtx.accept(new ObjectIdentifierValueVisitor());
-    } else if (childCtx instanceof BooleanValueContext) {
+    } if (childCtx instanceof BooleanValueContext) {
       return childCtx.accept(new BooleanValueVisitor());
-    } else {
-      return ctx.text;
     }
+    return ctx.text;
   }
 
   protected defaultResult(): BuiltinValue {

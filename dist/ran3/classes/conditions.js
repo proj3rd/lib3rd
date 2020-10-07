@@ -8,15 +8,14 @@ class Conditions {
         this.conditionList = conditionList;
     }
     add(condition) {
-        const cond = this.conditionList.find((cond) => {
-            return cond.condition === condition.condition;
-        });
+        const cond = this.conditionList.find((item) => item.condition === condition.condition);
         if (cond) {
             return;
         }
         this.conditionList.push(condition);
     }
     toSpreadsheet(worksheet) {
+        // eslint-disable-next-line no-param-reassign
         worksheet.addRow({
             [spreadsheet_1.headerIndexed(definition_1.HEADER_NAME_BASE, 0)]: 'Condition',
             [definition_1.HEADER_DESCRIPTION]: 'Explanation',

@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const parser_1 = require("./parser");
-// tslint:disable-next-line: only-arrow-functions
 describe('Expand ASN.1 [expand_all]', function () {
     this.timeout(0);
     const testCaseList = [
@@ -17,14 +16,12 @@ describe('Expand ASN.1 [expand_all]', function () {
     ];
     testCaseList.forEach((testCase) => {
         const { name, specNumber, filename } = testCase;
-        // tslint:disable-next-line: only-arrow-functions
         describe(`${name} (${specNumber}) [expand_${specNumber}]`, function () {
             const asn1 = fs_1.readFileSync(`resources/${filename}`, 'utf8');
             const modules = parser_1.parse(asn1);
             modules.modules.forEach((moduleDefinition) => {
                 const { assignments } = moduleDefinition;
                 assignments.forEach((assignment) => {
-                    // tslint:disable-next-line: only-arrow-functions
                     it(`${moduleDefinition.name}.${assignment.name}`, function () {
                         assignment.expand(modules);
                     });

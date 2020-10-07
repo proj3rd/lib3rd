@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ObjectClass } from '../classes/objectClass';
-import { ObjectClassAssignmentContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ObjectClassAssignmentContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ObjectClassVisitor } from './objectClassVisitor';
 
 /**
@@ -13,7 +14,7 @@ import { ObjectClassVisitor } from './objectClassVisitor';
  */
 export class ObjectClassAssignmentVisitor
   extends AbstractParseTreeVisitor<ObjectClass>
-  implements ASN_3gppVisitor<ObjectClass> {
+  implements grammar3rdVisitor<ObjectClass> {
   public visitChildren(ctx: ObjectClassAssignmentContext): ObjectClass {
     const objectClassCtx = ctx.objectClass();
     return objectClassCtx.accept(new ObjectClassVisitor());

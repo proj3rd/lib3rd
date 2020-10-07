@@ -2,15 +2,6 @@ export interface ICondition {
     condition: string;
     explanation: string;
 }
-export interface IDefinition {
-    sectionNumber: string;
-    name: string;
-    descriptionList: string[];
-    direction: string;
-    elementList: IInformationElement[];
-    rangeBoundList: IRangeBound[];
-    conditionList: ICondition[];
-}
 export interface IInformationElement {
     name: string;
     presence: string;
@@ -24,5 +15,14 @@ export interface IInformationElement {
 export interface IRangeBound {
     rangeBound: string;
     explanation: string;
+}
+export interface IDefinition {
+    sectionNumber: string;
+    name: string;
+    descriptionList: string[];
+    direction: string;
+    elementList: IInformationElement[];
+    rangeBoundList: IRangeBound[];
+    conditionList: ICondition[];
 }
 //# sourceMappingURL=types.d.ts.map

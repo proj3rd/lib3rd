@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const constraint_1 = require("../classes/constraint");
@@ -11,7 +12,9 @@ const sizeConstraintVisitor_1 = require("./sizeConstraintVisitor");
 /**
  * # Grammar
  * ```
- * sequenceOfType: SEQUENCE_LITERAL (L_PARAN (constraint | sizeConstraint) R_PARAN)? OF_LITERAL (asnType | namedType )
+ * sequenceOfType:
+ *   SEQUENCE_LITERAL (L_PARAN (constraint | sizeConstraint) R_PARAN)?
+ *   OF_LITERAL (asnType | namedType )
  * ```
  */
 class SequenceOfTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {

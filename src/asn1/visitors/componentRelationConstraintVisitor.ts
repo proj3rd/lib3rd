@@ -1,10 +1,11 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ComponentRelationConstraint } from '../classes/componentRelationConstraint';
 import { ExternalObjectSetReference } from '../classes/externalObjectSetReference';
 import { ObjectSetReference } from '../classes/objectSetReference';
-import { ComponentRelationConstraintContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ComponentRelationConstraintContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { DefinedObjectSet } from '../types';
 import { AtNotationVisitor } from './atNotationVisitor';
 
@@ -14,21 +15,21 @@ import { AtNotationVisitor } from './atNotationVisitor';
  * componentRelationConstraint: L_BRACE (IDENTIFIER (DOT IDENTIFIER)?) R_BRACE
  * (L_BRACE atNotation (COMMA atNotation)* R_BRACE)?
  * ```
- * If atNotation is not present, it is SimpleTableConstraint (= ObjectSet) defined by X.682 clause 10,
- *   but it can be further concluded to ComponentRelationConstraint as defeind by
- *     X.680 clause 50.1 and X.681 clause 12.10.
+ * If atNotation is not present, it is SimpleTableConstraint (= ObjectSet)
+ *   defined by X.682 clause 10, but it can be further concluded to
+ *   ComponentRelationConstraint as defeind by X.680 clause 50.1 and X.681 clause 12.10.
  * Otherwise, it is ComponentRelationConstraint
  */
 export class ComponentRelationConstraintVisitor
   extends AbstractParseTreeVisitor<ComponentRelationConstraint>
-  implements ASN_3gppVisitor<ComponentRelationConstraint> {
+  implements grammar3rdVisitor<ComponentRelationConstraint> {
   public visitChildren(
-    ctx: ComponentRelationConstraintContext
+    ctx: ComponentRelationConstraintContext,
   ): ComponentRelationConstraint {
     let definedObjectSet: DefinedObjectSet | undefined;
     const { childCount } = ctx;
     let firstCurlyRightIndex = -1;
-    for (let i = 0; i < childCount; i++) {
+    for (let i = 0; i < childCount; i += 1) {
       if (ctx.getChild(i).text === '}') {
         firstCurlyRightIndex = i;
         break;
@@ -42,15 +43,14 @@ export class ComponentRelationConstraintVisitor
       const objectSetReference = ctx.getChild(3).text;
       definedObjectSet = new ExternalObjectSetReference(
         moduleReference,
-        objectSetReference
+        objectSetReference,
       );
     } else {
       throw Error();
     }
     const atNotationCtxes = ctx.atNotation();
-    const atNotations = atNotationCtxes.map((atNotationCtx) =>
-      atNotationCtx.accept(new AtNotationVisitor())
-    );
+    const atNotations = atNotationCtxes
+      .map((atNotationCtx) => atNotationCtx.accept(new AtNotationVisitor()));
     if (atNotations.length === 0) {
       return new ComponentRelationConstraint(definedObjectSet);
     }

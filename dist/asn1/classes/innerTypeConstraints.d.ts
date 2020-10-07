@@ -1,5 +1,6 @@
 import { ComponentPresence } from './componentPresence';
 import { ExtensionMarker } from './extensionMarker';
+export declare type TypeConstraintsComponent = ComponentPresence | ExtensionMarker;
 /**
  * Currently it supports only MultipleTypeConstraints
  */
@@ -9,5 +10,4 @@ export declare class InnerTypeConstraints {
     constructor(components: TypeConstraintsComponent[]);
     toString(): string;
 }
-export declare type TypeConstraintsComponent = ComponentPresence | ExtensionMarker;
 //# sourceMappingURL=innerTypeConstraints.d.ts.map

@@ -5,7 +5,6 @@ const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 const objectSet_1 = require("./objectSet");
 class ParameterizedTypeAssignment {
     constructor(name, parameters, asnType) {
@@ -18,12 +17,10 @@ class ParameterizedTypeAssignment {
      * @param modules
      */
     expand(modules) {
-        const parameterMappings = this.parameters.map((parameter) => {
-            return {
-                parameter,
-                actualParameter: undefined,
-            };
-        });
+        const parameterMappings = this.parameters.map((parameter) => ({
+            parameter,
+            actualParameter: undefined,
+        }));
         const expandedType = lodash_1.cloneDeep(this.asnType).expand(modules, parameterMappings);
         if (expandedType instanceof objectSet_1.ObjectSet) {
             return unimpl_1.unimpl();
@@ -47,7 +44,7 @@ class ParameterizedTypeAssignment {
         this.asnType.toSpreadsheet(ws, {
             [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, 0)]: this.name,
         }, 0);
-        spreadsheet_3.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
+        spreadsheet_1.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
         return wb;
     }
     toString() {

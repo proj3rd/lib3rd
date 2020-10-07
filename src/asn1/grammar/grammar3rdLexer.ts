@@ -1,4 +1,4 @@
-// Generated from src/asn1/grammar/ASN_3gpp.g4 by ANTLR 4.7.3-SNAPSHOT
+// Generated from src/asn1/grammar/grammar3rd.g4 by ANTLR 4.7.3-SNAPSHOT
 
 
 import { ATN } from "antlr4ts/atn/ATN";
@@ -15,7 +15,7 @@ import { VocabularyImpl } from "antlr4ts/VocabularyImpl";
 import * as Utils from "antlr4ts/misc/Utils";
 
 
-export class ASN_3gppLexer extends Lexer {
+export class grammar3rdLexer extends Lexer {
 	public static readonly TAG = 1;
 	public static readonly A_ROND = 2;
 	public static readonly STAR = 3;
@@ -227,35 +227,35 @@ export class ASN_3gppLexer extends Lexer {
 		"EXTENSTIONENDMARKER", "NUMBER", "WS", "LINE_COMMENT", "BSTRING", "HSTRING", 
 		"CSTRING", "IDENTIFIER",
 	];
-	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(ASN_3gppLexer._LITERAL_NAMES, ASN_3gppLexer._SYMBOLIC_NAMES, []);
+	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(grammar3rdLexer._LITERAL_NAMES, grammar3rdLexer._SYMBOLIC_NAMES, []);
 
 	// @Override
 	// @NotNull
 	public get vocabulary(): Vocabulary {
-		return ASN_3gppLexer.VOCABULARY;
+		return grammar3rdLexer.VOCABULARY;
 	}
 	// tslint:enable:no-trailing-whitespace
 
 
 	constructor(input: CharStream) {
 		super(input);
-		this._interp = new LexerATNSimulator(ASN_3gppLexer._ATN, this);
+		this._interp = new LexerATNSimulator(grammar3rdLexer._ATN, this);
 	}
 
 	// @Override
-	public get grammarFileName(): string { return "ASN_3gpp.g4"; }
+	public get grammarFileName(): string { return "grammar3rd.g4"; }
 
 	// @Override
-	public get ruleNames(): string[] { return ASN_3gppLexer.ruleNames; }
+	public get ruleNames(): string[] { return grammar3rdLexer.ruleNames; }
 
 	// @Override
-	public get serializedATN(): string { return ASN_3gppLexer._serializedATN; }
+	public get serializedATN(): string { return grammar3rdLexer._serializedATN; }
 
 	// @Override
-	public get channelNames(): string[] { return ASN_3gppLexer.channelNames; }
+	public get channelNames(): string[] { return grammar3rdLexer.channelNames; }
 
 	// @Override
-	public get modeNames(): string[] { return ASN_3gppLexer.modeNames; }
+	public get modeNames(): string[] { return grammar3rdLexer.modeNames; }
 
 	// @Override
 	public sempred(_localctx: RuleContext, ruleIndex: number, predIndex: number): boolean {
@@ -793,18 +793,18 @@ export class ASN_3gppLexer extends Lexer {
 		"\u0438\u0442\u044A\u0450\u0459\u045B\u0464\u046D\u046F\x03\b\x02\x02";
 	public static readonly _serializedATN: string = Utils.join(
 		[
-			ASN_3gppLexer._serializedATNSegment0,
-			ASN_3gppLexer._serializedATNSegment1,
+			grammar3rdLexer._serializedATNSegment0,
+			grammar3rdLexer._serializedATNSegment1,
 		],
 		"",
 	);
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
-		if (!ASN_3gppLexer.__ATN) {
-			ASN_3gppLexer.__ATN = new ATNDeserializer().deserialize(Utils.toCharArray(ASN_3gppLexer._serializedATN));
+		if (!grammar3rdLexer.__ATN) {
+			grammar3rdLexer.__ATN = new ATNDeserializer().deserialize(Utils.toCharArray(grammar3rdLexer._serializedATN));
 		}
 
-		return ASN_3gppLexer.__ATN;
+		return grammar3rdLexer.__ATN;
 	}
 
 }

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ComponentType } from '../classes/componentType';
@@ -6,8 +7,8 @@ import {
   ExtensionAdditionContext,
   ExtensionAdditionListContext,
   TagContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ExtensionAdditionVisitor } from './extensionAdditionVisitor';
 import { TagVisitor } from './tagVisitor';
 
@@ -19,14 +20,14 @@ import { TagVisitor } from './tagVisitor';
  */
 export class ExtensionAdditionListVisitor
   extends AbstractParseTreeVisitor<ExtensionAddition[]>
-  implements ASN_3gppVisitor<ExtensionAddition[]> {
+  implements grammar3rdVisitor<ExtensionAddition[]> {
   public visitChildren(ctx: ExtensionAdditionListContext): ExtensionAddition[] {
     const extensionAdditionList: ExtensionAddition[] = [];
-    for (let i = 0; i < ctx.childCount; i++) {
+    for (let i = 0; i < ctx.childCount; i += 1) {
       const childCtx = ctx.getChild(i);
       if (childCtx instanceof ExtensionAdditionContext) {
         extensionAdditionList.push(
-          childCtx.accept(new ExtensionAdditionVisitor())
+          childCtx.accept(new ExtensionAdditionVisitor()),
         );
       } else if (childCtx instanceof TagContext) {
         const tag = childCtx.accept(new TagVisitor());

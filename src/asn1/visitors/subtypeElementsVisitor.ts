@@ -1,9 +1,10 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { _SubtypeElements } from '../types';
 import { ValueRange } from '../classes/valueRange';
-import { SubtypeElementsContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { SubtypeElementsContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { SizeConstraintVisitor } from './sizeConstraintVisitor';
 import { ValueVisitor } from './valueVisitor';
 
@@ -16,9 +17,9 @@ import { ValueVisitor } from './valueVisitor';
  */
 export class SubtypeElementsVisitor
   extends AbstractParseTreeVisitor<_SubtypeElements>
-  implements ASN_3gppVisitor<_SubtypeElements> {
+  implements grammar3rdVisitor<_SubtypeElements> {
   public visitChildren(ctx: SubtypeElementsContext): _SubtypeElements {
-    const childCount = ctx.childCount;
+    const { childCount } = ctx;
     if (childCount === 1) {
       const sizeConstraintCtx = ctx.sizeConstraint();
       if (sizeConstraintCtx !== undefined) {
@@ -41,9 +42,7 @@ export class SubtypeElementsVisitor
       if (valueCtxes.length !== 2) {
         return unimpl();
       }
-      const [lower, upper] = valueCtxes.map((valueCtx) =>
-        valueCtx.accept(new ValueVisitor())
-      );
+      const [lower, upper] = valueCtxes.map((valueCtx) => valueCtx.accept(new ValueVisitor()));
       return new ValueRange(lower, upper);
     }
     throw Error();

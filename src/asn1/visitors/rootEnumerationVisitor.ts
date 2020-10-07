@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { EnumerationItem } from '../classes/enumeratedType';
-import { RootEnumerationContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { RootEnumerationContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { EnumerationVisitor } from './enumerationVisitor';
 
 /**
@@ -12,7 +13,7 @@ import { EnumerationVisitor } from './enumerationVisitor';
  */
 export class RootEnumerationVisitor
   extends AbstractParseTreeVisitor<EnumerationItem[]>
-  implements ASN_3gppVisitor<EnumerationItem[]> {
+  implements grammar3rdVisitor<EnumerationItem[]> {
   public visitChildren(ctx: RootEnumerationContext): EnumerationItem[] {
     const enumerationCtx = ctx.enumeration();
     return enumerationCtx.accept(new EnumerationVisitor());

@@ -6,7 +6,6 @@ const spreadsheet_1 = require("../../common/spreadsheet");
 const logger_1 = require("../../logger");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 const componentType_1 = require("./componentType");
 const extensionAdditionGroup_1 = require("./extensionAdditionGroup");
 const extensionMarker_1 = require("./extensionMarker");
@@ -21,22 +20,20 @@ const logger = logger_1.Logger.getLogger('asn1.class.SequenceType');
  * ',' or '' (empty) based on its position in a sequence by using
  * `toStringWithComma()`.
  */
-exports._COMMA = '_COMMA_';
+exports.COMMA_PLACEHOLDER = '_COMMA_';
 function toStringWithComma(component, shouldInsert) {
     const componentString = component.toString();
     const charToInsert = shouldInsert ? ',' : '';
     if (component instanceof componentType_1.ComponentType) {
-        return componentString.replace(exports._COMMA, charToInsert);
+        return componentString.replace(exports.COMMA_PLACEHOLDER, charToInsert);
     }
-    else if (component instanceof extensionAdditionGroup_1.ExtensionAdditionGroup) {
+    if (component instanceof extensionAdditionGroup_1.ExtensionAdditionGroup) {
         return `${componentString}${charToInsert}`;
     }
-    else if (component instanceof extensionMarker_1.ExtensionMarker) {
+    if (component instanceof extensionMarker_1.ExtensionMarker) {
         return `${componentString}${charToInsert}`;
     }
-    else {
-        return unimpl_1.unimpl();
-    }
+    return unimpl_1.unimpl();
 }
 exports.toStringWithComma = toStringWithComma;
 class SequenceType {
@@ -72,25 +69,23 @@ class SequenceType {
             }
             return expandedObjectSet;
         }
-        else {
-            return this.expandFallback(modules, parameterMappings);
-        }
+        return this.expandFallback(modules, parameterMappings);
     }
     getDepth() {
-        return this.components.reduce((prev, curr) => {
-            return Math.max(prev, curr.getDepth() + 1);
-        }, 0);
+        return this.components.reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
     }
+    // eslint-disable-next-line class-methods-use-this
     setConstraints(constraints) {
         if (constraints.length > 0) {
             unimpl_1.unimpl();
         }
     }
     toSpreadsheet(worksheet, row, depth) {
+        // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_TYPE] = 'SEQUENCE';
         const r = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r, depth);
-        spreadsheet_3.drawBorder(worksheet, r, depth);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
         this.components.forEach((component) => {
             component.toSpreadsheet(worksheet, {}, depth + 1);
         });
@@ -101,9 +96,7 @@ class SequenceType {
         }
         const arrToString = ['SEQUENCE {'];
         const componentsString = this.components
-            .map((component, index) => {
-            return toStringWithComma(component, index !== this.components.length - 1);
-        })
+            .map((component, index) => toStringWithComma(component, index !== this.components.length - 1))
             .join('\n');
         arrToString.push(formatter_1.indent(componentsString));
         arrToString.push('}');
@@ -138,7 +131,7 @@ class SequenceType {
                         return true;
                     }
                 }
-                // TODO: ExtensionAdditionGroup
+                return unimpl_1.todo('ExtensionAdditionGroup');
             });
             return component !== undefined;
         });

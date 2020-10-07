@@ -29,6 +29,7 @@ class SequenceOfType {
     getDepth() {
         return this.baseType.getDepth();
     }
+    // eslint-disable-next-line class-methods-use-this
     setConstraints(constraints) {
         if (constraints.length > 0) {
             unimpl_1.unimpl();

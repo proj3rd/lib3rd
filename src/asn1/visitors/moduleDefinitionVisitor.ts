@@ -1,12 +1,12 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { Logger } from '../../logger';
 import {
   DefinitiveIdentification,
   IDefinitiveObjIdComponent,
 } from '../classes/definitiveIdentification';
 import { ModuleDefinition } from '../classes/moduleDefinition';
-import { ModuleDefinitionContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ModuleDefinitionContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ExtensionDefaultVisitor } from './extensionDefaultVisitor';
 import { ModuleBodyVisitor } from './moduleBodyVisitor';
 import { TagDefaultVisitor } from './tagDefaultVisitor';
@@ -26,7 +26,7 @@ import { TagDefaultVisitor } from './tagDefaultVisitor';
  */
 export class ModuleDefinitionVisitor
   extends AbstractParseTreeVisitor<ModuleDefinition>
-  implements ASN_3gppVisitor<ModuleDefinition> {
+  implements grammar3rdVisitor<ModuleDefinition> {
   public visitChildren(ctx: ModuleDefinitionContext): ModuleDefinition {
     const name = ctx.getChild(0).text;
     const definitiveIdentificationArr: IDefinitiveObjIdComponent[] = [];
@@ -34,15 +34,13 @@ export class ModuleDefinitionVisitor
       const indexStart = 2;
       const indexStop = ctx.childCount - 8;
       for (let i = indexStart; i < indexStop; i += 4) {
-        // tslint:disable-next-line: no-shadowed-variable
-        const name = ctx.getChild(i).text;
-        // tslint:disable-next-line: variable-name
+        const doiName = ctx.getChild(i).text;
         const number = ctx.getChild(i + 2).text;
-        definitiveIdentificationArr.push({ name, number });
+        definitiveIdentificationArr.push({ name: doiName, number });
       }
     }
     const definitiveIdentification = new DefinitiveIdentification(
-      definitiveIdentificationArr
+      definitiveIdentificationArr,
     );
     const tagDefault = ctx.tagDefault().accept(new TagDefaultVisitor());
     const extensionDefault = ctx
@@ -54,7 +52,7 @@ export class ModuleDefinitionVisitor
       definitiveIdentification,
       tagDefault,
       extensionDefault,
-      moduleBody
+      moduleBody,
     );
   }
 

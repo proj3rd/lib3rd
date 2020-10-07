@@ -1,10 +1,11 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ComponentType } from '../classes/componentType';
 import { NamedType } from '../classes/namedType';
 import { Optionality } from '../classes/optionality';
-import { ComponentTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ComponentTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { NamedTypeVisitor } from './namedTypeVisitor';
 import { ValueVisitor } from './valueVisitor';
 
@@ -18,7 +19,7 @@ import { ValueVisitor } from './valueVisitor';
  */
 export class ComponentTypeVisitor
   extends AbstractParseTreeVisitor<ComponentType>
-  implements ASN_3gppVisitor<ComponentType> {
+  implements grammar3rdVisitor<ComponentType> {
   public visitChildren(ctx: ComponentTypeContext): ComponentType {
     const namedTypeCtx = ctx.namedType();
     let namedType: NamedType | undefined;

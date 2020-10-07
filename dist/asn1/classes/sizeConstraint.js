@@ -28,6 +28,7 @@ class SizeConstraint {
         }
         return this;
     }
+    // eslint-disable-next-line class-methods-use-this
     getDepth() {
         return 0;
     }

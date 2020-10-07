@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const extensionMarker_1 = require("../classes/extensionMarker");
-const ASN_3gppParser_1 = require("../grammar/ASN_3gppParser");
+const grammar3rdParser_1 = require("../grammar/grammar3rdParser");
 const additionalEnumerationVisitor_1 = require("./additionalEnumerationVisitor");
 const rootEnumerationVisitor_1 = require("./rootEnumerationVisitor");
 /**
@@ -15,16 +16,16 @@ const rootEnumerationVisitor_1 = require("./rootEnumerationVisitor");
 class EnumerationsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
         const enumerationItems = [];
-        for (let i = 0; i < ctx.childCount; i++) {
+        for (let i = 0; i < ctx.childCount; i += 1) {
             const childCtx = ctx.getChild(i);
-            if (childCtx instanceof ASN_3gppParser_1.RootEnumerationContext) {
+            if (childCtx instanceof grammar3rdParser_1.RootEnumerationContext) {
                 const rootEnumeration = childCtx.accept(new rootEnumerationVisitor_1.RootEnumerationVisitor());
                 enumerationItems.push(...rootEnumeration);
             }
-            else if (childCtx instanceof ASN_3gppParser_1.ExceptionSpecContext) {
+            else if (childCtx instanceof grammar3rdParser_1.ExceptionSpecContext) {
                 unimpl_1.unimpl(ctx.text);
             }
-            else if (childCtx instanceof ASN_3gppParser_1.AdditionalEnumerationContext) {
+            else if (childCtx instanceof grammar3rdParser_1.AdditionalEnumerationContext) {
                 const additionalEnumeration = childCtx.accept(new additionalEnumerationVisitor_1.AdditionalEnumerationVisitor());
                 enumerationItems.push(...additionalEnumeration);
             }

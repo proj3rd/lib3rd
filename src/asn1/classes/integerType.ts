@@ -1,11 +1,9 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { HEADER_TYPE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { INamedNumber } from '../types';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
@@ -27,12 +25,12 @@ export class IntegerType {
 
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): IntegerType {
     if (parameterMappings.length && this.constraint !== undefined) {
       const expandedConstraint = cloneDeep(this.constraint).expand(
         modules,
-        parameterMappings
+        parameterMappings,
       );
       if (!isEqual(expandedConstraint, this.constraint)) {
         this.constraint = expandedConstraint;
@@ -41,6 +39,7 @@ export class IntegerType {
     return this;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }
@@ -50,19 +49,19 @@ export class IntegerType {
       return;
     }
     if (constraints.length > 1) {
-      return unimpl();
+      unimpl();
     }
     const constraint = constraints[0];
-    const { constraintSpec, exceptionSpec } = constraint;
+    const { constraintSpec } = constraint;
     if (constraintSpec instanceof ContentsConstraint) {
-      return unimpl();
-    } else if (constraintSpec instanceof InnerTypeConstraints) {
-      return unimpl();
-    } else if (constraintSpec instanceof ObjectSet) {
-      return unimpl();
-    } else if (constraintSpec instanceof ComponentRelationConstraint) {
-      return unimpl();
-    } else if (constraintSpec instanceof SubtypeConstraint) {
+      unimpl();
+    } if (constraintSpec instanceof InnerTypeConstraints) {
+      unimpl();
+    } if (constraintSpec instanceof ObjectSet) {
+      unimpl();
+    } if (constraintSpec instanceof ComponentRelationConstraint) {
+      unimpl();
+    } if (constraintSpec instanceof SubtypeConstraint) {
       this.constraint = constraint;
     } else {
       throw Error();
@@ -70,6 +69,7 @@ export class IntegerType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = this.toString();
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);
@@ -80,9 +80,7 @@ export class IntegerType {
     const arrToString = ['INTEGER'];
     if (this.namedNumberList.length > 0) {
       const namedNumberListString = this.namedNumberList
-        .map((namedNumber) => {
-          return `${namedNumber.name} (${namedNumber.valueLiteral})`;
-        })
+        .map((namedNumber) => `${namedNumber.name} (${namedNumber.valueLiteral})`)
         .join(', ');
       arrToString.push(`{${namedNumberListString}}`);
     }

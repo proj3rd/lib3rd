@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ComponentRelationConstraint } from '../classes/componentRelationConstraint';
-import { TableConstraintContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { TableConstraintContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * tableConstraint: componentRelationConstraint
  * ```
  */
-export declare class TableConstraintVisitor extends AbstractParseTreeVisitor<ComponentRelationConstraint> implements ASN_3gppVisitor<ComponentRelationConstraint> {
+export declare class TableConstraintVisitor extends AbstractParseTreeVisitor<ComponentRelationConstraint> implements grammar3rdVisitor<ComponentRelationConstraint> {
     visitChildren(ctx: TableConstraintContext): ComponentRelationConstraint;
     protected defaultResult(): ComponentRelationConstraint;
 }

@@ -4,7 +4,6 @@ const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 const componentRelationConstraint_1 = require("./componentRelationConstraint");
 const contentsConstraint_1 = require("./contentsConstraint");
 const fixedTypeValueFieldSpec_1 = require("./fixedTypeValueFieldSpec");
@@ -28,6 +27,7 @@ class ObjectClassFieldType {
         this.definedObjectClass = definedObjectClass;
         this.fieldName = fieldName;
     }
+    // eslint-disable-next-line no-unused-vars
     expand(modules, parameterMappings) {
         const assignment = modules.findAssignment(this.definedObjectClass.objectClassReference);
         if (assignment === undefined) {
@@ -73,6 +73,7 @@ class ObjectClassFieldType {
         }
         return unimpl_1.unreach();
     }
+    // eslint-disable-next-line class-methods-use-this
     getDepth() {
         return 0;
     }
@@ -84,7 +85,7 @@ class ObjectClassFieldType {
             unimpl_1.unimpl();
         }
         const constraint = constraints[0];
-        const { constraintSpec, exceptionSpec } = constraint;
+        const { constraintSpec } = constraint;
         if (constraintSpec instanceof contentsConstraint_1.ContentsConstraint) {
             unimpl_1.unimpl();
         }
@@ -102,10 +103,11 @@ class ObjectClassFieldType {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
+        // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_REFERENCE] = this.toString();
         const r = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r, depth);
-        spreadsheet_3.drawBorder(worksheet, r, depth);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {
         const fieldNamesString = this.fieldName

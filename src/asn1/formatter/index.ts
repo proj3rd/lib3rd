@@ -6,19 +6,17 @@ const RE_START_OF_LINE = /^/gm;
 
 function getConstraintSeparator(
   constraints: Array<ExtensionMarker | IntegerValue | ValueRange>,
-  index: number
+  index: number,
 ): '|' | ',' {
   if (index === 0) {
     throw RangeError();
   }
-  const prevIsExtensionMarker =
-    constraints[index - 1] instanceof ExtensionMarker;
+  const prevIsExtensionMarker = constraints[index - 1] instanceof ExtensionMarker;
   const currIsExtensionMarker = constraints[index] instanceof ExtensionMarker;
   if (!prevIsExtensionMarker && !currIsExtensionMarker) {
     return '|';
-  } else {
-    return ',';
   }
+  return ',';
 }
 
 /**
@@ -26,7 +24,7 @@ function getConstraintSeparator(
  * @param constraints
  */
 export function getPermittedIntegerValues(
-  constraints: Array<ExtensionMarker | IntegerValue | ValueRange>
+  constraints: Array<ExtensionMarker | IntegerValue | ValueRange>,
 ): string {
   if (constraints.length === 0) {
     return '';

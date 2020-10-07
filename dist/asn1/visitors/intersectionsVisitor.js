@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const intersectionElementsVisitor_1 = require("./intersectionElementsVisitor");
@@ -12,7 +13,8 @@ const intersectionElementsVisitor_1 = require("./intersectionElementsVisitor");
 class IntersectionsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
         const intersectionElementsCtxes = ctx.intersectionElements();
-        return intersectionElementsCtxes.map((intersectionElementsCtx) => intersectionElementsCtx.accept(new intersectionElementsVisitor_1.IntersectionElementsVisitor()));
+        return intersectionElementsCtxes
+            .map((intersectionElementsCtx) => (intersectionElementsCtx.accept(new intersectionElementsVisitor_1.IntersectionElementsVisitor())));
     }
     defaultResult() {
         return unimpl_1.unimpl();

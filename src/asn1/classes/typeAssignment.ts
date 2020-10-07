@@ -8,10 +8,11 @@ import {
   getWorkbook,
   headerIndexed,
   uniqueSheetname,
+  drawBorder,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
 import { HEADER_LIST, HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
+
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
@@ -27,7 +28,7 @@ export class TypeAssignment {
     this.asnType = asnType;
     if (asnType instanceof ObjectSet) {
       return unimpl(
-        'ObjectSet cannot be used in instantiating but expanding TypeAssignment'
+        'ObjectSet cannot be used in instantiating but expanding TypeAssignment',
       );
     }
   }
@@ -61,7 +62,7 @@ export class TypeAssignment {
       {
         [headerIndexed(HEADER_NAME_BASE, 0)]: this.name,
       },
-      0
+      0,
     );
     drawBorder(ws, ws.addRow([]), 0, BorderTop);
     return wb;

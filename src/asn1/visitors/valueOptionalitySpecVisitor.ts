@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { Optionality } from '../classes/optionality';
-import { ValueOptionalitySpecContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ValueOptionalitySpecContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ValueVisitor } from './valueVisitor';
 
 /**
@@ -13,7 +14,7 @@ import { ValueVisitor } from './valueVisitor';
  */
 export class ValueOptionalitySpecVisitor
   extends AbstractParseTreeVisitor<Optionality>
-  implements ASN_3gppVisitor<Optionality> {
+  implements grammar3rdVisitor<Optionality> {
   public visitChildren(ctx: ValueOptionalitySpecContext): Optionality {
     const valueCtx = ctx.value();
     if (valueCtx === undefined) {

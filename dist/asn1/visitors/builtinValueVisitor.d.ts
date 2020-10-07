@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { BuiltinValue } from '../classes/value';
-import { BuiltinValueContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { BuiltinValueContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
@@ -15,7 +15,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  *   | BSTRING
  * ```
  */
-export declare class BuiltinValueVisitor extends AbstractParseTreeVisitor<BuiltinValue> implements ASN_3gppVisitor<BuiltinValue> {
+export declare class BuiltinValueVisitor extends AbstractParseTreeVisitor<BuiltinValue> implements grammar3rdVisitor<BuiltinValue> {
     visitChildren(ctx: BuiltinValueContext): BuiltinValue;
     protected defaultResult(): BuiltinValue;
 }

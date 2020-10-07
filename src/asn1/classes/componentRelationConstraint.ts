@@ -15,7 +15,7 @@ export class ComponentRelationConstraint {
 
   constructor(
     definedObjectSet: DefinedObjectSet,
-    atNotations: AtNotation[] = []
+    atNotations: AtNotation[] = [],
   ) {
     this.definedObjectSet = definedObjectSet;
     this.atNotations = atNotations;

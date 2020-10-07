@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { Value } from '../classes/value';
-import { ValueContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ValueContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { BuiltinValueVisitor } from './builtinValueVisitor';
 
 /**
@@ -11,7 +12,7 @@ import { BuiltinValueVisitor } from './builtinValueVisitor';
  * ```
  */
 export class ValueVisitor extends AbstractParseTreeVisitor<Value>
-  implements ASN_3gppVisitor<Value> {
+  implements grammar3rdVisitor<Value> {
   public visitChildren(ctx: ValueContext): Value {
     const builtinValueCtx = ctx.builtinValue();
     return builtinValueCtx.accept(new BuiltinValueVisitor());

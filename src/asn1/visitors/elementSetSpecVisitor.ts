@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { _ElementSetSpec } from '../types';
-import { ElementSetSpecContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ElementSetSpecContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { UnionsVisitor } from './unionsVisitor';
 
 /**
@@ -13,7 +14,7 @@ import { UnionsVisitor } from './unionsVisitor';
  */
 export class ElementSetSpecVisitor
   extends AbstractParseTreeVisitor<_ElementSetSpec>
-  implements ASN_3gppVisitor<_ElementSetSpec> {
+  implements grammar3rdVisitor<_ElementSetSpec> {
   public visitChildren(ctx: ElementSetSpecContext): _ElementSetSpec {
     const unionsCtx = ctx.unions();
     if (unionsCtx !== undefined) {

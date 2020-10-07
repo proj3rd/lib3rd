@@ -1,11 +1,9 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { todo, unimpl, unreach } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { HEADER_REFERENCE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { AsnType, DefinedObjectClass } from './asnType';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
@@ -38,18 +36,16 @@ export class ObjectClassFieldType {
 
   constructor(
     definedObjectClass: DefinedObjectClass,
-    fieldName: PrimitiveFieldName[]
+    fieldName: PrimitiveFieldName[],
   ) {
     this.definedObjectClass = definedObjectClass;
     this.fieldName = fieldName;
   }
 
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): AsnType {
+  // eslint-disable-next-line no-unused-vars
+  public expand(modules: Modules, parameterMappings: IParameterMapping[]): AsnType {
     const assignment = modules.findAssignment(
-      this.definedObjectClass.objectClassReference
+      this.definedObjectClass.objectClassReference,
     );
     if (assignment === undefined) {
       return this;
@@ -65,7 +61,7 @@ export class ObjectClassFieldType {
       const { objectClass } = assignment;
       const { fieldSpecs } = objectClass;
       const fieldSpec = fieldSpecs.find(
-        (fs) => fs.fieldReference.toString() === fieldName.toString()
+        (fs) => fs.fieldReference.toString() === fieldName.toString(),
       );
       if (fieldSpec === undefined) {
         return this;
@@ -97,6 +93,7 @@ export class ObjectClassFieldType {
     return unreach();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }
@@ -109,7 +106,7 @@ export class ObjectClassFieldType {
       unimpl();
     }
     const constraint = constraints[0];
-    const { constraintSpec, exceptionSpec } = constraint;
+    const { constraintSpec } = constraint;
     if (constraintSpec instanceof ContentsConstraint) {
       unimpl();
     } else if (constraintSpec instanceof InnerTypeConstraints) {
@@ -124,6 +121,7 @@ export class ObjectClassFieldType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_REFERENCE] = this.toString();
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);

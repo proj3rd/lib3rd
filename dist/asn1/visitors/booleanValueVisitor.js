@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const booleanValue_1 = require("../classes/booleanValue");
@@ -11,11 +12,11 @@ const booleanValue_1 = require("../classes/booleanValue");
  */
 class BooleanValueVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
-        const text = ctx.text;
-        if (text === 'TRUE' ||
-            text === 'true' ||
-            text === 'FALSE' ||
-            text === 'false') {
+        const { text } = ctx;
+        if (text === 'TRUE'
+            || text === 'true'
+            || text === 'FALSE'
+            || text === 'false') {
             return new booleanValue_1.BooleanValue(text);
         }
         throw Error();

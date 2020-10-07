@@ -7,10 +7,11 @@ import {
   getWorkbook,
   headerIndexed,
   uniqueSheetname,
+  drawBorder,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
 import { HEADER_LIST, HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
+
 import { DefinedObjectClass } from './asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
@@ -31,7 +32,7 @@ export class ObjectSetAssignment {
   constructor(
     name: string,
     definedObjectClass: DefinedObjectClass,
-    objectSet: ObjectSet
+    objectSet: ObjectSet,
   ) {
     this.name = name;
     this.definedObjectClass = definedObjectClass;
@@ -67,7 +68,7 @@ export class ObjectSetAssignment {
       {
         [headerIndexed(HEADER_NAME_BASE, 0)]: this.fullName(),
       },
-      0
+      0,
     );
     drawBorder(ws, ws.addRow([]), 0, BorderTop);
     return wb;

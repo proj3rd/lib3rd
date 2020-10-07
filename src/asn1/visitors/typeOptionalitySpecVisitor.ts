@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { Optionality } from '../classes/optionality';
-import { TypeOptionalitySpecContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { TypeOptionalitySpecContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 
 /**
@@ -13,7 +14,7 @@ import { AsnTypeVisitor } from './asnTypeVisitor';
  */
 export class TypeOptionalitySpecVisitor
   extends AbstractParseTreeVisitor<Optionality>
-  implements ASN_3gppVisitor<Optionality> {
+  implements grammar3rdVisitor<Optionality> {
   public visitChildren(ctx: TypeOptionalitySpecContext): Optionality {
     const asnTypeCtx = ctx.asnType();
     if (asnTypeCtx === undefined) {

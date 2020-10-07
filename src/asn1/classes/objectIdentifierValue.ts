@@ -1,7 +1,9 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl, unreach } from 'unimpl';
-import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
+import {
+  headerIndexed, setOutlineLevel, IRowInput, drawBorder,
+} from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import {
@@ -9,8 +11,6 @@ import {
   HEADER_NAME_BASE,
   HEADER_REFERENCE,
 } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { ObjectIdComponents } from '../types';
 import { AsnType } from './asnType';
 import { Modules } from './modules';
@@ -53,7 +53,7 @@ export class ObjectIdentifierValue {
 
   constructor(objectIdComponentsList: ObjectIdComponents[]) {
     this.objectIdComponentsList = this.compoundComponent(
-      objectIdComponentsList
+      objectIdComponentsList,
     );
     // TODO: Check `objectIdComponentsList[i]` is instance of `ObjectIdComponents`
   }
@@ -65,7 +65,7 @@ export class ObjectIdentifierValue {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): ObjectIdentifierValue {
     if (parameterMappings.length) {
       return unimpl();
@@ -110,7 +110,7 @@ export class ObjectIdentifierValue {
         }
         const expandedType = cloneDeep(objectIdComponents).expand(
           modules,
-          parameterMappings
+          parameterMappings,
         );
         if (isEqual(expandedType, objectIdComponents)) {
           return objectIdComponents;
@@ -119,7 +119,7 @@ export class ObjectIdentifierValue {
           return unimpl();
         }
         return expandedType;
-      }
+      },
     );
     return this;
   }
@@ -144,7 +144,8 @@ export class ObjectIdentifierValue {
         return;
       }
       if (typeof components !== 'string') {
-        return unreach(components);
+        unreach(components);
+        return;
       }
       const rowComponents: IRowInput = {
         [headerIndexed(HEADER_NAME_BASE, depth + 1)]: components,
@@ -154,15 +155,13 @@ export class ObjectIdentifierValue {
         const rComponents = worksheet.addRow(rowComponents);
         setOutlineLevel(rComponents, depth + 1);
         drawBorder(worksheet, rComponents, depth + 1);
+      } else if (typeof componentsNext === 'string') {
+        rowComponents[HEADER_REFERENCE] = componentsNext;
+        const rComponents = worksheet.addRow(rowComponents);
+        setOutlineLevel(rComponents, depth + 1);
+        drawBorder(worksheet, rComponents, depth + 1);
       } else {
-        if (typeof componentsNext === 'string') {
-          rowComponents[HEADER_REFERENCE] = componentsNext;
-          const rComponents = worksheet.addRow(rowComponents);
-          setOutlineLevel(rComponents, depth + 1);
-          drawBorder(worksheet, rComponents, depth + 1);
-        } else {
-          componentsNext.toSpreadsheet(worksheet, rowComponents, depth + 1);
-        }
+        componentsNext.toSpreadsheet(worksheet, rowComponents, depth + 1);
       }
     });
     const r2 = worksheet.addRow({
@@ -187,7 +186,7 @@ export class ObjectIdentifierValue {
         return;
       }
       arrToString.push(
-        indent(`${component.toString()}    ${componentNext.toString()}`)
+        indent(`${component.toString()}    ${componentNext.toString()}`),
       );
     });
     arrToString.push('}');
@@ -195,54 +194,51 @@ export class ObjectIdentifierValue {
   }
 
   private compoundComponent(
-    objectIdComponentsList: ObjectIdComponents[]
+    objectIdComponentsList: ObjectIdComponents[],
   ): ObjectIdComponents[] {
     const objectIdComponentsListOut: ObjectIdComponents[] = [];
     const { length } = objectIdComponentsList;
-    for (let i = 0; i < length; ) {
+    for (let i = 0; i < length;) {
       const firstComponent = objectIdComponentsList[i];
       if (typeof firstComponent !== 'string') {
         objectIdComponentsListOut.push(firstComponent);
-        i++;
-        continue;
-      }
-      // Make the longest word matching one of compound component list
-      const tempStringList: string[] = [firstComponent];
-      for (let j = i + 1; j < length; j++) {
-        const latestComponent = tempStringList.join(' ');
-        const component = objectIdComponentsList[j];
-        if (typeof component !== 'string') {
-          objectIdComponentsListOut.push(latestComponent);
-          tempStringList.length = 0;
-          i = j;
-          break;
+        i += 1;
+      } else {
+        // Make the longest word matching one of compound component list
+        const tempStringList: string[] = [firstComponent];
+        for (let j = i + 1; j < length; j += 1) {
+          const latestComponent = tempStringList.join(' ');
+          const component = objectIdComponentsList[j];
+          if (typeof component !== 'string') {
+            objectIdComponentsListOut.push(latestComponent);
+            tempStringList.length = 0;
+            i = j;
+            break;
+          }
+          tempStringList.push(component);
+          const newComponent = tempStringList.join(' ');
+          if (
+            this.compoundComponentList
+              .find((compound) => compound.startsWith(newComponent)) === undefined
+          ) {
+            objectIdComponentsListOut.push(latestComponent);
+            tempStringList.length = 0;
+            i = j;
+            break;
+          }
+          if (
+            this.compoundComponentList.find((compound) => compound === newComponent) !== undefined
+          ) {
+            objectIdComponentsListOut.push(newComponent);
+            tempStringList.length = 0;
+            i = j + 1;
+            break;
+          }
         }
-        tempStringList.push(component);
-        const newComponent = tempStringList.join(' ');
-        if (
-          this.compoundComponentList.find((compound) => {
-            return compound.startsWith(newComponent);
-          }) === undefined
-        ) {
-          objectIdComponentsListOut.push(latestComponent);
-          tempStringList.length = 0;
-          i = j;
-          break;
+        if (tempStringList.length) {
+          objectIdComponentsListOut.push(tempStringList.join(' '));
+          i += 1;
         }
-        if (
-          this.compoundComponentList.find((compound) => {
-            return compound === newComponent;
-          }) !== undefined
-        ) {
-          objectIdComponentsListOut.push(newComponent);
-          tempStringList.length = 0;
-          i = j + 1;
-          break;
-        }
-      }
-      if (tempStringList.length) {
-        objectIdComponentsListOut.push(tempStringList.join(' '));
-        i++;
       }
     }
     return objectIdComponentsListOut;

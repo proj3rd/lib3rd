@@ -1,11 +1,9 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { HEADER_REFERENCE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { AsnType } from './asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
@@ -31,17 +29,15 @@ export class ExternalTypeReference {
    * @param modules
    * @param parameterMappings
    */
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): AsnType {
+  // eslint-disable-next-line no-unused-vars
+  public expand(modules: Modules, parameterMappings: IParameterMapping[]): AsnType {
     const referencedAssignment = modules.findAssignment(
       this.typeReference,
-      this.moduleReference
+      this.moduleReference,
     );
     if (referencedAssignment === undefined) {
       return this;
-    } else if (referencedAssignment instanceof TypeAssignment) {
+    } if (referencedAssignment instanceof TypeAssignment) {
       const { asnType } = referencedAssignment;
       const expandedType = cloneDeep(asnType).expand(modules, []);
       if (asnType instanceof ObjectSet) {
@@ -54,18 +50,20 @@ export class ExternalTypeReference {
         return unimpl();
       }
       return expandedType;
-    } else if (referencedAssignment instanceof ParameterizedTypeAssignment) {
+    } if (referencedAssignment instanceof ParameterizedTypeAssignment) {
       return unimpl();
-    } else if (referencedAssignment instanceof ValueAssignment) {
+    } if (referencedAssignment instanceof ValueAssignment) {
       return unimpl();
     }
     throw Error();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length > 0) {
       unimpl();
@@ -73,6 +71,7 @@ export class ExternalTypeReference {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_REFERENCE] = this.toString();
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);

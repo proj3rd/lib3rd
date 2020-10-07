@@ -19,7 +19,6 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
     ];
     testCaseList.forEach((testCase) => {
         const { name, specNumber, filename } = testCase;
-        // tslint:disable-next-line: only-arrow-functions
         describe(`${name} (${specNumber}) [format_spreadsheet_ie_all_${specNumber}]`, function () {
             const asn1 = fs_1.readFileSync(`resources/${filename}`, 'utf8');
             const modules = parser_1.parse(asn1);
@@ -28,7 +27,6 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
                     if (assignment instanceof valueAssignment_1.ValueAssignment) {
                         return;
                     }
-                    // tslint:disable-next-line: only-arrow-functions
                     it(`${module.name}.${assignment.name}`, function () {
                         const wb = spreadsheet_1.getWorkbook();
                         assignment.toSpreadsheet(wb);
@@ -36,7 +34,6 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
                 });
             });
         });
-        // tslint:disable-next-line: only-arrow-functions
         describe(`${name} (${specNumber}) [format_spreadsheet_ie_all_expanded_${specNumber}]`, function () {
             const asn1 = fs_1.readFileSync(`resources/${filename}`, 'utf8');
             const modules = parser_1.parse(asn1);
@@ -45,7 +42,6 @@ describe('Format in spreadsheets [format_spreadsheet_all]', function () {
                     if (assignment instanceof valueAssignment_1.ValueAssignment) {
                         return;
                     }
-                    // tslint:disable-next-line: only-arrow-functions
                     it(`${module.name}.${assignment.name}`, function () {
                         const expandedAssignment = lodash_1.cloneDeep(assignment).expand(modules);
                         const wb = spreadsheet_1.getWorkbook();

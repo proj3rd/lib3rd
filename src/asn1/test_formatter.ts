@@ -18,7 +18,6 @@ describe('Format Modules [format_all]', function () {
 
   testCaseList.forEach((testCase) => {
     const { name, specNumber, filename } = testCase;
-    // tslint:disable-next-line: only-arrow-functions
     it(`${name} (${specNumber}) [format_${specNumber}]`, function () {
       const asn1 = readFileSync(`resources/${filename}`, 'utf8');
       const modules = parse(asn1);

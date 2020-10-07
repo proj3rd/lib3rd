@@ -1,17 +1,20 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { HEADER_TYPE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { Constraint } from './constraint';
 import { ExtensionAdditionAlternativeGroup } from './extensionAdditionAlternativeGroup';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
+
+export type RootChoiceComponents =
+  | NamedType
+  | ExtensionMarker
+  | ExtensionAdditionAlternativeGroup;
 
 export class ChoiceType {
   public components: RootChoiceComponents[];
@@ -29,12 +32,12 @@ export class ChoiceType {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): ChoiceType {
     this.components = this.components.map((component) => {
       const expandedComponent = cloneDeep(component).expand(
         modules,
-        parameterMappings
+        parameterMappings,
       );
       if (isEqual(expandedComponent, component)) {
         return component;
@@ -45,11 +48,10 @@ export class ChoiceType {
   }
 
   public getDepth(): number {
-    return this.components.reduce((prev, curr) => {
-      return Math.max(prev, curr.getDepth() + 1);
-    }, 0);
+    return this.components.reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length > 0) {
       unimpl();
@@ -57,6 +59,7 @@ export class ChoiceType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = 'CHOICE';
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);
@@ -79,11 +82,6 @@ export class ChoiceType {
     return arrToString.join('\n');
   }
 }
-
-export type RootChoiceComponents =
-  | NamedType
-  | ExtensionMarker
-  | ExtensionAdditionAlternativeGroup;
 
 export type ExtensionAdditionAlternative =
   | NamedType

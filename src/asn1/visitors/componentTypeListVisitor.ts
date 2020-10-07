@@ -1,11 +1,12 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ComponentType } from '../classes/componentType';
 import {
   ComponentTypeContext,
   ComponentTypeListContext,
   TagContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ComponentTypeVisitor } from './componentTypeVisitor';
 import { TagVisitor } from './tagVisitor';
 
@@ -17,11 +18,11 @@ import { TagVisitor } from './tagVisitor';
  */
 export class ComponentTypeListVisitor
   extends AbstractParseTreeVisitor<ComponentType[]>
-  implements ASN_3gppVisitor<ComponentType[]> {
+  implements grammar3rdVisitor<ComponentType[]> {
   public visitChildren(ctx: ComponentTypeListContext): ComponentType[] {
     const sequenceComponents: ComponentType[] = [];
-    const childCount = ctx.childCount;
-    for (let i = 0; i < childCount; i++) {
+    const { childCount } = ctx;
+    for (let i = 0; i < childCount; i += 1) {
       const childCtx = ctx.getChild(i);
       if (childCtx instanceof ComponentTypeContext) {
         sequenceComponents.push(childCtx.accept(new ComponentTypeVisitor()));

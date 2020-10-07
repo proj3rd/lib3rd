@@ -1,10 +1,8 @@
 import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { HEADER_TYPE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -13,6 +11,21 @@ import { InnerTypeConstraints } from './innerTypeConstraints';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 import { SizeConstraint } from './sizeConstraint';
+
+export type CharacterStringTypeLiteral =
+  | 'BMPString'
+  | 'GeneralString'
+  | 'GraphicString'
+  | 'IA5String'
+  | 'ISO646String'
+  | 'NumericString'
+  | 'PrintableString'
+  | 'TeletexString'
+  | 'T61String'
+  | 'UniversalString'
+  | 'UTF8String'
+  | 'VideotexString'
+  | 'VisibleString';
 
 /**
  * X.680 clause 40
@@ -32,7 +45,7 @@ export class CharacterStringType {
 
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): CharacterStringType {
     if (parameterMappings.length) {
       return unimpl(this, parameterMappings);
@@ -40,6 +53,7 @@ export class CharacterStringType {
     return this;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }
@@ -49,43 +63,50 @@ export class CharacterStringType {
       return;
     }
     if (constraints.length > 1) {
-      return unimpl();
+      unimpl();
+      return;
     }
     const constraint = constraints[0];
-    const { constraintSpec, exceptionSpec } = constraint;
+    const { constraintSpec } = constraint;
     if (constraintSpec instanceof ContentsConstraint) {
-      return unimpl();
-    } else if (constraintSpec instanceof InnerTypeConstraints) {
-      return unimpl();
-    } else if (constraintSpec instanceof ObjectSet) {
-      return unimpl();
-    } else if (constraintSpec instanceof ComponentRelationConstraint) {
-      return unimpl();
+      unimpl();
+      return;
+    } if (constraintSpec instanceof InnerTypeConstraints) {
+      unimpl();
+      return;
+    } if (constraintSpec instanceof ObjectSet) {
+      unimpl();
+      return;
+    } if (constraintSpec instanceof ComponentRelationConstraint) {
+      unimpl();
+      return;
+    }
+    if (constraintSpec.elementSetSpecList.length !== 1) {
+      unimpl();
+      return;
+    }
+    const elementSetSpec = constraintSpec.elementSetSpecList[0];
+    if (elementSetSpec instanceof ExtensionMarker) {
+      throw Error('Not implemented');
+    }
+    if (elementSetSpec.intersectionsList.length > 1) {
+      unimpl();
+      return;
+    }
+    const intersections = elementSetSpec.intersectionsList[0];
+    if (intersections.length !== 1) {
+      unimpl();
+      return;
+    }
+    const intersectionElements = intersections[0];
+    if (intersectionElements instanceof SizeConstraint) {
+      this.constraint = constraint;
     } else {
-      if (constraintSpec.elementSetSpecList.length !== 1) {
-        return unimpl();
-      }
-      const elementSetSpec = constraintSpec.elementSetSpecList[0];
-      if (elementSetSpec instanceof ExtensionMarker) {
-        throw Error('Not implemented');
-      }
-      if (elementSetSpec.intersectionsList.length > 1) {
-        return unimpl();
-      }
-      const intersections = elementSetSpec.intersectionsList[0];
-      if (intersections.length !== 1) {
-        return unimpl();
-      }
-      const intersectionElements = intersections[0];
-      if (intersectionElements instanceof SizeConstraint) {
-        this.constraint = constraint;
-      } else {
-        unimpl();
-      }
+      unimpl();
     }
   }
-
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = this.toString();
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);
@@ -99,18 +120,3 @@ export class CharacterStringType {
     return `${this.characterStringTypeLiteral} ${this.constraint.toString()}`;
   }
 }
-
-export type CharacterStringTypeLiteral =
-  | 'BMPString'
-  | 'GeneralString'
-  | 'GraphicString'
-  | 'IA5String'
-  | 'ISO646String'
-  | 'NumericString'
-  | 'PrintableString'
-  | 'TeletexString'
-  | 'T61String'
-  | 'UniversalString'
-  | 'UTF8String'
-  | 'VideotexString'
-  | 'VisibleString';

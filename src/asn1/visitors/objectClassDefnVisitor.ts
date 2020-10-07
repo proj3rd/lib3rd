@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ObjectClassDefinition } from '../classes/objectClass';
-import { ObjectClassDefnContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ObjectClassDefnContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { FieldSpecVisitor } from './fieldSpecVisitor';
 import { WithSyntaxSpecVisitor } from './withSyntaxSpecVisitor';
 
@@ -14,17 +15,15 @@ import { WithSyntaxSpecVisitor } from './withSyntaxSpecVisitor';
  */
 export class ObjectClassDefnVisitor
   extends AbstractParseTreeVisitor<ObjectClassDefinition>
-  implements ASN_3gppVisitor<ObjectClassDefinition> {
+  implements grammar3rdVisitor<ObjectClassDefinition> {
   public visitChildren(ctx: ObjectClassDefnContext): ObjectClassDefinition {
     const fieldSpecCtxes = ctx.fieldSpec();
-    const fieldSpecs = fieldSpecCtxes.map((fieldSpecCtx) =>
-      fieldSpecCtx.accept(new FieldSpecVisitor())
-    );
+    const fieldSpecs = fieldSpecCtxes
+      .map((fieldSpecCtx) => fieldSpecCtx.accept(new FieldSpecVisitor()));
     const withSyntaxSpecCtx = ctx.withSyntaxSpec();
-    const syntaxList =
-      withSyntaxSpecCtx === undefined
-        ? []
-        : withSyntaxSpecCtx.accept(new WithSyntaxSpecVisitor());
+    const syntaxList = withSyntaxSpecCtx === undefined
+      ? []
+      : withSyntaxSpecCtx.accept(new WithSyntaxSpecVisitor());
     return new ObjectClassDefinition(fieldSpecs, syntaxList);
   }
 

@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { AtNotation } from '../classes/atNotation';
-import { AtNotationContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { AtNotationContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ComponentIdListVisitor } from './componentIdListVisitor';
 import { LevelVisitor } from './levelVIsitor';
 
@@ -13,14 +14,13 @@ import { LevelVisitor } from './levelVIsitor';
  * ```
  */
 export class AtNotationVisitor extends AbstractParseTreeVisitor<AtNotation>
-  implements ASN_3gppVisitor<AtNotation> {
+  implements grammar3rdVisitor<AtNotation> {
   public visitChildren(ctx: AtNotationContext): AtNotation {
     const levelCtx = ctx.level();
-    const level =
-      levelCtx === undefined ? 0 : levelCtx.accept(new LevelVisitor());
+    const level = levelCtx === undefined ? 0 : levelCtx.accept(new LevelVisitor());
     const componentIdListCtx = ctx.componentIdList();
     const componentIdList = componentIdListCtx.accept(
-      new ComponentIdListVisitor()
+      new ComponentIdListVisitor(),
     );
     return new AtNotation(level, componentIdList);
   }

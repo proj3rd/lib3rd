@@ -9,9 +9,7 @@ const path_1 = require("path");
 const logger_1 = require("../logger");
 const extractor_1 = require("./extractor");
 const logger = logger_1.Logger.getLogger('asn1.extractor.test');
-// tslint:disable-next-line: only-arrow-functions
 describe('Extract ASN.1 [extract_all]', function () {
-    // tslint:disable-next-line: only-arrow-functions
     it('Normal token [extract_normal_token]', function () {
         const input = `
 -- ASN1START
@@ -29,7 +27,6 @@ Second ASN.1 content`;
         const extracted = extractor_1.extract(input);
         assert_1.default.equal(extracted, expected);
     });
-    // tslint:disable-next-line: only-arrow-functions
     it('Old RAN3 token [extract_old_ran3_token]', function () {
         const input = `
 -- ************************************

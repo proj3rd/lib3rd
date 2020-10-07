@@ -5,7 +5,6 @@ const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 /**
  * TODO: ObjectSet only supports DefinedObjectSet currently.
  * Note: `SimpleTableConstraint` is equivalent to `ObjectSet`.
@@ -23,7 +22,7 @@ class ObjectSet {
         if (parameterMappings.length) {
             return unimpl_1.unimpl();
         }
-        this.objectSetSpec = this.objectSetSpec.map((elementSetSpec, index) => {
+        this.objectSetSpec = this.objectSetSpec.map((elementSetSpec) => {
             const expandedType = lodash_1.cloneDeep(elementSetSpec).expand(modules, parameterMappings);
             if (lodash_1.isEqual(expandedType, elementSetSpec)) {
                 return elementSetSpec;
@@ -33,22 +32,20 @@ class ObjectSet {
         return this;
     }
     getDepth() {
-        return this.objectSetSpec.reduce((prev, curr) => {
-            return Math.max(prev, curr.getDepth() + 1);
-        }, 0);
+        return this.objectSetSpec.reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
     }
     toSpreadsheet(worksheet, row, depth) {
         if (this.objectSetSpec.length === 0) {
             spreadsheet_2.appendInColumn(row, spreadsheet_2.HEADER_TYPE, '{}');
             const r = worksheet.addRow(row);
             spreadsheet_1.setOutlineLevel(r, depth);
-            spreadsheet_3.drawBorder(worksheet, r, depth);
+            spreadsheet_1.drawBorder(worksheet, r, depth);
             return;
         }
         spreadsheet_2.appendInColumn(row, spreadsheet_2.HEADER_TYPE, '{');
         const r1 = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r1, depth);
-        spreadsheet_3.drawBorder(worksheet, r1, depth);
+        spreadsheet_1.drawBorder(worksheet, r1, depth);
         this.objectSetSpec.forEach((elementSetSpec) => {
             elementSetSpec.toSpreadsheet(worksheet, {}, depth + 1);
         });
@@ -56,7 +53,7 @@ class ObjectSet {
             [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: '}',
         });
         spreadsheet_1.setOutlineLevel(r2, depth);
-        spreadsheet_3.drawBorder(worksheet, r2, depth);
+        spreadsheet_1.drawBorder(worksheet, r2, depth);
     }
     toString() {
         const innerString = this.objectSetSpec

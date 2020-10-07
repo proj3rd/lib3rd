@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ExtensionMarker } from '../classes/extensionMarker';
-import { ExtensionAndExceptionContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ExtensionAndExceptionContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * extensionAndException: ELLIPSIS exceptionSpec?
  * ```
  */
-export declare class ExtensionAndExceptionVisitor extends AbstractParseTreeVisitor<ExtensionMarker> implements ASN_3gppVisitor<ExtensionMarker> {
+export declare class ExtensionAndExceptionVisitor extends AbstractParseTreeVisitor<ExtensionMarker> implements grammar3rdVisitor<ExtensionMarker> {
     visitChildren(ctx: ExtensionAndExceptionContext): ExtensionMarker;
     protected defaultResult(): ExtensionMarker;
 }

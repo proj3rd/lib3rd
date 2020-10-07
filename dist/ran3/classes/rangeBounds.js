@@ -8,15 +8,14 @@ class RangeBounds {
         this.rangeBoundList = rangeBoundList;
     }
     add(rangeBound) {
-        const range = this.rangeBoundList.find((range) => {
-            return range.rangeBound === rangeBound.rangeBound;
-        });
+        const range = this.rangeBoundList.find((item) => item.rangeBound === rangeBound.rangeBound);
         if (range) {
             return;
         }
         this.rangeBoundList.push(rangeBound);
     }
     toSpreadsheet(worksheet) {
+        // eslint-disable-next-line no-param-reassign
         worksheet.addRow({
             [spreadsheet_1.headerIndexed(definition_1.HEADER_NAME_BASE, 0)]: 'Condition',
             [definition_1.HEADER_DESCRIPTION]: 'Explanation',

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const extensionAdditionAlternativeGroup_1 = require("../classes/extensionAdditionAlternativeGroup");
@@ -8,7 +9,8 @@ const versionNumberVisitor_1 = require("./versionNumberVisitor");
 /**
  * # Grammar
  * ```
- * extensionAdditionAlternativesGroup: DOUBLE_L_BRACKET versionNumber alternativeTypeList DOUBLE_R_BRACKET
+ * extensionAdditionAlternativesGroup:
+ *   DOUBLE_L_BRACKET versionNumber alternativeTypeList DOUBLE_R_BRACKET
  * ```
  */
 class ExtensionAdditionAlternativesGroupVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {

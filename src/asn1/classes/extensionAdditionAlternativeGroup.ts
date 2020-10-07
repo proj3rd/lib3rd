@@ -1,11 +1,12 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
+import {
+  headerIndexed, setOutlineLevel, IRowInput, drawBorder,
+} from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
+
 import { Modules } from './modules';
 import { NamedType } from './namedType';
 
@@ -27,12 +28,12 @@ export class ExtensionAdditionAlternativeGroup {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): ExtensionAdditionAlternativeGroup {
     this.components = this.components.map((component) => {
       const expandedComponent = cloneDeep(component).expand(
         modules,
-        parameterMappings
+        parameterMappings,
       );
       if (isEqual(expandedComponent, component)) {
         return component;
@@ -43,9 +44,7 @@ export class ExtensionAdditionAlternativeGroup {
   }
 
   public getDepth(): number {
-    return this.components.reduce((prev, curr) => {
-      return Math.max(prev, curr.getDepth() + 1);
-    }, 0);
+    return this.components.reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {

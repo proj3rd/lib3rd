@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const primitiveFieldName_1 = require("../classes/primitiveFieldName");
@@ -15,7 +16,8 @@ const tokenOrGroupSepcVisitor_1 = require("./tokenOrGroupSepcVisitor");
 class SyntaxListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
         const tokenOrGroupSpecCtxes = ctx.tokenOrGroupSpec();
-        const tokenOrGroupSpecs = tokenOrGroupSpecCtxes.map((tokenOrGroupSpecCtx) => tokenOrGroupSpecCtx.accept(new tokenOrGroupSepcVisitor_1.TokenOrGroupSpecVisitor()));
+        const tokenOrGroupSpecs = tokenOrGroupSpecCtxes
+            .map((tokenOrGroupSpecCtx) => tokenOrGroupSpecCtx.accept(new tokenOrGroupSepcVisitor_1.TokenOrGroupSpecVisitor()));
         const syntaxList = [];
         const arrToLiteral = [];
         tokenOrGroupSpecs.forEach((tokenOrGroupSpec) => {

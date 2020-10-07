@@ -5,7 +5,6 @@ const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 const objectSet_1 = require("./objectSet");
 class TypeAssignment {
     constructor(name, asnType) {
@@ -40,7 +39,7 @@ class TypeAssignment {
         this.asnType.toSpreadsheet(ws, {
             [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, 0)]: this.name,
         }, 0);
-        spreadsheet_3.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
+        spreadsheet_1.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
         return wb;
     }
     toString() {

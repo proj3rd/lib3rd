@@ -1,20 +1,20 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
-import { headerIndexed } from '../../common/spreadsheet';
+import { headerIndexed, IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
   HEADER_TAG,
 } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
+
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
 import { ObjectSet } from './objectSet';
 import { Optionality } from './optionality';
-import { _COMMA, Tag } from './sequenceType';
+import { COMMA_PLACEHOLDER, Tag } from './sequenceType';
 
 export class ComponentType {
   public name: string;
@@ -27,7 +27,7 @@ export class ComponentType {
   constructor(
     namedType: NamedType,
     optionality: Optionality | undefined,
-    tag: Tag
+    tag: Tag,
   ) {
     const { name, asnType } = namedType;
     this.name = name;
@@ -36,7 +36,7 @@ export class ComponentType {
     this.tag = tag;
     if (asnType instanceof ObjectSet) {
       return unimpl(
-        'ObjectSet cannot be used in instantiating but expanding ComponentType'
+        'ObjectSet cannot be used in instantiating but expanding ComponentType',
       );
     }
   }
@@ -48,11 +48,11 @@ export class ComponentType {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): ComponentType {
     const expandedType = cloneDeep(this.asnType).expand(
       modules,
-      parameterMappings
+      parameterMappings,
     );
     if (expandedType instanceof ObjectSet) {
       return unimpl();
@@ -76,7 +76,7 @@ export class ComponentType {
           : undefined,
         [HEADER_TAG]: this.tag.toString(),
       },
-      depth
+      depth,
     );
   }
 
@@ -88,10 +88,10 @@ export class ComponentType {
   public toString(): string {
     const arrToString = [this.name];
     if (this.optionality === undefined) {
-      arrToString.push(`${this.asnType.toString()}${_COMMA}`);
+      arrToString.push(`${this.asnType.toString()}${COMMA_PLACEHOLDER}`);
     } else if (this.optionality !== undefined) {
       arrToString.push(this.asnType.toString());
-      arrToString.push(`${this.optionality.toString()}${_COMMA}`);
+      arrToString.push(`${this.optionality.toString()}${COMMA_PLACEHOLDER}`);
     }
     if (this.tag.length > 0) {
       arrToString.push(this.tag);

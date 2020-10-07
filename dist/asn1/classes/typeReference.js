@@ -4,7 +4,6 @@ const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 const contentsConstraint_1 = require("./contentsConstraint");
 const innerTypeConstraints_1 = require("./innerTypeConstraints");
 const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
@@ -29,7 +28,7 @@ class TypeReference {
             if (referencedAssignment === undefined) {
                 return this;
             }
-            else if (referencedAssignment instanceof typeAssignment_1.TypeAssignment) {
+            if (referencedAssignment instanceof typeAssignment_1.TypeAssignment) {
                 const { asnType } = referencedAssignment;
                 const expandedType = lodash_1.cloneDeep(asnType).expand(modules, []);
                 if (lodash_1.isEqual(expandedType, asnType)) {
@@ -37,10 +36,10 @@ class TypeReference {
                 }
                 return expandedType;
             }
-            else if (referencedAssignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
+            if (referencedAssignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
                 return unimpl_1.unimpl();
             }
-            else if (referencedAssignment instanceof valueAssignment_1.ValueAssignment) {
+            if (referencedAssignment instanceof valueAssignment_1.ValueAssignment) {
                 return unimpl_1.unimpl();
             }
         }
@@ -58,12 +57,11 @@ class TypeReference {
                 }
                 return expandedType;
             }
-            else {
-                return unimpl_1.unimpl(actualParameter.constructor.name);
-            }
+            return unimpl_1.unimpl(actualParameter.constructor.name);
         }
         throw Error();
     }
+    // eslint-disable-next-line class-methods-use-this
     getDepth() {
         return 0;
     }
@@ -75,22 +73,22 @@ class TypeReference {
             unimpl_1.unimpl();
         }
         const constraint = constraints[0];
-        const { constraintSpec, exceptionSpec } = constraint;
+        const { constraintSpec } = constraint;
         if (constraintSpec instanceof contentsConstraint_1.ContentsConstraint) {
-            return unimpl_1.unimpl();
+            unimpl_1.unimpl();
         }
-        else if (constraintSpec instanceof innerTypeConstraints_1.InnerTypeConstraints) {
+        if (constraintSpec instanceof innerTypeConstraints_1.InnerTypeConstraints) {
             this.constraint = constraint;
         }
         else {
-            return unimpl_1.unimpl();
+            unimpl_1.unimpl();
         }
     }
     toSpreadsheet(worksheet, row, depth) {
         row[spreadsheet_2.HEADER_REFERENCE] = this.toString();
         const r = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r, depth);
-        spreadsheet_3.drawBorder(worksheet, r, depth);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {
         if (this.constraint === undefined) {

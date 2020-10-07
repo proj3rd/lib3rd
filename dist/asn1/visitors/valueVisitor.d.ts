@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { Value } from '../classes/value';
-import { ValueContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ValueContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * value: builtinValue
  * ```
  */
-export declare class ValueVisitor extends AbstractParseTreeVisitor<Value> implements ASN_3gppVisitor<Value> {
+export declare class ValueVisitor extends AbstractParseTreeVisitor<Value> implements grammar3rdVisitor<Value> {
     visitChildren(ctx: ValueContext): Value;
     protected defaultResult(): Value;
 }

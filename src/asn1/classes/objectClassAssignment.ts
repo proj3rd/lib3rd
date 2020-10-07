@@ -7,10 +7,11 @@ import {
   getWorkbook,
   headerIndexed,
   uniqueSheetname,
+  drawBorder,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
 import { HEADER_LIST, HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
+
 import { Modules } from './modules';
 import { ObjectClass } from './objectClass';
 
@@ -54,7 +55,7 @@ export class ObjectClassAssignment {
       {
         [headerIndexed(HEADER_NAME_BASE, 0)]: this.name,
       },
-      0
+      0,
     );
     drawBorder(ws, ws.addRow([]), 0, BorderTop);
     return wb;

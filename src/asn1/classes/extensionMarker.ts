@@ -1,9 +1,9 @@
 import { Worksheet } from 'exceljs';
-import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
+import {
+  headerIndexed, setOutlineLevel, IRowInput, drawBorder,
+} from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { Modules } from './modules';
 
 export class ExtensionMarker {
@@ -15,15 +15,12 @@ export class ExtensionMarker {
 
   private extensionMarkerTag: undefined;
 
-  private constructor() {}
-
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): ExtensionMarker {
+  // eslint-disable-next-line no-unused-vars
+  public expand(modules: Modules, parameterMappings: IParameterMapping[]): ExtensionMarker {
     return this;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }
@@ -36,6 +33,7 @@ export class ExtensionMarker {
     drawBorder(worksheet, r, depth);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public toString(): string {
     return '...';
   }

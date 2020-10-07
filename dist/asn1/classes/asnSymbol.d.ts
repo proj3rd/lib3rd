@@ -1,4 +1,3 @@
-export declare type AsnSymbol = Reference;
 export declare class Reference {
     name: string;
     parameterized: boolean;
@@ -6,4 +5,5 @@ export declare class Reference {
     constructor(name: string, parameterized?: boolean);
     toString(): string;
 }
+export declare type AsnSymbol = Reference;
 //# sourceMappingURL=asnSymbol.d.ts.map

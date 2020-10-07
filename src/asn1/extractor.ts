@@ -3,33 +3,8 @@ import { Logger } from '../logger';
 
 const logger = Logger.getLogger('asn1.extractor');
 
-export function extract(text: string): string {
-  let asn1 = '';
-  const { reStart, trimStart, reStop, trimStop } = selectRegExp(text);
-  while (true) {
-    const resultStart = reStart.exec(text);
-    if (resultStart === null) {
-      return normalize(asn1);
-    }
-    const start = resultStart.index + (trimStart ? resultStart[0].length : 0);
-    reStop.lastIndex = start;
-
-    const resultStop = reStop.exec(text);
-    if (resultStop === null) {
-      logger.error(
-        'This is strange. The start token is found but the end token is not found. Extractor stops here and outputs the current state.'
-      );
-      return normalize(asn1);
-    }
-    const end = resultStop.index + (trimStop ? 0 : resultStop[0].length);
-    reStart.lastIndex = end;
-
-    asn1 += text.substring(start, end) + '\n';
-  }
-}
-
 function selectRegExp(
-  text: string
+  text: string,
 ): { reStart: RegExp; trimStart: boolean; reStop: RegExp; trimStop: boolean } {
   const RE_START = /^--\s+?ASN1START.*?$/gm; // -- ASN1START
   const TRIM_START = true;
@@ -56,16 +31,45 @@ function selectRegExp(
     trimStop = TRIM_STOP_RAN3;
   }
   if (
-    reStart === undefined ||
-    trimStart === undefined ||
-    reStop === undefined ||
-    trimStop === undefined
+    reStart === undefined
+    || trimStart === undefined
+    || reStop === undefined
+    || trimStop === undefined
   ) {
     throw Error(
-      'None of tokens identifying ASN.1 definition is found in the given text.'
+      'None of tokens identifying ASN.1 definition is found in the given text.',
     );
   }
   reStart.lastIndex = 0;
   reStop.lastIndex = 0;
-  return { reStart, trimStart, reStop, trimStop };
+  return {
+    reStart, trimStart, reStop, trimStop,
+  };
+}
+
+export function extract(text: string): string {
+  let asn1 = '';
+  const {
+    reStart, trimStart, reStop, trimStop,
+  } = selectRegExp(text);
+  for (;;) {
+    const resultStart = reStart.exec(text);
+    if (resultStart === null) {
+      return normalize(asn1);
+    }
+    const start = resultStart.index + (trimStart ? resultStart[0].length : 0);
+    reStop.lastIndex = start;
+
+    const resultStop = reStop.exec(text);
+    if (resultStop === null) {
+      logger.error(
+        'This is strange. The start token is found but the end token is not found. Extractor stops here and outputs the current state.',
+      );
+      return normalize(asn1);
+    }
+    const end = resultStop.index + (trimStop ? 0 : resultStop[0].length);
+    reStart.lastIndex = end;
+
+    asn1 += `${text.substring(start, end)}\n`;
+  }
 }

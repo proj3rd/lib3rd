@@ -1,6 +1,8 @@
 import { ComponentPresence } from './componentPresence';
 import { ExtensionMarker } from './extensionMarker';
 
+export type TypeConstraintsComponent = ComponentPresence | ExtensionMarker;
+
 /**
  * Currently it supports only MultipleTypeConstraints
  */
@@ -20,5 +22,3 @@ export class InnerTypeConstraints {
     return `WITH COMPONENTS {${componentsString}}`;
   }
 }
-
-export type TypeConstraintsComponent = ComponentPresence | ExtensionMarker;

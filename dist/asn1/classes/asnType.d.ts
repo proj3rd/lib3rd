@@ -14,9 +14,9 @@ import { ParameterizedType } from './parameterizedType';
 import { SequenceOfType } from './sequenceOfType';
 import { SequenceType } from './sequenceType';
 import { TypeReference } from './typeReference';
-export declare type AsnType = BuiltinType | ReferencedType;
 export declare type BuiltinType = OctetStringType | BitStringType | CharacterStringType | ChoiceType | EnumeratedType | IntegerType | SequenceType | SequenceOfType | ObjectIdentifierType | ObjectClassFieldType | BooleanType | NullType;
-export declare type ReferencedType = DefinedType;
 export declare type DefinedType = ExternalTypeReference | TypeReference | ParameterizedType;
+export declare type ReferencedType = DefinedType;
+export declare type AsnType = BuiltinType | ReferencedType;
 export declare type DefinedObjectClass = ObjectClassReference;
 //# sourceMappingURL=asnType.d.ts.map

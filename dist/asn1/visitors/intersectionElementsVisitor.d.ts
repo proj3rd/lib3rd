@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { _IntersectionElements } from '../types';
-import { IntersectionElementsContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { IntersectionElementsContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * intersectionElements: elements (exclusions)?
  * ```
  */
-export declare class IntersectionElementsVisitor extends AbstractParseTreeVisitor<_IntersectionElements> implements ASN_3gppVisitor<_IntersectionElements> {
+export declare class IntersectionElementsVisitor extends AbstractParseTreeVisitor<_IntersectionElements> implements grammar3rdVisitor<_IntersectionElements> {
     visitChildren(ctx: IntersectionElementsContext): _IntersectionElements;
     protected defaultResult(): _IntersectionElements;
 }

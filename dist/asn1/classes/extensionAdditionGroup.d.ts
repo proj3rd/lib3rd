@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { IRowInput } from '../../common/spreadsheet';
+import { IParameterMapping } from '../expander';
 import { ComponentType } from './componentType';
 import { Modules } from './modules';
 export declare class ExtensionAdditionGroup {

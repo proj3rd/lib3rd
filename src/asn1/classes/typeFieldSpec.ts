@@ -1,9 +1,9 @@
 import { Worksheet } from 'exceljs';
-import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
+import {
+  headerIndexed, setOutlineLevel, IRowInput, drawBorder,
+} from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { HEADER_NAME_BASE, HEADER_OPTIONAL } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { Modules } from './modules';
 import { Optionality } from './optionality';
 import { PrimitiveFieldName } from './primitiveFieldName';
@@ -19,22 +19,23 @@ export class TypeFieldSpec {
     this.optionality = optionality;
   }
 
-  public expand(
-    modules: Modules,
-    parameterMappings: IParameterMapping[]
-  ): TypeFieldSpec {
+  // eslint-disable-next-line no-unused-vars
+  public expand(modules: Modules, parameterMappings: IParameterMapping[]): TypeFieldSpec {
     // TODO: Shall `optionality` be expanded?
     return this;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[
       headerIndexed(HEADER_NAME_BASE, depth)
     ] = this.fieldReference.toString();
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_OPTIONAL] = this.optionality
       ? this.optionality.toString()
       : undefined;

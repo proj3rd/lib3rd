@@ -26,9 +26,36 @@ export type Assignment =
   | ParameterizedTypeAssignment
   | ValueAssignment;
 
+export type SimpleTableConstraint = ObjectSet;
+
+export type TableConstraint =
+  | SimpleTableConstraint
+  | ComponentRelationConstraint;
+
+export type _GeneralConstraint =
+  | ContentsConstraint
+  | InnerTypeConstraints
+  | TableConstraint;
+
 export type _ConstraintSpec = _GeneralConstraint | SubtypeConstraint;
 
 export type DefinedObjectSet = ExternalObjectSetReference | ObjectSetReference;
+
+export type SingleValue = Value;
+
+export type TypeConstraint = AsnType;
+
+export type _SubtypeElements =
+  | SizeConstraint
+  | SingleValue
+  | ValueRange
+  | TypeConstraint;
+
+// X.681 clause 12.10
+export type _ObjectSetElements = DefinedObjectSet;
+// Object
+// ObjectSetFromObjects
+// ParameterizedObjectSet
 
 // X.680 clause 50.5
 export type _Elements =
@@ -42,19 +69,14 @@ export type _ElementSetSpec = Unions;
 
 export type _ElementSetSpecs = Array<_ElementSetSpec | ExtensionMarker>;
 
-export type _GeneralConstraint =
-  | ContentsConstraint
-  | InnerTypeConstraints
-  | TableConstraint;
-
 export type Governor = AsnType | ObjectClassReference;
-
-export type INamedBit = INamedNumber;
 
 export interface INamedNumber {
   name: string;
   valueLiteral: string;
 }
+
+export type INamedBit = INamedNumber;
 
 export type _IntersectionElements = _Elements;
 
@@ -62,31 +84,9 @@ export type _Intersections = _IntersectionElements[];
 
 export type ObjectIdComponents = BuiltinType | string;
 
-// X.681 clause 12.10
-export type _ObjectSetElements = DefinedObjectSet;
-// Object
-// ObjectSetFromObjects
-// ParameterizedObjectSet
-
 export type ParamGovernor = Governor | string;
 
 export interface ITypeAndValue {
   asnType: AsnType;
   value: Value;
 }
-
-export type SimpleTableConstraint = ObjectSet;
-
-export type _SubtypeElements =
-  | SizeConstraint
-  | SingleValue
-  | ValueRange
-  | TypeConstraint;
-
-export type SingleValue = Value;
-
-export type TableConstraint =
-  | SimpleTableConstraint
-  | ComponentRelationConstraint;
-
-export type TypeConstraint = AsnType;

@@ -43,7 +43,7 @@ If you have some comments/improvements, send me an e-mail.
 */
 
 
-grammar ASN_3gpp;
+grammar grammar3rd;
 
 modules: moduleDefinition+;
 

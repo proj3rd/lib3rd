@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const nullType_1 = require("../classes/nullType");
 const objectClassAssignment_1 = require("../classes/objectClassAssignment");
@@ -43,7 +44,7 @@ class AssignmentVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisi
                 const { parameters, asnType } = parameterizedTypeAssignmentElements;
                 return new parameterizedTypeAssignment_1.ParameterizedTypeAssignment(name, parameters, asnType);
             }
-            else if (objectSetAssignmentElements) {
+            if (objectSetAssignmentElements) {
                 const { definedObjectClass, objectSet } = objectSetAssignmentElements;
                 return new objectSetAssignment_1.ObjectSetAssignment(name, definedObjectClass, objectSet);
             }

@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { FieldSpec } from '../classes/objectClass';
-import { FieldSpecContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { FieldSpecContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
@@ -13,7 +13,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * )
  * ```
  */
-export declare class FieldSpecVisitor extends AbstractParseTreeVisitor<FieldSpec> implements ASN_3gppVisitor<FieldSpec> {
+export declare class FieldSpecVisitor extends AbstractParseTreeVisitor<FieldSpec> implements grammar3rdVisitor<FieldSpec> {
     visitChildren(ctx: FieldSpecContext): FieldSpec;
     protected defaultResult(): FieldSpec;
 }

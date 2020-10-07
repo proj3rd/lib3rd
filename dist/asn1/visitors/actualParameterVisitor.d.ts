@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ActualParameter } from '../classes/parameterizedType';
-import { ActualParameterContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ActualParameterContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * actualParameter: asnType | value
  * ```
  */
-export declare class ActualParameterVisitor extends AbstractParseTreeVisitor<ActualParameter> implements ASN_3gppVisitor<ActualParameter> {
+export declare class ActualParameterVisitor extends AbstractParseTreeVisitor<ActualParameter> implements grammar3rdVisitor<ActualParameter> {
     visitChildren(ctx: ActualParameterContext): ActualParameter;
     protected defaultResult(): ActualParameter;
 }

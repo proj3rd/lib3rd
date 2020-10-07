@@ -2,9 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const diff_1 = require("./diff");
-// tslint:disable-next-line: only-arrow-functions
 describe('Diff ASN.1 [diff_all]', function () {
-    // tslint:disable-next-line: only-arrow-functions
     it('Render diff result [diff_render]', function () {
         const diffFile = fs_1.readFileSync('resources/diff_36331-f90.asn1_36331-g00.asn1.json', 'utf8');
         const diffResult = JSON.parse(diffFile);

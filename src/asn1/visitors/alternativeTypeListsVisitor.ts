@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { RootChoiceComponents } from '../classes/choiceType';
 import {
@@ -6,8 +7,8 @@ import {
   ExtensionAndExceptionContext,
   OptionalExtensionMarkerContext,
   RootAlternativeTypeListContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ExtensionAdditionAlternativesVisitor } from './extensionAdditionAlternativesVisitor';
 import { ExtensionAndExceptionVisitor } from './extensionAndExceptionVisitor';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarkerVisitor';
@@ -22,30 +23,30 @@ import { RootAlternativeTypeListVisitor } from './rootAlternativeTypeList';
  */
 export class AlternativeTypeListsVisitor
   extends AbstractParseTreeVisitor<RootChoiceComponents[]>
-  implements ASN_3gppVisitor<RootChoiceComponents[]> {
+  implements grammar3rdVisitor<RootChoiceComponents[]> {
   public visitChildren(
-    ctx: AlternativeTypeListsContext
+    ctx: AlternativeTypeListsContext,
   ): RootChoiceComponents[] {
     const rootComponents: RootChoiceComponents[] = [];
-    for (let i = 0; i < ctx.childCount; i++) {
+    for (let i = 0; i < ctx.childCount; i += 1) {
       const childCtx = ctx.getChild(i);
       if (childCtx instanceof RootAlternativeTypeListContext) {
         rootComponents.push(
-          ...childCtx.accept(new RootAlternativeTypeListVisitor())
+          ...childCtx.accept(new RootAlternativeTypeListVisitor()),
         );
       } else if (childCtx instanceof ExtensionAndExceptionContext) {
         const extensionAndException = childCtx.accept(
-          new ExtensionAndExceptionVisitor()
+          new ExtensionAndExceptionVisitor(),
         );
         rootComponents.push(extensionAndException);
       } else if (childCtx instanceof ExtensionAdditionAlternativesContext) {
         const extensionAdditionAlternatives = childCtx.accept(
-          new ExtensionAdditionAlternativesVisitor()
+          new ExtensionAdditionAlternativesVisitor(),
         );
         rootComponents.push(...extensionAdditionAlternatives);
       } else if (childCtx instanceof OptionalExtensionMarkerContext) {
         const optionalExtensionMarker = childCtx.accept(
-          new OptionalExtensionMarkerVisitor()
+          new OptionalExtensionMarkerVisitor(),
         );
         if (optionalExtensionMarker !== undefined) {
           rootComponents.push(optionalExtensionMarker);

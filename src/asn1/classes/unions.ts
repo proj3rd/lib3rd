@@ -1,11 +1,11 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl, unreach } from 'unimpl';
-import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
+import {
+  headerIndexed, setOutlineLevel, IRowInput, drawBorder,
+} from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { _Intersections } from '../types';
 import { BooleanValue } from './booleanValue';
 import { ExternalObjectSetReference } from './externalObjectSetReference';
@@ -15,7 +15,7 @@ import { ObjectSet } from './objectSet';
 import { ObjectSetReference } from './objectSetReference';
 import { SizeConstraint } from './sizeConstraint';
 import { ValueRange } from './valueRange';
-import { ValueReference } from './ValueReference';
+import { ValueReference } from './valueReference';
 
 export class Unions {
   public intersectionsList: _Intersections[];
@@ -33,27 +33,25 @@ export class Unions {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): Unions {
     this.intersectionsList = this.intersectionsList.map(
-      (intersections, index) => {
-        return intersections.map((elements, indexElements) => {
-          if (typeof elements === 'string') {
-            return elements;
-          }
-          const expandedType = cloneDeep(elements).expand(
-            modules,
-            parameterMappings
-          );
-          if (isEqual(expandedType, elements)) {
-            return elements;
-          }
-          if (expandedType instanceof ObjectSet) {
-            return unimpl();
-          }
-          return expandedType;
-        });
-      }
+      (intersections) => intersections.map((elements) => {
+        if (typeof elements === 'string') {
+          return elements;
+        }
+        const expandedType = cloneDeep(elements).expand(
+          modules,
+          parameterMappings,
+        );
+        if (isEqual(expandedType, elements)) {
+          return elements;
+        }
+        if (expandedType instanceof ObjectSet) {
+          return unimpl();
+        }
+        return expandedType;
+      }),
     );
     return this;
   }

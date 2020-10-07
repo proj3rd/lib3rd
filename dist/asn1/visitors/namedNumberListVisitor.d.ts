@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { NamedNumberListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { NamedNumberListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { INamedNumber } from '../types';
 /**
  * # Grammar
@@ -8,7 +8,7 @@ import { INamedNumber } from '../types';
  * namedNumberList: (namedNumber) (COMMA namedNumber)*
  * ```
  */
-export declare class NamedNumberListVisitor extends AbstractParseTreeVisitor<INamedNumber[]> implements ASN_3gppVisitor<INamedNumber[]> {
+export declare class NamedNumberListVisitor extends AbstractParseTreeVisitor<INamedNumber[]> implements grammar3rdVisitor<INamedNumber[]> {
     visitChildren(ctx: NamedNumberListContext): INamedNumber[];
     protected defaultResult(): INamedNumber[];
 }

@@ -48,7 +48,7 @@ function normalize(asn1) {
 }
 exports.normalize = normalize;
 if (require.main === module) {
-    const { argv } = yargs_1.default
+    yargs_1.default
         .command({
         command: 'diff <file1> <file2>',
         handler: (args) => {
@@ -105,26 +105,24 @@ if (require.main === module) {
     })
         .command({
         command: 'format <file> <name>',
-        builder: (args) => {
-            return args.options({
-                f: {
-                    alias: 'format',
-                    choices: ['text', 'xlsx'],
-                    default: 'text',
-                },
-                e: {
-                    alias: 'expand',
-                    default: false,
-                    type: 'boolean',
-                },
-            });
-        },
+        builder: (args) => args.options({
+            f: {
+                alias: 'format',
+                choices: ['text', 'xlsx'],
+                default: 'text',
+            },
+            e: {
+                alias: 'expand',
+                default: false,
+                type: 'boolean',
+            },
+        }),
         handler: (args) => {
-            const { file, name, format, expand } = args;
-            if (typeof file !== 'string' ||
-                typeof name !== 'string' ||
-                typeof format !== 'string' ||
-                typeof expand !== 'boolean') {
+            const { file, name, format, expand, } = args;
+            if (typeof file !== 'string'
+                || typeof name !== 'string'
+                || typeof format !== 'string'
+                || typeof expand !== 'boolean') {
                 throw Error();
             }
             const text = fs_1.readFileSync(file, 'utf8');
@@ -133,9 +131,9 @@ if (require.main === module) {
             if (assignment === undefined) {
                 throw Error(`${name} not found in ${file}`);
             }
-            if (assignment instanceof valueAssignment_1.ValueAssignment &&
-                format === 'xlsx' &&
-                expand) {
+            if (assignment instanceof valueAssignment_1.ValueAssignment
+                && format === 'xlsx'
+                && expand) {
                 throw Error();
             }
             const assignmentNew = expand
@@ -162,9 +160,8 @@ if (require.main === module) {
             if (typeof file !== 'string') {
                 throw Error();
             }
-            const { name: spec } = path_1.parse(file);
             const text = fs_1.readFileSync(file, 'utf8');
-            const parsed = parser_1.parse(normalize(text));
+            parser_1.parse(normalize(text));
         },
     });
 }

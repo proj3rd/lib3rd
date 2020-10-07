@@ -11,9 +11,7 @@ function getConstraintSeparator(constraints, index) {
     if (!prevIsExtensionMarker && !currIsExtensionMarker) {
         return '|';
     }
-    else {
-        return ',';
-    }
+    return ',';
 }
 /**
  * Use case: `SIZE (...)` and `INTEGER (...)`

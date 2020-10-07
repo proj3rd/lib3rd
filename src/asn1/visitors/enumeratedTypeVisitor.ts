@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { EnumeratedType } from '../classes/enumeratedType';
-import { EnumeratedTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { EnumeratedTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { EnumerationsVisitor } from './enumerationsVisitor';
 
 /**
@@ -12,7 +13,7 @@ import { EnumerationsVisitor } from './enumerationsVisitor';
  */
 export class EnumeratedTypeVisitor
   extends AbstractParseTreeVisitor<EnumeratedType>
-  implements ASN_3gppVisitor<EnumeratedType> {
+  implements grammar3rdVisitor<EnumeratedType> {
   public visitChildren(ctx: EnumeratedTypeContext): EnumeratedType {
     const enumerationsCtx = ctx.enumerations();
     const enumerations = enumerationsCtx.accept(new EnumerationsVisitor());

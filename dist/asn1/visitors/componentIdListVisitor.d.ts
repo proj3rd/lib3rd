@@ -1,13 +1,13 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { ComponentIdListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ComponentIdListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * componentIdList: IDENTIFIER (DOT IDENTIFIER)*
  * ```
  */
-export declare class ComponentIdListVisitor extends AbstractParseTreeVisitor<string[]> implements ASN_3gppVisitor<string[]> {
+export declare class ComponentIdListVisitor extends AbstractParseTreeVisitor<string[]> implements grammar3rdVisitor<string[]> {
     visitChildren(ctx: ComponentIdListContext): string[];
     protected defaultResult(): string[];
 }

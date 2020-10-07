@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const componentType_1 = require("../classes/componentType");
-const ASN_3gppParser_1 = require("../grammar/ASN_3gppParser");
+const grammar3rdParser_1 = require("../grammar/grammar3rdParser");
 const extensionAdditionVisitor_1 = require("./extensionAdditionVisitor");
 const tagVisitor_1 = require("./tagVisitor");
 /**
@@ -15,12 +16,12 @@ const tagVisitor_1 = require("./tagVisitor");
 class ExtensionAdditionListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
         const extensionAdditionList = [];
-        for (let i = 0; i < ctx.childCount; i++) {
+        for (let i = 0; i < ctx.childCount; i += 1) {
             const childCtx = ctx.getChild(i);
-            if (childCtx instanceof ASN_3gppParser_1.ExtensionAdditionContext) {
+            if (childCtx instanceof grammar3rdParser_1.ExtensionAdditionContext) {
                 extensionAdditionList.push(childCtx.accept(new extensionAdditionVisitor_1.ExtensionAdditionVisitor()));
             }
-            else if (childCtx instanceof ASN_3gppParser_1.TagContext) {
+            else if (childCtx instanceof grammar3rdParser_1.TagContext) {
                 const tag = childCtx.accept(new tagVisitor_1.TagVisitor());
                 const { length } = extensionAdditionList;
                 const lastComponent = extensionAdditionList[length - 1];

@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { RootSequenceComponents } from '../classes/sequenceType';
-import { RootComponentTypeListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { RootComponentTypeListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ComponentTypeListVisitor } from './componentTypeListVisitor';
 
 /**
@@ -12,9 +13,9 @@ import { ComponentTypeListVisitor } from './componentTypeListVisitor';
  */
 export class RootComponentTypeListVisitor
   extends AbstractParseTreeVisitor<RootSequenceComponents[]>
-  implements ASN_3gppVisitor<RootSequenceComponents[]> {
+  implements grammar3rdVisitor<RootSequenceComponents[]> {
   public visitChildren(
-    ctx: RootComponentTypeListContext
+    ctx: RootComponentTypeListContext,
   ): RootSequenceComponents[] {
     const componentTypeListCtx = ctx.componentTypeList();
     return componentTypeListCtx.accept(new ComponentTypeListVisitor());

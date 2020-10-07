@@ -1,18 +1,18 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep } from 'lodash';
 import { unimpl } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { HEADER_TYPE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { Modules } from './modules';
 import { Syntax } from './syntax';
 import { TypeFieldSpec } from './typeFieldSpec';
 
-export type ObjectClass = ObjectClassDefinition;
+export type FieldSpec = TypeFieldSpec | FixedTypeValueFieldSpec; // FixedTypeValue[Set]FieldSpec
+// | VariableTypeFieldSpec // VariableTypeValue[Set]FieldSpec
+// | ObjectFieldSpec // Object[Set]FieldSpec
 
 /**
  * X.681 clause 9.3
@@ -36,28 +36,26 @@ export class ObjectClassDefinition {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): ObjectClassDefinition {
     if (parameterMappings.length) {
       return unimpl();
     }
-    this.fieldSpecs = this.fieldSpecs.map((fieldSpec) => {
-      return cloneDeep(fieldSpec).expand(modules, parameterMappings);
-    });
+    this.fieldSpecs = this.fieldSpecs
+      .map((fieldSpec) => cloneDeep(fieldSpec).expand(modules, parameterMappings));
     return this;
   }
 
   public getDepth(): number {
-    const depthFieldSpecs = this.fieldSpecs.reduce((prev, curr) => {
-      return Math.max(prev, curr.getDepth() + 1);
-    }, 0);
-    const depthSyntaxList = this.syntaxList.reduce((prev, curr) => {
-      return Math.max(prev, curr.getDepth() + 1);
-    }, 0);
+    const depthFieldSpecs = this.fieldSpecs
+      .reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
+    const depthSyntaxList = this.syntaxList
+      .reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
     return Math.max(depthFieldSpecs, depthSyntaxList);
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = 'CLASS';
     const r1 = worksheet.addRow(row);
     setOutlineLevel(r1, depth);
@@ -81,14 +79,14 @@ export class ObjectClassDefinition {
     const arrToString: string[] = [
       'CLASS {',
       indent(
-        this.fieldSpecs.map((fieldSpec) => fieldSpec.toString()).join(',\n')
+        this.fieldSpecs.map((fieldSpec) => fieldSpec.toString()).join(',\n'),
       ),
       '}',
     ];
     if (this.syntaxList.length > 0) {
       arrToString.push('WITH SYNTAX {');
       arrToString.push(
-        indent(this.syntaxList.map((syntax) => syntax.toString()).join('\n'))
+        indent(this.syntaxList.map((syntax) => syntax.toString()).join('\n')),
       );
       arrToString.push('}');
     }
@@ -96,6 +94,4 @@ export class ObjectClassDefinition {
   }
 }
 
-export type FieldSpec = TypeFieldSpec | FixedTypeValueFieldSpec; // FixedTypeValue[Set]FieldSpec
-// | VariableTypeFieldSpec // VariableTypeValue[Set]FieldSpec
-// | ObjectFieldSpec // Object[Set]FieldSpec
+export type ObjectClass = ObjectClassDefinition;

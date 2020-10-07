@@ -1,11 +1,10 @@
 import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
-import { SizeConstraint } from '../classes/sizeConstraint';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { SizeConstraint } from './sizeConstraint';
 import { IParameterMapping } from '../expander';
 import { HEADER_TYPE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
+
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -21,7 +20,7 @@ export class OctetStringType {
 
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): OctetStringType {
     if (parameterMappings.length) {
       return unimpl(this, parameterMappings);
@@ -29,6 +28,7 @@ export class OctetStringType {
     return this;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }
@@ -38,32 +38,32 @@ export class OctetStringType {
       return;
     }
     if (constraints.length > 1) {
-      return unimpl();
+      unimpl();
     }
     const constraint = constraints[0];
-    const { constraintSpec, exceptionSpec } = constraint;
+    const { constraintSpec } = constraint;
     if (constraintSpec instanceof ContentsConstraint) {
       this.constraint = constraint;
     } else if (constraintSpec instanceof InnerTypeConstraints) {
-      return unimpl();
+      unimpl();
     } else if (constraintSpec instanceof ObjectSet) {
-      return unimpl();
+      unimpl();
     } else if (constraintSpec instanceof ComponentRelationConstraint) {
-      return unimpl();
+      unimpl();
     } else {
       if (constraintSpec.elementSetSpecList.length !== 1) {
-        return unimpl();
+        unimpl();
       }
       const elementSetSpec = constraintSpec.elementSetSpecList[0];
       if (elementSetSpec instanceof ExtensionMarker) {
         throw Error('Not implemented');
       }
       if (elementSetSpec.intersectionsList.length > 1) {
-        return unimpl();
+        unimpl();
       }
       const intersections = elementSetSpec.intersectionsList[0];
       if (intersections.length !== 1) {
-        return unimpl();
+        unimpl();
       }
       const intersectionElements = intersections[0];
       if (intersectionElements instanceof SizeConstraint) {
@@ -75,6 +75,7 @@ export class OctetStringType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = this.toString();
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);

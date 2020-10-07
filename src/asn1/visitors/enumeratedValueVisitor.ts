@@ -1,6 +1,7 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { EnumeratedValueContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { EnumeratedValueContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -9,7 +10,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * ```
  */
 export class EnumeratedValueVisitor extends AbstractParseTreeVisitor<string>
-  implements ASN_3gppVisitor<string> {
+  implements grammar3rdVisitor<string> {
   public visitChildren(ctx: EnumeratedValueContext): string {
     return ctx.text;
   }

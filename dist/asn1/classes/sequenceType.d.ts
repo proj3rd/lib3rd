@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { IRowInput } from '../../common/spreadsheet';
+import { IParameterMapping } from '../expander';
 import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
@@ -14,7 +14,8 @@ import { ObjectSet } from './objectSet';
  * ',' or '' (empty) based on its position in a sequence by using
  * `toStringWithComma()`.
  */
-export declare const _COMMA = "_COMMA_";
+export declare const COMMA_PLACEHOLDER = "_COMMA_";
+export declare type RootSequenceComponents = ComponentType | ExtensionMarker | ExtensionAdditionGroup;
 export declare function toStringWithComma(component: RootSequenceComponents, shouldInsert: boolean): string;
 export declare class SequenceType {
     components: RootSequenceComponents[];
@@ -34,7 +35,6 @@ export declare class SequenceType {
     private expandFallback;
     private parameterToInstantiate;
 }
-export declare type RootSequenceComponents = ComponentType | ExtensionMarker | ExtensionAdditionGroup;
 export declare type ExtensionAddition = ComponentType | ExtensionAdditionGroup;
 export declare type Tag = string;
 //# sourceMappingURL=sequenceType.d.ts.map

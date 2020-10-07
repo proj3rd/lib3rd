@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const modules_1 = require("../classes/modules");
 const moduleDefinitionVisitor_1 = require("./moduleDefinitionVisitor");

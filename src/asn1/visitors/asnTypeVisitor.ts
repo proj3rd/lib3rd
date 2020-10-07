@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { AsnType } from '../classes/asnType';
 import { NullType } from '../classes/nullType';
@@ -5,8 +6,8 @@ import {
   AsnTypeContext,
   BuiltinTypeContext,
   ReferencedTypeContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { BuiltinTypeVisitor } from './builtinTypeVisitor';
 import { ConstraintVisitor } from './constraintVisitor';
 import { ReferencedTypeVisitor } from './referencedTypeVisitor';
@@ -18,7 +19,7 @@ import { ReferencedTypeVisitor } from './referencedTypeVisitor';
  * ```
  */
 export class AsnTypeVisitor extends AbstractParseTreeVisitor<AsnType>
-  implements ASN_3gppVisitor<AsnType> {
+  implements grammar3rdVisitor<AsnType> {
   public visitChildren(ctx: AsnTypeContext): AsnType {
     let asnType: AsnType | undefined;
     const firstCtx = ctx.getChild(0);
@@ -33,9 +34,8 @@ export class AsnTypeVisitor extends AbstractParseTreeVisitor<AsnType>
       throw Error();
     }
     const constraintCtxes = ctx.constraint();
-    const constraints = constraintCtxes.map((constraintCtx) =>
-      constraintCtx.accept(new ConstraintVisitor())
-    );
+    const constraints = constraintCtxes
+      .map((constraintCtx) => constraintCtx.accept(new ConstraintVisitor()));
     asnType.setConstraints(constraints);
     return asnType;
   }

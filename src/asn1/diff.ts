@@ -1,6 +1,6 @@
 import { createTwoFilesPatch } from 'diff';
 import { html, parse } from 'diff2html';
-import { render, renderFile } from 'pug';
+import { render } from 'pug';
 import { unreach } from 'unimpl';
 import { Modules } from './classes/modules';
 import { Assignment } from './types';
@@ -15,12 +15,6 @@ interface IAssignmentFlattenedPair {
   assignmentFlattened2?: IAssignmentFlattened;
 }
 
-export interface IDiffResult {
-  specOld: string;
-  specNew: string;
-  patchList: IPatch[];
-}
-
 interface IPatch {
   moduleName1: string;
   assignmentName1: string;
@@ -29,6 +23,12 @@ interface IPatch {
   change: 'added' | 'modified' | 'removed';
   patch: string;
   patchHtml?: string;
+}
+
+export interface IDiffResult {
+  specOld: string;
+  specNew: string;
+  patchList: IPatch[];
 }
 
 function flatten(modules: Modules): IAssignmentFlattened[] {
@@ -44,7 +44,7 @@ function flatten(modules: Modules): IAssignmentFlattened[] {
 
 function pair(
   assignmentFlattenedList1: IAssignmentFlattened[],
-  assignmentFlattenedList2: IAssignmentFlattened[]
+  assignmentFlattenedList2: IAssignmentFlattened[],
 ): IAssignmentFlattenedPair[] {
   const assignmentFlattenedPairList: IAssignmentFlattenedPair[] = [];
   assignmentFlattenedList1.forEach((assignmentFlattened1) => {
@@ -79,7 +79,7 @@ export function diff(modules1: Modules, modules2: Modules): IPatch[] {
   const assignmentFlattenedList2 = flatten(modules2);
   const assignmentFlattenedPairList = pair(
     assignmentFlattenedList1,
-    assignmentFlattenedList2
+    assignmentFlattenedList2,
   );
   const patchList: IPatch[] = [];
   assignmentFlattenedPairList.forEach((assignmentFlattenedPair) => {
@@ -88,8 +88,8 @@ export function diff(modules1: Modules, modules2: Modules): IPatch[] {
       assignmentFlattened2,
     } = assignmentFlattenedPair;
     if (
-      assignmentFlattened1 === undefined &&
-      assignmentFlattened2 === undefined
+      assignmentFlattened1 === undefined
+      && assignmentFlattened2 === undefined
     ) {
       unreach();
     }
@@ -117,19 +117,21 @@ export function diff(modules1: Modules, modules2: Modules): IPatch[] {
       : '';
 
     if (
-      moduleName1 === moduleName2 &&
-      assignmentName1 === assignmentName2 &&
-      formatted1 === formatted2
+      moduleName1 === moduleName2
+      && assignmentName1 === assignmentName2
+      && formatted1 === formatted2
     ) {
       return;
     }
 
-    const change =
-      formatted1 === '' && formatted2 !== ''
-        ? 'added'
-        : formatted1 !== '' && formatted2 === ''
-        ? 'removed'
-        : 'modified';
+    let change: 'added' | 'removed' | 'modified';
+    if (formatted1 === '' && formatted2 !== '') {
+      change = 'added';
+    } else if (formatted1 !== '' && formatted2 === '') {
+      change = 'removed';
+    } else {
+      change = 'modified';
+    }
 
     const patch = createTwoFilesPatch(
       filename1,
@@ -140,7 +142,7 @@ export function diff(modules1: Modules, modules2: Modules): IPatch[] {
       '',
       {
         context: Number.MAX_SAFE_INTEGER,
-      }
+      },
     );
     patchList.push({
       moduleName1,
@@ -157,6 +159,7 @@ export function diff(modules1: Modules, modules2: Modules): IPatch[] {
 export function renderDiff(diffResult: IDiffResult, template: string): string {
   const { patchList } = diffResult;
   patchList.forEach((patch) => {
+    // eslint-disable-next-line no-param-reassign
     patch.patchHtml = html(parse(patch.patch), {
       drawFileList: false,
       outputFormat: 'line-by-line', // side-by-side has layout issue https://github.com/rtfpessoa/diff2html/issues/155

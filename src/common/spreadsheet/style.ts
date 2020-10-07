@@ -10,7 +10,7 @@ export const FontTitle: Partial<Font> = merge(
   {
     size: 22,
   },
-  FontBold
+  FontBold,
 );
 
 export const BorderBottom: Partial<Borders> = {
@@ -34,5 +34,5 @@ export const BorderLeftTop: Partial<Borders> = merge({}, BorderLeft, BorderTop);
 export const BorderRightTop: Partial<Borders> = merge(
   {},
   BorderRight,
-  BorderTop
+  BorderTop,
 );

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { Syntax } from '../classes/syntax';
@@ -5,10 +6,12 @@ import {
   OptionalGroupContext,
   RequiredTokenContext,
   TokenOrGroupSpecContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { OptionalGroupVisitor } from './optionalGroupVisitor';
 import { _RequiredToken, RequiredTokenVisitor } from './requiredTokenVisitor';
+
+export type _TokenOrSyntax = _RequiredToken | Syntax;
 
 /**
  * # Grammar
@@ -18,12 +21,12 @@ import { _RequiredToken, RequiredTokenVisitor } from './requiredTokenVisitor';
  */
 export class TokenOrGroupSpecVisitor
   extends AbstractParseTreeVisitor<_TokenOrSyntax>
-  implements ASN_3gppVisitor<_TokenOrSyntax> {
+  implements grammar3rdVisitor<_TokenOrSyntax> {
   public visitChildren(ctx: TokenOrGroupSpecContext): _TokenOrSyntax {
     const childCtx = ctx.getChild(0);
     if (childCtx instanceof RequiredTokenContext) {
       return childCtx.accept(new RequiredTokenVisitor());
-    } else if (childCtx instanceof OptionalGroupContext) {
+    } if (childCtx instanceof OptionalGroupContext) {
       return childCtx.accept(new OptionalGroupVisitor());
     }
     throw Error();
@@ -33,5 +36,3 @@ export class TokenOrGroupSpecVisitor
     return unimpl();
   }
 }
-
-export type _TokenOrSyntax = _RequiredToken | Syntax;

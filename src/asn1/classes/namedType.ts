@@ -1,10 +1,10 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
-import { headerIndexed } from '../../common/spreadsheet';
+import { headerIndexed, IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
+
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
@@ -20,7 +20,7 @@ export class NamedType {
     this.asnType = asnType;
     if (asnType instanceof ObjectSet) {
       return unimpl(
-        'ObjectSet cannot be used in instantiating but expanding NamedType'
+        'ObjectSet cannot be used in instantiating but expanding NamedType',
       );
     }
   }
@@ -32,11 +32,11 @@ export class NamedType {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): NamedType {
     const expandedType = cloneDeep(this.asnType).expand(
       modules,
-      parameterMappings
+      parameterMappings,
     );
     if (!isEqual(expandedType, this.asnType)) {
       this.asnType = expandedType;
@@ -54,7 +54,7 @@ export class NamedType {
       {
         [headerIndexed(HEADER_NAME_BASE, depth)]: this.name,
       },
-      depth
+      depth,
     );
   }
 

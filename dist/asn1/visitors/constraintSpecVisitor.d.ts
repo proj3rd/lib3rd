@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { _ConstraintSpec } from '../types';
-import { ConstraintSpecContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ConstraintSpecContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * constraintSpec: generalConstraint | subtypeConstraint
  * ```
  */
-export declare class ConstraintSpecVisitor extends AbstractParseTreeVisitor<_ConstraintSpec> implements ASN_3gppVisitor<_ConstraintSpec> {
+export declare class ConstraintSpecVisitor extends AbstractParseTreeVisitor<_ConstraintSpec> implements grammar3rdVisitor<_ConstraintSpec> {
     visitChildren(ctx: ConstraintSpecContext): _ConstraintSpec;
     protected defaultResult(): _ConstraintSpec;
 }

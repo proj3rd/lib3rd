@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { OctetStringType } from '../classes/octetStringType';
-import { OctetStringTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { OctetStringTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -11,7 +12,8 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  */
 export class OctetStringTypeVisitor
   extends AbstractParseTreeVisitor<OctetStringType>
-  implements ASN_3gppVisitor<OctetStringType> {
+  implements grammar3rdVisitor<OctetStringType> {
+  // eslint-disable-next-line no-unused-vars
   public visitChildren(ctx: OctetStringTypeContext): OctetStringType {
     return new OctetStringType();
   }

@@ -1,13 +1,11 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
+import { todo, unimpl } from 'unimpl';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { Logger } from '../../logger';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { HEADER_TYPE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
@@ -27,23 +25,27 @@ const logger = Logger.getLogger('asn1.class.SequenceType');
  * ',' or '' (empty) based on its position in a sequence by using
  * `toStringWithComma()`.
  */
-export const _COMMA = '_COMMA_';
+export const COMMA_PLACEHOLDER = '_COMMA_';
+
+export type RootSequenceComponents =
+  | ComponentType
+  | ExtensionMarker
+  | ExtensionAdditionGroup;
 
 export function toStringWithComma(
   component: RootSequenceComponents,
-  shouldInsert: boolean
+  shouldInsert: boolean,
 ): string {
   const componentString = component.toString();
   const charToInsert = shouldInsert ? ',' : '';
   if (component instanceof ComponentType) {
-    return componentString.replace(_COMMA, charToInsert);
-  } else if (component instanceof ExtensionAdditionGroup) {
+    return componentString.replace(COMMA_PLACEHOLDER, charToInsert);
+  } if (component instanceof ExtensionAdditionGroup) {
     return `${componentString}${charToInsert}`;
-  } else if (component instanceof ExtensionMarker) {
+  } if (component instanceof ExtensionMarker) {
     return `${componentString}${charToInsert}`;
-  } else {
-    return unimpl();
   }
+  return unimpl();
 }
 
 export class SequenceType {
@@ -62,7 +64,7 @@ export class SequenceType {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): SequenceType | ObjectSet {
     logger.debug('expand()');
     const paramToInstantiate = this.parameterToInstantiate(parameterMappings);
@@ -84,17 +86,15 @@ export class SequenceType {
         return objectSet;
       }
       return expandedObjectSet;
-    } else {
-      return this.expandFallback(modules, parameterMappings);
     }
+    return this.expandFallback(modules, parameterMappings);
   }
 
   public getDepth(): number {
-    return this.components.reduce((prev, curr) => {
-      return Math.max(prev, curr.getDepth() + 1);
-    }, 0);
+    return this.components.reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length > 0) {
       unimpl();
@@ -102,6 +102,7 @@ export class SequenceType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = 'SEQUENCE';
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);
@@ -117,12 +118,10 @@ export class SequenceType {
     }
     const arrToString = ['SEQUENCE {'];
     const componentsString = this.components
-      .map((component, index) => {
-        return toStringWithComma(
-          component,
-          index !== this.components.length - 1
-        );
-      })
+      .map((component, index) => toStringWithComma(
+        component,
+        index !== this.components.length - 1,
+      ))
       .join('\n');
     arrToString.push(indent(componentsString));
     arrToString.push('}');
@@ -131,12 +130,12 @@ export class SequenceType {
 
   private expandFallback(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): SequenceType {
     this.components = this.components.map((component) => {
       const expandedComponent = cloneDeep(component).expand(
         modules,
-        parameterMappings
+        parameterMappings,
       );
       if (isEqual(expandedComponent, component)) {
         return component;
@@ -147,7 +146,7 @@ export class SequenceType {
   }
 
   private parameterToInstantiate(
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): IParameterMapping | undefined {
     return parameterMappings.find((paramMap) => {
       const { parameter } = paramMap;
@@ -167,17 +166,12 @@ export class SequenceType {
             return true;
           }
         }
-        // TODO: ExtensionAdditionGroup
+        return todo('ExtensionAdditionGroup');
       });
       return component !== undefined;
     });
   }
 }
-
-export type RootSequenceComponents =
-  | ComponentType
-  | ExtensionMarker
-  | ExtensionAdditionGroup;
 
 export type ExtensionAddition = ComponentType | ExtensionAdditionGroup;
 

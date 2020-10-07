@@ -21,7 +21,7 @@ export class SequenceOfType {
 
   constructor(
     baseType: AsnType | NamedType,
-    constraint: Constraint | undefined
+    constraint: Constraint | undefined,
   ) {
     this.baseType = baseType;
     this.constraint = constraint;
@@ -34,11 +34,11 @@ export class SequenceOfType {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): SequenceOfType {
     const expandedBaseType = cloneDeep(this.baseType).expand(
       modules,
-      parameterMappings
+      parameterMappings,
     );
     if (!isEqual(expandedBaseType, this.baseType)) {
       this.baseType = expandedBaseType;
@@ -46,7 +46,7 @@ export class SequenceOfType {
     if (this.constraint !== undefined) {
       const expandedConstraint = cloneDeep(this.constraint).expand(
         modules,
-        parameterMappings
+        parameterMappings,
       );
       if (!isEqual(expandedConstraint, this.constraint)) {
         this.constraint = expandedConstraint;
@@ -59,6 +59,7 @@ export class SequenceOfType {
     return this.baseType.getDepth();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length > 0) {
       unimpl();

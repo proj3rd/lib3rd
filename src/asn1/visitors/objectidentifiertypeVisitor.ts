@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ObjectIdentifierType } from '../classes/objectIdentifierType';
-import { ObjectidentifiertypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ObjectidentifiertypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -12,7 +13,8 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  */
 export class ObjectidentifiertypeVisitor
   extends AbstractParseTreeVisitor<ObjectIdentifierType>
-  implements ASN_3gppVisitor<ObjectIdentifierType> {
+  implements grammar3rdVisitor<ObjectIdentifierType> {
+  // eslint-disable-next-line no-unused-vars
   public visitChildren(ctx: ObjectidentifiertypeContext): ObjectIdentifierType {
     return new ObjectIdentifierType();
   }

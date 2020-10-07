@@ -28,7 +28,7 @@ export class ExternalObjectSetReference {
     }
     const assignment = modules.findAssignment(
       this.objectSetReference,
-      this.moduleReference
+      this.moduleReference,
     );
     if (assignment === undefined) {
       return this;
@@ -42,6 +42,7 @@ export class ExternalObjectSetReference {
     return unimpl(assignment);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }

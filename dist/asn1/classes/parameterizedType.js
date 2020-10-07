@@ -4,7 +4,6 @@ const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 const externalTypeReference_1 = require("./externalTypeReference");
 const objectClassAssignment_1 = require("./objectClassAssignment");
 const objectIdentifierValue_1 = require("./objectIdentifierValue");
@@ -28,72 +27,65 @@ class ParameterizedType {
         if (this.simpleDefinedType instanceof externalTypeReference_1.ExternalTypeReference) {
             return unimpl_1.unimpl();
         }
-        const parameterMappedToReference = parameterMappings.find((parameterMapping) => {
-            return (parameterMapping.parameter.dummyReference ===
-                this.simpleDefinedType.typeReference);
-        });
+        const parameterMappedToReference = parameterMappings.find((parameterMapping) => (parameterMapping.parameter.dummyReference
+            === this.simpleDefinedType.typeReference));
         if (parameterMappedToReference === undefined) {
             // A case that TypeReference shall be expanded
             const assignment = modules.findAssignment(this.simpleDefinedType.typeReference);
             if (assignment === undefined) {
                 return unimpl_1.unimpl();
             }
-            else {
-                if (assignment instanceof typeAssignment_1.TypeAssignment) {
-                    return unimpl_1.unimpl();
-                }
-                if (assignment instanceof objectClassAssignment_1.ObjectClassAssignment) {
-                    return unimpl_1.unimpl();
-                }
-                if (assignment instanceof objectSetAssignment_1.ObjectSetAssignment) {
-                    return unimpl_1.unimpl();
-                }
-                if (assignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
-                    // Prepare the base of parameter mapping
-                    const parameterMappingsNew = assignment.parameters.map((parameter) => {
-                        return { parameter, actualParameter: undefined };
-                    });
-                    // Substitute an actual parameter with the passed parameter
-                    const actualParametersNew = this.actualParameters.map((actualParameter, index) => {
-                        if (!(actualParameter instanceof objectIdentifierValue_1.ObjectIdentifierValue)) {
-                            return actualParameter;
-                        }
-                        const { objectIdComponentsList } = actualParameter;
-                        if (objectIdComponentsList.length !== 1) {
-                            return unimpl_1.unimpl();
-                        }
-                        const objectIdComponents = objectIdComponentsList[0];
-                        if (typeof objectIdComponents !== 'string') {
-                            return unimpl_1.unimpl();
-                        }
-                        const parameter = parameterMappings.find((parameterMapping) => {
-                            return (parameterMapping.parameter.dummyReference ===
-                                objectIdComponents);
-                        });
-                        if (parameter === undefined) {
-                            return objectIdComponents;
-                        }
-                        if (parameter.actualParameter === undefined) {
-                            return actualParameter;
-                        }
-                        return parameter.actualParameter;
-                    });
-                    // Map each parameter and actual parameter
-                    if (parameterMappingsNew.length !== actualParametersNew.length) {
+            if (assignment instanceof typeAssignment_1.TypeAssignment) {
+                return unimpl_1.unimpl();
+            }
+            if (assignment instanceof objectClassAssignment_1.ObjectClassAssignment) {
+                return unimpl_1.unimpl();
+            }
+            if (assignment instanceof objectSetAssignment_1.ObjectSetAssignment) {
+                return unimpl_1.unimpl();
+            }
+            if (assignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
+                // Prepare the base of parameter mapping
+                const parameterMappingsNew = assignment.parameters.map((parameter) => ({ parameter, actualParameter: undefined }));
+                // Substitute an actual parameter with the passed parameter
+                const actualParametersNew = this.actualParameters.map((actualParameter) => {
+                    if (!(actualParameter instanceof objectIdentifierValue_1.ObjectIdentifierValue)) {
+                        return actualParameter;
+                    }
+                    const { objectIdComponentsList } = actualParameter;
+                    if (objectIdComponentsList.length !== 1) {
                         return unimpl_1.unimpl();
                     }
-                    parameterMappingsNew.forEach((parameterMapping, index) => {
-                        parameterMapping.actualParameter = actualParametersNew[index];
-                    });
-                    const expandedType = lodash_1.cloneDeep(assignment.asnType).expand(modules, parameterMappingsNew);
-                    if (lodash_1.isEqual(expandedType, assignment.asnType)) {
-                        return assignment.asnType;
+                    const objectIdComponents = objectIdComponentsList[0];
+                    if (typeof objectIdComponents !== 'string') {
+                        return unimpl_1.unimpl();
                     }
-                    return expandedType;
-                }
-                if (assignment instanceof valueAssignment_1.ValueAssignment) {
+                    const parameter = parameterMappings.find((parameterMapping) => (parameterMapping.parameter.dummyReference
+                        === objectIdComponents));
+                    if (parameter === undefined) {
+                        return objectIdComponents;
+                    }
+                    if (parameter.actualParameter === undefined) {
+                        return actualParameter;
+                    }
+                    return parameter.actualParameter;
+                });
+                // Map each parameter and actual parameter
+                if (parameterMappingsNew.length !== actualParametersNew.length) {
                     return unimpl_1.unimpl();
                 }
+                parameterMappingsNew.forEach((parameterMapping, index) => {
+                    // eslint-disable-next-line no-param-reassign
+                    parameterMapping.actualParameter = actualParametersNew[index];
+                });
+                const expandedType = lodash_1.cloneDeep(assignment.asnType).expand(modules, parameterMappingsNew);
+                if (lodash_1.isEqual(expandedType, assignment.asnType)) {
+                    return assignment.asnType;
+                }
+                return expandedType;
+            }
+            if (assignment instanceof valueAssignment_1.ValueAssignment) {
+                return unimpl_1.unimpl();
             }
         }
         else if (parameterMappedToReference.actualParameter === undefined) {
@@ -105,9 +97,11 @@ class ParameterizedType {
         }
         return unimpl_1.unreach();
     }
+    // eslint-disable-next-line class-methods-use-this
     getDepth() {
         return 0;
     }
+    // eslint-disable-next-line class-methods-use-this
     setConstraints(constraints) {
         if (constraints.length === 0) {
             return;
@@ -115,10 +109,11 @@ class ParameterizedType {
         unimpl_1.unimpl();
     }
     toSpreadsheet(worksheet, row, depth) {
+        // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_REFERENCE] = this.toString();
         const r = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r, depth);
-        spreadsheet_3.drawBorder(worksheet, r, depth);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {
         const innerString = this.actualParameters

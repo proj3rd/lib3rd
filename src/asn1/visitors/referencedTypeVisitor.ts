@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ReferencedType } from '../classes/asnType';
 import { TypeReference } from '../classes/typeReference';
-import { ReferencedTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ReferencedTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { DefinedTypeVisitor } from './definedTypeVisitor';
 
 /**
@@ -13,7 +14,7 @@ import { DefinedTypeVisitor } from './definedTypeVisitor';
  */
 export class ReferencedTypeVisitor
   extends AbstractParseTreeVisitor<ReferencedType>
-  implements ASN_3gppVisitor<ReferencedType> {
+  implements grammar3rdVisitor<ReferencedType> {
   public visitChildren(ctx: ReferencedTypeContext): ReferencedType {
     const definedTypeCtx = ctx.definedType();
     return definedTypeCtx.accept(new DefinedTypeVisitor());

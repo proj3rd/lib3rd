@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { ObjIdComponentsContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ObjIdComponentsContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ObjectIdComponents } from '../types';
 /**
  * # Grammar
@@ -13,7 +13,7 @@ import { ObjectIdComponents } from '../types';
  *   | builtinType constraint?
  * ```
  */
-export declare class ObjIdComponentsVisitor extends AbstractParseTreeVisitor<ObjectIdComponents> implements ASN_3gppVisitor<ObjectIdComponents> {
+export declare class ObjIdComponentsVisitor extends AbstractParseTreeVisitor<ObjectIdComponents> implements grammar3rdVisitor<ObjectIdComponents> {
     visitChildren(ctx: ObjIdComponentsContext): ObjectIdComponents;
     protected defaultResult(): ObjectIdComponents;
 }

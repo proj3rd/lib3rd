@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { BooleanValue } from '../classes/booleanValue';
@@ -6,8 +7,8 @@ import {
   EnumerationItemContext,
   NamedNumberContext,
   ValueContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ValueVisitor } from './valueVisitor';
 
 /**
@@ -18,7 +19,7 @@ import { ValueVisitor } from './valueVisitor';
  */
 export class EnumerationItemVisitor
   extends AbstractParseTreeVisitor<EnumerationItem>
-  implements ASN_3gppVisitor<EnumerationItem> {
+  implements grammar3rdVisitor<EnumerationItem> {
   public visitChildren(ctx: EnumerationItemContext): EnumerationItem {
     const childCtx = ctx.getChild(0);
     if (childCtx instanceof NamedNumberContext) {

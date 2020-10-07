@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { EnumerationItem } from '../classes/enumeratedType';
@@ -7,8 +8,8 @@ import {
   EnumerationsContext,
   ExceptionSpecContext,
   RootEnumerationContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { AdditionalEnumerationVisitor } from './additionalEnumerationVisitor';
 import { RootEnumerationVisitor } from './rootEnumerationVisitor';
 
@@ -20,10 +21,10 @@ import { RootEnumerationVisitor } from './rootEnumerationVisitor';
  */
 export class EnumerationsVisitor
   extends AbstractParseTreeVisitor<EnumerationItem[]>
-  implements ASN_3gppVisitor<EnumerationItem[]> {
+  implements grammar3rdVisitor<EnumerationItem[]> {
   public visitChildren(ctx: EnumerationsContext): EnumerationItem[] {
     const enumerationItems: EnumerationItem[] = [];
-    for (let i = 0; i < ctx.childCount; i++) {
+    for (let i = 0; i < ctx.childCount; i += 1) {
       const childCtx = ctx.getChild(i);
       if (childCtx instanceof RootEnumerationContext) {
         const rootEnumeration = childCtx.accept(new RootEnumerationVisitor());
@@ -32,7 +33,7 @@ export class EnumerationsVisitor
         unimpl(ctx.text);
       } else if (childCtx instanceof AdditionalEnumerationContext) {
         const additionalEnumeration = childCtx.accept(
-          new AdditionalEnumerationVisitor()
+          new AdditionalEnumerationVisitor(),
         );
         enumerationItems.push(...additionalEnumeration);
       } else {

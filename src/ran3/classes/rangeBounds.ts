@@ -12,9 +12,7 @@ export class RangeBounds {
   }
 
   public add(rangeBound: IRangeBound) {
-    const range = this.rangeBoundList.find((range) => {
-      return range.rangeBound === rangeBound.rangeBound;
-    });
+    const range = this.rangeBoundList.find((item) => item.rangeBound === rangeBound.rangeBound);
     if (range) {
       return;
     }
@@ -22,6 +20,7 @@ export class RangeBounds {
   }
 
   public toSpreadsheet(worksheet: Worksheet) {
+    // eslint-disable-next-line no-param-reassign
     worksheet.addRow({
       [headerIndexed(HEADER_NAME_BASE, 0)]: 'Condition',
       [HEADER_DESCRIPTION]: 'Explanation',

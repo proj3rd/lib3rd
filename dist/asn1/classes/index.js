@@ -7,6 +7,9 @@ const fs_1 = require("fs");
 const lodash_1 = require("lodash");
 const path_1 = require("path");
 const yargs_1 = __importDefault(require("yargs"));
+function getFilename(classname) {
+    return `${lodash_1.lowerFirst(classname)}.ts`;
+}
 function createClass(classname) {
     const tagname = `${lodash_1.lowerFirst(classname)}Tag`;
     const content = `export class ${classname} {
@@ -17,11 +20,8 @@ function createClass(classname) {
     const filename = path_1.join(srcDirname, getFilename(classname));
     fs_1.writeFileSync(filename, content);
 }
-function getFilename(classname) {
-    return `${lodash_1.lowerFirst(classname)}.ts`;
-}
 if (require.main === module) {
-    const { argv } = yargs_1.default.command({
+    yargs_1.default.command({
         command: 'new <classname>',
         handler: (args) => {
             const { classname } = args;

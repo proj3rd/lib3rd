@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { ParamGovernorContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ParamGovernorContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ParamGovernor } from '../types';
 /**
  * # Grammar
@@ -8,7 +8,7 @@ import { ParamGovernor } from '../types';
  * paramGovernor: governor | IDENTIFIER
  * ```
  */
-export declare class ParamGovernorVisitor extends AbstractParseTreeVisitor<ParamGovernor> implements ASN_3gppVisitor<ParamGovernor> {
+export declare class ParamGovernorVisitor extends AbstractParseTreeVisitor<ParamGovernor> implements grammar3rdVisitor<ParamGovernor> {
     visitChildren(ctx: ParamGovernorContext): ParamGovernor;
     protected defaultResult(): ParamGovernor;
 }

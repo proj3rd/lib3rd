@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { PrimitiveFieldName } from '../classes/primitiveFieldName';
-import { PrimitiveFieldNameContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { PrimitiveFieldNameContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -12,7 +13,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  */
 export class PrimitiveFieldNameVisitor
   extends AbstractParseTreeVisitor<PrimitiveFieldName>
-  implements ASN_3gppVisitor<PrimitiveFieldName> {
+  implements grammar3rdVisitor<PrimitiveFieldName> {
   public visitChildren(ctx: PrimitiveFieldNameContext): PrimitiveFieldName {
     const nameCtx = ctx.getChild(1);
     const name = nameCtx.text;

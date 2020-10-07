@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const componentRelationConstraint_1 = require("../classes/componentRelationConstraint");
@@ -12,9 +13,9 @@ const atNotationVisitor_1 = require("./atNotationVisitor");
  * componentRelationConstraint: L_BRACE (IDENTIFIER (DOT IDENTIFIER)?) R_BRACE
  * (L_BRACE atNotation (COMMA atNotation)* R_BRACE)?
  * ```
- * If atNotation is not present, it is SimpleTableConstraint (= ObjectSet) defined by X.682 clause 10,
- *   but it can be further concluded to ComponentRelationConstraint as defeind by
- *     X.680 clause 50.1 and X.681 clause 12.10.
+ * If atNotation is not present, it is SimpleTableConstraint (= ObjectSet)
+ *   defined by X.682 clause 10, but it can be further concluded to
+ *   ComponentRelationConstraint as defeind by X.680 clause 50.1 and X.681 clause 12.10.
  * Otherwise, it is ComponentRelationConstraint
  */
 class ComponentRelationConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
@@ -22,7 +23,7 @@ class ComponentRelationConstraintVisitor extends AbstractParseTreeVisitor_1.Abst
         let definedObjectSet;
         const { childCount } = ctx;
         let firstCurlyRightIndex = -1;
-        for (let i = 0; i < childCount; i++) {
+        for (let i = 0; i < childCount; i += 1) {
             if (ctx.getChild(i).text === '}') {
                 firstCurlyRightIndex = i;
                 break;
@@ -41,7 +42,8 @@ class ComponentRelationConstraintVisitor extends AbstractParseTreeVisitor_1.Abst
             throw Error();
         }
         const atNotationCtxes = ctx.atNotation();
-        const atNotations = atNotationCtxes.map((atNotationCtx) => atNotationCtx.accept(new atNotationVisitor_1.AtNotationVisitor()));
+        const atNotations = atNotationCtxes
+            .map((atNotationCtx) => atNotationCtx.accept(new atNotationVisitor_1.AtNotationVisitor()));
         if (atNotations.length === 0) {
             return new componentRelationConstraint_1.ComponentRelationConstraint(definedObjectSet);
         }

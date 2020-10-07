@@ -1,9 +1,10 @@
 import { Worksheet } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { IRowInput } from '../../common/spreadsheet';
+import { IParameterMapping } from '../expander';
 import { Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
+export declare type EnumerationItem = string | ExtensionMarker;
 export declare class EnumeratedType {
     items: EnumerationItem[];
     private enumeratedTypeTag;
@@ -14,5 +15,4 @@ export declare class EnumeratedType {
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
     toString(): string;
 }
-export declare type EnumerationItem = string | ExtensionMarker;
 //# sourceMappingURL=enumeratedType.d.ts.map

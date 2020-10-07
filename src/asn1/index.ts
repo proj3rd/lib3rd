@@ -41,7 +41,7 @@ export function normalize(asn1: string): string {
 }
 
 if (require.main === module) {
-  const { argv } = yargs
+  yargs
     .command({
       command: 'diff <file1> <file2>',
       handler: (args) => {
@@ -98,27 +98,27 @@ if (require.main === module) {
     })
     .command({
       command: 'format <file> <name>',
-      builder: (args) => {
-        return args.options({
-          f: {
-            alias: 'format',
-            choices: ['text', 'xlsx'],
-            default: 'text',
-          },
-          e: {
-            alias: 'expand',
-            default: false,
-            type: 'boolean',
-          },
-        });
-      },
+      builder: (args) => args.options({
+        f: {
+          alias: 'format',
+          choices: ['text', 'xlsx'],
+          default: 'text',
+        },
+        e: {
+          alias: 'expand',
+          default: false,
+          type: 'boolean',
+        },
+      }),
       handler: (args) => {
-        const { file, name, format, expand } = args;
+        const {
+          file, name, format, expand,
+        } = args;
         if (
-          typeof file !== 'string' ||
-          typeof name !== 'string' ||
-          typeof format !== 'string' ||
-          typeof expand !== 'boolean'
+          typeof file !== 'string'
+          || typeof name !== 'string'
+          || typeof format !== 'string'
+          || typeof expand !== 'boolean'
         ) {
           throw Error();
         }
@@ -129,9 +129,9 @@ if (require.main === module) {
           throw Error(`${name} not found in ${file}`);
         }
         if (
-          assignment instanceof ValueAssignment &&
-          format === 'xlsx' &&
-          expand
+          assignment instanceof ValueAssignment
+          && format === 'xlsx'
+          && expand
         ) {
           throw Error();
         }
@@ -158,9 +158,8 @@ if (require.main === module) {
         if (typeof file !== 'string') {
           throw Error();
         }
-        const { name: spec } = parsePath(file);
         const text = readFileSync(file, 'utf8');
-        const parsed = parse(normalize(text));
+        parse(normalize(text));
       },
     });
 }

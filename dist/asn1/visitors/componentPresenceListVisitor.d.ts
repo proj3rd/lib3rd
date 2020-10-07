@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { TypeConstraintsComponent } from '../classes/innerTypeConstraints';
-import { ComponentPresenceListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ComponentPresenceListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * componentPresenceList: (componentPresence) (COMMA componentPresence)*
  * ```
  */
-export declare class ComponentPresenceListVisitor extends AbstractParseTreeVisitor<TypeConstraintsComponent[]> implements ASN_3gppVisitor<TypeConstraintsComponent[]> {
+export declare class ComponentPresenceListVisitor extends AbstractParseTreeVisitor<TypeConstraintsComponent[]> implements grammar3rdVisitor<TypeConstraintsComponent[]> {
     visitChildren(ctx: ComponentPresenceListContext): TypeConstraintsComponent[];
     protected defaultResult(): TypeConstraintsComponent[];
 }

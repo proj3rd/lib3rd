@@ -1,11 +1,12 @@
 import { Worksheet } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { IRowInput } from '../../common/spreadsheet';
+import { IParameterMapping } from '../expander';
 import { Constraint } from './constraint';
 import { ExtensionAdditionAlternativeGroup } from './extensionAdditionAlternativeGroup';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
+export declare type RootChoiceComponents = NamedType | ExtensionMarker | ExtensionAdditionAlternativeGroup;
 export declare class ChoiceType {
     components: RootChoiceComponents[];
     private choiceTypeTag;
@@ -21,6 +22,5 @@ export declare class ChoiceType {
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
     toString(): string;
 }
-export declare type RootChoiceComponents = NamedType | ExtensionMarker | ExtensionAdditionAlternativeGroup;
 export declare type ExtensionAdditionAlternative = NamedType | ExtensionAdditionAlternativeGroup;
 //# sourceMappingURL=choiceType.d.ts.map

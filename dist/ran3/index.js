@@ -10,23 +10,21 @@ const yargs_1 = __importDefault(require("yargs"));
 const parse_1 = require("./parse");
 exports.parse = parse_1.parse;
 if (require.main === module) {
-    const { argv } = yargs_1.default
+    yargs_1.default
         .command({
         command: 'format <file> <name>',
-        builder: (args) => {
-            return args.options({
-                e: {
-                    alias: 'expand',
-                    default: false,
-                    type: 'boolean',
-                },
-            });
-        },
+        builder: (args) => args.options({
+            e: {
+                alias: 'expand',
+                default: false,
+                type: 'boolean',
+            },
+        }),
         handler: (args) => {
             const { file, name, expand } = args;
-            if (typeof file !== 'string' ||
-                typeof name !== 'string' ||
-                typeof expand !== 'boolean') {
+            if (typeof file !== 'string'
+                || typeof name !== 'string'
+                || typeof expand !== 'boolean') {
                 throw Error();
             }
             const html = fs_1.readFileSync(file, 'utf8');
@@ -51,7 +49,6 @@ if (require.main === module) {
             if (typeof file !== 'string') {
                 throw Error();
             }
-            const { name: spec } = path_1.parse(file);
             const html = fs_1.readFileSync(file, 'utf8');
             const parsed = parse_1.parse(html);
             process.stdout.write(JSON.stringify(parsed, null, 2));

@@ -13,20 +13,23 @@ function getContextName(ruleName) {
 function getFileName(ruleName) {
     return `${lodash_1.lowerFirst(ruleName)}Visitor.ts`;
 }
+function getVisitorName(ruleName) {
+    return `${lodash_1.upperFirst(ruleName)}Visitor`;
+}
 function CreateVisitor(ruleName) {
     const contextName = getContextName(ruleName);
     const visitorName = getVisitorName(ruleName);
     const content = `import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { todo, unimpl } from 'unimpl';
-import { ${contextName} } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ${contextName} } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
  * \`\`\`
  * \`\`\`
  */
-export class ${visitorName} extends AbstractParseTreeVisitor<ReturnType> implements ASN_3gppVisitor<ReturnType> {
+export class ${visitorName} extends AbstractParseTreeVisitor<ReturnType> implements grammar3rdVisitor<ReturnType> {
   public visitChildren(ctx: ${contextName}): ReturnType {
     return todo();
   }
@@ -39,11 +42,8 @@ export class ${visitorName} extends AbstractParseTreeVisitor<ReturnType> impleme
     const fileName = path_1.join(srcDirname, getFileName(ruleName));
     fs_1.writeFileSync(fileName, content);
 }
-function getVisitorName(ruleName) {
-    return `${lodash_1.upperFirst(ruleName)}Visitor`;
-}
 if (require.main === module) {
-    const { argv } = yargs_1.default.command({
+    yargs_1.default.command({
         command: 'new <ruleName>',
         handler: (args) => {
             const { ruleName } = args;

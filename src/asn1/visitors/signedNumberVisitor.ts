@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { SignedNumberContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { SignedNumberContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -10,7 +11,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * ```
  */
 export class SignedNumberVisitor extends AbstractParseTreeVisitor<string>
-  implements ASN_3gppVisitor<string> {
+  implements grammar3rdVisitor<string> {
   public visitChildren(ctx: SignedNumberContext): string {
     return ctx.text;
   }

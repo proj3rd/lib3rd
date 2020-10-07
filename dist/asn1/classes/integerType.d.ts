@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { IRowInput } from '../../common/spreadsheet';
+import { IParameterMapping } from '../expander';
 import { INamedNumber } from '../types';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
@@ -11,7 +11,7 @@ export declare class IntegerType {
     constructor(namedNumberList?: INamedNumber[]);
     expand(modules: Modules, parameterMappings: IParameterMapping[]): IntegerType;
     getDepth(): number;
-    setConstraints(constraints: Constraint[]): undefined;
+    setConstraints(constraints: Constraint[]): void;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
     toString(): string;
 }

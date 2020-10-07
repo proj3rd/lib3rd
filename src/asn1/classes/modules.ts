@@ -15,7 +15,7 @@ export class Modules {
 
   public findAssignment(
     name: string,
-    moduleName?: string
+    moduleName?: string,
   ): Assignment | undefined {
     let assignment: Assignment | undefined;
     if (moduleName !== undefined) {

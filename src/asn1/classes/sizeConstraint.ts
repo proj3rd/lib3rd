@@ -22,7 +22,7 @@ export class SizeConstraint {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): SizeConstraint {
     const expandedConstarint = this.constraint.map((con) => {
       if (con instanceof ExtensionMarker) {
@@ -40,6 +40,7 @@ export class SizeConstraint {
     return this;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }

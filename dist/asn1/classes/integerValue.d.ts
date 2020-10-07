@@ -1,8 +1,8 @@
 import { Worksheet } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { IRowInput } from '../../common/spreadsheet';
+import { IParameterMapping } from '../expander';
 import { Modules } from './modules';
-import { ValueReference } from './ValueReference';
+import { ValueReference } from './valueReference';
 export declare class IntegerValue {
     literal: string;
     value: number | ValueReference;

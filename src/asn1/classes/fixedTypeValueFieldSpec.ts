@@ -1,14 +1,14 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
-import { headerIndexed } from '../../common/spreadsheet';
+import { headerIndexed, IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
   HEADER_UNIQUE,
 } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
+
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
@@ -27,7 +27,7 @@ export class FixedTypeValueFieldSpec {
     fieldRerence: PrimitiveFieldName,
     asnType: AsnType,
     unique: boolean,
-    optionality?: Optionality
+    optionality?: Optionality,
   ) {
     this.fieldReference = fieldRerence;
     this.asnType = asnType;
@@ -42,14 +42,14 @@ export class FixedTypeValueFieldSpec {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): FixedTypeValueFieldSpec {
     if (parameterMappings.length) {
       return unimpl();
     }
     const expandedType = cloneDeep(this.asnType).expand(
       modules,
-      parameterMappings
+      parameterMappings,
     );
     if (expandedType instanceof ObjectSet) {
       return unimpl();
@@ -71,14 +71,14 @@ export class FixedTypeValueFieldSpec {
       {
         [headerIndexed(
           HEADER_NAME_BASE,
-          depth
+          depth,
         )]: this.fieldReference.toString(),
         [HEADER_OPTIONAL]: this.optionality
           ? this.optionality.toString()
           : undefined,
         [HEADER_UNIQUE]: this.unique ? 'UNIQUE' : undefined,
       },
-      depth
+      depth,
     );
   }
 

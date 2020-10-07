@@ -29,14 +29,14 @@ export class Constraint {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): Constraint {
     if (!(this.constraintSpec instanceof SubtypeConstraint)) {
       return unimpl();
     }
     const expandedConstraint = cloneDeep(this.constraintSpec).expand(
       modules,
-      parameterMappings
+      parameterMappings,
     );
     if (!isEqual(expandedConstraint, this.constraintSpec)) {
       this.constraintSpec = expandedConstraint;

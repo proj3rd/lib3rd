@@ -1,11 +1,12 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { todo, unimpl } from 'unimpl';
 import {
   DefinedValueContext,
   NamedNumberContext,
   SignedNumberContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { INamedNumber } from '../types';
 import { SignedNumberVisitor } from './signedNumberVisitor';
 
@@ -16,18 +17,17 @@ import { SignedNumberVisitor } from './signedNumberVisitor';
  * ```
  */
 export class NamedNumberVisitor extends AbstractParseTreeVisitor<INamedNumber>
-  implements ASN_3gppVisitor<INamedNumber> {
+  implements grammar3rdVisitor<INamedNumber> {
   public visitChildren(ctx: NamedNumberContext): INamedNumber {
     const name = ctx.getChild(0).text;
     const thirdCtx = ctx.getChild(2);
     if (thirdCtx instanceof SignedNumberContext) {
       const valueLiteral = thirdCtx.accept(new SignedNumberVisitor());
       return { name, valueLiteral };
-    } else if (thirdCtx instanceof DefinedValueContext) {
+    } if (thirdCtx instanceof DefinedValueContext) {
       return todo();
-    } else {
-      throw Error();
     }
+    throw Error();
   }
 
   protected defaultResult(): INamedNumber {

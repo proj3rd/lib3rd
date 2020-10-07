@@ -1,9 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { IDiffResult, renderDiff } from './diff';
 
-// tslint:disable-next-line: only-arrow-functions
 describe('Diff ASN.1 [diff_all]', function () {
-  // tslint:disable-next-line: only-arrow-functions
   it('Render diff result [diff_render]', function () {
     const diffFile = readFileSync(
       'resources/diff_36331-f90.asn1_36331-g00.asn1.json',

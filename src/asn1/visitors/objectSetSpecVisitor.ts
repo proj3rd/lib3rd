@@ -1,13 +1,14 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { todo, unimpl } from 'unimpl';
+import { unimpl } from 'unimpl';
 import { _ElementSetSpecs } from '../types';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import {
   AdditionalElementSetSpecContext,
   ObjectSetSpecContext,
   RootElementSetSpecContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { AdditionalElementSetSpecVisitor } from './additionalElementSetSpecVisitor';
 import { RootElementSetSpecVisitor } from './rootElementSetSpecVisitor';
 
@@ -21,26 +22,27 @@ import { RootElementSetSpecVisitor } from './rootElementSetSpecVisitor';
  */
 export class ObjectSetSpecVisitor
   extends AbstractParseTreeVisitor<_ElementSetSpecs>
-  implements ASN_3gppVisitor<_ElementSetSpecs> {
+  implements grammar3rdVisitor<_ElementSetSpecs> {
   public visitChildren(ctx: ObjectSetSpecContext): _ElementSetSpecs {
     const elementSetSpecs: _ElementSetSpecs = [];
     const { childCount } = ctx;
-    for (let i = 0; i < childCount; i++) {
+    for (let i = 0; i < childCount; i += 1) {
       const childCtx = ctx.getChild(i);
       if (childCtx instanceof RootElementSetSpecContext) {
         const rootElementSetSpec = childCtx.accept(
-          new RootElementSetSpecVisitor()
+          new RootElementSetSpecVisitor(),
         );
         elementSetSpecs.push(rootElementSetSpec);
       } else if (childCtx instanceof AdditionalElementSetSpecContext) {
         const additionalElementSetSpec = childCtx.accept(
-          new AdditionalElementSetSpecVisitor()
+          new AdditionalElementSetSpecVisitor(),
         );
         elementSetSpecs.push(additionalElementSetSpec);
       } else {
         switch (childCtx.text) {
           case '...': {
             elementSetSpecs.push(ExtensionMarker.getInstance());
+            break;
           }
           case ',': {
             break;

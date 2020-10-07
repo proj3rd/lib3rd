@@ -1,11 +1,11 @@
 import { Worksheet } from 'exceljs';
-import { IParameterMapping } from '../expander';
 import { IRowInput } from '../../common/spreadsheet';
+import { IParameterMapping } from '../expander';
 import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { Modules } from './modules';
 import { Syntax } from './syntax';
 import { TypeFieldSpec } from './typeFieldSpec';
-export declare type ObjectClass = ObjectClassDefinition;
+export declare type FieldSpec = TypeFieldSpec | FixedTypeValueFieldSpec;
 /**
  * X.681 clause 9.3
  * ```
@@ -26,5 +26,5 @@ export declare class ObjectClassDefinition {
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
     toString(): string;
 }
-export declare type FieldSpec = TypeFieldSpec | FixedTypeValueFieldSpec;
+export declare type ObjectClass = ObjectClassDefinition;
 //# sourceMappingURL=objectClass.d.ts.map

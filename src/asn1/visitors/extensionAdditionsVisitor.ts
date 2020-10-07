@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ExtensionAddition } from '../classes/sequenceType';
-import { ExtensionAdditionsContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ExtensionAdditionsContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ExtensionAdditionListVisitor } from './extensionAdditionListVisitor';
 
 /**
@@ -13,12 +14,12 @@ import { ExtensionAdditionListVisitor } from './extensionAdditionListVisitor';
  */
 export class ExtensionAdditionsVisitor
   extends AbstractParseTreeVisitor<ExtensionAddition[]>
-  implements ASN_3gppVisitor<ExtensionAddition[]> {
+  implements grammar3rdVisitor<ExtensionAddition[]> {
   public visitChildren(ctx: ExtensionAdditionsContext): ExtensionAddition[] {
     const extensionAdditionListCtx = ctx.extensionAdditionList();
     if (extensionAdditionListCtx !== undefined) {
       return extensionAdditionListCtx.accept(
-        new ExtensionAdditionListVisitor()
+        new ExtensionAdditionListVisitor(),
       );
     }
     return [];

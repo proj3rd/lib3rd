@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
-const ASN_3gppParser_1 = require("../grammar/ASN_3gppParser");
+const grammar3rdParser_1 = require("../grammar/grammar3rdParser");
 const componentTypeVisitor_1 = require("./componentTypeVisitor");
 const extensionAdditionGroupVisitor_1 = require("./extensionAdditionGroupVisitor");
 /**
@@ -14,10 +15,10 @@ const extensionAdditionGroupVisitor_1 = require("./extensionAdditionGroupVisitor
 class ExtensionAdditionVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
         const childCtx = ctx.getChild(0);
-        if (childCtx instanceof ASN_3gppParser_1.ComponentTypeContext) {
+        if (childCtx instanceof grammar3rdParser_1.ComponentTypeContext) {
             return childCtx.accept(new componentTypeVisitor_1.ComponentTypeVisitor());
         }
-        else if (childCtx instanceof ASN_3gppParser_1.ExtensionAdditionGroupContext) {
+        if (childCtx instanceof grammar3rdParser_1.ExtensionAdditionGroupContext) {
             return childCtx.accept(new extensionAdditionGroupVisitor_1.ExtensionAdditionGroupVisitor());
         }
         throw Error();

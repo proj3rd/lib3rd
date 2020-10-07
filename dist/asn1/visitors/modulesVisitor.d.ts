@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { Modules } from '../classes/modules';
-import { ModulesContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ModulesContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * modules: moduleDefinition
  * ```
  */
-export declare class ModulesVisitor extends AbstractParseTreeVisitor<Modules> implements ASN_3gppVisitor<Modules> {
+export declare class ModulesVisitor extends AbstractParseTreeVisitor<Modules> implements grammar3rdVisitor<Modules> {
     visitChildren(ctx: ModulesContext): Modules;
     protected defaultResult(): Modules;
 }

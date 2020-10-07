@@ -1,11 +1,12 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { todo, unimpl } from 'unimpl';
 import {
   BuiltinTypeContext,
   DefinedValueContext,
   ObjIdComponentsContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ObjectIdComponents } from '../types';
 import { BuiltinTypeVisitor } from './builtinTypeVisitor';
 import { ConstraintVisitor } from './constraintVisitor';
@@ -23,13 +24,13 @@ import { ConstraintVisitor } from './constraintVisitor';
  */
 export class ObjIdComponentsVisitor
   extends AbstractParseTreeVisitor<ObjectIdComponents>
-  implements ASN_3gppVisitor<ObjectIdComponents> {
+  implements grammar3rdVisitor<ObjectIdComponents> {
   public visitChildren(ctx: ObjIdComponentsContext): ObjectIdComponents {
     const { childCount } = ctx;
     const firstCtx = ctx.getChild(0);
     if (firstCtx instanceof DefinedValueContext) {
       return todo();
-    } else if (firstCtx instanceof BuiltinTypeContext) {
+    } if (firstCtx instanceof BuiltinTypeContext) {
       const builtinType = firstCtx.accept(new BuiltinTypeVisitor());
       const constraintCtx = ctx.constraint();
       if (constraintCtx !== undefined) {
@@ -37,17 +38,15 @@ export class ObjIdComponentsVisitor
         builtinType.setConstraints([constraint]);
       }
       return builtinType;
-    } else {
-      const firstText = firstCtx.text;
-      if (isNaN(+firstText)) {
-        if (childCount > 1) {
-          return todo();
-        }
-        return firstText;
-      } else {
+    }
+    const firstText = firstCtx.text;
+    if (Number.isNaN(+firstText)) {
+      if (childCount > 1) {
         return todo();
       }
+      return firstText;
     }
+    return todo();
   }
 
   protected defaultResult(): ObjectIdComponents {

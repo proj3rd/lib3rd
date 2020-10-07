@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { AsnType } from '../classes/asnType';
@@ -5,8 +6,8 @@ import { _GeneralConstraint } from '../types';
 import { ContentsConstraint } from '../classes/contentsConstraint';
 import { InnerTypeConstraints } from '../classes/innerTypeConstraints';
 import { Value } from '../classes/value';
-import { ContentsConstraintContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ContentsConstraintContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { ComponentPresenceListsVisitor } from './componentPresenceListsVisitor';
 import { ValueVisitor } from './valueVisitor';
@@ -23,7 +24,7 @@ import { ValueVisitor } from './valueVisitor';
  */
 export class ContentsConstraintVisitor
   extends AbstractParseTreeVisitor<_GeneralConstraint>
-  implements ASN_3gppVisitor<_GeneralConstraint> {
+  implements grammar3rdVisitor<_GeneralConstraint> {
   public visitChildren(ctx: ContentsConstraintContext): _GeneralConstraint {
     const asnTypeCtx = ctx.asnType();
     let asnType: AsnType | undefined;
@@ -38,7 +39,7 @@ export class ContentsConstraintVisitor
     const componentPresenceListsCtx = ctx.componentPresenceLists();
     if (componentPresenceListsCtx !== undefined) {
       const componentPresenceLists = componentPresenceListsCtx.accept(
-        new ComponentPresenceListsVisitor()
+        new ComponentPresenceListsVisitor(),
       );
       return new InnerTypeConstraints(componentPresenceLists);
     }

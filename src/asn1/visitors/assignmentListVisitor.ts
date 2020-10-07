@@ -1,6 +1,7 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { AssignmentListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { AssignmentListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { Assignment } from '../types';
 import { AssignmentVisitor } from './assignmentVisitor';
 
@@ -12,12 +13,10 @@ import { AssignmentVisitor } from './assignmentVisitor';
  */
 export class AssignmentListVisitor
   extends AbstractParseTreeVisitor<Assignment[]>
-  implements ASN_3gppVisitor<Assignment[]> {
+  implements grammar3rdVisitor<Assignment[]> {
   public visitChildren(ctx: AssignmentListContext): Assignment[] {
     const assignmentCtxes = ctx.assignment();
-    return assignmentCtxes.map((assignmentCtx) =>
-      assignmentCtx.accept(new AssignmentVisitor())
-    );
+    return assignmentCtxes.map((assignmentCtx) => assignmentCtx.accept(new AssignmentVisitor()));
   }
 
   protected defaultResult(): Assignment[] {

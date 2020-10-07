@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ExtensionDefault } from '../classes/moduleDefinition';
-import { ExtensionDefaultContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ExtensionDefaultContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * extensionDefault: (EXTENSIBILITY_LITERAL IMPLIED_LITERAL)?
  * ```
  */
-export declare class ExtensionDefaultVisitor extends AbstractParseTreeVisitor<ExtensionDefault> implements ASN_3gppVisitor<ExtensionDefault> {
+export declare class ExtensionDefaultVisitor extends AbstractParseTreeVisitor<ExtensionDefault> implements grammar3rdVisitor<ExtensionDefault> {
     visitChildren(ctx: ExtensionDefaultContext): ExtensionDefault;
     protected defaultResult(): ExtensionDefault;
 }

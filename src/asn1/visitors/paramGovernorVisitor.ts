@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { todo, unimpl } from 'unimpl';
-import { ParamGovernorContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { unimpl } from 'unimpl';
+import { ParamGovernorContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ParamGovernor } from '../types';
 import { GovernorVisitor } from './governorVisitor';
 
@@ -13,7 +14,7 @@ import { GovernorVisitor } from './governorVisitor';
  */
 export class ParamGovernorVisitor
   extends AbstractParseTreeVisitor<ParamGovernor>
-  implements ASN_3gppVisitor<ParamGovernor> {
+  implements grammar3rdVisitor<ParamGovernor> {
   public visitChildren(ctx: ParamGovernorContext): ParamGovernor {
     const governorCtx = ctx.governor();
     if (governorCtx === undefined) {

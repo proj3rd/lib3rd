@@ -1,3 +1,8 @@
+export interface IDefinitiveObjIdComponent {
+  name: string;
+  number: string;
+}
+
 export class DefinitiveIdentification {
   public definitiveOID: IDefinitiveObjIdComponent[];
 
@@ -16,9 +21,4 @@ export class DefinitiveIdentification {
       .join(' ');
     return `{${innerString}}`;
   }
-}
-
-export interface IDefinitiveObjIdComponent {
-  name: string;
-  number: string;
 }

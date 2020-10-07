@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { NamedBitListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { NamedBitListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { INamedBit } from '../types';
 import { NamedBitVisitor } from './namedBitVisitor';
 
@@ -12,12 +13,10 @@ import { NamedBitVisitor } from './namedBitVisitor';
  * ```
  */
 export class NamedBitListVisitor extends AbstractParseTreeVisitor<INamedBit[]>
-  implements ASN_3gppVisitor<INamedBit[]> {
+  implements grammar3rdVisitor<INamedBit[]> {
   public visitChildren(ctx: NamedBitListContext): INamedBit[] {
     const namedBitCtxes = ctx.namedBit();
-    return namedBitCtxes.map((namedBitCtx) =>
-      namedBitCtx.accept(new NamedBitVisitor())
-    );
+    return namedBitCtxes.map((namedBitCtx) => namedBitCtx.accept(new NamedBitVisitor()));
   }
 
   protected defaultResult(): INamedBit[] {

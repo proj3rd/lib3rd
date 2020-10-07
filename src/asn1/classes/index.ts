@@ -3,6 +3,10 @@ import { lowerFirst } from 'lodash';
 import { join } from 'path';
 import yargs from 'yargs';
 
+function getFilename(classname: string): string {
+  return `${lowerFirst(classname)}.ts`;
+}
+
 function createClass(classname: string) {
   const tagname = `${lowerFirst(classname)}Tag`;
   const content = `export class ${classname} {
@@ -14,12 +18,8 @@ function createClass(classname: string) {
   writeFileSync(filename, content);
 }
 
-function getFilename(classname: string): string {
-  return `${lowerFirst(classname)}.ts`;
-}
-
 if (require.main === module) {
-  const { argv } = yargs.command({
+  yargs.command({
     command: 'new <classname>',
     handler: (args) => {
       const { classname } = args;

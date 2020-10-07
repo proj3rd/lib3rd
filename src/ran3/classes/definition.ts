@@ -1,6 +1,5 @@
 import { Workbook } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { todo } from 'unimpl';
 import {
   addHeader,
   addTitle,
@@ -46,6 +45,7 @@ const HEADER_LIST = [
 const reSectionNumber = /\b[1-9A-Z]\d*?(\.[1-9]\d*?)*\.[1-9]\w*?\b/;
 //                         ^ Head      ^ Middle        ^ Tail
 
+// eslint-disable-next-line no-use-before-define
 function canMerge(parent: IInformationElement, child: Definition): boolean {
   if (!child.hasSingleRoot()) {
     return false;
@@ -53,9 +53,9 @@ function canMerge(parent: IInformationElement, child: Definition): boolean {
   const { elementList } = child;
   const firstElement = elementList[0];
   if (
-    parent.presence !== '' && parent.presence !== 'M' && parent.presence !== 'O' &&
-    firstElement.presence !== '' && firstElement.presence !== 'M' && firstElement.presence !== 'O' &&
-    parent.presence !== firstElement.presence
+    parent.presence !== '' && parent.presence !== 'M' && parent.presence !== 'O'
+    && firstElement.presence !== '' && firstElement.presence !== 'M' && firstElement.presence !== 'O'
+    && parent.presence !== firstElement.presence
   ) {
     return false;
   }
@@ -63,14 +63,14 @@ function canMerge(parent: IInformationElement, child: Definition): boolean {
     return false;
   }
   if (
-    parent.criticality !== '' && firstElement.criticality !== '' &&
-    parent.criticality !== firstElement.criticality
+    parent.criticality !== '' && firstElement.criticality !== ''
+    && parent.criticality !== firstElement.criticality
   ) {
     return false;
   }
   if (
-    parent.assignedCriticality !== '' && firstElement.assignedCriticality !== '' &&
-    parent.assignedCriticality !== firstElement.assignedCriticality
+    parent.assignedCriticality !== '' && firstElement.assignedCriticality !== ''
+    && parent.assignedCriticality !== firstElement.assignedCriticality
   ) {
     return false;
   }
@@ -79,16 +79,21 @@ function canMerge(parent: IInformationElement, child: Definition): boolean {
 
 function merge(parent: IInformationElement, child: IInformationElement) {
   if (child.name.toUpperCase().startsWith('CHOICE')) {
+    // eslint-disable-next-line no-param-reassign
     parent.name = `CHOICE ${parent.name}`;
   }
   if (parent.presence === 'O' || child.presence === 'O') {
+    // eslint-disable-next-line no-param-reassign
     parent.presence = 'O';
   } else {
+    // eslint-disable-next-line no-param-reassign
     parent.presence = parent.presence || child.presence;
   }
   if (child.typeAndRef !== '') {
+    // eslint-disable-next-line no-param-reassign
     parent.typeAndRef = child.typeAndRef;
   }
+  // eslint-disable-next-line no-param-reassign
   parent.description = `${parent.description}
 
 ${child.description}`;
@@ -130,47 +135,47 @@ export class Definition {
     const rangeBoundsExpanded = cloneDeep(this.rangeBounds);
     const conditionsExpanded = cloneDeep(this.conditions);
     // tslint:disable-next-line: prefer-for-of
-    for (let i = elementListExpanded.length - 1; i >= 0; i--) {
+    for (let i = elementListExpanded.length - 1; i >= 0; i -= 1) {
       const element = elementListExpanded[i];
       const { typeAndRef } = element;
       const matchResult = typeAndRef.match(reSectionNumber);
-      if (!matchResult) {
-        continue;
+      if (matchResult) {
+        const sectionNumber = matchResult[0];
+        const definitionReferenced = definitions.findDefinition(sectionNumber);
+        if (definitionReferenced) {
+          const definitionExpanded = cloneDeep(definitionReferenced).expand(
+            definitions,
+          );
+          const {
+            elementList: elementListReferenced,
+            rangeBounds: rangeBoundsReferenced,
+            conditions: conditionsReferenced,
+          } = definitionExpanded;
+          if (canMerge(elementListExpanded[i], definitionExpanded)) {
+            elementListReferenced.forEach((elementReferenced) => {
+              // eslint-disable-next-line no-param-reassign
+              elementReferenced.depth += element.depth;
+            });
+            merge(elementListExpanded[i], elementListReferenced[0]);
+            elementListExpanded.splice(i + 1, 0, ...elementListReferenced.slice(1));
+          } else {
+            elementListReferenced.forEach((elementReferenced) => {
+              // eslint-disable-next-line no-param-reassign
+              elementReferenced.depth += element.depth + 1;
+            });
+            elementListExpanded.splice(i + 1, 0, ...elementListReferenced);
+          }
+          if (!isEqual(elementListExpanded, this.elementList)) {
+            this.elementList = elementListExpanded;
+          }
+          rangeBoundsReferenced.rangeBoundList.forEach((rangeBound) => {
+            rangeBoundsExpanded.add(rangeBound);
+          });
+          conditionsReferenced.conditionList.forEach((condition) => {
+            conditionsExpanded.add(condition);
+          });
+        }
       }
-      const sectionNumber = matchResult[0];
-      const definitionReferenced = definitions.findDefinition(sectionNumber);
-      if (!definitionReferenced) {
-        continue;
-      }
-      const definitionExpanded = cloneDeep(definitionReferenced).expand(
-        definitions
-      );
-      const {
-        elementList: elementListReferenced,
-        rangeBounds: rangeBoundsReferenced,
-        conditions: conditionsReferenced,
-      } = definitionExpanded;
-      if (canMerge(elementListExpanded[i], definitionExpanded)) {
-        elementListReferenced.forEach((elementReferenced) => {
-          elementReferenced.depth += element.depth;
-        });
-        merge(elementListExpanded[i], elementListReferenced[0]);
-        elementListExpanded.splice(i + 1, 0, ...elementListReferenced.slice(1));
-      } else {
-        elementListReferenced.forEach((elementReferenced) => {
-          elementReferenced.depth += element.depth + 1;
-        });
-        elementListExpanded.splice(i + 1, 0, ...elementListReferenced);
-      }
-      if (!isEqual(elementListExpanded, this.elementList)) {
-        this.elementList = elementListExpanded;
-      }
-      rangeBoundsReferenced.rangeBoundList.forEach((rangeBound) => {
-        rangeBoundsExpanded.add(rangeBound);
-      });
-      conditionsReferenced.conditionList.forEach((condition) => {
-        conditionsExpanded.add(condition);
-      });
     }
     if (!isEqual(rangeBoundsExpanded, this.rangeBounds)) {
       this.rangeBounds = rangeBoundsExpanded;
@@ -182,9 +187,7 @@ export class Definition {
   }
 
   public getDepth(): number {
-    return this.elementList.reduce((prev, curr) => {
-      return Math.max(prev, curr.depth);
-    }, 0);
+    return this.elementList.reduce((prev, curr) => Math.max(prev, curr.depth), 0);
   }
 
   public hasSingleRoot(): boolean {
@@ -228,10 +231,10 @@ export class Definition {
         description,
         criticality,
         assignedCriticality,
-        depth,
+        depth: depthElement,
       } = element;
       const rowInput: IRowInput = {
-        [headerIndexed(HEADER_NAME_BASE, depth)]: name,
+        [headerIndexed(HEADER_NAME_BASE, depthElement)]: name,
         [HEADER_PRESENCE]: presence,
         [HEADER_RANGE]: range,
         [HEADER_TYPE_AND_REF]: typeAndRef,
@@ -240,8 +243,8 @@ export class Definition {
         [HEADER_ASSIGNED_CRITICALITY]: assignedCriticality,
       };
       const r = ws.addRow(rowInput);
-      setOutlineLevel(r, depth);
-      drawBorder(ws, r, depth);
+      setOutlineLevel(r, depthElement);
+      drawBorder(ws, r, depthElement);
     });
     drawBorder(ws, ws.addRow([]), 0, BorderTop);
     this.conditions.toSpreadsheet(ws);

@@ -16,6 +16,7 @@ exports.HEADER_LIST = [
 ];
 function appendInColumn(row, column, value) {
     const col = row[column];
+    // eslint-disable-next-line no-param-reassign
     row[column] = col === undefined ? value : `${col} ${value}`;
 }
 exports.appendInColumn = appendInColumn;

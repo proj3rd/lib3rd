@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const booleanValue_1 = require("../classes/booleanValue");
@@ -29,52 +30,51 @@ class SizeConstraintVisitor extends AbstractParseTreeVisitor_1.AbstractParseTree
         if (constraintSpec instanceof contentsConstraint_1.ContentsConstraint) {
             return unimpl_1.unimpl();
         }
-        else if (constraintSpec instanceof innerTypeConstraints_1.InnerTypeConstraints) {
+        if (constraintSpec instanceof innerTypeConstraints_1.InnerTypeConstraints) {
             return unimpl_1.unimpl();
         }
-        else if (constraintSpec instanceof objectSet_1.ObjectSet) {
+        if (constraintSpec instanceof objectSet_1.ObjectSet) {
             return unimpl_1.unimpl();
         }
-        else if (constraintSpec instanceof componentRelationConstraint_1.ComponentRelationConstraint) {
+        if (constraintSpec instanceof componentRelationConstraint_1.ComponentRelationConstraint) {
             return unimpl_1.unimpl();
         }
-        else {
-            const sizeConstraint = [];
-            for (const elementSetSpec of constraintSpec.elementSetSpecList) {
-                if (elementSetSpec instanceof extensionMarker_1.ExtensionMarker) {
-                    sizeConstraint.push(elementSetSpec);
+        const sizeConstraint = [];
+        for (let i = 0; i < constraintSpec.elementSetSpecList.length; i += 1) {
+            const elementSetSpec = constraintSpec.elementSetSpecList[i];
+            if (elementSetSpec instanceof extensionMarker_1.ExtensionMarker) {
+                sizeConstraint.push(elementSetSpec);
+            }
+            else {
+                if (elementSetSpec.intersectionsList.length > 1) {
+                    return unimpl_1.unimpl();
+                }
+                const intersections = elementSetSpec.intersectionsList[0];
+                if (intersections.length !== 1) {
+                    throw Error();
+                }
+                const intersectionElements = intersections[0];
+                if (intersectionElements instanceof integerValue_1.IntegerValue) {
+                    sizeConstraint.push(intersectionElements);
+                }
+                else if (intersectionElements instanceof sizeConstraint_1.SizeConstraint) {
+                    return intersectionElements;
+                }
+                else if (intersectionElements instanceof valueRange_1.ValueRange) {
+                    sizeConstraint.push(intersectionElements);
+                }
+                else if (intersectionElements instanceof booleanValue_1.BooleanValue) {
+                    return unimpl_1.unimpl();
+                }
+                else if (typeof intersectionElements === 'string') {
+                    sizeConstraint.push(new integerValue_1.IntegerValue(intersectionElements));
                 }
                 else {
-                    if (elementSetSpec.intersectionsList.length > 1) {
-                        return unimpl_1.unimpl();
-                    }
-                    const intersections = elementSetSpec.intersectionsList[0];
-                    if (intersections.length !== 1) {
-                        throw Error();
-                    }
-                    const intersectionElements = intersections[0];
-                    if (intersectionElements instanceof integerValue_1.IntegerValue) {
-                        sizeConstraint.push(intersectionElements);
-                    }
-                    else if (intersectionElements instanceof sizeConstraint_1.SizeConstraint) {
-                        return intersectionElements;
-                    }
-                    else if (intersectionElements instanceof valueRange_1.ValueRange) {
-                        sizeConstraint.push(intersectionElements);
-                    }
-                    else if (intersectionElements instanceof booleanValue_1.BooleanValue) {
-                        return unimpl_1.unimpl();
-                    }
-                    else if (typeof intersectionElements === 'string') {
-                        sizeConstraint.push(new integerValue_1.IntegerValue(intersectionElements));
-                    }
-                    else {
-                        throw Error();
-                    }
+                    throw Error();
                 }
             }
-            return new sizeConstraint_1.SizeConstraint(sizeConstraint);
         }
+        return new sizeConstraint_1.SizeConstraint(sizeConstraint);
     }
     defaultResult() {
         return unimpl_1.unimpl();

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { PrimitiveFieldName } from '../classes/primitiveFieldName';
@@ -5,10 +6,12 @@ import {
   LiteralContext,
   PrimitiveFieldNameContext,
   RequiredTokenContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { LiteralVisitor } from './literalVisitor';
 import { PrimitiveFieldNameVisitor } from './primitiveFieldNameVisitor';
+
+export type _RequiredToken = string | PrimitiveFieldName;
 
 /**
  * # Grammar
@@ -18,7 +21,7 @@ import { PrimitiveFieldNameVisitor } from './primitiveFieldNameVisitor';
  */
 export class RequiredTokenVisitor
   extends AbstractParseTreeVisitor<_RequiredToken>
-  implements ASN_3gppVisitor<_RequiredToken> {
+  implements grammar3rdVisitor<_RequiredToken> {
   public visitChildren(ctx: RequiredTokenContext): _RequiredToken {
     const childCtx = ctx.getChild(0);
     if (childCtx instanceof LiteralContext) {
@@ -34,5 +37,3 @@ export class RequiredTokenVisitor
     return unimpl();
   }
 }
-
-export type _RequiredToken = string | PrimitiveFieldName;

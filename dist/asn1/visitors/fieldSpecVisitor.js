@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const fixedTypeValueFieldSpec_1 = require("../classes/fixedTypeValueFieldSpec");
@@ -32,9 +33,7 @@ class FieldSpecVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisit
                 optionality = valueSetOptionalitySpecCtx.accept(new valueSetOptionalitySpecVisitor_1.ValueSetOptionalitySpecVisitor());
             }
             const possiblyUniqueCtx = ctx.childCount >= 4 ? ctx.getChild(3) : undefined;
-            const unique = possiblyUniqueCtx !== undefined && possiblyUniqueCtx.text === 'UNIQUE'
-                ? true
-                : false;
+            const unique = !!(possiblyUniqueCtx !== undefined && possiblyUniqueCtx.text === 'UNIQUE');
             const valueOptionalitySpecCtx = ctx.valueOptionalitySpec();
             if (valueOptionalitySpecCtx !== undefined) {
                 optionality = valueOptionalitySpecCtx.accept(new valueOptionalitySpecVisitor_1.ValueOptionalitySpecVisitor());
@@ -50,10 +49,9 @@ class FieldSpecVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisit
             return unimpl_1.unimpl();
         }
         const typeOptionalitySpecCtx = ctx.typeOptionalitySpec();
-        optionality =
-            typeOptionalitySpecCtx === undefined
-                ? undefined
-                : typeOptionalitySpecCtx.accept(new typeOptionalitySpecVisitor_1.TypeOptionalitySpecVisitor());
+        optionality = typeOptionalitySpecCtx === undefined
+            ? undefined
+            : typeOptionalitySpecCtx.accept(new typeOptionalitySpecVisitor_1.TypeOptionalitySpecVisitor());
         return new typeFieldSpec_1.TypeFieldSpec(name, optionality);
     }
     defaultResult() {

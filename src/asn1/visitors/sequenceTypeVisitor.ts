@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { RootSequenceComponents, SequenceType } from '../classes/sequenceType';
-import { SequenceTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { SequenceTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ComponentTypeListsVisitor } from './componentTypeListsVisitor';
 import { ExtensionAndExceptionVisitor } from './extensionAndExceptionVisitor';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarkerVisitor';
@@ -15,20 +16,20 @@ import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarkerVisitor
  * ```
  */
 export class SequenceTypeVisitor extends AbstractParseTreeVisitor<SequenceType>
-  implements ASN_3gppVisitor<SequenceType> {
+  implements grammar3rdVisitor<SequenceType> {
   public visitChildren(ctx: SequenceTypeContext): SequenceType {
     const componentTypes: RootSequenceComponents[] = [];
     const extensionAndExceptionCtx = ctx.extensionAndException();
     if (extensionAndExceptionCtx !== undefined) {
       const extensionAndException = extensionAndExceptionCtx.accept(
-        new ExtensionAndExceptionVisitor()
+        new ExtensionAndExceptionVisitor(),
       );
       componentTypes.push(extensionAndException);
     }
     const optionalExtensionMarkerCtx = ctx.optionalExtensionMarker();
     if (optionalExtensionMarkerCtx !== undefined) {
       const optionalExtensionMarker = optionalExtensionMarkerCtx.accept(
-        new OptionalExtensionMarkerVisitor()
+        new OptionalExtensionMarkerVisitor(),
       );
       if (optionalExtensionMarker !== undefined) {
         componentTypes.push(optionalExtensionMarker);
@@ -37,7 +38,7 @@ export class SequenceTypeVisitor extends AbstractParseTreeVisitor<SequenceType>
     const componentTypeListsCtx = ctx.componentTypeLists();
     if (componentTypeListsCtx !== undefined) {
       componentTypes.push(
-        ...componentTypeListsCtx.accept(new ComponentTypeListsVisitor())
+        ...componentTypeListsCtx.accept(new ComponentTypeListsVisitor()),
       );
     }
     return new SequenceType(componentTypes);

@@ -1,12 +1,10 @@
 import { Worksheet } from 'exceljs';
 import { todo } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_TYPE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { Modules } from './modules';
-import { ValueReference } from './ValueReference';
+import { ValueReference } from './valueReference';
 
 export class IntegerValue {
   public literal: string;
@@ -26,26 +24,24 @@ export class IntegerValue {
 
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): IntegerValue {
     const { value } = this;
     if (value instanceof ValueReference) {
-      const parameterMapping = parameterMappings.find((paramMap) => {
-        return paramMap.parameter.dummyReference === value.valueReference;
-      });
+      const parameterMapping = parameterMappings
+        .find((paramMap) => paramMap.parameter.dummyReference === value.valueReference);
       if (parameterMapping === undefined) {
         return this;
-      } else {
-        if (parameterMapping.actualParameter === undefined) {
-          return this;
-        } else {
-          return todo();
-        }
       }
+      if (parameterMapping.actualParameter === undefined) {
+        return this;
+      }
+      return todo();
     }
     return this;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }

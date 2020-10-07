@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ReferencedType } from '../classes/asnType';
-import { ReferencedTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ReferencedTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * referencedType: definedType
  * ```
  */
-export declare class ReferencedTypeVisitor extends AbstractParseTreeVisitor<ReferencedType> implements ASN_3gppVisitor<ReferencedType> {
+export declare class ReferencedTypeVisitor extends AbstractParseTreeVisitor<ReferencedType> implements grammar3rdVisitor<ReferencedType> {
     visitChildren(ctx: ReferencedTypeContext): ReferencedType;
     protected defaultResult(): ReferencedType;
 }

@@ -1,6 +1,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { NamedBitListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { NamedBitListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { INamedBit } from '../types';
 /**
  * # Grammar
@@ -8,7 +8,7 @@ import { INamedBit } from '../types';
  * namedBitList: (namedBit) (COMMA namedBit)*
  * ```
  */
-export declare class NamedBitListVisitor extends AbstractParseTreeVisitor<INamedBit[]> implements ASN_3gppVisitor<INamedBit[]> {
+export declare class NamedBitListVisitor extends AbstractParseTreeVisitor<INamedBit[]> implements grammar3rdVisitor<INamedBit[]> {
     visitChildren(ctx: NamedBitListContext): INamedBit[];
     protected defaultResult(): INamedBit[];
 }

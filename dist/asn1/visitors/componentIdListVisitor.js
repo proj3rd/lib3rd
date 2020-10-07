@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 /**
@@ -11,7 +12,7 @@ const unimpl_1 = require("unimpl");
 class ComponentIdListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
         const componentIdList = [];
-        const childCount = ctx.childCount;
+        const { childCount } = ctx;
         for (let i = 0; i < childCount; i += 2) {
             componentIdList.push(ctx.getChild(i).text);
         }

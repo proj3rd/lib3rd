@@ -5,7 +5,8 @@ const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
+// | VariableTypeFieldSpec // VariableTypeValue[Set]FieldSpec
+// | ObjectFieldSpec // Object[Set]FieldSpec
 /**
  * X.681 clause 9.3
  * ```
@@ -26,25 +27,23 @@ class ObjectClassDefinition {
         if (parameterMappings.length) {
             return unimpl_1.unimpl();
         }
-        this.fieldSpecs = this.fieldSpecs.map((fieldSpec) => {
-            return lodash_1.cloneDeep(fieldSpec).expand(modules, parameterMappings);
-        });
+        this.fieldSpecs = this.fieldSpecs
+            .map((fieldSpec) => lodash_1.cloneDeep(fieldSpec).expand(modules, parameterMappings));
         return this;
     }
     getDepth() {
-        const depthFieldSpecs = this.fieldSpecs.reduce((prev, curr) => {
-            return Math.max(prev, curr.getDepth() + 1);
-        }, 0);
-        const depthSyntaxList = this.syntaxList.reduce((prev, curr) => {
-            return Math.max(prev, curr.getDepth() + 1);
-        }, 0);
+        const depthFieldSpecs = this.fieldSpecs
+            .reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
+        const depthSyntaxList = this.syntaxList
+            .reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
         return Math.max(depthFieldSpecs, depthSyntaxList);
     }
     toSpreadsheet(worksheet, row, depth) {
+        // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_TYPE] = 'CLASS';
         const r1 = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r1, depth);
-        spreadsheet_3.drawBorder(worksheet, r1, depth);
+        spreadsheet_1.drawBorder(worksheet, r1, depth);
         this.fieldSpecs.forEach((fieldSpec) => {
             fieldSpec.toSpreadsheet(worksheet, {}, depth + 1);
         });
@@ -53,7 +52,7 @@ class ObjectClassDefinition {
                 [spreadsheet_2.HEADER_TYPE]: 'WITH SYNTAX',
             });
             spreadsheet_1.setOutlineLevel(r2, depth);
-            spreadsheet_3.drawBorder(worksheet, r2, depth);
+            spreadsheet_1.drawBorder(worksheet, r2, depth);
             this.syntaxList.forEach((syntax) => {
                 syntax.toSpreadsheet(worksheet, {}, depth + 1);
             });
@@ -74,6 +73,4 @@ class ObjectClassDefinition {
     }
 }
 exports.ObjectClassDefinition = ObjectClassDefinition;
-// | VariableTypeFieldSpec // VariableTypeValue[Set]FieldSpec
-// | ObjectFieldSpec // Object[Set]FieldSpec
 //# sourceMappingURL=objectClass.js.map

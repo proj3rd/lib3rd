@@ -2,7 +2,6 @@ import { readFileSync } from 'fs';
 import { cloneDeep } from 'lodash';
 import { parse } from './parser';
 
-// tslint:disable-next-line: only-arrow-functions
 describe('Expand ASN.1 [expand_all]', function () {
   this.timeout(0);
 
@@ -19,14 +18,12 @@ describe('Expand ASN.1 [expand_all]', function () {
 
   testCaseList.forEach((testCase) => {
     const { name, specNumber, filename } = testCase;
-    // tslint:disable-next-line: only-arrow-functions
     describe(`${name} (${specNumber}) [expand_${specNumber}]`, function () {
       const asn1 = readFileSync(`resources/${filename}`, 'utf8');
       const modules = parse(asn1);
       modules.modules.forEach((moduleDefinition) => {
         const { assignments } = moduleDefinition;
         assignments.forEach((assignment) => {
-          // tslint:disable-next-line: only-arrow-functions
           it(`${moduleDefinition.name}.${assignment.name}`, function () {
             assignment.expand(modules);
           });

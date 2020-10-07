@@ -10,12 +10,10 @@ export class Definitions {
   }
 
   public findDefinition(sectionNumberOrName: string): Definition | undefined {
-    const definition = this.definitionList.find((def) => {
-      return (
-        def.sectionNumber === sectionNumberOrName ||
-        def.name === sectionNumberOrName
-      );
-    });
+    const definition = this.definitionList.find((def) => (
+      def.sectionNumber === sectionNumberOrName
+        || def.name === sectionNumberOrName
+    ));
     return definition;
   }
 

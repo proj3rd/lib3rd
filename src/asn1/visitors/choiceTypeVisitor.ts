@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ChoiceType } from '../classes/choiceType';
-import { ChoiceTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ChoiceTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { AlternativeTypeListsVisitor } from './alternativeTypeListsVisitor';
 
 /**
@@ -11,11 +12,11 @@ import { AlternativeTypeListsVisitor } from './alternativeTypeListsVisitor';
  * ```
  */
 export class ChoiceTypeVisitor extends AbstractParseTreeVisitor<ChoiceType>
-  implements ASN_3gppVisitor<ChoiceType> {
+  implements grammar3rdVisitor<ChoiceType> {
   public visitChildren(ctx: ChoiceTypeContext): ChoiceType {
     const alternativeTypeListsCtx = ctx.alternativeTypeLists();
     const alternativeTypeLists = alternativeTypeListsCtx.accept(
-      new AlternativeTypeListsVisitor()
+      new AlternativeTypeListsVisitor(),
     );
     return new ChoiceType(alternativeTypeLists);
   }

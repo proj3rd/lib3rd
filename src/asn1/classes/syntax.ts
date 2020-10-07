@@ -1,12 +1,13 @@
 import { Worksheet } from 'exceljs';
-import { headerIndexed, setOutlineLevel } from '../../common/spreadsheet';
+import {
+  headerIndexed, setOutlineLevel, IRowInput, drawBorder,
+} from '../../common/spreadsheet';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
   HEADER_REFERENCE,
 } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
+
 import { PrimitiveFieldName } from './primitiveFieldName';
 
 export class Syntax {
@@ -19,13 +20,14 @@ export class Syntax {
   constructor(
     literal: string,
     primitiveFieldName: PrimitiveFieldName,
-    optional: boolean
+    optional: boolean,
   ) {
     this.literal = literal;
     this.primitiveFieldName = primitiveFieldName;
     this.optional = optional;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }

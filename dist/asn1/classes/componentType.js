@@ -52,11 +52,11 @@ class ComponentType {
     toString() {
         const arrToString = [this.name];
         if (this.optionality === undefined) {
-            arrToString.push(`${this.asnType.toString()}${sequenceType_1._COMMA}`);
+            arrToString.push(`${this.asnType.toString()}${sequenceType_1.COMMA_PLACEHOLDER}`);
         }
         else if (this.optionality !== undefined) {
             arrToString.push(this.asnType.toString());
-            arrToString.push(`${this.optionality.toString()}${sequenceType_1._COMMA}`);
+            arrToString.push(`${this.optionality.toString()}${sequenceType_1.COMMA_PLACEHOLDER}`);
         }
         if (this.tag.length > 0) {
             arrToString.push(this.tag);

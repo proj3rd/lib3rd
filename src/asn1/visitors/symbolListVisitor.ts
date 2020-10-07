@@ -1,7 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { AsnSymbol, Reference } from '../classes/asnSymbol';
-import { SymbolContext, SymbolListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { AsnSymbol } from '../classes/asnSymbol';
+import { SymbolListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { SymbolVisitor } from './symbolVisitor';
 
 /**
  * # Grammar
@@ -10,25 +12,12 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * ```
  */
 export class SymbolListVisitor extends AbstractParseTreeVisitor<AsnSymbol[]>
-  implements ASN_3gppVisitor<AsnSymbol[]> {
+  implements grammar3rdVisitor<AsnSymbol[]> {
   public visitChildren(ctx: SymbolListContext): AsnSymbol[] {
     return ctx.symbol().map((sym) => sym.accept(new SymbolVisitor()));
   }
 
   protected defaultResult(): AsnSymbol[] {
     return [];
-  }
-}
-
-class SymbolVisitor extends AbstractParseTreeVisitor<AsnSymbol>
-  implements ASN_3gppVisitor<AsnSymbol> {
-  public visitChildren(ctx: SymbolContext): AsnSymbol {
-    const name = ctx.getChild(0).text;
-    const parameterized = ctx.childCount > 1 ? true : false;
-    return new Reference(name, parameterized);
-  }
-
-  protected defaultResult(): AsnSymbol {
-    return new Reference('');
   }
 }

@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { Syntax } from '../classes/syntax';
-import { OptionalGroupContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { OptionalGroupContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
@@ -9,7 +9,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * ```
  * Currently, only supports `[string[] PrimitiveFieldName]` form
  */
-export declare class OptionalGroupVisitor extends AbstractParseTreeVisitor<Syntax> implements ASN_3gppVisitor<Syntax> {
+export declare class OptionalGroupVisitor extends AbstractParseTreeVisitor<Syntax> implements grammar3rdVisitor<Syntax> {
     visitChildren(ctx: OptionalGroupContext): Syntax;
     protected defaultResult(): Syntax;
 }

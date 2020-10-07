@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { NullType } from '../classes/nullType';
 import { ObjectClassAssignment } from '../classes/objectClassAssignment';
@@ -5,8 +6,8 @@ import { ObjectSetAssignment } from '../classes/objectSetAssignment';
 import { ParameterizedTypeAssignment } from '../classes/parameterizedTypeAssignment';
 import { TypeAssignment } from '../classes/typeAssignment';
 import { ValueAssignment } from '../classes/valueAssignment';
-import { AssignmentContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { AssignmentContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { Assignment } from '../types';
 import { ObjectClassAssignmentVisitor } from './objectClassAssignmentVisitor';
 import { ParameterizedAssignmentVisitor } from './parameterizedAssignmentVisitor';
@@ -25,13 +26,13 @@ import { ValueAssignmentVisitor } from './valueAssignmentVisitor';
  * ```
  */
 export class AssignmentVisitor extends AbstractParseTreeVisitor<Assignment>
-  implements ASN_3gppVisitor<Assignment> {
+  implements grammar3rdVisitor<Assignment> {
   public visitChildren(ctx: AssignmentContext): Assignment {
     const name = ctx.getChild(0).text;
     const valueAssignmentCtx = ctx.valueAssignment();
     if (valueAssignmentCtx !== undefined) {
       const typeAndValue = valueAssignmentCtx.accept(
-        new ValueAssignmentVisitor()
+        new ValueAssignmentVisitor(),
       );
       const { asnType, value } = typeAndValue;
       return new ValueAssignment(name, asnType, value);
@@ -47,12 +48,12 @@ export class AssignmentVisitor extends AbstractParseTreeVisitor<Assignment>
         parameterizedTypeAssignmentElements,
         objectSetAssignmentElements,
       } = parameterizedAssignmentCtx.accept(
-        new ParameterizedAssignmentVisitor()
+        new ParameterizedAssignmentVisitor(),
       );
       if (parameterizedTypeAssignmentElements) {
         const { parameters, asnType } = parameterizedTypeAssignmentElements;
         return new ParameterizedTypeAssignment(name, parameters, asnType);
-      } else if (objectSetAssignmentElements) {
+      } if (objectSetAssignmentElements) {
         const { definedObjectClass, objectSet } = objectSetAssignmentElements;
         return new ObjectSetAssignment(name, definedObjectClass, objectSet);
       }
@@ -60,7 +61,7 @@ export class AssignmentVisitor extends AbstractParseTreeVisitor<Assignment>
     const objectClassAssignmentCtx = ctx.objectClassAssignment();
     if (objectClassAssignmentCtx !== undefined) {
       const objectClass = objectClassAssignmentCtx.accept(
-        new ObjectClassAssignmentVisitor()
+        new ObjectClassAssignmentVisitor(),
       );
       return new ObjectClassAssignment(name, objectClass);
     }

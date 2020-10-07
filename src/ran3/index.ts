@@ -7,24 +7,22 @@ import { parse } from './parse';
 export { parse };
 
 if (require.main === module) {
-  const { argv } = yargs
+  yargs
     .command({
       command: 'format <file> <name>',
-      builder: (args) => {
-        return args.options({
-          e: {
-            alias: 'expand',
-            default: false,
-            type: 'boolean',
-          },
-        });
-      },
+      builder: (args) => args.options({
+        e: {
+          alias: 'expand',
+          default: false,
+          type: 'boolean',
+        },
+      }),
       handler: (args) => {
         const { file, name, expand } = args;
         if (
-          typeof file !== 'string' ||
-          typeof name !== 'string' ||
-          typeof expand !== 'boolean'
+          typeof file !== 'string'
+          || typeof name !== 'string'
+          || typeof expand !== 'boolean'
         ) {
           throw Error();
         }
@@ -50,7 +48,6 @@ if (require.main === module) {
         if (typeof file !== 'string') {
           throw Error();
         }
-        const { name: spec } = parsePath(file);
         const html = readFileSync(file, 'utf8');
         const parsed = parse(html);
         process.stdout.write(JSON.stringify(parsed, null, 2));

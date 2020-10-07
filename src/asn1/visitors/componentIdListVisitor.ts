@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { ComponentIdListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ComponentIdListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -10,10 +11,10 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * ```
  */
 export class ComponentIdListVisitor extends AbstractParseTreeVisitor<string[]>
-  implements ASN_3gppVisitor<string[]> {
+  implements grammar3rdVisitor<string[]> {
   public visitChildren(ctx: ComponentIdListContext): string[] {
     const componentIdList: string[] = [];
-    const childCount = ctx.childCount;
+    const { childCount } = ctx;
     for (let i = 0; i < childCount; i += 2) {
       componentIdList.push(ctx.getChild(i).text);
     }

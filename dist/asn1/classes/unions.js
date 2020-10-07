@@ -4,7 +4,6 @@ const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 const booleanValue_1 = require("./booleanValue");
 const externalObjectSetReference_1 = require("./externalObjectSetReference");
 const integerValue_1 = require("./integerValue");
@@ -12,7 +11,7 @@ const objectSet_1 = require("./objectSet");
 const objectSetReference_1 = require("./objectSetReference");
 const sizeConstraint_1 = require("./sizeConstraint");
 const valueRange_1 = require("./valueRange");
-const ValueReference_1 = require("./ValueReference");
+const valueReference_1 = require("./valueReference");
 class Unions {
     constructor(intersections) {
         this.intersectionsList = intersections;
@@ -23,21 +22,19 @@ class Unions {
      * @param parameterMappings
      */
     expand(modules, parameterMappings) {
-        this.intersectionsList = this.intersectionsList.map((intersections, index) => {
-            return intersections.map((elements, indexElements) => {
-                if (typeof elements === 'string') {
-                    return elements;
-                }
-                const expandedType = lodash_1.cloneDeep(elements).expand(modules, parameterMappings);
-                if (lodash_1.isEqual(expandedType, elements)) {
-                    return elements;
-                }
-                if (expandedType instanceof objectSet_1.ObjectSet) {
-                    return unimpl_1.unimpl();
-                }
-                return expandedType;
-            });
-        });
+        this.intersectionsList = this.intersectionsList.map((intersections) => intersections.map((elements) => {
+            if (typeof elements === 'string') {
+                return elements;
+            }
+            const expandedType = lodash_1.cloneDeep(elements).expand(modules, parameterMappings);
+            if (lodash_1.isEqual(expandedType, elements)) {
+                return elements;
+            }
+            if (expandedType instanceof objectSet_1.ObjectSet) {
+                return unimpl_1.unimpl();
+            }
+            return expandedType;
+        }));
         return this;
     }
     getDepth() {
@@ -59,7 +56,7 @@ class Unions {
                         [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: elements,
                     });
                     spreadsheet_1.setOutlineLevel(r, depth);
-                    spreadsheet_3.drawBorder(worksheet, r, depth);
+                    spreadsheet_1.drawBorder(worksheet, r, depth);
                 }
                 else if (elements instanceof booleanValue_1.BooleanValue) {
                     unimpl_1.unreach(elements);
@@ -79,7 +76,7 @@ class Unions {
                 else if (elements instanceof valueRange_1.ValueRange) {
                     unimpl_1.unreach(elements);
                 }
-                else if (elements instanceof ValueReference_1.ValueReference) {
+                else if (elements instanceof valueReference_1.ValueReference) {
                     unimpl_1.unreach(elements);
                 }
                 else {
@@ -90,7 +87,7 @@ class Unions {
                         [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: '∩',
                     });
                     spreadsheet_1.setOutlineLevel(r, depth);
-                    spreadsheet_3.drawBorder(worksheet, r, depth);
+                    spreadsheet_1.drawBorder(worksheet, r, depth);
                 }
             });
             if (indexUnions !== lengthUnions - 1) {
@@ -98,7 +95,7 @@ class Unions {
                     [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: '∪',
                 });
                 spreadsheet_1.setOutlineLevel(r, depth);
-                spreadsheet_3.drawBorder(worksheet, r, depth);
+                spreadsheet_1.drawBorder(worksheet, r, depth);
             }
         });
     }

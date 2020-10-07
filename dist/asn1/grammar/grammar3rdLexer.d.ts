@@ -3,7 +3,7 @@ import { CharStream } from "antlr4ts/CharStream";
 import { Lexer } from "antlr4ts/Lexer";
 import { RuleContext } from "antlr4ts/RuleContext";
 import { Vocabulary } from "antlr4ts/Vocabulary";
-export declare class ASN_3gppLexer extends Lexer {
+export declare class grammar3rdLexer extends Lexer {
     static readonly TAG = 1;
     static readonly A_ROND = 2;
     static readonly STAR = 3;
@@ -144,4 +144,4 @@ export declare class ASN_3gppLexer extends Lexer {
     static __ATN: ATN;
     static readonly _ATN: ATN;
 }
-//# sourceMappingURL=ASN_3gppLexer.d.ts.map
+//# sourceMappingURL=grammar3rdLexer.d.ts.map

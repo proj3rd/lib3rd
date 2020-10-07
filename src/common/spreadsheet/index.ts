@@ -1,4 +1,6 @@
-import { Borders, Row, Workbook, Worksheet } from 'exceljs';
+import {
+  Borders, Row, Workbook, Worksheet,
+} from 'exceljs';
 import {
   BorderBottom,
   BorderLeft,
@@ -12,25 +14,34 @@ export interface IRowInput {
   [key: string]: string | undefined;
 }
 
+export function headerIndexed(header: string, index: number): string {
+  return `${header}[${index}]`;
+}
+
 export function addHeader(
   worksheet: Worksheet,
   headerList: string[],
-  depth: number
+  depth: number,
 ) {
   const columns = [
-    ...new Array(depth + 1).fill(undefined).map((_, index) => {
-      return headerIndexed(headerList[0], index);
-    }),
+    ...new Array(depth + 1).fill(undefined).map((_, index) => headerIndexed(headerList[0], index)),
     ...headerList.slice(1),
   ].map((key, index) => {
-    const width = index < depth ? 3 : index > depth ? 15 : 45;
+    let width: number;
+    if (index < depth) {
+      width = 3;
+    } else if (index > depth) {
+      width = 15;
+    } else {
+      width = 45;
+    }
     return { key, width };
   });
+  // eslint-disable-next-line no-param-reassign
   worksheet.columns = columns;
   const headers = [
-    ...new Array(depth + 1).fill(undefined).map((_, index) => {
-      return index === 0 ? headerList[0] : undefined;
-    }),
+    ...new Array(depth + 1).fill(undefined)
+      .map((_, index) => (index === 0 ? headerList[0] : undefined)),
     ...headerList.slice(1),
   ];
   const row = worksheet.addRow(headers);
@@ -44,6 +55,7 @@ export function addHeader(
 }
 
 export function addTitle(worksheet: Worksheet, title: string) {
+  // eslint-disable-next-line no-param-reassign
   worksheet.addRow([title]).font = {
     size: 22,
     bold: true,
@@ -53,10 +65,12 @@ export function addTitle(worksheet: Worksheet, title: string) {
 export function addWorksheet(
   workbook: Workbook,
   name: string,
-  ySplit: number
+  ySplit: number,
 ): Worksheet {
   const ws = workbook.addWorksheet(name, {
-    views: [{ state: 'frozen', xSplit: 0, ySplit, showGridLines: false }],
+    views: [{
+      state: 'frozen', xSplit: 0, ySplit, showGridLines: false,
+    }],
   });
   /**
    * TODO
@@ -73,22 +87,25 @@ export function drawBorder(
   worksheet: Worksheet,
   row: Row,
   depth: number,
-  border?: Partial<Borders>
+  border?: Partial<Borders>,
 ) {
   worksheet.columns.forEach((column, index) => {
     const { key } = column;
     if (key === undefined) {
       return;
     }
-    const b = border
-      ? border
-      : index === worksheet.columns.length - 1
-      ? BorderRightTop
-      : index < depth
-      ? BorderLeft
-      : index > depth
-      ? BorderTop
-      : BorderLeftTop;
+    let borderExtra: Partial<Borders>;
+    if (index === worksheet.columns.length - 1) {
+      borderExtra = BorderRightTop;
+    } else if (index < depth) {
+      borderExtra = BorderLeft;
+    } else if (index > depth) {
+      borderExtra = BorderTop;
+    } else {
+      borderExtra = BorderLeftTop;
+    }
+    const b = border || borderExtra;
+    // eslint-disable-next-line no-param-reassign
     row.getCell(index + 1).style = { border: b };
   });
 }
@@ -102,14 +119,11 @@ export function getWorkbook(workbook?: Workbook) {
   return wb;
 }
 
-export function headerIndexed(header: string, index: number): string {
-  return `${header}[${index}]`;
-}
-
 export function setOutlineLevel(row: Row, depth: number) {
   if (depth === 0) {
     return;
   }
+  // eslint-disable-next-line no-param-reassign
   row.outlineLevel = Math.min(depth, 7);
 }
 

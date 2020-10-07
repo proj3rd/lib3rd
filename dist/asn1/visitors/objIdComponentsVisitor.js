@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
-const ASN_3gppParser_1 = require("../grammar/ASN_3gppParser");
+const grammar3rdParser_1 = require("../grammar/grammar3rdParser");
 const builtinTypeVisitor_1 = require("./builtinTypeVisitor");
 const constraintVisitor_1 = require("./constraintVisitor");
 /**
@@ -20,10 +21,10 @@ class ObjIdComponentsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTre
     visitChildren(ctx) {
         const { childCount } = ctx;
         const firstCtx = ctx.getChild(0);
-        if (firstCtx instanceof ASN_3gppParser_1.DefinedValueContext) {
+        if (firstCtx instanceof grammar3rdParser_1.DefinedValueContext) {
             return unimpl_1.todo();
         }
-        else if (firstCtx instanceof ASN_3gppParser_1.BuiltinTypeContext) {
+        if (firstCtx instanceof grammar3rdParser_1.BuiltinTypeContext) {
             const builtinType = firstCtx.accept(new builtinTypeVisitor_1.BuiltinTypeVisitor());
             const constraintCtx = ctx.constraint();
             if (constraintCtx !== undefined) {
@@ -32,18 +33,14 @@ class ObjIdComponentsVisitor extends AbstractParseTreeVisitor_1.AbstractParseTre
             }
             return builtinType;
         }
-        else {
-            const firstText = firstCtx.text;
-            if (isNaN(+firstText)) {
-                if (childCount > 1) {
-                    return unimpl_1.todo();
-                }
-                return firstText;
-            }
-            else {
+        const firstText = firstCtx.text;
+        if (Number.isNaN(+firstText)) {
+            if (childCount > 1) {
                 return unimpl_1.todo();
             }
+            return firstText;
         }
+        return unimpl_1.todo();
     }
     defaultResult() {
         return unimpl_1.unimpl();

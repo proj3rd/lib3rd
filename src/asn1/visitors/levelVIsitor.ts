@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { LevelContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { LevelContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -10,7 +11,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * ```
  */
 export class LevelVisitor extends AbstractParseTreeVisitor<number>
-  implements ASN_3gppVisitor<number> {
+  implements grammar3rdVisitor<number> {
   public visitChildren(ctx: LevelContext): number {
     const levelCtx = ctx.level();
     if (levelCtx === undefined) {

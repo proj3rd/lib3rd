@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { AsnType } from '../classes/asnType';
@@ -5,10 +6,8 @@ import { Constraint } from '../classes/constraint';
 import { NamedType } from '../classes/namedType';
 import { NullType } from '../classes/nullType';
 import { SequenceOfType } from '../classes/sequenceOfType';
-import { SubtypeConstraint } from '../classes/subtypeConstraint';
-import { Unions } from '../classes/unions';
-import { SequenceOfTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { SequenceOfTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { NamedTypeVisitor } from './namedTypeVisitor';
 import { SizeConstraintVisitor } from './sizeConstraintVisitor';
@@ -16,12 +15,14 @@ import { SizeConstraintVisitor } from './sizeConstraintVisitor';
 /**
  * # Grammar
  * ```
- * sequenceOfType: SEQUENCE_LITERAL (L_PARAN (constraint | sizeConstraint) R_PARAN)? OF_LITERAL (asnType | namedType )
+ * sequenceOfType:
+ *   SEQUENCE_LITERAL (L_PARAN (constraint | sizeConstraint) R_PARAN)?
+ *   OF_LITERAL (asnType | namedType )
  * ```
  */
 export class SequenceOfTypeVisitor
   extends AbstractParseTreeVisitor<SequenceOfType>
-  implements ASN_3gppVisitor<SequenceOfType> {
+  implements grammar3rdVisitor<SequenceOfType> {
   public visitChildren(ctx: SequenceOfTypeContext): SequenceOfType {
     let baseType: AsnType | NamedType | undefined;
     let constraint: Constraint | undefined;
@@ -32,7 +33,7 @@ export class SequenceOfTypeVisitor
     const sizeConstraintCtx = ctx.sizeConstraint();
     if (sizeConstraintCtx !== undefined) {
       const sizeConstraint = sizeConstraintCtx.accept(
-        new SizeConstraintVisitor()
+        new SizeConstraintVisitor(),
       );
       constraint = new Constraint(sizeConstraint);
     }

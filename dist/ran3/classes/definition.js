@@ -30,43 +30,49 @@ const HEADER_LIST = [
  */
 const reSectionNumber = /\b[1-9A-Z]\d*?(\.[1-9]\d*?)*\.[1-9]\w*?\b/;
 //                         ^ Head      ^ Middle        ^ Tail
+// eslint-disable-next-line no-use-before-define
 function canMerge(parent, child) {
     if (!child.hasSingleRoot()) {
         return false;
     }
     const { elementList } = child;
     const firstElement = elementList[0];
-    if (parent.presence !== '' && parent.presence !== 'M' && parent.presence !== 'O' &&
-        firstElement.presence !== '' && firstElement.presence !== 'M' && firstElement.presence !== 'O' &&
-        parent.presence !== firstElement.presence) {
+    if (parent.presence !== '' && parent.presence !== 'M' && parent.presence !== 'O'
+        && firstElement.presence !== '' && firstElement.presence !== 'M' && firstElement.presence !== 'O'
+        && parent.presence !== firstElement.presence) {
         return false;
     }
     if (parent.range !== '' && firstElement.range !== '') {
         return false;
     }
-    if (parent.criticality !== '' && firstElement.criticality !== '' &&
-        parent.criticality !== firstElement.criticality) {
+    if (parent.criticality !== '' && firstElement.criticality !== ''
+        && parent.criticality !== firstElement.criticality) {
         return false;
     }
-    if (parent.assignedCriticality !== '' && firstElement.assignedCriticality !== '' &&
-        parent.assignedCriticality !== firstElement.assignedCriticality) {
+    if (parent.assignedCriticality !== '' && firstElement.assignedCriticality !== ''
+        && parent.assignedCriticality !== firstElement.assignedCriticality) {
         return false;
     }
     return true;
 }
 function merge(parent, child) {
     if (child.name.toUpperCase().startsWith('CHOICE')) {
+        // eslint-disable-next-line no-param-reassign
         parent.name = `CHOICE ${parent.name}`;
     }
     if (parent.presence === 'O' || child.presence === 'O') {
+        // eslint-disable-next-line no-param-reassign
         parent.presence = 'O';
     }
     else {
+        // eslint-disable-next-line no-param-reassign
         parent.presence = parent.presence || child.presence;
     }
     if (child.typeAndRef !== '') {
+        // eslint-disable-next-line no-param-reassign
         parent.typeAndRef = child.typeAndRef;
     }
+    // eslint-disable-next-line no-param-reassign
     parent.description = `${parent.description}
 
 ${child.description}`;
@@ -90,42 +96,42 @@ class Definition {
         const rangeBoundsExpanded = lodash_1.cloneDeep(this.rangeBounds);
         const conditionsExpanded = lodash_1.cloneDeep(this.conditions);
         // tslint:disable-next-line: prefer-for-of
-        for (let i = elementListExpanded.length - 1; i >= 0; i--) {
+        for (let i = elementListExpanded.length - 1; i >= 0; i -= 1) {
             const element = elementListExpanded[i];
             const { typeAndRef } = element;
             const matchResult = typeAndRef.match(reSectionNumber);
-            if (!matchResult) {
-                continue;
+            if (matchResult) {
+                const sectionNumber = matchResult[0];
+                const definitionReferenced = definitions.findDefinition(sectionNumber);
+                if (definitionReferenced) {
+                    const definitionExpanded = lodash_1.cloneDeep(definitionReferenced).expand(definitions);
+                    const { elementList: elementListReferenced, rangeBounds: rangeBoundsReferenced, conditions: conditionsReferenced, } = definitionExpanded;
+                    if (canMerge(elementListExpanded[i], definitionExpanded)) {
+                        elementListReferenced.forEach((elementReferenced) => {
+                            // eslint-disable-next-line no-param-reassign
+                            elementReferenced.depth += element.depth;
+                        });
+                        merge(elementListExpanded[i], elementListReferenced[0]);
+                        elementListExpanded.splice(i + 1, 0, ...elementListReferenced.slice(1));
+                    }
+                    else {
+                        elementListReferenced.forEach((elementReferenced) => {
+                            // eslint-disable-next-line no-param-reassign
+                            elementReferenced.depth += element.depth + 1;
+                        });
+                        elementListExpanded.splice(i + 1, 0, ...elementListReferenced);
+                    }
+                    if (!lodash_1.isEqual(elementListExpanded, this.elementList)) {
+                        this.elementList = elementListExpanded;
+                    }
+                    rangeBoundsReferenced.rangeBoundList.forEach((rangeBound) => {
+                        rangeBoundsExpanded.add(rangeBound);
+                    });
+                    conditionsReferenced.conditionList.forEach((condition) => {
+                        conditionsExpanded.add(condition);
+                    });
+                }
             }
-            const sectionNumber = matchResult[0];
-            const definitionReferenced = definitions.findDefinition(sectionNumber);
-            if (!definitionReferenced) {
-                continue;
-            }
-            const definitionExpanded = lodash_1.cloneDeep(definitionReferenced).expand(definitions);
-            const { elementList: elementListReferenced, rangeBounds: rangeBoundsReferenced, conditions: conditionsReferenced, } = definitionExpanded;
-            if (canMerge(elementListExpanded[i], definitionExpanded)) {
-                elementListReferenced.forEach((elementReferenced) => {
-                    elementReferenced.depth += element.depth;
-                });
-                merge(elementListExpanded[i], elementListReferenced[0]);
-                elementListExpanded.splice(i + 1, 0, ...elementListReferenced.slice(1));
-            }
-            else {
-                elementListReferenced.forEach((elementReferenced) => {
-                    elementReferenced.depth += element.depth + 1;
-                });
-                elementListExpanded.splice(i + 1, 0, ...elementListReferenced);
-            }
-            if (!lodash_1.isEqual(elementListExpanded, this.elementList)) {
-                this.elementList = elementListExpanded;
-            }
-            rangeBoundsReferenced.rangeBoundList.forEach((rangeBound) => {
-                rangeBoundsExpanded.add(rangeBound);
-            });
-            conditionsReferenced.conditionList.forEach((condition) => {
-                conditionsExpanded.add(condition);
-            });
         }
         if (!lodash_1.isEqual(rangeBoundsExpanded, this.rangeBounds)) {
             this.rangeBounds = rangeBoundsExpanded;
@@ -136,9 +142,7 @@ class Definition {
         return this;
     }
     getDepth() {
-        return this.elementList.reduce((prev, curr) => {
-            return Math.max(prev, curr.depth);
-        }, 0);
+        return this.elementList.reduce((prev, curr) => Math.max(prev, curr.depth), 0);
     }
     hasSingleRoot() {
         if (this.elementList.length === 0) {
@@ -172,9 +176,9 @@ class Definition {
         ws.addRow([]);
         spreadsheet_1.addHeader(ws, HEADER_LIST, depth);
         this.elementList.forEach((element) => {
-            const { name, presence, range, typeAndRef, description, criticality, assignedCriticality, depth, } = element;
+            const { name, presence, range, typeAndRef, description, criticality, assignedCriticality, depth: depthElement, } = element;
             const rowInput = {
-                [spreadsheet_1.headerIndexed(exports.HEADER_NAME_BASE, depth)]: name,
+                [spreadsheet_1.headerIndexed(exports.HEADER_NAME_BASE, depthElement)]: name,
                 [HEADER_PRESENCE]: presence,
                 [HEADER_RANGE]: range,
                 [HEADER_TYPE_AND_REF]: typeAndRef,
@@ -183,8 +187,8 @@ class Definition {
                 [HEADER_ASSIGNED_CRITICALITY]: assignedCriticality,
             };
             const r = ws.addRow(rowInput);
-            spreadsheet_1.setOutlineLevel(r, depth);
-            spreadsheet_1.drawBorder(ws, r, depth);
+            spreadsheet_1.setOutlineLevel(r, depthElement);
+            spreadsheet_1.drawBorder(ws, r, depthElement);
         });
         spreadsheet_1.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
         this.conditions.toSpreadsheet(ws);

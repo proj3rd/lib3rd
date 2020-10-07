@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { CharacterStringTypeLiteral } from '../classes/characterStringType';
-import { RestrictedCharacterStringTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { RestrictedCharacterStringTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -24,9 +25,9 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  */
 export class RestrictedCharacterStringTypeVisitor
   extends AbstractParseTreeVisitor<CharacterStringTypeLiteral>
-  implements ASN_3gppVisitor<CharacterStringTypeLiteral> {
+  implements grammar3rdVisitor<CharacterStringTypeLiteral> {
   public visitChildren(
-    ctx: RestrictedCharacterStringTypeContext
+    ctx: RestrictedCharacterStringTypeContext,
   ): CharacterStringTypeLiteral {
     return ctx.text as CharacterStringTypeLiteral;
   }

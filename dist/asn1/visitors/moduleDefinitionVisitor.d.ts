@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ModuleDefinition } from '../classes/moduleDefinition';
-import { ModuleDefinitionContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ModuleDefinitionContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
@@ -15,7 +15,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  *   END_LITERAL
  * ```
  */
-export declare class ModuleDefinitionVisitor extends AbstractParseTreeVisitor<ModuleDefinition> implements ASN_3gppVisitor<ModuleDefinition> {
+export declare class ModuleDefinitionVisitor extends AbstractParseTreeVisitor<ModuleDefinition> implements grammar3rdVisitor<ModuleDefinition> {
     visitChildren(ctx: ModuleDefinitionContext): ModuleDefinition;
     protected defaultResult(): ModuleDefinition;
 }

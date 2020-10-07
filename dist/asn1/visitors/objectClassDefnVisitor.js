@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
 const objectClass_1 = require("../classes/objectClass");
@@ -14,7 +15,8 @@ const withSyntaxSpecVisitor_1 = require("./withSyntaxSpecVisitor");
 class ObjectClassDefnVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
         const fieldSpecCtxes = ctx.fieldSpec();
-        const fieldSpecs = fieldSpecCtxes.map((fieldSpecCtx) => fieldSpecCtx.accept(new fieldSpecVisitor_1.FieldSpecVisitor()));
+        const fieldSpecs = fieldSpecCtxes
+            .map((fieldSpecCtx) => fieldSpecCtx.accept(new fieldSpecVisitor_1.FieldSpecVisitor()));
         const withSyntaxSpecCtx = ctx.withSyntaxSpec();
         const syntaxList = withSyntaxSpecCtx === undefined
             ? []

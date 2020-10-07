@@ -15,8 +15,6 @@ import { SequenceOfType } from './sequenceOfType';
 import { SequenceType } from './sequenceType';
 import { TypeReference } from './typeReference';
 
-export type AsnType = BuiltinType | ReferencedType;
-
 export type BuiltinType =
   | OctetStringType
   | BitStringType
@@ -33,13 +31,15 @@ export type BuiltinType =
   | BooleanType
   | NullType;
 
-export type ReferencedType = DefinedType;
-
 export type DefinedType =
   | ExternalTypeReference
   | TypeReference
   | ParameterizedType;
 // ParamterizedValueSetType
+
+export type ReferencedType = DefinedType;
+
+export type AsnType = BuiltinType | ReferencedType;
 
 export type DefinedObjectClass = ObjectClassReference;
 // ExternalObjectClassReference

@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { Logger } from '../../logger';
 import { Tag } from '../classes/sequenceType';
-import { TagContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { TagContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 const logger = Logger.getLogger('asn1.parser.tagVisitor');
 
@@ -17,7 +18,7 @@ const RE_NEED = /--\s*?Need\s+?.+?/;
  * ```
  */
 export class TagVisitor extends AbstractParseTreeVisitor<Tag>
-  implements ASN_3gppVisitor<Tag> {
+  implements grammar3rdVisitor<Tag> {
   public visitChildren(ctx: TagContext): Tag {
     const tagText = ctx.text.replace(/\s+/, ' ');
     if (RE_COND.test(tagText) || RE_NEED.test(tagText)) {

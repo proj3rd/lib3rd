@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { CharacterStringTypeLiteral } from '../classes/characterStringType';
-import { RestrictedCharacterStringTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { RestrictedCharacterStringTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
@@ -20,7 +20,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  *   | VISIBLE_STRING_LITERAL
  * ```
  */
-export declare class RestrictedCharacterStringTypeVisitor extends AbstractParseTreeVisitor<CharacterStringTypeLiteral> implements ASN_3gppVisitor<CharacterStringTypeLiteral> {
+export declare class RestrictedCharacterStringTypeVisitor extends AbstractParseTreeVisitor<CharacterStringTypeLiteral> implements grammar3rdVisitor<CharacterStringTypeLiteral> {
     visitChildren(ctx: RestrictedCharacterStringTypeContext): CharacterStringTypeLiteral;
     protected defaultResult(): CharacterStringTypeLiteral;
 }

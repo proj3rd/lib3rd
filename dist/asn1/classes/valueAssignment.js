@@ -6,6 +6,7 @@ class ValueAssignment {
         this.asnType = asnType;
         this.value = value;
     }
+    // eslint-disable-next-line no-unused-vars
     expand(modules) {
         // TODO: Shall `Value::ObjectIdentifierValue` be expanded?
         return this;

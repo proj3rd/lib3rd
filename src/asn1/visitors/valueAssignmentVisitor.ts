@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { ValueAssignmentContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ValueAssignmentContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ITypeAndValue } from '../types';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { ValueVisitor } from './valueVisitor';
@@ -14,7 +15,7 @@ import { ValueVisitor } from './valueVisitor';
  */
 export class ValueAssignmentVisitor
   extends AbstractParseTreeVisitor<ITypeAndValue>
-  implements ASN_3gppVisitor<ITypeAndValue> {
+  implements grammar3rdVisitor<ITypeAndValue> {
   public visitChildren(ctx: ValueAssignmentContext): ITypeAndValue {
     const asnTypeCtx = ctx.asnType();
     const asnType = asnTypeCtx.accept(new AsnTypeVisitor());

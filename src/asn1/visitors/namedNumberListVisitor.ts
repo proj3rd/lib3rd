@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { NamedNumberListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { NamedNumberListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { INamedNumber } from '../types';
 import { NamedNumberVisitor } from './namedNumberVisitor';
 
@@ -13,12 +14,11 @@ import { NamedNumberVisitor } from './namedNumberVisitor';
  */
 export class NamedNumberListVisitor
   extends AbstractParseTreeVisitor<INamedNumber[]>
-  implements ASN_3gppVisitor<INamedNumber[]> {
+  implements grammar3rdVisitor<INamedNumber[]> {
   public visitChildren(ctx: NamedNumberListContext): INamedNumber[] {
     const namedNumberCtxes = ctx.namedNumber();
-    return namedNumberCtxes.map((namedNumberCtx) =>
-      namedNumberCtx.accept(new NamedNumberVisitor())
-    );
+    return namedNumberCtxes
+      .map((namedNumberCtx) => namedNumberCtx.accept(new NamedNumberVisitor()));
   }
 
   protected defaultResult(): INamedNumber[] {

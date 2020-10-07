@@ -31,6 +31,7 @@ class ExternalObjectSetReference {
         }
         return unimpl_1.unimpl(assignment);
     }
+    // eslint-disable-next-line class-methods-use-this
     getDepth() {
         return 0;
     }

@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { ExtensionMarker } from '../classes/extensionMarker';
-import { ExtensionAndExceptionContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ExtensionAndExceptionContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -12,7 +13,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  */
 export class ExtensionAndExceptionVisitor
   extends AbstractParseTreeVisitor<ExtensionMarker>
-  implements ASN_3gppVisitor<ExtensionMarker> {
+  implements grammar3rdVisitor<ExtensionMarker> {
   public visitChildren(ctx: ExtensionAndExceptionContext): ExtensionMarker {
     const exceptionSpecCtx = ctx.exceptionSpec();
     if (exceptionSpecCtx !== undefined) {

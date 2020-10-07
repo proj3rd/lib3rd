@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const definitiveIdentification_1 = require("../classes/definitiveIdentification");
 const moduleDefinition_1 = require("../classes/moduleDefinition");
@@ -27,11 +28,9 @@ class ModuleDefinitionVisitor extends AbstractParseTreeVisitor_1.AbstractParseTr
             const indexStart = 2;
             const indexStop = ctx.childCount - 8;
             for (let i = indexStart; i < indexStop; i += 4) {
-                // tslint:disable-next-line: no-shadowed-variable
-                const name = ctx.getChild(i).text;
-                // tslint:disable-next-line: variable-name
+                const doiName = ctx.getChild(i).text;
                 const number = ctx.getChild(i + 2).text;
-                definitiveIdentificationArr.push({ name, number });
+                definitiveIdentificationArr.push({ name: doiName, number });
             }
         }
         const definitiveIdentification = new definitiveIdentification_1.DefinitiveIdentification(definitiveIdentificationArr);

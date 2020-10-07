@@ -22,7 +22,7 @@ export class SubtypeConstraint {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): SubtypeConstraint {
     const expandedElementSetSpecList = this.elementSetSpecList.map(
       (elementSetSpec) => {
@@ -31,13 +31,13 @@ export class SubtypeConstraint {
         }
         const expandedElementSetSpec = cloneDeep(elementSetSpec).expand(
           modules,
-          parameterMappings
+          parameterMappings,
         );
         if (isEqual(expandedElementSetSpec, elementSetSpec)) {
           return elementSetSpec;
         }
         return expandedElementSetSpec;
-      }
+      },
     );
     if (!isEqual(expandedElementSetSpecList, this.elementSetSpecList)) {
       this.elementSetSpecList = expandedElementSetSpecList;

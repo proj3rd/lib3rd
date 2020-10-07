@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { TypeConstraintsComponent } from '../classes/innerTypeConstraints';
-import { ComponentPresenceListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ComponentPresenceListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { ComponentPresenceVisitor } from './componentPresenceVisitor';
 
 /**
@@ -13,14 +14,13 @@ import { ComponentPresenceVisitor } from './componentPresenceVisitor';
  */
 export class ComponentPresenceListVisitor
   extends AbstractParseTreeVisitor<TypeConstraintsComponent[]>
-  implements ASN_3gppVisitor<TypeConstraintsComponent[]> {
+  implements grammar3rdVisitor<TypeConstraintsComponent[]> {
   public visitChildren(
-    ctx: ComponentPresenceListContext
+    ctx: ComponentPresenceListContext,
   ): TypeConstraintsComponent[] {
     const componentPresenceCtxes = ctx.componentPresence();
-    return componentPresenceCtxes.map((componentPresenceCtx) =>
-      componentPresenceCtx.accept(new ComponentPresenceVisitor())
-    );
+    return componentPresenceCtxes
+      .map((componentPresenceCtx) => componentPresenceCtx.accept(new ComponentPresenceVisitor()));
   }
 
   protected defaultResult(): TypeConstraintsComponent[] {

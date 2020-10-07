@@ -9,7 +9,7 @@ class Imports {
         this.symbolsFromModule.forEach((symbolsFromModule) => {
             arrToString.push(symbolsFromModule.toString());
         });
-        return arrToString.join('\n') + ';';
+        return `${arrToString.join('\n')};`;
     }
 }
 exports.Imports = Imports;

@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { NamedType } from '../classes/namedType';
-import { RootAlternativeTypeListContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { RootAlternativeTypeListContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { AlternativeTypeListVisitor } from './alternativeTypeListVisitor';
 
 /**
@@ -12,7 +13,7 @@ import { AlternativeTypeListVisitor } from './alternativeTypeListVisitor';
  */
 export class RootAlternativeTypeListVisitor
   extends AbstractParseTreeVisitor<NamedType[]>
-  implements ASN_3gppVisitor<NamedType[]> {
+  implements grammar3rdVisitor<NamedType[]> {
   public visitChildren(ctx: RootAlternativeTypeListContext): NamedType[] {
     const alternativeTypeListCtx = ctx.alternativeTypeList();
     return alternativeTypeListCtx.accept(new AlternativeTypeListVisitor());

@@ -1,13 +1,13 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { SignedNumberContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { SignedNumberContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * signedNumber: (MINUS)? NUMBER
  * ```
  */
-export declare class SignedNumberVisitor extends AbstractParseTreeVisitor<string> implements ASN_3gppVisitor<string> {
+export declare class SignedNumberVisitor extends AbstractParseTreeVisitor<string> implements grammar3rdVisitor<string> {
     visitChildren(ctx: SignedNumberContext): string;
     protected defaultResult(): string;
 }

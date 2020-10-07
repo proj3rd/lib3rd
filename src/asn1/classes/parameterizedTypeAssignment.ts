@@ -8,11 +8,12 @@ import {
   getWorkbook,
   headerIndexed,
   uniqueSheetname,
+  drawBorder,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
 import { IParameterMapping } from '../expander';
 import { HEADER_LIST, HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
+
 import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
@@ -37,16 +38,14 @@ export class ParameterizedTypeAssignment {
    */
   public expand(modules: Modules): ParameterizedTypeAssignment {
     const parameterMappings: IParameterMapping[] = this.parameters.map(
-      (parameter) => {
-        return {
-          parameter,
-          actualParameter: undefined,
-        };
-      }
+      (parameter) => ({
+        parameter,
+        actualParameter: undefined,
+      }),
     );
     const expandedType = cloneDeep(this.asnType).expand(
       modules,
-      parameterMappings
+      parameterMappings,
     );
     if (expandedType instanceof ObjectSet) {
       return unimpl();
@@ -74,7 +73,7 @@ export class ParameterizedTypeAssignment {
       {
         [headerIndexed(HEADER_NAME_BASE, 0)]: this.name,
       },
-      0
+      0,
     );
     drawBorder(ws, ws.addRow([]), 0, BorderTop);
     return wb;

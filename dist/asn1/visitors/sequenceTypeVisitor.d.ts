@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { SequenceType } from '../classes/sequenceType';
-import { SequenceTypeContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { SequenceTypeContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
@@ -10,7 +10,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  *   R_BRACE
  * ```
  */
-export declare class SequenceTypeVisitor extends AbstractParseTreeVisitor<SequenceType> implements ASN_3gppVisitor<SequenceType> {
+export declare class SequenceTypeVisitor extends AbstractParseTreeVisitor<SequenceType> implements grammar3rdVisitor<SequenceType> {
     visitChildren(ctx: SequenceTypeContext): SequenceType;
     protected defaultResult(): SequenceType;
 }

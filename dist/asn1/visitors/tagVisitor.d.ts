@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { Tag } from '../classes/sequenceType';
-import { TagContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { TagContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
@@ -9,7 +9,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * TAG: '--' ~('\n'|'\r')*
  * ```
  */
-export declare class TagVisitor extends AbstractParseTreeVisitor<Tag> implements ASN_3gppVisitor<Tag> {
+export declare class TagVisitor extends AbstractParseTreeVisitor<Tag> implements grammar3rdVisitor<Tag> {
     visitChildren(ctx: TagContext): Tag;
     protected defaultResult(): Tag;
 }

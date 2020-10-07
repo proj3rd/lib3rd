@@ -4,7 +4,6 @@ const lodash_1 = require("lodash");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 /**
  * X.681 clause 12.1
  * ```
@@ -42,7 +41,7 @@ class ObjectSetAssignment {
         this.objectSet.toSpreadsheet(ws, {
             [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, 0)]: this.fullName(),
         }, 0);
-        spreadsheet_3.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
+        spreadsheet_1.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
         return wb;
     }
     toString() {

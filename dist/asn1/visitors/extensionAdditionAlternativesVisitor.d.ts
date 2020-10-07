@@ -1,14 +1,14 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ExtensionAdditionAlternative } from '../classes/choiceType';
-import { ExtensionAdditionAlternativesContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { ExtensionAdditionAlternativesContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * extensionAdditionAlternatives: (COMMA extensionAdditionAlternativesList)?
  * ```
  */
-export declare class ExtensionAdditionAlternativesVisitor extends AbstractParseTreeVisitor<ExtensionAdditionAlternative[]> implements ASN_3gppVisitor<ExtensionAdditionAlternative[]> {
+export declare class ExtensionAdditionAlternativesVisitor extends AbstractParseTreeVisitor<ExtensionAdditionAlternative[]> implements grammar3rdVisitor<ExtensionAdditionAlternative[]> {
     visitChildren(ctx: ExtensionAdditionAlternativesContext): ExtensionAdditionAlternative[];
     protected defaultResult(): ExtensionAdditionAlternative[];
 }

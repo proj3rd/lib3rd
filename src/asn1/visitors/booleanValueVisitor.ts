@@ -1,8 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { BooleanValue } from '../classes/booleanValue';
-import { BooleanValueContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { BooleanValueContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -11,14 +12,14 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  * ```
  */
 export class BooleanValueVisitor extends AbstractParseTreeVisitor<BooleanValue>
-  implements ASN_3gppVisitor<BooleanValue> {
+  implements grammar3rdVisitor<BooleanValue> {
   public visitChildren(ctx: BooleanValueContext): BooleanValue {
-    const text = ctx.text;
+    const { text } = ctx;
     if (
-      text === 'TRUE' ||
-      text === 'true' ||
-      text === 'FALSE' ||
-      text === 'false'
+      text === 'TRUE'
+      || text === 'true'
+      || text === 'FALSE'
+      || text === 'false'
     ) {
       return new BooleanValue(text);
     }

@@ -1,7 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { VersionNumberContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { VersionNumberContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 /**
  * # Grammar
@@ -11,7 +12,7 @@ import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
  */
 export class VersionNumberVisitor
   extends AbstractParseTreeVisitor<number | undefined>
-  implements ASN_3gppVisitor<number | undefined> {
+  implements grammar3rdVisitor<number | undefined> {
   public visitChildren(ctx: VersionNumberContext): number | undefined {
     if (ctx.childCount === 0) {
       return undefined;

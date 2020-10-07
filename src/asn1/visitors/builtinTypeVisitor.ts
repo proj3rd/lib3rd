@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { BuiltinType } from '../classes/asnType';
@@ -17,15 +18,15 @@ import {
   SequenceTypeContext,
   SetOfTypeContext,
   SetTypeContext,
-} from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+} from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { BitStringTypeVisitor } from './bitStringTypeVisitor';
 import { CharacterStringTypeVisitor } from './characterStringTypeVisitor';
 import { ChoiceTypeVisitor } from './choiceTypeVisitor';
 import { EnumeratedTypeVisitor } from './enumeratedTypeVisitor';
 import { IntegerTypeVisitor } from './integerTypeVisitor';
 import { ObjectClassFieldTypeVisitor } from './objectClassFieldTypeVisitor';
-import { ObjectidentifiertypeVisitor } from './objectIdentifierTypeVisitor';
+import { ObjectidentifiertypeVisitor } from './objectidentifiertypeVisitor';
 import { OctetStringTypeVisitor } from './octetStringTypeVisitor';
 import { SequenceOfTypeVisitor } from './sequenceOfTypeVisitor';
 import { SequenceTypeVisitor } from './sequenceTypeVisitor';
@@ -51,44 +52,43 @@ import { SequenceTypeVisitor } from './sequenceTypeVisitor';
  * ```
  */
 export class BuiltinTypeVisitor extends AbstractParseTreeVisitor<BuiltinType>
-  implements ASN_3gppVisitor<BuiltinType> {
+  implements grammar3rdVisitor<BuiltinType> {
   public visitChildren(ctx: BuiltinTypeContext): BuiltinType {
     const firstCtx = ctx.getChild(0);
     if (firstCtx instanceof OctetStringTypeContext) {
       return firstCtx.accept(new OctetStringTypeVisitor());
-    } else if (firstCtx instanceof BitStringTypeContext) {
+    } if (firstCtx instanceof BitStringTypeContext) {
       return firstCtx.accept(new BitStringTypeVisitor());
-    } else if (firstCtx instanceof ChoiceTypeContext) {
+    } if (firstCtx instanceof ChoiceTypeContext) {
       return firstCtx.accept(new ChoiceTypeVisitor());
-    } else if (firstCtx instanceof EnumeratedTypeContext) {
+    } if (firstCtx instanceof EnumeratedTypeContext) {
       return firstCtx.accept(new EnumeratedTypeVisitor());
-    } else if (firstCtx instanceof IntegerTypeContext) {
+    } if (firstCtx instanceof IntegerTypeContext) {
       return firstCtx.accept(new IntegerTypeVisitor());
-    } else if (firstCtx instanceof SequenceTypeContext) {
+    } if (firstCtx instanceof SequenceTypeContext) {
       return firstCtx.accept(new SequenceTypeVisitor());
-    } else if (firstCtx instanceof SequenceOfTypeContext) {
+    } if (firstCtx instanceof SequenceOfTypeContext) {
       return firstCtx.accept(new SequenceOfTypeVisitor());
-    } else if (firstCtx instanceof SetTypeContext) {
+    } if (firstCtx instanceof SetTypeContext) {
       return unimpl(ctx.text);
-    } else if (firstCtx instanceof SetOfTypeContext) {
+    } if (firstCtx instanceof SetOfTypeContext) {
       return unimpl(ctx.text);
-    } else if (firstCtx instanceof ObjectidentifiertypeContext) {
+    } if (firstCtx instanceof ObjectidentifiertypeContext) {
       return firstCtx.accept(new ObjectidentifiertypeVisitor());
-    } else if (firstCtx instanceof ObjectClassFieldTypeContext) {
+    } if (firstCtx instanceof ObjectClassFieldTypeContext) {
       return firstCtx.accept(new ObjectClassFieldTypeVisitor());
-    } else if (firstCtx instanceof CharacterStringTypeContext) {
+    } if (firstCtx instanceof CharacterStringTypeContext) {
       return firstCtx.accept(new CharacterStringTypeVisitor());
-    } else {
-      switch (ctx.text) {
-        case 'BOOLEAN': {
-          return BooleanType.getInstance();
-        }
-        case 'NULL': {
-          return NullType.getInstance();
-        }
-        default: {
-          throw Error();
-        }
+    }
+    switch (ctx.text) {
+      case 'BOOLEAN': {
+        return BooleanType.getInstance();
+      }
+      case 'NULL': {
+        return NullType.getInstance();
+      }
+      default: {
+        throw Error();
       }
     }
   }

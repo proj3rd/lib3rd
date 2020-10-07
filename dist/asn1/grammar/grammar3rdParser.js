@@ -1,5 +1,5 @@
 "use strict";
-// Generated from src/asn1/grammar/ASN_3gpp.g4 by ANTLR 4.7.3-SNAPSHOT
+// Generated from src/asn1/grammar/grammar3rd.g4 by ANTLR 4.7.3-SNAPSHOT
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -18,27 +18,27 @@ const RecognitionException_1 = require("antlr4ts/RecognitionException");
 const Token_1 = require("antlr4ts/Token");
 const VocabularyImpl_1 = require("antlr4ts/VocabularyImpl");
 const Utils = __importStar(require("antlr4ts/misc/Utils"));
-class ASN_3gppParser extends Parser_1.Parser {
+class grammar3rdParser extends Parser_1.Parser {
     constructor(input) {
         super(input);
-        this._interp = new ParserATNSimulator_1.ParserATNSimulator(ASN_3gppParser._ATN, this);
+        this._interp = new ParserATNSimulator_1.ParserATNSimulator(grammar3rdParser._ATN, this);
     }
     // @Override
     // @NotNull
     get vocabulary() {
-        return ASN_3gppParser.VOCABULARY;
+        return grammar3rdParser.VOCABULARY;
     }
     // tslint:enable:no-trailing-whitespace
     // @Override
-    get grammarFileName() { return "ASN_3gpp.g4"; }
+    get grammarFileName() { return "grammar3rd.g4"; }
     // @Override
-    get ruleNames() { return ASN_3gppParser.ruleNames; }
+    get ruleNames() { return grammar3rdParser.ruleNames; }
     // @Override
-    get serializedATN() { return ASN_3gppParser._serializedATN; }
+    get serializedATN() { return grammar3rdParser._serializedATN; }
     // @RuleVersion(0)
     modules() {
         let _localctx = new ModulesContext(this._ctx, this.state);
-        this.enterRule(_localctx, 0, ASN_3gppParser.RULE_modules);
+        this.enterRule(_localctx, 0, grammar3rdParser.RULE_modules);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -56,7 +56,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.state = 303;
                     this._errHandler.sync(this);
                     _la = this._input.LA(1);
-                } while (_la === ASN_3gppParser.IDENTIFIER);
+                } while (_la === grammar3rdParser.IDENTIFIER);
             }
         }
         catch (re) {
@@ -77,34 +77,34 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     moduleDefinition() {
         let _localctx = new ModuleDefinitionContext(this._ctx, this.state);
-        this.enterRule(_localctx, 2, ASN_3gppParser.RULE_moduleDefinition);
+        this.enterRule(_localctx, 2, grammar3rdParser.RULE_moduleDefinition);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 305;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 317;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.L_BRACE) {
+                if (_la === grammar3rdParser.L_BRACE) {
                     {
                         this.state = 306;
-                        this.match(ASN_3gppParser.L_BRACE);
+                        this.match(grammar3rdParser.L_BRACE);
                         this.state = 313;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        while (_la === ASN_3gppParser.IDENTIFIER) {
+                        while (_la === grammar3rdParser.IDENTIFIER) {
                             {
                                 {
                                     this.state = 307;
-                                    this.match(ASN_3gppParser.IDENTIFIER);
+                                    this.match(grammar3rdParser.IDENTIFIER);
                                     this.state = 308;
-                                    this.match(ASN_3gppParser.L_PARAN);
+                                    this.match(grammar3rdParser.L_PARAN);
                                     this.state = 309;
-                                    this.match(ASN_3gppParser.NUMBER);
+                                    this.match(grammar3rdParser.NUMBER);
                                     this.state = 310;
-                                    this.match(ASN_3gppParser.R_PARAN);
+                                    this.match(grammar3rdParser.R_PARAN);
                                 }
                             }
                             this.state = 315;
@@ -112,23 +112,23 @@ class ASN_3gppParser extends Parser_1.Parser {
                             _la = this._input.LA(1);
                         }
                         this.state = 316;
-                        this.match(ASN_3gppParser.R_BRACE);
+                        this.match(grammar3rdParser.R_BRACE);
                     }
                 }
                 this.state = 319;
-                this.match(ASN_3gppParser.DEFINITIONS_LITERAL);
+                this.match(grammar3rdParser.DEFINITIONS_LITERAL);
                 this.state = 320;
                 this.tagDefault();
                 this.state = 321;
                 this.extensionDefault();
                 this.state = 322;
-                this.match(ASN_3gppParser.ASSIGN_OP);
+                this.match(grammar3rdParser.ASSIGN_OP);
                 this.state = 323;
-                this.match(ASN_3gppParser.BEGIN_LITERAL);
+                this.match(grammar3rdParser.BEGIN_LITERAL);
                 this.state = 324;
                 this.moduleBody();
                 this.state = 325;
-                this.match(ASN_3gppParser.END_LITERAL);
+                this.match(grammar3rdParser.END_LITERAL);
             }
         }
         catch (re) {
@@ -149,7 +149,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     tagDefault() {
         let _localctx = new TagDefaultContext(this._ctx, this.state);
-        this.enterRule(_localctx, 4, ASN_3gppParser.RULE_tagDefault);
+        this.enterRule(_localctx, 4, grammar3rdParser.RULE_tagDefault);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -157,11 +157,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 329;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (((((_la - 84)) & ~0x1F) === 0 && ((1 << (_la - 84)) & ((1 << (ASN_3gppParser.EXPLICIT_LITERAL - 84)) | (1 << (ASN_3gppParser.IMPLICIT_LITERAL - 84)) | (1 << (ASN_3gppParser.AUTOMATIC_LITERAL - 84)))) !== 0)) {
+                if (((((_la - 84)) & ~0x1F) === 0 && ((1 << (_la - 84)) & ((1 << (grammar3rdParser.EXPLICIT_LITERAL - 84)) | (1 << (grammar3rdParser.IMPLICIT_LITERAL - 84)) | (1 << (grammar3rdParser.AUTOMATIC_LITERAL - 84)))) !== 0)) {
                     {
                         this.state = 327;
                         _la = this._input.LA(1);
-                        if (!(((((_la - 84)) & ~0x1F) === 0 && ((1 << (_la - 84)) & ((1 << (ASN_3gppParser.EXPLICIT_LITERAL - 84)) | (1 << (ASN_3gppParser.IMPLICIT_LITERAL - 84)) | (1 << (ASN_3gppParser.AUTOMATIC_LITERAL - 84)))) !== 0))) {
+                        if (!(((((_la - 84)) & ~0x1F) === 0 && ((1 << (_la - 84)) & ((1 << (grammar3rdParser.EXPLICIT_LITERAL - 84)) | (1 << (grammar3rdParser.IMPLICIT_LITERAL - 84)) | (1 << (grammar3rdParser.AUTOMATIC_LITERAL - 84)))) !== 0))) {
                             this._errHandler.recoverInline(this);
                         }
                         else {
@@ -172,7 +172,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                             this.consume();
                         }
                         this.state = 328;
-                        this.match(ASN_3gppParser.TAGS_LITERAL);
+                        this.match(grammar3rdParser.TAGS_LITERAL);
                     }
                 }
             }
@@ -195,7 +195,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionDefault() {
         let _localctx = new ExtensionDefaultContext(this._ctx, this.state);
-        this.enterRule(_localctx, 6, ASN_3gppParser.RULE_extensionDefault);
+        this.enterRule(_localctx, 6, grammar3rdParser.RULE_extensionDefault);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -203,12 +203,12 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 333;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.EXTENSIBILITY_LITERAL) {
+                if (_la === grammar3rdParser.EXTENSIBILITY_LITERAL) {
                     {
                         this.state = 331;
-                        this.match(ASN_3gppParser.EXTENSIBILITY_LITERAL);
+                        this.match(grammar3rdParser.EXTENSIBILITY_LITERAL);
                         this.state = 332;
-                        this.match(ASN_3gppParser.IMPLIED_LITERAL);
+                        this.match(grammar3rdParser.IMPLIED_LITERAL);
                     }
                 }
             }
@@ -231,7 +231,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     moduleBody() {
         let _localctx = new ModuleBodyContext(this._ctx, this.state);
-        this.enterRule(_localctx, 8, ASN_3gppParser.RULE_moduleBody);
+        this.enterRule(_localctx, 8, grammar3rdParser.RULE_moduleBody);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -239,7 +239,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 339;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.IMPORTS_LITERAL || _la === ASN_3gppParser.EXPORTS_LITERAL || _la === ASN_3gppParser.IDENTIFIER) {
+                if (_la === grammar3rdParser.IMPORTS_LITERAL || _la === grammar3rdParser.EXPORTS_LITERAL || _la === grammar3rdParser.IDENTIFIER) {
                     {
                         this.state = 335;
                         this.exports();
@@ -269,7 +269,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     exports() {
         let _localctx = new ExportsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 10, ASN_3gppParser.RULE_exports);
+        this.enterRule(_localctx, 10, grammar3rdParser.RULE_exports);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -279,21 +279,21 @@ class ASN_3gppParser extends Parser_1.Parser {
                     case 1:
                         {
                             this.state = 341;
-                            this.match(ASN_3gppParser.EXPORTS_LITERAL);
+                            this.match(grammar3rdParser.EXPORTS_LITERAL);
                             this.state = 342;
                             this.symbolsExported();
                             this.state = 343;
-                            this.match(ASN_3gppParser.SEMI_COLON);
+                            this.match(grammar3rdParser.SEMI_COLON);
                         }
                         break;
                     case 2:
                         {
                             this.state = 345;
-                            this.match(ASN_3gppParser.EXPORTS_LITERAL);
+                            this.match(grammar3rdParser.EXPORTS_LITERAL);
                             this.state = 346;
-                            this.match(ASN_3gppParser.ALL_LITERAL);
+                            this.match(grammar3rdParser.ALL_LITERAL);
                             this.state = 347;
-                            this.match(ASN_3gppParser.SEMI_COLON);
+                            this.match(grammar3rdParser.SEMI_COLON);
                         }
                         break;
                 }
@@ -317,7 +317,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     symbolsExported() {
         let _localctx = new SymbolsExportedContext(this._ctx, this.state);
-        this.enterRule(_localctx, 12, ASN_3gppParser.RULE_symbolsExported);
+        this.enterRule(_localctx, 12, grammar3rdParser.RULE_symbolsExported);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -325,7 +325,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 351;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.IDENTIFIER) {
+                if (_la === grammar3rdParser.IDENTIFIER) {
                     {
                         this.state = 350;
                         this.symbolList();
@@ -351,7 +351,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     imports() {
         let _localctx = new ImportsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 14, ASN_3gppParser.RULE_imports);
+        this.enterRule(_localctx, 14, grammar3rdParser.RULE_imports);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -359,14 +359,14 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 357;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.IMPORTS_LITERAL) {
+                if (_la === grammar3rdParser.IMPORTS_LITERAL) {
                     {
                         this.state = 353;
-                        this.match(ASN_3gppParser.IMPORTS_LITERAL);
+                        this.match(grammar3rdParser.IMPORTS_LITERAL);
                         this.state = 354;
                         this.symbolsImported();
                         this.state = 355;
-                        this.match(ASN_3gppParser.SEMI_COLON);
+                        this.match(grammar3rdParser.SEMI_COLON);
                     }
                 }
             }
@@ -389,7 +389,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     symbolsImported() {
         let _localctx = new SymbolsImportedContext(this._ctx, this.state);
-        this.enterRule(_localctx, 16, ASN_3gppParser.RULE_symbolsImported);
+        this.enterRule(_localctx, 16, grammar3rdParser.RULE_symbolsImported);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -397,7 +397,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 360;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.IDENTIFIER) {
+                if (_la === grammar3rdParser.IDENTIFIER) {
                     {
                         this.state = 359;
                         this.symbolsFromModuleList();
@@ -423,7 +423,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     symbolsFromModuleList() {
         let _localctx = new SymbolsFromModuleListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 18, ASN_3gppParser.RULE_symbolsFromModuleList);
+        this.enterRule(_localctx, 18, grammar3rdParser.RULE_symbolsFromModuleList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -435,7 +435,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 366;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.IDENTIFIER) {
+                while (_la === grammar3rdParser.IDENTIFIER) {
                     {
                         {
                             this.state = 363;
@@ -466,14 +466,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     symbolsFromModule() {
         let _localctx = new SymbolsFromModuleContext(this._ctx, this.state);
-        this.enterRule(_localctx, 20, ASN_3gppParser.RULE_symbolsFromModule);
+        this.enterRule(_localctx, 20, grammar3rdParser.RULE_symbolsFromModule);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 369;
                 this.symbolList();
                 this.state = 370;
-                this.match(ASN_3gppParser.FROM_LITERAL);
+                this.match(grammar3rdParser.FROM_LITERAL);
                 this.state = 371;
                 this.globalModuleReference();
             }
@@ -496,12 +496,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     globalModuleReference() {
         let _localctx = new GlobalModuleReferenceContext(this._ctx, this.state);
-        this.enterRule(_localctx, 22, ASN_3gppParser.RULE_globalModuleReference);
+        this.enterRule(_localctx, 22, grammar3rdParser.RULE_globalModuleReference);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 373;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 374;
                 this.assignedIdentifier();
             }
@@ -524,7 +524,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     assignedIdentifier() {
         let _localctx = new AssignedIdentifierContext(this._ctx, this.state);
-        this.enterRule(_localctx, 24, ASN_3gppParser.RULE_assignedIdentifier);
+        this.enterRule(_localctx, 24, grammar3rdParser.RULE_assignedIdentifier);
         try {
             this.enterOuterAlt(_localctx, 1);
             // tslint:disable-next-line:no-empty
@@ -549,7 +549,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     symbolList() {
         let _localctx = new SymbolListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 26, ASN_3gppParser.RULE_symbolList);
+        this.enterRule(_localctx, 26, grammar3rdParser.RULE_symbolList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -561,11 +561,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 383;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.COMMA) {
+                while (_la === grammar3rdParser.COMMA) {
                     {
                         {
                             this.state = 379;
-                            this.match(ASN_3gppParser.COMMA);
+                            this.match(grammar3rdParser.COMMA);
                             this.state = 380;
                             this.symbol();
                         }
@@ -594,23 +594,23 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     symbol() {
         let _localctx = new SymbolContext(this._ctx, this.state);
-        this.enterRule(_localctx, 28, ASN_3gppParser.RULE_symbol);
+        this.enterRule(_localctx, 28, grammar3rdParser.RULE_symbol);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 386;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 389;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.L_BRACE) {
+                if (_la === grammar3rdParser.L_BRACE) {
                     {
                         {
                             this.state = 387;
-                            this.match(ASN_3gppParser.L_BRACE);
+                            this.match(grammar3rdParser.L_BRACE);
                             this.state = 388;
-                            this.match(ASN_3gppParser.R_BRACE);
+                            this.match(grammar3rdParser.R_BRACE);
                         }
                     }
                 }
@@ -634,7 +634,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     assignmentList() {
         let _localctx = new AssignmentListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 30, ASN_3gppParser.RULE_assignmentList);
+        this.enterRule(_localctx, 30, grammar3rdParser.RULE_assignmentList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -646,7 +646,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 395;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.IDENTIFIER) {
+                while (_la === grammar3rdParser.IDENTIFIER) {
                     {
                         {
                             this.state = 392;
@@ -677,13 +677,13 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     assignment() {
         let _localctx = new AssignmentContext(this._ctx, this.state);
-        this.enterRule(_localctx, 32, ASN_3gppParser.RULE_assignment);
+        this.enterRule(_localctx, 32, grammar3rdParser.RULE_assignment);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 {
                     this.state = 398;
-                    this.match(ASN_3gppParser.IDENTIFIER);
+                    this.match(grammar3rdParser.IDENTIFIER);
                     this.state = 403;
                     this._errHandler.sync(this);
                     switch (this.interpreter.adaptivePredict(this._input, 14, this._ctx)) {
@@ -733,14 +733,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     sequenceType() {
         let _localctx = new SequenceTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 34, ASN_3gppParser.RULE_sequenceType);
+        this.enterRule(_localctx, 34, grammar3rdParser.RULE_sequenceType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 405;
-                this.match(ASN_3gppParser.SEQUENCE_LITERAL);
+                this.match(grammar3rdParser.SEQUENCE_LITERAL);
                 this.state = 406;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 411;
                 this._errHandler.sync(this);
                 switch (this.interpreter.adaptivePredict(this._input, 15, this._ctx)) {
@@ -760,7 +760,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         break;
                 }
                 this.state = 413;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -781,17 +781,17 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionAndException() {
         let _localctx = new ExtensionAndExceptionContext(this._ctx, this.state);
-        this.enterRule(_localctx, 36, ASN_3gppParser.RULE_extensionAndException);
+        this.enterRule(_localctx, 36, grammar3rdParser.RULE_extensionAndException);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 415;
-                this.match(ASN_3gppParser.ELLIPSIS);
+                this.match(grammar3rdParser.ELLIPSIS);
                 this.state = 417;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.EXCLAM) {
+                if (_la === grammar3rdParser.EXCLAM) {
                     {
                         this.state = 416;
                         this.exceptionSpec();
@@ -817,7 +817,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     optionalExtensionMarker() {
         let _localctx = new OptionalExtensionMarkerContext(this._ctx, this.state);
-        this.enterRule(_localctx, 38, ASN_3gppParser.RULE_optionalExtensionMarker);
+        this.enterRule(_localctx, 38, grammar3rdParser.RULE_optionalExtensionMarker);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -825,12 +825,12 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 421;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.COMMA) {
+                if (_la === grammar3rdParser.COMMA) {
                     {
                         this.state = 419;
-                        this.match(ASN_3gppParser.COMMA);
+                        this.match(grammar3rdParser.COMMA);
                         this.state = 420;
-                        this.match(ASN_3gppParser.ELLIPSIS);
+                        this.match(grammar3rdParser.ELLIPSIS);
                     }
                 }
             }
@@ -853,7 +853,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     componentTypeLists() {
         let _localctx = new ComponentTypeListsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 40, ASN_3gppParser.RULE_componentTypeLists);
+        this.enterRule(_localctx, 40, grammar3rdParser.RULE_componentTypeLists);
         let _la;
         try {
             this.state = 477;
@@ -867,7 +867,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 425;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.TAG) {
+                        if (_la === grammar3rdParser.TAG) {
                             {
                                 this.state = 424;
                                 this.tag();
@@ -881,11 +881,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 427;
                         this.rootComponentTypeList();
                         this.state = 428;
-                        this.match(ASN_3gppParser.COMMA);
+                        this.match(grammar3rdParser.COMMA);
                         this.state = 430;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.TAG) {
+                        if (_la === grammar3rdParser.TAG) {
                             {
                                 this.state = 429;
                                 this.tag();
@@ -898,7 +898,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 435;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.TAG) {
+                        if (_la === grammar3rdParser.TAG) {
                             {
                                 this.state = 434;
                                 this.tag();
@@ -912,11 +912,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 437;
                         this.rootComponentTypeList();
                         this.state = 438;
-                        this.match(ASN_3gppParser.COMMA);
+                        this.match(grammar3rdParser.COMMA);
                         this.state = 440;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.TAG) {
+                        if (_la === grammar3rdParser.TAG) {
                             {
                                 this.state = 439;
                                 this.tag();
@@ -929,34 +929,34 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 456;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.COMMA) {
+                        if (_la === grammar3rdParser.COMMA) {
                             {
                                 this.state = 444;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 446;
                                 this._errHandler.sync(this);
                                 _la = this._input.LA(1);
-                                if (_la === ASN_3gppParser.TAG) {
+                                if (_la === grammar3rdParser.TAG) {
                                     {
                                         this.state = 445;
                                         this.tag();
                                     }
                                 }
                                 this.state = 448;
-                                this.match(ASN_3gppParser.ELLIPSIS);
+                                this.match(grammar3rdParser.ELLIPSIS);
                                 this.state = 454;
                                 this._errHandler.sync(this);
                                 _la = this._input.LA(1);
-                                if (_la === ASN_3gppParser.COMMA) {
+                                if (_la === grammar3rdParser.COMMA) {
                                     {
                                         this.state = 449;
-                                        this.match(ASN_3gppParser.COMMA);
+                                        this.match(grammar3rdParser.COMMA);
                                         this.state = 450;
                                         this.rootComponentTypeList();
                                         this.state = 452;
                                         this._errHandler.sync(this);
                                         _la = this._input.LA(1);
-                                        if (_la === ASN_3gppParser.TAG) {
+                                        if (_la === grammar3rdParser.TAG) {
                                             {
                                                 this.state = 451;
                                                 this.tag();
@@ -978,7 +978,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 461;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.TAG) {
+                        if (_la === grammar3rdParser.TAG) {
                             {
                                 this.state = 460;
                                 this.tag();
@@ -996,30 +996,30 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 475;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.COMMA) {
+                        if (_la === grammar3rdParser.COMMA) {
                             {
                                 this.state = 465;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 467;
                                 this._errHandler.sync(this);
                                 _la = this._input.LA(1);
-                                if (_la === ASN_3gppParser.TAG) {
+                                if (_la === grammar3rdParser.TAG) {
                                     {
                                         this.state = 466;
                                         this.tag();
                                     }
                                 }
                                 this.state = 469;
-                                this.match(ASN_3gppParser.ELLIPSIS);
+                                this.match(grammar3rdParser.ELLIPSIS);
                                 {
                                     this.state = 470;
-                                    this.match(ASN_3gppParser.COMMA);
+                                    this.match(grammar3rdParser.COMMA);
                                     this.state = 471;
                                     this.rootComponentTypeList();
                                     this.state = 473;
                                     this._errHandler.sync(this);
                                     _la = this._input.LA(1);
-                                    if (_la === ASN_3gppParser.TAG) {
+                                    if (_la === grammar3rdParser.TAG) {
                                         {
                                             this.state = 472;
                                             this.tag();
@@ -1050,7 +1050,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     rootComponentTypeList() {
         let _localctx = new RootComponentTypeListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 42, ASN_3gppParser.RULE_rootComponentTypeList);
+        this.enterRule(_localctx, 42, grammar3rdParser.RULE_rootComponentTypeList);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -1076,7 +1076,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     componentTypeList() {
         let _localctx = new ComponentTypeListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 44, ASN_3gppParser.RULE_componentTypeList);
+        this.enterRule(_localctx, 44, grammar3rdParser.RULE_componentTypeList);
         let _la;
         try {
             let _alt;
@@ -1094,11 +1094,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                         {
                             {
                                 this.state = 482;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 484;
                                 this._errHandler.sync(this);
                                 _la = this._input.LA(1);
-                                if (_la === ASN_3gppParser.TAG) {
+                                if (_la === grammar3rdParser.TAG) {
                                     {
                                         this.state = 483;
                                         this.tag();
@@ -1133,12 +1133,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     componentType() {
         let _localctx = new ComponentTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 46, ASN_3gppParser.RULE_componentType);
+        this.enterRule(_localctx, 46, grammar3rdParser.RULE_componentType);
         try {
             this.state = 501;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 492;
@@ -1146,37 +1146,37 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 496;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
-                            case ASN_3gppParser.OPTIONAL_LITERAL:
+                            case grammar3rdParser.OPTIONAL_LITERAL:
                                 {
                                     this.state = 493;
-                                    this.match(ASN_3gppParser.OPTIONAL_LITERAL);
+                                    this.match(grammar3rdParser.OPTIONAL_LITERAL);
                                 }
                                 break;
-                            case ASN_3gppParser.DEFAULT_LITERAL:
+                            case grammar3rdParser.DEFAULT_LITERAL:
                                 {
                                     this.state = 494;
-                                    this.match(ASN_3gppParser.DEFAULT_LITERAL);
+                                    this.match(grammar3rdParser.DEFAULT_LITERAL);
                                     this.state = 495;
                                     this.value();
                                 }
                                 break;
-                            case ASN_3gppParser.TAG:
-                            case ASN_3gppParser.R_BRACE:
-                            case ASN_3gppParser.COMMA:
-                            case ASN_3gppParser.DOUBLE_R_BRACKET:
+                            case grammar3rdParser.TAG:
+                            case grammar3rdParser.R_BRACE:
+                            case grammar3rdParser.COMMA:
+                            case grammar3rdParser.DOUBLE_R_BRACKET:
                                 break;
                             default:
                                 break;
                         }
                     }
                     break;
-                case ASN_3gppParser.COMPONENTS_LITERAL:
+                case grammar3rdParser.COMPONENTS_LITERAL:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 498;
-                        this.match(ASN_3gppParser.COMPONENTS_LITERAL);
+                        this.match(grammar3rdParser.COMPONENTS_LITERAL);
                         this.state = 499;
-                        this.match(ASN_3gppParser.OF_LITERAL);
+                        this.match(grammar3rdParser.OF_LITERAL);
                         this.state = 500;
                         this.asnType();
                     }
@@ -1203,12 +1203,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     tag() {
         let _localctx = new TagContext(this._ctx, this.state);
-        this.enterRule(_localctx, 48, ASN_3gppParser.RULE_tag);
+        this.enterRule(_localctx, 48, grammar3rdParser.RULE_tag);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 503;
-                this.match(ASN_3gppParser.TAG);
+                this.match(grammar3rdParser.TAG);
             }
         }
         catch (re) {
@@ -1229,7 +1229,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionAdditions() {
         let _localctx = new ExtensionAdditionsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 50, ASN_3gppParser.RULE_extensionAdditions);
+        this.enterRule(_localctx, 50, grammar3rdParser.RULE_extensionAdditions);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -1239,7 +1239,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     case 1:
                         {
                             this.state = 505;
-                            this.match(ASN_3gppParser.COMMA);
+                            this.match(grammar3rdParser.COMMA);
                             this.state = 506;
                             this.extensionAdditionList();
                         }
@@ -1265,7 +1265,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionAdditionList() {
         let _localctx = new ExtensionAdditionListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 52, ASN_3gppParser.RULE_extensionAdditionList);
+        this.enterRule(_localctx, 52, grammar3rdParser.RULE_extensionAdditionList);
         let _la;
         try {
             let _alt;
@@ -1283,11 +1283,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                         {
                             {
                                 this.state = 510;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 512;
                                 this._errHandler.sync(this);
                                 _la = this._input.LA(1);
-                                if (_la === ASN_3gppParser.TAG) {
+                                if (_la === grammar3rdParser.TAG) {
                                     {
                                         this.state = 511;
                                         this.tag();
@@ -1322,20 +1322,20 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionAddition() {
         let _localctx = new ExtensionAdditionContext(this._ctx, this.state);
-        this.enterRule(_localctx, 54, ASN_3gppParser.RULE_extensionAddition);
+        this.enterRule(_localctx, 54, grammar3rdParser.RULE_extensionAddition);
         try {
             this.state = 522;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.COMPONENTS_LITERAL:
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.COMPONENTS_LITERAL:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 520;
                         this.componentType();
                     }
                     break;
-                case ASN_3gppParser.DOUBLE_L_BRACKET:
+                case grammar3rdParser.DOUBLE_L_BRACKET:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 521;
@@ -1364,13 +1364,13 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionAdditionGroup() {
         let _localctx = new ExtensionAdditionGroupContext(this._ctx, this.state);
-        this.enterRule(_localctx, 56, ASN_3gppParser.RULE_extensionAdditionGroup);
+        this.enterRule(_localctx, 56, grammar3rdParser.RULE_extensionAdditionGroup);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 524;
-                this.match(ASN_3gppParser.DOUBLE_L_BRACKET);
+                this.match(grammar3rdParser.DOUBLE_L_BRACKET);
                 this.state = 525;
                 this.versionNumber();
                 this.state = 526;
@@ -1378,14 +1378,14 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 528;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.TAG) {
+                if (_la === grammar3rdParser.TAG) {
                     {
                         this.state = 527;
                         this.tag();
                     }
                 }
                 this.state = 530;
-                this.match(ASN_3gppParser.DOUBLE_R_BRACKET);
+                this.match(grammar3rdParser.DOUBLE_R_BRACKET);
             }
         }
         catch (re) {
@@ -1406,7 +1406,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     versionNumber() {
         let _localctx = new VersionNumberContext(this._ctx, this.state);
-        this.enterRule(_localctx, 58, ASN_3gppParser.RULE_versionNumber);
+        this.enterRule(_localctx, 58, grammar3rdParser.RULE_versionNumber);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -1414,12 +1414,12 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 534;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.NUMBER) {
+                if (_la === grammar3rdParser.NUMBER) {
                     {
                         this.state = 532;
-                        this.match(ASN_3gppParser.NUMBER);
+                        this.match(grammar3rdParser.NUMBER);
                         this.state = 533;
-                        this.match(ASN_3gppParser.COLON);
+                        this.match(grammar3rdParser.COLON);
                     }
                 }
             }
@@ -1442,30 +1442,30 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     sequenceOfType() {
         let _localctx = new SequenceOfTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 60, ASN_3gppParser.RULE_sequenceOfType);
+        this.enterRule(_localctx, 60, grammar3rdParser.RULE_sequenceOfType);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 536;
-                this.match(ASN_3gppParser.SEQUENCE_LITERAL);
+                this.match(grammar3rdParser.SEQUENCE_LITERAL);
                 this.state = 544;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.L_PARAN) {
+                if (_la === grammar3rdParser.L_PARAN) {
                     {
                         this.state = 537;
-                        this.match(ASN_3gppParser.L_PARAN);
+                        this.match(grammar3rdParser.L_PARAN);
                         this.state = 540;
                         this._errHandler.sync(this);
                         switch (this._input.LA(1)) {
-                            case ASN_3gppParser.L_PARAN:
+                            case grammar3rdParser.L_PARAN:
                                 {
                                     this.state = 538;
                                     this.constraint();
                                 }
                                 break;
-                            case ASN_3gppParser.SIZE_LITERAL:
+                            case grammar3rdParser.SIZE_LITERAL:
                                 {
                                     this.state = 539;
                                     this.sizeConstraint();
@@ -1475,11 +1475,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                                 throw new NoViableAltException_1.NoViableAltException(this);
                         }
                         this.state = 542;
-                        this.match(ASN_3gppParser.R_PARAN);
+                        this.match(grammar3rdParser.R_PARAN);
                     }
                 }
                 this.state = 546;
-                this.match(ASN_3gppParser.OF_LITERAL);
+                this.match(grammar3rdParser.OF_LITERAL);
                 this.state = 549;
                 this._errHandler.sync(this);
                 switch (this.interpreter.adaptivePredict(this._input, 43, this._ctx)) {
@@ -1516,12 +1516,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     sizeConstraint() {
         let _localctx = new SizeConstraintContext(this._ctx, this.state);
-        this.enterRule(_localctx, 62, ASN_3gppParser.RULE_sizeConstraint);
+        this.enterRule(_localctx, 62, grammar3rdParser.RULE_sizeConstraint);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 551;
-                this.match(ASN_3gppParser.SIZE_LITERAL);
+                this.match(grammar3rdParser.SIZE_LITERAL);
                 this.state = 552;
                 this.constraint();
             }
@@ -1544,19 +1544,19 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     parameterizedAssignment() {
         let _localctx = new ParameterizedAssignmentContext(this._ctx, this.state);
-        this.enterRule(_localctx, 64, ASN_3gppParser.RULE_parameterizedAssignment);
+        this.enterRule(_localctx, 64, grammar3rdParser.RULE_parameterizedAssignment);
         try {
             this.state = 568;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.L_BRACE:
+                case grammar3rdParser.L_BRACE:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 554;
                         this.parameterList();
                         {
                             this.state = 555;
-                            this.match(ASN_3gppParser.ASSIGN_OP);
+                            this.match(grammar3rdParser.ASSIGN_OP);
                             this.state = 559;
                             this._errHandler.sync(this);
                             switch (this.interpreter.adaptivePredict(this._input, 44, this._ctx)) {
@@ -1582,16 +1582,16 @@ class ASN_3gppParser extends Parser_1.Parser {
                         }
                     }
                     break;
-                case ASN_3gppParser.TYPE_IDENTIFIER_LITERAL:
-                case ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL:
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.TYPE_IDENTIFIER_LITERAL:
+                case grammar3rdParser.ABSTRACT_SYNTAX_LITERAL:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         {
                             this.state = 561;
                             this.definedObjectClass();
                             this.state = 562;
-                            this.match(ASN_3gppParser.ASSIGN_OP);
+                            this.match(grammar3rdParser.ASSIGN_OP);
                             this.state = 566;
                             this._errHandler.sync(this);
                             switch (this.interpreter.adaptivePredict(this._input, 45, this._ctx)) {
@@ -1639,23 +1639,23 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     parameterList() {
         let _localctx = new ParameterListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 66, ASN_3gppParser.RULE_parameterList);
+        this.enterRule(_localctx, 66, grammar3rdParser.RULE_parameterList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 570;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 571;
                 this.parameter();
                 this.state = 576;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.COMMA) {
+                while (_la === grammar3rdParser.COMMA) {
                     {
                         {
                             this.state = 572;
-                            this.match(ASN_3gppParser.COMMA);
+                            this.match(grammar3rdParser.COMMA);
                             this.state = 573;
                             this.parameter();
                         }
@@ -1665,7 +1665,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     _la = this._input.LA(1);
                 }
                 this.state = 579;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -1686,7 +1686,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     parameter() {
         let _localctx = new ParameterContext(this._ctx, this.state);
-        this.enterRule(_localctx, 68, ASN_3gppParser.RULE_parameter);
+        this.enterRule(_localctx, 68, grammar3rdParser.RULE_parameter);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -1698,12 +1698,12 @@ class ASN_3gppParser extends Parser_1.Parser {
                             this.state = 581;
                             this.paramGovernor();
                             this.state = 582;
-                            this.match(ASN_3gppParser.COLON);
+                            this.match(grammar3rdParser.COLON);
                         }
                         break;
                 }
                 this.state = 586;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
             }
         }
         catch (re) {
@@ -1724,7 +1724,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     paramGovernor() {
         let _localctx = new ParamGovernorContext(this._ctx, this.state);
-        this.enterRule(_localctx, 70, ASN_3gppParser.RULE_paramGovernor);
+        this.enterRule(_localctx, 70, grammar3rdParser.RULE_paramGovernor);
         try {
             this.state = 590;
             this._errHandler.sync(this);
@@ -1740,7 +1740,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 589;
-                        this.match(ASN_3gppParser.IDENTIFIER);
+                        this.match(grammar3rdParser.IDENTIFIER);
                     }
                     break;
             }
@@ -1763,7 +1763,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     governor() {
         let _localctx = new GovernorContext(this._ctx, this.state);
-        this.enterRule(_localctx, 72, ASN_3gppParser.RULE_governor);
+        this.enterRule(_localctx, 72, grammar3rdParser.RULE_governor);
         try {
             this.state = 594;
             this._errHandler.sync(this);
@@ -1802,12 +1802,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectClassAssignment() {
         let _localctx = new ObjectClassAssignmentContext(this._ctx, this.state);
-        this.enterRule(_localctx, 74, ASN_3gppParser.RULE_objectClassAssignment);
+        this.enterRule(_localctx, 74, grammar3rdParser.RULE_objectClassAssignment);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 596;
-                this.match(ASN_3gppParser.ASSIGN_OP);
+                this.match(grammar3rdParser.ASSIGN_OP);
                 this.state = 597;
                 this.objectClass();
             }
@@ -1830,21 +1830,21 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectClass() {
         let _localctx = new ObjectClassContext(this._ctx, this.state);
-        this.enterRule(_localctx, 76, ASN_3gppParser.RULE_objectClass);
+        this.enterRule(_localctx, 76, grammar3rdParser.RULE_objectClass);
         try {
             this.state = 601;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.TYPE_IDENTIFIER_LITERAL:
-                case ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL:
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.TYPE_IDENTIFIER_LITERAL:
+                case grammar3rdParser.ABSTRACT_SYNTAX_LITERAL:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 599;
                         this.definedObjectClass();
                     }
                     break;
-                case ASN_3gppParser.CLASS_LITERAL:
+                case grammar3rdParser.CLASS_LITERAL:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 600;
@@ -1873,12 +1873,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     definedObjectClass() {
         let _localctx = new DefinedObjectClassContext(this._ctx, this.state);
-        this.enterRule(_localctx, 78, ASN_3gppParser.RULE_definedObjectClass);
+        this.enterRule(_localctx, 78, grammar3rdParser.RULE_definedObjectClass);
         try {
             this.state = 610;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 605;
@@ -1887,28 +1887,28 @@ class ASN_3gppParser extends Parser_1.Parser {
                             case 1:
                                 {
                                     this.state = 603;
-                                    this.match(ASN_3gppParser.IDENTIFIER);
+                                    this.match(grammar3rdParser.IDENTIFIER);
                                     this.state = 604;
-                                    this.match(ASN_3gppParser.DOT);
+                                    this.match(grammar3rdParser.DOT);
                                 }
                                 break;
                         }
                         this.state = 607;
-                        this.match(ASN_3gppParser.IDENTIFIER);
+                        this.match(grammar3rdParser.IDENTIFIER);
                     }
                     break;
-                case ASN_3gppParser.TYPE_IDENTIFIER_LITERAL:
+                case grammar3rdParser.TYPE_IDENTIFIER_LITERAL:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 608;
-                        this.match(ASN_3gppParser.TYPE_IDENTIFIER_LITERAL);
+                        this.match(grammar3rdParser.TYPE_IDENTIFIER_LITERAL);
                     }
                     break;
-                case ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL:
+                case grammar3rdParser.ABSTRACT_SYNTAX_LITERAL:
                     this.enterOuterAlt(_localctx, 3);
                     {
                         this.state = 609;
-                        this.match(ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL);
+                        this.match(grammar3rdParser.ABSTRACT_SYNTAX_LITERAL);
                     }
                     break;
                 default:
@@ -1933,14 +1933,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     usefulObjectClassReference() {
         let _localctx = new UsefulObjectClassReferenceContext(this._ctx, this.state);
-        this.enterRule(_localctx, 80, ASN_3gppParser.RULE_usefulObjectClassReference);
+        this.enterRule(_localctx, 80, grammar3rdParser.RULE_usefulObjectClassReference);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 612;
                 _la = this._input.LA(1);
-                if (!(_la === ASN_3gppParser.TYPE_IDENTIFIER_LITERAL || _la === ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL)) {
+                if (!(_la === grammar3rdParser.TYPE_IDENTIFIER_LITERAL || _la === grammar3rdParser.ABSTRACT_SYNTAX_LITERAL)) {
                     this._errHandler.recoverInline(this);
                 }
                 else {
@@ -1970,16 +1970,16 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     externalObjectClassReference() {
         let _localctx = new ExternalObjectClassReferenceContext(this._ctx, this.state);
-        this.enterRule(_localctx, 82, ASN_3gppParser.RULE_externalObjectClassReference);
+        this.enterRule(_localctx, 82, grammar3rdParser.RULE_externalObjectClassReference);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 614;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 615;
-                this.match(ASN_3gppParser.DOT);
+                this.match(grammar3rdParser.DOT);
                 this.state = 616;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
             }
         }
         catch (re) {
@@ -2000,25 +2000,25 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectClassDefn() {
         let _localctx = new ObjectClassDefnContext(this._ctx, this.state);
-        this.enterRule(_localctx, 84, ASN_3gppParser.RULE_objectClassDefn);
+        this.enterRule(_localctx, 84, grammar3rdParser.RULE_objectClassDefn);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 618;
-                this.match(ASN_3gppParser.CLASS_LITERAL);
+                this.match(grammar3rdParser.CLASS_LITERAL);
                 this.state = 619;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 620;
                 this.fieldSpec();
                 this.state = 625;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.COMMA) {
+                while (_la === grammar3rdParser.COMMA) {
                     {
                         {
                             this.state = 621;
-                            this.match(ASN_3gppParser.COMMA);
+                            this.match(grammar3rdParser.COMMA);
                             this.state = 622;
                             this.fieldSpec();
                         }
@@ -2028,11 +2028,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                     _la = this._input.LA(1);
                 }
                 this.state = 628;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
                 this.state = 630;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.WITH_LITERAL) {
+                if (_la === grammar3rdParser.WITH_LITERAL) {
                     {
                         this.state = 629;
                         this.withSyntaxSpec();
@@ -2058,14 +2058,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     withSyntaxSpec() {
         let _localctx = new WithSyntaxSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 86, ASN_3gppParser.RULE_withSyntaxSpec);
+        this.enterRule(_localctx, 86, grammar3rdParser.RULE_withSyntaxSpec);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 632;
-                this.match(ASN_3gppParser.WITH_LITERAL);
+                this.match(grammar3rdParser.WITH_LITERAL);
                 this.state = 633;
-                this.match(ASN_3gppParser.SYNTAX_LITERAL);
+                this.match(grammar3rdParser.SYNTAX_LITERAL);
                 this.state = 634;
                 this.syntaxList();
             }
@@ -2088,13 +2088,13 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     syntaxList() {
         let _localctx = new SyntaxListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 88, ASN_3gppParser.RULE_syntaxList);
+        this.enterRule(_localctx, 88, grammar3rdParser.RULE_syntaxList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 636;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 638;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
@@ -2108,9 +2108,9 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.state = 640;
                     this._errHandler.sync(this);
                     _la = this._input.LA(1);
-                } while (_la === ASN_3gppParser.AMPERSAND || _la === ASN_3gppParser.COMMA || _la === ASN_3gppParser.L_BRACKET || _la === ASN_3gppParser.IDENTIFIER);
+                } while (_la === grammar3rdParser.AMPERSAND || _la === grammar3rdParser.COMMA || _la === grammar3rdParser.L_BRACKET || _la === grammar3rdParser.IDENTIFIER);
                 this.state = 642;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -2131,21 +2131,21 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     tokenOrGroupSpec() {
         let _localctx = new TokenOrGroupSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 90, ASN_3gppParser.RULE_tokenOrGroupSpec);
+        this.enterRule(_localctx, 90, grammar3rdParser.RULE_tokenOrGroupSpec);
         try {
             this.state = 646;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.AMPERSAND:
-                case ASN_3gppParser.COMMA:
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.AMPERSAND:
+                case grammar3rdParser.COMMA:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 644;
                         this.requiredToken();
                     }
                     break;
-                case ASN_3gppParser.L_BRACKET:
+                case grammar3rdParser.L_BRACKET:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 645;
@@ -2174,13 +2174,13 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     optionalGroup() {
         let _localctx = new OptionalGroupContext(this._ctx, this.state);
-        this.enterRule(_localctx, 92, ASN_3gppParser.RULE_optionalGroup);
+        this.enterRule(_localctx, 92, grammar3rdParser.RULE_optionalGroup);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 648;
-                this.match(ASN_3gppParser.L_BRACKET);
+                this.match(grammar3rdParser.L_BRACKET);
                 this.state = 650;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
@@ -2194,9 +2194,9 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.state = 652;
                     this._errHandler.sync(this);
                     _la = this._input.LA(1);
-                } while (_la === ASN_3gppParser.AMPERSAND || _la === ASN_3gppParser.COMMA || _la === ASN_3gppParser.L_BRACKET || _la === ASN_3gppParser.IDENTIFIER);
+                } while (_la === grammar3rdParser.AMPERSAND || _la === grammar3rdParser.COMMA || _la === grammar3rdParser.L_BRACKET || _la === grammar3rdParser.IDENTIFIER);
                 this.state = 654;
-                this.match(ASN_3gppParser.R_BRACKET);
+                this.match(grammar3rdParser.R_BRACKET);
             }
         }
         catch (re) {
@@ -2217,20 +2217,20 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     requiredToken() {
         let _localctx = new RequiredTokenContext(this._ctx, this.state);
-        this.enterRule(_localctx, 94, ASN_3gppParser.RULE_requiredToken);
+        this.enterRule(_localctx, 94, grammar3rdParser.RULE_requiredToken);
         try {
             this.state = 658;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.COMMA:
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.COMMA:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 656;
                         this.literal();
                     }
                     break;
-                case ASN_3gppParser.AMPERSAND:
+                case grammar3rdParser.AMPERSAND:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 657;
@@ -2259,14 +2259,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     literal() {
         let _localctx = new LiteralContext(this._ctx, this.state);
-        this.enterRule(_localctx, 96, ASN_3gppParser.RULE_literal);
+        this.enterRule(_localctx, 96, grammar3rdParser.RULE_literal);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 660;
                 _la = this._input.LA(1);
-                if (!(_la === ASN_3gppParser.COMMA || _la === ASN_3gppParser.IDENTIFIER)) {
+                if (!(_la === grammar3rdParser.COMMA || _la === grammar3rdParser.IDENTIFIER)) {
                     this._errHandler.recoverInline(this);
                 }
                 else {
@@ -2296,14 +2296,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     primitiveFieldName() {
         let _localctx = new PrimitiveFieldNameContext(this._ctx, this.state);
-        this.enterRule(_localctx, 98, ASN_3gppParser.RULE_primitiveFieldName);
+        this.enterRule(_localctx, 98, grammar3rdParser.RULE_primitiveFieldName);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 662;
-                this.match(ASN_3gppParser.AMPERSAND);
+                this.match(grammar3rdParser.AMPERSAND);
                 this.state = 663;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
             }
         }
         catch (re) {
@@ -2324,15 +2324,15 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     fieldSpec() {
         let _localctx = new FieldSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 100, ASN_3gppParser.RULE_fieldSpec);
+        this.enterRule(_localctx, 100, grammar3rdParser.RULE_fieldSpec);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 665;
-                this.match(ASN_3gppParser.AMPERSAND);
+                this.match(grammar3rdParser.AMPERSAND);
                 this.state = 666;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 700;
                 this._errHandler.sync(this);
                 switch (this.interpreter.adaptivePredict(this._input, 69, this._ctx)) {
@@ -2341,7 +2341,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                             this.state = 668;
                             this._errHandler.sync(this);
                             _la = this._input.LA(1);
-                            if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                            if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                                 {
                                     this.state = 667;
                                     this.typeOptionalitySpec();
@@ -2361,7 +2361,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                                         this.state = 672;
                                         this._errHandler.sync(this);
                                         _la = this._input.LA(1);
-                                        if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                                        if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                                             {
                                                 this.state = 671;
                                                 this.valueSetOptionalitySpec();
@@ -2374,16 +2374,16 @@ class ASN_3gppParser extends Parser_1.Parser {
                                         this.state = 675;
                                         this._errHandler.sync(this);
                                         _la = this._input.LA(1);
-                                        if (_la === ASN_3gppParser.UNIQUE_LITERAL) {
+                                        if (_la === grammar3rdParser.UNIQUE_LITERAL) {
                                             {
                                                 this.state = 674;
-                                                this.match(ASN_3gppParser.UNIQUE_LITERAL);
+                                                this.match(grammar3rdParser.UNIQUE_LITERAL);
                                             }
                                         }
                                         this.state = 678;
                                         this._errHandler.sync(this);
                                         _la = this._input.LA(1);
-                                        if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                                        if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                                             {
                                                 this.state = 677;
                                                 this.valueOptionalitySpec();
@@ -2401,17 +2401,17 @@ class ASN_3gppParser extends Parser_1.Parser {
                             this.state = 689;
                             this._errHandler.sync(this);
                             switch (this._input.LA(1)) {
-                                case ASN_3gppParser.OPTIONAL_LITERAL:
+                                case grammar3rdParser.OPTIONAL_LITERAL:
                                     {
                                         this.state = 683;
-                                        this.match(ASN_3gppParser.OPTIONAL_LITERAL);
+                                        this.match(grammar3rdParser.OPTIONAL_LITERAL);
                                     }
                                     break;
-                                case ASN_3gppParser.DEFAULT_LITERAL:
+                                case grammar3rdParser.DEFAULT_LITERAL:
                                     {
                                         {
                                             this.state = 684;
-                                            this.match(ASN_3gppParser.DEFAULT_LITERAL);
+                                            this.match(grammar3rdParser.DEFAULT_LITERAL);
                                             this.state = 687;
                                             this._errHandler.sync(this);
                                             switch (this.interpreter.adaptivePredict(this._input, 65, this._ctx)) {
@@ -2431,8 +2431,8 @@ class ASN_3gppParser extends Parser_1.Parser {
                                         }
                                     }
                                     break;
-                                case ASN_3gppParser.R_BRACE:
-                                case ASN_3gppParser.COMMA:
+                                case grammar3rdParser.R_BRACE:
+                                case grammar3rdParser.COMMA:
                                     break;
                                 default:
                                     break;
@@ -2446,27 +2446,27 @@ class ASN_3gppParser extends Parser_1.Parser {
                             this.state = 698;
                             this._errHandler.sync(this);
                             switch (this._input.LA(1)) {
-                                case ASN_3gppParser.OPTIONAL_LITERAL:
+                                case grammar3rdParser.OPTIONAL_LITERAL:
                                     {
                                         this.state = 692;
-                                        this.match(ASN_3gppParser.OPTIONAL_LITERAL);
+                                        this.match(grammar3rdParser.OPTIONAL_LITERAL);
                                     }
                                     break;
-                                case ASN_3gppParser.DEFAULT_LITERAL:
+                                case grammar3rdParser.DEFAULT_LITERAL:
                                     {
                                         {
                                             this.state = 693;
-                                            this.match(ASN_3gppParser.DEFAULT_LITERAL);
+                                            this.match(grammar3rdParser.DEFAULT_LITERAL);
                                             this.state = 696;
                                             this._errHandler.sync(this);
                                             switch (this._input.LA(1)) {
-                                                case ASN_3gppParser.L_BRACE:
+                                                case grammar3rdParser.L_BRACE:
                                                     {
                                                         this.state = 694;
                                                         this.objectSet();
                                                     }
                                                     break;
-                                                case ASN_3gppParser.IDENTIFIER:
+                                                case grammar3rdParser.IDENTIFIER:
                                                     {
                                                         this.state = 695;
                                                         this.object();
@@ -2478,8 +2478,8 @@ class ASN_3gppParser extends Parser_1.Parser {
                                         }
                                     }
                                     break;
-                                case ASN_3gppParser.R_BRACE:
-                                case ASN_3gppParser.COMMA:
+                                case grammar3rdParser.R_BRACE:
+                                case grammar3rdParser.COMMA:
                                     break;
                                 default:
                                     break;
@@ -2507,19 +2507,19 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     typeFieldSpec() {
         let _localctx = new TypeFieldSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 102, ASN_3gppParser.RULE_typeFieldSpec);
+        this.enterRule(_localctx, 102, grammar3rdParser.RULE_typeFieldSpec);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 702;
-                this.match(ASN_3gppParser.AMPERSAND);
+                this.match(grammar3rdParser.AMPERSAND);
                 this.state = 703;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 705;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                     {
                         this.state = 704;
                         this.typeOptionalitySpec();
@@ -2545,24 +2545,24 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     typeOptionalitySpec() {
         let _localctx = new TypeOptionalitySpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 104, ASN_3gppParser.RULE_typeOptionalitySpec);
+        this.enterRule(_localctx, 104, grammar3rdParser.RULE_typeOptionalitySpec);
         try {
             this.state = 710;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.OPTIONAL_LITERAL:
+                case grammar3rdParser.OPTIONAL_LITERAL:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 707;
-                        this.match(ASN_3gppParser.OPTIONAL_LITERAL);
+                        this.match(grammar3rdParser.OPTIONAL_LITERAL);
                     }
                     break;
-                case ASN_3gppParser.DEFAULT_LITERAL:
+                case grammar3rdParser.DEFAULT_LITERAL:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         {
                             this.state = 708;
-                            this.match(ASN_3gppParser.DEFAULT_LITERAL);
+                            this.match(grammar3rdParser.DEFAULT_LITERAL);
                             this.state = 709;
                             this.asnType();
                         }
@@ -2590,30 +2590,30 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     fixedTypeValueFieldSpec() {
         let _localctx = new FixedTypeValueFieldSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 106, ASN_3gppParser.RULE_fixedTypeValueFieldSpec);
+        this.enterRule(_localctx, 106, grammar3rdParser.RULE_fixedTypeValueFieldSpec);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 712;
-                this.match(ASN_3gppParser.AMPERSAND);
+                this.match(grammar3rdParser.AMPERSAND);
                 this.state = 713;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 714;
                 this.asnType();
                 this.state = 716;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.UNIQUE_LITERAL) {
+                if (_la === grammar3rdParser.UNIQUE_LITERAL) {
                     {
                         this.state = 715;
-                        this.match(ASN_3gppParser.UNIQUE_LITERAL);
+                        this.match(grammar3rdParser.UNIQUE_LITERAL);
                     }
                 }
                 this.state = 719;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                     {
                         this.state = 718;
                         this.valueOptionalitySpec();
@@ -2639,24 +2639,24 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     valueOptionalitySpec() {
         let _localctx = new ValueOptionalitySpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 108, ASN_3gppParser.RULE_valueOptionalitySpec);
+        this.enterRule(_localctx, 108, grammar3rdParser.RULE_valueOptionalitySpec);
         try {
             this.state = 724;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.OPTIONAL_LITERAL:
+                case grammar3rdParser.OPTIONAL_LITERAL:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 721;
-                        this.match(ASN_3gppParser.OPTIONAL_LITERAL);
+                        this.match(grammar3rdParser.OPTIONAL_LITERAL);
                     }
                     break;
-                case ASN_3gppParser.DEFAULT_LITERAL:
+                case grammar3rdParser.DEFAULT_LITERAL:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         {
                             this.state = 722;
-                            this.match(ASN_3gppParser.DEFAULT_LITERAL);
+                            this.match(grammar3rdParser.DEFAULT_LITERAL);
                             this.state = 723;
                             this.value();
                         }
@@ -2684,21 +2684,21 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     variableTypeValueFieldSpec() {
         let _localctx = new VariableTypeValueFieldSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 110, ASN_3gppParser.RULE_variableTypeValueFieldSpec);
+        this.enterRule(_localctx, 110, grammar3rdParser.RULE_variableTypeValueFieldSpec);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 726;
-                this.match(ASN_3gppParser.AMPERSAND);
+                this.match(grammar3rdParser.AMPERSAND);
                 this.state = 727;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 728;
                 this.fieldName();
                 this.state = 730;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                     {
                         this.state = 729;
                         this.valueOptionalitySpec();
@@ -2724,21 +2724,21 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     fixedTypeValueSetFieldSpec() {
         let _localctx = new FixedTypeValueSetFieldSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 112, ASN_3gppParser.RULE_fixedTypeValueSetFieldSpec);
+        this.enterRule(_localctx, 112, grammar3rdParser.RULE_fixedTypeValueSetFieldSpec);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 732;
-                this.match(ASN_3gppParser.AMPERSAND);
+                this.match(grammar3rdParser.AMPERSAND);
                 this.state = 733;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 734;
                 this.asnType();
                 this.state = 736;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                     {
                         this.state = 735;
                         this.valueSetOptionalitySpec();
@@ -2764,23 +2764,23 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     valueSetOptionalitySpec() {
         let _localctx = new ValueSetOptionalitySpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 114, ASN_3gppParser.RULE_valueSetOptionalitySpec);
+        this.enterRule(_localctx, 114, grammar3rdParser.RULE_valueSetOptionalitySpec);
         try {
             this.state = 741;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.OPTIONAL_LITERAL:
+                case grammar3rdParser.OPTIONAL_LITERAL:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 738;
-                        this.match(ASN_3gppParser.OPTIONAL_LITERAL);
+                        this.match(grammar3rdParser.OPTIONAL_LITERAL);
                     }
                     break;
-                case ASN_3gppParser.DEFAULT_LITERAL:
+                case grammar3rdParser.DEFAULT_LITERAL:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 739;
-                        this.match(ASN_3gppParser.DEFAULT_LITERAL);
+                        this.match(grammar3rdParser.DEFAULT_LITERAL);
                         this.state = 740;
                         this.valueSet();
                     }
@@ -2807,7 +2807,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     object() {
         let _localctx = new ObjectContext(this._ctx, this.state);
-        this.enterRule(_localctx, 116, ASN_3gppParser.RULE_object);
+        this.enterRule(_localctx, 116, grammar3rdParser.RULE_object);
         try {
             this.state = 745;
             this._errHandler.sync(this);
@@ -2846,7 +2846,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     parameterizedObject() {
         let _localctx = new ParameterizedObjectContext(this._ctx, this.state);
-        this.enterRule(_localctx, 118, ASN_3gppParser.RULE_parameterizedObject);
+        this.enterRule(_localctx, 118, grammar3rdParser.RULE_parameterizedObject);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -2874,20 +2874,20 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     definedObject() {
         let _localctx = new DefinedObjectContext(this._ctx, this.state);
-        this.enterRule(_localctx, 120, ASN_3gppParser.RULE_definedObject);
+        this.enterRule(_localctx, 120, grammar3rdParser.RULE_definedObject);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 750;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 752;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.DOT) {
+                if (_la === grammar3rdParser.DOT) {
                     {
                         this.state = 751;
-                        this.match(ASN_3gppParser.DOT);
+                        this.match(grammar3rdParser.DOT);
                     }
                 }
             }
@@ -2910,16 +2910,16 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectSet() {
         let _localctx = new ObjectSetContext(this._ctx, this.state);
-        this.enterRule(_localctx, 122, ASN_3gppParser.RULE_objectSet);
+        this.enterRule(_localctx, 122, grammar3rdParser.RULE_objectSet);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 754;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 755;
                 this.objectSetSpec();
                 this.state = 756;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -2940,26 +2940,26 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectSetSpec() {
         let _localctx = new ObjectSetSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 124, ASN_3gppParser.RULE_objectSetSpec);
+        this.enterRule(_localctx, 124, grammar3rdParser.RULE_objectSetSpec);
         let _la;
         try {
             this.state = 772;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.TRUE_LITERAL:
-                case ASN_3gppParser.FALSE_LITERAL:
-                case ASN_3gppParser.TRUE_SMALL_LITERAL:
-                case ASN_3gppParser.FALSE_SMALL_LITERAL:
-                case ASN_3gppParser.L_BRACE:
-                case ASN_3gppParser.MINUS:
-                case ASN_3gppParser.ALL_LITERAL:
-                case ASN_3gppParser.MIN_LITERAL:
-                case ASN_3gppParser.SIZE_LITERAL:
-                case ASN_3gppParser.PATTERN_LITERAL:
-                case ASN_3gppParser.NUMBER:
-                case ASN_3gppParser.BSTRING:
-                case ASN_3gppParser.CSTRING:
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.TRUE_LITERAL:
+                case grammar3rdParser.FALSE_LITERAL:
+                case grammar3rdParser.TRUE_SMALL_LITERAL:
+                case grammar3rdParser.FALSE_SMALL_LITERAL:
+                case grammar3rdParser.L_BRACE:
+                case grammar3rdParser.MINUS:
+                case grammar3rdParser.ALL_LITERAL:
+                case grammar3rdParser.MIN_LITERAL:
+                case grammar3rdParser.SIZE_LITERAL:
+                case grammar3rdParser.PATTERN_LITERAL:
+                case grammar3rdParser.NUMBER:
+                case grammar3rdParser.BSTRING:
+                case grammar3rdParser.CSTRING:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 758;
@@ -2967,19 +2967,19 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 765;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.COMMA) {
+                        if (_la === grammar3rdParser.COMMA) {
                             {
                                 this.state = 759;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 760;
-                                this.match(ASN_3gppParser.ELLIPSIS);
+                                this.match(grammar3rdParser.ELLIPSIS);
                                 this.state = 763;
                                 this._errHandler.sync(this);
                                 _la = this._input.LA(1);
-                                if (_la === ASN_3gppParser.COMMA) {
+                                if (_la === grammar3rdParser.COMMA) {
                                     {
                                         this.state = 761;
-                                        this.match(ASN_3gppParser.COMMA);
+                                        this.match(grammar3rdParser.COMMA);
                                         this.state = 762;
                                         this.additionalElementSetSpec();
                                     }
@@ -2988,18 +2988,18 @@ class ASN_3gppParser extends Parser_1.Parser {
                         }
                     }
                     break;
-                case ASN_3gppParser.ELLIPSIS:
+                case grammar3rdParser.ELLIPSIS:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 767;
-                        this.match(ASN_3gppParser.ELLIPSIS);
+                        this.match(grammar3rdParser.ELLIPSIS);
                         this.state = 770;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.COMMA) {
+                        if (_la === grammar3rdParser.COMMA) {
                             {
                                 this.state = 768;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 769;
                                 this.additionalElementSetSpec();
                             }
@@ -3028,29 +3028,29 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     fieldName() {
         let _localctx = new FieldNameContext(this._ctx, this.state);
-        this.enterRule(_localctx, 126, ASN_3gppParser.RULE_fieldName);
+        this.enterRule(_localctx, 126, grammar3rdParser.RULE_fieldName);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 {
                     this.state = 774;
-                    this.match(ASN_3gppParser.AMPERSAND);
+                    this.match(grammar3rdParser.AMPERSAND);
                     this.state = 775;
-                    this.match(ASN_3gppParser.IDENTIFIER);
+                    this.match(grammar3rdParser.IDENTIFIER);
                 }
                 this.state = 782;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.DOT) {
+                while (_la === grammar3rdParser.DOT) {
                     {
                         {
                             this.state = 777;
-                            this.match(ASN_3gppParser.DOT);
+                            this.match(grammar3rdParser.DOT);
                             this.state = 778;
-                            this.match(ASN_3gppParser.AMPERSAND);
+                            this.match(grammar3rdParser.AMPERSAND);
                             this.state = 779;
-                            this.match(ASN_3gppParser.IDENTIFIER);
+                            this.match(grammar3rdParser.IDENTIFIER);
                         }
                     }
                     this.state = 784;
@@ -3077,16 +3077,16 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     valueSet() {
         let _localctx = new ValueSetContext(this._ctx, this.state);
-        this.enterRule(_localctx, 128, ASN_3gppParser.RULE_valueSet);
+        this.enterRule(_localctx, 128, grammar3rdParser.RULE_valueSet);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 785;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 786;
                 this.elementSetSpecs();
                 this.state = 787;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -3107,7 +3107,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     elementSetSpecs() {
         let _localctx = new ElementSetSpecsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 130, ASN_3gppParser.RULE_elementSetSpecs);
+        this.enterRule(_localctx, 130, grammar3rdParser.RULE_elementSetSpecs);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -3117,19 +3117,19 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 796;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.COMMA) {
+                if (_la === grammar3rdParser.COMMA) {
                     {
                         this.state = 790;
-                        this.match(ASN_3gppParser.COMMA);
+                        this.match(grammar3rdParser.COMMA);
                         this.state = 791;
-                        this.match(ASN_3gppParser.ELLIPSIS);
+                        this.match(grammar3rdParser.ELLIPSIS);
                         this.state = 794;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.COMMA) {
+                        if (_la === grammar3rdParser.COMMA) {
                             {
                                 this.state = 792;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 793;
                                 this.additionalElementSetSpec();
                             }
@@ -3156,7 +3156,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     rootElementSetSpec() {
         let _localctx = new RootElementSetSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 132, ASN_3gppParser.RULE_rootElementSetSpec);
+        this.enterRule(_localctx, 132, grammar3rdParser.RULE_rootElementSetSpec);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -3182,7 +3182,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     additionalElementSetSpec() {
         let _localctx = new AdditionalElementSetSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 134, ASN_3gppParser.RULE_additionalElementSetSpec);
+        this.enterRule(_localctx, 134, grammar3rdParser.RULE_additionalElementSetSpec);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -3208,35 +3208,35 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     elementSetSpec() {
         let _localctx = new ElementSetSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 136, ASN_3gppParser.RULE_elementSetSpec);
+        this.enterRule(_localctx, 136, grammar3rdParser.RULE_elementSetSpec);
         try {
             this.state = 805;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.TRUE_LITERAL:
-                case ASN_3gppParser.FALSE_LITERAL:
-                case ASN_3gppParser.TRUE_SMALL_LITERAL:
-                case ASN_3gppParser.FALSE_SMALL_LITERAL:
-                case ASN_3gppParser.L_BRACE:
-                case ASN_3gppParser.MINUS:
-                case ASN_3gppParser.MIN_LITERAL:
-                case ASN_3gppParser.SIZE_LITERAL:
-                case ASN_3gppParser.PATTERN_LITERAL:
-                case ASN_3gppParser.NUMBER:
-                case ASN_3gppParser.BSTRING:
-                case ASN_3gppParser.CSTRING:
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.TRUE_LITERAL:
+                case grammar3rdParser.FALSE_LITERAL:
+                case grammar3rdParser.TRUE_SMALL_LITERAL:
+                case grammar3rdParser.FALSE_SMALL_LITERAL:
+                case grammar3rdParser.L_BRACE:
+                case grammar3rdParser.MINUS:
+                case grammar3rdParser.MIN_LITERAL:
+                case grammar3rdParser.SIZE_LITERAL:
+                case grammar3rdParser.PATTERN_LITERAL:
+                case grammar3rdParser.NUMBER:
+                case grammar3rdParser.BSTRING:
+                case grammar3rdParser.CSTRING:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 802;
                         this.unions();
                     }
                     break;
-                case ASN_3gppParser.ALL_LITERAL:
+                case grammar3rdParser.ALL_LITERAL:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 803;
-                        this.match(ASN_3gppParser.ALL_LITERAL);
+                        this.match(grammar3rdParser.ALL_LITERAL);
                         this.state = 804;
                         this.exclusions();
                     }
@@ -3263,7 +3263,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     unions() {
         let _localctx = new UnionsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 138, ASN_3gppParser.RULE_unions);
+        this.enterRule(_localctx, 138, grammar3rdParser.RULE_unions);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -3275,7 +3275,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 813;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.PIPE || _la === ASN_3gppParser.UNION_LITERAL) {
+                while (_la === grammar3rdParser.PIPE || _la === grammar3rdParser.UNION_LITERAL) {
                     {
                         {
                             this.state = 808;
@@ -3308,12 +3308,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     exclusions() {
         let _localctx = new ExclusionsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 140, ASN_3gppParser.RULE_exclusions);
+        this.enterRule(_localctx, 140, grammar3rdParser.RULE_exclusions);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 816;
-                this.match(ASN_3gppParser.EXCEPT_LITERAL);
+                this.match(grammar3rdParser.EXCEPT_LITERAL);
                 this.state = 817;
                 this.elements();
             }
@@ -3336,7 +3336,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     intersections() {
         let _localctx = new IntersectionsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 142, ASN_3gppParser.RULE_intersections);
+        this.enterRule(_localctx, 142, grammar3rdParser.RULE_intersections);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -3348,7 +3348,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 825;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.POWER || _la === ASN_3gppParser.INTERSECTION_LITERAL) {
+                while (_la === grammar3rdParser.POWER || _la === grammar3rdParser.INTERSECTION_LITERAL) {
                     {
                         {
                             this.state = 820;
@@ -3381,14 +3381,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     unionMark() {
         let _localctx = new UnionMarkContext(this._ctx, this.state);
-        this.enterRule(_localctx, 144, ASN_3gppParser.RULE_unionMark);
+        this.enterRule(_localctx, 144, grammar3rdParser.RULE_unionMark);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 828;
                 _la = this._input.LA(1);
-                if (!(_la === ASN_3gppParser.PIPE || _la === ASN_3gppParser.UNION_LITERAL)) {
+                if (!(_la === grammar3rdParser.PIPE || _la === grammar3rdParser.UNION_LITERAL)) {
                     this._errHandler.recoverInline(this);
                 }
                 else {
@@ -3418,14 +3418,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     intersectionMark() {
         let _localctx = new IntersectionMarkContext(this._ctx, this.state);
-        this.enterRule(_localctx, 146, ASN_3gppParser.RULE_intersectionMark);
+        this.enterRule(_localctx, 146, grammar3rdParser.RULE_intersectionMark);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 830;
                 _la = this._input.LA(1);
-                if (!(_la === ASN_3gppParser.POWER || _la === ASN_3gppParser.INTERSECTION_LITERAL)) {
+                if (!(_la === grammar3rdParser.POWER || _la === grammar3rdParser.INTERSECTION_LITERAL)) {
                     this._errHandler.recoverInline(this);
                 }
                 else {
@@ -3455,7 +3455,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     elements() {
         let _localctx = new ElementsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 148, ASN_3gppParser.RULE_elements);
+        this.enterRule(_localctx, 148, grammar3rdParser.RULE_elements);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -3481,7 +3481,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectSetElements() {
         let _localctx = new ObjectSetElementsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 150, ASN_3gppParser.RULE_objectSetElements);
+        this.enterRule(_localctx, 150, grammar3rdParser.RULE_objectSetElements);
         try {
             this.state = 836;
             this._errHandler.sync(this);
@@ -3520,7 +3520,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     intersectionElements() {
         let _localctx = new IntersectionElementsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 152, ASN_3gppParser.RULE_intersectionElements);
+        this.enterRule(_localctx, 152, grammar3rdParser.RULE_intersectionElements);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -3530,7 +3530,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 840;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.EXCEPT_LITERAL) {
+                if (_la === grammar3rdParser.EXCEPT_LITERAL) {
                     {
                         this.state = 839;
                         this.exclusions();
@@ -3556,7 +3556,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     subtypeElements() {
         let _localctx = new SubtypeElementsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 154, ASN_3gppParser.RULE_subtypeElements);
+        this.enterRule(_localctx, 154, grammar3rdParser.RULE_subtypeElements);
         let _la;
         try {
             this.state = 861;
@@ -3569,25 +3569,25 @@ class ASN_3gppParser extends Parser_1.Parser {
                             this.state = 844;
                             this._errHandler.sync(this);
                             switch (this._input.LA(1)) {
-                                case ASN_3gppParser.TRUE_LITERAL:
-                                case ASN_3gppParser.FALSE_LITERAL:
-                                case ASN_3gppParser.TRUE_SMALL_LITERAL:
-                                case ASN_3gppParser.FALSE_SMALL_LITERAL:
-                                case ASN_3gppParser.L_BRACE:
-                                case ASN_3gppParser.MINUS:
-                                case ASN_3gppParser.NUMBER:
-                                case ASN_3gppParser.BSTRING:
-                                case ASN_3gppParser.CSTRING:
-                                case ASN_3gppParser.IDENTIFIER:
+                                case grammar3rdParser.TRUE_LITERAL:
+                                case grammar3rdParser.FALSE_LITERAL:
+                                case grammar3rdParser.TRUE_SMALL_LITERAL:
+                                case grammar3rdParser.FALSE_SMALL_LITERAL:
+                                case grammar3rdParser.L_BRACE:
+                                case grammar3rdParser.MINUS:
+                                case grammar3rdParser.NUMBER:
+                                case grammar3rdParser.BSTRING:
+                                case grammar3rdParser.CSTRING:
+                                case grammar3rdParser.IDENTIFIER:
                                     {
                                         this.state = 842;
                                         this.value();
                                     }
                                     break;
-                                case ASN_3gppParser.MIN_LITERAL:
+                                case grammar3rdParser.MIN_LITERAL:
                                     {
                                         this.state = 843;
-                                        this.match(ASN_3gppParser.MIN_LITERAL);
+                                        this.match(grammar3rdParser.MIN_LITERAL);
                                     }
                                     break;
                                 default:
@@ -3596,45 +3596,45 @@ class ASN_3gppParser extends Parser_1.Parser {
                             this.state = 847;
                             this._errHandler.sync(this);
                             _la = this._input.LA(1);
-                            if (_la === ASN_3gppParser.LESS_THAN) {
+                            if (_la === grammar3rdParser.LESS_THAN) {
                                 {
                                     this.state = 846;
-                                    this.match(ASN_3gppParser.LESS_THAN);
+                                    this.match(grammar3rdParser.LESS_THAN);
                                 }
                             }
                             this.state = 849;
-                            this.match(ASN_3gppParser.DOUBLE_DOT);
+                            this.match(grammar3rdParser.DOUBLE_DOT);
                             this.state = 851;
                             this._errHandler.sync(this);
                             _la = this._input.LA(1);
-                            if (_la === ASN_3gppParser.LESS_THAN) {
+                            if (_la === grammar3rdParser.LESS_THAN) {
                                 {
                                     this.state = 850;
-                                    this.match(ASN_3gppParser.LESS_THAN);
+                                    this.match(grammar3rdParser.LESS_THAN);
                                 }
                             }
                             this.state = 855;
                             this._errHandler.sync(this);
                             switch (this._input.LA(1)) {
-                                case ASN_3gppParser.TRUE_LITERAL:
-                                case ASN_3gppParser.FALSE_LITERAL:
-                                case ASN_3gppParser.TRUE_SMALL_LITERAL:
-                                case ASN_3gppParser.FALSE_SMALL_LITERAL:
-                                case ASN_3gppParser.L_BRACE:
-                                case ASN_3gppParser.MINUS:
-                                case ASN_3gppParser.NUMBER:
-                                case ASN_3gppParser.BSTRING:
-                                case ASN_3gppParser.CSTRING:
-                                case ASN_3gppParser.IDENTIFIER:
+                                case grammar3rdParser.TRUE_LITERAL:
+                                case grammar3rdParser.FALSE_LITERAL:
+                                case grammar3rdParser.TRUE_SMALL_LITERAL:
+                                case grammar3rdParser.FALSE_SMALL_LITERAL:
+                                case grammar3rdParser.L_BRACE:
+                                case grammar3rdParser.MINUS:
+                                case grammar3rdParser.NUMBER:
+                                case grammar3rdParser.BSTRING:
+                                case grammar3rdParser.CSTRING:
+                                case grammar3rdParser.IDENTIFIER:
                                     {
                                         this.state = 853;
                                         this.value();
                                     }
                                     break;
-                                case ASN_3gppParser.MAX_LITERAL:
+                                case grammar3rdParser.MAX_LITERAL:
                                     {
                                         this.state = 854;
-                                        this.match(ASN_3gppParser.MAX_LITERAL);
+                                        this.match(grammar3rdParser.MAX_LITERAL);
                                     }
                                     break;
                                 default:
@@ -3655,7 +3655,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     {
                         {
                             this.state = 858;
-                            this.match(ASN_3gppParser.PATTERN_LITERAL);
+                            this.match(grammar3rdParser.PATTERN_LITERAL);
                             this.state = 859;
                             this.value();
                         }
@@ -3688,21 +3688,21 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     variableTypeValueSetFieldSpec() {
         let _localctx = new VariableTypeValueSetFieldSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 156, ASN_3gppParser.RULE_variableTypeValueSetFieldSpec);
+        this.enterRule(_localctx, 156, grammar3rdParser.RULE_variableTypeValueSetFieldSpec);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 863;
-                this.match(ASN_3gppParser.AMPERSAND);
+                this.match(grammar3rdParser.AMPERSAND);
                 this.state = 864;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 865;
                 this.fieldName();
                 this.state = 867;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                     {
                         this.state = 866;
                         this.valueSetOptionalitySpec();
@@ -3728,21 +3728,21 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectFieldSpec() {
         let _localctx = new ObjectFieldSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 158, ASN_3gppParser.RULE_objectFieldSpec);
+        this.enterRule(_localctx, 158, grammar3rdParser.RULE_objectFieldSpec);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 869;
-                this.match(ASN_3gppParser.AMPERSAND);
+                this.match(grammar3rdParser.AMPERSAND);
                 this.state = 870;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 871;
                 this.definedObjectClass();
                 this.state = 873;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                     {
                         this.state = 872;
                         this.objectOptionalitySpec();
@@ -3768,23 +3768,23 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectOptionalitySpec() {
         let _localctx = new ObjectOptionalitySpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 160, ASN_3gppParser.RULE_objectOptionalitySpec);
+        this.enterRule(_localctx, 160, grammar3rdParser.RULE_objectOptionalitySpec);
         try {
             this.state = 878;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.OPTIONAL_LITERAL:
+                case grammar3rdParser.OPTIONAL_LITERAL:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 875;
-                        this.match(ASN_3gppParser.OPTIONAL_LITERAL);
+                        this.match(grammar3rdParser.OPTIONAL_LITERAL);
                     }
                     break;
-                case ASN_3gppParser.DEFAULT_LITERAL:
+                case grammar3rdParser.DEFAULT_LITERAL:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 876;
-                        this.match(ASN_3gppParser.DEFAULT_LITERAL);
+                        this.match(grammar3rdParser.DEFAULT_LITERAL);
                         this.state = 877;
                         this.object();
                     }
@@ -3811,21 +3811,21 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectSetFieldSpec() {
         let _localctx = new ObjectSetFieldSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 162, ASN_3gppParser.RULE_objectSetFieldSpec);
+        this.enterRule(_localctx, 162, grammar3rdParser.RULE_objectSetFieldSpec);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 880;
-                this.match(ASN_3gppParser.AMPERSAND);
+                this.match(grammar3rdParser.AMPERSAND);
                 this.state = 881;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 882;
                 this.definedObjectClass();
                 this.state = 884;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.OPTIONAL_LITERAL || _la === ASN_3gppParser.DEFAULT_LITERAL) {
+                if (_la === grammar3rdParser.OPTIONAL_LITERAL || _la === grammar3rdParser.DEFAULT_LITERAL) {
                     {
                         this.state = 883;
                         this.objectSetOptionalitySpec();
@@ -3851,23 +3851,23 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectSetOptionalitySpec() {
         let _localctx = new ObjectSetOptionalitySpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 164, ASN_3gppParser.RULE_objectSetOptionalitySpec);
+        this.enterRule(_localctx, 164, grammar3rdParser.RULE_objectSetOptionalitySpec);
         try {
             this.state = 889;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.OPTIONAL_LITERAL:
+                case grammar3rdParser.OPTIONAL_LITERAL:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 886;
-                        this.match(ASN_3gppParser.OPTIONAL_LITERAL);
+                        this.match(grammar3rdParser.OPTIONAL_LITERAL);
                     }
                     break;
-                case ASN_3gppParser.DEFAULT_LITERAL:
+                case grammar3rdParser.DEFAULT_LITERAL:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 887;
-                        this.match(ASN_3gppParser.DEFAULT_LITERAL);
+                        this.match(grammar3rdParser.DEFAULT_LITERAL);
                         this.state = 888;
                         this.objectSet();
                     }
@@ -3894,12 +3894,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     typeAssignment() {
         let _localctx = new TypeAssignmentContext(this._ctx, this.state);
-        this.enterRule(_localctx, 166, ASN_3gppParser.RULE_typeAssignment);
+        this.enterRule(_localctx, 166, grammar3rdParser.RULE_typeAssignment);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 891;
-                this.match(ASN_3gppParser.ASSIGN_OP);
+                this.match(grammar3rdParser.ASSIGN_OP);
                 this.state = 892;
                 this.asnType();
             }
@@ -3922,14 +3922,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     valueAssignment() {
         let _localctx = new ValueAssignmentContext(this._ctx, this.state);
-        this.enterRule(_localctx, 168, ASN_3gppParser.RULE_valueAssignment);
+        this.enterRule(_localctx, 168, grammar3rdParser.RULE_valueAssignment);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 894;
                 this.asnType();
                 this.state = 895;
-                this.match(ASN_3gppParser.ASSIGN_OP);
+                this.match(grammar3rdParser.ASSIGN_OP);
                 this.state = 896;
                 this.value();
             }
@@ -3952,7 +3952,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     asnType() {
         let _localctx = new AsnTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 170, ASN_3gppParser.RULE_asnType);
+        this.enterRule(_localctx, 170, grammar3rdParser.RULE_asnType);
         try {
             let _alt;
             this.enterOuterAlt(_localctx, 1);
@@ -4009,7 +4009,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     builtinType() {
         let _localctx = new BuiltinTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 172, ASN_3gppParser.RULE_builtinType);
+        this.enterRule(_localctx, 172, grammar3rdParser.RULE_builtinType);
         try {
             this.state = 922;
             this._errHandler.sync(this);
@@ -4102,14 +4102,14 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 13);
                     {
                         this.state = 920;
-                        this.match(ASN_3gppParser.BOOLEAN_LITERAL);
+                        this.match(grammar3rdParser.BOOLEAN_LITERAL);
                     }
                     break;
                 case 14:
                     this.enterOuterAlt(_localctx, 14);
                     {
                         this.state = 921;
-                        this.match(ASN_3gppParser.NULL_LITERAL);
+                        this.match(grammar3rdParser.NULL_LITERAL);
                     }
                     break;
             }
@@ -4132,7 +4132,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     characterStringType() {
         let _localctx = new CharacterStringTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 174, ASN_3gppParser.RULE_characterStringType);
+        this.enterRule(_localctx, 174, grammar3rdParser.RULE_characterStringType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -4158,14 +4158,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     restrictedCharacterStringType() {
         let _localctx = new RestrictedCharacterStringTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 176, ASN_3gppParser.RULE_restrictedCharacterStringType);
+        this.enterRule(_localctx, 176, grammar3rdParser.RULE_restrictedCharacterStringType);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 926;
                 _la = this._input.LA(1);
-                if (!(((((_la - 26)) & ~0x1F) === 0 && ((1 << (_la - 26)) & ((1 << (ASN_3gppParser.BMP_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.GRAPHIC_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.IA5_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.ISO646_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.NUMERIC_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.PRINTABLE_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.TELETEXT_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.T61_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.UNIVERSAL_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.UTF8_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.VIDEOTEX_STRING_LITERAL - 26)) | (1 << (ASN_3gppParser.VISIBLE_STRING_LITERAL - 26)))) !== 0))) {
+                if (!(((((_la - 26)) & ~0x1F) === 0 && ((1 << (_la - 26)) & ((1 << (grammar3rdParser.BMP_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.GRAPHIC_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.IA5_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.ISO646_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.NUMERIC_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.PRINTABLE_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.TELETEXT_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.T61_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.UNIVERSAL_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.UTF8_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.VIDEOTEX_STRING_LITERAL - 26)) | (1 << (grammar3rdParser.VISIBLE_STRING_LITERAL - 26)))) !== 0))) {
                     this._errHandler.recoverInline(this);
                 }
                 else {
@@ -4195,14 +4195,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectClassFieldType() {
         let _localctx = new ObjectClassFieldTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 178, ASN_3gppParser.RULE_objectClassFieldType);
+        this.enterRule(_localctx, 178, grammar3rdParser.RULE_objectClassFieldType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 928;
                 this.definedObjectClass();
                 this.state = 929;
-                this.match(ASN_3gppParser.DOT);
+                this.match(grammar3rdParser.DOT);
                 this.state = 930;
                 this.fieldName();
             }
@@ -4225,14 +4225,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     setType() {
         let _localctx = new SetTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 180, ASN_3gppParser.RULE_setType);
+        this.enterRule(_localctx, 180, grammar3rdParser.RULE_setType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 932;
-                this.match(ASN_3gppParser.SET_LITERAL);
+                this.match(grammar3rdParser.SET_LITERAL);
                 this.state = 933;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 938;
                 this._errHandler.sync(this);
                 switch (this.interpreter.adaptivePredict(this._input, 105, this._ctx)) {
@@ -4252,7 +4252,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         break;
                 }
                 this.state = 940;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -4273,34 +4273,34 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     setOfType() {
         let _localctx = new SetOfTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 182, ASN_3gppParser.RULE_setOfType);
+        this.enterRule(_localctx, 182, grammar3rdParser.RULE_setOfType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 942;
-                this.match(ASN_3gppParser.SET_LITERAL);
+                this.match(grammar3rdParser.SET_LITERAL);
                 this.state = 945;
                 this._errHandler.sync(this);
                 switch (this._input.LA(1)) {
-                    case ASN_3gppParser.L_PARAN:
+                    case grammar3rdParser.L_PARAN:
                         {
                             this.state = 943;
                             this.constraint();
                         }
                         break;
-                    case ASN_3gppParser.SIZE_LITERAL:
+                    case grammar3rdParser.SIZE_LITERAL:
                         {
                             this.state = 944;
                             this.sizeConstraint();
                         }
                         break;
-                    case ASN_3gppParser.OF_LITERAL:
+                    case grammar3rdParser.OF_LITERAL:
                         break;
                     default:
                         break;
                 }
                 this.state = 947;
-                this.match(ASN_3gppParser.OF_LITERAL);
+                this.match(grammar3rdParser.OF_LITERAL);
                 this.state = 950;
                 this._errHandler.sync(this);
                 switch (this.interpreter.adaptivePredict(this._input, 107, this._ctx)) {
@@ -4337,7 +4337,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     referencedType() {
         let _localctx = new ReferencedTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 184, ASN_3gppParser.RULE_referencedType);
+        this.enterRule(_localctx, 184, grammar3rdParser.RULE_referencedType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -4363,22 +4363,22 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     definedType() {
         let _localctx = new DefinedTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 186, ASN_3gppParser.RULE_definedType);
+        this.enterRule(_localctx, 186, grammar3rdParser.RULE_definedType);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 954;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 957;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.DOT) {
+                if (_la === grammar3rdParser.DOT) {
                     {
                         this.state = 955;
-                        this.match(ASN_3gppParser.DOT);
+                        this.match(grammar3rdParser.DOT);
                         this.state = 956;
-                        this.match(ASN_3gppParser.IDENTIFIER);
+                        this.match(grammar3rdParser.IDENTIFIER);
                     }
                 }
                 this.state = 960;
@@ -4411,26 +4411,26 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     constraint() {
         let _localctx = new ConstraintContext(this._ctx, this.state);
-        this.enterRule(_localctx, 188, ASN_3gppParser.RULE_constraint);
+        this.enterRule(_localctx, 188, grammar3rdParser.RULE_constraint);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 962;
-                this.match(ASN_3gppParser.L_PARAN);
+                this.match(grammar3rdParser.L_PARAN);
                 this.state = 963;
                 this.constraintSpec();
                 this.state = 965;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.EXCLAM) {
+                if (_la === grammar3rdParser.EXCLAM) {
                     {
                         this.state = 964;
                         this.exceptionSpec();
                     }
                 }
                 this.state = 967;
-                this.match(ASN_3gppParser.R_PARAN);
+                this.match(grammar3rdParser.R_PARAN);
             }
         }
         catch (re) {
@@ -4451,7 +4451,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     constraintSpec() {
         let _localctx = new ConstraintSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 190, ASN_3gppParser.RULE_constraintSpec);
+        this.enterRule(_localctx, 190, grammar3rdParser.RULE_constraintSpec);
         try {
             this.state = 971;
             this._errHandler.sync(this);
@@ -4490,27 +4490,27 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     userDefinedConstraint() {
         let _localctx = new UserDefinedConstraintContext(this._ctx, this.state);
-        this.enterRule(_localctx, 192, ASN_3gppParser.RULE_userDefinedConstraint);
+        this.enterRule(_localctx, 192, grammar3rdParser.RULE_userDefinedConstraint);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 973;
-                this.match(ASN_3gppParser.CONSTRAINED_LITERAL);
+                this.match(grammar3rdParser.CONSTRAINED_LITERAL);
                 this.state = 974;
-                this.match(ASN_3gppParser.BY_LITERAL);
+                this.match(grammar3rdParser.BY_LITERAL);
                 this.state = 975;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 976;
                 this.userDefinedConstraintParameter();
                 this.state = 981;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.COMMA) {
+                while (_la === grammar3rdParser.COMMA) {
                     {
                         {
                             this.state = 977;
-                            this.match(ASN_3gppParser.COMMA);
+                            this.match(grammar3rdParser.COMMA);
                             this.state = 978;
                             this.userDefinedConstraintParameter();
                         }
@@ -4520,7 +4520,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     _la = this._input.LA(1);
                 }
                 this.state = 984;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -4541,28 +4541,28 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     generalConstraint() {
         let _localctx = new GeneralConstraintContext(this._ctx, this.state);
-        this.enterRule(_localctx, 194, ASN_3gppParser.RULE_generalConstraint);
+        this.enterRule(_localctx, 194, grammar3rdParser.RULE_generalConstraint);
         try {
             this.state = 989;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.CONSTRAINED_LITERAL:
+                case grammar3rdParser.CONSTRAINED_LITERAL:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 986;
                         this.userDefinedConstraint();
                     }
                     break;
-                case ASN_3gppParser.L_BRACE:
+                case grammar3rdParser.L_BRACE:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 987;
                         this.tableConstraint();
                     }
                     break;
-                case ASN_3gppParser.CONTAINING_LITERAL:
-                case ASN_3gppParser.WITH_LITERAL:
-                case ASN_3gppParser.ENCODED_LITERAL:
+                case grammar3rdParser.CONTAINING_LITERAL:
+                case grammar3rdParser.WITH_LITERAL:
+                case grammar3rdParser.ENCODED_LITERAL:
                     this.enterOuterAlt(_localctx, 3);
                     {
                         this.state = 988;
@@ -4591,7 +4591,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     userDefinedConstraintParameter() {
         let _localctx = new UserDefinedConstraintParameterContext(this._ctx, this.state);
-        this.enterRule(_localctx, 196, ASN_3gppParser.RULE_userDefinedConstraintParameter);
+        this.enterRule(_localctx, 196, grammar3rdParser.RULE_userDefinedConstraintParameter);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -4603,7 +4603,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     case 1:
                         {
                             this.state = 992;
-                            this.match(ASN_3gppParser.COLON);
+                            this.match(grammar3rdParser.COLON);
                             this.state = 993;
                             this.value();
                         }
@@ -4647,7 +4647,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     tableConstraint() {
         let _localctx = new TableConstraintContext(this._ctx, this.state);
-        this.enterRule(_localctx, 198, ASN_3gppParser.RULE_tableConstraint);
+        this.enterRule(_localctx, 198, grammar3rdParser.RULE_tableConstraint);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -4673,7 +4673,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     simpleTableConstraint() {
         let _localctx = new SimpleTableConstraintContext(this._ctx, this.state);
-        this.enterRule(_localctx, 200, ASN_3gppParser.RULE_simpleTableConstraint);
+        this.enterRule(_localctx, 200, grammar3rdParser.RULE_simpleTableConstraint);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -4699,7 +4699,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     contentsConstraint() {
         let _localctx = new ContentsConstraintContext(this._ctx, this.state);
-        this.enterRule(_localctx, 202, ASN_3gppParser.RULE_contentsConstraint);
+        this.enterRule(_localctx, 202, grammar3rdParser.RULE_contentsConstraint);
         try {
             this.state = 1020;
             this._errHandler.sync(this);
@@ -4708,7 +4708,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 1003;
-                        this.match(ASN_3gppParser.CONTAINING_LITERAL);
+                        this.match(grammar3rdParser.CONTAINING_LITERAL);
                         this.state = 1004;
                         this.asnType();
                     }
@@ -4717,9 +4717,9 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 1005;
-                        this.match(ASN_3gppParser.ENCODED_LITERAL);
+                        this.match(grammar3rdParser.ENCODED_LITERAL);
                         this.state = 1006;
-                        this.match(ASN_3gppParser.BY_LITERAL);
+                        this.match(grammar3rdParser.BY_LITERAL);
                         this.state = 1007;
                         this.value();
                     }
@@ -4728,13 +4728,13 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 3);
                     {
                         this.state = 1008;
-                        this.match(ASN_3gppParser.CONTAINING_LITERAL);
+                        this.match(grammar3rdParser.CONTAINING_LITERAL);
                         this.state = 1009;
                         this.asnType();
                         this.state = 1010;
-                        this.match(ASN_3gppParser.ENCODED_LITERAL);
+                        this.match(grammar3rdParser.ENCODED_LITERAL);
                         this.state = 1011;
-                        this.match(ASN_3gppParser.BY_LITERAL);
+                        this.match(grammar3rdParser.BY_LITERAL);
                         this.state = 1012;
                         this.value();
                     }
@@ -4743,15 +4743,15 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 4);
                     {
                         this.state = 1014;
-                        this.match(ASN_3gppParser.WITH_LITERAL);
+                        this.match(grammar3rdParser.WITH_LITERAL);
                         this.state = 1015;
-                        this.match(ASN_3gppParser.COMPONENTS_LITERAL);
+                        this.match(grammar3rdParser.COMPONENTS_LITERAL);
                         this.state = 1016;
-                        this.match(ASN_3gppParser.L_BRACE);
+                        this.match(grammar3rdParser.L_BRACE);
                         this.state = 1017;
                         this.componentPresenceLists();
                         this.state = 1018;
-                        this.match(ASN_3gppParser.R_BRACE);
+                        this.match(grammar3rdParser.R_BRACE);
                     }
                     break;
             }
@@ -4774,21 +4774,21 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     componentPresenceLists() {
         let _localctx = new ComponentPresenceListsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 204, ASN_3gppParser.RULE_componentPresenceLists);
+        this.enterRule(_localctx, 204, grammar3rdParser.RULE_componentPresenceLists);
         let _la;
         try {
             this.state = 1038;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.R_BRACE:
-                case ASN_3gppParser.COMMA:
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.R_BRACE:
+                case grammar3rdParser.COMMA:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 1023;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.IDENTIFIER) {
+                        if (_la === grammar3rdParser.IDENTIFIER) {
                             {
                                 this.state = 1022;
                                 this.componentPresenceList();
@@ -4797,19 +4797,19 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 1031;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.COMMA) {
+                        if (_la === grammar3rdParser.COMMA) {
                             {
                                 this.state = 1025;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 1026;
-                                this.match(ASN_3gppParser.ELLIPSIS);
+                                this.match(grammar3rdParser.ELLIPSIS);
                                 this.state = 1029;
                                 this._errHandler.sync(this);
                                 _la = this._input.LA(1);
-                                if (_la === ASN_3gppParser.COMMA) {
+                                if (_la === grammar3rdParser.COMMA) {
                                     {
                                         this.state = 1027;
-                                        this.match(ASN_3gppParser.COMMA);
+                                        this.match(grammar3rdParser.COMMA);
                                         this.state = 1028;
                                         this.componentPresenceList();
                                     }
@@ -4818,18 +4818,18 @@ class ASN_3gppParser extends Parser_1.Parser {
                         }
                     }
                     break;
-                case ASN_3gppParser.ELLIPSIS:
+                case grammar3rdParser.ELLIPSIS:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 1033;
-                        this.match(ASN_3gppParser.ELLIPSIS);
+                        this.match(grammar3rdParser.ELLIPSIS);
                         this.state = 1036;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.COMMA) {
+                        if (_la === grammar3rdParser.COMMA) {
                             {
                                 this.state = 1034;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 1035;
                                 this.componentPresenceList();
                             }
@@ -4858,7 +4858,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     componentPresenceList() {
         let _localctx = new ComponentPresenceListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 206, ASN_3gppParser.RULE_componentPresenceList);
+        this.enterRule(_localctx, 206, grammar3rdParser.RULE_componentPresenceList);
         try {
             let _alt;
             this.enterOuterAlt(_localctx, 1);
@@ -4875,7 +4875,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         {
                             {
                                 this.state = 1041;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 1042;
                                 this.componentPresence();
                             }
@@ -4905,16 +4905,16 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     componentPresence() {
         let _localctx = new ComponentPresenceContext(this._ctx, this.state);
-        this.enterRule(_localctx, 208, ASN_3gppParser.RULE_componentPresence);
+        this.enterRule(_localctx, 208, grammar3rdParser.RULE_componentPresence);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1048;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 1049;
                 _la = this._input.LA(1);
-                if (!(_la === ASN_3gppParser.PRESENT_LITERAL || _la === ASN_3gppParser.ABSENT_LITERAL)) {
+                if (!(_la === grammar3rdParser.PRESENT_LITERAL || _la === grammar3rdParser.ABSENT_LITERAL)) {
                     this._errHandler.recoverInline(this);
                 }
                 else {
@@ -4944,7 +4944,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     subtypeConstraint() {
         let _localctx = new SubtypeConstraintContext(this._ctx, this.state);
-        this.enterRule(_localctx, 210, ASN_3gppParser.RULE_subtypeConstraint);
+        this.enterRule(_localctx, 210, grammar3rdParser.RULE_subtypeConstraint);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -4970,7 +4970,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     value() {
         let _localctx = new ValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 212, ASN_3gppParser.RULE_value);
+        this.enterRule(_localctx, 212, grammar3rdParser.RULE_value);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -4996,7 +4996,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     builtinValue() {
         let _localctx = new BuiltinValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 214, ASN_3gppParser.RULE_builtinValue);
+        this.enterRule(_localctx, 214, grammar3rdParser.RULE_builtinValue);
         try {
             this.state = 1062;
             this._errHandler.sync(this);
@@ -5040,14 +5040,14 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 6);
                     {
                         this.state = 1060;
-                        this.match(ASN_3gppParser.CSTRING);
+                        this.match(grammar3rdParser.CSTRING);
                     }
                     break;
                 case 7:
                     this.enterOuterAlt(_localctx, 7);
                     {
                         this.state = 1061;
-                        this.match(ASN_3gppParser.BSTRING);
+                        this.match(grammar3rdParser.BSTRING);
                     }
                     break;
             }
@@ -5070,16 +5070,16 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectIdentifierValue() {
         let _localctx = new ObjectIdentifierValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 216, ASN_3gppParser.RULE_objectIdentifierValue);
+        this.enterRule(_localctx, 216, grammar3rdParser.RULE_objectIdentifierValue);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1064;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 1065;
                 this.objIdComponentsList();
                 this.state = 1066;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -5100,7 +5100,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objIdComponentsList() {
         let _localctx = new ObjIdComponentsListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 218, ASN_3gppParser.RULE_objIdComponentsList);
+        this.enterRule(_localctx, 218, grammar3rdParser.RULE_objIdComponentsList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -5112,7 +5112,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 1072;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << ASN_3gppParser.BOOLEAN_LITERAL) | (1 << ASN_3gppParser.INTEGER_LITERAL) | (1 << ASN_3gppParser.BMP_STRING_LITERAL) | (1 << ASN_3gppParser.GRAPHIC_STRING_LITERAL) | (1 << ASN_3gppParser.IA5_STRING_LITERAL) | (1 << ASN_3gppParser.ISO646_STRING_LITERAL) | (1 << ASN_3gppParser.NUMERIC_STRING_LITERAL))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (ASN_3gppParser.PRINTABLE_STRING_LITERAL - 32)) | (1 << (ASN_3gppParser.TELETEXT_STRING_LITERAL - 32)) | (1 << (ASN_3gppParser.T61_STRING_LITERAL - 32)) | (1 << (ASN_3gppParser.UNIVERSAL_STRING_LITERAL - 32)) | (1 << (ASN_3gppParser.UTF8_STRING_LITERAL - 32)) | (1 << (ASN_3gppParser.VIDEOTEX_STRING_LITERAL - 32)) | (1 << (ASN_3gppParser.VISIBLE_STRING_LITERAL - 32)) | (1 << (ASN_3gppParser.ENUMERATED_LITERAL - 32)) | (1 << (ASN_3gppParser.BIT_LITERAL - 32)) | (1 << (ASN_3gppParser.OCTET_LITERAL - 32)) | (1 << (ASN_3gppParser.NULL_LITERAL - 32)) | (1 << (ASN_3gppParser.SEQUENCE_LITERAL - 32)) | (1 << (ASN_3gppParser.SET_LITERAL - 32)))) !== 0) || ((((_la - 71)) & ~0x1F) === 0 && ((1 << (_la - 71)) & ((1 << (ASN_3gppParser.TYPE_IDENTIFIER_LITERAL - 71)) | (1 << (ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL - 71)) | (1 << (ASN_3gppParser.CHOICE_LITERAL - 71)) | (1 << (ASN_3gppParser.OBJECT_LITERAL - 71)))) !== 0) || _la === ASN_3gppParser.NUMBER || _la === ASN_3gppParser.IDENTIFIER) {
+                while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << grammar3rdParser.BOOLEAN_LITERAL) | (1 << grammar3rdParser.INTEGER_LITERAL) | (1 << grammar3rdParser.BMP_STRING_LITERAL) | (1 << grammar3rdParser.GRAPHIC_STRING_LITERAL) | (1 << grammar3rdParser.IA5_STRING_LITERAL) | (1 << grammar3rdParser.ISO646_STRING_LITERAL) | (1 << grammar3rdParser.NUMERIC_STRING_LITERAL))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (grammar3rdParser.PRINTABLE_STRING_LITERAL - 32)) | (1 << (grammar3rdParser.TELETEXT_STRING_LITERAL - 32)) | (1 << (grammar3rdParser.T61_STRING_LITERAL - 32)) | (1 << (grammar3rdParser.UNIVERSAL_STRING_LITERAL - 32)) | (1 << (grammar3rdParser.UTF8_STRING_LITERAL - 32)) | (1 << (grammar3rdParser.VIDEOTEX_STRING_LITERAL - 32)) | (1 << (grammar3rdParser.VISIBLE_STRING_LITERAL - 32)) | (1 << (grammar3rdParser.ENUMERATED_LITERAL - 32)) | (1 << (grammar3rdParser.BIT_LITERAL - 32)) | (1 << (grammar3rdParser.OCTET_LITERAL - 32)) | (1 << (grammar3rdParser.NULL_LITERAL - 32)) | (1 << (grammar3rdParser.SEQUENCE_LITERAL - 32)) | (1 << (grammar3rdParser.SET_LITERAL - 32)))) !== 0) || ((((_la - 71)) & ~0x1F) === 0 && ((1 << (_la - 71)) & ((1 << (grammar3rdParser.TYPE_IDENTIFIER_LITERAL - 71)) | (1 << (grammar3rdParser.ABSTRACT_SYNTAX_LITERAL - 71)) | (1 << (grammar3rdParser.CHOICE_LITERAL - 71)) | (1 << (grammar3rdParser.OBJECT_LITERAL - 71)))) !== 0) || _la === grammar3rdParser.NUMBER || _la === grammar3rdParser.IDENTIFIER) {
                     {
                         {
                             this.state = 1069;
@@ -5143,7 +5143,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objIdComponents() {
         let _localctx = new ObjIdComponentsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 220, ASN_3gppParser.RULE_objIdComponents);
+        this.enterRule(_localctx, 220, grammar3rdParser.RULE_objIdComponents);
         let _la;
         try {
             this.state = 1090;
@@ -5153,31 +5153,31 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 1075;
-                        this.match(ASN_3gppParser.NUMBER);
+                        this.match(grammar3rdParser.NUMBER);
                     }
                     break;
                 case 2:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 1076;
-                        this.match(ASN_3gppParser.IDENTIFIER);
+                        this.match(grammar3rdParser.IDENTIFIER);
                         this.state = 1083;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.L_PARAN) {
+                        if (_la === grammar3rdParser.L_PARAN) {
                             {
                                 this.state = 1077;
-                                this.match(ASN_3gppParser.L_PARAN);
+                                this.match(grammar3rdParser.L_PARAN);
                                 this.state = 1080;
                                 this._errHandler.sync(this);
                                 switch (this._input.LA(1)) {
-                                    case ASN_3gppParser.NUMBER:
+                                    case grammar3rdParser.NUMBER:
                                         {
                                             this.state = 1078;
-                                            this.match(ASN_3gppParser.NUMBER);
+                                            this.match(grammar3rdParser.NUMBER);
                                         }
                                         break;
-                                    case ASN_3gppParser.IDENTIFIER:
+                                    case grammar3rdParser.IDENTIFIER:
                                         {
                                             this.state = 1079;
                                             this.definedValue();
@@ -5187,7 +5187,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                                         throw new NoViableAltException_1.NoViableAltException(this);
                                 }
                                 this.state = 1082;
-                                this.match(ASN_3gppParser.R_PARAN);
+                                this.match(grammar3rdParser.R_PARAN);
                             }
                         }
                     }
@@ -5207,7 +5207,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 1088;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.L_PARAN) {
+                        if (_la === grammar3rdParser.L_PARAN) {
                             {
                                 this.state = 1087;
                                 this.constraint();
@@ -5235,24 +5235,24 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     integerValue() {
         let _localctx = new IntegerValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 222, ASN_3gppParser.RULE_integerValue);
+        this.enterRule(_localctx, 222, grammar3rdParser.RULE_integerValue);
         try {
             this.state = 1094;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.MINUS:
-                case ASN_3gppParser.NUMBER:
+                case grammar3rdParser.MINUS:
+                case grammar3rdParser.NUMBER:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 1092;
                         this.signedNumber();
                     }
                     break;
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 1093;
-                        this.match(ASN_3gppParser.IDENTIFIER);
+                        this.match(grammar3rdParser.IDENTIFIER);
                     }
                     break;
                 default:
@@ -5277,14 +5277,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     choiceValue() {
         let _localctx = new ChoiceValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 224, ASN_3gppParser.RULE_choiceValue);
+        this.enterRule(_localctx, 224, grammar3rdParser.RULE_choiceValue);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1096;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 1097;
-                this.match(ASN_3gppParser.COLON);
+                this.match(grammar3rdParser.COLON);
                 this.state = 1098;
                 this.value();
             }
@@ -5307,12 +5307,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     enumeratedValue() {
         let _localctx = new EnumeratedValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 226, ASN_3gppParser.RULE_enumeratedValue);
+        this.enterRule(_localctx, 226, grammar3rdParser.RULE_enumeratedValue);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1100;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
             }
         }
         catch (re) {
@@ -5333,7 +5333,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     signedNumber() {
         let _localctx = new SignedNumberContext(this._ctx, this.state);
-        this.enterRule(_localctx, 228, ASN_3gppParser.RULE_signedNumber);
+        this.enterRule(_localctx, 228, grammar3rdParser.RULE_signedNumber);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -5341,14 +5341,14 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 1103;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.MINUS) {
+                if (_la === grammar3rdParser.MINUS) {
                     {
                         this.state = 1102;
-                        this.match(ASN_3gppParser.MINUS);
+                        this.match(grammar3rdParser.MINUS);
                     }
                 }
                 this.state = 1105;
-                this.match(ASN_3gppParser.NUMBER);
+                this.match(grammar3rdParser.NUMBER);
             }
         }
         catch (re) {
@@ -5369,18 +5369,18 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     choiceType() {
         let _localctx = new ChoiceTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 230, ASN_3gppParser.RULE_choiceType);
+        this.enterRule(_localctx, 230, grammar3rdParser.RULE_choiceType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1107;
-                this.match(ASN_3gppParser.CHOICE_LITERAL);
+                this.match(grammar3rdParser.CHOICE_LITERAL);
                 this.state = 1108;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 1109;
                 this.alternativeTypeLists();
                 this.state = 1110;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -5401,7 +5401,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     alternativeTypeLists() {
         let _localctx = new AlternativeTypeListsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 232, ASN_3gppParser.RULE_alternativeTypeLists);
+        this.enterRule(_localctx, 232, grammar3rdParser.RULE_alternativeTypeLists);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -5411,10 +5411,10 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 1118;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.COMMA) {
+                if (_la === grammar3rdParser.COMMA) {
                     {
                         this.state = 1113;
-                        this.match(ASN_3gppParser.COMMA);
+                        this.match(grammar3rdParser.COMMA);
                         this.state = 1114;
                         this.extensionAndException();
                         this.state = 1115;
@@ -5443,7 +5443,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionAdditionAlternatives() {
         let _localctx = new ExtensionAdditionAlternativesContext(this._ctx, this.state);
-        this.enterRule(_localctx, 234, ASN_3gppParser.RULE_extensionAdditionAlternatives);
+        this.enterRule(_localctx, 234, grammar3rdParser.RULE_extensionAdditionAlternatives);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -5453,7 +5453,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     case 1:
                         {
                             this.state = 1120;
-                            this.match(ASN_3gppParser.COMMA);
+                            this.match(grammar3rdParser.COMMA);
                             this.state = 1121;
                             this.extensionAdditionAlternativesList();
                         }
@@ -5479,7 +5479,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionAdditionAlternativesList() {
         let _localctx = new ExtensionAdditionAlternativesListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 236, ASN_3gppParser.RULE_extensionAdditionAlternativesList);
+        this.enterRule(_localctx, 236, grammar3rdParser.RULE_extensionAdditionAlternativesList);
         try {
             let _alt;
             this.enterOuterAlt(_localctx, 1);
@@ -5496,7 +5496,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         {
                             {
                                 this.state = 1125;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 1126;
                                 this.extensionAdditionAlternative();
                             }
@@ -5526,19 +5526,19 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionAdditionAlternative() {
         let _localctx = new ExtensionAdditionAlternativeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 238, ASN_3gppParser.RULE_extensionAdditionAlternative);
+        this.enterRule(_localctx, 238, grammar3rdParser.RULE_extensionAdditionAlternative);
         try {
             this.state = 1134;
             this._errHandler.sync(this);
             switch (this._input.LA(1)) {
-                case ASN_3gppParser.DOUBLE_L_BRACKET:
+                case grammar3rdParser.DOUBLE_L_BRACKET:
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 1132;
                         this.extensionAdditionAlternativesGroup();
                     }
                     break;
-                case ASN_3gppParser.IDENTIFIER:
+                case grammar3rdParser.IDENTIFIER:
                     this.enterOuterAlt(_localctx, 2);
                     {
                         this.state = 1133;
@@ -5567,18 +5567,18 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     extensionAdditionAlternativesGroup() {
         let _localctx = new ExtensionAdditionAlternativesGroupContext(this._ctx, this.state);
-        this.enterRule(_localctx, 240, ASN_3gppParser.RULE_extensionAdditionAlternativesGroup);
+        this.enterRule(_localctx, 240, grammar3rdParser.RULE_extensionAdditionAlternativesGroup);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1136;
-                this.match(ASN_3gppParser.DOUBLE_L_BRACKET);
+                this.match(grammar3rdParser.DOUBLE_L_BRACKET);
                 this.state = 1137;
                 this.versionNumber();
                 this.state = 1138;
                 this.alternativeTypeList();
                 this.state = 1139;
-                this.match(ASN_3gppParser.DOUBLE_R_BRACKET);
+                this.match(grammar3rdParser.DOUBLE_R_BRACKET);
             }
         }
         catch (re) {
@@ -5599,7 +5599,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     rootAlternativeTypeList() {
         let _localctx = new RootAlternativeTypeListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 242, ASN_3gppParser.RULE_rootAlternativeTypeList);
+        this.enterRule(_localctx, 242, grammar3rdParser.RULE_rootAlternativeTypeList);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -5625,7 +5625,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     alternativeTypeList() {
         let _localctx = new AlternativeTypeListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 244, ASN_3gppParser.RULE_alternativeTypeList);
+        this.enterRule(_localctx, 244, grammar3rdParser.RULE_alternativeTypeList);
         try {
             let _alt;
             this.enterOuterAlt(_localctx, 1);
@@ -5642,7 +5642,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         {
                             {
                                 this.state = 1144;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 1145;
                                 this.namedType();
                             }
@@ -5672,12 +5672,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     namedType() {
         let _localctx = new NamedTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 246, ASN_3gppParser.RULE_namedType);
+        this.enterRule(_localctx, 246, grammar3rdParser.RULE_namedType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1151;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 1152;
                 this.asnType();
             }
@@ -5700,18 +5700,18 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     enumeratedType() {
         let _localctx = new EnumeratedTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 248, ASN_3gppParser.RULE_enumeratedType);
+        this.enterRule(_localctx, 248, grammar3rdParser.RULE_enumeratedType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1154;
-                this.match(ASN_3gppParser.ENUMERATED_LITERAL);
+                this.match(grammar3rdParser.ENUMERATED_LITERAL);
                 this.state = 1155;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 1156;
                 this.enumerations();
                 this.state = 1157;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -5732,7 +5732,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     enumerations() {
         let _localctx = new EnumerationsContext(this._ctx, this.state);
-        this.enterRule(_localctx, 250, ASN_3gppParser.RULE_enumerations);
+        this.enterRule(_localctx, 250, grammar3rdParser.RULE_enumerations);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -5742,16 +5742,16 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 1169;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.COMMA) {
+                if (_la === grammar3rdParser.COMMA) {
                     {
                         this.state = 1160;
-                        this.match(ASN_3gppParser.COMMA);
+                        this.match(grammar3rdParser.COMMA);
                         this.state = 1161;
-                        this.match(ASN_3gppParser.ELLIPSIS);
+                        this.match(grammar3rdParser.ELLIPSIS);
                         this.state = 1163;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.EXCLAM) {
+                        if (_la === grammar3rdParser.EXCLAM) {
                             {
                                 this.state = 1162;
                                 this.exceptionSpec();
@@ -5760,10 +5760,10 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 1167;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        if (_la === ASN_3gppParser.COMMA) {
+                        if (_la === grammar3rdParser.COMMA) {
                             {
                                 this.state = 1165;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 1166;
                                 this.additionalEnumeration();
                             }
@@ -5790,7 +5790,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     rootEnumeration() {
         let _localctx = new RootEnumerationContext(this._ctx, this.state);
-        this.enterRule(_localctx, 252, ASN_3gppParser.RULE_rootEnumeration);
+        this.enterRule(_localctx, 252, grammar3rdParser.RULE_rootEnumeration);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -5816,7 +5816,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     enumeration() {
         let _localctx = new EnumerationContext(this._ctx, this.state);
-        this.enterRule(_localctx, 254, ASN_3gppParser.RULE_enumeration);
+        this.enterRule(_localctx, 254, grammar3rdParser.RULE_enumeration);
         try {
             let _alt;
             this.enterOuterAlt(_localctx, 1);
@@ -5831,7 +5831,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         {
                             {
                                 this.state = 1174;
-                                this.match(ASN_3gppParser.COMMA);
+                                this.match(grammar3rdParser.COMMA);
                                 this.state = 1175;
                                 this.enumerationItem();
                             }
@@ -5861,7 +5861,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     enumerationItem() {
         let _localctx = new EnumerationItemContext(this._ctx, this.state);
-        this.enterRule(_localctx, 256, ASN_3gppParser.RULE_enumerationItem);
+        this.enterRule(_localctx, 256, grammar3rdParser.RULE_enumerationItem);
         try {
             this.state = 1184;
             this._errHandler.sync(this);
@@ -5870,7 +5870,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 1);
                     {
                         this.state = 1181;
-                        this.match(ASN_3gppParser.IDENTIFIER);
+                        this.match(grammar3rdParser.IDENTIFIER);
                     }
                     break;
                 case 2:
@@ -5907,25 +5907,25 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     namedNumber() {
         let _localctx = new NamedNumberContext(this._ctx, this.state);
-        this.enterRule(_localctx, 258, ASN_3gppParser.RULE_namedNumber);
+        this.enterRule(_localctx, 258, grammar3rdParser.RULE_namedNumber);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1186;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 1187;
-                this.match(ASN_3gppParser.L_PARAN);
+                this.match(grammar3rdParser.L_PARAN);
                 this.state = 1190;
                 this._errHandler.sync(this);
                 switch (this._input.LA(1)) {
-                    case ASN_3gppParser.MINUS:
-                    case ASN_3gppParser.NUMBER:
+                    case grammar3rdParser.MINUS:
+                    case grammar3rdParser.NUMBER:
                         {
                             this.state = 1188;
                             this.signedNumber();
                         }
                         break;
-                    case ASN_3gppParser.IDENTIFIER:
+                    case grammar3rdParser.IDENTIFIER:
                         {
                             this.state = 1189;
                             this.definedValue();
@@ -5935,7 +5935,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         throw new NoViableAltException_1.NoViableAltException(this);
                 }
                 this.state = 1192;
-                this.match(ASN_3gppParser.R_PARAN);
+                this.match(grammar3rdParser.R_PARAN);
             }
         }
         catch (re) {
@@ -5956,7 +5956,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     definedValue() {
         let _localctx = new DefinedValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 260, ASN_3gppParser.RULE_definedValue);
+        this.enterRule(_localctx, 260, grammar3rdParser.RULE_definedValue);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -5982,7 +5982,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     parameterizedValue() {
         let _localctx = new ParameterizedValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 262, ASN_3gppParser.RULE_parameterizedValue);
+        this.enterRule(_localctx, 262, grammar3rdParser.RULE_parameterizedValue);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -5992,7 +5992,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 1198;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.L_BRACE) {
+                if (_la === grammar3rdParser.L_BRACE) {
                     {
                         this.state = 1197;
                         this.actualParameterList();
@@ -6018,22 +6018,22 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     simpleDefinedValue() {
         let _localctx = new SimpleDefinedValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 264, ASN_3gppParser.RULE_simpleDefinedValue);
+        this.enterRule(_localctx, 264, grammar3rdParser.RULE_simpleDefinedValue);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1200;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 1203;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.DOT) {
+                if (_la === grammar3rdParser.DOT) {
                     {
                         this.state = 1201;
-                        this.match(ASN_3gppParser.DOT);
+                        this.match(grammar3rdParser.DOT);
                         this.state = 1202;
-                        this.match(ASN_3gppParser.IDENTIFIER);
+                        this.match(grammar3rdParser.IDENTIFIER);
                     }
                 }
             }
@@ -6056,23 +6056,23 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     actualParameterList() {
         let _localctx = new ActualParameterListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 266, ASN_3gppParser.RULE_actualParameterList);
+        this.enterRule(_localctx, 266, grammar3rdParser.RULE_actualParameterList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1205;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 this.state = 1206;
                 this.actualParameter();
                 this.state = 1211;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.COMMA) {
+                while (_la === grammar3rdParser.COMMA) {
                     {
                         {
                             this.state = 1207;
-                            this.match(ASN_3gppParser.COMMA);
+                            this.match(grammar3rdParser.COMMA);
                             this.state = 1208;
                             this.actualParameter();
                         }
@@ -6082,7 +6082,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                     _la = this._input.LA(1);
                 }
                 this.state = 1214;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
             }
         }
         catch (re) {
@@ -6103,7 +6103,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     actualParameter() {
         let _localctx = new ActualParameterContext(this._ctx, this.state);
-        this.enterRule(_localctx, 268, ASN_3gppParser.RULE_actualParameter);
+        this.enterRule(_localctx, 268, grammar3rdParser.RULE_actualParameter);
         try {
             this.state = 1218;
             this._errHandler.sync(this);
@@ -6142,12 +6142,12 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     exceptionSpec() {
         let _localctx = new ExceptionSpecContext(this._ctx, this.state);
-        this.enterRule(_localctx, 270, ASN_3gppParser.RULE_exceptionSpec);
+        this.enterRule(_localctx, 270, grammar3rdParser.RULE_exceptionSpec);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1220;
-                this.match(ASN_3gppParser.EXCLAM);
+                this.match(grammar3rdParser.EXCLAM);
                 this.state = 1221;
                 this.exceptionIdentification();
             }
@@ -6170,7 +6170,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     exceptionIdentification() {
         let _localctx = new ExceptionIdentificationContext(this._ctx, this.state);
-        this.enterRule(_localctx, 272, ASN_3gppParser.RULE_exceptionIdentification);
+        this.enterRule(_localctx, 272, grammar3rdParser.RULE_exceptionIdentification);
         try {
             this.state = 1229;
             this._errHandler.sync(this);
@@ -6195,7 +6195,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         this.state = 1225;
                         this.asnType();
                         this.state = 1226;
-                        this.match(ASN_3gppParser.COLON);
+                        this.match(grammar3rdParser.COLON);
                         this.state = 1227;
                         this.value();
                     }
@@ -6220,7 +6220,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     additionalEnumeration() {
         let _localctx = new AdditionalEnumerationContext(this._ctx, this.state);
-        this.enterRule(_localctx, 274, ASN_3gppParser.RULE_additionalEnumeration);
+        this.enterRule(_localctx, 274, grammar3rdParser.RULE_additionalEnumeration);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -6246,23 +6246,23 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     integerType() {
         let _localctx = new IntegerTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 276, ASN_3gppParser.RULE_integerType);
+        this.enterRule(_localctx, 276, grammar3rdParser.RULE_integerType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1233;
-                this.match(ASN_3gppParser.INTEGER_LITERAL);
+                this.match(grammar3rdParser.INTEGER_LITERAL);
                 this.state = 1238;
                 this._errHandler.sync(this);
                 switch (this.interpreter.adaptivePredict(this._input, 146, this._ctx)) {
                     case 1:
                         {
                             this.state = 1234;
-                            this.match(ASN_3gppParser.L_BRACE);
+                            this.match(grammar3rdParser.L_BRACE);
                             this.state = 1235;
                             this.namedNumberList();
                             this.state = 1236;
-                            this.match(ASN_3gppParser.R_BRACE);
+                            this.match(grammar3rdParser.R_BRACE);
                         }
                         break;
                 }
@@ -6286,7 +6286,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     namedNumberList() {
         let _localctx = new NamedNumberListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 278, ASN_3gppParser.RULE_namedNumberList);
+        this.enterRule(_localctx, 278, grammar3rdParser.RULE_namedNumberList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -6298,11 +6298,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 1245;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.COMMA) {
+                while (_la === grammar3rdParser.COMMA) {
                     {
                         {
                             this.state = 1241;
-                            this.match(ASN_3gppParser.COMMA);
+                            this.match(grammar3rdParser.COMMA);
                             this.state = 1242;
                             this.namedNumber();
                         }
@@ -6331,14 +6331,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     objectidentifiertype() {
         let _localctx = new ObjectidentifiertypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 280, ASN_3gppParser.RULE_objectidentifiertype);
+        this.enterRule(_localctx, 280, grammar3rdParser.RULE_objectidentifiertype);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1248;
-                this.match(ASN_3gppParser.OBJECT_LITERAL);
+                this.match(grammar3rdParser.OBJECT_LITERAL);
                 this.state = 1249;
-                this.match(ASN_3gppParser.IDENTIFIER_LITERAL);
+                this.match(grammar3rdParser.IDENTIFIER_LITERAL);
             }
         }
         catch (re) {
@@ -6359,47 +6359,47 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     componentRelationConstraint() {
         let _localctx = new ComponentRelationConstraintContext(this._ctx, this.state);
-        this.enterRule(_localctx, 282, ASN_3gppParser.RULE_componentRelationConstraint);
+        this.enterRule(_localctx, 282, grammar3rdParser.RULE_componentRelationConstraint);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1251;
-                this.match(ASN_3gppParser.L_BRACE);
+                this.match(grammar3rdParser.L_BRACE);
                 {
                     this.state = 1252;
-                    this.match(ASN_3gppParser.IDENTIFIER);
+                    this.match(grammar3rdParser.IDENTIFIER);
                     this.state = 1255;
                     this._errHandler.sync(this);
                     _la = this._input.LA(1);
-                    if (_la === ASN_3gppParser.DOT) {
+                    if (_la === grammar3rdParser.DOT) {
                         {
                             this.state = 1253;
-                            this.match(ASN_3gppParser.DOT);
+                            this.match(grammar3rdParser.DOT);
                             this.state = 1254;
-                            this.match(ASN_3gppParser.IDENTIFIER);
+                            this.match(grammar3rdParser.IDENTIFIER);
                         }
                     }
                 }
                 this.state = 1257;
-                this.match(ASN_3gppParser.R_BRACE);
+                this.match(grammar3rdParser.R_BRACE);
                 this.state = 1269;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.L_BRACE) {
+                if (_la === grammar3rdParser.L_BRACE) {
                     {
                         this.state = 1258;
-                        this.match(ASN_3gppParser.L_BRACE);
+                        this.match(grammar3rdParser.L_BRACE);
                         this.state = 1259;
                         this.atNotation();
                         this.state = 1264;
                         this._errHandler.sync(this);
                         _la = this._input.LA(1);
-                        while (_la === ASN_3gppParser.COMMA) {
+                        while (_la === grammar3rdParser.COMMA) {
                             {
                                 {
                                     this.state = 1260;
-                                    this.match(ASN_3gppParser.COMMA);
+                                    this.match(grammar3rdParser.COMMA);
                                     this.state = 1261;
                                     this.atNotation();
                                 }
@@ -6409,7 +6409,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                             _la = this._input.LA(1);
                         }
                         this.state = 1267;
-                        this.match(ASN_3gppParser.R_BRACE);
+                        this.match(grammar3rdParser.R_BRACE);
                     }
                 }
             }
@@ -6432,24 +6432,24 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     atNotation() {
         let _localctx = new AtNotationContext(this._ctx, this.state);
-        this.enterRule(_localctx, 284, ASN_3gppParser.RULE_atNotation);
+        this.enterRule(_localctx, 284, grammar3rdParser.RULE_atNotation);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1274;
                 this._errHandler.sync(this);
                 switch (this._input.LA(1)) {
-                    case ASN_3gppParser.A_ROND:
+                    case grammar3rdParser.A_ROND:
                         {
                             this.state = 1271;
-                            this.match(ASN_3gppParser.A_ROND);
+                            this.match(grammar3rdParser.A_ROND);
                         }
                         break;
-                    case ASN_3gppParser.A_ROND_DOT:
+                    case grammar3rdParser.A_ROND_DOT:
                         {
                             {
                                 this.state = 1272;
-                                this.match(ASN_3gppParser.A_ROND_DOT);
+                                this.match(grammar3rdParser.A_ROND_DOT);
                                 this.state = 1273;
                                 this.level();
                             }
@@ -6480,7 +6480,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     level() {
         let _localctx = new LevelContext(this._ctx, this.state);
-        this.enterRule(_localctx, 286, ASN_3gppParser.RULE_level);
+        this.enterRule(_localctx, 286, grammar3rdParser.RULE_level);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -6488,10 +6488,10 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 1280;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                if (_la === ASN_3gppParser.DOT) {
+                if (_la === grammar3rdParser.DOT) {
                     {
                         this.state = 1278;
-                        this.match(ASN_3gppParser.DOT);
+                        this.match(grammar3rdParser.DOT);
                         this.state = 1279;
                         this.level();
                     }
@@ -6516,23 +6516,23 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     componentIdList() {
         let _localctx = new ComponentIdListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 288, ASN_3gppParser.RULE_componentIdList);
+        this.enterRule(_localctx, 288, grammar3rdParser.RULE_componentIdList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1282;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 1287;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.DOT) {
+                while (_la === grammar3rdParser.DOT) {
                     {
                         {
                             this.state = 1283;
-                            this.match(ASN_3gppParser.DOT);
+                            this.match(grammar3rdParser.DOT);
                             this.state = 1284;
-                            this.match(ASN_3gppParser.IDENTIFIER);
+                            this.match(grammar3rdParser.IDENTIFIER);
                         }
                     }
                     this.state = 1289;
@@ -6559,14 +6559,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     octetStringType() {
         let _localctx = new OctetStringTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 290, ASN_3gppParser.RULE_octetStringType);
+        this.enterRule(_localctx, 290, grammar3rdParser.RULE_octetStringType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1290;
-                this.match(ASN_3gppParser.OCTET_LITERAL);
+                this.match(grammar3rdParser.OCTET_LITERAL);
                 this.state = 1291;
-                this.match(ASN_3gppParser.STRING_LITERAL);
+                this.match(grammar3rdParser.STRING_LITERAL);
             }
         }
         catch (re) {
@@ -6587,15 +6587,15 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     bitStringType() {
         let _localctx = new BitStringTypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 292, ASN_3gppParser.RULE_bitStringType);
+        this.enterRule(_localctx, 292, grammar3rdParser.RULE_bitStringType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 {
                     this.state = 1293;
-                    this.match(ASN_3gppParser.BIT_LITERAL);
+                    this.match(grammar3rdParser.BIT_LITERAL);
                     this.state = 1294;
-                    this.match(ASN_3gppParser.STRING_LITERAL);
+                    this.match(grammar3rdParser.STRING_LITERAL);
                 }
                 this.state = 1300;
                 this._errHandler.sync(this);
@@ -6603,11 +6603,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                     case 1:
                         {
                             this.state = 1296;
-                            this.match(ASN_3gppParser.L_BRACE);
+                            this.match(grammar3rdParser.L_BRACE);
                             this.state = 1297;
                             this.namedBitList();
                             this.state = 1298;
-                            this.match(ASN_3gppParser.R_BRACE);
+                            this.match(grammar3rdParser.R_BRACE);
                         }
                         break;
                 }
@@ -6631,7 +6631,7 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     namedBitList() {
         let _localctx = new NamedBitListContext(this._ctx, this.state);
-        this.enterRule(_localctx, 294, ASN_3gppParser.RULE_namedBitList);
+        this.enterRule(_localctx, 294, grammar3rdParser.RULE_namedBitList);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
@@ -6643,11 +6643,11 @@ class ASN_3gppParser extends Parser_1.Parser {
                 this.state = 1307;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
-                while (_la === ASN_3gppParser.COMMA) {
+                while (_la === grammar3rdParser.COMMA) {
                     {
                         {
                             this.state = 1303;
-                            this.match(ASN_3gppParser.COMMA);
+                            this.match(grammar3rdParser.COMMA);
                             this.state = 1304;
                             this.namedBit();
                         }
@@ -6676,24 +6676,24 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     namedBit() {
         let _localctx = new NamedBitContext(this._ctx, this.state);
-        this.enterRule(_localctx, 296, ASN_3gppParser.RULE_namedBit);
+        this.enterRule(_localctx, 296, grammar3rdParser.RULE_namedBit);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1310;
-                this.match(ASN_3gppParser.IDENTIFIER);
+                this.match(grammar3rdParser.IDENTIFIER);
                 this.state = 1311;
-                this.match(ASN_3gppParser.L_PARAN);
+                this.match(grammar3rdParser.L_PARAN);
                 this.state = 1314;
                 this._errHandler.sync(this);
                 switch (this._input.LA(1)) {
-                    case ASN_3gppParser.NUMBER:
+                    case grammar3rdParser.NUMBER:
                         {
                             this.state = 1312;
-                            this.match(ASN_3gppParser.NUMBER);
+                            this.match(grammar3rdParser.NUMBER);
                         }
                         break;
-                    case ASN_3gppParser.IDENTIFIER:
+                    case grammar3rdParser.IDENTIFIER:
                         {
                             this.state = 1313;
                             this.definedValue();
@@ -6703,7 +6703,7 @@ class ASN_3gppParser extends Parser_1.Parser {
                         throw new NoViableAltException_1.NoViableAltException(this);
                 }
                 this.state = 1316;
-                this.match(ASN_3gppParser.R_PARAN);
+                this.match(grammar3rdParser.R_PARAN);
             }
         }
         catch (re) {
@@ -6724,14 +6724,14 @@ class ASN_3gppParser extends Parser_1.Parser {
     // @RuleVersion(0)
     booleanValue() {
         let _localctx = new BooleanValueContext(this._ctx, this.state);
-        this.enterRule(_localctx, 298, ASN_3gppParser.RULE_booleanValue);
+        this.enterRule(_localctx, 298, grammar3rdParser.RULE_booleanValue);
         let _la;
         try {
             this.enterOuterAlt(_localctx, 1);
             {
                 this.state = 1318;
                 _la = this._input.LA(1);
-                if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << ASN_3gppParser.TRUE_LITERAL) | (1 << ASN_3gppParser.FALSE_LITERAL) | (1 << ASN_3gppParser.TRUE_SMALL_LITERAL) | (1 << ASN_3gppParser.FALSE_SMALL_LITERAL))) !== 0))) {
+                if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << grammar3rdParser.TRUE_LITERAL) | (1 << grammar3rdParser.FALSE_LITERAL) | (1 << grammar3rdParser.TRUE_SMALL_LITERAL) | (1 << grammar3rdParser.FALSE_SMALL_LITERAL))) !== 0))) {
                     this._errHandler.recoverInline(this);
                 }
                 else {
@@ -6759,283 +6759,283 @@ class ASN_3gppParser extends Parser_1.Parser {
         return _localctx;
     }
     static get _ATN() {
-        if (!ASN_3gppParser.__ATN) {
-            ASN_3gppParser.__ATN = new ATNDeserializer_1.ATNDeserializer().deserialize(Utils.toCharArray(ASN_3gppParser._serializedATN));
+        if (!grammar3rdParser.__ATN) {
+            grammar3rdParser.__ATN = new ATNDeserializer_1.ATNDeserializer().deserialize(Utils.toCharArray(grammar3rdParser._serializedATN));
         }
-        return ASN_3gppParser.__ATN;
+        return grammar3rdParser.__ATN;
     }
 }
-exports.ASN_3gppParser = ASN_3gppParser;
-ASN_3gppParser.TAG = 1;
-ASN_3gppParser.A_ROND = 2;
-ASN_3gppParser.STAR = 3;
-ASN_3gppParser.ASSIGN_OP = 4;
-ASN_3gppParser.BOOLEAN_LITERAL = 5;
-ASN_3gppParser.TRUE_LITERAL = 6;
-ASN_3gppParser.FALSE_LITERAL = 7;
-ASN_3gppParser.DOT = 8;
-ASN_3gppParser.DOUBLE_DOT = 9;
-ASN_3gppParser.ELLIPSIS = 10;
-ASN_3gppParser.APOSTROPHE = 11;
-ASN_3gppParser.AMPERSAND = 12;
-ASN_3gppParser.LESS_THAN = 13;
-ASN_3gppParser.GREATER_THAN = 14;
-ASN_3gppParser.LESS_THAN_SLASH = 15;
-ASN_3gppParser.SLASH_GREATER_THAN = 16;
-ASN_3gppParser.TRUE_SMALL_LITERAL = 17;
-ASN_3gppParser.FALSE_SMALL_LITERAL = 18;
-ASN_3gppParser.INTEGER_LITERAL = 19;
-ASN_3gppParser.L_BRACE = 20;
-ASN_3gppParser.R_BRACE = 21;
-ASN_3gppParser.COMMA = 22;
-ASN_3gppParser.L_PARAN = 23;
-ASN_3gppParser.R_PARAN = 24;
-ASN_3gppParser.MINUS = 25;
-ASN_3gppParser.BMP_STRING_LITERAL = 26;
-ASN_3gppParser.GENREAL_STRING_LITERAL = 27;
-ASN_3gppParser.GRAPHIC_STRING_LITERAL = 28;
-ASN_3gppParser.IA5_STRING_LITERAL = 29;
-ASN_3gppParser.ISO646_STRING_LITERAL = 30;
-ASN_3gppParser.NUMERIC_STRING_LITERAL = 31;
-ASN_3gppParser.PRINTABLE_STRING_LITERAL = 32;
-ASN_3gppParser.TELETEXT_STRING_LITERAL = 33;
-ASN_3gppParser.T61_STRING_LITERAL = 34;
-ASN_3gppParser.UNIVERSAL_STRING_LITERAL = 35;
-ASN_3gppParser.UTF8_STRING_LITERAL = 36;
-ASN_3gppParser.VIDEOTEX_STRING_LITERAL = 37;
-ASN_3gppParser.VISIBLE_STRING_LITERAL = 38;
-ASN_3gppParser.ENUMERATED_LITERAL = 39;
-ASN_3gppParser.REAL_LITERAL = 40;
-ASN_3gppParser.PLUS_INFINITY_LITERAL = 41;
-ASN_3gppParser.MINUS_INFINITY_LITERAL = 42;
-ASN_3gppParser.BIT_LITERAL = 43;
-ASN_3gppParser.STRING_LITERAL = 44;
-ASN_3gppParser.CONTAINING_LITERAL = 45;
-ASN_3gppParser.OCTET_LITERAL = 46;
-ASN_3gppParser.NULL_LITERAL = 47;
-ASN_3gppParser.SEQUENCE_LITERAL = 48;
-ASN_3gppParser.OPTIONAL_LITERAL = 49;
-ASN_3gppParser.DEFAULT_LITERAL = 50;
-ASN_3gppParser.COMPONENTS_LITERAL = 51;
-ASN_3gppParser.OF_LITERAL = 52;
-ASN_3gppParser.SET_LITERAL = 53;
-ASN_3gppParser.EXCLAM = 54;
-ASN_3gppParser.ALL_LITERAL = 55;
-ASN_3gppParser.EXCEPT_LITERAL = 56;
-ASN_3gppParser.POWER = 57;
-ASN_3gppParser.PIPE = 58;
-ASN_3gppParser.UNION_LITERAL = 59;
-ASN_3gppParser.INTERSECTION_LITERAL = 60;
-ASN_3gppParser.INCLUDES_LITERAL = 61;
-ASN_3gppParser.MIN_LITERAL = 62;
-ASN_3gppParser.MAX_LITERAL = 63;
-ASN_3gppParser.SIZE_LITERAL = 64;
-ASN_3gppParser.FROM_LITERAL = 65;
-ASN_3gppParser.WITH_LITERAL = 66;
-ASN_3gppParser.COMPONENT_LITERAL = 67;
-ASN_3gppParser.PRESENT_LITERAL = 68;
-ASN_3gppParser.ABSENT_LITERAL = 69;
-ASN_3gppParser.PATTERN_LITERAL = 70;
-ASN_3gppParser.TYPE_IDENTIFIER_LITERAL = 71;
-ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL = 72;
-ASN_3gppParser.CLASS_LITERAL = 73;
-ASN_3gppParser.UNIQUE_LITERAL = 74;
-ASN_3gppParser.SYNTAX_LITERAL = 75;
-ASN_3gppParser.L_BRACKET = 76;
-ASN_3gppParser.R_BRACKET = 77;
-ASN_3gppParser.INSTANCE_LITERAL = 78;
-ASN_3gppParser.SEMI_COLON = 79;
-ASN_3gppParser.IMPORTS_LITERAL = 80;
-ASN_3gppParser.EXPORTS_LITERAL = 81;
-ASN_3gppParser.EXTENSIBILITY_LITERAL = 82;
-ASN_3gppParser.IMPLIED_LITERAL = 83;
-ASN_3gppParser.EXPLICIT_LITERAL = 84;
-ASN_3gppParser.TAGS_LITERAL = 85;
-ASN_3gppParser.IMPLICIT_LITERAL = 86;
-ASN_3gppParser.AUTOMATIC_LITERAL = 87;
-ASN_3gppParser.DEFINITIONS_LITERAL = 88;
-ASN_3gppParser.BEGIN_LITERAL = 89;
-ASN_3gppParser.END_LITERAL = 90;
-ASN_3gppParser.DOUBLE_L_BRACKET = 91;
-ASN_3gppParser.DOUBLE_R_BRACKET = 92;
-ASN_3gppParser.COLON = 93;
-ASN_3gppParser.CHOICE_LITERAL = 94;
-ASN_3gppParser.UNIVERSAL_LITERAL = 95;
-ASN_3gppParser.APPLICATION_LITERAL = 96;
-ASN_3gppParser.PRIVATE_LITERAL = 97;
-ASN_3gppParser.EMBEDDED_LITERAL = 98;
-ASN_3gppParser.PDV_LITERAL = 99;
-ASN_3gppParser.EXTERNAL_LITERAL = 100;
-ASN_3gppParser.OBJECT_LITERAL = 101;
-ASN_3gppParser.IDENTIFIER_LITERAL = 102;
-ASN_3gppParser.RELATIVE_OID_LITERAL = 103;
-ASN_3gppParser.CHARACTER_LITERAL = 104;
-ASN_3gppParser.CONSTRAINED_LITERAL = 105;
-ASN_3gppParser.BY_LITERAL = 106;
-ASN_3gppParser.A_ROND_DOT = 107;
-ASN_3gppParser.ENCODED_LITERAL = 108;
-ASN_3gppParser.COMMENT = 109;
-ASN_3gppParser.UNRESTRICTEDCHARACTERSTRINGTYPE = 110;
-ASN_3gppParser.EXTENSTIONENDMARKER = 111;
-ASN_3gppParser.NUMBER = 112;
-ASN_3gppParser.WS = 113;
-ASN_3gppParser.LINE_COMMENT = 114;
-ASN_3gppParser.BSTRING = 115;
-ASN_3gppParser.HSTRING = 116;
-ASN_3gppParser.CSTRING = 117;
-ASN_3gppParser.IDENTIFIER = 118;
-ASN_3gppParser.RULE_modules = 0;
-ASN_3gppParser.RULE_moduleDefinition = 1;
-ASN_3gppParser.RULE_tagDefault = 2;
-ASN_3gppParser.RULE_extensionDefault = 3;
-ASN_3gppParser.RULE_moduleBody = 4;
-ASN_3gppParser.RULE_exports = 5;
-ASN_3gppParser.RULE_symbolsExported = 6;
-ASN_3gppParser.RULE_imports = 7;
-ASN_3gppParser.RULE_symbolsImported = 8;
-ASN_3gppParser.RULE_symbolsFromModuleList = 9;
-ASN_3gppParser.RULE_symbolsFromModule = 10;
-ASN_3gppParser.RULE_globalModuleReference = 11;
-ASN_3gppParser.RULE_assignedIdentifier = 12;
-ASN_3gppParser.RULE_symbolList = 13;
-ASN_3gppParser.RULE_symbol = 14;
-ASN_3gppParser.RULE_assignmentList = 15;
-ASN_3gppParser.RULE_assignment = 16;
-ASN_3gppParser.RULE_sequenceType = 17;
-ASN_3gppParser.RULE_extensionAndException = 18;
-ASN_3gppParser.RULE_optionalExtensionMarker = 19;
-ASN_3gppParser.RULE_componentTypeLists = 20;
-ASN_3gppParser.RULE_rootComponentTypeList = 21;
-ASN_3gppParser.RULE_componentTypeList = 22;
-ASN_3gppParser.RULE_componentType = 23;
-ASN_3gppParser.RULE_tag = 24;
-ASN_3gppParser.RULE_extensionAdditions = 25;
-ASN_3gppParser.RULE_extensionAdditionList = 26;
-ASN_3gppParser.RULE_extensionAddition = 27;
-ASN_3gppParser.RULE_extensionAdditionGroup = 28;
-ASN_3gppParser.RULE_versionNumber = 29;
-ASN_3gppParser.RULE_sequenceOfType = 30;
-ASN_3gppParser.RULE_sizeConstraint = 31;
-ASN_3gppParser.RULE_parameterizedAssignment = 32;
-ASN_3gppParser.RULE_parameterList = 33;
-ASN_3gppParser.RULE_parameter = 34;
-ASN_3gppParser.RULE_paramGovernor = 35;
-ASN_3gppParser.RULE_governor = 36;
-ASN_3gppParser.RULE_objectClassAssignment = 37;
-ASN_3gppParser.RULE_objectClass = 38;
-ASN_3gppParser.RULE_definedObjectClass = 39;
-ASN_3gppParser.RULE_usefulObjectClassReference = 40;
-ASN_3gppParser.RULE_externalObjectClassReference = 41;
-ASN_3gppParser.RULE_objectClassDefn = 42;
-ASN_3gppParser.RULE_withSyntaxSpec = 43;
-ASN_3gppParser.RULE_syntaxList = 44;
-ASN_3gppParser.RULE_tokenOrGroupSpec = 45;
-ASN_3gppParser.RULE_optionalGroup = 46;
-ASN_3gppParser.RULE_requiredToken = 47;
-ASN_3gppParser.RULE_literal = 48;
-ASN_3gppParser.RULE_primitiveFieldName = 49;
-ASN_3gppParser.RULE_fieldSpec = 50;
-ASN_3gppParser.RULE_typeFieldSpec = 51;
-ASN_3gppParser.RULE_typeOptionalitySpec = 52;
-ASN_3gppParser.RULE_fixedTypeValueFieldSpec = 53;
-ASN_3gppParser.RULE_valueOptionalitySpec = 54;
-ASN_3gppParser.RULE_variableTypeValueFieldSpec = 55;
-ASN_3gppParser.RULE_fixedTypeValueSetFieldSpec = 56;
-ASN_3gppParser.RULE_valueSetOptionalitySpec = 57;
-ASN_3gppParser.RULE_object = 58;
-ASN_3gppParser.RULE_parameterizedObject = 59;
-ASN_3gppParser.RULE_definedObject = 60;
-ASN_3gppParser.RULE_objectSet = 61;
-ASN_3gppParser.RULE_objectSetSpec = 62;
-ASN_3gppParser.RULE_fieldName = 63;
-ASN_3gppParser.RULE_valueSet = 64;
-ASN_3gppParser.RULE_elementSetSpecs = 65;
-ASN_3gppParser.RULE_rootElementSetSpec = 66;
-ASN_3gppParser.RULE_additionalElementSetSpec = 67;
-ASN_3gppParser.RULE_elementSetSpec = 68;
-ASN_3gppParser.RULE_unions = 69;
-ASN_3gppParser.RULE_exclusions = 70;
-ASN_3gppParser.RULE_intersections = 71;
-ASN_3gppParser.RULE_unionMark = 72;
-ASN_3gppParser.RULE_intersectionMark = 73;
-ASN_3gppParser.RULE_elements = 74;
-ASN_3gppParser.RULE_objectSetElements = 75;
-ASN_3gppParser.RULE_intersectionElements = 76;
-ASN_3gppParser.RULE_subtypeElements = 77;
-ASN_3gppParser.RULE_variableTypeValueSetFieldSpec = 78;
-ASN_3gppParser.RULE_objectFieldSpec = 79;
-ASN_3gppParser.RULE_objectOptionalitySpec = 80;
-ASN_3gppParser.RULE_objectSetFieldSpec = 81;
-ASN_3gppParser.RULE_objectSetOptionalitySpec = 82;
-ASN_3gppParser.RULE_typeAssignment = 83;
-ASN_3gppParser.RULE_valueAssignment = 84;
-ASN_3gppParser.RULE_asnType = 85;
-ASN_3gppParser.RULE_builtinType = 86;
-ASN_3gppParser.RULE_characterStringType = 87;
-ASN_3gppParser.RULE_restrictedCharacterStringType = 88;
-ASN_3gppParser.RULE_objectClassFieldType = 89;
-ASN_3gppParser.RULE_setType = 90;
-ASN_3gppParser.RULE_setOfType = 91;
-ASN_3gppParser.RULE_referencedType = 92;
-ASN_3gppParser.RULE_definedType = 93;
-ASN_3gppParser.RULE_constraint = 94;
-ASN_3gppParser.RULE_constraintSpec = 95;
-ASN_3gppParser.RULE_userDefinedConstraint = 96;
-ASN_3gppParser.RULE_generalConstraint = 97;
-ASN_3gppParser.RULE_userDefinedConstraintParameter = 98;
-ASN_3gppParser.RULE_tableConstraint = 99;
-ASN_3gppParser.RULE_simpleTableConstraint = 100;
-ASN_3gppParser.RULE_contentsConstraint = 101;
-ASN_3gppParser.RULE_componentPresenceLists = 102;
-ASN_3gppParser.RULE_componentPresenceList = 103;
-ASN_3gppParser.RULE_componentPresence = 104;
-ASN_3gppParser.RULE_subtypeConstraint = 105;
-ASN_3gppParser.RULE_value = 106;
-ASN_3gppParser.RULE_builtinValue = 107;
-ASN_3gppParser.RULE_objectIdentifierValue = 108;
-ASN_3gppParser.RULE_objIdComponentsList = 109;
-ASN_3gppParser.RULE_objIdComponents = 110;
-ASN_3gppParser.RULE_integerValue = 111;
-ASN_3gppParser.RULE_choiceValue = 112;
-ASN_3gppParser.RULE_enumeratedValue = 113;
-ASN_3gppParser.RULE_signedNumber = 114;
-ASN_3gppParser.RULE_choiceType = 115;
-ASN_3gppParser.RULE_alternativeTypeLists = 116;
-ASN_3gppParser.RULE_extensionAdditionAlternatives = 117;
-ASN_3gppParser.RULE_extensionAdditionAlternativesList = 118;
-ASN_3gppParser.RULE_extensionAdditionAlternative = 119;
-ASN_3gppParser.RULE_extensionAdditionAlternativesGroup = 120;
-ASN_3gppParser.RULE_rootAlternativeTypeList = 121;
-ASN_3gppParser.RULE_alternativeTypeList = 122;
-ASN_3gppParser.RULE_namedType = 123;
-ASN_3gppParser.RULE_enumeratedType = 124;
-ASN_3gppParser.RULE_enumerations = 125;
-ASN_3gppParser.RULE_rootEnumeration = 126;
-ASN_3gppParser.RULE_enumeration = 127;
-ASN_3gppParser.RULE_enumerationItem = 128;
-ASN_3gppParser.RULE_namedNumber = 129;
-ASN_3gppParser.RULE_definedValue = 130;
-ASN_3gppParser.RULE_parameterizedValue = 131;
-ASN_3gppParser.RULE_simpleDefinedValue = 132;
-ASN_3gppParser.RULE_actualParameterList = 133;
-ASN_3gppParser.RULE_actualParameter = 134;
-ASN_3gppParser.RULE_exceptionSpec = 135;
-ASN_3gppParser.RULE_exceptionIdentification = 136;
-ASN_3gppParser.RULE_additionalEnumeration = 137;
-ASN_3gppParser.RULE_integerType = 138;
-ASN_3gppParser.RULE_namedNumberList = 139;
-ASN_3gppParser.RULE_objectidentifiertype = 140;
-ASN_3gppParser.RULE_componentRelationConstraint = 141;
-ASN_3gppParser.RULE_atNotation = 142;
-ASN_3gppParser.RULE_level = 143;
-ASN_3gppParser.RULE_componentIdList = 144;
-ASN_3gppParser.RULE_octetStringType = 145;
-ASN_3gppParser.RULE_bitStringType = 146;
-ASN_3gppParser.RULE_namedBitList = 147;
-ASN_3gppParser.RULE_namedBit = 148;
-ASN_3gppParser.RULE_booleanValue = 149;
+exports.grammar3rdParser = grammar3rdParser;
+grammar3rdParser.TAG = 1;
+grammar3rdParser.A_ROND = 2;
+grammar3rdParser.STAR = 3;
+grammar3rdParser.ASSIGN_OP = 4;
+grammar3rdParser.BOOLEAN_LITERAL = 5;
+grammar3rdParser.TRUE_LITERAL = 6;
+grammar3rdParser.FALSE_LITERAL = 7;
+grammar3rdParser.DOT = 8;
+grammar3rdParser.DOUBLE_DOT = 9;
+grammar3rdParser.ELLIPSIS = 10;
+grammar3rdParser.APOSTROPHE = 11;
+grammar3rdParser.AMPERSAND = 12;
+grammar3rdParser.LESS_THAN = 13;
+grammar3rdParser.GREATER_THAN = 14;
+grammar3rdParser.LESS_THAN_SLASH = 15;
+grammar3rdParser.SLASH_GREATER_THAN = 16;
+grammar3rdParser.TRUE_SMALL_LITERAL = 17;
+grammar3rdParser.FALSE_SMALL_LITERAL = 18;
+grammar3rdParser.INTEGER_LITERAL = 19;
+grammar3rdParser.L_BRACE = 20;
+grammar3rdParser.R_BRACE = 21;
+grammar3rdParser.COMMA = 22;
+grammar3rdParser.L_PARAN = 23;
+grammar3rdParser.R_PARAN = 24;
+grammar3rdParser.MINUS = 25;
+grammar3rdParser.BMP_STRING_LITERAL = 26;
+grammar3rdParser.GENREAL_STRING_LITERAL = 27;
+grammar3rdParser.GRAPHIC_STRING_LITERAL = 28;
+grammar3rdParser.IA5_STRING_LITERAL = 29;
+grammar3rdParser.ISO646_STRING_LITERAL = 30;
+grammar3rdParser.NUMERIC_STRING_LITERAL = 31;
+grammar3rdParser.PRINTABLE_STRING_LITERAL = 32;
+grammar3rdParser.TELETEXT_STRING_LITERAL = 33;
+grammar3rdParser.T61_STRING_LITERAL = 34;
+grammar3rdParser.UNIVERSAL_STRING_LITERAL = 35;
+grammar3rdParser.UTF8_STRING_LITERAL = 36;
+grammar3rdParser.VIDEOTEX_STRING_LITERAL = 37;
+grammar3rdParser.VISIBLE_STRING_LITERAL = 38;
+grammar3rdParser.ENUMERATED_LITERAL = 39;
+grammar3rdParser.REAL_LITERAL = 40;
+grammar3rdParser.PLUS_INFINITY_LITERAL = 41;
+grammar3rdParser.MINUS_INFINITY_LITERAL = 42;
+grammar3rdParser.BIT_LITERAL = 43;
+grammar3rdParser.STRING_LITERAL = 44;
+grammar3rdParser.CONTAINING_LITERAL = 45;
+grammar3rdParser.OCTET_LITERAL = 46;
+grammar3rdParser.NULL_LITERAL = 47;
+grammar3rdParser.SEQUENCE_LITERAL = 48;
+grammar3rdParser.OPTIONAL_LITERAL = 49;
+grammar3rdParser.DEFAULT_LITERAL = 50;
+grammar3rdParser.COMPONENTS_LITERAL = 51;
+grammar3rdParser.OF_LITERAL = 52;
+grammar3rdParser.SET_LITERAL = 53;
+grammar3rdParser.EXCLAM = 54;
+grammar3rdParser.ALL_LITERAL = 55;
+grammar3rdParser.EXCEPT_LITERAL = 56;
+grammar3rdParser.POWER = 57;
+grammar3rdParser.PIPE = 58;
+grammar3rdParser.UNION_LITERAL = 59;
+grammar3rdParser.INTERSECTION_LITERAL = 60;
+grammar3rdParser.INCLUDES_LITERAL = 61;
+grammar3rdParser.MIN_LITERAL = 62;
+grammar3rdParser.MAX_LITERAL = 63;
+grammar3rdParser.SIZE_LITERAL = 64;
+grammar3rdParser.FROM_LITERAL = 65;
+grammar3rdParser.WITH_LITERAL = 66;
+grammar3rdParser.COMPONENT_LITERAL = 67;
+grammar3rdParser.PRESENT_LITERAL = 68;
+grammar3rdParser.ABSENT_LITERAL = 69;
+grammar3rdParser.PATTERN_LITERAL = 70;
+grammar3rdParser.TYPE_IDENTIFIER_LITERAL = 71;
+grammar3rdParser.ABSTRACT_SYNTAX_LITERAL = 72;
+grammar3rdParser.CLASS_LITERAL = 73;
+grammar3rdParser.UNIQUE_LITERAL = 74;
+grammar3rdParser.SYNTAX_LITERAL = 75;
+grammar3rdParser.L_BRACKET = 76;
+grammar3rdParser.R_BRACKET = 77;
+grammar3rdParser.INSTANCE_LITERAL = 78;
+grammar3rdParser.SEMI_COLON = 79;
+grammar3rdParser.IMPORTS_LITERAL = 80;
+grammar3rdParser.EXPORTS_LITERAL = 81;
+grammar3rdParser.EXTENSIBILITY_LITERAL = 82;
+grammar3rdParser.IMPLIED_LITERAL = 83;
+grammar3rdParser.EXPLICIT_LITERAL = 84;
+grammar3rdParser.TAGS_LITERAL = 85;
+grammar3rdParser.IMPLICIT_LITERAL = 86;
+grammar3rdParser.AUTOMATIC_LITERAL = 87;
+grammar3rdParser.DEFINITIONS_LITERAL = 88;
+grammar3rdParser.BEGIN_LITERAL = 89;
+grammar3rdParser.END_LITERAL = 90;
+grammar3rdParser.DOUBLE_L_BRACKET = 91;
+grammar3rdParser.DOUBLE_R_BRACKET = 92;
+grammar3rdParser.COLON = 93;
+grammar3rdParser.CHOICE_LITERAL = 94;
+grammar3rdParser.UNIVERSAL_LITERAL = 95;
+grammar3rdParser.APPLICATION_LITERAL = 96;
+grammar3rdParser.PRIVATE_LITERAL = 97;
+grammar3rdParser.EMBEDDED_LITERAL = 98;
+grammar3rdParser.PDV_LITERAL = 99;
+grammar3rdParser.EXTERNAL_LITERAL = 100;
+grammar3rdParser.OBJECT_LITERAL = 101;
+grammar3rdParser.IDENTIFIER_LITERAL = 102;
+grammar3rdParser.RELATIVE_OID_LITERAL = 103;
+grammar3rdParser.CHARACTER_LITERAL = 104;
+grammar3rdParser.CONSTRAINED_LITERAL = 105;
+grammar3rdParser.BY_LITERAL = 106;
+grammar3rdParser.A_ROND_DOT = 107;
+grammar3rdParser.ENCODED_LITERAL = 108;
+grammar3rdParser.COMMENT = 109;
+grammar3rdParser.UNRESTRICTEDCHARACTERSTRINGTYPE = 110;
+grammar3rdParser.EXTENSTIONENDMARKER = 111;
+grammar3rdParser.NUMBER = 112;
+grammar3rdParser.WS = 113;
+grammar3rdParser.LINE_COMMENT = 114;
+grammar3rdParser.BSTRING = 115;
+grammar3rdParser.HSTRING = 116;
+grammar3rdParser.CSTRING = 117;
+grammar3rdParser.IDENTIFIER = 118;
+grammar3rdParser.RULE_modules = 0;
+grammar3rdParser.RULE_moduleDefinition = 1;
+grammar3rdParser.RULE_tagDefault = 2;
+grammar3rdParser.RULE_extensionDefault = 3;
+grammar3rdParser.RULE_moduleBody = 4;
+grammar3rdParser.RULE_exports = 5;
+grammar3rdParser.RULE_symbolsExported = 6;
+grammar3rdParser.RULE_imports = 7;
+grammar3rdParser.RULE_symbolsImported = 8;
+grammar3rdParser.RULE_symbolsFromModuleList = 9;
+grammar3rdParser.RULE_symbolsFromModule = 10;
+grammar3rdParser.RULE_globalModuleReference = 11;
+grammar3rdParser.RULE_assignedIdentifier = 12;
+grammar3rdParser.RULE_symbolList = 13;
+grammar3rdParser.RULE_symbol = 14;
+grammar3rdParser.RULE_assignmentList = 15;
+grammar3rdParser.RULE_assignment = 16;
+grammar3rdParser.RULE_sequenceType = 17;
+grammar3rdParser.RULE_extensionAndException = 18;
+grammar3rdParser.RULE_optionalExtensionMarker = 19;
+grammar3rdParser.RULE_componentTypeLists = 20;
+grammar3rdParser.RULE_rootComponentTypeList = 21;
+grammar3rdParser.RULE_componentTypeList = 22;
+grammar3rdParser.RULE_componentType = 23;
+grammar3rdParser.RULE_tag = 24;
+grammar3rdParser.RULE_extensionAdditions = 25;
+grammar3rdParser.RULE_extensionAdditionList = 26;
+grammar3rdParser.RULE_extensionAddition = 27;
+grammar3rdParser.RULE_extensionAdditionGroup = 28;
+grammar3rdParser.RULE_versionNumber = 29;
+grammar3rdParser.RULE_sequenceOfType = 30;
+grammar3rdParser.RULE_sizeConstraint = 31;
+grammar3rdParser.RULE_parameterizedAssignment = 32;
+grammar3rdParser.RULE_parameterList = 33;
+grammar3rdParser.RULE_parameter = 34;
+grammar3rdParser.RULE_paramGovernor = 35;
+grammar3rdParser.RULE_governor = 36;
+grammar3rdParser.RULE_objectClassAssignment = 37;
+grammar3rdParser.RULE_objectClass = 38;
+grammar3rdParser.RULE_definedObjectClass = 39;
+grammar3rdParser.RULE_usefulObjectClassReference = 40;
+grammar3rdParser.RULE_externalObjectClassReference = 41;
+grammar3rdParser.RULE_objectClassDefn = 42;
+grammar3rdParser.RULE_withSyntaxSpec = 43;
+grammar3rdParser.RULE_syntaxList = 44;
+grammar3rdParser.RULE_tokenOrGroupSpec = 45;
+grammar3rdParser.RULE_optionalGroup = 46;
+grammar3rdParser.RULE_requiredToken = 47;
+grammar3rdParser.RULE_literal = 48;
+grammar3rdParser.RULE_primitiveFieldName = 49;
+grammar3rdParser.RULE_fieldSpec = 50;
+grammar3rdParser.RULE_typeFieldSpec = 51;
+grammar3rdParser.RULE_typeOptionalitySpec = 52;
+grammar3rdParser.RULE_fixedTypeValueFieldSpec = 53;
+grammar3rdParser.RULE_valueOptionalitySpec = 54;
+grammar3rdParser.RULE_variableTypeValueFieldSpec = 55;
+grammar3rdParser.RULE_fixedTypeValueSetFieldSpec = 56;
+grammar3rdParser.RULE_valueSetOptionalitySpec = 57;
+grammar3rdParser.RULE_object = 58;
+grammar3rdParser.RULE_parameterizedObject = 59;
+grammar3rdParser.RULE_definedObject = 60;
+grammar3rdParser.RULE_objectSet = 61;
+grammar3rdParser.RULE_objectSetSpec = 62;
+grammar3rdParser.RULE_fieldName = 63;
+grammar3rdParser.RULE_valueSet = 64;
+grammar3rdParser.RULE_elementSetSpecs = 65;
+grammar3rdParser.RULE_rootElementSetSpec = 66;
+grammar3rdParser.RULE_additionalElementSetSpec = 67;
+grammar3rdParser.RULE_elementSetSpec = 68;
+grammar3rdParser.RULE_unions = 69;
+grammar3rdParser.RULE_exclusions = 70;
+grammar3rdParser.RULE_intersections = 71;
+grammar3rdParser.RULE_unionMark = 72;
+grammar3rdParser.RULE_intersectionMark = 73;
+grammar3rdParser.RULE_elements = 74;
+grammar3rdParser.RULE_objectSetElements = 75;
+grammar3rdParser.RULE_intersectionElements = 76;
+grammar3rdParser.RULE_subtypeElements = 77;
+grammar3rdParser.RULE_variableTypeValueSetFieldSpec = 78;
+grammar3rdParser.RULE_objectFieldSpec = 79;
+grammar3rdParser.RULE_objectOptionalitySpec = 80;
+grammar3rdParser.RULE_objectSetFieldSpec = 81;
+grammar3rdParser.RULE_objectSetOptionalitySpec = 82;
+grammar3rdParser.RULE_typeAssignment = 83;
+grammar3rdParser.RULE_valueAssignment = 84;
+grammar3rdParser.RULE_asnType = 85;
+grammar3rdParser.RULE_builtinType = 86;
+grammar3rdParser.RULE_characterStringType = 87;
+grammar3rdParser.RULE_restrictedCharacterStringType = 88;
+grammar3rdParser.RULE_objectClassFieldType = 89;
+grammar3rdParser.RULE_setType = 90;
+grammar3rdParser.RULE_setOfType = 91;
+grammar3rdParser.RULE_referencedType = 92;
+grammar3rdParser.RULE_definedType = 93;
+grammar3rdParser.RULE_constraint = 94;
+grammar3rdParser.RULE_constraintSpec = 95;
+grammar3rdParser.RULE_userDefinedConstraint = 96;
+grammar3rdParser.RULE_generalConstraint = 97;
+grammar3rdParser.RULE_userDefinedConstraintParameter = 98;
+grammar3rdParser.RULE_tableConstraint = 99;
+grammar3rdParser.RULE_simpleTableConstraint = 100;
+grammar3rdParser.RULE_contentsConstraint = 101;
+grammar3rdParser.RULE_componentPresenceLists = 102;
+grammar3rdParser.RULE_componentPresenceList = 103;
+grammar3rdParser.RULE_componentPresence = 104;
+grammar3rdParser.RULE_subtypeConstraint = 105;
+grammar3rdParser.RULE_value = 106;
+grammar3rdParser.RULE_builtinValue = 107;
+grammar3rdParser.RULE_objectIdentifierValue = 108;
+grammar3rdParser.RULE_objIdComponentsList = 109;
+grammar3rdParser.RULE_objIdComponents = 110;
+grammar3rdParser.RULE_integerValue = 111;
+grammar3rdParser.RULE_choiceValue = 112;
+grammar3rdParser.RULE_enumeratedValue = 113;
+grammar3rdParser.RULE_signedNumber = 114;
+grammar3rdParser.RULE_choiceType = 115;
+grammar3rdParser.RULE_alternativeTypeLists = 116;
+grammar3rdParser.RULE_extensionAdditionAlternatives = 117;
+grammar3rdParser.RULE_extensionAdditionAlternativesList = 118;
+grammar3rdParser.RULE_extensionAdditionAlternative = 119;
+grammar3rdParser.RULE_extensionAdditionAlternativesGroup = 120;
+grammar3rdParser.RULE_rootAlternativeTypeList = 121;
+grammar3rdParser.RULE_alternativeTypeList = 122;
+grammar3rdParser.RULE_namedType = 123;
+grammar3rdParser.RULE_enumeratedType = 124;
+grammar3rdParser.RULE_enumerations = 125;
+grammar3rdParser.RULE_rootEnumeration = 126;
+grammar3rdParser.RULE_enumeration = 127;
+grammar3rdParser.RULE_enumerationItem = 128;
+grammar3rdParser.RULE_namedNumber = 129;
+grammar3rdParser.RULE_definedValue = 130;
+grammar3rdParser.RULE_parameterizedValue = 131;
+grammar3rdParser.RULE_simpleDefinedValue = 132;
+grammar3rdParser.RULE_actualParameterList = 133;
+grammar3rdParser.RULE_actualParameter = 134;
+grammar3rdParser.RULE_exceptionSpec = 135;
+grammar3rdParser.RULE_exceptionIdentification = 136;
+grammar3rdParser.RULE_additionalEnumeration = 137;
+grammar3rdParser.RULE_integerType = 138;
+grammar3rdParser.RULE_namedNumberList = 139;
+grammar3rdParser.RULE_objectidentifiertype = 140;
+grammar3rdParser.RULE_componentRelationConstraint = 141;
+grammar3rdParser.RULE_atNotation = 142;
+grammar3rdParser.RULE_level = 143;
+grammar3rdParser.RULE_componentIdList = 144;
+grammar3rdParser.RULE_octetStringType = 145;
+grammar3rdParser.RULE_bitStringType = 146;
+grammar3rdParser.RULE_namedBitList = 147;
+grammar3rdParser.RULE_namedBit = 148;
+grammar3rdParser.RULE_booleanValue = 149;
 // tslint:disable:no-trailing-whitespace
-ASN_3gppParser.ruleNames = [
+grammar3rdParser.ruleNames = [
     "modules", "moduleDefinition", "tagDefault", "extensionDefault", "moduleBody",
     "exports", "symbolsExported", "imports", "symbolsImported", "symbolsFromModuleList",
     "symbolsFromModule", "globalModuleReference", "assignedIdentifier", "symbolList",
@@ -7074,7 +7074,7 @@ ASN_3gppParser.ruleNames = [
     "atNotation", "level", "componentIdList", "octetStringType", "bitStringType",
     "namedBitList", "namedBit", "booleanValue",
 ];
-ASN_3gppParser._LITERAL_NAMES = [
+grammar3rdParser._LITERAL_NAMES = [
     undefined, undefined, "'@'", "'*'", "'::='", "'BOOLEAN'", "'TRUE'", "'FALSE'",
     "'.'", "'..'", "'...'", "'''", "'&'", "'<'", "'>'", "'</'", "'/>'", "'true'",
     "'false'", "'INTEGER'", "'{'", "'}'", "','", "'('", "')'", "'-'", "'BMPString'",
@@ -7094,7 +7094,7 @@ ASN_3gppParser._LITERAL_NAMES = [
     "'PDV'", "'EXTERNAL'", "'OBJECT'", "'IDENTIFIER'", "'RELATIVE-OID'", "'CHARACTER'",
     "'CONSTRAINED'", "'BY'", "'@.'", "'ENCODED'", "'--'",
 ];
-ASN_3gppParser._SYMBOLIC_NAMES = [
+grammar3rdParser._SYMBOLIC_NAMES = [
     undefined, "TAG", "A_ROND", "STAR", "ASSIGN_OP", "BOOLEAN_LITERAL", "TRUE_LITERAL",
     "FALSE_LITERAL", "DOT", "DOUBLE_DOT", "ELLIPSIS", "APOSTROPHE", "AMPERSAND",
     "LESS_THAN", "GREATER_THAN", "LESS_THAN_SLASH", "SLASH_GREATER_THAN",
@@ -7124,9 +7124,9 @@ ASN_3gppParser._SYMBOLIC_NAMES = [
     "EXTENSTIONENDMARKER", "NUMBER", "WS", "LINE_COMMENT", "BSTRING", "HSTRING",
     "CSTRING", "IDENTIFIER",
 ];
-ASN_3gppParser.VOCABULARY = new VocabularyImpl_1.VocabularyImpl(ASN_3gppParser._LITERAL_NAMES, ASN_3gppParser._SYMBOLIC_NAMES, []);
-ASN_3gppParser._serializedATNSegments = 3;
-ASN_3gppParser._serializedATNSegment0 = "\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03x\u052B\x04\x02" +
+grammar3rdParser.VOCABULARY = new VocabularyImpl_1.VocabularyImpl(grammar3rdParser._LITERAL_NAMES, grammar3rdParser._SYMBOLIC_NAMES, []);
+grammar3rdParser._serializedATNSegments = 3;
+grammar3rdParser._serializedATNSegment0 = "\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03x\u052B\x04\x02" +
     "\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
     "\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
     "\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x04\x12\t\x12\x04" +
@@ -7376,7 +7376,7 @@ ASN_3gppParser._serializedATNSegment0 = "\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u060
     "\u01AB\x05,\x17\x02\u01AA\u01AC\x052\x1A\x02\u01AB\u01AA\x03\x02\x02\x02" +
     "\u01AB\u01AC\x03\x02\x02\x02\u01AC\u01E0\x03\x02\x02\x02\u01AD\u01AE\x05" +
     ",\x17\x02\u01AE\u01B0\x07\x18\x02\x02\u01AF";
-ASN_3gppParser._serializedATNSegment1 = "\u01B1\x052\x1A\x02\u01B0\u01AF\x03\x02\x02\x02\u01B0\u01B1\x03\x02\x02" +
+grammar3rdParser._serializedATNSegment1 = "\u01B1\x052\x1A\x02\u01B0\u01AF\x03\x02\x02\x02\u01B0\u01B1\x03\x02\x02" +
     "\x02\u01B1\u01B2\x03\x02\x02\x02\u01B2\u01B3\x05&\x14\x02\u01B3\u01B5" +
     "\x054\x1B\x02\u01B4\u01B6\x052\x1A\x02\u01B5\u01B4\x03\x02\x02\x02\u01B5" +
     "\u01B6\x03\x02\x02\x02\u01B6\u01E0\x03\x02\x02\x02\u01B7\u01B8\x05,\x17" +
@@ -7686,7 +7686,7 @@ ASN_3gppParser._serializedATNSegment1 = "\u01B1\x052\x1A\x02\u01B0\u01AF\x03\x02
     "\u0453\x03\x02\x02\x02\u0453\u0454\x07r\x02\x02\u0454\xE7\x03\x02\x02" +
     "\x02\u0455\u0456\x07`\x02\x02\u0456\u0457\x07\x16\x02\x02\u0457\u0458" +
     "\x05\xEAv\x02\u0458\u0459\x07\x17\x02\x02\u0459\xE9\x03";
-ASN_3gppParser._serializedATNSegment2 = "\x02\x02\x02\u045A\u0460\x05\xF4{\x02\u045B\u045C\x07\x18\x02\x02\u045C" +
+grammar3rdParser._serializedATNSegment2 = "\x02\x02\x02\u045A\u0460\x05\xF4{\x02\u045B\u045C\x07\x18\x02\x02\u045C" +
     "\u045D\x05&\x14\x02\u045D\u045E\x05\xECw\x02\u045E\u045F\x05(\x15\x02" +
     "\u045F\u0461\x03\x02\x02\x02\u0460\u045B\x03\x02\x02\x02\u0460\u0461\x03" +
     "\x02\x02\x02\u0461\xEB\x03\x02\x02\x02\u0462\u0463\x07\x18\x02\x02\u0463" +
@@ -7791,10 +7791,10 @@ ASN_3gppParser._serializedATNSegment2 = "\x02\x02\x02\u045A\u0460\x05\xF4{\x02\u
     "\u043A\u043D\u0442\u0444\u0448\u0451\u0460\u0464\u046B\u0470\u047E\u048D" +
     "\u0491\u0493\u049C\u04A2\u04A8\u04B0\u04B5\u04BD\u04C4\u04CF\u04D8\u04DF" +
     "\u04E9\u04F2\u04F7\u04FC\u0502\u0509\u0516\u051D\u0524";
-ASN_3gppParser._serializedATN = Utils.join([
-    ASN_3gppParser._serializedATNSegment0,
-    ASN_3gppParser._serializedATNSegment1,
-    ASN_3gppParser._serializedATNSegment2,
+grammar3rdParser._serializedATN = Utils.join([
+    grammar3rdParser._serializedATNSegment0,
+    grammar3rdParser._serializedATNSegment1,
+    grammar3rdParser._serializedATNSegment2,
 ], "");
 class ModulesContext extends ParserRuleContext_1.ParserRuleContext {
     moduleDefinition(i) {
@@ -7809,7 +7809,7 @@ class ModulesContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_modules; }
+    get ruleIndex() { return grammar3rdParser.RULE_modules; }
     // @Override
     accept(visitor) {
         if (visitor.visitModules) {
@@ -7824,56 +7824,56 @@ exports.ModulesContext = ModulesContext;
 class ModuleDefinitionContext extends ParserRuleContext_1.ParserRuleContext {
     IDENTIFIER(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.IDENTIFIER);
+            return this.getTokens(grammar3rdParser.IDENTIFIER);
         }
         else {
-            return this.getToken(ASN_3gppParser.IDENTIFIER, i);
+            return this.getToken(grammar3rdParser.IDENTIFIER, i);
         }
     }
-    DEFINITIONS_LITERAL() { return this.getToken(ASN_3gppParser.DEFINITIONS_LITERAL, 0); }
+    DEFINITIONS_LITERAL() { return this.getToken(grammar3rdParser.DEFINITIONS_LITERAL, 0); }
     tagDefault() {
         return this.getRuleContext(0, TagDefaultContext);
     }
     extensionDefault() {
         return this.getRuleContext(0, ExtensionDefaultContext);
     }
-    ASSIGN_OP() { return this.getToken(ASN_3gppParser.ASSIGN_OP, 0); }
-    BEGIN_LITERAL() { return this.getToken(ASN_3gppParser.BEGIN_LITERAL, 0); }
+    ASSIGN_OP() { return this.getToken(grammar3rdParser.ASSIGN_OP, 0); }
+    BEGIN_LITERAL() { return this.getToken(grammar3rdParser.BEGIN_LITERAL, 0); }
     moduleBody() {
         return this.getRuleContext(0, ModuleBodyContext);
     }
-    END_LITERAL() { return this.getToken(ASN_3gppParser.END_LITERAL, 0); }
-    L_BRACE() { return this.tryGetToken(ASN_3gppParser.L_BRACE, 0); }
-    R_BRACE() { return this.tryGetToken(ASN_3gppParser.R_BRACE, 0); }
+    END_LITERAL() { return this.getToken(grammar3rdParser.END_LITERAL, 0); }
+    L_BRACE() { return this.tryGetToken(grammar3rdParser.L_BRACE, 0); }
+    R_BRACE() { return this.tryGetToken(grammar3rdParser.R_BRACE, 0); }
     L_PARAN(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.L_PARAN);
+            return this.getTokens(grammar3rdParser.L_PARAN);
         }
         else {
-            return this.getToken(ASN_3gppParser.L_PARAN, i);
+            return this.getToken(grammar3rdParser.L_PARAN, i);
         }
     }
     NUMBER(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.NUMBER);
+            return this.getTokens(grammar3rdParser.NUMBER);
         }
         else {
-            return this.getToken(ASN_3gppParser.NUMBER, i);
+            return this.getToken(grammar3rdParser.NUMBER, i);
         }
     }
     R_PARAN(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.R_PARAN);
+            return this.getTokens(grammar3rdParser.R_PARAN);
         }
         else {
-            return this.getToken(ASN_3gppParser.R_PARAN, i);
+            return this.getToken(grammar3rdParser.R_PARAN, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_moduleDefinition; }
+    get ruleIndex() { return grammar3rdParser.RULE_moduleDefinition; }
     // @Override
     accept(visitor) {
         if (visitor.visitModuleDefinition) {
@@ -7886,15 +7886,15 @@ class ModuleDefinitionContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ModuleDefinitionContext = ModuleDefinitionContext;
 class TagDefaultContext extends ParserRuleContext_1.ParserRuleContext {
-    TAGS_LITERAL() { return this.tryGetToken(ASN_3gppParser.TAGS_LITERAL, 0); }
-    EXPLICIT_LITERAL() { return this.tryGetToken(ASN_3gppParser.EXPLICIT_LITERAL, 0); }
-    IMPLICIT_LITERAL() { return this.tryGetToken(ASN_3gppParser.IMPLICIT_LITERAL, 0); }
-    AUTOMATIC_LITERAL() { return this.tryGetToken(ASN_3gppParser.AUTOMATIC_LITERAL, 0); }
+    TAGS_LITERAL() { return this.tryGetToken(grammar3rdParser.TAGS_LITERAL, 0); }
+    EXPLICIT_LITERAL() { return this.tryGetToken(grammar3rdParser.EXPLICIT_LITERAL, 0); }
+    IMPLICIT_LITERAL() { return this.tryGetToken(grammar3rdParser.IMPLICIT_LITERAL, 0); }
+    AUTOMATIC_LITERAL() { return this.tryGetToken(grammar3rdParser.AUTOMATIC_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_tagDefault; }
+    get ruleIndex() { return grammar3rdParser.RULE_tagDefault; }
     // @Override
     accept(visitor) {
         if (visitor.visitTagDefault) {
@@ -7907,13 +7907,13 @@ class TagDefaultContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.TagDefaultContext = TagDefaultContext;
 class ExtensionDefaultContext extends ParserRuleContext_1.ParserRuleContext {
-    EXTENSIBILITY_LITERAL() { return this.tryGetToken(ASN_3gppParser.EXTENSIBILITY_LITERAL, 0); }
-    IMPLIED_LITERAL() { return this.tryGetToken(ASN_3gppParser.IMPLIED_LITERAL, 0); }
+    EXTENSIBILITY_LITERAL() { return this.tryGetToken(grammar3rdParser.EXTENSIBILITY_LITERAL, 0); }
+    IMPLIED_LITERAL() { return this.tryGetToken(grammar3rdParser.IMPLIED_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionDefault; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionDefault; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionDefault) {
@@ -7939,7 +7939,7 @@ class ModuleBodyContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_moduleBody; }
+    get ruleIndex() { return grammar3rdParser.RULE_moduleBody; }
     // @Override
     accept(visitor) {
         if (visitor.visitModuleBody) {
@@ -7952,17 +7952,17 @@ class ModuleBodyContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ModuleBodyContext = ModuleBodyContext;
 class ExportsContext extends ParserRuleContext_1.ParserRuleContext {
-    EXPORTS_LITERAL() { return this.tryGetToken(ASN_3gppParser.EXPORTS_LITERAL, 0); }
+    EXPORTS_LITERAL() { return this.tryGetToken(grammar3rdParser.EXPORTS_LITERAL, 0); }
     symbolsExported() {
         return this.tryGetRuleContext(0, SymbolsExportedContext);
     }
-    SEMI_COLON() { return this.tryGetToken(ASN_3gppParser.SEMI_COLON, 0); }
-    ALL_LITERAL() { return this.tryGetToken(ASN_3gppParser.ALL_LITERAL, 0); }
+    SEMI_COLON() { return this.tryGetToken(grammar3rdParser.SEMI_COLON, 0); }
+    ALL_LITERAL() { return this.tryGetToken(grammar3rdParser.ALL_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_exports; }
+    get ruleIndex() { return grammar3rdParser.RULE_exports; }
     // @Override
     accept(visitor) {
         if (visitor.visitExports) {
@@ -7982,7 +7982,7 @@ class SymbolsExportedContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_symbolsExported; }
+    get ruleIndex() { return grammar3rdParser.RULE_symbolsExported; }
     // @Override
     accept(visitor) {
         if (visitor.visitSymbolsExported) {
@@ -7995,16 +7995,16 @@ class SymbolsExportedContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.SymbolsExportedContext = SymbolsExportedContext;
 class ImportsContext extends ParserRuleContext_1.ParserRuleContext {
-    IMPORTS_LITERAL() { return this.tryGetToken(ASN_3gppParser.IMPORTS_LITERAL, 0); }
+    IMPORTS_LITERAL() { return this.tryGetToken(grammar3rdParser.IMPORTS_LITERAL, 0); }
     symbolsImported() {
         return this.tryGetRuleContext(0, SymbolsImportedContext);
     }
-    SEMI_COLON() { return this.tryGetToken(ASN_3gppParser.SEMI_COLON, 0); }
+    SEMI_COLON() { return this.tryGetToken(grammar3rdParser.SEMI_COLON, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_imports; }
+    get ruleIndex() { return grammar3rdParser.RULE_imports; }
     // @Override
     accept(visitor) {
         if (visitor.visitImports) {
@@ -8024,7 +8024,7 @@ class SymbolsImportedContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_symbolsImported; }
+    get ruleIndex() { return grammar3rdParser.RULE_symbolsImported; }
     // @Override
     accept(visitor) {
         if (visitor.visitSymbolsImported) {
@@ -8049,7 +8049,7 @@ class SymbolsFromModuleListContext extends ParserRuleContext_1.ParserRuleContext
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_symbolsFromModuleList; }
+    get ruleIndex() { return grammar3rdParser.RULE_symbolsFromModuleList; }
     // @Override
     accept(visitor) {
         if (visitor.visitSymbolsFromModuleList) {
@@ -8065,7 +8065,7 @@ class SymbolsFromModuleContext extends ParserRuleContext_1.ParserRuleContext {
     symbolList() {
         return this.getRuleContext(0, SymbolListContext);
     }
-    FROM_LITERAL() { return this.getToken(ASN_3gppParser.FROM_LITERAL, 0); }
+    FROM_LITERAL() { return this.getToken(grammar3rdParser.FROM_LITERAL, 0); }
     globalModuleReference() {
         return this.getRuleContext(0, GlobalModuleReferenceContext);
     }
@@ -8073,7 +8073,7 @@ class SymbolsFromModuleContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_symbolsFromModule; }
+    get ruleIndex() { return grammar3rdParser.RULE_symbolsFromModule; }
     // @Override
     accept(visitor) {
         if (visitor.visitSymbolsFromModule) {
@@ -8086,7 +8086,7 @@ class SymbolsFromModuleContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.SymbolsFromModuleContext = SymbolsFromModuleContext;
 class GlobalModuleReferenceContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     assignedIdentifier() {
         return this.getRuleContext(0, AssignedIdentifierContext);
     }
@@ -8094,7 +8094,7 @@ class GlobalModuleReferenceContext extends ParserRuleContext_1.ParserRuleContext
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_globalModuleReference; }
+    get ruleIndex() { return grammar3rdParser.RULE_globalModuleReference; }
     // @Override
     accept(visitor) {
         if (visitor.visitGlobalModuleReference) {
@@ -8111,7 +8111,7 @@ class AssignedIdentifierContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_assignedIdentifier; }
+    get ruleIndex() { return grammar3rdParser.RULE_assignedIdentifier; }
     // @Override
     accept(visitor) {
         if (visitor.visitAssignedIdentifier) {
@@ -8134,17 +8134,17 @@ class SymbolListContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_symbolList; }
+    get ruleIndex() { return grammar3rdParser.RULE_symbolList; }
     // @Override
     accept(visitor) {
         if (visitor.visitSymbolList) {
@@ -8157,14 +8157,14 @@ class SymbolListContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.SymbolListContext = SymbolListContext;
 class SymbolContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
-    L_BRACE() { return this.tryGetToken(ASN_3gppParser.L_BRACE, 0); }
-    R_BRACE() { return this.tryGetToken(ASN_3gppParser.R_BRACE, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
+    L_BRACE() { return this.tryGetToken(grammar3rdParser.L_BRACE, 0); }
+    R_BRACE() { return this.tryGetToken(grammar3rdParser.R_BRACE, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_symbol; }
+    get ruleIndex() { return grammar3rdParser.RULE_symbol; }
     // @Override
     accept(visitor) {
         if (visitor.visitSymbol) {
@@ -8189,7 +8189,7 @@ class AssignmentListContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_assignmentList; }
+    get ruleIndex() { return grammar3rdParser.RULE_assignmentList; }
     // @Override
     accept(visitor) {
         if (visitor.visitAssignmentList) {
@@ -8202,7 +8202,7 @@ class AssignmentListContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.AssignmentListContext = AssignmentListContext;
 class AssignmentContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.tryGetToken(ASN_3gppParser.IDENTIFIER, 0); }
+    IDENTIFIER() { return this.tryGetToken(grammar3rdParser.IDENTIFIER, 0); }
     valueAssignment() {
         return this.tryGetRuleContext(0, ValueAssignmentContext);
     }
@@ -8219,7 +8219,7 @@ class AssignmentContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_assignment; }
+    get ruleIndex() { return grammar3rdParser.RULE_assignment; }
     // @Override
     accept(visitor) {
         if (visitor.visitAssignment) {
@@ -8232,9 +8232,9 @@ class AssignmentContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.AssignmentContext = AssignmentContext;
 class SequenceTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    SEQUENCE_LITERAL() { return this.getToken(ASN_3gppParser.SEQUENCE_LITERAL, 0); }
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    SEQUENCE_LITERAL() { return this.getToken(grammar3rdParser.SEQUENCE_LITERAL, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     extensionAndException() {
         return this.tryGetRuleContext(0, ExtensionAndExceptionContext);
     }
@@ -8248,7 +8248,7 @@ class SequenceTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_sequenceType; }
+    get ruleIndex() { return grammar3rdParser.RULE_sequenceType; }
     // @Override
     accept(visitor) {
         if (visitor.visitSequenceType) {
@@ -8261,7 +8261,7 @@ class SequenceTypeContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.SequenceTypeContext = SequenceTypeContext;
 class ExtensionAndExceptionContext extends ParserRuleContext_1.ParserRuleContext {
-    ELLIPSIS() { return this.getToken(ASN_3gppParser.ELLIPSIS, 0); }
+    ELLIPSIS() { return this.getToken(grammar3rdParser.ELLIPSIS, 0); }
     exceptionSpec() {
         return this.tryGetRuleContext(0, ExceptionSpecContext);
     }
@@ -8269,7 +8269,7 @@ class ExtensionAndExceptionContext extends ParserRuleContext_1.ParserRuleContext
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionAndException; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionAndException; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionAndException) {
@@ -8282,13 +8282,13 @@ class ExtensionAndExceptionContext extends ParserRuleContext_1.ParserRuleContext
 }
 exports.ExtensionAndExceptionContext = ExtensionAndExceptionContext;
 class OptionalExtensionMarkerContext extends ParserRuleContext_1.ParserRuleContext {
-    COMMA() { return this.tryGetToken(ASN_3gppParser.COMMA, 0); }
-    ELLIPSIS() { return this.tryGetToken(ASN_3gppParser.ELLIPSIS, 0); }
+    COMMA() { return this.tryGetToken(grammar3rdParser.COMMA, 0); }
+    ELLIPSIS() { return this.tryGetToken(grammar3rdParser.ELLIPSIS, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_optionalExtensionMarker; }
+    get ruleIndex() { return grammar3rdParser.RULE_optionalExtensionMarker; }
     // @Override
     accept(visitor) {
         if (visitor.visitOptionalExtensionMarker) {
@@ -8319,10 +8319,10 @@ class ComponentTypeListsContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     extensionAndException() {
@@ -8331,12 +8331,12 @@ class ComponentTypeListsContext extends ParserRuleContext_1.ParserRuleContext {
     extensionAdditions() {
         return this.tryGetRuleContext(0, ExtensionAdditionsContext);
     }
-    ELLIPSIS() { return this.tryGetToken(ASN_3gppParser.ELLIPSIS, 0); }
+    ELLIPSIS() { return this.tryGetToken(grammar3rdParser.ELLIPSIS, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_componentTypeLists; }
+    get ruleIndex() { return grammar3rdParser.RULE_componentTypeLists; }
     // @Override
     accept(visitor) {
         if (visitor.visitComponentTypeLists) {
@@ -8356,7 +8356,7 @@ class RootComponentTypeListContext extends ParserRuleContext_1.ParserRuleContext
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_rootComponentTypeList; }
+    get ruleIndex() { return grammar3rdParser.RULE_rootComponentTypeList; }
     // @Override
     accept(visitor) {
         if (visitor.visitRootComponentTypeList) {
@@ -8379,10 +8379,10 @@ class ComponentTypeListContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     tag(i) {
@@ -8397,7 +8397,7 @@ class ComponentTypeListContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_componentTypeList; }
+    get ruleIndex() { return grammar3rdParser.RULE_componentTypeList; }
     // @Override
     accept(visitor) {
         if (visitor.visitComponentTypeList) {
@@ -8413,13 +8413,13 @@ class ComponentTypeContext extends ParserRuleContext_1.ParserRuleContext {
     namedType() {
         return this.tryGetRuleContext(0, NamedTypeContext);
     }
-    OPTIONAL_LITERAL() { return this.tryGetToken(ASN_3gppParser.OPTIONAL_LITERAL, 0); }
-    DEFAULT_LITERAL() { return this.tryGetToken(ASN_3gppParser.DEFAULT_LITERAL, 0); }
+    OPTIONAL_LITERAL() { return this.tryGetToken(grammar3rdParser.OPTIONAL_LITERAL, 0); }
+    DEFAULT_LITERAL() { return this.tryGetToken(grammar3rdParser.DEFAULT_LITERAL, 0); }
     value() {
         return this.tryGetRuleContext(0, ValueContext);
     }
-    COMPONENTS_LITERAL() { return this.tryGetToken(ASN_3gppParser.COMPONENTS_LITERAL, 0); }
-    OF_LITERAL() { return this.tryGetToken(ASN_3gppParser.OF_LITERAL, 0); }
+    COMPONENTS_LITERAL() { return this.tryGetToken(grammar3rdParser.COMPONENTS_LITERAL, 0); }
+    OF_LITERAL() { return this.tryGetToken(grammar3rdParser.OF_LITERAL, 0); }
     asnType() {
         return this.tryGetRuleContext(0, AsnTypeContext);
     }
@@ -8427,7 +8427,7 @@ class ComponentTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_componentType; }
+    get ruleIndex() { return grammar3rdParser.RULE_componentType; }
     // @Override
     accept(visitor) {
         if (visitor.visitComponentType) {
@@ -8440,12 +8440,12 @@ class ComponentTypeContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ComponentTypeContext = ComponentTypeContext;
 class TagContext extends ParserRuleContext_1.ParserRuleContext {
-    TAG() { return this.getToken(ASN_3gppParser.TAG, 0); }
+    TAG() { return this.getToken(grammar3rdParser.TAG, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_tag; }
+    get ruleIndex() { return grammar3rdParser.RULE_tag; }
     // @Override
     accept(visitor) {
         if (visitor.visitTag) {
@@ -8458,7 +8458,7 @@ class TagContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.TagContext = TagContext;
 class ExtensionAdditionsContext extends ParserRuleContext_1.ParserRuleContext {
-    COMMA() { return this.tryGetToken(ASN_3gppParser.COMMA, 0); }
+    COMMA() { return this.tryGetToken(grammar3rdParser.COMMA, 0); }
     extensionAdditionList() {
         return this.tryGetRuleContext(0, ExtensionAdditionListContext);
     }
@@ -8466,7 +8466,7 @@ class ExtensionAdditionsContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionAdditions; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionAdditions; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionAdditions) {
@@ -8489,10 +8489,10 @@ class ExtensionAdditionListContext extends ParserRuleContext_1.ParserRuleContext
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     tag(i) {
@@ -8507,7 +8507,7 @@ class ExtensionAdditionListContext extends ParserRuleContext_1.ParserRuleContext
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionAdditionList; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionAdditionList; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionAdditionList) {
@@ -8530,7 +8530,7 @@ class ExtensionAdditionContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionAddition; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionAddition; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionAddition) {
@@ -8543,14 +8543,14 @@ class ExtensionAdditionContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ExtensionAdditionContext = ExtensionAdditionContext;
 class ExtensionAdditionGroupContext extends ParserRuleContext_1.ParserRuleContext {
-    DOUBLE_L_BRACKET() { return this.getToken(ASN_3gppParser.DOUBLE_L_BRACKET, 0); }
+    DOUBLE_L_BRACKET() { return this.getToken(grammar3rdParser.DOUBLE_L_BRACKET, 0); }
     versionNumber() {
         return this.getRuleContext(0, VersionNumberContext);
     }
     componentTypeList() {
         return this.getRuleContext(0, ComponentTypeListContext);
     }
-    DOUBLE_R_BRACKET() { return this.getToken(ASN_3gppParser.DOUBLE_R_BRACKET, 0); }
+    DOUBLE_R_BRACKET() { return this.getToken(grammar3rdParser.DOUBLE_R_BRACKET, 0); }
     tag() {
         return this.tryGetRuleContext(0, TagContext);
     }
@@ -8558,7 +8558,7 @@ class ExtensionAdditionGroupContext extends ParserRuleContext_1.ParserRuleContex
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionAdditionGroup; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionAdditionGroup; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionAdditionGroup) {
@@ -8571,13 +8571,13 @@ class ExtensionAdditionGroupContext extends ParserRuleContext_1.ParserRuleContex
 }
 exports.ExtensionAdditionGroupContext = ExtensionAdditionGroupContext;
 class VersionNumberContext extends ParserRuleContext_1.ParserRuleContext {
-    NUMBER() { return this.tryGetToken(ASN_3gppParser.NUMBER, 0); }
-    COLON() { return this.tryGetToken(ASN_3gppParser.COLON, 0); }
+    NUMBER() { return this.tryGetToken(grammar3rdParser.NUMBER, 0); }
+    COLON() { return this.tryGetToken(grammar3rdParser.COLON, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_versionNumber; }
+    get ruleIndex() { return grammar3rdParser.RULE_versionNumber; }
     // @Override
     accept(visitor) {
         if (visitor.visitVersionNumber) {
@@ -8590,16 +8590,16 @@ class VersionNumberContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.VersionNumberContext = VersionNumberContext;
 class SequenceOfTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    SEQUENCE_LITERAL() { return this.getToken(ASN_3gppParser.SEQUENCE_LITERAL, 0); }
-    OF_LITERAL() { return this.getToken(ASN_3gppParser.OF_LITERAL, 0); }
+    SEQUENCE_LITERAL() { return this.getToken(grammar3rdParser.SEQUENCE_LITERAL, 0); }
+    OF_LITERAL() { return this.getToken(grammar3rdParser.OF_LITERAL, 0); }
     asnType() {
         return this.tryGetRuleContext(0, AsnTypeContext);
     }
     namedType() {
         return this.tryGetRuleContext(0, NamedTypeContext);
     }
-    L_PARAN() { return this.tryGetToken(ASN_3gppParser.L_PARAN, 0); }
-    R_PARAN() { return this.tryGetToken(ASN_3gppParser.R_PARAN, 0); }
+    L_PARAN() { return this.tryGetToken(grammar3rdParser.L_PARAN, 0); }
+    R_PARAN() { return this.tryGetToken(grammar3rdParser.R_PARAN, 0); }
     constraint() {
         return this.tryGetRuleContext(0, ConstraintContext);
     }
@@ -8610,7 +8610,7 @@ class SequenceOfTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_sequenceOfType; }
+    get ruleIndex() { return grammar3rdParser.RULE_sequenceOfType; }
     // @Override
     accept(visitor) {
         if (visitor.visitSequenceOfType) {
@@ -8623,7 +8623,7 @@ class SequenceOfTypeContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.SequenceOfTypeContext = SequenceOfTypeContext;
 class SizeConstraintContext extends ParserRuleContext_1.ParserRuleContext {
-    SIZE_LITERAL() { return this.getToken(ASN_3gppParser.SIZE_LITERAL, 0); }
+    SIZE_LITERAL() { return this.getToken(grammar3rdParser.SIZE_LITERAL, 0); }
     constraint() {
         return this.getRuleContext(0, ConstraintContext);
     }
@@ -8631,7 +8631,7 @@ class SizeConstraintContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_sizeConstraint; }
+    get ruleIndex() { return grammar3rdParser.RULE_sizeConstraint; }
     // @Override
     accept(visitor) {
         if (visitor.visitSizeConstraint) {
@@ -8647,7 +8647,7 @@ class ParameterizedAssignmentContext extends ParserRuleContext_1.ParserRuleConte
     parameterList() {
         return this.tryGetRuleContext(0, ParameterListContext);
     }
-    ASSIGN_OP() { return this.tryGetToken(ASN_3gppParser.ASSIGN_OP, 0); }
+    ASSIGN_OP() { return this.tryGetToken(grammar3rdParser.ASSIGN_OP, 0); }
     asnType() {
         return this.tryGetRuleContext(0, AsnTypeContext);
     }
@@ -8673,7 +8673,7 @@ class ParameterizedAssignmentContext extends ParserRuleContext_1.ParserRuleConte
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_parameterizedAssignment; }
+    get ruleIndex() { return grammar3rdParser.RULE_parameterizedAssignment; }
     // @Override
     accept(visitor) {
         if (visitor.visitParameterizedAssignment) {
@@ -8686,7 +8686,7 @@ class ParameterizedAssignmentContext extends ParserRuleContext_1.ParserRuleConte
 }
 exports.ParameterizedAssignmentContext = ParameterizedAssignmentContext;
 class ParameterListContext extends ParserRuleContext_1.ParserRuleContext {
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
     parameter(i) {
         if (i === undefined) {
             return this.getRuleContexts(ParameterContext);
@@ -8695,20 +8695,20 @@ class ParameterListContext extends ParserRuleContext_1.ParserRuleContext {
             return this.getRuleContext(i, ParameterContext);
         }
     }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_parameterList; }
+    get ruleIndex() { return grammar3rdParser.RULE_parameterList; }
     // @Override
     accept(visitor) {
         if (visitor.visitParameterList) {
@@ -8721,16 +8721,16 @@ class ParameterListContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ParameterListContext = ParameterListContext;
 class ParameterContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     paramGovernor() {
         return this.tryGetRuleContext(0, ParamGovernorContext);
     }
-    COLON() { return this.tryGetToken(ASN_3gppParser.COLON, 0); }
+    COLON() { return this.tryGetToken(grammar3rdParser.COLON, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_parameter; }
+    get ruleIndex() { return grammar3rdParser.RULE_parameter; }
     // @Override
     accept(visitor) {
         if (visitor.visitParameter) {
@@ -8746,12 +8746,12 @@ class ParamGovernorContext extends ParserRuleContext_1.ParserRuleContext {
     governor() {
         return this.tryGetRuleContext(0, GovernorContext);
     }
-    IDENTIFIER() { return this.tryGetToken(ASN_3gppParser.IDENTIFIER, 0); }
+    IDENTIFIER() { return this.tryGetToken(grammar3rdParser.IDENTIFIER, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_paramGovernor; }
+    get ruleIndex() { return grammar3rdParser.RULE_paramGovernor; }
     // @Override
     accept(visitor) {
         if (visitor.visitParamGovernor) {
@@ -8774,7 +8774,7 @@ class GovernorContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_governor; }
+    get ruleIndex() { return grammar3rdParser.RULE_governor; }
     // @Override
     accept(visitor) {
         if (visitor.visitGovernor) {
@@ -8787,7 +8787,7 @@ class GovernorContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.GovernorContext = GovernorContext;
 class ObjectClassAssignmentContext extends ParserRuleContext_1.ParserRuleContext {
-    ASSIGN_OP() { return this.getToken(ASN_3gppParser.ASSIGN_OP, 0); }
+    ASSIGN_OP() { return this.getToken(grammar3rdParser.ASSIGN_OP, 0); }
     objectClass() {
         return this.getRuleContext(0, ObjectClassContext);
     }
@@ -8795,7 +8795,7 @@ class ObjectClassAssignmentContext extends ParserRuleContext_1.ParserRuleContext
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectClassAssignment; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectClassAssignment; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectClassAssignment) {
@@ -8818,7 +8818,7 @@ class ObjectClassContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectClass; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectClass; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectClass) {
@@ -8833,20 +8833,20 @@ exports.ObjectClassContext = ObjectClassContext;
 class DefinedObjectClassContext extends ParserRuleContext_1.ParserRuleContext {
     IDENTIFIER(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.IDENTIFIER);
+            return this.getTokens(grammar3rdParser.IDENTIFIER);
         }
         else {
-            return this.getToken(ASN_3gppParser.IDENTIFIER, i);
+            return this.getToken(grammar3rdParser.IDENTIFIER, i);
         }
     }
-    DOT() { return this.tryGetToken(ASN_3gppParser.DOT, 0); }
-    TYPE_IDENTIFIER_LITERAL() { return this.tryGetToken(ASN_3gppParser.TYPE_IDENTIFIER_LITERAL, 0); }
-    ABSTRACT_SYNTAX_LITERAL() { return this.tryGetToken(ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL, 0); }
+    DOT() { return this.tryGetToken(grammar3rdParser.DOT, 0); }
+    TYPE_IDENTIFIER_LITERAL() { return this.tryGetToken(grammar3rdParser.TYPE_IDENTIFIER_LITERAL, 0); }
+    ABSTRACT_SYNTAX_LITERAL() { return this.tryGetToken(grammar3rdParser.ABSTRACT_SYNTAX_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_definedObjectClass; }
+    get ruleIndex() { return grammar3rdParser.RULE_definedObjectClass; }
     // @Override
     accept(visitor) {
         if (visitor.visitDefinedObjectClass) {
@@ -8859,13 +8859,13 @@ class DefinedObjectClassContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.DefinedObjectClassContext = DefinedObjectClassContext;
 class UsefulObjectClassReferenceContext extends ParserRuleContext_1.ParserRuleContext {
-    TYPE_IDENTIFIER_LITERAL() { return this.tryGetToken(ASN_3gppParser.TYPE_IDENTIFIER_LITERAL, 0); }
-    ABSTRACT_SYNTAX_LITERAL() { return this.tryGetToken(ASN_3gppParser.ABSTRACT_SYNTAX_LITERAL, 0); }
+    TYPE_IDENTIFIER_LITERAL() { return this.tryGetToken(grammar3rdParser.TYPE_IDENTIFIER_LITERAL, 0); }
+    ABSTRACT_SYNTAX_LITERAL() { return this.tryGetToken(grammar3rdParser.ABSTRACT_SYNTAX_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_usefulObjectClassReference; }
+    get ruleIndex() { return grammar3rdParser.RULE_usefulObjectClassReference; }
     // @Override
     accept(visitor) {
         if (visitor.visitUsefulObjectClassReference) {
@@ -8880,18 +8880,18 @@ exports.UsefulObjectClassReferenceContext = UsefulObjectClassReferenceContext;
 class ExternalObjectClassReferenceContext extends ParserRuleContext_1.ParserRuleContext {
     IDENTIFIER(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.IDENTIFIER);
+            return this.getTokens(grammar3rdParser.IDENTIFIER);
         }
         else {
-            return this.getToken(ASN_3gppParser.IDENTIFIER, i);
+            return this.getToken(grammar3rdParser.IDENTIFIER, i);
         }
     }
-    DOT() { return this.getToken(ASN_3gppParser.DOT, 0); }
+    DOT() { return this.getToken(grammar3rdParser.DOT, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_externalObjectClassReference; }
+    get ruleIndex() { return grammar3rdParser.RULE_externalObjectClassReference; }
     // @Override
     accept(visitor) {
         if (visitor.visitExternalObjectClassReference) {
@@ -8904,8 +8904,8 @@ class ExternalObjectClassReferenceContext extends ParserRuleContext_1.ParserRule
 }
 exports.ExternalObjectClassReferenceContext = ExternalObjectClassReferenceContext;
 class ObjectClassDefnContext extends ParserRuleContext_1.ParserRuleContext {
-    CLASS_LITERAL() { return this.getToken(ASN_3gppParser.CLASS_LITERAL, 0); }
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
+    CLASS_LITERAL() { return this.getToken(grammar3rdParser.CLASS_LITERAL, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
     fieldSpec(i) {
         if (i === undefined) {
             return this.getRuleContexts(FieldSpecContext);
@@ -8914,13 +8914,13 @@ class ObjectClassDefnContext extends ParserRuleContext_1.ParserRuleContext {
             return this.getRuleContext(i, FieldSpecContext);
         }
     }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     withSyntaxSpec() {
@@ -8930,7 +8930,7 @@ class ObjectClassDefnContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectClassDefn; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectClassDefn; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectClassDefn) {
@@ -8943,8 +8943,8 @@ class ObjectClassDefnContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ObjectClassDefnContext = ObjectClassDefnContext;
 class WithSyntaxSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    WITH_LITERAL() { return this.getToken(ASN_3gppParser.WITH_LITERAL, 0); }
-    SYNTAX_LITERAL() { return this.getToken(ASN_3gppParser.SYNTAX_LITERAL, 0); }
+    WITH_LITERAL() { return this.getToken(grammar3rdParser.WITH_LITERAL, 0); }
+    SYNTAX_LITERAL() { return this.getToken(grammar3rdParser.SYNTAX_LITERAL, 0); }
     syntaxList() {
         return this.getRuleContext(0, SyntaxListContext);
     }
@@ -8952,7 +8952,7 @@ class WithSyntaxSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_withSyntaxSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_withSyntaxSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitWithSyntaxSpec) {
@@ -8965,8 +8965,8 @@ class WithSyntaxSpecContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.WithSyntaxSpecContext = WithSyntaxSpecContext;
 class SyntaxListContext extends ParserRuleContext_1.ParserRuleContext {
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     tokenOrGroupSpec(i) {
         if (i === undefined) {
             return this.getRuleContexts(TokenOrGroupSpecContext);
@@ -8979,7 +8979,7 @@ class SyntaxListContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_syntaxList; }
+    get ruleIndex() { return grammar3rdParser.RULE_syntaxList; }
     // @Override
     accept(visitor) {
         if (visitor.visitSyntaxList) {
@@ -9002,7 +9002,7 @@ class TokenOrGroupSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_tokenOrGroupSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_tokenOrGroupSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitTokenOrGroupSpec) {
@@ -9015,8 +9015,8 @@ class TokenOrGroupSpecContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.TokenOrGroupSpecContext = TokenOrGroupSpecContext;
 class OptionalGroupContext extends ParserRuleContext_1.ParserRuleContext {
-    L_BRACKET() { return this.getToken(ASN_3gppParser.L_BRACKET, 0); }
-    R_BRACKET() { return this.getToken(ASN_3gppParser.R_BRACKET, 0); }
+    L_BRACKET() { return this.getToken(grammar3rdParser.L_BRACKET, 0); }
+    R_BRACKET() { return this.getToken(grammar3rdParser.R_BRACKET, 0); }
     tokenOrGroupSpec(i) {
         if (i === undefined) {
             return this.getRuleContexts(TokenOrGroupSpecContext);
@@ -9029,7 +9029,7 @@ class OptionalGroupContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_optionalGroup; }
+    get ruleIndex() { return grammar3rdParser.RULE_optionalGroup; }
     // @Override
     accept(visitor) {
         if (visitor.visitOptionalGroup) {
@@ -9052,7 +9052,7 @@ class RequiredTokenContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_requiredToken; }
+    get ruleIndex() { return grammar3rdParser.RULE_requiredToken; }
     // @Override
     accept(visitor) {
         if (visitor.visitRequiredToken) {
@@ -9065,13 +9065,13 @@ class RequiredTokenContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.RequiredTokenContext = RequiredTokenContext;
 class LiteralContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.tryGetToken(ASN_3gppParser.IDENTIFIER, 0); }
-    COMMA() { return this.tryGetToken(ASN_3gppParser.COMMA, 0); }
+    IDENTIFIER() { return this.tryGetToken(grammar3rdParser.IDENTIFIER, 0); }
+    COMMA() { return this.tryGetToken(grammar3rdParser.COMMA, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_literal; }
+    get ruleIndex() { return grammar3rdParser.RULE_literal; }
     // @Override
     accept(visitor) {
         if (visitor.visitLiteral) {
@@ -9084,13 +9084,13 @@ class LiteralContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.LiteralContext = LiteralContext;
 class PrimitiveFieldNameContext extends ParserRuleContext_1.ParserRuleContext {
-    AMPERSAND() { return this.getToken(ASN_3gppParser.AMPERSAND, 0); }
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    AMPERSAND() { return this.getToken(grammar3rdParser.AMPERSAND, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_primitiveFieldName; }
+    get ruleIndex() { return grammar3rdParser.RULE_primitiveFieldName; }
     // @Override
     accept(visitor) {
         if (visitor.visitPrimitiveFieldName) {
@@ -9103,8 +9103,8 @@ class PrimitiveFieldNameContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.PrimitiveFieldNameContext = PrimitiveFieldNameContext;
 class FieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    AMPERSAND() { return this.getToken(ASN_3gppParser.AMPERSAND, 0); }
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    AMPERSAND() { return this.getToken(grammar3rdParser.AMPERSAND, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     asnType() {
         return this.tryGetRuleContext(0, AsnTypeContext);
     }
@@ -9117,15 +9117,15 @@ class FieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
     typeOptionalitySpec() {
         return this.tryGetRuleContext(0, TypeOptionalitySpecContext);
     }
-    OPTIONAL_LITERAL() { return this.tryGetToken(ASN_3gppParser.OPTIONAL_LITERAL, 0); }
+    OPTIONAL_LITERAL() { return this.tryGetToken(grammar3rdParser.OPTIONAL_LITERAL, 0); }
     valueSetOptionalitySpec() {
         return this.tryGetRuleContext(0, ValueSetOptionalitySpecContext);
     }
-    UNIQUE_LITERAL() { return this.tryGetToken(ASN_3gppParser.UNIQUE_LITERAL, 0); }
+    UNIQUE_LITERAL() { return this.tryGetToken(grammar3rdParser.UNIQUE_LITERAL, 0); }
     valueOptionalitySpec() {
         return this.tryGetRuleContext(0, ValueOptionalitySpecContext);
     }
-    DEFAULT_LITERAL() { return this.tryGetToken(ASN_3gppParser.DEFAULT_LITERAL, 0); }
+    DEFAULT_LITERAL() { return this.tryGetToken(grammar3rdParser.DEFAULT_LITERAL, 0); }
     valueSet() {
         return this.tryGetRuleContext(0, ValueSetContext);
     }
@@ -9142,7 +9142,7 @@ class FieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_fieldSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_fieldSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitFieldSpec) {
@@ -9155,8 +9155,8 @@ class FieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.FieldSpecContext = FieldSpecContext;
 class TypeFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    AMPERSAND() { return this.getToken(ASN_3gppParser.AMPERSAND, 0); }
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    AMPERSAND() { return this.getToken(grammar3rdParser.AMPERSAND, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     typeOptionalitySpec() {
         return this.tryGetRuleContext(0, TypeOptionalitySpecContext);
     }
@@ -9164,7 +9164,7 @@ class TypeFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_typeFieldSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_typeFieldSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitTypeFieldSpec) {
@@ -9177,8 +9177,8 @@ class TypeFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.TypeFieldSpecContext = TypeFieldSpecContext;
 class TypeOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext {
-    OPTIONAL_LITERAL() { return this.tryGetToken(ASN_3gppParser.OPTIONAL_LITERAL, 0); }
-    DEFAULT_LITERAL() { return this.tryGetToken(ASN_3gppParser.DEFAULT_LITERAL, 0); }
+    OPTIONAL_LITERAL() { return this.tryGetToken(grammar3rdParser.OPTIONAL_LITERAL, 0); }
+    DEFAULT_LITERAL() { return this.tryGetToken(grammar3rdParser.DEFAULT_LITERAL, 0); }
     asnType() {
         return this.tryGetRuleContext(0, AsnTypeContext);
     }
@@ -9186,7 +9186,7 @@ class TypeOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_typeOptionalitySpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_typeOptionalitySpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitTypeOptionalitySpec) {
@@ -9199,12 +9199,12 @@ class TypeOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.TypeOptionalitySpecContext = TypeOptionalitySpecContext;
 class FixedTypeValueFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    AMPERSAND() { return this.getToken(ASN_3gppParser.AMPERSAND, 0); }
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    AMPERSAND() { return this.getToken(grammar3rdParser.AMPERSAND, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     asnType() {
         return this.getRuleContext(0, AsnTypeContext);
     }
-    UNIQUE_LITERAL() { return this.tryGetToken(ASN_3gppParser.UNIQUE_LITERAL, 0); }
+    UNIQUE_LITERAL() { return this.tryGetToken(grammar3rdParser.UNIQUE_LITERAL, 0); }
     valueOptionalitySpec() {
         return this.tryGetRuleContext(0, ValueOptionalitySpecContext);
     }
@@ -9212,7 +9212,7 @@ class FixedTypeValueFieldSpecContext extends ParserRuleContext_1.ParserRuleConte
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_fixedTypeValueFieldSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_fixedTypeValueFieldSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitFixedTypeValueFieldSpec) {
@@ -9225,8 +9225,8 @@ class FixedTypeValueFieldSpecContext extends ParserRuleContext_1.ParserRuleConte
 }
 exports.FixedTypeValueFieldSpecContext = FixedTypeValueFieldSpecContext;
 class ValueOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext {
-    OPTIONAL_LITERAL() { return this.tryGetToken(ASN_3gppParser.OPTIONAL_LITERAL, 0); }
-    DEFAULT_LITERAL() { return this.tryGetToken(ASN_3gppParser.DEFAULT_LITERAL, 0); }
+    OPTIONAL_LITERAL() { return this.tryGetToken(grammar3rdParser.OPTIONAL_LITERAL, 0); }
+    DEFAULT_LITERAL() { return this.tryGetToken(grammar3rdParser.DEFAULT_LITERAL, 0); }
     value() {
         return this.tryGetRuleContext(0, ValueContext);
     }
@@ -9234,7 +9234,7 @@ class ValueOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext 
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_valueOptionalitySpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_valueOptionalitySpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitValueOptionalitySpec) {
@@ -9247,8 +9247,8 @@ class ValueOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext 
 }
 exports.ValueOptionalitySpecContext = ValueOptionalitySpecContext;
 class VariableTypeValueFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    AMPERSAND() { return this.getToken(ASN_3gppParser.AMPERSAND, 0); }
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    AMPERSAND() { return this.getToken(grammar3rdParser.AMPERSAND, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     fieldName() {
         return this.getRuleContext(0, FieldNameContext);
     }
@@ -9259,7 +9259,7 @@ class VariableTypeValueFieldSpecContext extends ParserRuleContext_1.ParserRuleCo
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_variableTypeValueFieldSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_variableTypeValueFieldSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitVariableTypeValueFieldSpec) {
@@ -9272,8 +9272,8 @@ class VariableTypeValueFieldSpecContext extends ParserRuleContext_1.ParserRuleCo
 }
 exports.VariableTypeValueFieldSpecContext = VariableTypeValueFieldSpecContext;
 class FixedTypeValueSetFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    AMPERSAND() { return this.getToken(ASN_3gppParser.AMPERSAND, 0); }
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    AMPERSAND() { return this.getToken(grammar3rdParser.AMPERSAND, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     asnType() {
         return this.getRuleContext(0, AsnTypeContext);
     }
@@ -9284,7 +9284,7 @@ class FixedTypeValueSetFieldSpecContext extends ParserRuleContext_1.ParserRuleCo
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_fixedTypeValueSetFieldSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_fixedTypeValueSetFieldSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitFixedTypeValueSetFieldSpec) {
@@ -9297,8 +9297,8 @@ class FixedTypeValueSetFieldSpecContext extends ParserRuleContext_1.ParserRuleCo
 }
 exports.FixedTypeValueSetFieldSpecContext = FixedTypeValueSetFieldSpecContext;
 class ValueSetOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext {
-    OPTIONAL_LITERAL() { return this.tryGetToken(ASN_3gppParser.OPTIONAL_LITERAL, 0); }
-    DEFAULT_LITERAL() { return this.tryGetToken(ASN_3gppParser.DEFAULT_LITERAL, 0); }
+    OPTIONAL_LITERAL() { return this.tryGetToken(grammar3rdParser.OPTIONAL_LITERAL, 0); }
+    DEFAULT_LITERAL() { return this.tryGetToken(grammar3rdParser.DEFAULT_LITERAL, 0); }
     valueSet() {
         return this.tryGetRuleContext(0, ValueSetContext);
     }
@@ -9306,7 +9306,7 @@ class ValueSetOptionalitySpecContext extends ParserRuleContext_1.ParserRuleConte
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_valueSetOptionalitySpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_valueSetOptionalitySpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitValueSetOptionalitySpec) {
@@ -9329,7 +9329,7 @@ class ObjectContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_object; }
+    get ruleIndex() { return grammar3rdParser.RULE_object; }
     // @Override
     accept(visitor) {
         if (visitor.visitObject) {
@@ -9352,7 +9352,7 @@ class ParameterizedObjectContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_parameterizedObject; }
+    get ruleIndex() { return grammar3rdParser.RULE_parameterizedObject; }
     // @Override
     accept(visitor) {
         if (visitor.visitParameterizedObject) {
@@ -9365,13 +9365,13 @@ class ParameterizedObjectContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ParameterizedObjectContext = ParameterizedObjectContext;
 class DefinedObjectContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
-    DOT() { return this.tryGetToken(ASN_3gppParser.DOT, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
+    DOT() { return this.tryGetToken(grammar3rdParser.DOT, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_definedObject; }
+    get ruleIndex() { return grammar3rdParser.RULE_definedObject; }
     // @Override
     accept(visitor) {
         if (visitor.visitDefinedObject) {
@@ -9384,16 +9384,16 @@ class DefinedObjectContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.DefinedObjectContext = DefinedObjectContext;
 class ObjectSetContext extends ParserRuleContext_1.ParserRuleContext {
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
     objectSetSpec() {
         return this.getRuleContext(0, ObjectSetSpecContext);
     }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectSet; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectSet; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectSet) {
@@ -9411,13 +9411,13 @@ class ObjectSetSpecContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
-    ELLIPSIS() { return this.tryGetToken(ASN_3gppParser.ELLIPSIS, 0); }
+    ELLIPSIS() { return this.tryGetToken(grammar3rdParser.ELLIPSIS, 0); }
     additionalElementSetSpec() {
         return this.tryGetRuleContext(0, AdditionalElementSetSpecContext);
     }
@@ -9425,7 +9425,7 @@ class ObjectSetSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectSetSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectSetSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectSetSpec) {
@@ -9440,33 +9440,33 @@ exports.ObjectSetSpecContext = ObjectSetSpecContext;
 class FieldNameContext extends ParserRuleContext_1.ParserRuleContext {
     AMPERSAND(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.AMPERSAND);
+            return this.getTokens(grammar3rdParser.AMPERSAND);
         }
         else {
-            return this.getToken(ASN_3gppParser.AMPERSAND, i);
+            return this.getToken(grammar3rdParser.AMPERSAND, i);
         }
     }
     IDENTIFIER(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.IDENTIFIER);
+            return this.getTokens(grammar3rdParser.IDENTIFIER);
         }
         else {
-            return this.getToken(ASN_3gppParser.IDENTIFIER, i);
+            return this.getToken(grammar3rdParser.IDENTIFIER, i);
         }
     }
     DOT(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.DOT);
+            return this.getTokens(grammar3rdParser.DOT);
         }
         else {
-            return this.getToken(ASN_3gppParser.DOT, i);
+            return this.getToken(grammar3rdParser.DOT, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_fieldName; }
+    get ruleIndex() { return grammar3rdParser.RULE_fieldName; }
     // @Override
     accept(visitor) {
         if (visitor.visitFieldName) {
@@ -9479,16 +9479,16 @@ class FieldNameContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.FieldNameContext = FieldNameContext;
 class ValueSetContext extends ParserRuleContext_1.ParserRuleContext {
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
     elementSetSpecs() {
         return this.getRuleContext(0, ElementSetSpecsContext);
     }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_valueSet; }
+    get ruleIndex() { return grammar3rdParser.RULE_valueSet; }
     // @Override
     accept(visitor) {
         if (visitor.visitValueSet) {
@@ -9506,13 +9506,13 @@ class ElementSetSpecsContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
-    ELLIPSIS() { return this.tryGetToken(ASN_3gppParser.ELLIPSIS, 0); }
+    ELLIPSIS() { return this.tryGetToken(grammar3rdParser.ELLIPSIS, 0); }
     additionalElementSetSpec() {
         return this.tryGetRuleContext(0, AdditionalElementSetSpecContext);
     }
@@ -9520,7 +9520,7 @@ class ElementSetSpecsContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_elementSetSpecs; }
+    get ruleIndex() { return grammar3rdParser.RULE_elementSetSpecs; }
     // @Override
     accept(visitor) {
         if (visitor.visitElementSetSpecs) {
@@ -9540,7 +9540,7 @@ class RootElementSetSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_rootElementSetSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_rootElementSetSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitRootElementSetSpec) {
@@ -9560,7 +9560,7 @@ class AdditionalElementSetSpecContext extends ParserRuleContext_1.ParserRuleCont
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_additionalElementSetSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_additionalElementSetSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitAdditionalElementSetSpec) {
@@ -9576,7 +9576,7 @@ class ElementSetSpecContext extends ParserRuleContext_1.ParserRuleContext {
     unions() {
         return this.tryGetRuleContext(0, UnionsContext);
     }
-    ALL_LITERAL() { return this.tryGetToken(ASN_3gppParser.ALL_LITERAL, 0); }
+    ALL_LITERAL() { return this.tryGetToken(grammar3rdParser.ALL_LITERAL, 0); }
     exclusions() {
         return this.tryGetRuleContext(0, ExclusionsContext);
     }
@@ -9584,7 +9584,7 @@ class ElementSetSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_elementSetSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_elementSetSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitElementSetSpec) {
@@ -9617,7 +9617,7 @@ class UnionsContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_unions; }
+    get ruleIndex() { return grammar3rdParser.RULE_unions; }
     // @Override
     accept(visitor) {
         if (visitor.visitUnions) {
@@ -9630,7 +9630,7 @@ class UnionsContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.UnionsContext = UnionsContext;
 class ExclusionsContext extends ParserRuleContext_1.ParserRuleContext {
-    EXCEPT_LITERAL() { return this.getToken(ASN_3gppParser.EXCEPT_LITERAL, 0); }
+    EXCEPT_LITERAL() { return this.getToken(grammar3rdParser.EXCEPT_LITERAL, 0); }
     elements() {
         return this.getRuleContext(0, ElementsContext);
     }
@@ -9638,7 +9638,7 @@ class ExclusionsContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_exclusions; }
+    get ruleIndex() { return grammar3rdParser.RULE_exclusions; }
     // @Override
     accept(visitor) {
         if (visitor.visitExclusions) {
@@ -9671,7 +9671,7 @@ class IntersectionsContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_intersections; }
+    get ruleIndex() { return grammar3rdParser.RULE_intersections; }
     // @Override
     accept(visitor) {
         if (visitor.visitIntersections) {
@@ -9684,13 +9684,13 @@ class IntersectionsContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.IntersectionsContext = IntersectionsContext;
 class UnionMarkContext extends ParserRuleContext_1.ParserRuleContext {
-    PIPE() { return this.tryGetToken(ASN_3gppParser.PIPE, 0); }
-    UNION_LITERAL() { return this.tryGetToken(ASN_3gppParser.UNION_LITERAL, 0); }
+    PIPE() { return this.tryGetToken(grammar3rdParser.PIPE, 0); }
+    UNION_LITERAL() { return this.tryGetToken(grammar3rdParser.UNION_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_unionMark; }
+    get ruleIndex() { return grammar3rdParser.RULE_unionMark; }
     // @Override
     accept(visitor) {
         if (visitor.visitUnionMark) {
@@ -9703,13 +9703,13 @@ class UnionMarkContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.UnionMarkContext = UnionMarkContext;
 class IntersectionMarkContext extends ParserRuleContext_1.ParserRuleContext {
-    POWER() { return this.tryGetToken(ASN_3gppParser.POWER, 0); }
-    INTERSECTION_LITERAL() { return this.tryGetToken(ASN_3gppParser.INTERSECTION_LITERAL, 0); }
+    POWER() { return this.tryGetToken(grammar3rdParser.POWER, 0); }
+    INTERSECTION_LITERAL() { return this.tryGetToken(grammar3rdParser.INTERSECTION_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_intersectionMark; }
+    get ruleIndex() { return grammar3rdParser.RULE_intersectionMark; }
     // @Override
     accept(visitor) {
         if (visitor.visitIntersectionMark) {
@@ -9729,7 +9729,7 @@ class ElementsContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_elements; }
+    get ruleIndex() { return grammar3rdParser.RULE_elements; }
     // @Override
     accept(visitor) {
         if (visitor.visitElements) {
@@ -9752,7 +9752,7 @@ class ObjectSetElementsContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectSetElements; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectSetElements; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectSetElements) {
@@ -9775,7 +9775,7 @@ class IntersectionElementsContext extends ParserRuleContext_1.ParserRuleContext 
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_intersectionElements; }
+    get ruleIndex() { return grammar3rdParser.RULE_intersectionElements; }
     // @Override
     accept(visitor) {
         if (visitor.visitIntersectionElements) {
@@ -9788,7 +9788,7 @@ class IntersectionElementsContext extends ParserRuleContext_1.ParserRuleContext 
 }
 exports.IntersectionElementsContext = IntersectionElementsContext;
 class SubtypeElementsContext extends ParserRuleContext_1.ParserRuleContext {
-    DOUBLE_DOT() { return this.tryGetToken(ASN_3gppParser.DOUBLE_DOT, 0); }
+    DOUBLE_DOT() { return this.tryGetToken(grammar3rdParser.DOUBLE_DOT, 0); }
     value(i) {
         if (i === undefined) {
             return this.getRuleContexts(ValueContext);
@@ -9797,25 +9797,25 @@ class SubtypeElementsContext extends ParserRuleContext_1.ParserRuleContext {
             return this.getRuleContext(i, ValueContext);
         }
     }
-    MIN_LITERAL() { return this.tryGetToken(ASN_3gppParser.MIN_LITERAL, 0); }
-    MAX_LITERAL() { return this.tryGetToken(ASN_3gppParser.MAX_LITERAL, 0); }
+    MIN_LITERAL() { return this.tryGetToken(grammar3rdParser.MIN_LITERAL, 0); }
+    MAX_LITERAL() { return this.tryGetToken(grammar3rdParser.MAX_LITERAL, 0); }
     LESS_THAN(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.LESS_THAN);
+            return this.getTokens(grammar3rdParser.LESS_THAN);
         }
         else {
-            return this.getToken(ASN_3gppParser.LESS_THAN, i);
+            return this.getToken(grammar3rdParser.LESS_THAN, i);
         }
     }
     sizeConstraint() {
         return this.tryGetRuleContext(0, SizeConstraintContext);
     }
-    PATTERN_LITERAL() { return this.tryGetToken(ASN_3gppParser.PATTERN_LITERAL, 0); }
+    PATTERN_LITERAL() { return this.tryGetToken(grammar3rdParser.PATTERN_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_subtypeElements; }
+    get ruleIndex() { return grammar3rdParser.RULE_subtypeElements; }
     // @Override
     accept(visitor) {
         if (visitor.visitSubtypeElements) {
@@ -9828,8 +9828,8 @@ class SubtypeElementsContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.SubtypeElementsContext = SubtypeElementsContext;
 class VariableTypeValueSetFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    AMPERSAND() { return this.getToken(ASN_3gppParser.AMPERSAND, 0); }
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    AMPERSAND() { return this.getToken(grammar3rdParser.AMPERSAND, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     fieldName() {
         return this.getRuleContext(0, FieldNameContext);
     }
@@ -9840,7 +9840,7 @@ class VariableTypeValueSetFieldSpecContext extends ParserRuleContext_1.ParserRul
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_variableTypeValueSetFieldSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_variableTypeValueSetFieldSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitVariableTypeValueSetFieldSpec) {
@@ -9853,8 +9853,8 @@ class VariableTypeValueSetFieldSpecContext extends ParserRuleContext_1.ParserRul
 }
 exports.VariableTypeValueSetFieldSpecContext = VariableTypeValueSetFieldSpecContext;
 class ObjectFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    AMPERSAND() { return this.getToken(ASN_3gppParser.AMPERSAND, 0); }
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    AMPERSAND() { return this.getToken(grammar3rdParser.AMPERSAND, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     definedObjectClass() {
         return this.getRuleContext(0, DefinedObjectClassContext);
     }
@@ -9865,7 +9865,7 @@ class ObjectFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectFieldSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectFieldSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectFieldSpec) {
@@ -9878,8 +9878,8 @@ class ObjectFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ObjectFieldSpecContext = ObjectFieldSpecContext;
 class ObjectOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext {
-    OPTIONAL_LITERAL() { return this.tryGetToken(ASN_3gppParser.OPTIONAL_LITERAL, 0); }
-    DEFAULT_LITERAL() { return this.tryGetToken(ASN_3gppParser.DEFAULT_LITERAL, 0); }
+    OPTIONAL_LITERAL() { return this.tryGetToken(grammar3rdParser.OPTIONAL_LITERAL, 0); }
+    DEFAULT_LITERAL() { return this.tryGetToken(grammar3rdParser.DEFAULT_LITERAL, 0); }
     object() {
         return this.tryGetRuleContext(0, ObjectContext);
     }
@@ -9887,7 +9887,7 @@ class ObjectOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectOptionalitySpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectOptionalitySpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectOptionalitySpec) {
@@ -9900,8 +9900,8 @@ class ObjectOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext
 }
 exports.ObjectOptionalitySpecContext = ObjectOptionalitySpecContext;
 class ObjectSetFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    AMPERSAND() { return this.getToken(ASN_3gppParser.AMPERSAND, 0); }
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    AMPERSAND() { return this.getToken(grammar3rdParser.AMPERSAND, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     definedObjectClass() {
         return this.getRuleContext(0, DefinedObjectClassContext);
     }
@@ -9912,7 +9912,7 @@ class ObjectSetFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectSetFieldSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectSetFieldSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectSetFieldSpec) {
@@ -9925,8 +9925,8 @@ class ObjectSetFieldSpecContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ObjectSetFieldSpecContext = ObjectSetFieldSpecContext;
 class ObjectSetOptionalitySpecContext extends ParserRuleContext_1.ParserRuleContext {
-    OPTIONAL_LITERAL() { return this.tryGetToken(ASN_3gppParser.OPTIONAL_LITERAL, 0); }
-    DEFAULT_LITERAL() { return this.tryGetToken(ASN_3gppParser.DEFAULT_LITERAL, 0); }
+    OPTIONAL_LITERAL() { return this.tryGetToken(grammar3rdParser.OPTIONAL_LITERAL, 0); }
+    DEFAULT_LITERAL() { return this.tryGetToken(grammar3rdParser.DEFAULT_LITERAL, 0); }
     objectSet() {
         return this.tryGetRuleContext(0, ObjectSetContext);
     }
@@ -9934,7 +9934,7 @@ class ObjectSetOptionalitySpecContext extends ParserRuleContext_1.ParserRuleCont
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectSetOptionalitySpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectSetOptionalitySpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectSetOptionalitySpec) {
@@ -9947,7 +9947,7 @@ class ObjectSetOptionalitySpecContext extends ParserRuleContext_1.ParserRuleCont
 }
 exports.ObjectSetOptionalitySpecContext = ObjectSetOptionalitySpecContext;
 class TypeAssignmentContext extends ParserRuleContext_1.ParserRuleContext {
-    ASSIGN_OP() { return this.getToken(ASN_3gppParser.ASSIGN_OP, 0); }
+    ASSIGN_OP() { return this.getToken(grammar3rdParser.ASSIGN_OP, 0); }
     asnType() {
         return this.getRuleContext(0, AsnTypeContext);
     }
@@ -9955,7 +9955,7 @@ class TypeAssignmentContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_typeAssignment; }
+    get ruleIndex() { return grammar3rdParser.RULE_typeAssignment; }
     // @Override
     accept(visitor) {
         if (visitor.visitTypeAssignment) {
@@ -9971,7 +9971,7 @@ class ValueAssignmentContext extends ParserRuleContext_1.ParserRuleContext {
     asnType() {
         return this.getRuleContext(0, AsnTypeContext);
     }
-    ASSIGN_OP() { return this.getToken(ASN_3gppParser.ASSIGN_OP, 0); }
+    ASSIGN_OP() { return this.getToken(grammar3rdParser.ASSIGN_OP, 0); }
     value() {
         return this.getRuleContext(0, ValueContext);
     }
@@ -9979,7 +9979,7 @@ class ValueAssignmentContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_valueAssignment; }
+    get ruleIndex() { return grammar3rdParser.RULE_valueAssignment; }
     // @Override
     accept(visitor) {
         if (visitor.visitValueAssignment) {
@@ -10010,7 +10010,7 @@ class AsnTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_asnType; }
+    get ruleIndex() { return grammar3rdParser.RULE_asnType; }
     // @Override
     accept(visitor) {
         if (visitor.visitAsnType) {
@@ -10059,13 +10059,13 @@ class BuiltinTypeContext extends ParserRuleContext_1.ParserRuleContext {
     objectClassFieldType() {
         return this.tryGetRuleContext(0, ObjectClassFieldTypeContext);
     }
-    BOOLEAN_LITERAL() { return this.tryGetToken(ASN_3gppParser.BOOLEAN_LITERAL, 0); }
-    NULL_LITERAL() { return this.tryGetToken(ASN_3gppParser.NULL_LITERAL, 0); }
+    BOOLEAN_LITERAL() { return this.tryGetToken(grammar3rdParser.BOOLEAN_LITERAL, 0); }
+    NULL_LITERAL() { return this.tryGetToken(grammar3rdParser.NULL_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_builtinType; }
+    get ruleIndex() { return grammar3rdParser.RULE_builtinType; }
     // @Override
     accept(visitor) {
         if (visitor.visitBuiltinType) {
@@ -10085,7 +10085,7 @@ class CharacterStringTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_characterStringType; }
+    get ruleIndex() { return grammar3rdParser.RULE_characterStringType; }
     // @Override
     accept(visitor) {
         if (visitor.visitCharacterStringType) {
@@ -10098,23 +10098,23 @@ class CharacterStringTypeContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.CharacterStringTypeContext = CharacterStringTypeContext;
 class RestrictedCharacterStringTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    BMP_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.BMP_STRING_LITERAL, 0); }
-    GRAPHIC_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.GRAPHIC_STRING_LITERAL, 0); }
-    IA5_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.IA5_STRING_LITERAL, 0); }
-    ISO646_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.ISO646_STRING_LITERAL, 0); }
-    NUMERIC_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.NUMERIC_STRING_LITERAL, 0); }
-    PRINTABLE_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.PRINTABLE_STRING_LITERAL, 0); }
-    TELETEXT_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.TELETEXT_STRING_LITERAL, 0); }
-    T61_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.T61_STRING_LITERAL, 0); }
-    UNIVERSAL_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.UNIVERSAL_STRING_LITERAL, 0); }
-    UTF8_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.UTF8_STRING_LITERAL, 0); }
-    VIDEOTEX_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.VIDEOTEX_STRING_LITERAL, 0); }
-    VISIBLE_STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.VISIBLE_STRING_LITERAL, 0); }
+    BMP_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.BMP_STRING_LITERAL, 0); }
+    GRAPHIC_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.GRAPHIC_STRING_LITERAL, 0); }
+    IA5_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.IA5_STRING_LITERAL, 0); }
+    ISO646_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.ISO646_STRING_LITERAL, 0); }
+    NUMERIC_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.NUMERIC_STRING_LITERAL, 0); }
+    PRINTABLE_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.PRINTABLE_STRING_LITERAL, 0); }
+    TELETEXT_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.TELETEXT_STRING_LITERAL, 0); }
+    T61_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.T61_STRING_LITERAL, 0); }
+    UNIVERSAL_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.UNIVERSAL_STRING_LITERAL, 0); }
+    UTF8_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.UTF8_STRING_LITERAL, 0); }
+    VIDEOTEX_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.VIDEOTEX_STRING_LITERAL, 0); }
+    VISIBLE_STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.VISIBLE_STRING_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_restrictedCharacterStringType; }
+    get ruleIndex() { return grammar3rdParser.RULE_restrictedCharacterStringType; }
     // @Override
     accept(visitor) {
         if (visitor.visitRestrictedCharacterStringType) {
@@ -10130,7 +10130,7 @@ class ObjectClassFieldTypeContext extends ParserRuleContext_1.ParserRuleContext 
     definedObjectClass() {
         return this.getRuleContext(0, DefinedObjectClassContext);
     }
-    DOT() { return this.getToken(ASN_3gppParser.DOT, 0); }
+    DOT() { return this.getToken(grammar3rdParser.DOT, 0); }
     fieldName() {
         return this.getRuleContext(0, FieldNameContext);
     }
@@ -10138,7 +10138,7 @@ class ObjectClassFieldTypeContext extends ParserRuleContext_1.ParserRuleContext 
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectClassFieldType; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectClassFieldType; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectClassFieldType) {
@@ -10151,9 +10151,9 @@ class ObjectClassFieldTypeContext extends ParserRuleContext_1.ParserRuleContext 
 }
 exports.ObjectClassFieldTypeContext = ObjectClassFieldTypeContext;
 class SetTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    SET_LITERAL() { return this.getToken(ASN_3gppParser.SET_LITERAL, 0); }
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    SET_LITERAL() { return this.getToken(grammar3rdParser.SET_LITERAL, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     extensionAndException() {
         return this.tryGetRuleContext(0, ExtensionAndExceptionContext);
     }
@@ -10167,7 +10167,7 @@ class SetTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_setType; }
+    get ruleIndex() { return grammar3rdParser.RULE_setType; }
     // @Override
     accept(visitor) {
         if (visitor.visitSetType) {
@@ -10180,8 +10180,8 @@ class SetTypeContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.SetTypeContext = SetTypeContext;
 class SetOfTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    SET_LITERAL() { return this.getToken(ASN_3gppParser.SET_LITERAL, 0); }
-    OF_LITERAL() { return this.getToken(ASN_3gppParser.OF_LITERAL, 0); }
+    SET_LITERAL() { return this.getToken(grammar3rdParser.SET_LITERAL, 0); }
+    OF_LITERAL() { return this.getToken(grammar3rdParser.OF_LITERAL, 0); }
     asnType() {
         return this.tryGetRuleContext(0, AsnTypeContext);
     }
@@ -10198,7 +10198,7 @@ class SetOfTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_setOfType; }
+    get ruleIndex() { return grammar3rdParser.RULE_setOfType; }
     // @Override
     accept(visitor) {
         if (visitor.visitSetOfType) {
@@ -10218,7 +10218,7 @@ class ReferencedTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_referencedType; }
+    get ruleIndex() { return grammar3rdParser.RULE_referencedType; }
     // @Override
     accept(visitor) {
         if (visitor.visitReferencedType) {
@@ -10233,13 +10233,13 @@ exports.ReferencedTypeContext = ReferencedTypeContext;
 class DefinedTypeContext extends ParserRuleContext_1.ParserRuleContext {
     IDENTIFIER(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.IDENTIFIER);
+            return this.getTokens(grammar3rdParser.IDENTIFIER);
         }
         else {
-            return this.getToken(ASN_3gppParser.IDENTIFIER, i);
+            return this.getToken(grammar3rdParser.IDENTIFIER, i);
         }
     }
-    DOT() { return this.tryGetToken(ASN_3gppParser.DOT, 0); }
+    DOT() { return this.tryGetToken(grammar3rdParser.DOT, 0); }
     actualParameterList() {
         return this.tryGetRuleContext(0, ActualParameterListContext);
     }
@@ -10247,7 +10247,7 @@ class DefinedTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_definedType; }
+    get ruleIndex() { return grammar3rdParser.RULE_definedType; }
     // @Override
     accept(visitor) {
         if (visitor.visitDefinedType) {
@@ -10260,11 +10260,11 @@ class DefinedTypeContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.DefinedTypeContext = DefinedTypeContext;
 class ConstraintContext extends ParserRuleContext_1.ParserRuleContext {
-    L_PARAN() { return this.getToken(ASN_3gppParser.L_PARAN, 0); }
+    L_PARAN() { return this.getToken(grammar3rdParser.L_PARAN, 0); }
     constraintSpec() {
         return this.getRuleContext(0, ConstraintSpecContext);
     }
-    R_PARAN() { return this.getToken(ASN_3gppParser.R_PARAN, 0); }
+    R_PARAN() { return this.getToken(grammar3rdParser.R_PARAN, 0); }
     exceptionSpec() {
         return this.tryGetRuleContext(0, ExceptionSpecContext);
     }
@@ -10272,7 +10272,7 @@ class ConstraintContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_constraint; }
+    get ruleIndex() { return grammar3rdParser.RULE_constraint; }
     // @Override
     accept(visitor) {
         if (visitor.visitConstraint) {
@@ -10295,7 +10295,7 @@ class ConstraintSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_constraintSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_constraintSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitConstraintSpec) {
@@ -10308,9 +10308,9 @@ class ConstraintSpecContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ConstraintSpecContext = ConstraintSpecContext;
 class UserDefinedConstraintContext extends ParserRuleContext_1.ParserRuleContext {
-    CONSTRAINED_LITERAL() { return this.getToken(ASN_3gppParser.CONSTRAINED_LITERAL, 0); }
-    BY_LITERAL() { return this.getToken(ASN_3gppParser.BY_LITERAL, 0); }
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
+    CONSTRAINED_LITERAL() { return this.getToken(grammar3rdParser.CONSTRAINED_LITERAL, 0); }
+    BY_LITERAL() { return this.getToken(grammar3rdParser.BY_LITERAL, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
     userDefinedConstraintParameter(i) {
         if (i === undefined) {
             return this.getRuleContexts(UserDefinedConstraintParameterContext);
@@ -10319,20 +10319,20 @@ class UserDefinedConstraintContext extends ParserRuleContext_1.ParserRuleContext
             return this.getRuleContext(i, UserDefinedConstraintParameterContext);
         }
     }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_userDefinedConstraint; }
+    get ruleIndex() { return grammar3rdParser.RULE_userDefinedConstraint; }
     // @Override
     accept(visitor) {
         if (visitor.visitUserDefinedConstraint) {
@@ -10358,7 +10358,7 @@ class GeneralConstraintContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_generalConstraint; }
+    get ruleIndex() { return grammar3rdParser.RULE_generalConstraint; }
     // @Override
     accept(visitor) {
         if (visitor.visitGeneralConstraint) {
@@ -10374,7 +10374,7 @@ class UserDefinedConstraintParameterContext extends ParserRuleContext_1.ParserRu
     governor() {
         return this.getRuleContext(0, GovernorContext);
     }
-    COLON() { return this.tryGetToken(ASN_3gppParser.COLON, 0); }
+    COLON() { return this.tryGetToken(grammar3rdParser.COLON, 0); }
     value() {
         return this.tryGetRuleContext(0, ValueContext);
     }
@@ -10391,7 +10391,7 @@ class UserDefinedConstraintParameterContext extends ParserRuleContext_1.ParserRu
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_userDefinedConstraintParameter; }
+    get ruleIndex() { return grammar3rdParser.RULE_userDefinedConstraintParameter; }
     // @Override
     accept(visitor) {
         if (visitor.visitUserDefinedConstraintParameter) {
@@ -10411,7 +10411,7 @@ class TableConstraintContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_tableConstraint; }
+    get ruleIndex() { return grammar3rdParser.RULE_tableConstraint; }
     // @Override
     accept(visitor) {
         if (visitor.visitTableConstraint) {
@@ -10431,7 +10431,7 @@ class SimpleTableConstraintContext extends ParserRuleContext_1.ParserRuleContext
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_simpleTableConstraint; }
+    get ruleIndex() { return grammar3rdParser.RULE_simpleTableConstraint; }
     // @Override
     accept(visitor) {
         if (visitor.visitSimpleTableConstraint) {
@@ -10444,27 +10444,27 @@ class SimpleTableConstraintContext extends ParserRuleContext_1.ParserRuleContext
 }
 exports.SimpleTableConstraintContext = SimpleTableConstraintContext;
 class ContentsConstraintContext extends ParserRuleContext_1.ParserRuleContext {
-    CONTAINING_LITERAL() { return this.tryGetToken(ASN_3gppParser.CONTAINING_LITERAL, 0); }
+    CONTAINING_LITERAL() { return this.tryGetToken(grammar3rdParser.CONTAINING_LITERAL, 0); }
     asnType() {
         return this.tryGetRuleContext(0, AsnTypeContext);
     }
-    ENCODED_LITERAL() { return this.tryGetToken(ASN_3gppParser.ENCODED_LITERAL, 0); }
-    BY_LITERAL() { return this.tryGetToken(ASN_3gppParser.BY_LITERAL, 0); }
+    ENCODED_LITERAL() { return this.tryGetToken(grammar3rdParser.ENCODED_LITERAL, 0); }
+    BY_LITERAL() { return this.tryGetToken(grammar3rdParser.BY_LITERAL, 0); }
     value() {
         return this.tryGetRuleContext(0, ValueContext);
     }
-    WITH_LITERAL() { return this.tryGetToken(ASN_3gppParser.WITH_LITERAL, 0); }
-    COMPONENTS_LITERAL() { return this.tryGetToken(ASN_3gppParser.COMPONENTS_LITERAL, 0); }
-    L_BRACE() { return this.tryGetToken(ASN_3gppParser.L_BRACE, 0); }
+    WITH_LITERAL() { return this.tryGetToken(grammar3rdParser.WITH_LITERAL, 0); }
+    COMPONENTS_LITERAL() { return this.tryGetToken(grammar3rdParser.COMPONENTS_LITERAL, 0); }
+    L_BRACE() { return this.tryGetToken(grammar3rdParser.L_BRACE, 0); }
     componentPresenceLists() {
         return this.tryGetRuleContext(0, ComponentPresenceListsContext);
     }
-    R_BRACE() { return this.tryGetToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.tryGetToken(grammar3rdParser.R_BRACE, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_contentsConstraint; }
+    get ruleIndex() { return grammar3rdParser.RULE_contentsConstraint; }
     // @Override
     accept(visitor) {
         if (visitor.visitContentsConstraint) {
@@ -10487,18 +10487,18 @@ class ComponentPresenceListsContext extends ParserRuleContext_1.ParserRuleContex
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
-    ELLIPSIS() { return this.tryGetToken(ASN_3gppParser.ELLIPSIS, 0); }
+    ELLIPSIS() { return this.tryGetToken(grammar3rdParser.ELLIPSIS, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_componentPresenceLists; }
+    get ruleIndex() { return grammar3rdParser.RULE_componentPresenceLists; }
     // @Override
     accept(visitor) {
         if (visitor.visitComponentPresenceLists) {
@@ -10521,17 +10521,17 @@ class ComponentPresenceListContext extends ParserRuleContext_1.ParserRuleContext
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_componentPresenceList; }
+    get ruleIndex() { return grammar3rdParser.RULE_componentPresenceList; }
     // @Override
     accept(visitor) {
         if (visitor.visitComponentPresenceList) {
@@ -10544,14 +10544,14 @@ class ComponentPresenceListContext extends ParserRuleContext_1.ParserRuleContext
 }
 exports.ComponentPresenceListContext = ComponentPresenceListContext;
 class ComponentPresenceContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
-    ABSENT_LITERAL() { return this.tryGetToken(ASN_3gppParser.ABSENT_LITERAL, 0); }
-    PRESENT_LITERAL() { return this.tryGetToken(ASN_3gppParser.PRESENT_LITERAL, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
+    ABSENT_LITERAL() { return this.tryGetToken(grammar3rdParser.ABSENT_LITERAL, 0); }
+    PRESENT_LITERAL() { return this.tryGetToken(grammar3rdParser.PRESENT_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_componentPresence; }
+    get ruleIndex() { return grammar3rdParser.RULE_componentPresence; }
     // @Override
     accept(visitor) {
         if (visitor.visitComponentPresence) {
@@ -10571,7 +10571,7 @@ class SubtypeConstraintContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_subtypeConstraint; }
+    get ruleIndex() { return grammar3rdParser.RULE_subtypeConstraint; }
     // @Override
     accept(visitor) {
         if (visitor.visitSubtypeConstraint) {
@@ -10591,7 +10591,7 @@ class ValueContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_value; }
+    get ruleIndex() { return grammar3rdParser.RULE_value; }
     // @Override
     accept(visitor) {
         if (visitor.visitValue) {
@@ -10619,13 +10619,13 @@ class BuiltinValueContext extends ParserRuleContext_1.ParserRuleContext {
     booleanValue() {
         return this.tryGetRuleContext(0, BooleanValueContext);
     }
-    CSTRING() { return this.tryGetToken(ASN_3gppParser.CSTRING, 0); }
-    BSTRING() { return this.tryGetToken(ASN_3gppParser.BSTRING, 0); }
+    CSTRING() { return this.tryGetToken(grammar3rdParser.CSTRING, 0); }
+    BSTRING() { return this.tryGetToken(grammar3rdParser.BSTRING, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_builtinValue; }
+    get ruleIndex() { return grammar3rdParser.RULE_builtinValue; }
     // @Override
     accept(visitor) {
         if (visitor.visitBuiltinValue) {
@@ -10638,16 +10638,16 @@ class BuiltinValueContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.BuiltinValueContext = BuiltinValueContext;
 class ObjectIdentifierValueContext extends ParserRuleContext_1.ParserRuleContext {
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
     objIdComponentsList() {
         return this.getRuleContext(0, ObjIdComponentsListContext);
     }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectIdentifierValue; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectIdentifierValue; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectIdentifierValue) {
@@ -10672,7 +10672,7 @@ class ObjIdComponentsListContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objIdComponentsList; }
+    get ruleIndex() { return grammar3rdParser.RULE_objIdComponentsList; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjIdComponentsList) {
@@ -10685,10 +10685,10 @@ class ObjIdComponentsListContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ObjIdComponentsListContext = ObjIdComponentsListContext;
 class ObjIdComponentsContext extends ParserRuleContext_1.ParserRuleContext {
-    NUMBER() { return this.tryGetToken(ASN_3gppParser.NUMBER, 0); }
-    IDENTIFIER() { return this.tryGetToken(ASN_3gppParser.IDENTIFIER, 0); }
-    L_PARAN() { return this.tryGetToken(ASN_3gppParser.L_PARAN, 0); }
-    R_PARAN() { return this.tryGetToken(ASN_3gppParser.R_PARAN, 0); }
+    NUMBER() { return this.tryGetToken(grammar3rdParser.NUMBER, 0); }
+    IDENTIFIER() { return this.tryGetToken(grammar3rdParser.IDENTIFIER, 0); }
+    L_PARAN() { return this.tryGetToken(grammar3rdParser.L_PARAN, 0); }
+    R_PARAN() { return this.tryGetToken(grammar3rdParser.R_PARAN, 0); }
     definedValue() {
         return this.tryGetRuleContext(0, DefinedValueContext);
     }
@@ -10702,7 +10702,7 @@ class ObjIdComponentsContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objIdComponents; }
+    get ruleIndex() { return grammar3rdParser.RULE_objIdComponents; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjIdComponents) {
@@ -10718,12 +10718,12 @@ class IntegerValueContext extends ParserRuleContext_1.ParserRuleContext {
     signedNumber() {
         return this.tryGetRuleContext(0, SignedNumberContext);
     }
-    IDENTIFIER() { return this.tryGetToken(ASN_3gppParser.IDENTIFIER, 0); }
+    IDENTIFIER() { return this.tryGetToken(grammar3rdParser.IDENTIFIER, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_integerValue; }
+    get ruleIndex() { return grammar3rdParser.RULE_integerValue; }
     // @Override
     accept(visitor) {
         if (visitor.visitIntegerValue) {
@@ -10736,8 +10736,8 @@ class IntegerValueContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.IntegerValueContext = IntegerValueContext;
 class ChoiceValueContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
-    COLON() { return this.getToken(ASN_3gppParser.COLON, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
+    COLON() { return this.getToken(grammar3rdParser.COLON, 0); }
     value() {
         return this.getRuleContext(0, ValueContext);
     }
@@ -10745,7 +10745,7 @@ class ChoiceValueContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_choiceValue; }
+    get ruleIndex() { return grammar3rdParser.RULE_choiceValue; }
     // @Override
     accept(visitor) {
         if (visitor.visitChoiceValue) {
@@ -10758,12 +10758,12 @@ class ChoiceValueContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ChoiceValueContext = ChoiceValueContext;
 class EnumeratedValueContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_enumeratedValue; }
+    get ruleIndex() { return grammar3rdParser.RULE_enumeratedValue; }
     // @Override
     accept(visitor) {
         if (visitor.visitEnumeratedValue) {
@@ -10776,13 +10776,13 @@ class EnumeratedValueContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.EnumeratedValueContext = EnumeratedValueContext;
 class SignedNumberContext extends ParserRuleContext_1.ParserRuleContext {
-    NUMBER() { return this.getToken(ASN_3gppParser.NUMBER, 0); }
-    MINUS() { return this.tryGetToken(ASN_3gppParser.MINUS, 0); }
+    NUMBER() { return this.getToken(grammar3rdParser.NUMBER, 0); }
+    MINUS() { return this.tryGetToken(grammar3rdParser.MINUS, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_signedNumber; }
+    get ruleIndex() { return grammar3rdParser.RULE_signedNumber; }
     // @Override
     accept(visitor) {
         if (visitor.visitSignedNumber) {
@@ -10795,17 +10795,17 @@ class SignedNumberContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.SignedNumberContext = SignedNumberContext;
 class ChoiceTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    CHOICE_LITERAL() { return this.getToken(ASN_3gppParser.CHOICE_LITERAL, 0); }
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
+    CHOICE_LITERAL() { return this.getToken(grammar3rdParser.CHOICE_LITERAL, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
     alternativeTypeLists() {
         return this.getRuleContext(0, AlternativeTypeListsContext);
     }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_choiceType; }
+    get ruleIndex() { return grammar3rdParser.RULE_choiceType; }
     // @Override
     accept(visitor) {
         if (visitor.visitChoiceType) {
@@ -10821,7 +10821,7 @@ class AlternativeTypeListsContext extends ParserRuleContext_1.ParserRuleContext 
     rootAlternativeTypeList() {
         return this.getRuleContext(0, RootAlternativeTypeListContext);
     }
-    COMMA() { return this.tryGetToken(ASN_3gppParser.COMMA, 0); }
+    COMMA() { return this.tryGetToken(grammar3rdParser.COMMA, 0); }
     extensionAndException() {
         return this.tryGetRuleContext(0, ExtensionAndExceptionContext);
     }
@@ -10835,7 +10835,7 @@ class AlternativeTypeListsContext extends ParserRuleContext_1.ParserRuleContext 
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_alternativeTypeLists; }
+    get ruleIndex() { return grammar3rdParser.RULE_alternativeTypeLists; }
     // @Override
     accept(visitor) {
         if (visitor.visitAlternativeTypeLists) {
@@ -10848,7 +10848,7 @@ class AlternativeTypeListsContext extends ParserRuleContext_1.ParserRuleContext 
 }
 exports.AlternativeTypeListsContext = AlternativeTypeListsContext;
 class ExtensionAdditionAlternativesContext extends ParserRuleContext_1.ParserRuleContext {
-    COMMA() { return this.tryGetToken(ASN_3gppParser.COMMA, 0); }
+    COMMA() { return this.tryGetToken(grammar3rdParser.COMMA, 0); }
     extensionAdditionAlternativesList() {
         return this.tryGetRuleContext(0, ExtensionAdditionAlternativesListContext);
     }
@@ -10856,7 +10856,7 @@ class ExtensionAdditionAlternativesContext extends ParserRuleContext_1.ParserRul
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionAdditionAlternatives; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionAdditionAlternatives; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionAdditionAlternatives) {
@@ -10879,17 +10879,17 @@ class ExtensionAdditionAlternativesListContext extends ParserRuleContext_1.Parse
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionAdditionAlternativesList; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionAdditionAlternativesList; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionAdditionAlternativesList) {
@@ -10912,7 +10912,7 @@ class ExtensionAdditionAlternativeContext extends ParserRuleContext_1.ParserRule
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionAdditionAlternative; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionAdditionAlternative; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionAdditionAlternative) {
@@ -10925,19 +10925,19 @@ class ExtensionAdditionAlternativeContext extends ParserRuleContext_1.ParserRule
 }
 exports.ExtensionAdditionAlternativeContext = ExtensionAdditionAlternativeContext;
 class ExtensionAdditionAlternativesGroupContext extends ParserRuleContext_1.ParserRuleContext {
-    DOUBLE_L_BRACKET() { return this.getToken(ASN_3gppParser.DOUBLE_L_BRACKET, 0); }
+    DOUBLE_L_BRACKET() { return this.getToken(grammar3rdParser.DOUBLE_L_BRACKET, 0); }
     versionNumber() {
         return this.getRuleContext(0, VersionNumberContext);
     }
     alternativeTypeList() {
         return this.getRuleContext(0, AlternativeTypeListContext);
     }
-    DOUBLE_R_BRACKET() { return this.getToken(ASN_3gppParser.DOUBLE_R_BRACKET, 0); }
+    DOUBLE_R_BRACKET() { return this.getToken(grammar3rdParser.DOUBLE_R_BRACKET, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_extensionAdditionAlternativesGroup; }
+    get ruleIndex() { return grammar3rdParser.RULE_extensionAdditionAlternativesGroup; }
     // @Override
     accept(visitor) {
         if (visitor.visitExtensionAdditionAlternativesGroup) {
@@ -10957,7 +10957,7 @@ class RootAlternativeTypeListContext extends ParserRuleContext_1.ParserRuleConte
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_rootAlternativeTypeList; }
+    get ruleIndex() { return grammar3rdParser.RULE_rootAlternativeTypeList; }
     // @Override
     accept(visitor) {
         if (visitor.visitRootAlternativeTypeList) {
@@ -10980,17 +10980,17 @@ class AlternativeTypeListContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_alternativeTypeList; }
+    get ruleIndex() { return grammar3rdParser.RULE_alternativeTypeList; }
     // @Override
     accept(visitor) {
         if (visitor.visitAlternativeTypeList) {
@@ -11003,7 +11003,7 @@ class AlternativeTypeListContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.AlternativeTypeListContext = AlternativeTypeListContext;
 class NamedTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
     asnType() {
         return this.getRuleContext(0, AsnTypeContext);
     }
@@ -11011,7 +11011,7 @@ class NamedTypeContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_namedType; }
+    get ruleIndex() { return grammar3rdParser.RULE_namedType; }
     // @Override
     accept(visitor) {
         if (visitor.visitNamedType) {
@@ -11024,17 +11024,17 @@ class NamedTypeContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.NamedTypeContext = NamedTypeContext;
 class EnumeratedTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    ENUMERATED_LITERAL() { return this.getToken(ASN_3gppParser.ENUMERATED_LITERAL, 0); }
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
+    ENUMERATED_LITERAL() { return this.getToken(grammar3rdParser.ENUMERATED_LITERAL, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
     enumerations() {
         return this.getRuleContext(0, EnumerationsContext);
     }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_enumeratedType; }
+    get ruleIndex() { return grammar3rdParser.RULE_enumeratedType; }
     // @Override
     accept(visitor) {
         if (visitor.visitEnumeratedType) {
@@ -11052,13 +11052,13 @@ class EnumerationsContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
-    ELLIPSIS() { return this.tryGetToken(ASN_3gppParser.ELLIPSIS, 0); }
+    ELLIPSIS() { return this.tryGetToken(grammar3rdParser.ELLIPSIS, 0); }
     exceptionSpec() {
         return this.tryGetRuleContext(0, ExceptionSpecContext);
     }
@@ -11069,7 +11069,7 @@ class EnumerationsContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_enumerations; }
+    get ruleIndex() { return grammar3rdParser.RULE_enumerations; }
     // @Override
     accept(visitor) {
         if (visitor.visitEnumerations) {
@@ -11089,7 +11089,7 @@ class RootEnumerationContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_rootEnumeration; }
+    get ruleIndex() { return grammar3rdParser.RULE_rootEnumeration; }
     // @Override
     accept(visitor) {
         if (visitor.visitRootEnumeration) {
@@ -11112,17 +11112,17 @@ class EnumerationContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_enumeration; }
+    get ruleIndex() { return grammar3rdParser.RULE_enumeration; }
     // @Override
     accept(visitor) {
         if (visitor.visitEnumeration) {
@@ -11135,7 +11135,7 @@ class EnumerationContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.EnumerationContext = EnumerationContext;
 class EnumerationItemContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.tryGetToken(ASN_3gppParser.IDENTIFIER, 0); }
+    IDENTIFIER() { return this.tryGetToken(grammar3rdParser.IDENTIFIER, 0); }
     namedNumber() {
         return this.tryGetRuleContext(0, NamedNumberContext);
     }
@@ -11146,7 +11146,7 @@ class EnumerationItemContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_enumerationItem; }
+    get ruleIndex() { return grammar3rdParser.RULE_enumerationItem; }
     // @Override
     accept(visitor) {
         if (visitor.visitEnumerationItem) {
@@ -11159,9 +11159,9 @@ class EnumerationItemContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.EnumerationItemContext = EnumerationItemContext;
 class NamedNumberContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
-    L_PARAN() { return this.getToken(ASN_3gppParser.L_PARAN, 0); }
-    R_PARAN() { return this.getToken(ASN_3gppParser.R_PARAN, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
+    L_PARAN() { return this.getToken(grammar3rdParser.L_PARAN, 0); }
+    R_PARAN() { return this.getToken(grammar3rdParser.R_PARAN, 0); }
     signedNumber() {
         return this.tryGetRuleContext(0, SignedNumberContext);
     }
@@ -11172,7 +11172,7 @@ class NamedNumberContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_namedNumber; }
+    get ruleIndex() { return grammar3rdParser.RULE_namedNumber; }
     // @Override
     accept(visitor) {
         if (visitor.visitNamedNumber) {
@@ -11192,7 +11192,7 @@ class DefinedValueContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_definedValue; }
+    get ruleIndex() { return grammar3rdParser.RULE_definedValue; }
     // @Override
     accept(visitor) {
         if (visitor.visitDefinedValue) {
@@ -11215,7 +11215,7 @@ class ParameterizedValueContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_parameterizedValue; }
+    get ruleIndex() { return grammar3rdParser.RULE_parameterizedValue; }
     // @Override
     accept(visitor) {
         if (visitor.visitParameterizedValue) {
@@ -11230,18 +11230,18 @@ exports.ParameterizedValueContext = ParameterizedValueContext;
 class SimpleDefinedValueContext extends ParserRuleContext_1.ParserRuleContext {
     IDENTIFIER(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.IDENTIFIER);
+            return this.getTokens(grammar3rdParser.IDENTIFIER);
         }
         else {
-            return this.getToken(ASN_3gppParser.IDENTIFIER, i);
+            return this.getToken(grammar3rdParser.IDENTIFIER, i);
         }
     }
-    DOT() { return this.tryGetToken(ASN_3gppParser.DOT, 0); }
+    DOT() { return this.tryGetToken(grammar3rdParser.DOT, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_simpleDefinedValue; }
+    get ruleIndex() { return grammar3rdParser.RULE_simpleDefinedValue; }
     // @Override
     accept(visitor) {
         if (visitor.visitSimpleDefinedValue) {
@@ -11254,7 +11254,7 @@ class SimpleDefinedValueContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.SimpleDefinedValueContext = SimpleDefinedValueContext;
 class ActualParameterListContext extends ParserRuleContext_1.ParserRuleContext {
-    L_BRACE() { return this.getToken(ASN_3gppParser.L_BRACE, 0); }
+    L_BRACE() { return this.getToken(grammar3rdParser.L_BRACE, 0); }
     actualParameter(i) {
         if (i === undefined) {
             return this.getRuleContexts(ActualParameterContext);
@@ -11263,20 +11263,20 @@ class ActualParameterListContext extends ParserRuleContext_1.ParserRuleContext {
             return this.getRuleContext(i, ActualParameterContext);
         }
     }
-    R_BRACE() { return this.getToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.getToken(grammar3rdParser.R_BRACE, 0); }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_actualParameterList; }
+    get ruleIndex() { return grammar3rdParser.RULE_actualParameterList; }
     // @Override
     accept(visitor) {
         if (visitor.visitActualParameterList) {
@@ -11299,7 +11299,7 @@ class ActualParameterContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_actualParameter; }
+    get ruleIndex() { return grammar3rdParser.RULE_actualParameter; }
     // @Override
     accept(visitor) {
         if (visitor.visitActualParameter) {
@@ -11312,7 +11312,7 @@ class ActualParameterContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ActualParameterContext = ActualParameterContext;
 class ExceptionSpecContext extends ParserRuleContext_1.ParserRuleContext {
-    EXCLAM() { return this.getToken(ASN_3gppParser.EXCLAM, 0); }
+    EXCLAM() { return this.getToken(grammar3rdParser.EXCLAM, 0); }
     exceptionIdentification() {
         return this.getRuleContext(0, ExceptionIdentificationContext);
     }
@@ -11320,7 +11320,7 @@ class ExceptionSpecContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_exceptionSpec; }
+    get ruleIndex() { return grammar3rdParser.RULE_exceptionSpec; }
     // @Override
     accept(visitor) {
         if (visitor.visitExceptionSpec) {
@@ -11342,7 +11342,7 @@ class ExceptionIdentificationContext extends ParserRuleContext_1.ParserRuleConte
     asnType() {
         return this.tryGetRuleContext(0, AsnTypeContext);
     }
-    COLON() { return this.tryGetToken(ASN_3gppParser.COLON, 0); }
+    COLON() { return this.tryGetToken(grammar3rdParser.COLON, 0); }
     value() {
         return this.tryGetRuleContext(0, ValueContext);
     }
@@ -11350,7 +11350,7 @@ class ExceptionIdentificationContext extends ParserRuleContext_1.ParserRuleConte
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_exceptionIdentification; }
+    get ruleIndex() { return grammar3rdParser.RULE_exceptionIdentification; }
     // @Override
     accept(visitor) {
         if (visitor.visitExceptionIdentification) {
@@ -11370,7 +11370,7 @@ class AdditionalEnumerationContext extends ParserRuleContext_1.ParserRuleContext
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_additionalEnumeration; }
+    get ruleIndex() { return grammar3rdParser.RULE_additionalEnumeration; }
     // @Override
     accept(visitor) {
         if (visitor.visitAdditionalEnumeration) {
@@ -11383,17 +11383,17 @@ class AdditionalEnumerationContext extends ParserRuleContext_1.ParserRuleContext
 }
 exports.AdditionalEnumerationContext = AdditionalEnumerationContext;
 class IntegerTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    INTEGER_LITERAL() { return this.getToken(ASN_3gppParser.INTEGER_LITERAL, 0); }
-    L_BRACE() { return this.tryGetToken(ASN_3gppParser.L_BRACE, 0); }
+    INTEGER_LITERAL() { return this.getToken(grammar3rdParser.INTEGER_LITERAL, 0); }
+    L_BRACE() { return this.tryGetToken(grammar3rdParser.L_BRACE, 0); }
     namedNumberList() {
         return this.tryGetRuleContext(0, NamedNumberListContext);
     }
-    R_BRACE() { return this.tryGetToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.tryGetToken(grammar3rdParser.R_BRACE, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_integerType; }
+    get ruleIndex() { return grammar3rdParser.RULE_integerType; }
     // @Override
     accept(visitor) {
         if (visitor.visitIntegerType) {
@@ -11416,17 +11416,17 @@ class NamedNumberListContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_namedNumberList; }
+    get ruleIndex() { return grammar3rdParser.RULE_namedNumberList; }
     // @Override
     accept(visitor) {
         if (visitor.visitNamedNumberList) {
@@ -11439,13 +11439,13 @@ class NamedNumberListContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.NamedNumberListContext = NamedNumberListContext;
 class ObjectidentifiertypeContext extends ParserRuleContext_1.ParserRuleContext {
-    OBJECT_LITERAL() { return this.getToken(ASN_3gppParser.OBJECT_LITERAL, 0); }
-    IDENTIFIER_LITERAL() { return this.getToken(ASN_3gppParser.IDENTIFIER_LITERAL, 0); }
+    OBJECT_LITERAL() { return this.getToken(grammar3rdParser.OBJECT_LITERAL, 0); }
+    IDENTIFIER_LITERAL() { return this.getToken(grammar3rdParser.IDENTIFIER_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_objectidentifiertype; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectidentifiertype; }
     // @Override
     accept(visitor) {
         if (visitor.visitObjectidentifiertype) {
@@ -11460,26 +11460,26 @@ exports.ObjectidentifiertypeContext = ObjectidentifiertypeContext;
 class ComponentRelationConstraintContext extends ParserRuleContext_1.ParserRuleContext {
     L_BRACE(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.L_BRACE);
+            return this.getTokens(grammar3rdParser.L_BRACE);
         }
         else {
-            return this.getToken(ASN_3gppParser.L_BRACE, i);
+            return this.getToken(grammar3rdParser.L_BRACE, i);
         }
     }
     R_BRACE(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.R_BRACE);
+            return this.getTokens(grammar3rdParser.R_BRACE);
         }
         else {
-            return this.getToken(ASN_3gppParser.R_BRACE, i);
+            return this.getToken(grammar3rdParser.R_BRACE, i);
         }
     }
     IDENTIFIER(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.IDENTIFIER);
+            return this.getTokens(grammar3rdParser.IDENTIFIER);
         }
         else {
-            return this.getToken(ASN_3gppParser.IDENTIFIER, i);
+            return this.getToken(grammar3rdParser.IDENTIFIER, i);
         }
     }
     atNotation(i) {
@@ -11490,20 +11490,20 @@ class ComponentRelationConstraintContext extends ParserRuleContext_1.ParserRuleC
             return this.getRuleContext(i, AtNotationContext);
         }
     }
-    DOT() { return this.tryGetToken(ASN_3gppParser.DOT, 0); }
+    DOT() { return this.tryGetToken(grammar3rdParser.DOT, 0); }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_componentRelationConstraint; }
+    get ruleIndex() { return grammar3rdParser.RULE_componentRelationConstraint; }
     // @Override
     accept(visitor) {
         if (visitor.visitComponentRelationConstraint) {
@@ -11519,8 +11519,8 @@ class AtNotationContext extends ParserRuleContext_1.ParserRuleContext {
     componentIdList() {
         return this.getRuleContext(0, ComponentIdListContext);
     }
-    A_ROND() { return this.tryGetToken(ASN_3gppParser.A_ROND, 0); }
-    A_ROND_DOT() { return this.tryGetToken(ASN_3gppParser.A_ROND_DOT, 0); }
+    A_ROND() { return this.tryGetToken(grammar3rdParser.A_ROND, 0); }
+    A_ROND_DOT() { return this.tryGetToken(grammar3rdParser.A_ROND_DOT, 0); }
     level() {
         return this.tryGetRuleContext(0, LevelContext);
     }
@@ -11528,7 +11528,7 @@ class AtNotationContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_atNotation; }
+    get ruleIndex() { return grammar3rdParser.RULE_atNotation; }
     // @Override
     accept(visitor) {
         if (visitor.visitAtNotation) {
@@ -11541,7 +11541,7 @@ class AtNotationContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.AtNotationContext = AtNotationContext;
 class LevelContext extends ParserRuleContext_1.ParserRuleContext {
-    DOT() { return this.tryGetToken(ASN_3gppParser.DOT, 0); }
+    DOT() { return this.tryGetToken(grammar3rdParser.DOT, 0); }
     level() {
         return this.tryGetRuleContext(0, LevelContext);
     }
@@ -11549,7 +11549,7 @@ class LevelContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_level; }
+    get ruleIndex() { return grammar3rdParser.RULE_level; }
     // @Override
     accept(visitor) {
         if (visitor.visitLevel) {
@@ -11564,25 +11564,25 @@ exports.LevelContext = LevelContext;
 class ComponentIdListContext extends ParserRuleContext_1.ParserRuleContext {
     IDENTIFIER(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.IDENTIFIER);
+            return this.getTokens(grammar3rdParser.IDENTIFIER);
         }
         else {
-            return this.getToken(ASN_3gppParser.IDENTIFIER, i);
+            return this.getToken(grammar3rdParser.IDENTIFIER, i);
         }
     }
     DOT(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.DOT);
+            return this.getTokens(grammar3rdParser.DOT);
         }
         else {
-            return this.getToken(ASN_3gppParser.DOT, i);
+            return this.getToken(grammar3rdParser.DOT, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_componentIdList; }
+    get ruleIndex() { return grammar3rdParser.RULE_componentIdList; }
     // @Override
     accept(visitor) {
         if (visitor.visitComponentIdList) {
@@ -11595,13 +11595,13 @@ class ComponentIdListContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.ComponentIdListContext = ComponentIdListContext;
 class OctetStringTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    OCTET_LITERAL() { return this.getToken(ASN_3gppParser.OCTET_LITERAL, 0); }
-    STRING_LITERAL() { return this.getToken(ASN_3gppParser.STRING_LITERAL, 0); }
+    OCTET_LITERAL() { return this.getToken(grammar3rdParser.OCTET_LITERAL, 0); }
+    STRING_LITERAL() { return this.getToken(grammar3rdParser.STRING_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_octetStringType; }
+    get ruleIndex() { return grammar3rdParser.RULE_octetStringType; }
     // @Override
     accept(visitor) {
         if (visitor.visitOctetStringType) {
@@ -11614,18 +11614,18 @@ class OctetStringTypeContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.OctetStringTypeContext = OctetStringTypeContext;
 class BitStringTypeContext extends ParserRuleContext_1.ParserRuleContext {
-    BIT_LITERAL() { return this.tryGetToken(ASN_3gppParser.BIT_LITERAL, 0); }
-    STRING_LITERAL() { return this.tryGetToken(ASN_3gppParser.STRING_LITERAL, 0); }
-    L_BRACE() { return this.tryGetToken(ASN_3gppParser.L_BRACE, 0); }
+    BIT_LITERAL() { return this.tryGetToken(grammar3rdParser.BIT_LITERAL, 0); }
+    STRING_LITERAL() { return this.tryGetToken(grammar3rdParser.STRING_LITERAL, 0); }
+    L_BRACE() { return this.tryGetToken(grammar3rdParser.L_BRACE, 0); }
     namedBitList() {
         return this.tryGetRuleContext(0, NamedBitListContext);
     }
-    R_BRACE() { return this.tryGetToken(ASN_3gppParser.R_BRACE, 0); }
+    R_BRACE() { return this.tryGetToken(grammar3rdParser.R_BRACE, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_bitStringType; }
+    get ruleIndex() { return grammar3rdParser.RULE_bitStringType; }
     // @Override
     accept(visitor) {
         if (visitor.visitBitStringType) {
@@ -11648,17 +11648,17 @@ class NamedBitListContext extends ParserRuleContext_1.ParserRuleContext {
     }
     COMMA(i) {
         if (i === undefined) {
-            return this.getTokens(ASN_3gppParser.COMMA);
+            return this.getTokens(grammar3rdParser.COMMA);
         }
         else {
-            return this.getToken(ASN_3gppParser.COMMA, i);
+            return this.getToken(grammar3rdParser.COMMA, i);
         }
     }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_namedBitList; }
+    get ruleIndex() { return grammar3rdParser.RULE_namedBitList; }
     // @Override
     accept(visitor) {
         if (visitor.visitNamedBitList) {
@@ -11671,10 +11671,10 @@ class NamedBitListContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.NamedBitListContext = NamedBitListContext;
 class NamedBitContext extends ParserRuleContext_1.ParserRuleContext {
-    IDENTIFIER() { return this.getToken(ASN_3gppParser.IDENTIFIER, 0); }
-    L_PARAN() { return this.getToken(ASN_3gppParser.L_PARAN, 0); }
-    R_PARAN() { return this.getToken(ASN_3gppParser.R_PARAN, 0); }
-    NUMBER() { return this.tryGetToken(ASN_3gppParser.NUMBER, 0); }
+    IDENTIFIER() { return this.getToken(grammar3rdParser.IDENTIFIER, 0); }
+    L_PARAN() { return this.getToken(grammar3rdParser.L_PARAN, 0); }
+    R_PARAN() { return this.getToken(grammar3rdParser.R_PARAN, 0); }
+    NUMBER() { return this.tryGetToken(grammar3rdParser.NUMBER, 0); }
     definedValue() {
         return this.tryGetRuleContext(0, DefinedValueContext);
     }
@@ -11682,7 +11682,7 @@ class NamedBitContext extends ParserRuleContext_1.ParserRuleContext {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_namedBit; }
+    get ruleIndex() { return grammar3rdParser.RULE_namedBit; }
     // @Override
     accept(visitor) {
         if (visitor.visitNamedBit) {
@@ -11695,15 +11695,15 @@ class NamedBitContext extends ParserRuleContext_1.ParserRuleContext {
 }
 exports.NamedBitContext = NamedBitContext;
 class BooleanValueContext extends ParserRuleContext_1.ParserRuleContext {
-    TRUE_LITERAL() { return this.tryGetToken(ASN_3gppParser.TRUE_LITERAL, 0); }
-    FALSE_LITERAL() { return this.tryGetToken(ASN_3gppParser.FALSE_LITERAL, 0); }
-    TRUE_SMALL_LITERAL() { return this.tryGetToken(ASN_3gppParser.TRUE_SMALL_LITERAL, 0); }
-    FALSE_SMALL_LITERAL() { return this.tryGetToken(ASN_3gppParser.FALSE_SMALL_LITERAL, 0); }
+    TRUE_LITERAL() { return this.tryGetToken(grammar3rdParser.TRUE_LITERAL, 0); }
+    FALSE_LITERAL() { return this.tryGetToken(grammar3rdParser.FALSE_LITERAL, 0); }
+    TRUE_SMALL_LITERAL() { return this.tryGetToken(grammar3rdParser.TRUE_SMALL_LITERAL, 0); }
+    FALSE_SMALL_LITERAL() { return this.tryGetToken(grammar3rdParser.FALSE_SMALL_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return ASN_3gppParser.RULE_booleanValue; }
+    get ruleIndex() { return grammar3rdParser.RULE_booleanValue; }
     // @Override
     accept(visitor) {
         if (visitor.visitBooleanValue) {
@@ -11715,4 +11715,4 @@ class BooleanValueContext extends ParserRuleContext_1.ParserRuleContext {
     }
 }
 exports.BooleanValueContext = BooleanValueContext;
-//# sourceMappingURL=ASN_3gppParser.js.map
+//# sourceMappingURL=grammar3rdParser.js.map

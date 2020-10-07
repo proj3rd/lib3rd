@@ -5,7 +5,6 @@ const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 class ChoiceType {
     constructor(components) {
         this.components = components;
@@ -26,20 +25,20 @@ class ChoiceType {
         return this;
     }
     getDepth() {
-        return this.components.reduce((prev, curr) => {
-            return Math.max(prev, curr.getDepth() + 1);
-        }, 0);
+        return this.components.reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
     }
+    // eslint-disable-next-line class-methods-use-this
     setConstraints(constraints) {
         if (constraints.length > 0) {
             unimpl_1.unimpl();
         }
     }
     toSpreadsheet(worksheet, row, depth) {
+        // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_TYPE] = 'CHOICE';
         const r = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r, depth);
-        spreadsheet_3.drawBorder(worksheet, r, depth);
+        spreadsheet_1.drawBorder(worksheet, r, depth);
         this.components.forEach((component) => {
             component.toSpreadsheet(worksheet, {}, depth + 1);
         });

@@ -5,7 +5,6 @@ const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-const spreadsheet_3 = require("../../common/spreadsheet");
 const objectClassAssignment_1 = require("./objectClassAssignment");
 const objectSet_1 = require("./objectSet");
 const objectSetAssignment_1 = require("./objectSetAssignment");
@@ -106,13 +105,14 @@ class ObjectIdentifierValue {
         spreadsheet_2.appendInColumn(row, spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth), '{');
         const r1 = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r1, depth);
-        spreadsheet_3.drawBorder(worksheet, r1, depth);
+        spreadsheet_1.drawBorder(worksheet, r1, depth);
         this.objectIdComponentsList.forEach((components, index) => {
             if (index % 2 !== 0) {
                 return;
             }
             if (typeof components !== 'string') {
-                return unimpl_1.unreach(components);
+                unimpl_1.unreach(components);
+                return;
             }
             const rowComponents = {
                 [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth + 1)]: components,
@@ -121,25 +121,23 @@ class ObjectIdentifierValue {
             if (componentsNext === undefined) {
                 const rComponents = worksheet.addRow(rowComponents);
                 spreadsheet_1.setOutlineLevel(rComponents, depth + 1);
-                spreadsheet_3.drawBorder(worksheet, rComponents, depth + 1);
+                spreadsheet_1.drawBorder(worksheet, rComponents, depth + 1);
+            }
+            else if (typeof componentsNext === 'string') {
+                rowComponents[spreadsheet_2.HEADER_REFERENCE] = componentsNext;
+                const rComponents = worksheet.addRow(rowComponents);
+                spreadsheet_1.setOutlineLevel(rComponents, depth + 1);
+                spreadsheet_1.drawBorder(worksheet, rComponents, depth + 1);
             }
             else {
-                if (typeof componentsNext === 'string') {
-                    rowComponents[spreadsheet_2.HEADER_REFERENCE] = componentsNext;
-                    const rComponents = worksheet.addRow(rowComponents);
-                    spreadsheet_1.setOutlineLevel(rComponents, depth + 1);
-                    spreadsheet_3.drawBorder(worksheet, rComponents, depth + 1);
-                }
-                else {
-                    componentsNext.toSpreadsheet(worksheet, rowComponents, depth + 1);
-                }
+                componentsNext.toSpreadsheet(worksheet, rowComponents, depth + 1);
             }
         });
         const r2 = worksheet.addRow({
             [spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth)]: '}',
         });
         spreadsheet_1.setOutlineLevel(r2, depth);
-        spreadsheet_3.drawBorder(worksheet, r2, depth);
+        spreadsheet_1.drawBorder(worksheet, r2, depth);
     }
     toString() {
         if (this.objectIdComponentsList.length === 1) {
@@ -167,42 +165,40 @@ class ObjectIdentifierValue {
             const firstComponent = objectIdComponentsList[i];
             if (typeof firstComponent !== 'string') {
                 objectIdComponentsListOut.push(firstComponent);
-                i++;
-                continue;
+                i += 1;
             }
-            // Make the longest word matching one of compound component list
-            const tempStringList = [firstComponent];
-            for (let j = i + 1; j < length; j++) {
-                const latestComponent = tempStringList.join(' ');
-                const component = objectIdComponentsList[j];
-                if (typeof component !== 'string') {
-                    objectIdComponentsListOut.push(latestComponent);
-                    tempStringList.length = 0;
-                    i = j;
-                    break;
+            else {
+                // Make the longest word matching one of compound component list
+                const tempStringList = [firstComponent];
+                for (let j = i + 1; j < length; j += 1) {
+                    const latestComponent = tempStringList.join(' ');
+                    const component = objectIdComponentsList[j];
+                    if (typeof component !== 'string') {
+                        objectIdComponentsListOut.push(latestComponent);
+                        tempStringList.length = 0;
+                        i = j;
+                        break;
+                    }
+                    tempStringList.push(component);
+                    const newComponent = tempStringList.join(' ');
+                    if (this.compoundComponentList
+                        .find((compound) => compound.startsWith(newComponent)) === undefined) {
+                        objectIdComponentsListOut.push(latestComponent);
+                        tempStringList.length = 0;
+                        i = j;
+                        break;
+                    }
+                    if (this.compoundComponentList.find((compound) => compound === newComponent) !== undefined) {
+                        objectIdComponentsListOut.push(newComponent);
+                        tempStringList.length = 0;
+                        i = j + 1;
+                        break;
+                    }
                 }
-                tempStringList.push(component);
-                const newComponent = tempStringList.join(' ');
-                if (this.compoundComponentList.find((compound) => {
-                    return compound.startsWith(newComponent);
-                }) === undefined) {
-                    objectIdComponentsListOut.push(latestComponent);
-                    tempStringList.length = 0;
-                    i = j;
-                    break;
+                if (tempStringList.length) {
+                    objectIdComponentsListOut.push(tempStringList.join(' '));
+                    i += 1;
                 }
-                if (this.compoundComponentList.find((compound) => {
-                    return compound === newComponent;
-                }) !== undefined) {
-                    objectIdComponentsListOut.push(newComponent);
-                    tempStringList.length = 0;
-                    i = j + 1;
-                    break;
-                }
-            }
-            if (tempStringList.length) {
-                objectIdComponentsListOut.push(tempStringList.join(' '));
-                i++;
             }
         }
         return objectIdComponentsListOut;

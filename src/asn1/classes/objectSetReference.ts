@@ -11,10 +11,12 @@ export class ObjectSetReference {
     this.objectSetReference = objectSetReference;
   }
 
+  // eslint-disable-next-line class-methods-use-this, no-unused-vars
   public expand(modules: Modules, parameterMappings: IParameterMapping[]) {
     return unimpl();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }

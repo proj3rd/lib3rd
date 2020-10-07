@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
-const ASN_3gppParser_1 = require("../grammar/ASN_3gppParser");
+const grammar3rdParser_1 = require("../grammar/grammar3rdParser");
 /**
  * # Grammar
  * ```
@@ -13,17 +14,14 @@ class NamedBitVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisito
     visitChildren(ctx) {
         const name = ctx.getChild(0).text;
         const thirdCtx = ctx.getChild(2);
-        if (thirdCtx instanceof ASN_3gppParser_1.DefinedValueContext) {
+        if (thirdCtx instanceof grammar3rdParser_1.DefinedValueContext) {
             return unimpl_1.todo();
         }
-        else {
-            const valueLiteral = thirdCtx.text;
-            if (isNaN(+valueLiteral)) {
-                throw Error();
-            }
-            return { name, valueLiteral };
+        const valueLiteral = thirdCtx.text;
+        if (Number.isNaN(+valueLiteral)) {
+            throw Error();
         }
-        return unimpl_1.unreach();
+        return { name, valueLiteral };
     }
     defaultResult() {
         return unimpl_1.unimpl();

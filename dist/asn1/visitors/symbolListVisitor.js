@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-const asnSymbol_1 = require("../classes/asnSymbol");
+const symbolVisitor_1 = require("./symbolVisitor");
 /**
  * # Grammar
  * ```
@@ -10,21 +11,11 @@ const asnSymbol_1 = require("../classes/asnSymbol");
  */
 class SymbolListVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
     visitChildren(ctx) {
-        return ctx.symbol().map((sym) => sym.accept(new SymbolVisitor()));
+        return ctx.symbol().map((sym) => sym.accept(new symbolVisitor_1.SymbolVisitor()));
     }
     defaultResult() {
         return [];
     }
 }
 exports.SymbolListVisitor = SymbolListVisitor;
-class SymbolVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor {
-    visitChildren(ctx) {
-        const name = ctx.getChild(0).text;
-        const parameterized = ctx.childCount > 1 ? true : false;
-        return new asnSymbol_1.Reference(name, parameterized);
-    }
-    defaultResult() {
-        return new asnSymbol_1.Reference('');
-    }
-}
 //# sourceMappingURL=symbolListVisitor.js.map

@@ -1,5 +1,3 @@
-export type AsnSymbol = Reference;
-
 export class Reference {
   public name: string;
   public parameterized: boolean;
@@ -18,3 +16,5 @@ export class Reference {
     return this.name;
   }
 }
+
+export type AsnSymbol = Reference;

@@ -1,13 +1,13 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { VersionNumberContext } from '../grammar/ASN_3gppParser';
-import { ASN_3gppVisitor } from '../grammar/ASN_3gppVisitor';
+import { VersionNumberContext } from '../grammar/grammar3rdParser';
+import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
  * versionNumber: (NUMBER COLON)?
  * ```
  */
-export declare class VersionNumberVisitor extends AbstractParseTreeVisitor<number | undefined> implements ASN_3gppVisitor<number | undefined> {
+export declare class VersionNumberVisitor extends AbstractParseTreeVisitor<number | undefined> implements grammar3rdVisitor<number | undefined> {
     visitChildren(ctx: VersionNumberContext): number | undefined;
     protected defaultResult(): number | undefined;
 }

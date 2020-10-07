@@ -1,11 +1,9 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl, unreach } from 'unimpl';
-import { setOutlineLevel } from '../../common/spreadsheet';
+import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { HEADER_REFERENCE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { drawBorder } from '../../common/spreadsheet';
 import { AsnType, DefinedObjectClass } from './asnType';
 import { Constraint } from './constraint';
 import { ExternalTypeReference } from './externalTypeReference';
@@ -20,6 +18,8 @@ import { TypeReference } from './typeReference';
 import { Value } from './value';
 import { ValueAssignment } from './valueAssignment';
 
+export type ActualParameter = AsnType | Value | DefinedObjectClass | ObjectSet;
+
 export class ParameterizedType {
   public simpleDefinedType: TypeReference | ExternalTypeReference;
   public actualParameters: ActualParameter[];
@@ -28,7 +28,7 @@ export class ParameterizedType {
 
   constructor(
     simpleDefinedType: TypeReference | ExternalTypeReference,
-    actualParameters: ActualParameter[]
+    actualParameters: ActualParameter[],
   ) {
     this.simpleDefinedType = simpleDefinedType;
     this.actualParameters = actualParameters;
@@ -43,91 +43,85 @@ export class ParameterizedType {
    */
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    parameterMappings: IParameterMapping[],
   ): AsnType | ObjectSet {
     if (this.simpleDefinedType instanceof ExternalTypeReference) {
       return unimpl();
     }
     const parameterMappedToReference = parameterMappings.find(
-      (parameterMapping) => {
-        return (
-          parameterMapping.parameter.dummyReference ===
-          this.simpleDefinedType.typeReference
-        );
-      }
+      (parameterMapping) => (
+        parameterMapping.parameter.dummyReference
+          === this.simpleDefinedType.typeReference
+      ),
     );
     if (parameterMappedToReference === undefined) {
       // A case that TypeReference shall be expanded
       const assignment = modules.findAssignment(
-        this.simpleDefinedType.typeReference
+        this.simpleDefinedType.typeReference,
       );
       if (assignment === undefined) {
         return unimpl();
-      } else {
-        if (assignment instanceof TypeAssignment) {
-          return unimpl();
-        }
-        if (assignment instanceof ObjectClassAssignment) {
-          return unimpl();
-        }
-        if (assignment instanceof ObjectSetAssignment) {
-          return unimpl();
-        }
-        if (assignment instanceof ParameterizedTypeAssignment) {
-          // Prepare the base of parameter mapping
-          const parameterMappingsNew: IParameterMapping[] = assignment.parameters.map(
-            (parameter) => {
-              return { parameter, actualParameter: undefined };
-            }
-          );
+      }
+      if (assignment instanceof TypeAssignment) {
+        return unimpl();
+      }
+      if (assignment instanceof ObjectClassAssignment) {
+        return unimpl();
+      }
+      if (assignment instanceof ObjectSetAssignment) {
+        return unimpl();
+      }
+      if (assignment instanceof ParameterizedTypeAssignment) {
+        // Prepare the base of parameter mapping
+        const parameterMappingsNew: IParameterMapping[] = assignment.parameters.map(
+          (parameter) => ({ parameter, actualParameter: undefined }),
+        );
           // Substitute an actual parameter with the passed parameter
-          const actualParametersNew: ActualParameter[] = this.actualParameters.map(
-            (actualParameter, index) => {
-              if (!(actualParameter instanceof ObjectIdentifierValue)) {
-                return actualParameter;
-              }
-              const { objectIdComponentsList } = actualParameter;
-              if (objectIdComponentsList.length !== 1) {
-                return unimpl();
-              }
-              const objectIdComponents = objectIdComponentsList[0];
-              if (typeof objectIdComponents !== 'string') {
-                return unimpl();
-              }
-              const parameter = parameterMappings.find((parameterMapping) => {
-                return (
-                  parameterMapping.parameter.dummyReference ===
-                  objectIdComponents
-                );
-              });
-              if (parameter === undefined) {
-                return objectIdComponents;
-              }
-              if (parameter.actualParameter === undefined) {
-                return actualParameter;
-              }
-              return parameter.actualParameter;
+        const actualParametersNew: ActualParameter[] = this.actualParameters.map(
+          (actualParameter) => {
+            if (!(actualParameter instanceof ObjectIdentifierValue)) {
+              return actualParameter;
             }
-          );
+            const { objectIdComponentsList } = actualParameter;
+            if (objectIdComponentsList.length !== 1) {
+              return unimpl();
+            }
+            const objectIdComponents = objectIdComponentsList[0];
+            if (typeof objectIdComponents !== 'string') {
+              return unimpl();
+            }
+            const parameter = parameterMappings.find((parameterMapping) => (
+              parameterMapping.parameter.dummyReference
+                  === objectIdComponents
+            ));
+            if (parameter === undefined) {
+              return objectIdComponents;
+            }
+            if (parameter.actualParameter === undefined) {
+              return actualParameter;
+            }
+            return parameter.actualParameter;
+          },
+        );
           // Map each parameter and actual parameter
-          if (parameterMappingsNew.length !== actualParametersNew.length) {
-            return unimpl();
-          }
-          parameterMappingsNew.forEach((parameterMapping, index) => {
-            parameterMapping.actualParameter = actualParametersNew[index];
-          });
-          const expandedType = cloneDeep(assignment.asnType).expand(
-            modules,
-            parameterMappingsNew
-          );
-          if (isEqual(expandedType, assignment.asnType)) {
-            return assignment.asnType;
-          }
-          return expandedType;
-        }
-        if (assignment instanceof ValueAssignment) {
+        if (parameterMappingsNew.length !== actualParametersNew.length) {
           return unimpl();
         }
+        parameterMappingsNew.forEach((parameterMapping, index) => {
+          // eslint-disable-next-line no-param-reassign
+          parameterMapping.actualParameter = actualParametersNew[index];
+        });
+        const expandedType = cloneDeep(assignment.asnType).expand(
+          modules,
+          parameterMappingsNew,
+        );
+        if (isEqual(expandedType, assignment.asnType)) {
+          return assignment.asnType;
+        }
+        return expandedType;
+      }
+      if (assignment instanceof ValueAssignment) {
+        return unimpl();
       }
     } else if (parameterMappedToReference.actualParameter === undefined) {
       // A case that a type reference shall be left as-is. Do nothing.
@@ -138,10 +132,12 @@ export class ParameterizedType {
     return unreach();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public getDepth(): number {
     return 0;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public setConstraints(constraints: Constraint[]) {
     if (constraints.length === 0) {
       return;
@@ -150,6 +146,7 @@ export class ParameterizedType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    // eslint-disable-next-line no-param-reassign
     row[HEADER_REFERENCE] = this.toString();
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);
@@ -163,5 +160,3 @@ export class ParameterizedType {
     return `${this.simpleDefinedType.toString()} {${innerString}}`;
   }
 }
-
-export type ActualParameter = AsnType | Value | DefinedObjectClass | ObjectSet;

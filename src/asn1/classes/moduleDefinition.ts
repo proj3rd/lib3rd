@@ -8,6 +8,25 @@ import { DefinitiveIdentification } from './definitiveIdentification';
 import { Imports } from './imports';
 import { ValueAssignment } from './valueAssignment';
 
+export type TagDefault =
+  | 'EXPLICIT TAGS'
+  | 'IMPLICIT TAGS'
+  | 'AUTOMATIC TAGS'
+  | '';
+
+export type ExtensionDefault = 'EXTENSIBILITY IMPLIED' | '';
+
+export type Exports = 'ALL' | AsnSymbol[];
+
+/**
+ * This is intermediate interface used by a `ModuleBodyVisitor`
+ */
+export interface IModuleBody {
+  exports: Exports | null;
+  imports: Imports | null;
+  assignments: Assignment[];
+}
+
 export class ModuleDefinition implements IModuleBody {
   public name: string;
   public definitiveIdentification: DefinitiveIdentification;
@@ -24,7 +43,7 @@ export class ModuleDefinition implements IModuleBody {
     definitiveIdentification: DefinitiveIdentification,
     tagDefault: TagDefault,
     extensionDefault: ExtensionDefault,
-    moduleBody: IModuleBody
+    moduleBody: IModuleBody,
   ) {
     this.name = name;
     this.definitiveIdentification = definitiveIdentification;
@@ -73,22 +92,3 @@ export class ModuleDefinition implements IModuleBody {
     return arrToString.join('\n\n');
   }
 }
-
-export type TagDefault =
-  | 'EXPLICIT TAGS'
-  | 'IMPLICIT TAGS'
-  | 'AUTOMATIC TAGS'
-  | '';
-
-export type ExtensionDefault = 'EXTENSIBILITY IMPLIED' | '';
-
-/**
- * This is intermediate interface used by a `ModuleBodyVisitor`
- */
-export interface IModuleBody {
-  exports: Exports | null;
-  imports: Imports | null;
-  assignments: Assignment[];
-}
-
-export type Exports = 'ALL' | AsnSymbol[];

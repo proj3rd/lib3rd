@@ -1,9 +1,7 @@
 import { BooleanValue } from './booleanValue';
 import { IntegerValue } from './integerValue';
 import { ObjectIdentifierValue } from './objectIdentifierValue';
-import { ValueReference } from './ValueReference';
-
-export type Value = BuiltinValue | ReferencedValue;
+import { ValueReference } from './valueReference';
 
 export type BuiltinValue =
   | BooleanValue
@@ -14,3 +12,5 @@ export type BuiltinValue =
 export type DefinedValue = ValueReference;
 
 export type ReferencedValue = DefinedValue;
+
+export type Value = BuiltinValue | ReferencedValue;

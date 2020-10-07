@@ -1,7 +1,6 @@
 import $ from 'cheerio';
 import { readFileSync } from 'fs';
 import { cloneDeep } from 'lodash';
-import { todo } from 'unimpl';
 import { Definition } from './classes/definition';
 import { Definitions } from './classes/definitions';
 import {
@@ -39,19 +38,21 @@ function normalizeHtmlText(text: string) {
   return text.replace(/(\s|\n)+/g, ' ').trim();
 }
 
+// eslint-disable-next-line no-undef
 function matchColumns(element: CheerioElement, columnList: string[]): boolean {
   const trList = $('tr', element);
   const trHeader = trList[0];
   const tdList = $('td', trHeader);
   return (
-    tdList.length >= columnList.length &&
-    columnList.every((column, index) => {
+    tdList.length >= columnList.length
+    && columnList.every((column, index) => {
       const normalizedText = normalizeHtmlText($(tdList[index]).text());
       return normalizedText === column;
     })
   );
 }
 
+// eslint-disable-next-line no-undef
 function isConditionTable(element: CheerioElement): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
@@ -60,6 +61,7 @@ function isConditionTable(element: CheerioElement): boolean {
   return matchColumns(element, columnList);
 }
 
+// eslint-disable-next-line no-undef
 function isDefinitionTable(element: CheerioElement): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
@@ -74,6 +76,7 @@ function isDefinitionTable(element: CheerioElement): boolean {
   return matchColumns(element, columnList);
 }
 
+// eslint-disable-next-line no-undef
 function getDirection(element: CheerioElement): string | null {
   if (element.type !== 'tag' || element.name !== 'p') {
     return null;
@@ -86,10 +89,12 @@ function getDirection(element: CheerioElement): string | null {
   return normalizedText.replace(/\u00Ae/g, String.fromCharCode(0x2192));
 }
 
+// eslint-disable-next-line no-undef
 function isParagraph(element: CheerioElement): boolean {
   return element.type === 'tag' && element.name === 'p';
 }
 
+// eslint-disable-next-line no-undef
 function isRangeTable(element: CheerioElement): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
@@ -99,7 +104,8 @@ function isRangeTable(element: CheerioElement): boolean {
 }
 
 function getSectionInfo(
-  element: CheerioElement
+  // eslint-disable-next-line no-undef
+  element: CheerioElement,
 ): { sectionNumber: string; title: string } | null {
   const sectionTagList = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
   if (element.type !== 'tag' || !sectionTagList.includes(element.name)) {
@@ -114,6 +120,7 @@ function getSectionInfo(
   return { sectionNumber, title };
 }
 
+// eslint-disable-next-line no-undef
 function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
@@ -123,8 +130,8 @@ function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
     .each(
       (index, trElement) => {
         const tdList = $('td', trElement);
-        let i = 0 ;
-        for (; i < tdList.length; i++) {
+        let i = 0;
+        for (; i < tdList.length; i += 1) {
           const td = normalizeHtmlText($(tdList[i]).text());
           if (td !== '') {
             break;
@@ -133,37 +140,40 @@ function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
         if (i === tdList.length) {
           return;
         }
-        const tdFirst = normalizeHtmlText($(tdList[i++]).text());
+        const tdFirst = normalizeHtmlText($(tdList[i]).text()); i += 1;
         const name = tdFirst.replace(/^>+/, '').trim();
         const matchResult = tdFirst.match(reDepth);
-        const depth =
-          !matchResult || !matchResult.groups
-            ? 0
-            : matchResult.groups.depth.length;
+        const depth = !matchResult || !matchResult.groups
+          ? 0
+          : matchResult.groups.depth.length;
         depthMin = Math.min(depthMin, depth);
         const informationElement: IInformationElement = {
           name,
-          presence: normalizeHtmlText($(tdList[i++]).text()),
-          range: normalizeHtmlText($(tdList[i++]).text()),
-          typeAndRef: normalizeHtmlText($(tdList[i++]).text()),
-          description: normalizeHtmlText($(tdList[i++]).text()),
-          criticality: normalizeHtmlText($(tdList[i++]).text()),
-          assignedCriticality: normalizeHtmlText($(tdList[i++]).text()),
+          presence: normalizeHtmlText($(tdList[i]).text()),
+          range: normalizeHtmlText($(tdList[i + 1]).text()),
+          typeAndRef: normalizeHtmlText($(tdList[i + 2]).text()),
+          description: normalizeHtmlText($(tdList[i + 3]).text()),
+          criticality: normalizeHtmlText($(tdList[i + 4]).text()),
+          assignedCriticality: normalizeHtmlText($(tdList[i + 5]).text()),
           depth,
         };
         if (name === '') {
+          // eslint-disable-next-line no-console
           console.log('Empty leading cell found');
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(informationElement, null, 4));
         }
         ieList.push(informationElement);
-      }
+      },
     );
   ieList.forEach((ie) => {
+    // eslint-disable-next-line no-param-reassign
     ie.depth -= depthMin;
   });
   return ieList;
 }
 
+// eslint-disable-next-line no-undef
 function parseRangeTable(element: CheerioElement): IRangeBound[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
@@ -171,8 +181,8 @@ function parseRangeTable(element: CheerioElement): IRangeBound[] {
   trBodyList
     .each((index, trElement) => {
       const tdList = $('td', trElement);
-      let i = 0 ;
-      for (; i < tdList.length; i++) {
+      let i = 0;
+      for (; i < tdList.length; i += 1) {
         const td = normalizeHtmlText($(tdList[i]).text());
         if (td !== '') {
           break;
@@ -182,11 +192,13 @@ function parseRangeTable(element: CheerioElement): IRangeBound[] {
         return;
       }
       const rangeBound: IRangeBound = {
-        rangeBound: $(tdList[i++]).text().trim(),
-        explanation: $(tdList[i++]).text().trim(),
+        rangeBound: $(tdList[i]).text().trim(),
+        explanation: $(tdList[i + 1]).text().trim(),
       };
       if (rangeBound.rangeBound === '') {
+        // eslint-disable-next-line no-console
         console.log('Empty leading cell found');
+        // eslint-disable-next-line no-console
         console.log(JSON.stringify(rangeBound, null, 4));
       }
       rangeBoundList.push(rangeBound);
@@ -194,6 +206,7 @@ function parseRangeTable(element: CheerioElement): IRangeBound[] {
   return rangeBoundList;
 }
 
+// eslint-disable-next-line no-undef
 function parseConditionTable(element: CheerioElement): ICondition[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1);
@@ -201,8 +214,8 @@ function parseConditionTable(element: CheerioElement): ICondition[] {
   trBodyList
     .each((index, trElement) => {
       const tdList = $('td', trElement);
-      let i = 0 ;
-      for (; i < tdList.length; i++) {
+      let i = 0;
+      for (; i < tdList.length; i += 1) {
         const td = normalizeHtmlText($(tdList[i]).text());
         if (td !== '') {
           break;
@@ -212,11 +225,13 @@ function parseConditionTable(element: CheerioElement): ICondition[] {
         return;
       }
       const condition: ICondition = {
-        condition: $(tdList[i++]).text().trim(),
-        explanation: $(tdList[i++]).text().trim(),
+        condition: $(tdList[i]).text().trim(),
+        explanation: $(tdList[i + 1]).text().trim(),
       };
       if (condition.condition === '') {
+        // eslint-disable-next-line no-console
         console.log('Empty leading cell found');
+        // eslint-disable-next-line no-console
         console.log(JSON.stringify(condition, null, 4));
       }
       conditionList.push(condition);
@@ -227,10 +242,9 @@ function parseConditionTable(element: CheerioElement): ICondition[] {
 export function parse(html: string): Definitions {
   // Break down the document into elements and put them into the list
   // The last element shall be put into the list first and popped from it last
+  // eslint-disable-next-line no-undef
   const elementList: CheerioElement[] = $(normalize(html))
-    .map((index, element) => {
-      return element;
-    })
+    .map((index, element) => element)
     .get()
     .reverse();
 
@@ -252,6 +266,7 @@ export function parse(html: string): Definitions {
     }
     // Check element matches one of given patterns
     const sectionInfo = getSectionInfo(element);
+    const direction = getDirection(element);
     if (sectionInfo) {
       if (definition.elementList.length) {
         definitionList.push(new Definition(cloneDeep(definition)));
@@ -263,33 +278,18 @@ export function parse(html: string): Definitions {
       const { sectionNumber, title: name } = sectionInfo;
       definition.sectionNumber = sectionNumber;
       definition.name = name;
-      continue;
-    }
-    const direction = getDirection(element);
-    if (direction) {
+    } else if (direction) {
       definition.direction = direction;
-      continue;
-    }
-    if (isDefinitionTable(element)) {
+    } else if (isDefinitionTable(element)) {
       definition.elementList = parseDefinitionTable(element);
-      continue;
-    }
-    if (isConditionTable(element)) {
+    } else if (isConditionTable(element)) {
       definition.conditionList = parseConditionTable(element);
-      continue;
-    }
-    if (isRangeTable(element)) {
+    } else if (isRangeTable(element)) {
       definition.rangeBoundList = parseRangeTable(element);
-      continue;
-    }
-    if (isParagraph(element)) {
-      if (!definition.elementList.length) {
-        definition.descriptionList.push($(element).text());
-        continue;
-      }
-    }
-    // Otherwise, put child elements into the stack
-    if (element.type === 'tag') {
+    } else if (isParagraph(element) && !definition.elementList.length) {
+      definition.descriptionList.push($(element).text());
+    } else if (element.type === 'tag') {
+      // Otherwise, put child elements into the stack
       elementList.push(...element.children.reverse());
     }
   }

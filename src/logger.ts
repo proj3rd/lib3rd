@@ -1,12 +1,15 @@
 import { TransformableInfo } from 'logform';
 import winston, { createLogger, format, transports } from 'winston';
+
 const { combine, printf, timestamp } = format;
 
 const logFormat = printf(
-  ({ level, message, timestamp: ts, name }: TransformableInfo) => {
+  ({
+    level, message, timestamp: ts, name,
+  }: TransformableInfo) => {
     const arrToString = [ts, `[${name}]`, `[${level.toUpperCase()}]`, message];
     return arrToString.join(' ');
-  }
+  },
 );
 
 export class Logger {
@@ -30,7 +33,7 @@ export class Logger {
           return date.toISOString();
         },
       }),
-      logFormat
+      logFormat,
     ),
     transports: [
       new transports.File({
@@ -40,6 +43,4 @@ export class Logger {
     ],
   });
   private static childLoggers = new Map<string, winston.Logger>();
-
-  private constructor() {}
 }
