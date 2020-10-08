@@ -43,7 +43,8 @@ export class ${visitorName} extends AbstractParseTreeVisitor<ReturnType> impleme
 }
 
 if (require.main === module) {
-  yargs.command({
+  // eslint-disable-next-line no-unused-vars
+  const { argv } = yargs.command({
     command: 'new <ruleName>',
     handler: (args) => {
       const { ruleName } = args;

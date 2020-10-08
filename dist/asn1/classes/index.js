@@ -21,7 +21,8 @@ function createClass(classname) {
     fs_1.writeFileSync(filename, content);
 }
 if (require.main === module) {
-    yargs_1.default.command({
+    // eslint-disable-next-line no-unused-vars
+    const { argv } = yargs_1.default.command({
         command: 'new <classname>',
         handler: (args) => {
             const { classname } = args;

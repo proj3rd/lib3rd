@@ -43,7 +43,8 @@ export class ${visitorName} extends AbstractParseTreeVisitor<ReturnType> impleme
     fs_1.writeFileSync(fileName, content);
 }
 if (require.main === module) {
-    yargs_1.default.command({
+    // eslint-disable-next-line no-unused-vars
+    const { argv } = yargs_1.default.command({
         command: 'new <ruleName>',
         handler: (args) => {
             const { ruleName } = args;

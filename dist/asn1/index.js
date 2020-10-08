@@ -48,7 +48,8 @@ function normalize(asn1) {
 }
 exports.normalize = normalize;
 if (require.main === module) {
-    yargs_1.default
+    // eslint-disable-next-line no-unused-vars
+    const { argv } = yargs_1.default
         .command({
         command: 'diff <file1> <file2>',
         handler: (args) => {

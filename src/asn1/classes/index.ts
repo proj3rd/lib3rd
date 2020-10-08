@@ -19,7 +19,8 @@ function createClass(classname: string) {
 }
 
 if (require.main === module) {
-  yargs.command({
+  // eslint-disable-next-line no-unused-vars
+  const { argv } = yargs.command({
     command: 'new <classname>',
     handler: (args) => {
       const { classname } = args;
