@@ -5,7 +5,7 @@ import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet
 import { Logger } from '../../logger';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { HEADER_TYPE } from '../formatter/spreadsheet';
+import { HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
@@ -51,6 +51,8 @@ export function toStringWithComma(
 export class SequenceType {
   public components: RootSequenceComponents[];
 
+  public reference: string | undefined;
+
   constructor(components: RootSequenceComponents[]) {
     this.components = components;
   }
@@ -83,8 +85,10 @@ export class SequenceType {
       const { objectSet } = assignment;
       const expandedObjectSet = cloneDeep(objectSet).expand(modules, []);
       if (isEqual(expandedObjectSet, objectSet)) {
+        objectSet.reference = actualParameter;
         return objectSet;
       }
+      expandedObjectSet.reference = actualParameter;
       return expandedObjectSet;
     }
     return this.expandFallback(modules, parameterMappings);
@@ -102,6 +106,10 @@ export class SequenceType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    if (this.reference && !row[HEADER_REFERENCE]) {
+      // eslint-disable-next-line no-param-reassign
+      row[HEADER_REFERENCE] = this.reference;
+    }
     // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = 'SEQUENCE';
     const r = worksheet.addRow(row);

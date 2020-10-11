@@ -4,9 +4,6 @@ const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const spreadsheet_2 = require("../formatter/spreadsheet");
 class BooleanType {
-    static getInstance() {
-        return BooleanType.instance;
-    }
     // eslint-disable-next-line no-unused-vars
     expand(modules, parameterMappings) {
         return this;
@@ -22,6 +19,10 @@ class BooleanType {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
+        if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
+            // eslint-disable-next-line no-param-reassign
+            row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
+        }
         // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_TYPE] = this.toString();
         const r = worksheet.addRow(row);
@@ -34,5 +35,4 @@ class BooleanType {
     }
 }
 exports.BooleanType = BooleanType;
-BooleanType.instance = new BooleanType();
 //# sourceMappingURL=booleanType.js.map

@@ -4,8 +4,7 @@ import { IParameterMapping } from '../expander';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 export declare class BooleanType {
-    static getInstance(): BooleanType;
-    private static instance;
+    reference: string | undefined;
     private booleanTypeTag;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): BooleanType;
     getDepth(): number;

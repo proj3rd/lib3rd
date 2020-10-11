@@ -60,11 +60,13 @@ class ObjectIdentifierValue {
                         if (asnType instanceof objectSet_1.ObjectSet) {
                             return unimpl_1.unimpl();
                         }
+                        asnType.reference = objectIdComponents;
                         return asnType;
                     }
                     if (expandedType instanceof objectSet_1.ObjectSet) {
                         return unimpl_1.unimpl();
                     }
+                    expandedType.reference = objectIdComponents;
                     return expandedType;
                 }
                 if (assignment instanceof objectClassAssignment_1.ObjectClassAssignment) {
@@ -103,6 +105,10 @@ class ObjectIdentifierValue {
             unimpl_1.unreach();
         }
         spreadsheet_2.appendInColumn(row, spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth), '{');
+        if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
+            // eslint-disable-next-line no-param-reassign
+            row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
+        }
         const r1 = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r1, depth);
         spreadsheet_1.drawBorder(worksheet, r1, depth);

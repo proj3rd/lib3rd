@@ -7,6 +7,7 @@ import { Modules } from './modules';
 export declare class ExternalTypeReference {
     moduleReference: string;
     typeReference: string;
+    reference: string | undefined;
     private externalTypeReferenceTag;
     constructor(moduleReference: string, typeReference: string);
     /**

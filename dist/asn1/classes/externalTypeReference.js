@@ -32,11 +32,13 @@ class ExternalTypeReference {
                 return unimpl_1.unimpl();
             }
             if (lodash_1.isEqual(expandedType, asnType)) {
+                asnType.reference = this.toString();
                 return asnType;
             }
             if (expandedType instanceof objectSet_1.ObjectSet) {
                 return unimpl_1.unimpl();
             }
+            expandedType.reference = this.toString();
             return expandedType;
         }
         if (referencedAssignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
@@ -58,6 +60,10 @@ class ExternalTypeReference {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
+        if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
+            // eslint-disable-next-line no-param-reassign
+            row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
+        }
         // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_REFERENCE] = this.toString();
         const r = worksheet.addRow(row);

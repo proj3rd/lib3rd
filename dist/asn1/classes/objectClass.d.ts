@@ -15,6 +15,7 @@ export declare type FieldSpec = TypeFieldSpec | FixedTypeValueFieldSpec;
 export declare class ObjectClassDefinition {
     fieldSpecs: FieldSpec[];
     syntaxList: Syntax[];
+    reference: string | undefined;
     constructor(fieldSpecs: FieldSpec[], syntaxList: Syntax[]);
     /**
      * Expand `fieldSpecs` property. This will mutate the object itself.

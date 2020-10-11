@@ -19,6 +19,8 @@ export class TypeReference {
   public typeReference: string;
   public constraint: Constraint | undefined;
 
+  public reference: string | undefined;
+
   private typeReferenceTag: undefined;
 
   constructor(typeReference: string) {
@@ -48,8 +50,10 @@ export class TypeReference {
         const { asnType } = referencedAssignment;
         const expandedType = cloneDeep(asnType).expand(modules, []);
         if (isEqual(expandedType, asnType)) {
+          asnType.reference = this.toString();
           return asnType;
         }
+        expandedType.reference = this.toString();
         return expandedType;
       } if (referencedAssignment instanceof ParameterizedTypeAssignment) {
         return unimpl();
@@ -65,8 +69,10 @@ export class TypeReference {
       if (actualParameter instanceof TypeReference) {
         const expandedType = cloneDeep(actualParameter).expand(modules, []);
         if (isEqual(expandedType, actualParameter)) {
+          actualParameter.reference = this.toString();
           return actualParameter;
         }
+        expandedType.reference = this.toString();
         return expandedType;
       }
       return unimpl(actualParameter.constructor.name);
@@ -98,7 +104,7 @@ export class TypeReference {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
-    row[HEADER_REFERENCE] = this.toString();
+    row[HEADER_REFERENCE] = this.reference || this.toString();
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);

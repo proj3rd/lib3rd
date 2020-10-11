@@ -21,6 +21,6 @@ export class NamedTypeVisitor extends AbstractParseTreeVisitor<NamedType>
   }
 
   protected defaultResult(): NamedType {
-    return new NamedType('', NullType.getInstance());
+    return new NamedType('', new NullType());
   }
 }

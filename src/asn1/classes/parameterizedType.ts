@@ -24,6 +24,8 @@ export class ParameterizedType {
   public simpleDefinedType: TypeReference | ExternalTypeReference;
   public actualParameters: ActualParameter[];
 
+  public reference: string | undefined;
+
   private paramterizedTypeTag: undefined;
 
   constructor(
@@ -116,8 +118,10 @@ export class ParameterizedType {
           parameterMappingsNew,
         );
         if (isEqual(expandedType, assignment.asnType)) {
+          assignment.asnType.reference = this.toString();
           return assignment.asnType;
         }
+        expandedType.reference = this.toString();
         return expandedType;
       }
       if (assignment instanceof ValueAssignment) {
@@ -146,6 +150,10 @@ export class ParameterizedType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    if (this.reference && !row[HEADER_REFERENCE]) {
+      // eslint-disable-next-line no-param-reassign
+      row[HEADER_REFERENCE] = this.reference;
+    }
     // eslint-disable-next-line no-param-reassign
     row[HEADER_REFERENCE] = this.toString();
     const r = worksheet.addRow(row);

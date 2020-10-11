@@ -5,6 +5,7 @@ import { Constraint } from './constraint';
 import { Modules } from './modules';
 export declare class OctetStringType {
     constraint: Constraint | undefined;
+    reference: string | undefined;
     private octetStringTypeTag;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): OctetStringType;
     getDepth(): number;

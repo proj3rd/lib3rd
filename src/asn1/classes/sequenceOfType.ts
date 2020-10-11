@@ -17,6 +17,8 @@ export class SequenceOfType {
   public baseType: AsnType | NamedType | ObjectSet;
   public constraint: Constraint | undefined;
 
+  public reference: string | undefined;
+
   private sequenceOfTypeTag: undefined;
 
   constructor(
@@ -67,6 +69,9 @@ export class SequenceOfType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    if (this.reference) {
+      appendInColumn(row, HEADER_TYPE, this.reference);
+    }
     appendInColumn(row, HEADER_TYPE, this.stringPrefix());
     this.baseType.toSpreadsheet(worksheet, row, depth);
   }

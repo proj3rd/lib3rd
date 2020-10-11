@@ -15,6 +15,7 @@ import { Value } from './value';
  */
 export declare class ObjectIdentifierValue {
     objectIdComponentsList: Array<ObjectIdComponents | /* the rest are applicable when expand */ AsnType | Value>;
+    reference: string | undefined;
     private objectIdentifierValueTag;
     private compoundComponentList;
     constructor(objectIdComponentsList: ObjectIdComponents[]);

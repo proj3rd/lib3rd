@@ -35,6 +35,10 @@ class ObjectSet {
         return this.objectSetSpec.reduce((prev, curr) => Math.max(prev, curr.getDepth() + 1), 0);
     }
     toSpreadsheet(worksheet, row, depth) {
+        if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
+            // eslint-disable-next-line no-param-reassign
+            row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
+        }
         if (this.objectSetSpec.length === 0) {
             spreadsheet_2.appendInColumn(row, spreadsheet_2.HEADER_TYPE, '{}');
             const r = worksheet.addRow(row);

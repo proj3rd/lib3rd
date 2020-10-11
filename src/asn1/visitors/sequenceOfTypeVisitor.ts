@@ -52,6 +52,6 @@ export class SequenceOfTypeVisitor
   }
 
   protected defaultResult(): SequenceOfType {
-    return new SequenceOfType(NullType.getInstance(), undefined);
+    return new SequenceOfType(new NullType(), undefined);
   }
 }

@@ -37,6 +37,8 @@ export class ObjectIdentifierValue {
     | Value
   >;
 
+  public reference: string | undefined; 
+
   private objectIdentifierValueTag: undefined;
 
   private compoundComponentList: string[] = [
@@ -87,11 +89,13 @@ export class ObjectIdentifierValue {
               if (asnType instanceof ObjectSet) {
                 return unimpl();
               }
+              asnType.reference = objectIdComponents;
               return asnType;
             }
             if (expandedType instanceof ObjectSet) {
               return unimpl();
             }
+            expandedType.reference = objectIdComponents;
             return expandedType;
           }
           if (assignment instanceof ObjectClassAssignment) {
@@ -136,6 +140,10 @@ export class ObjectIdentifierValue {
       unreach();
     }
     appendInColumn(row, headerIndexed(HEADER_NAME_BASE, depth), '{');
+    if (this.reference && !row[HEADER_REFERENCE]) {
+      // eslint-disable-next-line no-param-reassign
+      row[HEADER_REFERENCE] = this.reference;
+    }
     const r1 = worksheet.addRow(row);
     setOutlineLevel(r1, depth);
     drawBorder(worksheet, r1, depth);

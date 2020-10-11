@@ -2,7 +2,7 @@ import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import { HEADER_TYPE } from '../formatter/spreadsheet';
+import { HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
@@ -11,6 +11,8 @@ export type EnumerationItem = string | ExtensionMarker;
 
 export class EnumeratedType {
   public items: EnumerationItem[];
+
+  public reference: string | undefined;
 
   private enumeratedTypeTag: undefined;
 
@@ -36,6 +38,10 @@ export class EnumeratedType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    if (this.reference && !row[HEADER_REFERENCE]) {
+      // eslint-disable-next-line no-param-reassign
+      row[HEADER_REFERENCE] = this.reference;
+    }
     // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = this.toString();
     const r = worksheet.addRow(row);

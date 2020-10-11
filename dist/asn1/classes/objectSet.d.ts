@@ -9,6 +9,7 @@ import { Modules } from './modules';
  */
 export declare class ObjectSet {
     objectSetSpec: _ElementSetSpecs;
+    reference: string | undefined;
     private objectSetTag;
     constructor(objectSetSpec: _ElementSetSpecs);
     /**

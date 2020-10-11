@@ -12,6 +12,7 @@ export declare class SequenceOfType {
      */
     baseType: AsnType | NamedType | ObjectSet;
     constraint: Constraint | undefined;
+    reference: string | undefined;
     private sequenceOfTypeTag;
     constructor(baseType: AsnType | NamedType, constraint: Constraint | undefined);
     /**

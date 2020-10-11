@@ -44,7 +44,7 @@ class SequenceOfTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTree
         return new sequenceOfType_1.SequenceOfType(baseType, constraint);
     }
     defaultResult() {
-        return new sequenceOfType_1.SequenceOfType(nullType_1.NullType.getInstance(), undefined);
+        return new sequenceOfType_1.SequenceOfType(new nullType_1.NullType(), undefined);
     }
 }
 exports.SequenceOfTypeVisitor = SequenceOfTypeVisitor;

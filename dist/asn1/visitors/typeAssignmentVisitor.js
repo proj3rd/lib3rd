@@ -16,7 +16,7 @@ class TypeAssignmentVisitor extends AbstractParseTreeVisitor_1.AbstractParseTree
         return asnTypeCtx.accept(new asnTypeVisitor_1.AsnTypeVisitor());
     }
     defaultResult() {
-        return nullType_1.NullType.getInstance();
+        return new nullType_1.NullType();
     }
 }
 exports.TypeAssignmentVisitor = TypeAssignmentVisitor;

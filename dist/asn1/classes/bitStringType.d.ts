@@ -7,6 +7,7 @@ import { Modules } from './modules';
 export declare class BitStringType {
     constraint: Constraint | undefined;
     namedBitList: INamedBit[];
+    reference: string | undefined;
     private bitStringTypeTag;
     constructor(namedBitList?: INamedBit[]);
     expand(modules: Modules, parameterMappings: IParameterMapping[]): BitStringType;

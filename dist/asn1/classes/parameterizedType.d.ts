@@ -12,6 +12,7 @@ export declare type ActualParameter = AsnType | Value | DefinedObjectClass | Obj
 export declare class ParameterizedType {
     simpleDefinedType: TypeReference | ExternalTypeReference;
     actualParameters: ActualParameter[];
+    reference: string | undefined;
     private paramterizedTypeTag;
     constructor(simpleDefinedType: TypeReference | ExternalTypeReference, actualParameters: ActualParameter[]);
     /**

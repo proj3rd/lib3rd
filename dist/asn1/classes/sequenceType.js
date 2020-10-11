@@ -65,8 +65,10 @@ class SequenceType {
             const { objectSet } = assignment;
             const expandedObjectSet = lodash_1.cloneDeep(objectSet).expand(modules, []);
             if (lodash_1.isEqual(expandedObjectSet, objectSet)) {
+                objectSet.reference = actualParameter;
                 return objectSet;
             }
+            expandedObjectSet.reference = actualParameter;
             return expandedObjectSet;
         }
         return this.expandFallback(modules, parameterMappings);
@@ -81,6 +83,10 @@ class SequenceType {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
+        if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
+            // eslint-disable-next-line no-param-reassign
+            row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
+        }
         // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_TYPE] = 'SEQUENCE';
         const r = worksheet.addRow(row);

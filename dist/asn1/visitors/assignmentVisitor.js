@@ -57,7 +57,7 @@ class AssignmentVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisi
         throw Error();
     }
     defaultResult() {
-        return new typeAssignment_1.TypeAssignment('', nullType_1.NullType.getInstance());
+        return new typeAssignment_1.TypeAssignment('', new nullType_1.NullType());
     }
 }
 exports.AssignmentVisitor = AssignmentVisitor;

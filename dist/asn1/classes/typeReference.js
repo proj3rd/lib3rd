@@ -32,8 +32,10 @@ class TypeReference {
                 const { asnType } = referencedAssignment;
                 const expandedType = lodash_1.cloneDeep(asnType).expand(modules, []);
                 if (lodash_1.isEqual(expandedType, asnType)) {
+                    asnType.reference = this.toString();
                     return asnType;
                 }
+                expandedType.reference = this.toString();
                 return expandedType;
             }
             if (referencedAssignment instanceof parameterizedTypeAssignment_1.ParameterizedTypeAssignment) {
@@ -53,8 +55,10 @@ class TypeReference {
             if (actualParameter instanceof TypeReference) {
                 const expandedType = lodash_1.cloneDeep(actualParameter).expand(modules, []);
                 if (lodash_1.isEqual(expandedType, actualParameter)) {
+                    actualParameter.reference = this.toString();
                     return actualParameter;
                 }
+                expandedType.reference = this.toString();
                 return expandedType;
             }
             return unimpl_1.unimpl(actualParameter.constructor.name);
@@ -85,7 +89,7 @@ class TypeReference {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
-        row[spreadsheet_2.HEADER_REFERENCE] = this.toString();
+        row[spreadsheet_2.HEADER_REFERENCE] = this.reference || this.toString();
         const r = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r, depth);
         spreadsheet_1.drawBorder(worksheet, r, depth);

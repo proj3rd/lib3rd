@@ -4,6 +4,7 @@ import { IParameterMapping } from '../expander';
 import { Modules } from './modules';
 export declare class ValueReference {
     valueReference: string;
+    reference: string | undefined;
     private valueReferenceTag;
     constructor(valueReference: string);
     expand(modules: Modules, parameterMappings: IParameterMapping[]): ValueReference;

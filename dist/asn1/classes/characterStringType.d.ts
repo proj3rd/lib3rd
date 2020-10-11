@@ -13,6 +13,7 @@ export declare type CharacterStringTypeLiteral = 'BMPString' | 'GeneralString' |
 export declare class CharacterStringType {
     characterStringTypeLiteral: CharacterStringTypeLiteral;
     constraint: Constraint | undefined;
+    reference: string | undefined;
     private characterStringTypeTag;
     constructor(characterStringTypeLiteral: CharacterStringTypeLiteral);
     expand(modules: Modules, parameterMappings: IParameterMapping[]): CharacterStringType;

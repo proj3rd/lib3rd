@@ -8,6 +8,7 @@ import { ObjectSet } from './objectSet';
 export declare class TypeReference {
     typeReference: string;
     constraint: Constraint | undefined;
+    reference: string | undefined;
     private typeReferenceTag;
     constructor(typeReference: string);
     /**

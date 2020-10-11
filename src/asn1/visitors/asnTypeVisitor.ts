@@ -41,6 +41,6 @@ export class AsnTypeVisitor extends AbstractParseTreeVisitor<AsnType>
   }
 
   protected defaultResult(): AsnType {
-    return NullType.getInstance();
+    return new NullType();
   }
 }

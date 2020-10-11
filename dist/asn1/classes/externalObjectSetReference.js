@@ -24,10 +24,14 @@ class ExternalObjectSetReference {
             return this;
         }
         if (assignment instanceof typeAssignment_1.TypeAssignment) {
-            return lodash_1.cloneDeep(assignment.asnType).expand(modules, []);
+            const expandedType = lodash_1.cloneDeep(assignment.asnType).expand(modules, []);
+            expandedType.reference = this.toString();
+            return expandedType;
         }
         if (assignment instanceof objectClassAssignment_1.ObjectClassAssignment) {
-            return lodash_1.cloneDeep(assignment.objectClass).expand(modules, []);
+            const expandedType = lodash_1.cloneDeep(assignment.objectClass).expand(modules, []);
+            expandedType.reference = this.toString();
+            return expandedType;
         }
         return unimpl_1.unimpl(assignment);
     }

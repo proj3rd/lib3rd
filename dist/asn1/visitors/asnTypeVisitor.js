@@ -36,7 +36,7 @@ class AsnTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisitor
         return asnType;
     }
     defaultResult() {
-        return nullType_1.NullType.getInstance();
+        return new nullType_1.NullType();
     }
 }
 exports.AsnTypeVisitor = AsnTypeVisitor;

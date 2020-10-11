@@ -77,10 +77,10 @@ class BuiltinTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVis
         }
         switch (ctx.text) {
             case 'BOOLEAN': {
-                return booleanType_1.BooleanType.getInstance();
+                return new booleanType_1.BooleanType();
             }
             case 'NULL': {
-                return nullType_1.NullType.getInstance();
+                return new nullType_1.NullType();
             }
             default: {
                 throw Error();
@@ -88,7 +88,7 @@ class BuiltinTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVis
         }
     }
     defaultResult() {
-        return nullType_1.NullType.getInstance();
+        return new nullType_1.NullType();
     }
 }
 exports.BuiltinTypeVisitor = BuiltinTypeVisitor;

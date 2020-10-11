@@ -19,6 +19,7 @@ export declare type RootSequenceComponents = ComponentType | ExtensionMarker | E
 export declare function toStringWithComma(component: RootSequenceComponents, shouldInsert: boolean): string;
 export declare class SequenceType {
     components: RootSequenceComponents[];
+    reference: string | undefined;
     constructor(components: RootSequenceComponents[]);
     /**
      * Expand `components` property. This will mutate the object itself.

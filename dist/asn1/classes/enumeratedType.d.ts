@@ -7,6 +7,7 @@ import { Modules } from './modules';
 export declare type EnumerationItem = string | ExtensionMarker;
 export declare class EnumeratedType {
     items: EnumerationItem[];
+    reference: string | undefined;
     private enumeratedTypeTag;
     constructor(items: EnumerationItem[]);
     expand(modules: Modules, parameterMappings: IParameterMapping[]): EnumeratedType;

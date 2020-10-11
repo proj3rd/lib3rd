@@ -34,10 +34,14 @@ export class ExternalObjectSetReference {
       return this;
     }
     if (assignment instanceof TypeAssignment) {
-      return cloneDeep(assignment.asnType).expand(modules, []);
+      const expandedType = cloneDeep(assignment.asnType).expand(modules, []);
+      expandedType.reference = this.toString();
+      return expandedType;
     }
     if (assignment instanceof ObjectClassAssignment) {
-      return cloneDeep(assignment.objectClass).expand(modules, []);
+      const expandedType = cloneDeep(assignment.objectClass).expand(modules, []);
+      expandedType.reference = this.toString();
+      return expandedType;
     }
     return unimpl(assignment);
   }

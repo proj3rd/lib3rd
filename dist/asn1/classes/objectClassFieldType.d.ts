@@ -15,6 +15,7 @@ export declare class ObjectClassFieldType {
     definedObjectClass: DefinedObjectClass;
     fieldName: PrimitiveFieldName[];
     constraint: Constraint | undefined;
+    reference: string | undefined;
     private objectClassFieldType;
     constructor(definedObjectClass: DefinedObjectClass, fieldName: PrimitiveFieldName[]);
     expand(modules: Modules, parameterMappings: IParameterMapping[]): AsnType;

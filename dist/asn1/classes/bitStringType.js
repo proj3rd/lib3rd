@@ -74,6 +74,10 @@ class BitStringType {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
+        if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
+            // eslint-disable-next-line no-param-reassign
+            row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
+        }
         // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_TYPE] = this.toString();
         const r = worksheet.addRow(row);

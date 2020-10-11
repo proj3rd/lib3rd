@@ -69,6 +69,6 @@ export class AssignmentVisitor extends AbstractParseTreeVisitor<Assignment>
   }
 
   protected defaultResult(): Assignment {
-    return new TypeAssignment('', NullType.getInstance());
+    return new TypeAssignment('', new NullType());
   }
 }

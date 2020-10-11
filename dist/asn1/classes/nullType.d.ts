@@ -4,8 +4,7 @@ import { IParameterMapping } from '../expander';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 export declare class NullType {
-    static getInstance(): NullType;
-    private static instance;
+    reference: string | undefined;
     private nullTypeTag;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): NullType;
     getDepth(): number;

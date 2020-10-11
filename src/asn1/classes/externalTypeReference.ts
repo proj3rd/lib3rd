@@ -16,6 +16,8 @@ export class ExternalTypeReference {
   public moduleReference: string;
   public typeReference: string;
 
+  public reference: string | undefined;
+
   private externalTypeReferenceTag: undefined;
 
   constructor(moduleReference: string, typeReference: string) {
@@ -44,11 +46,13 @@ export class ExternalTypeReference {
         return unimpl();
       }
       if (isEqual(expandedType, asnType)) {
+        asnType.reference = this.toString();
         return asnType;
       }
       if (expandedType instanceof ObjectSet) {
         return unimpl();
       }
+      expandedType.reference = this.toString();
       return expandedType;
     } if (referencedAssignment instanceof ParameterizedTypeAssignment) {
       return unimpl();
@@ -71,6 +75,10 @@ export class ExternalTypeReference {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    if (this.reference && !row[HEADER_REFERENCE]) {
+      // eslint-disable-next-line no-param-reassign
+      row[HEADER_REFERENCE] = this.reference;
+    }
     // eslint-disable-next-line no-param-reassign
     row[HEADER_REFERENCE] = this.toString();
     const r = worksheet.addRow(row);

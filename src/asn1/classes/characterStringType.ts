@@ -2,7 +2,7 @@ import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import { HEADER_TYPE } from '../formatter/spreadsheet';
+import { HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -36,6 +36,8 @@ export type CharacterStringTypeLiteral =
 export class CharacterStringType {
   public characterStringTypeLiteral: CharacterStringTypeLiteral;
   public constraint: Constraint | undefined;
+
+  public reference: string | undefined;
 
   private characterStringTypeTag: undefined;
 
@@ -106,6 +108,10 @@ export class CharacterStringType {
     }
   }
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    if (this.reference && !row[HEADER_REFERENCE]) {
+      // eslint-disable-next-line no-param-reassign
+      row[HEADER_REFERENCE] = this.reference;
+    }
     // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = this.toString();
     const r = worksheet.addRow(row);

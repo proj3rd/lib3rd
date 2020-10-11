@@ -9,6 +9,7 @@ import { NamedType } from './namedType';
 export declare type RootChoiceComponents = NamedType | ExtensionMarker | ExtensionAdditionAlternativeGroup;
 export declare class ChoiceType {
     components: RootChoiceComponents[];
+    reference: string | undefined;
     private choiceTypeTag;
     constructor(components: RootChoiceComponents[]);
     /**

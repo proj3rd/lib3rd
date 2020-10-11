@@ -6,6 +6,7 @@ import { ValueReference } from './valueReference';
 export declare class IntegerValue {
     literal: string;
     value: number | ValueReference;
+    reference: string | undefined;
     private integerValueTag;
     constructor(literal: string);
     expand(modules: Modules, parameterMappings: IParameterMapping[]): IntegerValue;

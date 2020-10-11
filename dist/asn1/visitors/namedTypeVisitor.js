@@ -18,7 +18,7 @@ class NamedTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVisit
         return new namedType_1.NamedType(name, asnType);
     }
     defaultResult() {
-        return new namedType_1.NamedType('', nullType_1.NullType.getInstance());
+        return new namedType_1.NamedType('', new nullType_1.NullType());
     }
 }
 exports.NamedTypeVisitor = NamedTypeVisitor;

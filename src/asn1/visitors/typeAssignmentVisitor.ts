@@ -20,6 +20,6 @@ export class TypeAssignmentVisitor extends AbstractParseTreeVisitor<AsnType>
   }
 
   protected defaultResult(): AsnType {
-    return NullType.getInstance();
+    return new NullType();
   }
 }

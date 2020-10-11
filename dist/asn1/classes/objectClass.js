@@ -39,6 +39,10 @@ class ObjectClassDefinition {
         return Math.max(depthFieldSpecs, depthSyntaxList);
     }
     toSpreadsheet(worksheet, row, depth) {
+        if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
+            // eslint-disable-next-line no-param-reassign
+            row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
+        }
         // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_TYPE] = 'CLASS';
         const r1 = worksheet.addRow(row);

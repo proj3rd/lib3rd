@@ -32,6 +32,8 @@ export class ObjectClassFieldType {
   public fieldName: PrimitiveFieldName[];
   public constraint: Constraint | undefined;
 
+  public reference: string | undefined;
+
   private objectClassFieldType: undefined;
 
   constructor(
@@ -67,16 +69,20 @@ export class ObjectClassFieldType {
         return this;
       }
       if (fieldSpec instanceof TypeFieldSpec) {
-        return new TypeReference(fieldSpec.fieldReference.toString());
+        const newTypeReference = new TypeReference(fieldSpec.fieldReference.toString());
+        newTypeReference.reference = this.toString();
+        return newTypeReference;
       }
       if (fieldSpec instanceof FixedTypeValueFieldSpec) {
         const expandedType = cloneDeep(fieldSpec.asnType).expand(modules, []);
         if (isEqual(expandedType, fieldSpec.asnType)) {
+          fieldSpec.asnType.reference = this.toString();
           return fieldSpec.asnType;
         }
         if (expandedType instanceof ObjectSet) {
           return unimpl();
         }
+        expandedType.reference = this.toString();
         return expandedType;
       }
       return todo();
@@ -121,6 +127,10 @@ export class ObjectClassFieldType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    if (this.reference && !row[HEADER_REFERENCE]) {
+      // eslint-disable-next-line no-param-reassign
+      row[HEADER_REFERENCE] = this.reference;
+    }
     // eslint-disable-next-line no-param-reassign
     row[HEADER_REFERENCE] = this.toString();
     const r = worksheet.addRow(row);

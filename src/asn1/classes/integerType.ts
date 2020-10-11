@@ -3,7 +3,7 @@ import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import { HEADER_TYPE } from '../formatter/spreadsheet';
+import { HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { INamedNumber } from '../types';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
@@ -16,6 +16,8 @@ import { SubtypeConstraint } from './subtypeConstraint';
 export class IntegerType {
   public constraint: Constraint | undefined;
   public namedNumberList: INamedNumber[];
+
+  public reference: string | undefined;
 
   private integerTypeTag: undefined;
 
@@ -69,6 +71,10 @@ export class IntegerType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
+    if (this.reference && !row[HEADER_REFERENCE]) {
+      // eslint-disable-next-line no-param-reassign
+      row[HEADER_REFERENCE] = this.reference;
+    }
     // eslint-disable-next-line no-param-reassign
     row[HEADER_TYPE] = this.toString();
     const r = worksheet.addRow(row);

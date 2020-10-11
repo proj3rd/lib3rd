@@ -48,16 +48,20 @@ class ObjectClassFieldType {
                 return this;
             }
             if (fieldSpec instanceof typeFieldSpec_1.TypeFieldSpec) {
-                return new typeReference_1.TypeReference(fieldSpec.fieldReference.toString());
+                const newTypeReference = new typeReference_1.TypeReference(fieldSpec.fieldReference.toString());
+                newTypeReference.reference = this.toString();
+                return newTypeReference;
             }
             if (fieldSpec instanceof fixedTypeValueFieldSpec_1.FixedTypeValueFieldSpec) {
                 const expandedType = lodash_1.cloneDeep(fieldSpec.asnType).expand(modules, []);
                 if (lodash_1.isEqual(expandedType, fieldSpec.asnType)) {
+                    fieldSpec.asnType.reference = this.toString();
                     return fieldSpec.asnType;
                 }
                 if (expandedType instanceof objectSet_1.ObjectSet) {
                     return unimpl_1.unimpl();
                 }
+                expandedType.reference = this.toString();
                 return expandedType;
             }
             return unimpl_1.todo();
@@ -103,6 +107,10 @@ class ObjectClassFieldType {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
+        if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
+            // eslint-disable-next-line no-param-reassign
+            row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
+        }
         // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_REFERENCE] = this.toString();
         const r = worksheet.addRow(row);

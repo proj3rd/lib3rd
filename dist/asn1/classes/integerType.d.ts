@@ -7,6 +7,7 @@ import { Modules } from './modules';
 export declare class IntegerType {
     constraint: Constraint | undefined;
     namedNumberList: INamedNumber[];
+    reference: string | undefined;
     private integerTypeTag;
     constructor(namedNumberList?: INamedNumber[]);
     expand(modules: Modules, parameterMappings: IParameterMapping[]): IntegerType;

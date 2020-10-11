@@ -80,8 +80,10 @@ class ParameterizedType {
                 });
                 const expandedType = lodash_1.cloneDeep(assignment.asnType).expand(modules, parameterMappingsNew);
                 if (lodash_1.isEqual(expandedType, assignment.asnType)) {
+                    assignment.asnType.reference = this.toString();
                     return assignment.asnType;
                 }
+                expandedType.reference = this.toString();
                 return expandedType;
             }
             if (assignment instanceof valueAssignment_1.ValueAssignment) {
@@ -109,6 +111,10 @@ class ParameterizedType {
         unimpl_1.unimpl();
     }
     toSpreadsheet(worksheet, row, depth) {
+        if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
+            // eslint-disable-next-line no-param-reassign
+            row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
+        }
         // eslint-disable-next-line no-param-reassign
         row[spreadsheet_2.HEADER_REFERENCE] = this.toString();
         const r = worksheet.addRow(row);
