@@ -1,5 +1,6 @@
 import { Workbook } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
+import { HEADER_REFERENCE, HEADER_TYPE } from '../../asn1/formatter/spreadsheet';
 import {
   addHeader,
   addTitle,
@@ -12,6 +13,7 @@ import {
   uniqueSheetname,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
+import { reSectionNumber } from '../parse';
 import { IDefinition, IInformationElement } from '../types';
 import { Conditions } from './conditions';
 import { Definitions } from './definitions';
@@ -20,7 +22,6 @@ import { RangeBounds } from './rangeBounds';
 export const HEADER_NAME_BASE = 'IE/Group Name';
 const HEADER_PRESENCE = 'Presence';
 const HEADER_RANGE = 'Range';
-const HEADER_TYPE_AND_REF = 'IE type and reference';
 export const HEADER_DESCRIPTION = 'Semantics description';
 const HEADER_CRITICALITY = 'Criticality';
 const HEADER_ASSIGNED_CRITICALITY = 'Assigned Criticality';
@@ -29,21 +30,12 @@ const HEADER_LIST = [
   HEADER_NAME_BASE,
   HEADER_PRESENCE,
   HEADER_RANGE,
-  HEADER_TYPE_AND_REF,
+  HEADER_REFERENCE,
+  HEADER_TYPE,
   HEADER_DESCRIPTION,
   HEADER_CRITICALITY,
   HEADER_ASSIGNED_CRITICALITY,
 ];
-
-/**
- * Regular expression for section number. Following expressions are supported
- * - 9.1.2.3
- * - 9.1.2.3a
- * - A.1.2.3
- * - A.1.2.3a
- */
-const reSectionNumber = /\b[1-9A-Z]\d*?(\.[1-9]\d*?)*\.[1-9]\w*?\b/;
-//                         ^ Head      ^ Middle        ^ Tail
 
 // eslint-disable-next-line no-use-before-define
 function canMerge(parent: IInformationElement, child: Definition): boolean {
@@ -89,9 +81,9 @@ function merge(parent: IInformationElement, child: IInformationElement) {
     // eslint-disable-next-line no-param-reassign
     parent.presence = parent.presence || child.presence;
   }
-  if (child.typeAndRef !== '') {
+  if (child.type !== '') {
     // eslint-disable-next-line no-param-reassign
-    parent.typeAndRef = child.typeAndRef;
+    parent.type = child.type;
   }
   // eslint-disable-next-line no-param-reassign
   parent.description = `${parent.description}
@@ -137,8 +129,8 @@ export class Definition {
     // tslint:disable-next-line: prefer-for-of
     for (let i = elementListExpanded.length - 1; i >= 0; i -= 1) {
       const element = elementListExpanded[i];
-      const { typeAndRef } = element;
-      const matchResult = typeAndRef.match(reSectionNumber);
+      const { reference } = element;
+      const matchResult = reference.match(reSectionNumber);
       if (matchResult) {
         const sectionNumber = matchResult[0];
         const definitionReferenced = definitions.findDefinition(sectionNumber);
@@ -227,7 +219,8 @@ export class Definition {
         name,
         presence,
         range,
-        typeAndRef,
+        reference,
+        type,
         description,
         criticality,
         assignedCriticality,
@@ -237,7 +230,8 @@ export class Definition {
         [headerIndexed(HEADER_NAME_BASE, depthElement)]: name,
         [HEADER_PRESENCE]: presence,
         [HEADER_RANGE]: range,
-        [HEADER_TYPE_AND_REF]: typeAndRef,
+        [HEADER_REFERENCE]: reference,
+        [HEADER_TYPE]: type,
         [HEADER_DESCRIPTION]: description,
         [HEADER_CRITICALITY]: criticality,
         [HEADER_ASSIGNED_CRITICALITY]: assignedCriticality,

@@ -1,14 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
-const spreadsheet_1 = require("../../common/spreadsheet");
+const spreadsheet_1 = require("../../asn1/formatter/spreadsheet");
+const spreadsheet_2 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
+const parse_1 = require("../parse");
 const conditions_1 = require("./conditions");
 const rangeBounds_1 = require("./rangeBounds");
 exports.HEADER_NAME_BASE = 'IE/Group Name';
 const HEADER_PRESENCE = 'Presence';
 const HEADER_RANGE = 'Range';
-const HEADER_TYPE_AND_REF = 'IE type and reference';
 exports.HEADER_DESCRIPTION = 'Semantics description';
 const HEADER_CRITICALITY = 'Criticality';
 const HEADER_ASSIGNED_CRITICALITY = 'Assigned Criticality';
@@ -16,20 +17,12 @@ const HEADER_LIST = [
     exports.HEADER_NAME_BASE,
     HEADER_PRESENCE,
     HEADER_RANGE,
-    HEADER_TYPE_AND_REF,
+    spreadsheet_1.HEADER_REFERENCE,
+    spreadsheet_1.HEADER_TYPE,
     exports.HEADER_DESCRIPTION,
     HEADER_CRITICALITY,
     HEADER_ASSIGNED_CRITICALITY,
 ];
-/**
- * Regular expression for section number. Following expressions are supported
- * - 9.1.2.3
- * - 9.1.2.3a
- * - A.1.2.3
- * - A.1.2.3a
- */
-const reSectionNumber = /\b[1-9A-Z]\d*?(\.[1-9]\d*?)*\.[1-9]\w*?\b/;
-//                         ^ Head      ^ Middle        ^ Tail
 // eslint-disable-next-line no-use-before-define
 function canMerge(parent, child) {
     if (!child.hasSingleRoot()) {
@@ -68,9 +61,9 @@ function merge(parent, child) {
         // eslint-disable-next-line no-param-reassign
         parent.presence = parent.presence || child.presence;
     }
-    if (child.typeAndRef !== '') {
+    if (child.type !== '') {
         // eslint-disable-next-line no-param-reassign
-        parent.typeAndRef = child.typeAndRef;
+        parent.type = child.type;
     }
     // eslint-disable-next-line no-param-reassign
     parent.description = `${parent.description}
@@ -98,8 +91,8 @@ class Definition {
         // tslint:disable-next-line: prefer-for-of
         for (let i = elementListExpanded.length - 1; i >= 0; i -= 1) {
             const element = elementListExpanded[i];
-            const { typeAndRef } = element;
-            const matchResult = typeAndRef.match(reSectionNumber);
+            const { reference } = element;
+            const matchResult = reference.match(parse_1.reSectionNumber);
             if (matchResult) {
                 const sectionNumber = matchResult[0];
                 const definitionReferenced = definitions.findDefinition(sectionNumber);
@@ -166,31 +159,32 @@ class Definition {
         return depthAndCount.count === 1;
     }
     toSpreadsheet(workbook) {
-        const wb = spreadsheet_1.getWorkbook(workbook);
-        const sheetname = spreadsheet_1.uniqueSheetname(wb, `${this.sectionNumber} ${this.name}`);
-        const ws = spreadsheet_1.addWorksheet(wb, sheetname, 5);
+        const wb = spreadsheet_2.getWorkbook(workbook);
+        const sheetname = spreadsheet_2.uniqueSheetname(wb, `${this.sectionNumber} ${this.name}`);
+        const ws = spreadsheet_2.addWorksheet(wb, sheetname, 5);
         const depth = this.getDepth();
-        spreadsheet_1.addTitle(ws, this.name);
+        spreadsheet_2.addTitle(ws, this.name);
         ws.addRow([this.descriptionList.join('\n')]);
         ws.addRow([this.direction]);
         ws.addRow([]);
-        spreadsheet_1.addHeader(ws, HEADER_LIST, depth);
+        spreadsheet_2.addHeader(ws, HEADER_LIST, depth);
         this.elementList.forEach((element) => {
-            const { name, presence, range, typeAndRef, description, criticality, assignedCriticality, depth: depthElement, } = element;
+            const { name, presence, range, reference, type, description, criticality, assignedCriticality, depth: depthElement, } = element;
             const rowInput = {
-                [spreadsheet_1.headerIndexed(exports.HEADER_NAME_BASE, depthElement)]: name,
+                [spreadsheet_2.headerIndexed(exports.HEADER_NAME_BASE, depthElement)]: name,
                 [HEADER_PRESENCE]: presence,
                 [HEADER_RANGE]: range,
-                [HEADER_TYPE_AND_REF]: typeAndRef,
+                [spreadsheet_1.HEADER_REFERENCE]: reference,
+                [spreadsheet_1.HEADER_TYPE]: type,
                 [exports.HEADER_DESCRIPTION]: description,
                 [HEADER_CRITICALITY]: criticality,
                 [HEADER_ASSIGNED_CRITICALITY]: assignedCriticality,
             };
             const r = ws.addRow(rowInput);
-            spreadsheet_1.setOutlineLevel(r, depthElement);
-            spreadsheet_1.drawBorder(ws, r, depthElement);
+            spreadsheet_2.setOutlineLevel(r, depthElement);
+            spreadsheet_2.drawBorder(ws, r, depthElement);
         });
-        spreadsheet_1.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
+        spreadsheet_2.drawBorder(ws, ws.addRow([]), 0, style_1.BorderTop);
         this.conditions.toSpreadsheet(ws);
         this.rangeBounds.toSpreadsheet(ws);
         return wb;

@@ -7,7 +7,8 @@ export interface IInformationElement {
   name: string;
   presence: string;
   range: string;
-  typeAndRef: string;
+  reference: string;
+  type: string;
   description: string;
   criticality: string;
   assignedCriticality: string;

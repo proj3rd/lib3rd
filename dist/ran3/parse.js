@@ -18,6 +18,15 @@ const definitions_1 = require("./classes/definitions");
 const reSection = /^(?<sectionNumber>[1-9A-Z]\d*?(\.[1-9]\d*?)*?\.[1-9]\w*?)\s+?(?<title>.+)$/;
 //                                   ^ Head      ^ Middle       ^ Tail
 /**
+ * Regular expression for section number. Following expressions are supported
+ * - 9.1.2.3
+ * - 9.1.2.3a
+ * - A.1.2.3
+ * - A.1.2.3a
+ */
+exports.reSectionNumber = /\b[1-9A-Z]\d*?(\.[1-9]\d*?)*\.[1-9]\w*?\b/;
+//                         ^ Head      ^ Middle        ^ Tail
+/**
  * Regular expression for section. The number of '>' is equal to the depth.
  */
 const reDepth = /^(?<depth>>+)/;
@@ -131,11 +140,14 @@ function parseDefinitionTable(element) {
             ? 0
             : matchResult.groups.depth.length;
         depthMin = Math.min(depthMin, depth);
+        const typeAndRef = normalizeHtmlText(cheerio_1.default(tdList[i + 2]).text());
+        const [reference, type] = typeAndRef.match(exports.reSectionNumber) ? [typeAndRef, ''] : ['', typeAndRef];
         const informationElement = {
             name,
             presence: normalizeHtmlText(cheerio_1.default(tdList[i]).text()),
             range: normalizeHtmlText(cheerio_1.default(tdList[i + 1]).text()),
-            typeAndRef: normalizeHtmlText(cheerio_1.default(tdList[i + 2]).text()),
+            reference,
+            type,
             description: normalizeHtmlText(cheerio_1.default(tdList[i + 3]).text()),
             criticality: normalizeHtmlText(cheerio_1.default(tdList[i + 4]).text()),
             assignedCriticality: normalizeHtmlText(cheerio_1.default(tdList[i + 5]).text()),
