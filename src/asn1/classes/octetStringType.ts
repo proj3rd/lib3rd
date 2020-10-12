@@ -3,8 +3,7 @@ import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { SizeConstraint } from './sizeConstraint';
 import { IParameterMapping } from '../expander';
-import { HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
-
+import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -81,8 +80,7 @@ export class OctetStringType {
       // eslint-disable-next-line no-param-reassign
       row[HEADER_REFERENCE] = this.reference;
     }
-    // eslint-disable-next-line no-param-reassign
-    row[HEADER_TYPE] = this.toString();
+    appendInColumn(row, HEADER_TYPE, this.toString());
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);

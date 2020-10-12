@@ -4,7 +4,7 @@ import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
+import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { Modules } from './modules';
 import { Syntax } from './syntax';
@@ -61,8 +61,7 @@ export class ObjectClassDefinition {
       // eslint-disable-next-line no-param-reassign
       row[HEADER_REFERENCE] = this.reference;
     }
-    // eslint-disable-next-line no-param-reassign
-    row[HEADER_TYPE] = 'CLASS';
+    appendInColumn(row, HEADER_TYPE, 'CLASS');
     const r1 = worksheet.addRow(row);
     setOutlineLevel(r1, depth);
     drawBorder(worksheet, r1, depth);

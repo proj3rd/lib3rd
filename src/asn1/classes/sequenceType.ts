@@ -110,8 +110,7 @@ export class SequenceType {
       // eslint-disable-next-line no-param-reassign
       row[HEADER_REFERENCE] = this.reference;
     }
-    // eslint-disable-next-line no-param-reassign
-    row[HEADER_TYPE] = 'SEQUENCE';
+    appendInColumn(row, HEADER_TYPE, 'SEQUENCE');
     const r = worksheet.addRow(row);
     setOutlineLevel(r, depth);
     drawBorder(worksheet, r, depth);
