@@ -43,8 +43,7 @@ class ObjectClassDefinition {
             // eslint-disable-next-line no-param-reassign
             row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
         }
-        // eslint-disable-next-line no-param-reassign
-        row[spreadsheet_2.HEADER_TYPE] = 'CLASS';
+        spreadsheet_2.appendInColumn(row, spreadsheet_2.HEADER_TYPE, 'CLASS');
         const r1 = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r1, depth);
         spreadsheet_1.drawBorder(worksheet, r1, depth);

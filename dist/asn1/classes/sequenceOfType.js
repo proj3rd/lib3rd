@@ -36,10 +36,10 @@ class SequenceOfType {
         }
     }
     toSpreadsheet(worksheet, row, depth) {
-        if (this.reference) {
-            spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, this.reference);
-        }
         spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, this.stringPrefix());
+        if (this.reference) {
+            spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, `(${this.reference})`);
+        }
         this.baseType.toSpreadsheet(worksheet, row, depth);
     }
     toString() {

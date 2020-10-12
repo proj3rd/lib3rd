@@ -59,8 +59,7 @@ class IntegerType {
             // eslint-disable-next-line no-param-reassign
             row[spreadsheet_2.HEADER_REFERENCE] = this.reference;
         }
-        // eslint-disable-next-line no-param-reassign
-        row[spreadsheet_2.HEADER_TYPE] = this.toString();
+        spreadsheet_2.appendInColumn(row, spreadsheet_2.HEADER_TYPE, this.toString());
         const r = worksheet.addRow(row);
         spreadsheet_1.setOutlineLevel(r, depth);
         spreadsheet_1.drawBorder(worksheet, r, depth);
