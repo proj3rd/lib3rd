@@ -118,10 +118,10 @@ export class ParameterizedType {
           parameterMappingsNew,
         );
         if (isEqual(expandedType, assignment.asnType)) {
-          assignment.asnType.reference = this.toString();
+          assignment.asnType.reference = this.toStringHelper(actualParametersNew);
           return assignment.asnType;
         }
-        expandedType.reference = this.toString();
+        expandedType.reference = this.toStringHelper(actualParametersNew);
         return expandedType;
       }
       if (assignment instanceof ValueAssignment) {
@@ -162,7 +162,11 @@ export class ParameterizedType {
   }
 
   public toString(): string {
-    const innerString = this.actualParameters
+    return this.toStringHelper(this.actualParameters);
+  }
+
+  private toStringHelper(actualParameters: ActualParameter[]) {
+    const innerString = actualParameters
       .map((parameter) => parameter.toString())
       .join(', ');
     return `${this.simpleDefinedType.toString()} {${innerString}}`;

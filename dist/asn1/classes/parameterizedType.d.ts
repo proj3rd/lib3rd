@@ -27,5 +27,6 @@ export declare class ParameterizedType {
     setConstraints(constraints: Constraint[]): void;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;
     toString(): string;
+    private toStringHelper;
 }
 //# sourceMappingURL=parameterizedType.d.ts.map

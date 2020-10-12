@@ -80,10 +80,10 @@ class ParameterizedType {
                 });
                 const expandedType = lodash_1.cloneDeep(assignment.asnType).expand(modules, parameterMappingsNew);
                 if (lodash_1.isEqual(expandedType, assignment.asnType)) {
-                    assignment.asnType.reference = this.toString();
+                    assignment.asnType.reference = this.toStringHelper(actualParametersNew);
                     return assignment.asnType;
                 }
-                expandedType.reference = this.toString();
+                expandedType.reference = this.toStringHelper(actualParametersNew);
                 return expandedType;
             }
             if (assignment instanceof valueAssignment_1.ValueAssignment) {
@@ -122,7 +122,10 @@ class ParameterizedType {
         spreadsheet_1.drawBorder(worksheet, r, depth);
     }
     toString() {
-        const innerString = this.actualParameters
+        return this.toStringHelper(this.actualParameters);
+    }
+    toStringHelper(actualParameters) {
+        const innerString = actualParameters
             .map((parameter) => parameter.toString())
             .join(', ');
         return `${this.simpleDefinedType.toString()} {${innerString}}`;
