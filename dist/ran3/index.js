@@ -10,7 +10,8 @@ const yargs_1 = __importDefault(require("yargs"));
 const parse_1 = require("./parse");
 exports.parse = parse_1.parse;
 if (require.main === module) {
-    yargs_1.default
+    // eslint-disable-next-line no-unused-vars
+    const { argv } = yargs_1.default
         .command({
         command: 'format <file> <name>',
         builder: (args) => args.options({
