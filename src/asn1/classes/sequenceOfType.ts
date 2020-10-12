@@ -69,10 +69,10 @@ export class SequenceOfType {
   }
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
-    if (this.reference) {
-      appendInColumn(row, HEADER_TYPE, this.reference);
-    }
     appendInColumn(row, HEADER_TYPE, this.stringPrefix());
+    if (this.reference) {
+      appendInColumn(row, HEADER_TYPE, `(${this.reference})`);
+    }
     this.baseType.toSpreadsheet(worksheet, row, depth);
   }
 
