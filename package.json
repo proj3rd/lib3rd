@@ -66,7 +66,7 @@
     "test-parser-38463": "mocha --enable-source-maps dist/asn1/test_parser --grep parse_38463",
     "test-parser-38473": "mocha --enable-source-maps dist/asn1/test_parser --grep parse_38473",
     "test-logger": "mocha --enable-source-maps dist/test_logger --grep logger_all",
-    "typedoc": "typedoc --out doc src",
+    "typedoc": "typedoc --out docs src",
     "typedoc-install": "npm i -g typedoc@0.16.11",
     "// Why a specific version of typedoc is required": "https://stackoverflow.com/a/60796968/3278063",
     "visitor": "node --enable-source-maps dist/asn1/visitors"
