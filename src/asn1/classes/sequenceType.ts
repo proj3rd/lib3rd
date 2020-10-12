@@ -5,7 +5,7 @@ import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet
 import { Logger } from '../../logger';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
-import { HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
+import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
