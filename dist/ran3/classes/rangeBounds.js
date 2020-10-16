@@ -15,9 +15,12 @@ class RangeBounds {
         this.rangeBoundList.push(rangeBound);
     }
     toSpreadsheet(worksheet) {
+        if (!this.rangeBoundList.length) {
+            return;
+        }
         // eslint-disable-next-line no-param-reassign
         worksheet.addRow({
-            [spreadsheet_1.headerIndexed(definition_1.HEADER_NAME_BASE, 0)]: 'Condition',
+            [spreadsheet_1.headerIndexed(definition_1.HEADER_NAME_BASE, 0)]: 'Range bound',
             [definition_1.HEADER_DESCRIPTION]: 'Explanation',
         }).font = style_1.FontBold;
         this.rangeBoundList.forEach((range) => {

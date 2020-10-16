@@ -15,6 +15,9 @@ class Conditions {
         this.conditionList.push(condition);
     }
     toSpreadsheet(worksheet) {
+        if (!this.conditionList.length) {
+            return;
+        }
         // eslint-disable-next-line no-param-reassign
         worksheet.addRow({
             [spreadsheet_1.headerIndexed(definition_1.HEADER_NAME_BASE, 0)]: 'Condition',

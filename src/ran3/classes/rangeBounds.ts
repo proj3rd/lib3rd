@@ -20,9 +20,12 @@ export class RangeBounds {
   }
 
   public toSpreadsheet(worksheet: Worksheet) {
+    if (!this.rangeBoundList.length) {
+      return;
+    }
     // eslint-disable-next-line no-param-reassign
     worksheet.addRow({
-      [headerIndexed(HEADER_NAME_BASE, 0)]: 'Condition',
+      [headerIndexed(HEADER_NAME_BASE, 0)]: 'Range bound',
       [HEADER_DESCRIPTION]: 'Explanation',
     }).font = FontBold;
     this.rangeBoundList.forEach((range) => {
