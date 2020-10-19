@@ -85,10 +85,15 @@ function merge(parent: IInformationElement, child: IInformationElement) {
     // eslint-disable-next-line no-param-reassign
     parent.type = child.type;
   }
+  const descriptionList = [];
+  if (parent.description) {
+    descriptionList.push(parent.description);
+  }
+  if (child.description) {
+    descriptionList.push(child.description);
+  }
   // eslint-disable-next-line no-param-reassign
-  parent.description = `${parent.description}
-
-${child.description}`;
+  parent.description = descriptionList.join('\n\n');
 }
 
 export class Definition {

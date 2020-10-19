@@ -49,7 +49,7 @@ function matchColumns(element, columnList) {
     return (tdList.length >= columnList.length
         && columnList.every((column, index) => {
             const normalizedText = normalizeHtmlText(cheerio_1.default(tdList[index]).text());
-            return normalizedText === column;
+            return normalizedText.toLowerCase() === column.toLowerCase();
         }));
 }
 // eslint-disable-next-line no-undef

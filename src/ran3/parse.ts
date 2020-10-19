@@ -57,7 +57,7 @@ function matchColumns(element: CheerioElement, columnList: string[]): boolean {
     tdList.length >= columnList.length
     && columnList.every((column, index) => {
       const normalizedText = normalizeHtmlText($(tdList[index]).text());
-      return normalizedText === column;
+      return normalizedText.toLowerCase() === column.toLowerCase();
     })
   );
 }
