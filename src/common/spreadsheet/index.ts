@@ -129,5 +129,5 @@ export function setOutlineLevel(row: Row, depth: number) {
 
 export function uniqueSheetname(workbook: Workbook, name: string) {
   const { length } = workbook.worksheets;
-  return `${length} ${name}`.substring(0, 31);
+  return `${length} ${name}`.substring(0, 31).replace('/', '_');
 }

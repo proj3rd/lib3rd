@@ -109,7 +109,7 @@ function setOutlineLevel(row, depth) {
 exports.setOutlineLevel = setOutlineLevel;
 function uniqueSheetname(workbook, name) {
     const { length } = workbook.worksheets;
-    return `${length} ${name}`.substring(0, 31);
+    return `${length} ${name}`.substring(0, 31).replace('/', '_');
 }
 exports.uniqueSheetname = uniqueSheetname;
 //# sourceMappingURL=index.js.map
