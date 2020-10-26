@@ -1,5 +1,4 @@
 import { Workbook } from 'exceljs';
-import { unimpl } from 'unimpl';
 import { getWorkbook } from '../../common/spreadsheet';
 import { Assignment } from '../types';
 import { ModuleDefinition } from './moduleDefinition';
@@ -18,10 +17,12 @@ export class Modules {
     moduleName?: string,
   ): Assignment | undefined {
     let assignment: Assignment | undefined;
-    if (moduleName !== undefined) {
-      return unimpl();
-    }
-    this.modules.forEach((module) => {
+    this.modules.filter((module) => {
+      if (moduleName === undefined) {
+        return true;
+      }
+      return module.name === moduleName;
+    }).forEach((module) => {
       if (assignment !== undefined) {
         return;
       }

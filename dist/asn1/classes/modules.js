@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 class Modules {
     constructor(modules = []) {
@@ -8,10 +7,12 @@ class Modules {
     }
     findAssignment(name, moduleName) {
         let assignment;
-        if (moduleName !== undefined) {
-            return unimpl_1.unimpl();
-        }
-        this.modules.forEach((module) => {
+        this.modules.filter((module) => {
+            if (moduleName === undefined) {
+                return true;
+            }
+            return module.name === moduleName;
+        }).forEach((module) => {
             if (assignment !== undefined) {
                 return;
             }
