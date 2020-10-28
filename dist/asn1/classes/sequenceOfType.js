@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
+const namedType_1 = require("./namedType");
 class SequenceOfType {
     constructor(baseType, constraint) {
         this.baseType = baseType;
@@ -37,8 +38,8 @@ class SequenceOfType {
     }
     toSpreadsheet(worksheet, row, depth) {
         spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, this.stringPrefix());
-        if (this.reference) {
-            spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, `(${this.reference})`);
+        if (!(this.baseType instanceof namedType_1.NamedType) && this.baseType.reference) {
+            spreadsheet_1.appendInColumn(row, spreadsheet_1.HEADER_TYPE, `(${this.baseType.reference})`);
         }
         this.baseType.toSpreadsheet(worksheet, row, depth);
     }

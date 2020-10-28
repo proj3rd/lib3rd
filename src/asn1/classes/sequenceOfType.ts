@@ -70,8 +70,8 @@ export class SequenceOfType {
 
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
     appendInColumn(row, HEADER_TYPE, this.stringPrefix());
-    if (this.reference) {
-      appendInColumn(row, HEADER_TYPE, `(${this.reference})`);
+    if (!(this.baseType instanceof NamedType) && this.baseType.reference) {
+      appendInColumn(row, HEADER_TYPE, `(${this.baseType.reference})`);
     }
     this.baseType.toSpreadsheet(worksheet, row, depth);
   }
