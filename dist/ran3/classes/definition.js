@@ -35,7 +35,7 @@ function canMerge(parent, child) {
         && parent.presence !== firstElement.presence) {
         return false;
     }
-    if (parent.range !== '' && firstElement.range !== '') {
+    if (parent.range !== '' || firstElement.range !== '') {
         return false;
     }
     if (parent.criticality !== '' && firstElement.criticality !== ''

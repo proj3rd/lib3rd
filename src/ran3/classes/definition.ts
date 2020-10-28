@@ -51,7 +51,7 @@ function canMerge(parent: IInformationElement, child: Definition): boolean {
   ) {
     return false;
   }
-  if (parent.range !== '' && firstElement.range !== '') {
+  if (parent.range !== '' || firstElement.range !== '') {
     return false;
   }
   if (
