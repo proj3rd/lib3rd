@@ -3,11 +3,12 @@ import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
+import { INamedNumber } from '../types';
 import { Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
 
-export type EnumerationItem = string | ExtensionMarker;
+export type EnumerationItem = string | INamedNumber | ExtensionMarker;
 
 export class EnumeratedType {
   public items: EnumerationItem[];
@@ -51,7 +52,12 @@ export class EnumeratedType {
   public toString(): string {
     const arrToString: string[] = [
       'ENUMERATED {',
-      this.items.map((item) => item.toString()).join(', '),
+      this.items.map((item) => {
+        if (typeof item === 'string' || item instanceof ExtensionMarker) {
+          return item.toString();
+        }
+        return `${item.name} (${item.valueLiteral})`;
+      }).join(', '),
       '}',
     ];
     return arrToString.join('');

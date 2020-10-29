@@ -9,6 +9,7 @@ import {
   ValueContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { NamedNumberVisitor } from './namedNumberVisitor';
 import { ValueVisitor } from './valueVisitor';
 
 /**
@@ -23,8 +24,9 @@ export class EnumerationItemVisitor
   public visitChildren(ctx: EnumerationItemContext): EnumerationItem {
     const childCtx = ctx.getChild(0);
     if (childCtx instanceof NamedNumberContext) {
-      unimpl(ctx.text);
-    } else if (childCtx instanceof ValueContext) {
+      return childCtx.accept(new NamedNumberVisitor());
+    }
+    if (childCtx instanceof ValueContext) {
       const value = childCtx.accept(new ValueVisitor());
       if (value instanceof BooleanValue) {
         return value.literal;

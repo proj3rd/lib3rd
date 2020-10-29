@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const extensionMarker_1 = require("./extensionMarker");
 class EnumeratedType {
     constructor(items) {
         this.items = items;
@@ -34,7 +35,12 @@ class EnumeratedType {
     toString() {
         const arrToString = [
             'ENUMERATED {',
-            this.items.map((item) => item.toString()).join(', '),
+            this.items.map((item) => {
+                if (typeof item === 'string' || item instanceof extensionMarker_1.ExtensionMarker) {
+                    return item.toString();
+                }
+                return `${item.name} (${item.valueLiteral})`;
+            }).join(', '),
             '}',
         ];
         return arrToString.join('');

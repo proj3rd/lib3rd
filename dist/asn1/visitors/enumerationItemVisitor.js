@@ -5,6 +5,7 @@ const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisit
 const unimpl_1 = require("unimpl");
 const booleanValue_1 = require("../classes/booleanValue");
 const grammar3rdParser_1 = require("../grammar/grammar3rdParser");
+const namedNumberVisitor_1 = require("./namedNumberVisitor");
 const valueVisitor_1 = require("./valueVisitor");
 /**
  * # Grammar
@@ -16,9 +17,9 @@ class EnumerationItemVisitor extends AbstractParseTreeVisitor_1.AbstractParseTre
     visitChildren(ctx) {
         const childCtx = ctx.getChild(0);
         if (childCtx instanceof grammar3rdParser_1.NamedNumberContext) {
-            unimpl_1.unimpl(ctx.text);
+            return childCtx.accept(new namedNumberVisitor_1.NamedNumberVisitor());
         }
-        else if (childCtx instanceof grammar3rdParser_1.ValueContext) {
+        if (childCtx instanceof grammar3rdParser_1.ValueContext) {
             const value = childCtx.accept(new valueVisitor_1.ValueVisitor());
             if (value instanceof booleanValue_1.BooleanValue) {
                 return value.literal;

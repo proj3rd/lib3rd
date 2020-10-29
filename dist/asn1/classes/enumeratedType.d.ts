@@ -1,10 +1,11 @@
 import { Worksheet } from 'exceljs';
 import { IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
+import { INamedNumber } from '../types';
 import { Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
-export declare type EnumerationItem = string | ExtensionMarker;
+export declare type EnumerationItem = string | INamedNumber | ExtensionMarker;
 export declare class EnumeratedType {
     items: EnumerationItem[];
     reference: string | undefined;
