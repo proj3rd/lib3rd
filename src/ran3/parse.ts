@@ -134,52 +134,49 @@ function getSectionInfo(
 // eslint-disable-next-line no-undef
 function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
   const trList = $('tr', element);
-  const trBodyList = trList.slice(1);
+  const trBodyList = trList.slice(1).toArray();
   const ieList: IInformationElement[] = [];
   let depthMin = Infinity;
-  trBodyList
-    .each(
-      (index, trElement) => {
-        const tdList = $('td', trElement);
-        let i = 0;
-        for (; i < tdList.length; i += 1) {
-          const td = normalizeHtmlText($(tdList[i]).text());
-          if (td !== '') {
-            break;
-          }
-        }
-        if (i === tdList.length) {
-          return;
-        }
-        const tdFirst = normalizeHtmlText($(tdList[i]).text()); i += 1;
-        const name = tdFirst.replace(/^>+/, '').trim();
-        const matchResult = tdFirst.match(reDepth);
-        const depth = !matchResult || !matchResult.groups
-          ? 0
-          : matchResult.groups.depth.length;
-        depthMin = Math.min(depthMin, depth);
-        const typeAndRef = normalizeHtmlText($(tdList[i + 2]).text());
-        const [reference, type] = typeAndRef.match(reSectionNumber) ? [typeAndRef, ''] : ['', typeAndRef];
-        const informationElement: IInformationElement = {
-          name,
-          presence: normalizeHtmlText($(tdList[i]).text()),
-          range: normalizeHtmlText($(tdList[i + 1]).text()),
-          reference,
-          type,
-          description: normalizeHtmlText($(tdList[i + 3]).text()),
-          criticality: normalizeHtmlText($(tdList[i + 4]).text()),
-          assignedCriticality: normalizeHtmlText($(tdList[i + 5]).text()),
-          depth,
-        };
-        if (name === '') {
-          // eslint-disable-next-line no-console
-          console.log('Empty leading cell found');
-          // eslint-disable-next-line no-console
-          console.log(JSON.stringify(informationElement, null, 4));
-        }
-        ieList.push(informationElement);
-      },
-    );
+  trBodyList.forEach((trElement) => {
+    const tdList = $('td', trElement);
+    let i = 0;
+    for (; i < tdList.length; i += 1) {
+      const td = normalizeHtmlText($(tdList[i]).text());
+      if (td !== '') {
+        break;
+      }
+    }
+    if (i === tdList.length) {
+      return;
+    }
+    const tdFirst = normalizeHtmlText($(tdList[i]).text()); i += 1;
+    const name = tdFirst.replace(/^>+/, '').trim();
+    const matchResult = tdFirst.match(reDepth);
+    const depth = !matchResult || !matchResult.groups
+      ? 0
+      : matchResult.groups.depth.length;
+    depthMin = Math.min(depthMin, depth);
+    const typeAndRef = normalizeHtmlText($(tdList[i + 2]).text());
+    const [reference, type] = typeAndRef.match(reSectionNumber) ? [typeAndRef, ''] : ['', typeAndRef];
+    const informationElement: IInformationElement = {
+      name,
+      presence: normalizeHtmlText($(tdList[i]).text()),
+      range: normalizeHtmlText($(tdList[i + 1]).text()),
+      reference,
+      type,
+      description: normalizeHtmlText($(tdList[i + 3]).text()),
+      criticality: normalizeHtmlText($(tdList[i + 4]).text()),
+      assignedCriticality: normalizeHtmlText($(tdList[i + 5]).text()),
+      depth,
+    };
+    if (name === '') {
+      // eslint-disable-next-line no-console
+      console.log('Empty leading cell found');
+      // eslint-disable-next-line no-console
+      console.log(JSON.stringify(informationElement, null, 4));
+    }
+    ieList.push(informationElement);
+  });
   ieList.forEach((ie) => {
     // eslint-disable-next-line no-param-reassign
     ie.depth -= depthMin;

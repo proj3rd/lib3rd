@@ -8,6 +8,15 @@ const fs_1 = require("fs");
 const lodash_1 = require("lodash");
 const definition_1 = require("./classes/definition");
 const definitions_1 = require("./classes/definitions");
+const columnListConditionTable = ['Condition', 'Explanation'];
+const columnListDefinitionTable = [
+    'IE/Group Name',
+    'Presence',
+    'Range',
+    'IE type and reference',
+    'Semantics description',
+];
+const columnListRangeTable = ['Range bound', 'Explanation'];
 /**
  * Regular expression for section. Following expressions are supported
  * - 9.1.2.3
@@ -57,22 +66,14 @@ function isConditionTable(element) {
     if (element.type !== 'tag' || element.name !== 'table') {
         return false;
     }
-    const columnList = ['Condition', 'Explanation'];
-    return matchColumns(element, columnList);
+    return matchColumns(element, columnListConditionTable);
 }
 // eslint-disable-next-line no-undef
 function isDefinitionTable(element) {
     if (element.type !== 'tag' || element.name !== 'table') {
         return false;
     }
-    const columnList = [
-        'IE/Group Name',
-        'Presence',
-        'Range',
-        'IE type and reference',
-        'Semantics description',
-    ];
-    return matchColumns(element, columnList);
+    return matchColumns(element, columnListDefinitionTable);
 }
 // eslint-disable-next-line no-undef
 function getDirection(element) {
@@ -95,8 +96,7 @@ function isRangeTable(element) {
     if (element.type !== 'tag' || element.name !== 'table') {
         return false;
     }
-    const columnList = ['Range bound', 'Explanation'];
-    return matchColumns(element, columnList);
+    return matchColumns(element, columnListRangeTable);
 }
 function getSectionInfo(
 // eslint-disable-next-line no-undef
@@ -116,11 +116,10 @@ element) {
 // eslint-disable-next-line no-undef
 function parseDefinitionTable(element) {
     const trList = cheerio_1.default('tr', element);
-    const trBodyList = trList.slice(1);
+    const trBodyList = trList.slice(1).toArray();
     const ieList = [];
     let depthMin = Infinity;
-    trBodyList
-        .each((index, trElement) => {
+    trBodyList.forEach((trElement) => {
         const tdList = cheerio_1.default('td', trElement);
         let i = 0;
         for (; i < tdList.length; i += 1) {
