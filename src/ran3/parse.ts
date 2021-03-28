@@ -10,6 +10,16 @@ import {
   IRangeBound,
 } from './types';
 
+const columnListConditionTable = ['Condition', 'Explanation'];
+const columnListDefinitionTable = [
+  'IE/Group Name',
+  'Presence',
+  'Range',
+  'IE type and reference',
+  'Semantics description',
+];
+const columnListRangeTable = ['Range bound', 'Explanation'];
+
 /**
  * Regular expression for section. Following expressions are supported
  * - 9.1.2.3
@@ -67,8 +77,7 @@ function isConditionTable(element: CheerioElement): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
   }
-  const columnList = ['Condition', 'Explanation'];
-  return matchColumns(element, columnList);
+  return matchColumns(element, columnListConditionTable);
 }
 
 // eslint-disable-next-line no-undef
@@ -76,14 +85,7 @@ function isDefinitionTable(element: CheerioElement): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
   }
-  const columnList = [
-    'IE/Group Name',
-    'Presence',
-    'Range',
-    'IE type and reference',
-    'Semantics description',
-  ];
-  return matchColumns(element, columnList);
+  return matchColumns(element, columnListDefinitionTable);
 }
 
 // eslint-disable-next-line no-undef
@@ -109,8 +111,7 @@ function isRangeTable(element: CheerioElement): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
   }
-  const columnList = ['Range bound', 'Explanation'];
-  return matchColumns(element, columnList);
+  return matchColumns(element, columnListRangeTable);
 }
 
 function getSectionInfo(
