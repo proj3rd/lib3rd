@@ -59,10 +59,8 @@ function normalizeHtmlText(text: string) {
 }
 
 // eslint-disable-next-line no-undef
-function matchColumns(element: CheerioElement, columnList: string[]): boolean {
-  const trList = $('tr', element);
-  const trHeader = trList[0];
-  const tdList = $('td', trHeader);
+function matchColumnsPerRow(trElement: CheerioElement, columnList: string[]): boolean {
+  const tdList = $('td', trElement);
   return (
     tdList.length >= columnList.length
     && columnList.every((column, index) => {
@@ -70,6 +68,13 @@ function matchColumns(element: CheerioElement, columnList: string[]): boolean {
       return normalizedText.toLowerCase() === column.toLowerCase();
     })
   );
+}
+
+// eslint-disable-next-line no-undef
+function matchColumns(element: CheerioElement, columnList: string[]): boolean {
+  const trList = $('tr', element);
+  const trHeader = trList[0];
+  return matchColumnsPerRow(trHeader, columnList);
 }
 
 // eslint-disable-next-line no-undef
@@ -132,12 +137,89 @@ function getSectionInfo(
 }
 
 // eslint-disable-next-line no-undef
-function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
+function parseConditionTrList(trList: CheerioElement[]): ICondition[] {
+  const conditionList: ICondition[] = [];
+  trList.forEach((trElement) => {
+    const tdList = $('td', trElement);
+    let i = 0;
+    for (; i < tdList.length; i += 1) {
+      const td = normalizeHtmlText($(tdList[i]).text());
+      if (td !== '') {
+        break;
+      }
+    }
+    if (i === tdList.length) {
+      return;
+    }
+    const condition: ICondition = {
+      condition: $(tdList[i]).text().trim(),
+      explanation: $(tdList[i + 1]).text().trim(),
+    };
+    if (condition.condition === '') {
+      // eslint-disable-next-line no-console
+      console.log('Empty leading cell found');
+      // eslint-disable-next-line no-console
+      console.log(JSON.stringify(condition, null, 4));
+    }
+    conditionList.push(condition);
+  });
+  return conditionList;
+}
+
+// eslint-disable-next-line no-undef
+function parseRangeTrList(trList: CheerioElement[]) {
+  const rangeBoundList: IRangeBound[] = [];
+  trList.forEach((trElement) => {
+    const tdList = $('td', trElement);
+    let i = 0;
+    for (; i < tdList.length; i += 1) {
+      const td = normalizeHtmlText($(tdList[i]).text());
+      if (td !== '') {
+        break;
+      }
+    }
+    if (i === tdList.length) {
+      return;
+    }
+    const rangeBound: IRangeBound = {
+      rangeBound: $(tdList[i]).text().trim(),
+      explanation: $(tdList[i + 1]).text().trim(),
+    };
+    if (rangeBound.rangeBound === '') {
+      // eslint-disable-next-line no-console
+      console.log('Empty leading cell found');
+      // eslint-disable-next-line no-console
+      console.log(JSON.stringify(rangeBound, null, 4));
+    }
+    rangeBoundList.push(rangeBound);
+  });
+  return rangeBoundList;
+}
+
+// eslint-disable-next-line no-undef
+function parseDefinitionTable(element: CheerioElement): {
+  ieList: IInformationElement[],
+  conditionList: ICondition[],
+  rangeBoundList: IRangeBound[],
+} {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1).toArray();
   const ieList: IInformationElement[] = [];
   let depthMin = Infinity;
-  trBodyList.forEach((trElement) => {
+  // Find condition table
+  const indexConditionHeader = trBodyList.findIndex((trElement) => (
+    matchColumnsPerRow(trElement, columnListConditionTable)
+  ));
+  // Find range table
+  const indexRangeHeader = trBodyList.findIndex((trElement) => (
+    matchColumnsPerRow(trElement, columnListRangeTable)
+  ));
+  const indexDefinitionEnd = Math.min(
+    indexConditionHeader !== -1 ? indexConditionHeader : Infinity,
+    indexRangeHeader !== -1 ? indexRangeHeader : Infinity,
+  );
+  const trListDefinition = trBodyList.slice(0, indexDefinitionEnd);
+  trListDefinition.forEach((trElement) => {
     const tdList = $('td', trElement);
     let i = 0;
     for (; i < tdList.length; i += 1) {
@@ -181,73 +263,31 @@ function parseDefinitionTable(element: CheerioElement): IInformationElement[] {
     // eslint-disable-next-line no-param-reassign
     ie.depth -= depthMin;
   });
-  return ieList;
+  // eslint-disable-next-line no-nested-ternary
+  const indexConditionEnd = indexConditionHeader === -1 ? -1
+    : indexRangeHeader > indexConditionHeader ? indexRangeHeader : Infinity;
+  const trListCondition = trBodyList.slice(indexConditionHeader, indexConditionEnd).slice(1);
+  const conditionList = parseConditionTrList(trListCondition);
+  // eslint-disable-next-line no-nested-ternary
+  const indexRangeEnd = indexRangeHeader === -1 ? -1
+    : indexConditionHeader > indexRangeHeader ? indexConditionHeader : Infinity;
+  const trListRange = trBodyList.slice(indexRangeHeader, indexRangeEnd).slice(1);
+  const rangeBoundList = parseRangeTrList(trListRange);
+  return { ieList, conditionList, rangeBoundList };
 }
 
 // eslint-disable-next-line no-undef
 function parseRangeTable(element: CheerioElement): IRangeBound[] {
   const trList = $('tr', element);
-  const trBodyList = trList.slice(1);
-  const rangeBoundList: IRangeBound[] = [];
-  trBodyList
-    .each((index, trElement) => {
-      const tdList = $('td', trElement);
-      let i = 0;
-      for (; i < tdList.length; i += 1) {
-        const td = normalizeHtmlText($(tdList[i]).text());
-        if (td !== '') {
-          break;
-        }
-      }
-      if (i === tdList.length) {
-        return;
-      }
-      const rangeBound: IRangeBound = {
-        rangeBound: $(tdList[i]).text().trim(),
-        explanation: $(tdList[i + 1]).text().trim(),
-      };
-      if (rangeBound.rangeBound === '') {
-        // eslint-disable-next-line no-console
-        console.log('Empty leading cell found');
-        // eslint-disable-next-line no-console
-        console.log(JSON.stringify(rangeBound, null, 4));
-      }
-      rangeBoundList.push(rangeBound);
-    });
-  return rangeBoundList;
+  const trBodyList = trList.slice(1).toArray();
+  return parseRangeTrList(trBodyList);
 }
 
 // eslint-disable-next-line no-undef
 function parseConditionTable(element: CheerioElement): ICondition[] {
   const trList = $('tr', element);
-  const trBodyList = trList.slice(1);
-  const conditionList: ICondition[] = [];
-  trBodyList
-    .each((index, trElement) => {
-      const tdList = $('td', trElement);
-      let i = 0;
-      for (; i < tdList.length; i += 1) {
-        const td = normalizeHtmlText($(tdList[i]).text());
-        if (td !== '') {
-          break;
-        }
-      }
-      if (i === tdList.length) {
-        return;
-      }
-      const condition: ICondition = {
-        condition: $(tdList[i]).text().trim(),
-        explanation: $(tdList[i + 1]).text().trim(),
-      };
-      if (condition.condition === '') {
-        // eslint-disable-next-line no-console
-        console.log('Empty leading cell found');
-        // eslint-disable-next-line no-console
-        console.log(JSON.stringify(condition, null, 4));
-      }
-      conditionList.push(condition);
-    });
-  return conditionList;
+  const trBodyList = trList.slice(1).toArray();
+  return parseConditionTrList(trBodyList);
 }
 
 export function parse(html: string): Definitions {
@@ -292,7 +332,10 @@ export function parse(html: string): Definitions {
     } else if (direction) {
       definition.direction = direction;
     } else if (isDefinitionTable(element)) {
-      definition.elementList = parseDefinitionTable(element);
+      const { ieList, conditionList, rangeBoundList } = parseDefinitionTable(element);
+      definition.elementList = ieList;
+      definition.conditionList = conditionList;
+      definition.rangeBoundList = rangeBoundList;
     } else if (isConditionTable(element)) {
       definition.conditionList = parseConditionTable(element);
     } else if (isRangeTable(element)) {
