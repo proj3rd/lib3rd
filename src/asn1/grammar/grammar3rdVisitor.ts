@@ -143,7 +143,7 @@ import { ExceptionIdentificationContext } from "./grammar3rdParser";
 import { AdditionalEnumerationContext } from "./grammar3rdParser";
 import { IntegerTypeContext } from "./grammar3rdParser";
 import { NamedNumberListContext } from "./grammar3rdParser";
-import { ObjectidentifiertypeContext } from "./grammar3rdParser";
+import { ObjectIdentifierTypeContext } from "./grammar3rdParser";
 import { ComponentRelationConstraintContext } from "./grammar3rdParser";
 import { AtNotationContext } from "./grammar3rdParser";
 import { LevelContext } from "./grammar3rdParser";
@@ -1148,7 +1148,7 @@ export interface grammar3rdVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitObjectidentifiertype?: (ctx: ObjectidentifiertypeContext) => Result;
+	visitObjectidentifiertype?: (ctx: ObjectIdentifierTypeContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `grammar3rdParser.componentRelationConstraint`.

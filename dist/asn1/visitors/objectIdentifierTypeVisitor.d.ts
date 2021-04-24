@@ -1,15 +1,15 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ObjectIdentifierType } from '../classes/objectIdentifierType';
-import { ObjectidentifiertypeContext } from '../grammar/grammar3rdParser';
+import { ObjectIdentifierTypeContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
- * objectidentifiertype: OBJECT_LITERAL IDENTIFIER_LITERAL
+ * ObjectIdentifierTypeVisitor: OBJECT_LITERAL IDENTIFIER_LITERAL
  * ```
  */
-export declare class ObjectidentifiertypeVisitor extends AbstractParseTreeVisitor<ObjectIdentifierType> implements grammar3rdVisitor<ObjectIdentifierType> {
-    visitChildren(ctx: ObjectidentifiertypeContext): ObjectIdentifierType;
+export declare class ObjectIdentifierTypeVisitor extends AbstractParseTreeVisitor<ObjectIdentifierType> implements grammar3rdVisitor<ObjectIdentifierType> {
+    visitChildren(ctx: ObjectIdentifierTypeContext): ObjectIdentifierType;
     protected defaultResult(): ObjectIdentifierType;
 }
-//# sourceMappingURL=objectidentifiertypeVisitor.d.ts.map
+//# sourceMappingURL=objectIdentifierTypeVisitor.d.ts.map
