@@ -6689,8 +6689,8 @@ export class grammar3rdParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public objectidentifiertype(): ObjectIdentifierTypeContext {
-		let _localctx: ObjectIdentifierTypeContext = new ObjectIdentifierTypeContext(this._ctx, this.state);
+	public objectidentifiertype(): ObjectidentifiertypeContext {
+		let _localctx: ObjectidentifiertypeContext = new ObjectidentifiertypeContext(this._ctx, this.state);
 		this.enterRule(_localctx, 280, grammar3rdParser.RULE_objectidentifiertype);
 		try {
 			this.enterOuterAlt(_localctx, 1);
@@ -10095,8 +10095,8 @@ export class BuiltinTypeContext extends ParserRuleContext {
 	public setOfType(): SetOfTypeContext | undefined {
 		return this.tryGetRuleContext(0, SetOfTypeContext);
 	}
-	public objectidentifiertype(): ObjectIdentifierTypeContext | undefined {
-		return this.tryGetRuleContext(0, ObjectIdentifierTypeContext);
+	public objectidentifiertype(): ObjectidentifiertypeContext | undefined {
+		return this.tryGetRuleContext(0, ObjectidentifiertypeContext);
 	}
 	public objectClassFieldType(): ObjectClassFieldTypeContext | undefined {
 		return this.tryGetRuleContext(0, ObjectClassFieldTypeContext);
@@ -11500,7 +11500,7 @@ export class NamedNumberListContext extends ParserRuleContext {
 }
 
 
-export class ObjectIdentifierTypeContext extends ParserRuleContext {
+export class ObjectidentifiertypeContext extends ParserRuleContext {
 	public OBJECT_LITERAL(): TerminalNode { return this.getToken(grammar3rdParser.OBJECT_LITERAL, 0); }
 	public IDENTIFIER_LITERAL(): TerminalNode { return this.getToken(grammar3rdParser.IDENTIFIER_LITERAL, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
