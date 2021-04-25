@@ -66,7 +66,7 @@ class BuiltinTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVis
         if (firstCtx instanceof grammar3rdParser_1.SetOfTypeContext) {
             return unimpl_1.unimpl(ctx.text);
         }
-        if (firstCtx instanceof grammar3rdParser_1.ObjectidentifiertypeContext) {
+        if (firstCtx instanceof grammar3rdParser_1.ObjectIdentifierTypeContext) {
             return firstCtx.accept(new objectidentifiertypeVisitor_1.ObjectidentifiertypeVisitor());
         }
         if (firstCtx instanceof grammar3rdParser_1.ObjectClassFieldTypeContext) {

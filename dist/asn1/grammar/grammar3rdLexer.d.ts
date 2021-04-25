@@ -128,13 +128,13 @@ export declare class grammar3rdLexer extends Lexer {
     private static readonly _LITERAL_NAMES;
     private static readonly _SYMBOLIC_NAMES;
     static readonly VOCABULARY: Vocabulary;
-    readonly vocabulary: Vocabulary;
+    get vocabulary(): Vocabulary;
     constructor(input: CharStream);
-    readonly grammarFileName: string;
-    readonly ruleNames: string[];
-    readonly serializedATN: string;
-    readonly channelNames: string[];
-    readonly modeNames: string[];
+    get grammarFileName(): string;
+    get ruleNames(): string[];
+    get serializedATN(): string;
+    get channelNames(): string[];
+    get modeNames(): string[];
     sempred(_localctx: RuleContext, ruleIndex: number, predIndex: number): boolean;
     private LINE_COMMENT_sempred;
     private static readonly _serializedATNSegments;
@@ -142,6 +142,6 @@ export declare class grammar3rdLexer extends Lexer {
     private static readonly _serializedATNSegment1;
     static readonly _serializedATN: string;
     static __ATN: ATN;
-    static readonly _ATN: ATN;
+    static get _ATN(): ATN;
 }
 //# sourceMappingURL=grammar3rdLexer.d.ts.map
