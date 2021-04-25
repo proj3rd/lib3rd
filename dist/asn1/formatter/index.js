@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.indent = exports.getPermittedIntegerValues = void 0;
 const extensionMarker_1 = require("../classes/extensionMarker");
 const RE_START_OF_LINE = /^/gm;
 function getConstraintSeparator(constraints, index) {

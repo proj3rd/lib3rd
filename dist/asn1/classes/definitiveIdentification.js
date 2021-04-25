@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DefinitiveIdentification = void 0;
 class DefinitiveIdentification {
     constructor(definitiveOID) {
         this.definitiveOID = definitiveOID;

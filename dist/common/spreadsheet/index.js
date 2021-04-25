@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.uniqueSheetname = exports.setOutlineLevel = exports.getWorkbook = exports.drawBorder = exports.addWorksheet = exports.addTitle = exports.addHeader = exports.headerIndexed = void 0;
 const exceljs_1 = require("exceljs");
 const style_1 = require("./style");
 function headerIndexed(header, index) {

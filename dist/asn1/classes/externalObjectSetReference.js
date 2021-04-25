@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ExternalObjectSetReference = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const objectClassAssignment_1 = require("./objectClassAssignment");

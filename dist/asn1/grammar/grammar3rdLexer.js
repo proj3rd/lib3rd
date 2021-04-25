@@ -20,6 +20,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.grammar3rdLexer = void 0;
 const ATNDeserializer_1 = require("antlr4ts/atn/ATNDeserializer");
 const Lexer_1 = require("antlr4ts/Lexer");
 const LexerATNSimulator_1 = require("antlr4ts/atn/LexerATNSimulator");

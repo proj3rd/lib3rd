@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Definition = exports.HEADER_DESCRIPTION = exports.HEADER_NAME_BASE = void 0;
 const lodash_1 = require("lodash");
 const spreadsheet_1 = require("../../asn1/formatter/spreadsheet");
 const spreadsheet_2 = require("../../common/spreadsheet");

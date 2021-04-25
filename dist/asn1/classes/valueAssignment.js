@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ValueAssignment = void 0;
 class ValueAssignment {
     constructor(name, asnType, value) {
         this.name = name;

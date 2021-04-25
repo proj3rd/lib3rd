@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ObjectClassReference = void 0;
 /**
  * X.681 clause 7.1
  */

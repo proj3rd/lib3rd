@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ComponentRelationConstraint = void 0;
 /**
  * X.682 clause 10.7
  * ```

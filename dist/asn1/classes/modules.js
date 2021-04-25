@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Modules = void 0;
 const spreadsheet_1 = require("../../common/spreadsheet");
 class Modules {
     constructor(modules = []) {

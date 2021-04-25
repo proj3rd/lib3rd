@@ -12,4 +12,4 @@ export declare class ObjectidentifiertypeVisitor extends AbstractParseTreeVisito
     visitChildren(ctx: ObjectIdentifierTypeContext): ObjectIdentifierType;
     protected defaultResult(): ObjectIdentifierType;
 }
-//# sourceMappingURL=objectidentifiertypeVisitor.d.ts.map
+//# sourceMappingURL=objectIdentifierTypeVisitor.d.ts.map
