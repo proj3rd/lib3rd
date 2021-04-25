@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.parse = exports.reSectionNumber = void 0;
 const cheerio_1 = __importDefault(require("cheerio"));
 const fs_1 = require("fs");
 const lodash_1 = require("lodash");

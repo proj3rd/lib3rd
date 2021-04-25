@@ -1,15 +1,32 @@
 "use strict";
-// Generated from src/asn1/grammar/grammar3rd.g4 by ANTLR 4.7.3-SNAPSHOT
+// Generated from src/asn1/grammar/grammar3rd.g4 by ANTLR 4.9.0-SNAPSHOT
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LiteralContext = exports.RequiredTokenContext = exports.OptionalGroupContext = exports.TokenOrGroupSpecContext = exports.SyntaxListContext = exports.WithSyntaxSpecContext = exports.ObjectClassDefnContext = exports.ExternalObjectClassReferenceContext = exports.UsefulObjectClassReferenceContext = exports.DefinedObjectClassContext = exports.ObjectClassContext = exports.ObjectClassAssignmentContext = exports.GovernorContext = exports.ParamGovernorContext = exports.ParameterContext = exports.ParameterListContext = exports.ParameterizedAssignmentContext = exports.SizeConstraintContext = exports.SequenceOfTypeContext = exports.VersionNumberContext = exports.ExtensionAdditionGroupContext = exports.ExtensionAdditionContext = exports.ExtensionAdditionListContext = exports.ExtensionAdditionsContext = exports.TagContext = exports.ComponentTypeContext = exports.ComponentTypeListContext = exports.RootComponentTypeListContext = exports.ComponentTypeListsContext = exports.OptionalExtensionMarkerContext = exports.ExtensionAndExceptionContext = exports.SequenceTypeContext = exports.AssignmentContext = exports.AssignmentListContext = exports.SymbolContext = exports.SymbolListContext = exports.AssignedIdentifierContext = exports.GlobalModuleReferenceContext = exports.SymbolsFromModuleContext = exports.SymbolsFromModuleListContext = exports.SymbolsImportedContext = exports.ImportsContext = exports.SymbolsExportedContext = exports.ExportsContext = exports.ModuleBodyContext = exports.ExtensionDefaultContext = exports.TagDefaultContext = exports.ModuleDefinitionContext = exports.ModulesContext = exports.grammar3rdParser = void 0;
+exports.UserDefinedConstraintParameterContext = exports.GeneralConstraintContext = exports.UserDefinedConstraintContext = exports.ConstraintSpecContext = exports.ConstraintContext = exports.DefinedTypeContext = exports.ReferencedTypeContext = exports.SetOfTypeContext = exports.SetTypeContext = exports.ObjectClassFieldTypeContext = exports.RestrictedCharacterStringTypeContext = exports.CharacterStringTypeContext = exports.BuiltinTypeContext = exports.AsnTypeContext = exports.ValueAssignmentContext = exports.TypeAssignmentContext = exports.ObjectSetOptionalitySpecContext = exports.ObjectSetFieldSpecContext = exports.ObjectOptionalitySpecContext = exports.ObjectFieldSpecContext = exports.VariableTypeValueSetFieldSpecContext = exports.SubtypeElementsContext = exports.IntersectionElementsContext = exports.ObjectSetElementsContext = exports.ElementsContext = exports.IntersectionMarkContext = exports.UnionMarkContext = exports.IntersectionsContext = exports.ExclusionsContext = exports.UnionsContext = exports.ElementSetSpecContext = exports.AdditionalElementSetSpecContext = exports.RootElementSetSpecContext = exports.ElementSetSpecsContext = exports.ValueSetContext = exports.FieldNameContext = exports.ObjectSetSpecContext = exports.ObjectSetContext = exports.DefinedObjectContext = exports.ParameterizedObjectContext = exports.ObjectContext = exports.ValueSetOptionalitySpecContext = exports.FixedTypeValueSetFieldSpecContext = exports.VariableTypeValueFieldSpecContext = exports.ValueOptionalitySpecContext = exports.FixedTypeValueFieldSpecContext = exports.TypeOptionalitySpecContext = exports.TypeFieldSpecContext = exports.FieldSpecContext = exports.PrimitiveFieldNameContext = void 0;
+exports.NamedBitContext = exports.NamedBitListContext = exports.BitStringTypeContext = exports.OctetStringTypeContext = exports.ComponentIdListContext = exports.LevelContext = exports.AtNotationContext = exports.ComponentRelationConstraintContext = exports.ObjectIdentifierTypeContext = exports.NamedNumberListContext = exports.IntegerTypeContext = exports.AdditionalEnumerationContext = exports.ExceptionIdentificationContext = exports.ExceptionSpecContext = exports.ActualParameterContext = exports.ActualParameterListContext = exports.SimpleDefinedValueContext = exports.ParameterizedValueContext = exports.DefinedValueContext = exports.NamedNumberContext = exports.EnumerationItemContext = exports.EnumerationContext = exports.RootEnumerationContext = exports.EnumerationsContext = exports.EnumeratedTypeContext = exports.NamedTypeContext = exports.AlternativeTypeListContext = exports.RootAlternativeTypeListContext = exports.ExtensionAdditionAlternativesGroupContext = exports.ExtensionAdditionAlternativeContext = exports.ExtensionAdditionAlternativesListContext = exports.ExtensionAdditionAlternativesContext = exports.AlternativeTypeListsContext = exports.ChoiceTypeContext = exports.SignedNumberContext = exports.EnumeratedValueContext = exports.ChoiceValueContext = exports.IntegerValueContext = exports.ObjIdComponentsContext = exports.ObjIdComponentsListContext = exports.ObjectIdentifierValueContext = exports.BuiltinValueContext = exports.ValueContext = exports.SubtypeConstraintContext = exports.ComponentPresenceContext = exports.ComponentPresenceListContext = exports.ComponentPresenceListsContext = exports.ContentsConstraintContext = exports.SimpleTableConstraintContext = exports.TableConstraintContext = void 0;
+exports.BooleanValueContext = void 0;
 const ATN_1 = require("antlr4ts/atn/ATN");
 const ATNDeserializer_1 = require("antlr4ts/atn/ATNDeserializer");
+const FailedPredicateException_1 = require("antlr4ts/FailedPredicateException");
 const NoViableAltException_1 = require("antlr4ts/NoViableAltException");
 const Parser_1 = require("antlr4ts/Parser");
 const ParserRuleContext_1 = require("antlr4ts/ParserRuleContext");
@@ -35,6 +52,9 @@ class grammar3rdParser extends Parser_1.Parser {
     get ruleNames() { return grammar3rdParser.ruleNames; }
     // @Override
     get serializedATN() { return grammar3rdParser._serializedATN; }
+    createFailedPredicateException(predicate, message) {
+        return new FailedPredicateException_1.FailedPredicateException(this, predicate, message);
+    }
     // @RuleVersion(0)
     modules() {
         let _localctx = new ModulesContext(this._ctx, this.state);
@@ -4088,7 +4108,7 @@ class grammar3rdParser extends Parser_1.Parser {
                     this.enterOuterAlt(_localctx, 11);
                     {
                         this.state = 918;
-                        this.objectidentifiertype();
+                        this.objectIdentifierType();
                     }
                     break;
                 case 12:
@@ -6329,9 +6349,9 @@ class grammar3rdParser extends Parser_1.Parser {
         return _localctx;
     }
     // @RuleVersion(0)
-    objectidentifiertype() {
-        let _localctx = new ObjectidentifiertypeContext(this._ctx, this.state);
-        this.enterRule(_localctx, 280, grammar3rdParser.RULE_objectidentifiertype);
+    objectIdentifierType() {
+        let _localctx = new ObjectIdentifierTypeContext(this._ctx, this.state);
+        this.enterRule(_localctx, 280, grammar3rdParser.RULE_objectIdentifierType);
         try {
             this.enterOuterAlt(_localctx, 1);
             {
@@ -7024,7 +7044,7 @@ grammar3rdParser.RULE_exceptionIdentification = 136;
 grammar3rdParser.RULE_additionalEnumeration = 137;
 grammar3rdParser.RULE_integerType = 138;
 grammar3rdParser.RULE_namedNumberList = 139;
-grammar3rdParser.RULE_objectidentifiertype = 140;
+grammar3rdParser.RULE_objectIdentifierType = 140;
 grammar3rdParser.RULE_componentRelationConstraint = 141;
 grammar3rdParser.RULE_atNotation = 142;
 grammar3rdParser.RULE_level = 143;
@@ -7070,7 +7090,7 @@ grammar3rdParser.ruleNames = [
     "enumerations", "rootEnumeration", "enumeration", "enumerationItem", "namedNumber",
     "definedValue", "parameterizedValue", "simpleDefinedValue", "actualParameterList",
     "actualParameter", "exceptionSpec", "exceptionIdentification", "additionalEnumeration",
-    "integerType", "namedNumberList", "objectidentifiertype", "componentRelationConstraint",
+    "integerType", "namedNumberList", "objectIdentifierType", "componentRelationConstraint",
     "atNotation", "level", "componentIdList", "octetStringType", "bitStringType",
     "namedBitList", "namedBit", "booleanValue",
 ];
@@ -10053,8 +10073,8 @@ class BuiltinTypeContext extends ParserRuleContext_1.ParserRuleContext {
     setOfType() {
         return this.tryGetRuleContext(0, SetOfTypeContext);
     }
-    objectidentifiertype() {
-        return this.tryGetRuleContext(0, ObjectidentifiertypeContext);
+    objectIdentifierType() {
+        return this.tryGetRuleContext(0, ObjectIdentifierTypeContext);
     }
     objectClassFieldType() {
         return this.tryGetRuleContext(0, ObjectClassFieldTypeContext);
@@ -11438,25 +11458,25 @@ class NamedNumberListContext extends ParserRuleContext_1.ParserRuleContext {
     }
 }
 exports.NamedNumberListContext = NamedNumberListContext;
-class ObjectidentifiertypeContext extends ParserRuleContext_1.ParserRuleContext {
+class ObjectIdentifierTypeContext extends ParserRuleContext_1.ParserRuleContext {
     OBJECT_LITERAL() { return this.getToken(grammar3rdParser.OBJECT_LITERAL, 0); }
     IDENTIFIER_LITERAL() { return this.getToken(grammar3rdParser.IDENTIFIER_LITERAL, 0); }
     constructor(parent, invokingState) {
         super(parent, invokingState);
     }
     // @Override
-    get ruleIndex() { return grammar3rdParser.RULE_objectidentifiertype; }
+    get ruleIndex() { return grammar3rdParser.RULE_objectIdentifierType; }
     // @Override
     accept(visitor) {
-        if (visitor.visitObjectidentifiertype) {
-            return visitor.visitObjectidentifiertype(this);
+        if (visitor.visitObjectIdentifierType) {
+            return visitor.visitObjectIdentifierType(this);
         }
         else {
             return visitor.visitChildren(this);
         }
     }
 }
-exports.ObjectidentifiertypeContext = ObjectidentifiertypeContext;
+exports.ObjectIdentifierTypeContext = ObjectIdentifierTypeContext;
 class ComponentRelationConstraintContext extends ParserRuleContext_1.ParserRuleContext {
     L_BRACE(i) {
         if (i === undefined) {

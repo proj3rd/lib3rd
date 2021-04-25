@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SizeConstraint = void 0;
 const lodash_1 = require("lodash");
 const formatter_1 = require("../formatter");
 const extensionMarker_1 = require("./extensionMarker");

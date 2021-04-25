@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Optionality = void 0;
 /**
  * `Optionality` class indicates that `ComponentType` is optional.
  */

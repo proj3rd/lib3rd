@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SymbolsFromModule = void 0;
 const formatter_1 = require("../formatter");
 class SymbolsFromModule {
     constructor(moduleName, symbols) {

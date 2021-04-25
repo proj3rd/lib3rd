@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.renderDiff = exports.diff = void 0;
 const diff_1 = require("diff");
 const diff2html_1 = require("diff2html");
 const pug_1 = require("pug");
@@ -107,7 +108,7 @@ function renderDiff(diffResult, template) {
         // eslint-disable-next-line no-param-reassign
         patch.patchHtml = diff2html_1.html(diff2html_1.parse(patch.patch), {
             drawFileList: false,
-            outputFormat: 'line-by-line',
+            outputFormat: 'line-by-line', // side-by-side has layout issue https://github.com/rtfpessoa/diff2html/issues/155
         });
     });
     return pug_1.render(template, diffResult);

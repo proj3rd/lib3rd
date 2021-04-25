@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ComponentPresence = void 0;
 class ComponentPresence {
     constructor(name, presence) {
         if (presence !== 'ABSENT' && presence !== 'PRESENT') {

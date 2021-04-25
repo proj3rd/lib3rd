@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.parse = void 0;
 const antlr4ts_1 = require("antlr4ts");
 const _1 = require(".");
 const grammar3rdLexer_1 = require("./grammar/grammar3rdLexer");

@@ -11,7 +11,7 @@ export declare class ExternalObjectSetReference {
      * @param modules
      * @param parameterMappings
      */
-    expand(modules: Modules, parameterMappings: IParameterMapping[]): this | import("./octetStringType").OctetStringType | import("./bitStringType").BitStringType | import("./characterStringType").CharacterStringType | import("./choiceType").ChoiceType | import("./enumeratedType").EnumeratedType | import("./integerType").IntegerType | import("./sequenceType").SequenceType | import("./sequenceOfType").SequenceOfType | import("./objectIdentifierType").ObjectIdentifierType | import("./objectClassFieldType").ObjectClassFieldType | import("./booleanType").BooleanType | import("./nullType").NullType | import("./externalTypeReference").ExternalTypeReference | import("./typeReference").TypeReference | import("./parameterizedType").ParameterizedType | import("./objectSet").ObjectSet | import("./objectClass").ObjectClassDefinition;
+    expand(modules: Modules, parameterMappings: IParameterMapping[]): this | import("./asnType").AsnType | import("./objectSet").ObjectSet | import("./objectClass").ObjectClassDefinition;
     getDepth(): number;
     toString(): string;
 }

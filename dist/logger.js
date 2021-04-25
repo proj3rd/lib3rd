@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Logger = void 0;
 const winston_1 = require("winston");
 const { combine, printf, timestamp } = winston_1.format;
 const logFormat = printf(({ level, message, timestamp: ts, name, }) => {

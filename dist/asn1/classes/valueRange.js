@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ValueRange = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const booleanValue_1 = require("./booleanValue");

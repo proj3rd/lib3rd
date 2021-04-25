@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Imports = void 0;
 class Imports {
     constructor(symbolsFromModule) {
         this.symbolsFromModule = symbolsFromModule;

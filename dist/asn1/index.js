@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.normalize = exports.parse = exports.extract = exports.renderDiff = exports.diff = void 0;
 const fs_1 = require("fs");
 const lodash_1 = require("lodash");
 const path_1 = require("path");
@@ -12,12 +13,12 @@ const diff_1 = require("./diff");
 const extractor_1 = require("./extractor");
 const parser_1 = require("./parser");
 var diff_2 = require("./diff");
-exports.diff = diff_2.diff;
-exports.renderDiff = diff_2.renderDiff;
+Object.defineProperty(exports, "diff", { enumerable: true, get: function () { return diff_2.diff; } });
+Object.defineProperty(exports, "renderDiff", { enumerable: true, get: function () { return diff_2.renderDiff; } });
 var extractor_2 = require("./extractor");
-exports.extract = extractor_2.extract;
+Object.defineProperty(exports, "extract", { enumerable: true, get: function () { return extractor_2.extract; } });
 var parser_2 = require("./parser");
-exports.parse = parser_2.parse;
+Object.defineProperty(exports, "parse", { enumerable: true, get: function () { return parser_2.parse; } });
 /**
  * Normalize ASN.1 definition with the followings:
  * - Move a tag in a separate line to inline

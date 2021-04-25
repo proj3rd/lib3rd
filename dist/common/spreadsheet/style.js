@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BorderRightTop = exports.BorderLeftTop = exports.BorderTop = exports.BorderRight = exports.BorderLeft = exports.BorderBottom = exports.FontTitle = exports.FontBold = void 0;
 const lodash_1 = require("lodash");
 exports.FontBold = {
     bold: true,

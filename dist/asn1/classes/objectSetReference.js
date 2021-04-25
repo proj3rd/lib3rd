@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ObjectSetReference = void 0;
 const unimpl_1 = require("unimpl");
 class ObjectSetReference {
     constructor(objectSetReference) {

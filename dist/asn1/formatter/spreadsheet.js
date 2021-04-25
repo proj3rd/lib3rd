@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.appendInColumn = exports.HEADER_LIST = exports.HEADER_TAG = exports.HEADER_UNIQUE = exports.HEADER_OPTIONAL = exports.HEADER_TYPE = exports.HEADER_REFERENCE = exports.HEADER_NAME_BASE = void 0;
 exports.HEADER_NAME_BASE = 'Name';
 exports.HEADER_REFERENCE = 'Reference';
 exports.HEADER_TYPE = 'Type';

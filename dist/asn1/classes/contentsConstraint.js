@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContentsConstraint = void 0;
 class ContentsConstraint {
     constructor(asnType, value) {
         if (asnType === undefined && value === undefined) {

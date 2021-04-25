@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SubtypeConstraint = void 0;
 const lodash_1 = require("lodash");
 const extensionMarker_1 = require("./extensionMarker");
 class SubtypeConstraint {

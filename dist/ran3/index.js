@@ -3,12 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.parse = void 0;
 const fs_1 = require("fs");
 const lodash_1 = require("lodash");
 const path_1 = require("path");
 const yargs_1 = __importDefault(require("yargs"));
 const parse_1 = require("./parse");
-exports.parse = parse_1.parse;
+Object.defineProperty(exports, "parse", { enumerable: true, get: function () { return parse_1.parse; } });
 if (require.main === module) {
     // eslint-disable-next-line no-unused-vars
     const { argv } = yargs_1.default
