@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BuiltinTypeVisitor = void 0;
 /* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
 const unimpl_1 = require("unimpl");
@@ -13,7 +12,7 @@ const choiceTypeVisitor_1 = require("./choiceTypeVisitor");
 const enumeratedTypeVisitor_1 = require("./enumeratedTypeVisitor");
 const integerTypeVisitor_1 = require("./integerTypeVisitor");
 const objectClassFieldTypeVisitor_1 = require("./objectClassFieldTypeVisitor");
-const objectIdentifierTypeVisitor_1 = require("./objectIdentifierTypeVisitor");
+const objectidentifiertypeVisitor_1 = require("./objectidentifiertypeVisitor");
 const octetStringTypeVisitor_1 = require("./octetStringTypeVisitor");
 const sequenceOfTypeVisitor_1 = require("./sequenceOfTypeVisitor");
 const sequenceTypeVisitor_1 = require("./sequenceTypeVisitor");
@@ -68,7 +67,7 @@ class BuiltinTypeVisitor extends AbstractParseTreeVisitor_1.AbstractParseTreeVis
             return unimpl_1.unimpl(ctx.text);
         }
         if (firstCtx instanceof grammar3rdParser_1.ObjectIdentifierTypeContext) {
-            return firstCtx.accept(new objectIdentifierTypeVisitor_1.ObjectIdentifierTypeVisitor());
+            return firstCtx.accept(new objectidentifiertypeVisitor_1.ObjectidentifiertypeVisitor());
         }
         if (firstCtx instanceof grammar3rdParser_1.ObjectClassFieldTypeContext) {
             return firstCtx.accept(new objectClassFieldTypeVisitor_1.ObjectClassFieldTypeVisitor());

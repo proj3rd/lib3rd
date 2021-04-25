@@ -26,7 +26,7 @@ import { ChoiceTypeVisitor } from './choiceTypeVisitor';
 import { EnumeratedTypeVisitor } from './enumeratedTypeVisitor';
 import { IntegerTypeVisitor } from './integerTypeVisitor';
 import { ObjectClassFieldTypeVisitor } from './objectClassFieldTypeVisitor';
-import { ObjectIdentifierTypeVisitor } from './objectIdentifierTypeVisitor';
+import { ObjectidentifiertypeVisitor } from './objectIdentifierTypeVisitor';
 import { OctetStringTypeVisitor } from './octetStringTypeVisitor';
 import { SequenceOfTypeVisitor } from './sequenceOfTypeVisitor';
 import { SequenceTypeVisitor } from './sequenceTypeVisitor';
@@ -74,7 +74,7 @@ export class BuiltinTypeVisitor extends AbstractParseTreeVisitor<BuiltinType>
     } if (firstCtx instanceof SetOfTypeContext) {
       return unimpl(ctx.text);
     } if (firstCtx instanceof ObjectIdentifierTypeContext) {
-      return firstCtx.accept(new ObjectIdentifierTypeVisitor());
+      return firstCtx.accept(new ObjectidentifiertypeVisitor());
     } if (firstCtx instanceof ObjectClassFieldTypeContext) {
       return firstCtx.accept(new ObjectClassFieldTypeVisitor());
     } if (firstCtx instanceof CharacterStringTypeContext) {

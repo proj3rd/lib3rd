@@ -8,10 +8,10 @@ import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
- * ObjectIdentifierTypeVisitor: OBJECT_LITERAL IDENTIFIER_LITERAL
+ * objectidentifiertype: OBJECT_LITERAL IDENTIFIER_LITERAL
  * ```
  */
-export class ObjectIdentifierTypeVisitor
+export class ObjectidentifiertypeVisitor
   extends AbstractParseTreeVisitor<ObjectIdentifierType>
   implements grammar3rdVisitor<ObjectIdentifierType> {
   // eslint-disable-next-line no-unused-vars

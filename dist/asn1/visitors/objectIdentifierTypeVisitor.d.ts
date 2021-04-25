@@ -5,11 +5,11 @@ import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**
  * # Grammar
  * ```
- * ObjectIdentifierTypeVisitor: OBJECT_LITERAL IDENTIFIER_LITERAL
+ * objectidentifiertype: OBJECT_LITERAL IDENTIFIER_LITERAL
  * ```
  */
-export declare class ObjectIdentifierTypeVisitor extends AbstractParseTreeVisitor<ObjectIdentifierType> implements grammar3rdVisitor<ObjectIdentifierType> {
+export declare class ObjectidentifiertypeVisitor extends AbstractParseTreeVisitor<ObjectIdentifierType> implements grammar3rdVisitor<ObjectIdentifierType> {
     visitChildren(ctx: ObjectIdentifierTypeContext): ObjectIdentifierType;
     protected defaultResult(): ObjectIdentifierType;
 }
-//# sourceMappingURL=objectIdentifierTypeVisitor.d.ts.map
+//# sourceMappingURL=objectidentifiertypeVisitor.d.ts.map

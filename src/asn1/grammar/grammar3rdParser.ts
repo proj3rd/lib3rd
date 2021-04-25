@@ -1,4 +1,4 @@
-// Generated from src/asn1/grammar/grammar3rd.g4 by ANTLR 4.7.3-SNAPSHOT
+// Generated from src/asn1/grammar/grammar3rd.g4 by ANTLR 4.9.0-SNAPSHOT
 
 
 import { ATN } from "antlr4ts/atn/ATN";
@@ -285,7 +285,7 @@ export class grammar3rdParser extends Parser {
 	public static readonly RULE_additionalEnumeration = 137;
 	public static readonly RULE_integerType = 138;
 	public static readonly RULE_namedNumberList = 139;
-	public static readonly RULE_objectidentifiertype = 140;
+	public static readonly RULE_objectIdentifierType = 140;
 	public static readonly RULE_componentRelationConstraint = 141;
 	public static readonly RULE_atNotation = 142;
 	public static readonly RULE_level = 143;
@@ -331,7 +331,7 @@ export class grammar3rdParser extends Parser {
 		"enumerations", "rootEnumeration", "enumeration", "enumerationItem", "namedNumber", 
 		"definedValue", "parameterizedValue", "simpleDefinedValue", "actualParameterList", 
 		"actualParameter", "exceptionSpec", "exceptionIdentification", "additionalEnumeration", 
-		"integerType", "namedNumberList", "objectidentifiertype", "componentRelationConstraint", 
+		"integerType", "namedNumberList", "objectIdentifierType", "componentRelationConstraint", 
 		"atNotation", "level", "componentIdList", "octetStringType", "bitStringType", 
 		"namedBitList", "namedBit", "booleanValue",
 	];
@@ -403,6 +403,10 @@ export class grammar3rdParser extends Parser {
 
 	// @Override
 	public get serializedATN(): string { return grammar3rdParser._serializedATN; }
+
+	protected createFailedPredicateException(predicate?: string, message?: string): FailedPredicateException {
+		return new FailedPredicateException(this, predicate, message);
+	}
 
 	constructor(input: TokenStream) {
 		super(input);
@@ -4461,7 +4465,7 @@ export class grammar3rdParser extends Parser {
 				this.enterOuterAlt(_localctx, 11);
 				{
 				this.state = 918;
-				this.objectidentifiertype();
+				this.objectIdentifierType();
 				}
 				break;
 
@@ -6689,9 +6693,9 @@ export class grammar3rdParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public objectidentifiertype(): ObjectIdentifierTypeContext {
+	public objectIdentifierType(): ObjectIdentifierTypeContext {
 		let _localctx: ObjectIdentifierTypeContext = new ObjectIdentifierTypeContext(this._ctx, this.state);
-		this.enterRule(_localctx, 280, grammar3rdParser.RULE_objectidentifiertype);
+		this.enterRule(_localctx, 280, grammar3rdParser.RULE_objectIdentifierType);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
@@ -10095,7 +10099,7 @@ export class BuiltinTypeContext extends ParserRuleContext {
 	public setOfType(): SetOfTypeContext | undefined {
 		return this.tryGetRuleContext(0, SetOfTypeContext);
 	}
-	public objectidentifiertype(): ObjectIdentifierTypeContext | undefined {
+	public objectIdentifierType(): ObjectIdentifierTypeContext | undefined {
 		return this.tryGetRuleContext(0, ObjectIdentifierTypeContext);
 	}
 	public objectClassFieldType(): ObjectClassFieldTypeContext | undefined {
@@ -11507,11 +11511,11 @@ export class ObjectIdentifierTypeContext extends ParserRuleContext {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return grammar3rdParser.RULE_objectidentifiertype; }
+	public get ruleIndex(): number { return grammar3rdParser.RULE_objectIdentifierType; }
 	// @Override
 	public accept<Result>(visitor: grammar3rdVisitor<Result>): Result {
-		if (visitor.visitObjectidentifiertype) {
-			return visitor.visitObjectidentifiertype(this);
+		if (visitor.visitObjectIdentifierType) {
+			return visitor.visitObjectIdentifierType(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
