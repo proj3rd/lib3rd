@@ -382,7 +382,7 @@ builtinType :
  | sequenceOfType
  | setType
  | setOfType
- | objectidentifiertype
+ | objectIdentifierType
  | objectClassFieldType
  | BOOLEAN_LITERAL
  | NULL_LITERAL
@@ -575,7 +575,7 @@ integerType:INTEGER_LITERAL  (L_BRACE namedNumberList R_BRACE)?
 ;
 namedNumberList : (namedNumber) (COMMA namedNumber)*
 ;
-objectidentifiertype  :  OBJECT_LITERAL IDENTIFIER_LITERAL
+objectIdentifierType  :  OBJECT_LITERAL IDENTIFIER_LITERAL
 ;
 componentRelationConstraint : L_BRACE (IDENTIFIER (DOT IDENTIFIER)?) R_BRACE
 			     (L_BRACE atNotation (COMMA atNotation)* R_BRACE)?
