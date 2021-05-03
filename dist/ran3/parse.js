@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.parse = exports.reSectionNumber = void 0;
 const cheerio_1 = __importDefault(require("cheerio"));
+const $ = cheerio_1.default;
 const fs_1 = require("fs");
 const lodash_1 = require("lodash");
 const definition_1 = require("./classes/definition");
@@ -53,16 +54,16 @@ function normalizeHtmlText(text) {
 }
 // eslint-disable-next-line no-undef
 function matchColumnsPerRow(trElement, columnList) {
-    const tdList = cheerio_1.default('td', trElement);
+    const tdList = $('td', trElement);
     return (tdList.length >= columnList.length
         && columnList.every((column, index) => {
-            const normalizedText = normalizeHtmlText(cheerio_1.default(tdList[index]).text());
+            const normalizedText = normalizeHtmlText($(tdList[index]).text());
             return normalizedText.toLowerCase() === column.toLowerCase();
         }));
 }
 // eslint-disable-next-line no-undef
 function matchColumns(element, columnList) {
-    const trList = cheerio_1.default('tr', element);
+    const trList = $('tr', element);
     const trHeader = trList[0];
     return matchColumnsPerRow(trHeader, columnList);
 }
@@ -85,7 +86,7 @@ function getDirection(element) {
     if (element.type !== 'tag' || element.name !== 'p') {
         return null;
     }
-    const normalizedText = normalizeHtmlText(cheerio_1.default(element).text());
+    const normalizedText = normalizeHtmlText($(element).text());
     if (!normalizedText.startsWith('Direction')) {
         return null;
     }
@@ -110,7 +111,7 @@ element) {
     if (element.type !== 'tag' || !sectionTagList.includes(element.name)) {
         return null;
     }
-    const sectionText = normalizeHtmlText(cheerio_1.default(element).text());
+    const sectionText = normalizeHtmlText($(element).text());
     const matchResult = sectionText.match(reSection);
     if (!matchResult || !matchResult.groups) {
         return null;
@@ -122,10 +123,10 @@ element) {
 function parseConditionTrList(trList) {
     const conditionList = [];
     trList.forEach((trElement) => {
-        const tdList = cheerio_1.default('td', trElement);
+        const tdList = $('td', trElement);
         let i = 0;
         for (; i < tdList.length; i += 1) {
-            const td = normalizeHtmlText(cheerio_1.default(tdList[i]).text());
+            const td = normalizeHtmlText($(tdList[i]).text());
             if (td !== '') {
                 break;
             }
@@ -134,8 +135,8 @@ function parseConditionTrList(trList) {
             return;
         }
         const condition = {
-            condition: cheerio_1.default(tdList[i]).text().trim(),
-            explanation: cheerio_1.default(tdList[i + 1]).text().trim(),
+            condition: $(tdList[i]).text().trim(),
+            explanation: $(tdList[i + 1]).text().trim(),
         };
         if (condition.condition === '') {
             // eslint-disable-next-line no-console
@@ -151,10 +152,10 @@ function parseConditionTrList(trList) {
 function parseRangeTrList(trList) {
     const rangeBoundList = [];
     trList.forEach((trElement) => {
-        const tdList = cheerio_1.default('td', trElement);
+        const tdList = $('td', trElement);
         let i = 0;
         for (; i < tdList.length; i += 1) {
-            const td = normalizeHtmlText(cheerio_1.default(tdList[i]).text());
+            const td = normalizeHtmlText($(tdList[i]).text());
             if (td !== '') {
                 break;
             }
@@ -163,8 +164,8 @@ function parseRangeTrList(trList) {
             return;
         }
         const rangeBound = {
-            rangeBound: cheerio_1.default(tdList[i]).text().trim(),
-            explanation: cheerio_1.default(tdList[i + 1]).text().trim(),
+            rangeBound: $(tdList[i]).text().trim(),
+            explanation: $(tdList[i + 1]).text().trim(),
         };
         if (rangeBound.rangeBound === '') {
             // eslint-disable-next-line no-console
@@ -178,7 +179,7 @@ function parseRangeTrList(trList) {
 }
 // eslint-disable-next-line no-undef
 function parseDefinitionTable(element) {
-    const trList = cheerio_1.default('tr', element);
+    const trList = $('tr', element);
     const trBodyList = trList.slice(1).toArray();
     const ieList = [];
     let depthMin = Infinity;
@@ -189,10 +190,10 @@ function parseDefinitionTable(element) {
     const indexDefinitionEnd = Math.min(indexConditionHeader !== -1 ? indexConditionHeader : Infinity, indexRangeHeader !== -1 ? indexRangeHeader : Infinity);
     const trListDefinition = trBodyList.slice(0, indexDefinitionEnd);
     trListDefinition.forEach((trElement) => {
-        const tdList = cheerio_1.default('td', trElement);
+        const tdList = $('td', trElement);
         let i = 0;
         for (; i < tdList.length; i += 1) {
-            const td = normalizeHtmlText(cheerio_1.default(tdList[i]).text());
+            const td = normalizeHtmlText($(tdList[i]).text());
             if (td !== '') {
                 break;
             }
@@ -200,7 +201,7 @@ function parseDefinitionTable(element) {
         if (i === tdList.length) {
             return;
         }
-        const tdFirst = normalizeHtmlText(cheerio_1.default(tdList[i]).text());
+        const tdFirst = normalizeHtmlText($(tdList[i]).text());
         i += 1;
         const name = tdFirst.replace(/^>+/, '').trim();
         const matchResult = tdFirst.match(reDepth);
@@ -208,17 +209,17 @@ function parseDefinitionTable(element) {
             ? 0
             : matchResult.groups.depth.length;
         depthMin = Math.min(depthMin, depth);
-        const typeAndRef = normalizeHtmlText(cheerio_1.default(tdList[i + 2]).text());
+        const typeAndRef = normalizeHtmlText($(tdList[i + 2]).text());
         const [reference, type] = typeAndRef.match(exports.reSectionNumber) ? [typeAndRef, ''] : ['', typeAndRef];
         const informationElement = {
             name,
-            presence: normalizeHtmlText(cheerio_1.default(tdList[i]).text()),
-            range: normalizeHtmlText(cheerio_1.default(tdList[i + 1]).text()),
+            presence: normalizeHtmlText($(tdList[i]).text()),
+            range: normalizeHtmlText($(tdList[i + 1]).text()),
             reference,
             type,
-            description: normalizeHtmlText(cheerio_1.default(tdList[i + 3]).text()),
-            criticality: normalizeHtmlText(cheerio_1.default(tdList[i + 4]).text()),
-            assignedCriticality: normalizeHtmlText(cheerio_1.default(tdList[i + 5]).text()),
+            description: normalizeHtmlText($(tdList[i + 3]).text()),
+            criticality: normalizeHtmlText($(tdList[i + 4]).text()),
+            assignedCriticality: normalizeHtmlText($(tdList[i + 5]).text()),
             depth,
         };
         if (name === '') {
@@ -247,13 +248,13 @@ function parseDefinitionTable(element) {
 }
 // eslint-disable-next-line no-undef
 function parseRangeTable(element) {
-    const trList = cheerio_1.default('tr', element);
+    const trList = $('tr', element);
     const trBodyList = trList.slice(1).toArray();
     return parseRangeTrList(trBodyList);
 }
 // eslint-disable-next-line no-undef
 function parseConditionTable(element) {
-    const trList = cheerio_1.default('tr', element);
+    const trList = $('tr', element);
     const trBodyList = trList.slice(1).toArray();
     return parseConditionTrList(trBodyList);
 }
@@ -261,7 +262,7 @@ function parse(html) {
     // Break down the document into elements and put them into the list
     // The last element shall be put into the list first and popped from it last
     // eslint-disable-next-line no-undef
-    const elementList = cheerio_1.default(normalize(html))
+    const elementList = $(normalize(html))
         .map((index, element) => element)
         .get()
         .reverse();
@@ -311,7 +312,7 @@ function parse(html) {
             definition.rangeBoundList = parseRangeTable(element);
         }
         else if (isParagraph(element) && !definition.elementList.length) {
-            definition.descriptionList.push(cheerio_1.default(element).text());
+            definition.descriptionList.push($(element).text());
         }
         else if (element.type === 'tag') {
             // Otherwise, put child elements into the stack

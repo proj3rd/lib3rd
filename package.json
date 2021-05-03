@@ -82,7 +82,7 @@
   },
   "homepage": "https://github.com/gsongsong/3gpp#readme",
   "devDependencies": {
-    "@types/cheerio": "^0.22.21",
+    "@types/cheerio": "^0.22.28",
     "@types/diff": "^4.0.2",
     "@types/hogan.js": "^3.0.0",
     "@types/lodash": "^4.14.158",
@@ -101,7 +101,7 @@
   },
   "dependencies": {
     "antlr4ts": "^0.5.0-alpha.4",
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.6",
     "diff": "^4.0.2",
     "diff2html": "^3.1.11",
     "exceljs": "^4.1.1",
