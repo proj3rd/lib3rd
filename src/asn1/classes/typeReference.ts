@@ -3,9 +3,10 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { HEADER_REFERENCE } from '../formatter/spreadsheet';
-import { AsnType } from './asnType';
+import { AsnType } from '../types/asnType';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { InnerTypeConstraints } from './innerTypeConstraints';
@@ -21,10 +22,21 @@ export class TypeReference {
 
   public reference: string | undefined;
 
-  private typeReferenceTag: undefined;
+  public typeReferenceTag = true;
 
   constructor(typeReference: string) {
     this.typeReference = typeReference;
+  }
+
+  public static fromObject(obj: unknown) {
+    const { typeReference: typeReferenceObject, typeReferenceTag } = obj as TypeReference;
+    if (!typeReferenceTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!typeReferenceObject || typeof typeReferenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    return new TypeReference(typeReferenceObject);
   }
 
   /**

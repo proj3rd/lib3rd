@@ -2,6 +2,7 @@ import { Worksheet } from 'exceljs';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { HEADER_NAME_BASE, HEADER_OPTIONAL } from '../formatter/spreadsheet';
 import { Modules } from './modules';
@@ -12,11 +13,25 @@ export class TypeFieldSpec {
   public fieldReference: PrimitiveFieldName;
   public optionality: Optionality | undefined;
 
-  private typeFieldSpecTag: undefined;
+  public typeFieldSpecTag = true;
 
   constructor(fieldRerence: PrimitiveFieldName, optionality?: Optionality) {
     this.fieldReference = fieldRerence;
     this.optionality = optionality;
+  }
+
+  public static fromObject(obj: unknown): TypeFieldSpec {
+    const {
+      fieldReference: fieldReferenceObj,
+      optionality: optionalityObj,
+      typeFieldSpecTag,
+    } = obj as TypeFieldSpec;
+    if (!typeFieldSpecTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const fieldReference = PrimitiveFieldName.fromObject(fieldReferenceObj);
+    const optionality = optionalityObj !== undefined ? Optionality.fromObject(optionalityObj) : undefined;
+    return new TypeFieldSpec(fieldReference, optionality);
   }
 
   // eslint-disable-next-line no-unused-vars

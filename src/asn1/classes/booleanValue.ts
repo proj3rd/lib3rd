@@ -1,5 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 
@@ -11,7 +12,7 @@ export class BooleanValue {
 
   public reference: string | undefined;
 
-  private booleanValueTag: undefined;
+  public booleanValueTag = true;
 
   constructor(literal: string) {
     this.literal = literal;
@@ -22,6 +23,25 @@ export class BooleanValue {
     } else {
       throw Error();
     }
+  }
+
+  public static fromObject(obj: unknown): BooleanValue {
+    const { literal: literalObject, value: valueObject, reference: referenceObject, booleanValueTag } = obj as BooleanValue;
+    if (!booleanValueTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof literalObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof valueObject !== 'boolean') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const booleanValue = new BooleanValue(literalObject);
+    booleanValue.reference = referenceObject;
+    return booleanValue;
   }
 
   // eslint-disable-next-line no-unused-vars

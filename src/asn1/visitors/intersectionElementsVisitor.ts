@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _IntersectionElements } from '../types';
 import { IntersectionElementsContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { IntersectionElements } from '../types/intersectionElements';
 import { ElementsVisitor } from './elementsVisitor';
 
 /**
@@ -13,11 +13,11 @@ import { ElementsVisitor } from './elementsVisitor';
  * ```
  */
 export class IntersectionElementsVisitor
-  extends AbstractParseTreeVisitor<_IntersectionElements>
-  implements grammar3rdVisitor<_IntersectionElements> {
+  extends AbstractParseTreeVisitor<IntersectionElements>
+  implements grammar3rdVisitor<IntersectionElements> {
   public visitChildren(
     ctx: IntersectionElementsContext,
-  ): _IntersectionElements {
+  ): IntersectionElements {
     const elementsCtx = ctx.elements();
     const elements = elementsCtx.accept(new ElementsVisitor());
     const exclusionsCtx = ctx.exclusions();
@@ -27,7 +27,7 @@ export class IntersectionElementsVisitor
     return elements;
   }
 
-  protected defaultResult(): _IntersectionElements {
+  protected defaultResult(): IntersectionElements {
     return unimpl();
   }
 }

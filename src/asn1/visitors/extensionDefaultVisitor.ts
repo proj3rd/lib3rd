@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { ExtensionDefault } from '../classes/moduleDefinition';
 import { ExtensionDefaultContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { ExtensionDefault } from '../types/extensionDefault';
 
 /**
  * # Grammar

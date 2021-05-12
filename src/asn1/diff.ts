@@ -3,7 +3,7 @@ import { html, parse } from 'diff2html';
 import { render } from 'pug';
 import { unreach } from 'unimpl';
 import { Modules } from './classes/modules';
-import { Assignment } from './types';
+import { Assignment } from './types/assignment';
 
 interface IAssignmentFlattened {
   moduleName: string;

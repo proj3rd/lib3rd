@@ -1,5 +1,6 @@
 import { cloneDeep } from 'lodash';
 import { unimpl } from 'unimpl';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { Modules } from './modules';
 import { ObjectClassAssignment } from './objectClassAssignment';
@@ -9,11 +10,25 @@ export class ExternalObjectSetReference {
   public moduleReference: string;
   public objectSetReference: string;
 
-  private externalObjectSetReferenceTag: undefined;
+  public externalObjectSetReferenceTag = true;
 
   constructor(moduleReference: string, objectSetReference: string) {
     this.moduleReference = moduleReference;
     this.objectSetReference = objectSetReference;
+  }
+
+  public static fromObject(obj: unknown): ExternalObjectSetReference {
+    const { moduleReference, objectSetReference, externalObjectSetReferenceTag } = obj as ExternalObjectSetReference;
+    if (!externalObjectSetReferenceTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof moduleReference !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof objectSetReference !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    return new ExternalObjectSetReference(moduleReference, objectSetReference);
   }
 
   /**

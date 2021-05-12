@@ -1,5 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { setOutlineLevel, drawBorder, IRowInput } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
@@ -11,10 +12,30 @@ export class ValueReference {
 
   public reference: string | undefined;
 
-  private valueReferenceTag: undefined;
+  public valueReferenceTag = true;
 
   constructor(valueReference: string) {
     this.valueReference = valueReference;
+  }
+
+  public static fromObject(obj: unknown): ValueReference {
+    const {
+      valueReference: valueReferenceObject,
+      reference: referenceObject,
+      valueReferenceTag,
+    } = obj as ValueReference;
+    if (!valueReferenceTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof valueReferenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const valueReference = new ValueReference(valueReferenceObject);
+    valueReference.reference = referenceObject;
+    return valueReference;
   }
 
   // eslint-disable-next-line no-unused-vars

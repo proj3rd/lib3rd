@@ -13,8 +13,7 @@ import {
 import { BorderTop } from '../../common/spreadsheet/style';
 import { IParameterMapping } from '../expander';
 import { HEADER_LIST, HEADER_NAME_BASE } from '../formatter/spreadsheet';
-
-import { AsnType } from './asnType';
+import { AsnType } from '../types/asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 import { Parameter } from './parameter';
@@ -24,7 +23,7 @@ export class ParameterizedTypeAssignment {
   public parameters: Parameter[];
   public asnType: AsnType;
 
-  private parameterizedTypeAssignmentTag: undefined;
+  public parameterizedTypeAssignmentTag = true;
 
   constructor(name: string, parameters: Parameter[], asnType: AsnType) {
     this.name = name;

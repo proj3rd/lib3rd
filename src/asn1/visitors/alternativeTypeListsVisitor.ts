@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { RootChoiceComponents } from '../classes/choiceType';
 import {
   AlternativeTypeListsContext,
   ExtensionAdditionAlternativesContext,
@@ -9,6 +8,7 @@ import {
   RootAlternativeTypeListContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { RootChoiceComponents } from '../types/rootChoiceComponents';
 import { ExtensionAdditionAlternativesVisitor } from './extensionAdditionAlternativesVisitor';
 import { ExtensionAndExceptionVisitor } from './extensionAndExceptionVisitor';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarkerVisitor';

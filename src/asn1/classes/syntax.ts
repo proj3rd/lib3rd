@@ -2,6 +2,7 @@ import { Worksheet } from 'exceljs';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
@@ -15,7 +16,7 @@ export class Syntax {
   public primitiveFieldName: PrimitiveFieldName;
   public optional: boolean;
 
-  private syntaxTag: undefined;
+  public syntaxTag = true;
 
   constructor(
     literal: string,
@@ -25,6 +26,26 @@ export class Syntax {
     this.literal = literal;
     this.primitiveFieldName = primitiveFieldName;
     this.optional = optional;
+  }
+  
+  public static fromObject(obj: unknown): Syntax {
+    const {
+      literal: literalObj,
+      primitiveFieldName: primitiveFieldNameObj,
+      optional: optionalObj,
+      syntaxTag,
+    } = obj as Syntax;
+    if (!syntaxTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof literalObj !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof optionalObj !== 'boolean') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const primitiveFieldName = PrimitiveFieldName.fromObject(obj);
+    return new Syntax(literalObj, primitiveFieldName, optionalObj);
   }
 
   // eslint-disable-next-line class-methods-use-this

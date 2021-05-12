@@ -4,7 +4,7 @@ export class Parameter {
   public dummyReference: string;
   public paramGovernor: ParamGovernor | undefined;
 
-  private parameterTag: undefined;
+  public parameterTag = true;
 
   constructor(
     dummyReference: string,

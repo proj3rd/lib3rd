@@ -2,13 +2,13 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { BooleanValue } from '../classes/booleanValue';
-import { EnumerationItem } from '../classes/enumeratedType';
 import {
   EnumerationItemContext,
   NamedNumberContext,
   ValueContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { EnumerationItem } from '../types/enumerationItem';
 import { NamedNumberVisitor } from './namedNumberVisitor';
 import { ValueVisitor } from './valueVisitor';
 

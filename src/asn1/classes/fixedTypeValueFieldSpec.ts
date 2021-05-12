@@ -2,14 +2,14 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { headerIndexed, IRowInput } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
   HEADER_UNIQUE,
 } from '../formatter/spreadsheet';
-
-import { AsnType } from './asnType';
+import { AsnType, AsnTypeFromObject } from '../types/asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 import { Optionality } from './optionality';
@@ -21,7 +21,7 @@ export class FixedTypeValueFieldSpec {
   public unique: boolean;
   public optionality: Optionality | undefined;
 
-  private fixedTypeValueFieldSpecTag: undefined;
+  public fixedTypeValueFieldSpecTag = true;
 
   constructor(
     fieldRerence: PrimitiveFieldName,
@@ -33,6 +33,23 @@ export class FixedTypeValueFieldSpec {
     this.asnType = asnType;
     this.unique = unique;
     this.optionality = optionality;
+  }
+
+  public static fromObject(obj: unknown): FixedTypeValueFieldSpec {
+    const {
+      fieldReference: fieldReferenceObj,
+      asnType: asnTypeObj,
+      unique: uniqueObj,
+      optionality: optionalityObj,
+      fixedTypeValueFieldSpecTag,
+    } = obj as FixedTypeValueFieldSpec;
+    const fieldReference = PrimitiveFieldName.fromObject(fieldReferenceObj);
+    const asnType = AsnTypeFromObject(asnTypeObj);
+    if (typeof uniqueObj !== 'boolean') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const optionality = optionalityObj !== undefined ? Optionality.fromObject(optionalityObj) : undefined;
+    return new FixedTypeValueFieldSpec(fieldReference, asnType, uniqueObj, optionality);
   }
 
   /**

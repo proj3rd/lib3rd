@@ -1,18 +1,42 @@
 import { cloneDeep, isEqual } from 'lodash';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
-import { _ElementSetSpec } from '../types';
+import { ElementSetSpec } from '../types/elementSetSpec';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
+import { Unions } from './unions';
 
-export type ElementSetSpecList = Array<_ElementSetSpec | ExtensionMarker>;
+export type ElementSetSpecList = Array<ElementSetSpec | ExtensionMarker>;
 
 export class SubtypeConstraint {
   public elementSetSpecList: ElementSetSpecList;
 
-  private subtypeConstraintTag: undefined;
+  public subtypeConstraintTag = true;
 
   constructor(elementSetSpecList: ElementSetSpecList) {
     this.elementSetSpecList = elementSetSpecList;
+  }
+
+  public static fromObject(obj: unknown): SubtypeConstraint {
+    const { elementSetSpecList: elementSetSpecListObject, subtypeConstraintTag } = obj as SubtypeConstraint;
+    if (!subtypeConstraintTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(elementSetSpecListObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const elementSetSpecList = elementSetSpecListObject.map((item) => {
+      const { unionsTag } = item as Unions;
+      if (unionsTag) {
+        return Unions.fromObject(item);
+      }
+      const { extensionMarkerTag } = item as ExtensionMarker;
+      if (extensionMarkerTag) {
+        return ExtensionMarker.getInstance();
+      }
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    });
+    return new SubtypeConstraint(elementSetSpecList);
   }
 
   /**

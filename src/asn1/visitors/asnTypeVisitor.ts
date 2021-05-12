@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { AsnType } from '../classes/asnType';
 import { NullType } from '../classes/nullType';
 import {
   AsnTypeContext,
@@ -8,6 +7,7 @@ import {
   ReferencedTypeContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { AsnType } from '../types/asnType';
 import { BuiltinTypeVisitor } from './builtinTypeVisitor';
 import { ConstraintVisitor } from './constraintVisitor';
 import { ReferencedTypeVisitor } from './referencedTypeVisitor';

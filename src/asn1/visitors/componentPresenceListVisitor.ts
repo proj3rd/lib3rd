@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { TypeConstraintsComponent } from '../classes/innerTypeConstraints';
 import { ComponentPresenceListContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { TypeConstraintsComponent } from '../types/typeConstraintsComponent';
 import { ComponentPresenceVisitor } from './componentPresenceVisitor';
 
 /**

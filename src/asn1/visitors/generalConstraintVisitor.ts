@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _GeneralConstraint } from '../types';
 import {
   ContentsConstraintContext,
   GeneralConstraintContext,
@@ -9,6 +8,7 @@ import {
   UserDefinedConstraintContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { GeneralConstraint } from '../types/generalConstraint';
 import { ContentsConstraintVisitor } from './contentsConstraintVisitor';
 import { TableConstraintVisitor } from './tableConstraintVisitor';
 
@@ -19,9 +19,9 @@ import { TableConstraintVisitor } from './tableConstraintVisitor';
  * ```
  */
 export class GeneralConstraintVisitor
-  extends AbstractParseTreeVisitor<_GeneralConstraint>
-  implements grammar3rdVisitor<_GeneralConstraint> {
-  public visitChildren(ctx: GeneralConstraintContext): _GeneralConstraint {
+  extends AbstractParseTreeVisitor<GeneralConstraint>
+  implements grammar3rdVisitor<GeneralConstraint> {
+  public visitChildren(ctx: GeneralConstraintContext): GeneralConstraint {
     const childCtx = ctx.getChild(0);
     if (childCtx instanceof UserDefinedConstraintContext) {
       return unimpl();
@@ -33,7 +33,7 @@ export class GeneralConstraintVisitor
     throw Error(ctx.text);
   }
 
-  protected defaultResult(): _GeneralConstraint {
+  protected defaultResult(): GeneralConstraint {
     return unimpl();
   }
 }

@@ -12,5 +12,3 @@ export type BuiltinValue =
 export type DefinedValue = ValueReference;
 
 export type ReferencedValue = DefinedValue;
-
-export type Value = BuiltinValue | ReferencedValue;

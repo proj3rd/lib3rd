@@ -13,7 +13,7 @@ export class ExtensionMarker {
 
   private static instance: ExtensionMarker = new ExtensionMarker();
 
-  private extensionMarkerTag: undefined;
+  public extensionMarkerTag = true;
 
   // eslint-disable-next-line no-unused-vars
   public expand(modules: Modules, parameterMappings: IParameterMapping[]): ExtensionMarker {

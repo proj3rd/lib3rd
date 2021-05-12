@@ -1,13 +1,13 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { ActualParameter } from '../classes/parameterizedType';
 import {
   ActualParameterContext,
   AsnTypeContext,
   ValueContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { ActualParameter } from '../types/actualParamter';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { ValueVisitor } from './valueVisitor';
 

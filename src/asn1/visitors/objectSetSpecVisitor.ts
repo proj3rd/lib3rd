@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _ElementSetSpecs } from '../types';
 import { ExtensionMarker } from '../classes/extensionMarker';
 import {
   AdditionalElementSetSpecContext,
@@ -9,6 +8,7 @@ import {
   RootElementSetSpecContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { ElementSetSpecs } from '../types/elementSetSpecs';
 import { AdditionalElementSetSpecVisitor } from './additionalElementSetSpecVisitor';
 import { RootElementSetSpecVisitor } from './rootElementSetSpecVisitor';
 
@@ -21,10 +21,10 @@ import { RootElementSetSpecVisitor } from './rootElementSetSpecVisitor';
  * ```
  */
 export class ObjectSetSpecVisitor
-  extends AbstractParseTreeVisitor<_ElementSetSpecs>
-  implements grammar3rdVisitor<_ElementSetSpecs> {
-  public visitChildren(ctx: ObjectSetSpecContext): _ElementSetSpecs {
-    const elementSetSpecs: _ElementSetSpecs = [];
+  extends AbstractParseTreeVisitor<ElementSetSpecs>
+  implements grammar3rdVisitor<ElementSetSpecs> {
+  public visitChildren(ctx: ObjectSetSpecContext): ElementSetSpecs {
+    const elementSetSpecs: ElementSetSpecs = [];
     const { childCount } = ctx;
     for (let i = 0; i < childCount; i += 1) {
       const childCtx = ctx.getChild(i);
@@ -56,7 +56,7 @@ export class ObjectSetSpecVisitor
     return elementSetSpecs;
   }
 
-  protected defaultResult(): _ElementSetSpecs {
+  protected defaultResult(): ElementSetSpecs {
     return unimpl();
   }
 }

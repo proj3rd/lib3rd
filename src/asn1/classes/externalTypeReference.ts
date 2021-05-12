@@ -2,9 +2,10 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { HEADER_REFERENCE } from '../formatter/spreadsheet';
-import { AsnType } from './asnType';
+import { AsnType } from '../types/asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
@@ -18,11 +19,28 @@ export class ExternalTypeReference {
 
   public reference: string | undefined;
 
-  private externalTypeReferenceTag: undefined;
+  public externalTypeReferenceTag = true;
 
   constructor(moduleReference: string, typeReference: string) {
     this.moduleReference = moduleReference;
     this.typeReference = typeReference;
+  }
+
+  public static fromObject(obj: unknown) {
+    const {
+      moduleReference: moduleReferenceObject,
+      typeReference: typeReferenceObject,
+      externalTypeReferenceTag,
+    } = obj as ExternalTypeReference;
+    if (!externalTypeReferenceTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!moduleReferenceObject || typeof moduleReferenceObject !== 'string'
+        || !typeReferenceObject || typeof typeReferenceObject !== 'string'
+    ) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    return new ExternalTypeReference(moduleReferenceObject, typeReferenceObject);
   }
 
   /**
@@ -32,14 +50,18 @@ export class ExternalTypeReference {
    * @param parameterMappings
    */
   // eslint-disable-next-line no-unused-vars
-  public expand(modules: Modules, parameterMappings: IParameterMapping[]): AsnType {
+  public expand(
+    modules: Modules,
+    parameterMappings: IParameterMapping[]
+  ): AsnType {
     const referencedAssignment = modules.findAssignment(
       this.typeReference,
-      this.moduleReference,
+      this.moduleReference
     );
     if (referencedAssignment === undefined) {
       return this;
-    } if (referencedAssignment instanceof TypeAssignment) {
+    }
+    if (referencedAssignment instanceof TypeAssignment) {
       const { asnType } = referencedAssignment;
       const expandedType = cloneDeep(asnType).expand(modules, []);
       if (asnType instanceof ObjectSet) {
@@ -54,9 +76,11 @@ export class ExternalTypeReference {
       }
       expandedType.reference = this.toString();
       return expandedType;
-    } if (referencedAssignment instanceof ParameterizedTypeAssignment) {
+    }
+    if (referencedAssignment instanceof ParameterizedTypeAssignment) {
       return unimpl();
-    } if (referencedAssignment instanceof ValueAssignment) {
+    }
+    if (referencedAssignment instanceof ValueAssignment) {
       return unimpl();
     }
     throw Error();

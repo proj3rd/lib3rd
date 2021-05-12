@@ -1,15 +1,24 @@
 import { Worksheet } from 'exceljs';
 import { todo } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 
 export class ObjectIdentifierType {
-  private objectIdentifierTypeTag: undefined;
+  public objectIdentifierTypeTag = true;
 
   public reference: string | undefined;
+
+  public static fromObject(obj: unknown) {
+    const { objectIdentifierTypeTag } = obj as ObjectIdentifierType;
+    if (!objectIdentifierTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    return new ObjectIdentifierType();
+  }
 
   // eslint-disable-next-line no-unused-vars
   public expand(modules: Modules, parameterMappings: IParameterMapping[]): ObjectIdentifierType {

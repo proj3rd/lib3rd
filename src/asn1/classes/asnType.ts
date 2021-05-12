@@ -39,8 +39,6 @@ export type DefinedType =
 
 export type ReferencedType = DefinedType;
 
-export type AsnType = BuiltinType | ReferencedType;
-
 export type DefinedObjectClass = ObjectClassReference;
 // ExternalObjectClassReference
 //  UsefuleObjectClassReference

@@ -4,6 +4,7 @@ import { unimpl } from 'unimpl';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import {
@@ -12,8 +13,7 @@ import {
   HEADER_REFERENCE,
   HEADER_TYPE,
 } from '../formatter/spreadsheet';
-
-import { _ElementSetSpecs } from '../types';
+import { ElementSetSpecs, ElementSetSpecsFromObject } from '../types/elementSetSpecs';
 import { Modules } from './modules';
 
 /**
@@ -21,14 +21,32 @@ import { Modules } from './modules';
  * Note: `SimpleTableConstraint` is equivalent to `ObjectSet`.
  */
 export class ObjectSet {
-  public objectSetSpec: _ElementSetSpecs;
+  public objectSetSpec: ElementSetSpecs;
 
   public reference: string | undefined;
 
-  private objectSetTag: undefined;
+  public objectSetTag = true;
 
-  constructor(objectSetSpec: _ElementSetSpecs) {
+  constructor(objectSetSpec: ElementSetSpecs) {
     this.objectSetSpec = objectSetSpec;
+  }
+
+  public static fromObject(obj: unknown): ObjectSet {
+    const {
+      objectSetSpec: objectSetSpecObj,
+      reference: referenceObj,
+      objectSetTag,
+    } = obj as ObjectSet;
+    if (!objectSetTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObj && typeof referenceObj !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const objectSetSpec = ElementSetSpecsFromObject(objectSetSpecObj);
+    const objectSet = new ObjectSet(objectSetSpec);
+    objectSet.reference = referenceObj;
+    return objectSet;
   }
 
   /**

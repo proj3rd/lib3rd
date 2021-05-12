@@ -1,15 +1,17 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
+import { option } from 'yargs';
 import { headerIndexed, IRowInput } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import {
   HEADER_NAME_BASE,
   HEADER_OPTIONAL,
   HEADER_TAG,
 } from '../formatter/spreadsheet';
+import { AsnType, AsnTypeFromObject } from '../types/asnType';
 
-import { AsnType } from './asnType';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
 import { ObjectSet } from './objectSet';
@@ -22,7 +24,7 @@ export class ComponentType {
   public optionality: Optionality | undefined;
   public tag: Tag;
 
-  private componentTypeTag: undefined;
+  public componentTypeTag = true;
 
   constructor(
     namedType: NamedType,
@@ -39,6 +41,26 @@ export class ComponentType {
         'ObjectSet cannot be used in instantiating but expanding ComponentType',
       );
     }
+  }
+
+  public static fromObject(obj: unknown): ComponentType {
+    const {
+      name,
+      asnType: asnTypeObject,
+      optionality: optionalityObject,
+      tag,
+      componentTypeTag,
+    } = obj as ComponentType;
+    if (!name || typeof name !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof tag !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const asnType = AsnTypeFromObject(asnTypeObject);
+    const namedType = new NamedType(name, asnType);
+    const optionality = optionalityObject ? Optionality.fromObject(optionalityObject) : undefined;
+    return new ComponentType(namedType, optionality, tag);
   }
 
   /**

@@ -10,20 +10,37 @@ import {
   drawBorder,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { HEADER_LIST, HEADER_NAME_BASE } from '../formatter/spreadsheet';
 
 import { Modules } from './modules';
-import { ObjectClass } from './objectClass';
+import { ObjectClass, ObjectClassDefinition } from './objectClass';
 
 export class ObjectClassAssignment {
   public name: string;
   public objectClass: ObjectClass;
 
-  private objectClassAssignmentTag: undefined;
+  public objectClassAssignmentTag = true;
 
   constructor(name: string, objectClass: ObjectClass) {
     this.name = name;
     this.objectClass = objectClass;
+  }
+
+  public static fromObject(obj: unknown): ObjectClassAssignment {
+    const {
+      name: nameObject,
+      objectClass: objectClassObject,
+      objectClassAssignmentTag,
+    } = obj as ObjectClassAssignment;
+    if (!objectClassAssignmentTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof nameObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const objectClass = ObjectClassDefinition.fromObject(objectClassObject);
+    return new ObjectClassAssignment(nameObject, objectClass);
   }
 
   /**

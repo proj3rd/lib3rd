@@ -1,4 +1,5 @@
 import { cloneDeep, isEqual } from 'lodash';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { getPermittedIntegerValues } from '../formatter';
 import { ExtensionMarker } from './extensionMarker';
@@ -9,10 +10,36 @@ import { ValueRange } from './valueRange';
 export class SizeConstraint {
   public constraint: Array<ExtensionMarker | IntegerValue | ValueRange>;
 
-  private sizeConstraintTag: undefined;
+  public sizeConstraintTag = true;
 
   constructor(constraint: Array<ExtensionMarker | IntegerValue | ValueRange>) {
     this.constraint = constraint;
+  }
+
+  public static fromObject(obj: unknown): SizeConstraint {
+    const { constraint: constraintObject, sizeConstraintTag } = obj as SizeConstraint;
+    if (!sizeConstraintTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(constraintObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const constraint = constraintObject.map((item) => {
+      const { extensionMarkerTag } = item as ExtensionMarker;
+      if (extensionMarkerTag) {
+        return ExtensionMarker.getInstance();
+      }
+      const { integerValueTag} = item as IntegerValue;
+      if (integerValueTag) {
+        return IntegerValue.fromObject(item);
+      }
+      const { valueRangeTag } = item as ValueRange;
+      if (valueRangeTag) {
+        return ValueRange.fromObject(item);
+      }
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    });
+    return new SizeConstraint(constraint);
   }
 
   /**

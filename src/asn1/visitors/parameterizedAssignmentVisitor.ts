@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { AsnType, DefinedObjectClass } from '../classes/asnType';
+import { DefinedObjectClass } from '../classes/asnType';
 import { ObjectSet } from '../classes/objectSet';
 import { Parameter } from '../classes/parameter';
 import {
@@ -14,6 +14,7 @@ import {
   ValueSetContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { AsnType } from '../types/asnType';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { DefinedObjectClassVisitor } from './definedObjectClassVisitor';
 import { ObjectSetVisitor } from './objectSetVisitor';

@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _ElementSetSpec } from '../types';
 import { ElementSetSpecContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { ElementSetSpec } from '../types/elementSetSpec';
 import { UnionsVisitor } from './unionsVisitor';
 
 /**
@@ -13,9 +13,9 @@ import { UnionsVisitor } from './unionsVisitor';
  * ```
  */
 export class ElementSetSpecVisitor
-  extends AbstractParseTreeVisitor<_ElementSetSpec>
-  implements grammar3rdVisitor<_ElementSetSpec> {
-  public visitChildren(ctx: ElementSetSpecContext): _ElementSetSpec {
+  extends AbstractParseTreeVisitor<ElementSetSpec>
+  implements grammar3rdVisitor<ElementSetSpec> {
+  public visitChildren(ctx: ElementSetSpecContext): ElementSetSpec {
     const unionsCtx = ctx.unions();
     if (unionsCtx !== undefined) {
       return unionsCtx.accept(new UnionsVisitor());
@@ -27,7 +27,7 @@ export class ElementSetSpecVisitor
     throw Error();
   }
 
-  protected defaultResult(): _ElementSetSpec {
+  protected defaultResult(): ElementSetSpec {
     return unimpl();
   }
 }

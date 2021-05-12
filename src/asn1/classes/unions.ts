@@ -4,9 +4,10 @@ import { unimpl, unreach } from 'unimpl';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { _Intersections } from '../types';
+import { Intersections, IntersectionsFromObject } from '../types/intersections';
 import { BooleanValue } from './booleanValue';
 import { ExternalObjectSetReference } from './externalObjectSetReference';
 import { IntegerValue } from './integerValue';
@@ -18,12 +19,24 @@ import { ValueRange } from './valueRange';
 import { ValueReference } from './valueReference';
 
 export class Unions {
-  public intersectionsList: _Intersections[];
+  public intersectionsList: Intersections[];
 
-  private unionsTag: undefined;
+  public unionsTag = true;
 
-  constructor(intersections: _Intersections[]) {
+  constructor(intersections: Intersections[]) {
     this.intersectionsList = intersections;
+  }
+
+  public static fromObject(obj: unknown): Unions {
+    const { intersectionsList: intersectionsListObject, unionsTag } = obj as Unions;
+    if (!unionsTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(intersectionsListObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const intersectionList = intersectionsListObject.map((item) => IntersectionsFromObject(item));
+    return new Unions(intersectionList);
   }
 
   /**
