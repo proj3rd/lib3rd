@@ -13,11 +13,16 @@ export class BooleanType {
   public booleanTypeTag = true;
 
   public static fromObject(obj: unknown) {
-    const { booleanTypeTag } = obj as BooleanType;
+    const { reference, booleanTypeTag } = obj as BooleanType;
     if (!booleanTypeTag) {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
-    return new BooleanType();
+    if (reference && typeof reference !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const booleanType = new BooleanType();
+    booleanType.reference = reference;
+    return booleanType;
   }
 
   // eslint-disable-next-line no-unused-vars
