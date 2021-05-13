@@ -10,11 +10,7 @@ import { Value } from './types/value';
 
 export type SimpleTableConstraint = ObjectSet;
 
-export type Governor = AsnType | ObjectClassReference;
-
 export type ObjectIdComponents = BuiltinType | string;
-
-export type ParamGovernor = Governor | string;
 
 export interface ITypeAndValue {
   asnType: AsnType;

@@ -45,7 +45,7 @@ export function AsnTypeFromObject(obj: unknown): AsnType {
   }
   const { sequenceTypeTag } = obj as SequenceType;
   if (sequenceTypeTag) {
-    return SequenceType.fromObject(sequenceTypeTag);
+    return SequenceType.fromObject(obj);
   }
   const { sequenceOfTypeTag} = obj as SequenceOfType;
   if (sequenceOfTypeTag) {

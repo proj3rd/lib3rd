@@ -13,21 +13,23 @@ export type Assignment =
   | ValueAssignment;
 
 export function AssignmentFromObject(obj: unknown) {
-  const {
-    typeAssignmentTag,
-    objectClassAssignmentTag,
-    objectSetAssignmentTag,
-    valueAssignmentTag,
-  } = obj as any;
+  const { typeAssignmentTag } = obj as TypeAssignment;
   if (typeAssignmentTag) {
     return TypeAssignment.fromObject(obj);
   }
+  const { objectClassAssignmentTag } = obj as ObjectClassAssignment;
   if (objectClassAssignmentTag) {
     return ObjectClassAssignment.fromObject(obj);
   }
+  const { objectSetAssignmentTag } = obj as ObjectSetAssignment;
   if (objectSetAssignmentTag) {
     return ObjectSetAssignment.fromObject(obj);
   }
+  const { parameterizedTypeAssignmentTag } = obj as ParameterizedTypeAssignment;
+  if (parameterizedTypeAssignmentTag) {
+    return ParameterizedTypeAssignment.fromObject(obj);
+  }
+  const { valueAssignmentTag } = obj as ValueAssignment;
   if (valueAssignmentTag) {
     return ValueAssignment.fromObject(obj);
   }

@@ -31,7 +31,7 @@ export class ExtensionAdditionAlternativeGroup {
     if (!extensionAdditionAlternativeGroupTag) {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
-    if (versionObject !== undefined || typeof versionObject !== 'number') {
+    if (versionObject !== undefined && typeof versionObject !== 'number') {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
     if (!(componentsObject instanceof Array)) {

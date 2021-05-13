@@ -1,4 +1,5 @@
-import { ParamGovernor } from '../types';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
+import { ParamGovernor, ParamGovernorFromObject } from '../types/paramGovernor';
 
 export class Parameter {
   public dummyReference: string;
@@ -12,6 +13,18 @@ export class Parameter {
   ) {
     this.dummyReference = dummyReference;
     this.paramGovernor = paramGovernor;
+  }
+
+  public static fromObject(obj: unknown): Parameter {
+    const { dummyReference, paramGovernor: paramGovernorObj, parameterTag } = obj as Parameter;
+    if (!parameterTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!dummyReference || typeof dummyReference !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const paramGovernor = paramGovernorObj !== undefined ? ParamGovernorFromObject(paramGovernorObj) : undefined;
+    return new Parameter(dummyReference, paramGovernor);
   }
 
   public toString(): string {

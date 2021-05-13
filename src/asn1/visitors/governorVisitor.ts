@@ -3,7 +3,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { unimpl, unreach } from 'unimpl';
 import { GovernorContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { Governor } from '../types';
+import { Governor } from '../types/governor';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { DefinedObjectClassVisitor } from './definedObjectClassVisitor';
 

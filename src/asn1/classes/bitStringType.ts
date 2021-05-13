@@ -36,7 +36,7 @@ export class BitStringType {
     if (!bitStringTypeTag) {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
-    const constraint = constraintObject ? Constraint.fromObject(obj) : undefined;
+    const constraint = constraintObject ? Constraint.fromObject(constraintObject) : undefined;
     if (!(namedBitListObject instanceof Array)) {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }

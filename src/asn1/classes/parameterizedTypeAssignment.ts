@@ -11,9 +11,10 @@ import {
   drawBorder,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { HEADER_LIST, HEADER_NAME_BASE } from '../formatter/spreadsheet';
-import { AsnType } from '../types/asnType';
+import { AsnType, AsnTypeFromObject } from '../types/asnType';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 import { Parameter } from './parameter';
@@ -29,6 +30,27 @@ export class ParameterizedTypeAssignment {
     this.name = name;
     this.parameters = parameters;
     this.asnType = asnType;
+  }
+
+  public static fromObject(obj: unknown): ParameterizedTypeAssignment {
+    const {
+      name: nameObj,
+      parameters: parametersObj,
+      asnType: asnTypeObj,
+      parameterizedTypeAssignmentTag,
+    } = obj as ParameterizedTypeAssignment;
+    if (!parameterizedTypeAssignmentTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!nameObj || typeof nameObj !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(parametersObj instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const parameters = parametersObj.map((item) => Parameter.fromObject(item));
+    const asnType = AsnTypeFromObject(asnTypeObj);
+    return new ParameterizedTypeAssignment(nameObj, parameters, asnType);
   }
 
   /**

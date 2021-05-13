@@ -7,7 +7,7 @@ import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
-import { RootSequenceComponents } from '../types/rootSequenceComponents';
+import { RootSequenceComponents, RootSequenceComponentsFromObject } from '../types/rootSequenceComponents';
 import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
@@ -203,7 +203,3 @@ export class SequenceType {
 export type ExtensionAddition = ComponentType | ExtensionAdditionGroup;
 
 export type Tag = string;
-function RootSequenceComponentsFromObject(item: RootSequenceComponents): any {
-  throw new Error('Function not implemented.');
-}
-
