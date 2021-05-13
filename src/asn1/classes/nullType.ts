@@ -13,11 +13,16 @@ export class NullType {
   public nullTypeTag = true;
 
   public static fromObject(obj: unknown) {
-    const { nullTypeTag } = obj as NullType;
+    const { reference, nullTypeTag } = obj as NullType;
     if (!nullTypeTag) {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
-    return new NullType();
+    if (reference && typeof reference !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const nullType = new NullType();
+    nullType.reference = reference;
+    return nullTypeTag;
   }
 
   // eslint-disable-next-line no-unused-vars

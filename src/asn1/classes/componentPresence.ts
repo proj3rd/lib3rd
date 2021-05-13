@@ -15,7 +15,10 @@ export class ComponentPresence {
   }
 
   public static fromObject(obj: unknown): ComponentPresence {
-    const { name, presence } = obj as ComponentPresence;
+    const { name, presence, componentPresenceTag } = obj as ComponentPresence;
+    if (!componentPresenceTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
     if (typeof name !== 'string' || typeof presence !== 'string') {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
