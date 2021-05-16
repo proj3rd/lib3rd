@@ -4,11 +4,25 @@ exports.ObjectClassAssignment = void 0;
 const lodash_1 = require("lodash");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const objectClass_1 = require("./objectClass");
 class ObjectClassAssignment {
     constructor(name, objectClass) {
+        this.objectClassAssignmentTag = true;
         this.name = name;
         this.objectClass = objectClass;
+    }
+    static fromObject(obj) {
+        const { name: nameObject, objectClass: objectClassObject, objectClassAssignmentTag, } = obj;
+        if (!objectClassAssignmentTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (typeof nameObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const objectClass = objectClass_1.ObjectClassDefinition.fromObject(objectClassObject);
+        return new ObjectClassAssignment(nameObject, objectClass);
     }
     /**
      * Expand `objectClass` property. This will mutate the object itself.

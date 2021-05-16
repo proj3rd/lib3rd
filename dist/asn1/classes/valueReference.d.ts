@@ -5,8 +5,9 @@ import { Modules } from './modules';
 export declare class ValueReference {
     valueReference: string;
     reference: string | undefined;
-    private valueReferenceTag;
+    valueReferenceTag: boolean;
     constructor(valueReference: string);
+    static fromObject(obj: unknown): ValueReference;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): ValueReference;
     getDepth(): number;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;

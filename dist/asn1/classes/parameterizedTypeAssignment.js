@@ -5,13 +5,32 @@ const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const asnType_1 = require("../types/asnType");
 const objectSet_1 = require("./objectSet");
+const parameter_1 = require("./parameter");
 class ParameterizedTypeAssignment {
     constructor(name, parameters, asnType) {
+        this.parameterizedTypeAssignmentTag = true;
         this.name = name;
         this.parameters = parameters;
         this.asnType = asnType;
+    }
+    static fromObject(obj) {
+        const { name: nameObj, parameters: parametersObj, asnType: asnTypeObj, parameterizedTypeAssignmentTag, } = obj;
+        if (!parameterizedTypeAssignmentTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!nameObj || typeof nameObj !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(parametersObj instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const parameters = parametersObj.map((item) => parameter_1.Parameter.fromObject(item));
+        const asnType = asnType_1.AsnTypeFromObject(asnTypeObj);
+        return new ParameterizedTypeAssignment(nameObj, parameters, asnType);
     }
     /**
      * Expand `asnType` property. This will mutate the object itself.

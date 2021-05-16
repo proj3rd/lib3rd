@@ -5,15 +5,29 @@ const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const asnType_1 = require("../types/asnType");
 const objectSet_1 = require("./objectSet");
 class TypeAssignment {
     constructor(name, asnType) {
+        this.typeAssignmentTag = true;
         this.name = name;
         this.asnType = asnType;
         if (asnType instanceof objectSet_1.ObjectSet) {
             return unimpl_1.unimpl('ObjectSet cannot be used in instantiating but expanding TypeAssignment');
         }
+    }
+    static fromObject(obj) {
+        const { name: nameObject, asnType: asnTypeObject, typeAssignmentTag } = obj;
+        if (!typeAssignmentTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!nameObject || typeof nameObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const asnType = asnType_1.AsnTypeFromObject(asnTypeObject);
+        return new TypeAssignment(nameObject, asnType);
     }
     /**
      * Expand `asnTye` property. This will mutate the object itself.

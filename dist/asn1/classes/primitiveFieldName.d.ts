@@ -1,7 +1,8 @@
 export declare class PrimitiveFieldName {
     name: string;
-    private primitiveFieldNameTag;
+    primitiveFieldNameTag: boolean;
     constructor(name: string);
+    static fromObject(obj: unknown): PrimitiveFieldName;
     toString(): string;
 }
 //# sourceMappingURL=primitiveFieldName.d.ts.map

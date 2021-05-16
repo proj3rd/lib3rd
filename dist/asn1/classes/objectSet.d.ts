@@ -1,17 +1,18 @@
 import { Worksheet } from 'exceljs';
 import { IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import { _ElementSetSpecs } from '../types';
+import { ElementSetSpecs } from '../types/elementSetSpecs';
 import { Modules } from './modules';
 /**
  * TODO: ObjectSet only supports DefinedObjectSet currently.
  * Note: `SimpleTableConstraint` is equivalent to `ObjectSet`.
  */
 export declare class ObjectSet {
-    objectSetSpec: _ElementSetSpecs;
+    objectSetSpec: ElementSetSpecs;
     reference: string | undefined;
-    private objectSetTag;
-    constructor(objectSetSpec: _ElementSetSpecs);
+    objectSetTag: boolean;
+    constructor(objectSetSpec: ElementSetSpecs);
+    static fromObject(obj: unknown): ObjectSet;
     /**
      * Expand `objectSetSpec` property. This will mutate the object itself.
      * @param modules

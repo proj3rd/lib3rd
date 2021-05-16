@@ -6,11 +6,30 @@ const spreadsheet_1 = require("../../common/spreadsheet");
 const sizeConstraint_1 = require("./sizeConstraint");
 const spreadsheet_2 = require("../formatter/spreadsheet");
 const componentRelationConstraint_1 = require("./componentRelationConstraint");
+const constraint_1 = require("./constraint");
 const contentsConstraint_1 = require("./contentsConstraint");
 const extensionMarker_1 = require("./extensionMarker");
 const innerTypeConstraints_1 = require("./innerTypeConstraints");
 const objectSet_1 = require("./objectSet");
+const constants_1 = require("../constants");
 class OctetStringType {
+    constructor() {
+        this.octetStringTypeTag = true;
+    }
+    static fromObject(obj) {
+        const { constraint: constraintObject, reference: referenceObject, octetStringTypeTag, } = obj;
+        if (!octetStringTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const constraint = constraintObject ? constraint_1.Constraint.fromObject(constraintObject) : undefined;
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const octetStringType = new OctetStringType();
+        octetStringType.constraint = constraint;
+        octetStringType.reference = referenceObject;
+        return octetStringType;
+    }
     expand(modules, parameterMappings) {
         if (parameterMappings.length) {
             return unimpl_1.unimpl(this, parameterMappings);

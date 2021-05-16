@@ -1,10 +1,10 @@
 import { Worksheet } from 'exceljs';
 import { IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
+import { RootSequenceComponents } from '../types/rootSequenceComponents';
 import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
-import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 /**
@@ -15,12 +15,13 @@ import { ObjectSet } from './objectSet';
  * `toStringWithComma()`.
  */
 export declare const COMMA_PLACEHOLDER = "_COMMA_";
-export declare type RootSequenceComponents = ComponentType | ExtensionMarker | ExtensionAdditionGroup;
 export declare function toStringWithComma(component: RootSequenceComponents, shouldInsert: boolean): string;
 export declare class SequenceType {
     components: RootSequenceComponents[];
     reference: string | undefined;
+    sequenceTypeTag: boolean;
     constructor(components: RootSequenceComponents[]);
+    static fromObject(obj: unknown): SequenceType;
     /**
      * Expand `components` property. This will mutate the object itself.
      * @param modules

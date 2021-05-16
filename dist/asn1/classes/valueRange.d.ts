@@ -1,11 +1,12 @@
 import { IParameterMapping } from '../expander';
+import { Value } from '../types/value';
 import { Modules } from './modules';
-import { Value } from './value';
 export declare class ValueRange {
     lower: Value;
     upper: Value;
-    private valueRangeTag;
+    valueRangeTag: boolean;
     constructor(lower: Value, upper: Value);
+    static fromObject(obj: unknown): ValueRange;
     /**
      * Expand `lower` and `upper` properties. This will mutate the object itself.
      * @param modules

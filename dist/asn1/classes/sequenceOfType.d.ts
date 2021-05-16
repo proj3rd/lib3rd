@@ -1,11 +1,11 @@
 import { Worksheet } from 'exceljs';
 import { IParameterMapping } from '../expander';
 import { IRowInput } from '../../common/spreadsheet';
-import { AsnType } from './asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
 import { ObjectSet } from './objectSet';
+import { AsnType } from '../types/asnType';
 export declare class SequenceOfType {
     /**
      * @property {@link ObjectSet} is only applicable when expanding RAN3 ASN.1 spec.
@@ -13,8 +13,9 @@ export declare class SequenceOfType {
     baseType: AsnType | NamedType | ObjectSet;
     constraint: Constraint | undefined;
     reference: string | undefined;
-    private sequenceOfTypeTag;
+    sequenceOfTypeTag: boolean;
     constructor(baseType: AsnType | NamedType, constraint: Constraint | undefined);
+    static fromObject(obj: unknown): SequenceOfType;
     /**
      * Expand `baseType` property. This will mutate the object itself.
      * @param modules

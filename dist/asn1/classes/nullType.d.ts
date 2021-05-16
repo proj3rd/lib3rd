@@ -5,7 +5,8 @@ import { Constraint } from './constraint';
 import { Modules } from './modules';
 export declare class NullType {
     reference: string | undefined;
-    private nullTypeTag;
+    nullTypeTag: boolean;
+    static fromObject(obj: unknown): NullType;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): NullType;
     getDepth(): number;
     setConstraints(constraints: Constraint[]): void;

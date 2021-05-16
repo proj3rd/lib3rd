@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { BuiltinType } from '../classes/asnType';
 import { BuiltinTypeContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { BuiltinType } from '../types/builtinType';
 /**
  * # Grammar
  * ```

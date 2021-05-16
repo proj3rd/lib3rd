@@ -4,15 +4,19 @@ exports.ObjectClassFieldType = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
 const componentRelationConstraint_1 = require("./componentRelationConstraint");
+const constraint_1 = require("./constraint");
 const contentsConstraint_1 = require("./contentsConstraint");
 const fixedTypeValueFieldSpec_1 = require("./fixedTypeValueFieldSpec");
 const innerTypeConstraints_1 = require("./innerTypeConstraints");
 const objectClassAssignment_1 = require("./objectClassAssignment");
+const objectClassReference_1 = require("./objectClassReference");
 const objectSet_1 = require("./objectSet");
 const objectSetAssignment_1 = require("./objectSetAssignment");
 const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
+const primitiveFieldName_1 = require("./primitiveFieldName");
 const typeAssignment_1 = require("./typeAssignment");
 const typeFieldSpec_1 = require("./typeFieldSpec");
 const typeReference_1 = require("./typeReference");
@@ -25,8 +29,28 @@ const valueAssignment_1 = require("./valueAssignment");
  */
 class ObjectClassFieldType {
     constructor(definedObjectClass, fieldName) {
+        this.objectClassFieldType = true;
         this.definedObjectClass = definedObjectClass;
         this.fieldName = fieldName;
+    }
+    static fromObject(obj) {
+        const { definedObjectClass: definedObjectClassObject, fieldName: fieldNameObject, constraint: constraintObject, reference: referenceObject, objectClassFieldType: objectClassFieldTypeTag, } = obj;
+        if (!objectClassFieldTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(fieldNameObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const definedObjectClass = objectClassReference_1.ObjectClassReference.fromObject(definedObjectClassObject);
+        const fieldName = fieldNameObject.map((item) => primitiveFieldName_1.PrimitiveFieldName.fromObject(item));
+        const constraint = constraintObject ? constraint_1.Constraint.fromObject(constraintObject) : undefined;
+        const objectClassFieldType = new ObjectClassFieldType(definedObjectClass, fieldName);
+        objectClassFieldType.constraint = constraint;
+        objectClassFieldType.reference = referenceObject;
+        return objectClassFieldType;
     }
     // eslint-disable-next-line no-unused-vars
     expand(modules, parameterMappings) {
@@ -44,7 +68,7 @@ class ObjectClassFieldType {
             const fieldName = this.fieldName[0];
             const { objectClass } = assignment;
             const { fieldSpecs } = objectClass;
-            const fieldSpec = fieldSpecs.find((fs) => fs.fieldReference.toString() === fieldName.toString());
+            const fieldSpec = lodash_1.cloneDeep(fieldSpecs.find((fs) => fs.fieldReference.toString() === fieldName.toString()));
             if (fieldSpec === undefined) {
                 return this;
             }
@@ -54,7 +78,7 @@ class ObjectClassFieldType {
                 return newTypeReference;
             }
             if (fieldSpec instanceof fixedTypeValueFieldSpec_1.FixedTypeValueFieldSpec) {
-                const expandedType = lodash_1.cloneDeep(fieldSpec.asnType).expand(modules, []);
+                const expandedType = lodash_1.cloneDeep(lodash_1.cloneDeep(fieldSpec.asnType).expand(modules, []));
                 if (lodash_1.isEqual(expandedType, fieldSpec.asnType)) {
                     fieldSpec.asnType.reference = this.toString();
                     return fieldSpec.asnType;

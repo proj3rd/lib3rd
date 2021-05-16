@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { FieldSpec } from '../classes/objectClass';
 import { FieldSpecContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { FieldSpec } from '../types/fieldSpec';
 /**
  * # Grammar
  * ```

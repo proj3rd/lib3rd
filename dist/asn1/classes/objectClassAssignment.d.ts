@@ -4,8 +4,9 @@ import { ObjectClass } from './objectClass';
 export declare class ObjectClassAssignment {
     name: string;
     objectClass: ObjectClass;
-    private objectClassAssignmentTag;
+    objectClassAssignmentTag: boolean;
     constructor(name: string, objectClass: ObjectClass);
+    static fromObject(obj: unknown): ObjectClassAssignment;
     /**
      * Expand `objectClass` property. This will mutate the object itself.
      * @param modules

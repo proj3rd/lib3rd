@@ -3,12 +3,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExtensionAdditionAlternativeGroup = void 0;
 const lodash_1 = require("lodash");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const namedType_1 = require("./namedType");
 class ExtensionAdditionAlternativeGroup {
     constructor(version, components) {
+        this.extensionAdditionAlternativeGroupTag = true;
         this.version = version;
         this.components = components;
+    }
+    static fromObject(obj) {
+        const { version: versionObject, components: componentsObject, extensionAdditionAlternativeGroupTag, } = obj;
+        if (!extensionAdditionAlternativeGroupTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (versionObject !== undefined && typeof versionObject !== 'number') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(componentsObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const components = componentsObject.map((item) => namedType_1.NamedType.fromObject(item));
+        return new ExtensionAdditionAlternativeGroup(versionObject, components);
     }
     /**
      * Expand `components` property. This will mutate the object itself.

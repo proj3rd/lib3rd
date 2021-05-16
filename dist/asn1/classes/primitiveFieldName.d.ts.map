@@ -1,1 +1,1 @@
-{"version":3,"file":"primitiveFieldName.d.ts","sourceRoot":"","sources":["../../../src/asn1/classes/primitiveFieldName.ts"],"names":[],"mappings":"AAAA,qBAAa,kBAAkB;IACtB,IAAI,EAAE,MAAM,CAAC;IAEpB,OAAO,CAAC,qBAAqB,CAAY;gBAE7B,IAAI,EAAE,MAAM;IAIjB,QAAQ,IAAI,MAAM;CAG1B"}
+{"version":3,"file":"primitiveFieldName.d.ts","sourceRoot":"","sources":["../../../src/asn1/classes/primitiveFieldName.ts"],"names":[],"mappings":"AAEA,qBAAa,kBAAkB;IACtB,IAAI,EAAE,MAAM,CAAC;IAEb,qBAAqB,UAAQ;gBAExB,IAAI,EAAE,MAAM;WAIV,UAAU,CAAC,GAAG,EAAE,OAAO,GAAG,kBAAkB;IAWnD,QAAQ,IAAI,MAAM;CAG1B"}

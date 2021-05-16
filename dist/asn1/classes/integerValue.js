@@ -3,10 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.IntegerValue = void 0;
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
 const valueReference_1 = require("./valueReference");
 class IntegerValue {
     constructor(literal) {
+        this.integerValueTag = true;
         this.literal = literal;
         const value = +literal;
         if (Number.isNaN(value)) {
@@ -15,6 +17,21 @@ class IntegerValue {
         else {
             this.value = value;
         }
+    }
+    static fromObject(obj) {
+        const { literal: literalObject, reference: referenceObject, integerValueTag, } = obj;
+        if (!integerValueTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (typeof literalObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const integerValue = new IntegerValue(literalObject);
+        integerValue.reference = referenceObject;
+        return integerValue;
     }
     expand(modules, parameterMappings) {
         const { value } = this;

@@ -4,14 +4,29 @@ exports.FixedTypeValueFieldSpec = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const asnType_1 = require("../types/asnType");
 const objectSet_1 = require("./objectSet");
+const optionality_1 = require("./optionality");
+const primitiveFieldName_1 = require("./primitiveFieldName");
 class FixedTypeValueFieldSpec {
     constructor(fieldRerence, asnType, unique, optionality) {
+        this.fixedTypeValueFieldSpecTag = true;
         this.fieldReference = fieldRerence;
         this.asnType = asnType;
         this.unique = unique;
         this.optionality = optionality;
+    }
+    static fromObject(obj) {
+        const { fieldReference: fieldReferenceObj, asnType: asnTypeObj, unique: uniqueObj, optionality: optionalityObj, fixedTypeValueFieldSpecTag, } = obj;
+        const fieldReference = primitiveFieldName_1.PrimitiveFieldName.fromObject(fieldReferenceObj);
+        const asnType = asnType_1.AsnTypeFromObject(asnTypeObj);
+        if (typeof uniqueObj !== 'boolean') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const optionality = optionalityObj !== undefined ? optionality_1.Optionality.fromObject(optionalityObj) : undefined;
+        return new FixedTypeValueFieldSpec(fieldReference, asnType, uniqueObj, optionality);
     }
     /**
      * Expand `asnType` property. This will mutate the object itself.

@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { NamedNumberContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { INamedNumber } from '../types';
+import { INamedNumber } from '../types/namedNumber';
 /**
  * # Grammar
  * ```

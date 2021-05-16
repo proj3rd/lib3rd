@@ -1,7 +1,7 @@
 import { Worksheet } from 'exceljs';
 import { IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import { AsnType } from './asnType';
+import { AsnType } from '../types/asnType';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
 import { ObjectSet } from './objectSet';
@@ -12,8 +12,9 @@ export declare class ComponentType {
     asnType: AsnType | ObjectSet;
     optionality: Optionality | undefined;
     tag: Tag;
-    private componentTypeTag;
+    componentTypeTag: boolean;
     constructor(namedType: NamedType, optionality: Optionality | undefined, tag: Tag);
+    static fromObject(obj: unknown): ComponentType;
     /**
      * Expand `asnType` property. This will mutate the object itself.
      * @param modules

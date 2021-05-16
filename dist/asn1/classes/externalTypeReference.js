@@ -4,6 +4,7 @@ exports.ExternalTypeReference = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
 const objectSet_1 = require("./objectSet");
 const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
@@ -11,8 +12,20 @@ const typeAssignment_1 = require("./typeAssignment");
 const valueAssignment_1 = require("./valueAssignment");
 class ExternalTypeReference {
     constructor(moduleReference, typeReference) {
+        this.externalTypeReferenceTag = true;
         this.moduleReference = moduleReference;
         this.typeReference = typeReference;
+    }
+    static fromObject(obj) {
+        const { moduleReference: moduleReferenceObject, typeReference: typeReferenceObject, externalTypeReferenceTag, } = obj;
+        if (!externalTypeReferenceTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!moduleReferenceObject || typeof moduleReferenceObject !== 'string'
+            || !typeReferenceObject || typeof typeReferenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        return new ExternalTypeReference(moduleReferenceObject, typeReferenceObject);
     }
     /**
      * Find an Assignment indicated by ExternalTypeReference and
@@ -27,8 +40,8 @@ class ExternalTypeReference {
             return this;
         }
         if (referencedAssignment instanceof typeAssignment_1.TypeAssignment) {
-            const { asnType } = referencedAssignment;
-            const expandedType = lodash_1.cloneDeep(asnType).expand(modules, []);
+            const asnType = lodash_1.cloneDeep(referencedAssignment.asnType);
+            const expandedType = lodash_1.cloneDeep(lodash_1.cloneDeep(asnType).expand(modules, []));
             if (asnType instanceof objectSet_1.ObjectSet) {
                 return unimpl_1.unimpl();
             }

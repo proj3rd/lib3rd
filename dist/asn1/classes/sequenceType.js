@@ -5,8 +5,10 @@ const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const logger_1 = require("../../logger");
+const constants_1 = require("../constants");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const rootSequenceComponents_1 = require("../types/rootSequenceComponents");
 const componentType_1 = require("./componentType");
 const extensionAdditionGroup_1 = require("./extensionAdditionGroup");
 const extensionMarker_1 = require("./extensionMarker");
@@ -39,7 +41,24 @@ function toStringWithComma(component, shouldInsert) {
 exports.toStringWithComma = toStringWithComma;
 class SequenceType {
     constructor(components) {
+        this.sequenceTypeTag = true;
         this.components = components;
+    }
+    static fromObject(obj) {
+        const { components: componentsObject, reference: referenceObject, sequenceTypeTag, } = obj;
+        if (!sequenceTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(componentsObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const components = componentsObject.map((item) => rootSequenceComponents_1.RootSequenceComponentsFromObject(item));
+        const sequenceType = new SequenceType(components);
+        sequenceType.reference = referenceObject;
+        return sequenceType;
     }
     /**
      * Expand `components` property. This will mutate the object itself.
@@ -63,8 +82,8 @@ class SequenceType {
             if (!(assignment instanceof objectSetAssignment_1.ObjectSetAssignment)) {
                 return unimpl_1.unimpl();
             }
-            const { objectSet } = assignment;
-            const expandedObjectSet = lodash_1.cloneDeep(objectSet).expand(modules, []);
+            const objectSet = lodash_1.cloneDeep(assignment.objectSet);
+            const expandedObjectSet = lodash_1.cloneDeep(lodash_1.cloneDeep(objectSet).expand(modules, []));
             if (lodash_1.isEqual(expandedObjectSet, objectSet)) {
                 objectSet.reference = actualParameter;
                 return objectSet;

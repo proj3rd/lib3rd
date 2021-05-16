@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValueRange = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
+const constants_1 = require("../constants");
+const value_1 = require("../types/value");
 const booleanValue_1 = require("./booleanValue");
 const integerValue_1 = require("./integerValue");
 const objectIdentifierValue_1 = require("./objectIdentifierValue");
@@ -10,8 +12,18 @@ const typeReference_1 = require("./typeReference");
 const valueReference_1 = require("./valueReference");
 class ValueRange {
     constructor(lower, upper) {
+        this.valueRangeTag = true;
         this.lower = lower;
         this.upper = upper;
+    }
+    static fromObject(obj) {
+        const { lower: lowerObject, upper: upperObject, valueRangeTag } = obj;
+        if (!valueRangeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const lower = value_1.ValueFromObject(lowerObject);
+        const upper = value_1.ValueFromObject(upperObject);
+        return new ValueRange(lower, upper);
     }
     /**
      * Expand `lower` and `upper` properties. This will mutate the object itself.

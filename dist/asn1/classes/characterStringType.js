@@ -3,8 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CharacterStringType = void 0;
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
 const componentRelationConstraint_1 = require("./componentRelationConstraint");
+const constraint_1 = require("./constraint");
 const contentsConstraint_1 = require("./contentsConstraint");
 const extensionMarker_1 = require("./extensionMarker");
 const innerTypeConstraints_1 = require("./innerTypeConstraints");
@@ -18,7 +20,26 @@ const sizeConstraint_1 = require("./sizeConstraint");
  */
 class CharacterStringType {
     constructor(characterStringTypeLiteral) {
+        this.characterStringTypeTag = true;
         this.characterStringTypeLiteral = characterStringTypeLiteral;
+    }
+    static fromObject(obj) {
+        const { characterStringTypeLiteral: characterStringTypeLiteralObject, constraint: constraintObject, reference: referenceObject, characterStringTypeTag, } = obj;
+        if (!characterStringTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!characterStringTypeLiteralObject
+            || typeof characterStringTypeLiteralObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const constraint = constraintObject ? constraint_1.Constraint.fromObject(constraintObject) : undefined;
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const octetStringType = new CharacterStringType(characterStringTypeLiteralObject);
+        octetStringType.constraint = constraint;
+        octetStringType.reference = referenceObject;
+        return octetStringType;
     }
     expand(modules, parameterMappings) {
         if (parameterMappings.length) {

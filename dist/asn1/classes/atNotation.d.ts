@@ -7,8 +7,9 @@
 export declare class AtNotation {
     level: number;
     componentIdList: string[];
-    private atNotationTag;
+    atNotationTag: boolean;
     constructor(level: number, componentIdList: string[]);
+    static fromObject(obj: unknown): AtNotation;
     toString(): string;
 }
 //# sourceMappingURL=atNotation.d.ts.map

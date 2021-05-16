@@ -3,8 +3,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BooleanType = void 0;
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
 class BooleanType {
+    constructor() {
+        this.booleanTypeTag = true;
+    }
+    static fromObject(obj) {
+        const { reference, booleanTypeTag } = obj;
+        if (!booleanTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (reference && typeof reference !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const booleanType = new BooleanType();
+        booleanType.reference = reference;
+        return booleanType;
+    }
     // eslint-disable-next-line no-unused-vars
     expand(modules, parameterMappings) {
         return this;

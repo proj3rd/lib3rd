@@ -1,11 +1,10 @@
 import { Workbook } from 'exceljs';
-import { Assignment } from '../types';
-import { AsnSymbol } from './asnSymbol';
+import { Assignment } from '../types/assignment';
+import { Exports } from '../types/exports';
+import { ExtensionDefault } from '../types/extensionDefault';
+import { TagDefault } from '../types/tagDefault';
 import { DefinitiveIdentification } from './definitiveIdentification';
 import { Imports } from './imports';
-export declare type TagDefault = 'EXPLICIT TAGS' | 'IMPLICIT TAGS' | 'AUTOMATIC TAGS' | '';
-export declare type ExtensionDefault = 'EXTENSIBILITY IMPLIED' | '';
-export declare type Exports = 'ALL' | AsnSymbol[];
 /**
  * This is intermediate interface used by a `ModuleBodyVisitor`
  */
@@ -22,8 +21,9 @@ export declare class ModuleDefinition implements IModuleBody {
     exports: Exports | null;
     imports: Imports | null;
     assignments: Assignment[];
-    private moduleDefinitionTag;
+    moduleDefinitionTag: boolean;
     constructor(name: string, definitiveIdentification: DefinitiveIdentification, tagDefault: TagDefault, extensionDefault: ExtensionDefault, moduleBody: IModuleBody);
+    static fromObject(obj: unknown): ModuleDefinition;
     findAssignment(name: string): Assignment | undefined;
     toSpreadsheet(workbook?: Workbook): Workbook;
     toString(): string;

@@ -2,10 +2,34 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubtypeConstraint = void 0;
 const lodash_1 = require("lodash");
+const constants_1 = require("../constants");
 const extensionMarker_1 = require("./extensionMarker");
+const unions_1 = require("./unions");
 class SubtypeConstraint {
     constructor(elementSetSpecList) {
+        this.subtypeConstraintTag = true;
         this.elementSetSpecList = elementSetSpecList;
+    }
+    static fromObject(obj) {
+        const { elementSetSpecList: elementSetSpecListObject, subtypeConstraintTag } = obj;
+        if (!subtypeConstraintTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(elementSetSpecListObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const elementSetSpecList = elementSetSpecListObject.map((item) => {
+            const { unionsTag } = item;
+            if (unionsTag) {
+                return unions_1.Unions.fromObject(item);
+            }
+            const { extensionMarkerTag } = item;
+            if (extensionMarkerTag) {
+                return extensionMarker_1.ExtensionMarker.getInstance();
+            }
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        });
+        return new SubtypeConstraint(elementSetSpecList);
     }
     /**
      * Expand `elementSetSpecList` property. This will mutate the object itself.

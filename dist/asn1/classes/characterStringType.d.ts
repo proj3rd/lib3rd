@@ -14,8 +14,9 @@ export declare class CharacterStringType {
     characterStringTypeLiteral: CharacterStringTypeLiteral;
     constraint: Constraint | undefined;
     reference: string | undefined;
-    private characterStringTypeTag;
+    characterStringTypeTag: boolean;
     constructor(characterStringTypeLiteral: CharacterStringTypeLiteral);
+    static fromObject(obj: unknown): CharacterStringType;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): CharacterStringType;
     getDepth(): number;
     setConstraints(constraints: Constraint[]): void;

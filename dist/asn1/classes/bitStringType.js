@@ -3,8 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BitStringType = void 0;
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const namedBit_1 = require("../types/namedBit");
 const componentRelationConstraint_1 = require("./componentRelationConstraint");
+const constraint_1 = require("./constraint");
 const contentsConstraint_1 = require("./contentsConstraint");
 const extensionMarker_1 = require("./extensionMarker");
 const innerTypeConstraints_1 = require("./innerTypeConstraints");
@@ -12,7 +15,26 @@ const objectSet_1 = require("./objectSet");
 const sizeConstraint_1 = require("./sizeConstraint");
 class BitStringType {
     constructor(namedBitList = []) {
+        this.bitStringTypeTag = true;
         this.namedBitList = namedBitList;
+    }
+    static fromObject(obj) {
+        const { constraint: constraintObject, namedBitList: namedBitListObject, reference: referenceObject, bitStringTypeTag, } = obj;
+        if (!bitStringTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const constraint = constraintObject ? constraint_1.Constraint.fromObject(constraintObject) : undefined;
+        if (!(namedBitListObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const namedBitList = namedBitListObject.map((item) => namedBit_1.NamedBitFromObject(item));
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const bitStringType = new BitStringType(namedBitList);
+        bitStringType.constraint = constraint;
+        bitStringType.reference = referenceObject;
+        return bitStringType;
     }
     expand(modules, parameterMappings) {
         if (parameterMappings.length) {

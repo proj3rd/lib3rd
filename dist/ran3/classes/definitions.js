@@ -33,14 +33,14 @@ class Definitions {
         return __awaiter(this, void 0, void 0, function* () {
             const { definitionList } = JSON.parse(serialized);
             if (!definitionList) {
-                throw Error('Malformed RAN3 serialization');
+                throw Error('Malformed serialization of RAN3 tabular form');
             }
             if (!(definitionList instanceof Array)) {
-                throw Error('Malformed RAN3 serialization');
+                throw Error('Malformed serialization of RAN3 tabular form');
             }
             const pass = definitionList.every((item) => validateDefinition(item));
             if (!pass) {
-                throw Error('Malformed RAN3 serialization');
+                throw Error('Malformed serialization of RAN3 tabular form');
             }
             return new Definitions(definitionList);
         });

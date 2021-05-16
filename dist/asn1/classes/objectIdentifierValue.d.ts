@@ -2,9 +2,9 @@ import { Worksheet } from 'exceljs';
 import { IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
 import { ObjectIdComponents } from '../types';
-import { AsnType } from './asnType';
+import { AsnType } from '../types/asnType';
+import { Value } from '../types/value';
 import { Modules } from './modules';
-import { Value } from './value';
 /**
  * X.680 clause 32.3
  * ```
@@ -16,9 +16,10 @@ import { Value } from './value';
 export declare class ObjectIdentifierValue {
     objectIdComponentsList: Array<ObjectIdComponents | /* the rest are applicable when expand */ AsnType | Value>;
     reference: string | undefined;
-    private objectIdentifierValueTag;
+    objectIdentifierValueTag: boolean;
     private compoundComponentList;
     constructor(objectIdComponentsList: ObjectIdComponents[]);
+    static fromObject(obj: unknown): ObjectIdentifierValue;
     /**
      * Expand `objectIdComponentsList` property. This will mutate the object itself.
      * @param modules

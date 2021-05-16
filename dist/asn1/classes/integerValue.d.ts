@@ -7,8 +7,9 @@ export declare class IntegerValue {
     literal: string;
     value: number | ValueReference;
     reference: string | undefined;
-    private integerValueTag;
+    integerValueTag: boolean;
     constructor(literal: string);
+    static fromObject(obj: unknown): IntegerValue;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): IntegerValue;
     getDepth(): number;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;

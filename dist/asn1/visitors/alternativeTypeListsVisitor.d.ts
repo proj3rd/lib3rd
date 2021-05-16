@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { RootChoiceComponents } from '../classes/choiceType';
 import { AlternativeTypeListsContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { RootChoiceComponents } from '../types/rootChoiceComponents';
 /**
  * # Grammar
  * ```

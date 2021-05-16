@@ -6,8 +6,9 @@ import { NamedType } from './namedType';
 export declare class ExtensionAdditionAlternativeGroup {
     version: number | undefined;
     components: NamedType[];
-    private extensionAdditionAlternativeGroupTag;
+    extensionAdditionAlternativeGroupTag: boolean;
     constructor(version: number | undefined, components: NamedType[]);
+    static fromObject(obj: unknown): ExtensionAdditionAlternativeGroup;
     /**
      * Expand `components` property. This will mutate the object itself.
      * @param modules

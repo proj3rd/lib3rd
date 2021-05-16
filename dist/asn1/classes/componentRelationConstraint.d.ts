@@ -1,4 +1,4 @@
-import { DefinedObjectSet } from '../types';
+import { DefinedObjectSet } from '../types/definedObjectSet';
 import { AtNotation } from './atNotation';
 /**
  * X.682 clause 10.7
@@ -9,8 +9,9 @@ import { AtNotation } from './atNotation';
 export declare class ComponentRelationConstraint {
     definedObjectSet: DefinedObjectSet;
     atNotations: AtNotation[];
-    private componentRelationConstraintTag;
+    componentRelationConstraintTag: boolean;
     constructor(definedObjectSet: DefinedObjectSet, atNotations?: AtNotation[]);
+    static fromObject(obj: unknown): ComponentRelationConstraint;
     toString(): string;
 }
 //# sourceMappingURL=componentRelationConstraint.d.ts.map

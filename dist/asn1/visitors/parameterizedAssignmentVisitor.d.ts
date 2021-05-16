@@ -1,9 +1,10 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { AsnType, DefinedObjectClass } from '../classes/asnType';
+import { DefinedObjectClass } from '../classes/asnType';
 import { ObjectSet } from '../classes/objectSet';
 import { Parameter } from '../classes/parameter';
 import { ParameterizedAssignmentContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { AsnType } from '../types/asnType';
 interface IParameterizedTypeAssignmentElements {
     parameters: Parameter[];
     asnType: AsnType;

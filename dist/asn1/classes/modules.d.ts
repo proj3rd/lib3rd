@@ -1,10 +1,11 @@
 import { Workbook } from 'exceljs';
-import { Assignment } from '../types';
+import { Assignment } from '../types/assignment';
 import { ModuleDefinition } from './moduleDefinition';
 export declare class Modules {
     modules: ModuleDefinition[];
-    private modulesTag;
+    modulesTag: boolean;
     constructor(modules?: ModuleDefinition[]);
+    static deserialize(serialized: string): Modules;
     findAssignment(name: string, moduleName?: string): Assignment | undefined;
     toSpreadsheet(): Workbook;
     toString(): string;

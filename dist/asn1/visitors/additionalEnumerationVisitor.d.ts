@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { EnumerationItem } from '../classes/enumeratedType';
 import { AdditionalEnumerationContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { EnumerationItem } from '../types/enumerationItem';
 /**
  * # Grammar
  * ```

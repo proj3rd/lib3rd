@@ -8,6 +8,7 @@ const fs_1 = require("fs");
 const lodash_1 = require("lodash");
 const path_1 = require("path");
 const yargs_1 = __importDefault(require("yargs"));
+const modules_1 = require("./classes/modules");
 const valueAssignment_1 = require("./classes/valueAssignment");
 const diff_1 = require("./diff");
 const extractor_1 = require("./extractor");
@@ -165,6 +166,29 @@ if (require.main === module) {
             const text = fs_1.readFileSync(file, 'utf8');
             parser_1.parse(normalize(text));
         },
+    })
+        .command({
+        command: 'serialize <file>',
+        handler: (args) => {
+            const { file } = args;
+            if (typeof file !== 'string') {
+                throw Error();
+            }
+            const text = fs_1.readFileSync(file, 'utf8');
+            const parsed = parser_1.parse(normalize(text));
+            fs_1.writeFileSync(`${file}.json`, JSON.stringify(parsed));
+        }
+    })
+        .command({
+        command: 'deserialize <file>',
+        handler: (args) => {
+            const { file } = args;
+            if (typeof file !== 'string') {
+                throw Error();
+            }
+            const serialized = fs_1.readFileSync(file, 'utf8');
+            modules_1.Modules.deserialize(serialized);
+        }
     });
 }
 //# sourceMappingURL=index.js.map

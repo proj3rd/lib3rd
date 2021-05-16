@@ -3,8 +3,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NullType = void 0;
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
 class NullType {
+    constructor() {
+        this.nullTypeTag = true;
+    }
+    static fromObject(obj) {
+        const { reference, nullTypeTag } = obj;
+        if (!nullTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (reference && typeof reference !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const nullType = new NullType();
+        nullType.reference = reference;
+        return nullType;
+    }
     // eslint-disable-next-line no-unused-vars
     expand(modules, parameterMappings) {
         return this;

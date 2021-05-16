@@ -4,15 +4,31 @@ exports.ObjectSet = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const elementSetSpecs_1 = require("../types/elementSetSpecs");
 /**
  * TODO: ObjectSet only supports DefinedObjectSet currently.
  * Note: `SimpleTableConstraint` is equivalent to `ObjectSet`.
  */
 class ObjectSet {
     constructor(objectSetSpec) {
+        this.objectSetTag = true;
         this.objectSetSpec = objectSetSpec;
+    }
+    static fromObject(obj) {
+        const { objectSetSpec: objectSetSpecObj, reference: referenceObj, objectSetTag, } = obj;
+        if (!objectSetTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (referenceObj && typeof referenceObj !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const objectSetSpec = elementSetSpecs_1.ElementSetSpecsFromObject(objectSetSpecObj);
+        const objectSet = new ObjectSet(objectSetSpec);
+        objectSet.reference = referenceObj;
+        return objectSet;
     }
     /**
      * Expand `objectSetSpec` property. This will mutate the object itself.

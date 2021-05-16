@@ -12,8 +12,9 @@ export declare class ObjectSetAssignment {
     name: string;
     definedObjectClass: DefinedObjectClass;
     objectSet: ObjectSet;
-    private objectSetAssignmentTag;
+    objectSetAssignmentTag: boolean;
     constructor(name: string, definedObjectClass: DefinedObjectClass, objectSet: ObjectSet);
+    static fromObject(obj: unknown): ObjectSetAssignment;
     /**
      * Expand `objectSet` property. This will mutate the object itself.
      * @param modules

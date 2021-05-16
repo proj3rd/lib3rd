@@ -3,8 +3,9 @@
  */
 export declare class ObjectClassReference {
     objectClassReference: string;
-    private objectClassReferenceTag;
+    objectClassReferenceTag: boolean;
     constructor(objectClassReference: string);
+    static fromObject(obj: unknown): ObjectClassReference;
     toString(): string;
 }
 //# sourceMappingURL=objectClassReference.d.ts.map

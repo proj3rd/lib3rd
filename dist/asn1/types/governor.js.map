@@ -1,0 +1,1 @@
+{"version":3,"file":"governor.js","sourceRoot":"","sources":["../../../src/asn1/types/governor.ts"],"names":[],"mappings":";;;AAAA,0EAAuE;AACvE,uCAAuD;AAIvD,SAAgB,kBAAkB,CAAC,GAAY;IAC7C,MAAM,EAAE,uBAAuB,EAAE,GAAG,GAA2B,CAAC;IAChE,IAAI,uBAAuB,EAAE;QAC3B,OAAO,2CAAoB,CAAC,UAAU,CAAC,GAAG,CAAC,CAAC;KAC7C;IACD,OAAO,2BAAiB,CAAC,GAAG,CAAC,CAAC;AAChC,CAAC;AAND,gDAMC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"definedType.d.ts","sourceRoot":"","sources":["../../../src/asn1/types/definedType.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,MAAM,kCAAkC,CAAC;AACzE,OAAO,EAAE,iBAAiB,EAAE,MAAM,8BAA8B,CAAC;AACjE,OAAO,EAAE,aAAa,EAAE,MAAM,0BAA0B,CAAC;AAGzD,oBAAY,WAAW,GACnB,qBAAqB,GACrB,aAAa,GACb,iBAAiB,CAAC;AAGtB,wBAAgB,qBAAqB,CAAC,GAAG,EAAE,OAAO,GAAG,WAAW,CAc/D"}

@@ -2,12 +2,29 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Syntax = void 0;
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const primitiveFieldName_1 = require("./primitiveFieldName");
 class Syntax {
     constructor(literal, primitiveFieldName, optional) {
+        this.syntaxTag = true;
         this.literal = literal;
         this.primitiveFieldName = primitiveFieldName;
         this.optional = optional;
+    }
+    static fromObject(obj) {
+        const { literal: literalObj, primitiveFieldName: primitiveFieldNameObj, optional: optionalObj, syntaxTag, } = obj;
+        if (!syntaxTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (typeof literalObj !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (typeof optionalObj !== 'boolean') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const primitiveFieldName = primitiveFieldName_1.PrimitiveFieldName.fromObject(obj);
+        return new Syntax(literalObj, primitiveFieldName, optionalObj);
     }
     // eslint-disable-next-line class-methods-use-this
     getDepth() {

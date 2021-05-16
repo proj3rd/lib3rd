@@ -5,7 +5,8 @@ import { Constraint } from './constraint';
 import { Modules } from './modules';
 export declare class BooleanType {
     reference: string | undefined;
-    private booleanTypeTag;
+    booleanTypeTag: boolean;
+    static fromObject(obj: unknown): BooleanType;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): BooleanType;
     getDepth(): number;
     setConstraints(constraints: Constraint[]): void;

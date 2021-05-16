@@ -4,8 +4,11 @@ exports.ObjectIdentifierValue = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const asnType_1 = require("../types/asnType");
+const value_1 = require("../types/value");
 const objectClassAssignment_1 = require("./objectClassAssignment");
 const objectSet_1 = require("./objectSet");
 const objectSetAssignment_1 = require("./objectSetAssignment");
@@ -22,6 +25,7 @@ const valueAssignment_1 = require("./valueAssignment");
  */
 class ObjectIdentifierValue {
     constructor(objectIdComponentsList) {
+        this.objectIdentifierValueTag = true;
         this.compoundComponentList = [
             // 36413-g00
             'INITIATING MESSAGE',
@@ -35,6 +39,38 @@ class ObjectIdentifierValue {
         ];
         this.objectIdComponentsList = this.compoundComponent(objectIdComponentsList);
         // TODO: Check `objectIdComponentsList[i]` is instance of `ObjectIdComponents`
+    }
+    static fromObject(obj) {
+        const { objectIdComponentsList: objectIdComponentsListObj, reference: referenceObj, objectIdentifierValueTag, } = obj;
+        if (!objectIdentifierValueTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (referenceObj && typeof referenceObj !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(objectIdComponentsListObj instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const objectIdComponentsList = objectIdComponentsListObj.map((item) => {
+            if (typeof item === 'string') {
+                return item;
+            }
+            try {
+                return asnType_1.AsnTypeFromObject(item);
+            }
+            catch (e) { }
+            finally { }
+            try {
+                return value_1.ValueFromObject(item);
+            }
+            catch (e) { }
+            finally { }
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        });
+        const objectIdentifierValue = new ObjectIdentifierValue([]);
+        objectIdentifierValue.objectIdComponentsList = objectIdComponentsList;
+        objectIdentifierValue.reference = referenceObj;
+        return objectIdentifierValue;
     }
     /**
      * Expand `objectIdComponentsList` property. This will mutate the object itself.
@@ -55,8 +91,8 @@ class ObjectIdentifierValue {
                     return objectIdComponents;
                 }
                 if (assignment instanceof typeAssignment_1.TypeAssignment) {
-                    const { asnType } = assignment;
-                    const expandedType = lodash_1.cloneDeep(asnType).expand(modules, []);
+                    const asnType = lodash_1.cloneDeep(assignment.asnType);
+                    const expandedType = lodash_1.cloneDeep(lodash_1.cloneDeep(asnType).expand(modules, []));
                     if (lodash_1.isEqual(expandedType, asnType)) {
                         if (asnType instanceof objectSet_1.ObjectSet) {
                             return unimpl_1.unimpl();
