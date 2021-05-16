@@ -1,11 +1,11 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { DefinedType } from '../classes/asnType';
 import { ExternalTypeReference } from '../classes/externalTypeReference';
 import { ParameterizedType } from '../classes/parameterizedType';
 import { TypeReference } from '../classes/typeReference';
 import { DefinedTypeContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { DefinedType } from '../types/definedType';
 import { ActualParameterListVisitor } from './actualParameterListVisitor';
 
 /**

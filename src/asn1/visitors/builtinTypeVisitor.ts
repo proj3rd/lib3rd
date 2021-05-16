@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { BuiltinType } from '../classes/asnType';
 import { BooleanType } from '../classes/booleanType';
 import { NullType } from '../classes/nullType';
 import {
@@ -20,6 +19,7 @@ import {
   SetTypeContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { BuiltinType } from '../types/builtinType';
 import { BitStringTypeVisitor } from './bitStringTypeVisitor';
 import { CharacterStringTypeVisitor } from './characterStringTypeVisitor';
 import { ChoiceTypeVisitor } from './choiceTypeVisitor';

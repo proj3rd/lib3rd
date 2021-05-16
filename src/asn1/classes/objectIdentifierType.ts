@@ -13,11 +13,16 @@ export class ObjectIdentifierType {
   public reference: string | undefined;
 
   public static fromObject(obj: unknown) {
-    const { objectIdentifierTypeTag } = obj as ObjectIdentifierType;
+    const { reference, objectIdentifierTypeTag } = obj as ObjectIdentifierType;
     if (!objectIdentifierTypeTag) {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
-    return new ObjectIdentifierType();
+    if (reference && typeof reference !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const objectIdentifierType = new ObjectIdentifierType();
+    objectIdentifierType.reference = reference;
+    return objectIdentifierType;
   }
 
   // eslint-disable-next-line no-unused-vars

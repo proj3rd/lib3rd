@@ -29,14 +29,17 @@ export class TypeReference {
   }
 
   public static fromObject(obj: unknown) {
-    const { typeReference: typeReferenceObject, typeReferenceTag } = obj as TypeReference;
+    const { typeReference: typeReferenceObject, constraint: constraintObj, typeReferenceTag } = obj as TypeReference;
     if (!typeReferenceTag) {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
     if (!typeReferenceObject || typeof typeReferenceObject !== 'string') {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
-    return new TypeReference(typeReferenceObject);
+    const constraint = constraintObj ? Constraint.fromObject(constraintObj) : undefined;
+    const typeReference = new TypeReference(typeReferenceObject);
+    typeReference.constraint = constraint;
+    return typeReference;
   }
 
   /**

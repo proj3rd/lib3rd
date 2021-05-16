@@ -22,7 +22,7 @@ export class NullType {
     }
     const nullType = new NullType();
     nullType.reference = reference;
-    return nullTypeTag;
+    return nullType;
   }
 
   // eslint-disable-next-line no-unused-vars
