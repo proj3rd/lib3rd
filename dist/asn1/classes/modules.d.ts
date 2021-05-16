@@ -5,7 +5,7 @@ export declare class Modules {
     modules: ModuleDefinition[];
     modulesTag: boolean;
     constructor(modules?: ModuleDefinition[]);
-    static deserialize(serialized: string): Modules;
+    static fromObject(serialized: string): Modules;
     findAssignment(name: string, moduleName?: string): Assignment | undefined;
     toSpreadsheet(): Workbook;
     toString(): string;

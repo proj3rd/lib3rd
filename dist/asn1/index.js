@@ -187,7 +187,8 @@ if (require.main === module) {
                 throw Error();
             }
             const serialized = fs_1.readFileSync(file, 'utf8');
-            modules_1.Modules.deserialize(serialized);
+            const modulesObj = JSON.parse(serialized);
+            modules_1.Modules.fromObject(modulesObj);
         }
     });
 }

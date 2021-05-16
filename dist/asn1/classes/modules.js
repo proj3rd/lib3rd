@@ -9,7 +9,7 @@ class Modules {
         this.modulesTag = true;
         this.modules = modules;
     }
-    static deserialize(serialized) {
+    static fromObject(serialized) {
         const { modules: moduleObjectList, modulesTag } = JSON.parse(serialized);
         if (!modulesTag) {
             throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);

@@ -13,7 +13,7 @@ export class Modules {
     this.modules = modules;
   }
 
-  public static deserialize(serialized: string) {
+  public static fromObject(serialized: string) {
     const { modules: moduleObjectList, modulesTag } = JSON.parse(serialized) as Modules;
     if (!modulesTag) {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
