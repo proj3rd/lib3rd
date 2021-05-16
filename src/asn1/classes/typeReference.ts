@@ -47,8 +47,8 @@ export class TypeReference {
       if (referencedAssignment === undefined) {
         return this;
       } if (referencedAssignment instanceof TypeAssignment) {
-        const { asnType } = referencedAssignment;
-        const expandedType = cloneDeep(asnType).expand(modules, []);
+        const asnType = cloneDeep(referencedAssignment.asnType);
+        const expandedType = cloneDeep(cloneDeep(asnType).expand(modules, []));
         if (isEqual(expandedType, asnType)) {
           asnType.reference = this.toString();
           return asnType;
@@ -65,9 +65,9 @@ export class TypeReference {
       return this;
     } else {
       // A case that typeReference shall be substituted with an actualParameter.
-      const { actualParameter } = parameterMapping;
+      const actualParameter = cloneDeep(parameterMapping.actualParameter);
       if (actualParameter instanceof TypeReference) {
-        const expandedType = cloneDeep(actualParameter).expand(modules, []);
+        const expandedType = cloneDeep(cloneDeep(actualParameter).expand(modules, []));
         if (isEqual(expandedType, actualParameter)) {
           actualParameter.reference = this.toString();
           return actualParameter;
