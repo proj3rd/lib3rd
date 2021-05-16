@@ -3,7 +3,7 @@ import { Definition } from './definition';
 export declare class Definitions {
     definitionList: Definition[];
     constructor(definitionList: Definition[]);
-    static deserialize(serialized: string): Promise<Definitions>;
+    static fromObject(obj: unknown): Definitions;
     findDefinition(sectionNumberOrName: string): Definition | undefined;
     toSpreadsheet(): Workbook;
 }

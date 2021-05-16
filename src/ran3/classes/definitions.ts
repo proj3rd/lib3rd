@@ -24,8 +24,8 @@ export class Definitions {
     this.definitionList = definitionList;
   }
 
-  public static async deserialize(serialized: string) {
-    const { definitionList } = JSON.parse(serialized) as Definitions;
+  public static fromObject(obj: unknown) {
+    const { definitionList } = obj as Definitions;
     if (!definitionList) {
       throw Error('Malformed serialization of RAN3 tabular form');
     }

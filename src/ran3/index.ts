@@ -75,7 +75,8 @@ if (require.main === module) {
           throw Error();
         }
         const serialized = readFileSync(file, 'utf8');
-        Definitions.deserialize(serialized);
+        const obj = JSON.parse(serialized);
+        Definitions.fromObject(obj);
       },
     });
 }
