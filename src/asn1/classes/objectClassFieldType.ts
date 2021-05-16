@@ -91,9 +91,9 @@ export class ObjectClassFieldType {
       const fieldName = this.fieldName[0];
       const { objectClass } = assignment;
       const { fieldSpecs } = objectClass;
-      const fieldSpec = fieldSpecs.find(
+      const fieldSpec = cloneDeep(fieldSpecs.find(
         (fs) => fs.fieldReference.toString() === fieldName.toString(),
-      );
+      ));
       if (fieldSpec === undefined) {
         return this;
       }
@@ -103,7 +103,7 @@ export class ObjectClassFieldType {
         return newTypeReference;
       }
       if (fieldSpec instanceof FixedTypeValueFieldSpec) {
-        const expandedType = cloneDeep(fieldSpec.asnType).expand(modules, []);
+        const expandedType = cloneDeep(cloneDeep(fieldSpec.asnType).expand(modules, []));
         if (isEqual(expandedType, fieldSpec.asnType)) {
           fieldSpec.asnType.reference = this.toString();
           return fieldSpec.asnType;

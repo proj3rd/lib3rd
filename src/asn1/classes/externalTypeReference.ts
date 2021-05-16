@@ -60,10 +60,9 @@ export class ExternalTypeReference {
     );
     if (referencedAssignment === undefined) {
       return this;
-    }
-    if (referencedAssignment instanceof TypeAssignment) {
-      const { asnType } = referencedAssignment;
-      const expandedType = cloneDeep(asnType).expand(modules, []);
+    } if (referencedAssignment instanceof TypeAssignment) {
+      const asnType = cloneDeep(referencedAssignment.asnType);
+      const expandedType = cloneDeep(cloneDeep(asnType).expand(modules, []));
       if (asnType instanceof ObjectSet) {
         return unimpl();
       }

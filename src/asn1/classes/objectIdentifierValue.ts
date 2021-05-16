@@ -117,8 +117,8 @@ export class ObjectIdentifierValue {
             return objectIdComponents;
           }
           if (assignment instanceof TypeAssignment) {
-            const { asnType } = assignment;
-            const expandedType = cloneDeep(asnType).expand(modules, []);
+            const asnType = cloneDeep(assignment.asnType);
+            const expandedType = cloneDeep(cloneDeep(asnType).expand(modules, []));
             if (isEqual(expandedType, asnType)) {
               if (asnType instanceof ObjectSet) {
                 return unimpl();

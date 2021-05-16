@@ -140,13 +140,14 @@ export class ParameterizedType {
           // eslint-disable-next-line no-param-reassign
           parameterMapping.actualParameter = actualParametersNew[index];
         });
-        const expandedType = cloneDeep(assignment.asnType).expand(
+        const asnType = cloneDeep(assignment.asnType);
+        const expandedType = cloneDeep(cloneDeep(asnType).expand(
           modules,
           parameterMappingsNew,
-        );
-        if (isEqual(expandedType, assignment.asnType)) {
-          assignment.asnType.reference = this.toStringHelper(actualParametersNew);
-          return assignment.asnType;
+        ));
+        if (isEqual(expandedType, asnType)) {
+          asnType.reference = this.toStringHelper(actualParametersNew);
+          return asnType;
         }
         expandedType.reference = this.toStringHelper(actualParametersNew);
         return expandedType;

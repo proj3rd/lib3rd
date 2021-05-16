@@ -102,8 +102,8 @@ export class SequenceType {
       if (!(assignment instanceof ObjectSetAssignment)) {
         return unimpl();
       }
-      const { objectSet } = assignment;
-      const expandedObjectSet = cloneDeep(objectSet).expand(modules, []);
+      const objectSet = cloneDeep(assignment.objectSet);
+      const expandedObjectSet = cloneDeep(cloneDeep(objectSet).expand(modules, []));
       if (isEqual(expandedObjectSet, objectSet)) {
         objectSet.reference = actualParameter;
         return objectSet;
