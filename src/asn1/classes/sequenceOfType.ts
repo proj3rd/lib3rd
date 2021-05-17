@@ -61,7 +61,7 @@ export class SequenceOfType {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
     const sequenceOfType = new SequenceOfType(new NullType(), constraint); // new NullType() is WA
-    sequenceOfType.baseType = baseTypeObj;
+    sequenceOfType.baseType = baseType;
     sequenceOfType.reference = referenceObj;
     return sequenceOfType;
   }
