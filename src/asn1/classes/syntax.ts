@@ -44,7 +44,7 @@ export class Syntax {
     if (typeof optionalObj !== 'boolean') {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
-    const primitiveFieldName = PrimitiveFieldName.fromObject(obj);
+    const primitiveFieldName = PrimitiveFieldName.fromObject(primitiveFieldNameObj);
     return new Syntax(literalObj, primitiveFieldName, optionalObj);
   }
 

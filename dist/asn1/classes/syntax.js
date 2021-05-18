@@ -23,7 +23,7 @@ class Syntax {
         if (typeof optionalObj !== 'boolean') {
             throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
         }
-        const primitiveFieldName = primitiveFieldName_1.PrimitiveFieldName.fromObject(obj);
+        const primitiveFieldName = primitiveFieldName_1.PrimitiveFieldName.fromObject(primitiveFieldNameObj);
         return new Syntax(literalObj, primitiveFieldName, optionalObj);
     }
     // eslint-disable-next-line class-methods-use-this
