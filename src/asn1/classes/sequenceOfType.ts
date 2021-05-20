@@ -2,8 +2,8 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { appendInColumn, HEADER_TYPE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
+import { appendInColumn, HEADER_NAME_BASE, HEADER_TYPE } from '../formatter/spreadsheet';
+import { drawBorder, headerIndexed, IRowInput, setOutlineLevel } from '../../common/spreadsheet';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
@@ -108,9 +108,18 @@ export class SequenceOfType {
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
     appendInColumn(row, HEADER_TYPE, this.stringPrefix());
     if (!(this.baseType instanceof NamedType) && this.baseType.reference) {
-      appendInColumn(row, HEADER_TYPE, `(${this.baseType.reference})`);
+      appendInColumn(row, HEADER_TYPE, this.baseType.reference);
     }
-    this.baseType.toSpreadsheet(worksheet, row, depth);
+    const r = worksheet.addRow(row);
+    setOutlineLevel(r, depth);
+    drawBorder(worksheet, r, depth);
+    const name =
+      this.baseType instanceof NamedType
+        ? 'item'
+        : this.baseType.reference ?? 'item';
+    this.baseType.toSpreadsheet(worksheet, {
+      [headerIndexed(HEADER_NAME_BASE, depth + 1)]: name,
+    }, depth + 1);
   }
 
   public toString(): string {
