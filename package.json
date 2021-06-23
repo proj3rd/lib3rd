@@ -14,6 +14,7 @@
     "lint-fix": "npx eslint -c .eslintrc.js --ext .ts src --fix",
     "prettier": "npx prettier@2.0.5 src --write",
     "ran3": "node --enable-source-maps dist/ran3",
+    "test": "mocha --enable-source-maps dist/tests",
     "test-diff": "mocha --enable-source-maps dist/asn1/test_diff --grep diff_all",
     "test-diff-render": "mocha --enable-source-maps dist/asn1/test_diff --grep diff_render",
     "test-expander": "mocha --enable-source-maps dist/asn1/test_expander --grep expand_all",
