@@ -72,10 +72,10 @@ class TypeReference {
             if (actualParameter instanceof TypeReference) {
                 const expandedType = lodash_1.cloneDeep(lodash_1.cloneDeep(actualParameter).expand(modules, []));
                 if (lodash_1.isEqual(expandedType, actualParameter)) {
-                    actualParameter.reference = this.toString();
+                    // actualParameter.reference = this.toString();
                     return actualParameter;
                 }
-                expandedType.reference = this.toString();
+                expandedType.reference = actualParameter.toString();
                 return expandedType;
             }
             return unimpl_1.unimpl(actualParameter.constructor.name);
