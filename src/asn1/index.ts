@@ -124,8 +124,9 @@ if (require.main === module) {
         ) {
           throw Error();
         }
+        const { ext } = parsePath(file);
         const text = readFileSync(file, 'utf8');
-        const parsed = parse(text);
+        const parsed = ext === '.json' ? Modules.fromObject(JSON.parse(text)) : parse(text);
         const assignment = parsed.findAssignment(name);
         if (assignment === undefined) {
           throw Error(`${name} not found in ${file}`);
