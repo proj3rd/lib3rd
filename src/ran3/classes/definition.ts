@@ -13,6 +13,7 @@ import {
   uniqueSheetname,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
+import { MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION } from '../constants';
 import { reSectionNumber } from '../parse';
 import { IDefinition, IInformationElement } from '../types';
 import { Conditions } from './conditions';
@@ -122,6 +123,45 @@ export class Definition {
     this.elementList = elementList;
     this.rangeBounds = new RangeBounds(rangeBoundList);
     this.conditions = new Conditions(conditionList);
+  }
+
+  public static fromObject(obj: unknown): Definition {
+    const {
+      sectionNumber,
+      name,
+      descriptionList: descriptionListObj,
+      direction,
+      elementList: elementListObj,
+      rangeBounds: rangeBoundsObj,
+      conditions: conditionsObj,
+    } = obj as Definition;
+    if (!sectionNumber || typeof sectionNumber !== 'string') {
+      throw Error(MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+    }
+    if (!name || typeof name !== 'string') {
+      throw Error(MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+    }
+    const descriptionList = descriptionListObj.map((descriptionObj) => {
+      if (typeof descriptionObj !== 'string') {
+        throw Error(MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+      };
+      return descriptionObj;
+    });
+    if (typeof direction !== 'string') {
+      throw Error(MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+    }
+    if (!(elementListObj instanceof Array)) {
+      throw Error(MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+    }
+    const { rangeBoundList } = rangeBoundsObj;
+    if (!rangeBoundList) {
+      throw Error(MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+    }
+    const { conditionList } = conditionsObj;
+    if (!conditionList) {
+      throw Error(MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+    }
+    return new Definition({ sectionNumber, name, descriptionList, direction, elementList: elementListObj, rangeBoundList, conditionList });
   }
 
   /**

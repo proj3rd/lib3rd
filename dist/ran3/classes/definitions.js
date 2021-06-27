@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Definitions = void 0;
 const spreadsheet_1 = require("../../common/spreadsheet");
+const definition_1 = require("./definition");
 function validateDefinition(item) {
     const { sectionNumber, name, elementList, rangeBounds, conditions } = item;
     if (!sectionNumber || typeof sectionNumber !== 'string') {
@@ -21,17 +22,14 @@ class Definitions {
         this.definitionList = definitionList;
     }
     static fromObject(obj) {
-        const { definitionList } = obj;
-        if (!definitionList) {
+        const { definitionList: definitionListObj } = obj;
+        if (!definitionListObj) {
             throw Error('Malformed serialization of RAN3 tabular form');
         }
-        if (!(definitionList instanceof Array)) {
+        if (!(definitionListObj instanceof Array)) {
             throw Error('Malformed serialization of RAN3 tabular form');
         }
-        const pass = definitionList.every((item) => validateDefinition(item));
-        if (!pass) {
-            throw Error('Malformed serialization of RAN3 tabular form');
-        }
+        const definitionList = definitionListObj.map((definitionObj) => definition_1.Definition.fromObject(definitionObj));
         return new Definitions(definitionList);
     }
     findDefinition(sectionNumberOrName) {

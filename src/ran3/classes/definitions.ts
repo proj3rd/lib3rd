@@ -25,17 +25,14 @@ export class Definitions {
   }
 
   public static fromObject(obj: unknown) {
-    const { definitionList } = obj as Definitions;
-    if (!definitionList) {
+    const { definitionList: definitionListObj } = obj as Definitions;
+    if (!definitionListObj) {
       throw Error('Malformed serialization of RAN3 tabular form');
     }
-    if (!(definitionList instanceof Array)) {
+    if (!(definitionListObj instanceof Array)) {
       throw Error('Malformed serialization of RAN3 tabular form');
     }
-    const pass = definitionList.every((item) => validateDefinition(item));
-    if (!pass) {
-      throw Error('Malformed serialization of RAN3 tabular form');
-    }
+    const definitionList = definitionListObj.map((definitionObj) => Definition.fromObject(definitionObj));
     return new Definitions(definitionList);
   }
 
