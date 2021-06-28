@@ -67,7 +67,7 @@ class SequenceOfType {
         return this;
     }
     getDepth() {
-        return this.baseType.getDepth();
+        return this.baseType.getDepth() + 1;
     }
     // eslint-disable-next-line class-methods-use-this
     setConstraints(constraints) {

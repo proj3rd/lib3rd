@@ -95,7 +95,7 @@ export class SequenceOfType {
   }
 
   public getDepth(): number {
-    return this.baseType.getDepth();
+    return this.baseType.getDepth() + 1;
   }
 
   // eslint-disable-next-line class-methods-use-this
