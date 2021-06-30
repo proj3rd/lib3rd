@@ -89,7 +89,7 @@ export class ParameterizedType {
         this.simpleDefinedType.typeReference,
       );
       if (assignment === undefined) {
-        return unimpl();
+        return this;
       }
       if (assignment instanceof TypeAssignment) {
         return unimpl();
