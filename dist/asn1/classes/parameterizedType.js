@@ -60,7 +60,7 @@ class ParameterizedType {
             // A case that TypeReference shall be expanded
             const assignment = modules.findAssignment(this.simpleDefinedType.typeReference);
             if (assignment === undefined) {
-                return unimpl_1.unimpl();
+                return this;
             }
             if (assignment instanceof typeAssignment_1.TypeAssignment) {
                 return unimpl_1.unimpl();

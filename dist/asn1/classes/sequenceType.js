@@ -77,7 +77,7 @@ class SequenceType {
             }
             const assignment = modules.findAssignment(actualParameter);
             if (assignment === undefined) {
-                return unimpl_1.unimpl();
+                return this;
             }
             if (!(assignment instanceof objectSetAssignment_1.ObjectSetAssignment)) {
                 return unimpl_1.unimpl();
