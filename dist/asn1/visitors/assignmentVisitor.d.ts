@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { AssignmentContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { Assignment } from '../types';
+import { Assignment } from '../types/assignment';
 /**
  * # Grammar
  * ```

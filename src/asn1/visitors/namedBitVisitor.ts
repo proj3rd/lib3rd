@@ -6,7 +6,7 @@ import {
   NamedBitContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { INamedBit } from '../types';
+import { INamedBit } from '../types/namedBit';
 
 /**
  * # Grammar

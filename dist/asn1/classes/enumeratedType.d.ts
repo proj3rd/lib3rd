@@ -1,16 +1,15 @@
 import { Worksheet } from 'exceljs';
 import { IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import { INamedNumber } from '../types';
+import { EnumerationItem } from '../types/enumerationItem';
 import { Constraint } from './constraint';
-import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
-export declare type EnumerationItem = string | INamedNumber | ExtensionMarker;
 export declare class EnumeratedType {
     items: EnumerationItem[];
     reference: string | undefined;
-    private enumeratedTypeTag;
+    enumeratedTypeTag: boolean;
     constructor(items: EnumerationItem[]);
+    static fromObject(obj: unknown): EnumeratedType;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): EnumeratedType;
     getDepth(): number;
     setConstraints(constraints: Constraint[]): void;

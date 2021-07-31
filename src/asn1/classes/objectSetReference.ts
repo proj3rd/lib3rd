@@ -1,14 +1,26 @@
 import { unimpl } from 'unimpl';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { Modules } from './modules';
 
 export class ObjectSetReference {
   public objectSetReference: string;
 
-  private objectSetReferenceTag: undefined;
+  public objectSetReferenceTag = true;
 
   constructor(objectSetReference: string) {
     this.objectSetReference = objectSetReference;
+  }
+
+  public static fromObject(obj: unknown): ObjectSetReference {
+    const { objectSetReference, objectSetReferenceTag } = obj as ObjectSetReference;
+    if (!objectSetReferenceTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof objectSetReference !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    return new ObjectSetReference(objectSetReference);
   }
 
   // eslint-disable-next-line class-methods-use-this, no-unused-vars

@@ -2,13 +2,15 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { IParameterMapping } from '../expander';
-import { appendInColumn, HEADER_TYPE } from '../formatter/spreadsheet';
-import { IRowInput } from '../../common/spreadsheet';
-import { AsnType } from './asnType';
+import { appendInColumn, HEADER_NAME_BASE, HEADER_TYPE } from '../formatter/spreadsheet';
+import { drawBorder, headerIndexed, IRowInput, setOutlineLevel } from '../../common/spreadsheet';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
 import { ObjectSet } from './objectSet';
+import { AsnType, AsnTypeFromObject } from '../types/asnType';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
+import { NullType } from './nullType';
 
 export class SequenceOfType {
   /**
@@ -19,7 +21,7 @@ export class SequenceOfType {
 
   public reference: string | undefined;
 
-  private sequenceOfTypeTag: undefined;
+  public sequenceOfTypeTag = true;
 
   constructor(
     baseType: AsnType | NamedType,
@@ -27,6 +29,41 @@ export class SequenceOfType {
   ) {
     this.baseType = baseType;
     this.constraint = constraint;
+  }
+
+  public static fromObject(obj: unknown): SequenceOfType {
+    const {
+      baseType: baseTypeObj,
+      constraint: constraintObj,
+      reference: referenceObj,
+      sequenceOfTypeTag,
+    } = obj as SequenceOfType;
+    if (!sequenceOfTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    let baseType: AsnType | NamedType | ObjectSet | undefined = undefined;
+    try {
+      baseType = AsnTypeFromObject(baseTypeObj);
+    } catch (e) {} finally {}
+    const { namedTypeTag } = baseTypeObj as NamedType;
+    if (namedTypeTag) {
+      baseType = NamedType.fromObject(baseTypeObj);
+    }
+    const { objectSetTag } = baseTypeObj as ObjectSet;
+    if (objectSetTag) {
+      baseType = ObjectSet.fromObject(baseTypeObj);
+    }
+    if (baseType === undefined) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const constraint = constraintObj !== undefined ? Constraint.fromObject(constraintObj) : undefined;
+    if (referenceObj && typeof referenceObj !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const sequenceOfType = new SequenceOfType(new NullType(), constraint); // new NullType() is WA
+    sequenceOfType.baseType = baseType;
+    sequenceOfType.reference = referenceObj;
+    return sequenceOfType;
   }
 
   /**
@@ -58,7 +95,7 @@ export class SequenceOfType {
   }
 
   public getDepth(): number {
-    return this.baseType.getDepth();
+    return this.baseType.getDepth() + 1;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -71,9 +108,18 @@ export class SequenceOfType {
   public toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number) {
     appendInColumn(row, HEADER_TYPE, this.stringPrefix());
     if (!(this.baseType instanceof NamedType) && this.baseType.reference) {
-      appendInColumn(row, HEADER_TYPE, `(${this.baseType.reference})`);
+      appendInColumn(row, HEADER_TYPE, this.baseType.reference);
     }
-    this.baseType.toSpreadsheet(worksheet, row, depth);
+    const r = worksheet.addRow(row);
+    setOutlineLevel(r, depth);
+    drawBorder(worksheet, r, depth);
+    const name =
+      this.baseType instanceof NamedType
+        ? 'item'
+        : this.baseType.reference ?? 'item';
+    this.baseType.toSpreadsheet(worksheet, {
+      [headerIndexed(HEADER_NAME_BASE, depth + 1)]: name,
+    }, depth + 1);
   }
 
   public toString(): string {

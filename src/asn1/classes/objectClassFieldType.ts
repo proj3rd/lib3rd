@@ -2,9 +2,11 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { todo, unimpl, unreach } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { HEADER_REFERENCE } from '../formatter/spreadsheet';
-import { AsnType, DefinedObjectClass } from './asnType';
+import { AsnType } from '../types/asnType';
+import { DefinedObjectClass } from './asnType';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -12,6 +14,7 @@ import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { InnerTypeConstraints } from './innerTypeConstraints';
 import { Modules } from './modules';
 import { ObjectClassAssignment } from './objectClassAssignment';
+import { ObjectClassReference } from './objectClassReference';
 import { ObjectSet } from './objectSet';
 import { ObjectSetAssignment } from './objectSetAssignment';
 import { ParameterizedTypeAssignment } from './parameterizedTypeAssignment';
@@ -34,7 +37,7 @@ export class ObjectClassFieldType {
 
   public reference: string | undefined;
 
-  private objectClassFieldType: undefined;
+  public objectClassFieldType = true;
 
   constructor(
     definedObjectClass: DefinedObjectClass,
@@ -42,6 +45,32 @@ export class ObjectClassFieldType {
   ) {
     this.definedObjectClass = definedObjectClass;
     this.fieldName = fieldName;
+  }
+
+  public static fromObject(obj: unknown): ObjectClassFieldType {
+    const {
+      definedObjectClass: definedObjectClassObject,
+      fieldName: fieldNameObject,
+      constraint: constraintObject,
+      reference: referenceObject,
+      objectClassFieldType: objectClassFieldTypeTag,
+    } = obj as ObjectClassFieldType;
+    if (!objectClassFieldTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(fieldNameObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const definedObjectClass = ObjectClassReference.fromObject(definedObjectClassObject);
+    const fieldName = fieldNameObject.map((item) => PrimitiveFieldName.fromObject(item));
+    const constraint = constraintObject ? Constraint.fromObject(constraintObject) : undefined;
+    const objectClassFieldType = new ObjectClassFieldType(definedObjectClass, fieldName);
+    objectClassFieldType.constraint = constraint;
+    objectClassFieldType.reference = referenceObject;
+    return objectClassFieldType;
   }
 
   // eslint-disable-next-line no-unused-vars

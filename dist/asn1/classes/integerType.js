@@ -4,15 +4,37 @@ exports.IntegerType = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const namedNumber_1 = require("../types/namedNumber");
 const componentRelationConstraint_1 = require("./componentRelationConstraint");
+const constraint_1 = require("./constraint");
 const contentsConstraint_1 = require("./contentsConstraint");
 const innerTypeConstraints_1 = require("./innerTypeConstraints");
 const objectSet_1 = require("./objectSet");
 const subtypeConstraint_1 = require("./subtypeConstraint");
 class IntegerType {
     constructor(namedNumberList = []) {
+        this.integerTypeTag = true;
         this.namedNumberList = namedNumberList;
+    }
+    static fromObject(obj) {
+        const { constraint: constraintObj, namedNumberList: namedNumberListObj, reference: referenceObj, integerTypeTag, } = obj;
+        if (!integerTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const constraint = constraintObj ? constraint_1.Constraint.fromObject(constraintObj) : undefined;
+        if (!(namedNumberListObj instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const namedNumberList = namedNumberListObj.map((item) => namedNumber_1.NamedNumberFromObject(item));
+        if (referenceObj && typeof referenceObj !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const integerType = new IntegerType(namedNumberList);
+        integerType.constraint = constraint;
+        integerType.reference = referenceObj;
+        return integerType;
     }
     expand(modules, parameterMappings) {
         if (parameterMappings.length && this.constraint !== undefined) {

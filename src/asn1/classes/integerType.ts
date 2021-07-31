@@ -2,9 +2,10 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
-import { INamedNumber } from '../types';
+import { INamedNumber, NamedNumberFromObject } from '../types/namedNumber';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -19,10 +20,34 @@ export class IntegerType {
 
   public reference: string | undefined;
 
-  private integerTypeTag: undefined;
+  public integerTypeTag = true;
 
   constructor(namedNumberList: INamedNumber[] = []) {
     this.namedNumberList = namedNumberList;
+  }
+
+  public static fromObject(obj: unknown): IntegerType {
+    const {
+      constraint: constraintObj,
+      namedNumberList: namedNumberListObj,
+      reference: referenceObj,
+      integerTypeTag,
+    } = obj as IntegerType;
+    if (!integerTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const constraint = constraintObj ? Constraint.fromObject(constraintObj) : undefined;
+    if (!(namedNumberListObj instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const namedNumberList = namedNumberListObj.map((item) => NamedNumberFromObject(item));
+    if (referenceObj && typeof referenceObj !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const integerType = new IntegerType(namedNumberList);
+    integerType.constraint = constraint;
+    integerType.reference = referenceObj;
+    return integerType;
   }
 
   public expand(

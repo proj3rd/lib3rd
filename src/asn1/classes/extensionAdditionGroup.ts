@@ -3,6 +3,7 @@ import { cloneDeep, isEqual } from 'lodash';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
@@ -15,11 +16,26 @@ export class ExtensionAdditionGroup {
   public version: number | undefined;
   public components: ComponentType[];
 
-  private extensionAdditionGroupTag: undefined;
+  public extensionAdditionGroupTag = true;
 
   constructor(version: number | undefined, components: ComponentType[]) {
     this.version = version;
     this.components = components;
+  }
+
+  public static fromObject(obj: unknown): ExtensionAdditionGroup {
+    const { version, components: componentsObject, extensionAdditionGroupTag } = obj as ExtensionAdditionGroup;
+    if (!extensionAdditionGroupTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (version !== undefined && typeof version !== 'number') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(componentsObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const components = componentsObject.map((item) => ComponentType.fromObject(item));
+    return new ExtensionAdditionGroup(version, components);
   }
 
   /**

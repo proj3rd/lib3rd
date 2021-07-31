@@ -4,6 +4,7 @@ import { unimpl, unreach } from 'unimpl';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import {
@@ -12,14 +13,14 @@ import {
   HEADER_REFERENCE,
 } from '../formatter/spreadsheet';
 import { ObjectIdComponents } from '../types';
-import { AsnType } from './asnType';
+import { AsnType, AsnTypeFromObject } from '../types/asnType';
+import { Value, ValueFromObject } from '../types/value';
 import { Modules } from './modules';
 import { ObjectClassAssignment } from './objectClassAssignment';
 import { ObjectSet } from './objectSet';
 import { ObjectSetAssignment } from './objectSetAssignment';
 import { ParameterizedTypeAssignment } from './parameterizedTypeAssignment';
 import { TypeAssignment } from './typeAssignment';
-import { Value } from './value';
 import { ValueAssignment } from './valueAssignment';
 
 /**
@@ -39,7 +40,7 @@ export class ObjectIdentifierValue {
 
   public reference: string | undefined; 
 
-  private objectIdentifierValueTag: undefined;
+  public objectIdentifierValueTag = true;
 
   private compoundComponentList: string[] = [
     // 36413-g00
@@ -58,6 +59,39 @@ export class ObjectIdentifierValue {
       objectIdComponentsList,
     );
     // TODO: Check `objectIdComponentsList[i]` is instance of `ObjectIdComponents`
+  }
+
+  public static fromObject(obj: unknown): ObjectIdentifierValue {
+    const {
+      objectIdComponentsList: objectIdComponentsListObj,
+      reference: referenceObj,
+      objectIdentifierValueTag,
+    } = obj as ObjectIdentifierValue;
+    if (!objectIdentifierValueTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObj && typeof referenceObj !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(objectIdComponentsListObj instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const objectIdComponentsList = objectIdComponentsListObj.map((item) => {
+      if (typeof item === 'string') {
+        return item;
+      }
+      try {
+        return AsnTypeFromObject(item);
+      } catch (e) {} finally {}
+      try {
+        return ValueFromObject(item);
+      } catch (e) {} finally {}
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    });
+    const objectIdentifierValue = new ObjectIdentifierValue([]);
+    objectIdentifierValue.objectIdComponentsList = objectIdComponentsList;
+    objectIdentifierValue.reference = referenceObj;
+    return objectIdentifierValue;
   }
 
   /**

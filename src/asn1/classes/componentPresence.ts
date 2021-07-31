@@ -1,8 +1,10 @@
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from "../constants";
+
 export class ComponentPresence {
   public name: string;
   public presence: 'ABSENT' | 'PRESENT';
 
-  private componentPresenceTag: undefined;
+  public componentPresenceTag = true;
 
   constructor(name: string, presence: 'ABSENT' | 'PRESENT') {
     if (presence !== 'ABSENT' && presence !== 'PRESENT') {
@@ -10,6 +12,17 @@ export class ComponentPresence {
     }
     this.name = name;
     this.presence = presence;
+  }
+
+  public static fromObject(obj: unknown): ComponentPresence {
+    const { name, presence, componentPresenceTag } = obj as ComponentPresence;
+    if (!componentPresenceTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof name !== 'string' || typeof presence !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    return new ComponentPresence(name, presence);
   }
 
   public toString(): string {

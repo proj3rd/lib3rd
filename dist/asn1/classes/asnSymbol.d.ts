@@ -1,8 +1,9 @@
 export declare class Reference {
     name: string;
     parameterized: boolean;
-    private referenceTag;
+    referenceTag: boolean;
     constructor(name: string, parameterized?: boolean);
+    static fromObject(obj: unknown): Reference;
     toString(): string;
 }
 export declare type AsnSymbol = Reference;

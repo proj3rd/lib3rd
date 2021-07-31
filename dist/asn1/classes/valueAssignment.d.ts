@@ -1,12 +1,13 @@
-import { AsnType } from './asnType';
+import { AsnType } from '../types/asnType';
+import { Value } from '../types/value';
 import { Modules } from './modules';
-import { Value } from './value';
 export declare class ValueAssignment {
     name: string;
     asnType: AsnType;
     value: Value;
-    private valueAssignmentTag;
+    valueAssignmentTag: boolean;
     constructor(name: string, asnType: AsnType, value: Value);
+    static fromObject(obj: unknown): ValueAssignment;
     expand(modules: Modules): ValueAssignment;
     getDepth(): number;
     toString(): string;

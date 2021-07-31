@@ -1,7 +1,7 @@
 import { Worksheet } from 'exceljs';
 import { IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import { AsnType } from './asnType';
+import { AsnType } from '../types/asnType';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
@@ -9,8 +9,9 @@ export declare class TypeReference {
     typeReference: string;
     constraint: Constraint | undefined;
     reference: string | undefined;
-    private typeReferenceTag;
+    typeReferenceTag: boolean;
     constructor(typeReference: string);
+    static fromObject(obj: unknown): TypeReference;
     /**
      * Expand `typeReference` property.
      * @param modules

@@ -1,8 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { RootSequenceComponents, SequenceType } from '../classes/sequenceType';
+import { SequenceType } from '../classes/sequenceType';
 import { SequenceTypeContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { RootSequenceComponents } from '../types/rootSequenceComponents';
 import { ComponentTypeListsVisitor } from './componentTypeListsVisitor';
 import { ExtensionAndExceptionVisitor } from './extensionAndExceptionVisitor';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarkerVisitor';

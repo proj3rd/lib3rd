@@ -6,8 +6,9 @@ export declare class BooleanValue {
     literal: string;
     value: boolean;
     reference: string | undefined;
-    private booleanValueTag;
+    booleanValueTag: boolean;
     constructor(literal: string);
+    static fromObject(obj: unknown): BooleanValue;
     expand(moduleS: Modules, parameterMappings: IParameterMapping[]): BooleanValue;
     getDepth(): number;
     toSpreadsheet(worksheet: Worksheet, row: IRowInput, depth: number): void;

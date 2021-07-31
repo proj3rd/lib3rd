@@ -1,25 +1,38 @@
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl, unreach } from 'unimpl';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
-import { _ConstraintSpec } from '../types';
+import { ConstraintSpec, ConstraintSpecFromObject } from '../types/constraintSpec';
 import { Modules } from './modules';
 import { SizeConstraint } from './sizeConstraint';
 import { SubtypeConstraint } from './subtypeConstraint';
 import { Unions } from './unions';
 
 export class Constraint {
-  public constraintSpec: _ConstraintSpec;
+  public constraintSpec: ConstraintSpec;
   public exceptionSpec: undefined;
 
-  private constraintTag: undefined;
+  public constraintTag = true;
 
-  constructor(constraint: _ConstraintSpec | SizeConstraint) {
+  constructor(constraint: ConstraintSpec | SizeConstraint) {
     if (constraint instanceof SizeConstraint) {
       const unions = new Unions([[constraint]]);
       this.constraintSpec = new SubtypeConstraint([unions]);
     } else {
       this.constraintSpec = constraint;
     }
+  }
+
+  public static fromObject(obj: unknown): Constraint {
+    const { constraintSpec: constraintSpecObject, exceptionSpec, constraintTag } = obj as Constraint;
+    if (!constraintTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (exceptionSpec !== undefined) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const constraintSpec = ConstraintSpecFromObject(constraintSpecObject);
+    return new Constraint(constraintSpec);
   }
 
   /**

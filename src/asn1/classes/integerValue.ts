@@ -1,6 +1,7 @@
 import { Worksheet } from 'exceljs';
 import { todo } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { Modules } from './modules';
@@ -12,7 +13,7 @@ export class IntegerValue {
 
   public reference: string | undefined;
 
-  private integerValueTag: undefined;
+  public integerValueTag = true;
 
   constructor(literal: string) {
     this.literal = literal;
@@ -22,6 +23,26 @@ export class IntegerValue {
     } else {
       this.value = value;
     }
+  }
+
+  public static fromObject(obj: unknown): IntegerValue {
+    const {
+      literal: literalObject,
+      reference: referenceObject,
+      integerValueTag,
+    } = obj as IntegerValue;
+    if (!integerValueTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof literalObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const integerValue = new IntegerValue(literalObject);
+    integerValue.reference = referenceObject;
+    return integerValue;
   }
 
   public expand(

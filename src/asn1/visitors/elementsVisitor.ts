@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _Elements } from '../types';
 import { ElementsContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { Elements } from '../types/elements';
 import { SubtypeElementsVisitor } from './subtypeElementsVisitor';
 
 /**
@@ -12,14 +12,14 @@ import { SubtypeElementsVisitor } from './subtypeElementsVisitor';
  * elements: subtypeElements
  * ```
  */
-export class ElementsVisitor extends AbstractParseTreeVisitor<_Elements>
-  implements grammar3rdVisitor<_Elements> {
-  public visitChildren(ctx: ElementsContext): _Elements {
+export class ElementsVisitor extends AbstractParseTreeVisitor<Elements>
+  implements grammar3rdVisitor<Elements> {
+  public visitChildren(ctx: ElementsContext): Elements {
     const subtypeElementsCtx = ctx.subtypeElements();
     return subtypeElementsCtx.accept(new SubtypeElementsVisitor());
   }
 
-  protected defaultResult(): _Elements {
+  protected defaultResult(): Elements {
     return unimpl();
   }
 }

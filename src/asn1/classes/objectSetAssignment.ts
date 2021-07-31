@@ -10,10 +10,12 @@ import {
   drawBorder,
 } from '../../common/spreadsheet';
 import { BorderTop } from '../../common/spreadsheet/style';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { HEADER_LIST, HEADER_NAME_BASE } from '../formatter/spreadsheet';
 
 import { DefinedObjectClass } from './asnType';
 import { Modules } from './modules';
+import { ObjectClassReference } from './objectClassReference';
 import { ObjectSet } from './objectSet';
 
 /**
@@ -27,7 +29,7 @@ export class ObjectSetAssignment {
   public definedObjectClass: DefinedObjectClass;
   public objectSet: ObjectSet;
 
-  private objectSetAssignmentTag: undefined;
+  public objectSetAssignmentTag = true;
 
   constructor(
     name: string,
@@ -37,6 +39,24 @@ export class ObjectSetAssignment {
     this.name = name;
     this.definedObjectClass = definedObjectClass;
     this.objectSet = objectSet;
+  }
+
+  public static fromObject(obj: unknown): ObjectSetAssignment {
+    const {
+      name: nameObject,
+      definedObjectClass: definedObjectClassObject,
+      objectSet: objectSetObject,
+      objectSetAssignmentTag,
+    } = obj as ObjectSetAssignment;
+    if (!objectSetAssignmentTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (typeof nameObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const definedObjectClass = ObjectClassReference.fromObject(definedObjectClassObject);
+    const objectSet = ObjectSet.fromObject(objectSetObject);
+    return new ObjectSetAssignment(nameObject, definedObjectClass, objectSet);
   }
 
   /**

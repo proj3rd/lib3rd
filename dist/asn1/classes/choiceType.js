@@ -4,11 +4,30 @@ exports.ChoiceType = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const rootChoiceComponents_1 = require("../types/rootChoiceComponents");
 class ChoiceType {
     constructor(components) {
+        this.choiceTypeTag = true;
         this.components = components;
+    }
+    static fromObject(obj) {
+        const { components: componentsObject, reference: referenceObject, choiceTypeTag, } = obj;
+        if (!choiceTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(componentsObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const components = componentsObject.map((item) => rootChoiceComponents_1.RootChoiceComponentsFromObject(item));
+        const choiceType = new ChoiceType(components);
+        choiceType.reference = referenceObject;
+        return choiceType;
     }
     /**
      * Expand `components` property. This will mutate the object itself.

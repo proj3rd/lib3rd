@@ -2,10 +2,27 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValueReference = void 0;
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
 class ValueReference {
     constructor(valueReference) {
+        this.valueReferenceTag = true;
         this.valueReference = valueReference;
+    }
+    static fromObject(obj) {
+        const { valueReference: valueReferenceObject, reference: referenceObject, valueReferenceTag, } = obj;
+        if (!valueReferenceTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (typeof valueReferenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const valueReference = new ValueReference(valueReferenceObject);
+        valueReference.reference = referenceObject;
+        return valueReference;
     }
     // eslint-disable-next-line no-unused-vars
     expand(modules, parameterMappings) {

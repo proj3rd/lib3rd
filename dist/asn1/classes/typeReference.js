@@ -4,7 +4,9 @@ exports.TypeReference = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const constraint_1 = require("./constraint");
 const contentsConstraint_1 = require("./contentsConstraint");
 const innerTypeConstraints_1 = require("./innerTypeConstraints");
 const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
@@ -12,7 +14,21 @@ const typeAssignment_1 = require("./typeAssignment");
 const valueAssignment_1 = require("./valueAssignment");
 class TypeReference {
     constructor(typeReference) {
+        this.typeReferenceTag = true;
         this.typeReference = typeReference;
+    }
+    static fromObject(obj) {
+        const { typeReference: typeReferenceObject, constraint: constraintObj, typeReferenceTag } = obj;
+        if (!typeReferenceTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!typeReferenceObject || typeof typeReferenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const constraint = constraintObj ? constraint_1.Constraint.fromObject(constraintObj) : undefined;
+        const typeReference = new TypeReference(typeReferenceObject);
+        typeReference.constraint = constraint;
+        return typeReference;
     }
     /**
      * Expand `typeReference` property.
@@ -30,8 +46,8 @@ class TypeReference {
                 return this;
             }
             if (referencedAssignment instanceof typeAssignment_1.TypeAssignment) {
-                const { asnType } = referencedAssignment;
-                const expandedType = lodash_1.cloneDeep(asnType).expand(modules, []);
+                const asnType = lodash_1.cloneDeep(referencedAssignment.asnType);
+                const expandedType = lodash_1.cloneDeep(lodash_1.cloneDeep(asnType).expand(modules, []));
                 if (lodash_1.isEqual(expandedType, asnType)) {
                     asnType.reference = this.toString();
                     return asnType;
@@ -52,14 +68,14 @@ class TypeReference {
         }
         else {
             // A case that typeReference shall be substituted with an actualParameter.
-            const { actualParameter } = parameterMapping;
+            const actualParameter = lodash_1.cloneDeep(parameterMapping.actualParameter);
             if (actualParameter instanceof TypeReference) {
-                const expandedType = lodash_1.cloneDeep(actualParameter).expand(modules, []);
+                const expandedType = lodash_1.cloneDeep(lodash_1.cloneDeep(actualParameter).expand(modules, []));
                 if (lodash_1.isEqual(expandedType, actualParameter)) {
-                    actualParameter.reference = this.toString();
+                    // actualParameter.reference = this.toString();
                     return actualParameter;
                 }
-                expandedType.reference = this.toString();
+                expandedType.reference = actualParameter.toString();
                 return expandedType;
             }
             return unimpl_1.unimpl(actualParameter.constructor.name);

@@ -5,6 +5,7 @@ const lodash_1 = require("lodash");
 const spreadsheet_1 = require("../../asn1/formatter/spreadsheet");
 const spreadsheet_2 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
+const constants_1 = require("../constants");
 const parse_1 = require("../parse");
 const conditions_1 = require("./conditions");
 const rangeBounds_1 = require("./rangeBounds");
@@ -86,6 +87,37 @@ class Definition {
         this.elementList = elementList;
         this.rangeBounds = new rangeBounds_1.RangeBounds(rangeBoundList);
         this.conditions = new conditions_1.Conditions(conditionList);
+    }
+    static fromObject(obj) {
+        const { sectionNumber, name, descriptionList: descriptionListObj, direction, elementList: elementListObj, rangeBounds: rangeBoundsObj, conditions: conditionsObj, } = obj;
+        if (!sectionNumber || typeof sectionNumber !== 'string') {
+            throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+        }
+        if (!name || typeof name !== 'string') {
+            throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+        }
+        const descriptionList = descriptionListObj.map((descriptionObj) => {
+            if (typeof descriptionObj !== 'string') {
+                throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+            }
+            ;
+            return descriptionObj;
+        });
+        if (typeof direction !== 'string') {
+            throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+        }
+        if (!(elementListObj instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+        }
+        const { rangeBoundList } = rangeBoundsObj;
+        if (!rangeBoundList) {
+            throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+        }
+        const { conditionList } = conditionsObj;
+        if (!conditionList) {
+            throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
+        }
+        return new Definition({ sectionNumber, name, descriptionList, direction, elementList: elementListObj, rangeBoundList, conditionList });
     }
     /**
      * Expand `elementList`, `rangeBounds` and `condition`. This will mutate the object itself.

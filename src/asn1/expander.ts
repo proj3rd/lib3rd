@@ -1,5 +1,5 @@
 import { Parameter } from './classes/parameter';
-import { ActualParameter } from './classes/parameterizedType';
+import { ActualParameter } from './types/actualParamter';
 
 /**
  * Indicates mapping between a {@link Parameter | parameter} and

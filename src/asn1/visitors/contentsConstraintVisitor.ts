@@ -1,16 +1,16 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { AsnType } from '../classes/asnType';
-import { _GeneralConstraint } from '../types';
 import { ContentsConstraint } from '../classes/contentsConstraint';
 import { InnerTypeConstraints } from '../classes/innerTypeConstraints';
-import { Value } from '../classes/value';
 import { ContentsConstraintContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { ComponentPresenceListsVisitor } from './componentPresenceListsVisitor';
 import { ValueVisitor } from './valueVisitor';
+import { AsnType } from '../types/asnType';
+import { Value } from '../types/value';
+import { GeneralConstraint } from '../types/generalConstraint';
 
 /**
  * # Grammar
@@ -23,9 +23,9 @@ import { ValueVisitor } from './valueVisitor';
  * ```
  */
 export class ContentsConstraintVisitor
-  extends AbstractParseTreeVisitor<_GeneralConstraint>
-  implements grammar3rdVisitor<_GeneralConstraint> {
-  public visitChildren(ctx: ContentsConstraintContext): _GeneralConstraint {
+  extends AbstractParseTreeVisitor<GeneralConstraint>
+  implements grammar3rdVisitor<GeneralConstraint> {
+  public visitChildren(ctx: ContentsConstraintContext): GeneralConstraint {
     const asnTypeCtx = ctx.asnType();
     let asnType: AsnType | undefined;
     if (asnTypeCtx !== undefined) {
@@ -49,7 +49,7 @@ export class ContentsConstraintVisitor
     return new ContentsConstraint(asnType, value);
   }
 
-  protected defaultResult(): _GeneralConstraint {
+  protected defaultResult(): GeneralConstraint {
     return unimpl();
   }
 }

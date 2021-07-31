@@ -6,8 +6,9 @@ import { Modules } from './modules';
 export declare class ExtensionAdditionGroup {
     version: number | undefined;
     components: ComponentType[];
-    private extensionAdditionGroupTag;
+    extensionAdditionGroupTag: boolean;
     constructor(version: number | undefined, components: ComponentType[]);
+    static fromObject(obj: unknown): ExtensionAdditionGroup;
     /**
      * Expand `components` property. This will mutate the object itself.
      * @param modules

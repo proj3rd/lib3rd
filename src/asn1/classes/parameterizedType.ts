@@ -2,9 +2,11 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl, unreach } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { HEADER_REFERENCE } from '../formatter/spreadsheet';
-import { AsnType, DefinedObjectClass } from './asnType';
+import { ActualParameter, ActualParameterFromObject } from '../types/actualParamter';
+import { AsnType } from '../types/asnType';
 import { Constraint } from './constraint';
 import { ExternalTypeReference } from './externalTypeReference';
 import { Modules } from './modules';
@@ -15,10 +17,7 @@ import { ObjectSetAssignment } from './objectSetAssignment';
 import { ParameterizedTypeAssignment } from './parameterizedTypeAssignment';
 import { TypeAssignment } from './typeAssignment';
 import { TypeReference } from './typeReference';
-import { Value } from './value';
 import { ValueAssignment } from './valueAssignment';
-
-export type ActualParameter = AsnType | Value | DefinedObjectClass | ObjectSet;
 
 export class ParameterizedType {
   public simpleDefinedType: TypeReference | ExternalTypeReference;
@@ -26,7 +25,7 @@ export class ParameterizedType {
 
   public reference: string | undefined;
 
-  private paramterizedTypeTag: undefined;
+  public paramterizedTypeTag = true;
 
   constructor(
     simpleDefinedType: TypeReference | ExternalTypeReference,
@@ -34,6 +33,34 @@ export class ParameterizedType {
   ) {
     this.simpleDefinedType = simpleDefinedType;
     this.actualParameters = actualParameters;
+  }
+
+  public static fromObject(obj: unknown): ParameterizedType {
+    const {
+      simpleDefinedType: simpleDefinedTypeObj,
+      actualParameters: actualParametersObj,
+      reference: referenceObj,
+      paramterizedTypeTag,
+    } = obj as ParameterizedType;
+    if (!paramterizedTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const { typeReferenceTag } = simpleDefinedTypeObj as TypeReference;
+    const { externalTypeReferenceTag } = simpleDefinedTypeObj as ExternalTypeReference;
+    if (typeReferenceTag === externalTypeReferenceTag) { // (true, true) OR (undefined, undefined)
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const simpleDefinedType = typeReferenceTag ? TypeReference.fromObject(simpleDefinedTypeObj) : ExternalTypeReference.fromObject(simpleDefinedTypeObj);
+    if (!(actualParametersObj instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const actualParameters = actualParametersObj.map((item) => ActualParameterFromObject(item));
+    if (referenceObj && typeof referenceObj !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const parameterizedType = new ParameterizedType(simpleDefinedType, actualParameters);
+    parameterizedType.reference = referenceObj;
+    return parameterizedType;
   }
 
   /**

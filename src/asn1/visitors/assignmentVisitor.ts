@@ -8,7 +8,7 @@ import { TypeAssignment } from '../classes/typeAssignment';
 import { ValueAssignment } from '../classes/valueAssignment';
 import { AssignmentContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { Assignment } from '../types';
+import { Assignment } from '../types/assignment';
 import { ObjectClassAssignmentVisitor } from './objectClassAssignmentVisitor';
 import { ParameterizedAssignmentVisitor } from './parameterizedAssignmentVisitor';
 import { TypeAssignmentVisitor } from './typeAssignmentVisitor';

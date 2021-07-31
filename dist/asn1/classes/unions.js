@@ -4,7 +4,9 @@ exports.Unions = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const intersections_1 = require("../types/intersections");
 const booleanValue_1 = require("./booleanValue");
 const externalObjectSetReference_1 = require("./externalObjectSetReference");
 const integerValue_1 = require("./integerValue");
@@ -15,7 +17,19 @@ const valueRange_1 = require("./valueRange");
 const valueReference_1 = require("./valueReference");
 class Unions {
     constructor(intersections) {
+        this.unionsTag = true;
         this.intersectionsList = intersections;
+    }
+    static fromObject(obj) {
+        const { intersectionsList: intersectionsListObject, unionsTag } = obj;
+        if (!unionsTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(intersectionsListObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const intersectionList = intersectionsListObject.map((item) => intersections_1.IntersectionsFromObject(item));
+        return new Unions(intersectionList);
     }
     /**
      * Expand `intersectionsList` property. This will mutate the object itself.

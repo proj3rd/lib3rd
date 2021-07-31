@@ -3,9 +3,10 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { HEADER_REFERENCE } from '../formatter/spreadsheet';
-import { AsnType } from './asnType';
+import { AsnType } from '../types/asnType';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
 import { InnerTypeConstraints } from './innerTypeConstraints';
@@ -21,10 +22,24 @@ export class TypeReference {
 
   public reference: string | undefined;
 
-  private typeReferenceTag: undefined;
+  public typeReferenceTag = true;
 
   constructor(typeReference: string) {
     this.typeReference = typeReference;
+  }
+
+  public static fromObject(obj: unknown) {
+    const { typeReference: typeReferenceObject, constraint: constraintObj, typeReferenceTag } = obj as TypeReference;
+    if (!typeReferenceTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!typeReferenceObject || typeof typeReferenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const constraint = constraintObj ? Constraint.fromObject(constraintObj) : undefined;
+    const typeReference = new TypeReference(typeReferenceObject);
+    typeReference.constraint = constraint;
+    return typeReference;
   }
 
   /**
@@ -69,10 +84,10 @@ export class TypeReference {
       if (actualParameter instanceof TypeReference) {
         const expandedType = cloneDeep(cloneDeep(actualParameter).expand(modules, []));
         if (isEqual(expandedType, actualParameter)) {
-          actualParameter.reference = this.toString();
+          // actualParameter.reference = this.toString();
           return actualParameter;
         }
-        expandedType.reference = this.toString();
+        expandedType.reference = actualParameter.toString();
         return expandedType;
       }
       return unimpl(actualParameter.constructor.name);

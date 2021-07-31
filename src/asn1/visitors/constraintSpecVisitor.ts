@@ -1,13 +1,13 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _ConstraintSpec } from '../types';
 import {
   ConstraintSpecContext,
   GeneralConstraintContext,
   SubtypeConstraintContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { ConstraintSpec } from '../types/constraintSpec';
 import { GeneralConstraintVisitor } from './generalConstraintVisitor';
 import { SubtypeConstraintVisitor } from './subtypeConstraintVisitor';
 
@@ -18,9 +18,9 @@ import { SubtypeConstraintVisitor } from './subtypeConstraintVisitor';
  * ```
  */
 export class ConstraintSpecVisitor
-  extends AbstractParseTreeVisitor<_ConstraintSpec>
-  implements grammar3rdVisitor<_ConstraintSpec> {
-  public visitChildren(ctx: ConstraintSpecContext): _ConstraintSpec {
+  extends AbstractParseTreeVisitor<ConstraintSpec>
+  implements grammar3rdVisitor<ConstraintSpec> {
+  public visitChildren(ctx: ConstraintSpecContext): ConstraintSpec {
     const childCtx = ctx.getChild(0);
     if (childCtx instanceof GeneralConstraintContext) {
       return childCtx.accept(new GeneralConstraintVisitor());
@@ -30,7 +30,7 @@ export class ConstraintSpecVisitor
     throw Error();
   }
 
-  protected defaultResult(): _ConstraintSpec {
+  protected defaultResult(): ConstraintSpec {
     return unimpl();
   }
 }

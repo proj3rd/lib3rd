@@ -1,24 +1,40 @@
 import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
-import { INamedNumber } from '../types';
+import { EnumerationItem, EnumerationItemFromObject } from '../types/enumerationItem';
 import { Constraint } from './constraint';
 import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
-
-export type EnumerationItem = string | INamedNumber | ExtensionMarker;
 
 export class EnumeratedType {
   public items: EnumerationItem[];
 
   public reference: string | undefined;
 
-  private enumeratedTypeTag: undefined;
+  public enumeratedTypeTag = true;
 
   constructor(items: EnumerationItem[]) {
     this.items = items;
+  }
+
+  public static fromObject(obj: unknown): EnumeratedType {
+    const { items: itemsObject, reference: referenceObject, enumeratedTypeTag } = obj as EnumeratedType;
+    if (!enumeratedTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(itemsObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const items = itemsObject.map((item) => EnumerationItemFromObject(item));
+    const enumeratedType = new EnumeratedType(items);
+    enumeratedType.reference = referenceObject;
+    return enumeratedType;
   }
 
   // eslint-disable-next-line no-unused-vars

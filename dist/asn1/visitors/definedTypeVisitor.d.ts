@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { DefinedType } from '../classes/asnType';
 import { DefinedTypeContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { DefinedType } from '../types/definedType';
 /**
  * # Grammar
  * ```

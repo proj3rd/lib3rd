@@ -1,13 +1,14 @@
 import { Workbook } from 'exceljs';
-import { AsnType } from './asnType';
+import { AsnType } from '../types/asnType';
 import { Modules } from './modules';
 import { Parameter } from './parameter';
 export declare class ParameterizedTypeAssignment {
     name: string;
     parameters: Parameter[];
     asnType: AsnType;
-    private parameterizedTypeAssignmentTag;
+    parameterizedTypeAssignmentTag: boolean;
     constructor(name: string, parameters: Parameter[], asnType: AsnType);
+    static fromObject(obj: unknown): ParameterizedTypeAssignment;
     /**
      * Expand `asnType` property. This will mutate the object itself.
      * @param modules

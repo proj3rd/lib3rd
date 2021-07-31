@@ -1,4 +1,5 @@
-import $ from 'cheerio';
+import cheerio from 'cheerio';
+const $ = cheerio;
 import { readFileSync } from 'fs';
 import { cloneDeep } from 'lodash';
 import { Definition } from './classes/definition';
@@ -59,7 +60,7 @@ function normalizeHtmlText(text: string) {
 }
 
 // eslint-disable-next-line no-undef
-function matchColumnsPerRow(trElement: CheerioElement, columnList: string[]): boolean {
+function matchColumnsPerRow(trElement: cheerio.Element, columnList: string[]): boolean {
   const tdList = $('td', trElement);
   return (
     tdList.length >= columnList.length
@@ -71,14 +72,14 @@ function matchColumnsPerRow(trElement: CheerioElement, columnList: string[]): bo
 }
 
 // eslint-disable-next-line no-undef
-function matchColumns(element: CheerioElement, columnList: string[]): boolean {
+function matchColumns(element: cheerio.Element, columnList: string[]): boolean {
   const trList = $('tr', element);
   const trHeader = trList[0];
   return matchColumnsPerRow(trHeader, columnList);
 }
 
 // eslint-disable-next-line no-undef
-function isConditionTable(element: CheerioElement): boolean {
+function isConditionTable(element: cheerio.Element): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
   }
@@ -86,7 +87,7 @@ function isConditionTable(element: CheerioElement): boolean {
 }
 
 // eslint-disable-next-line no-undef
-function isDefinitionTable(element: CheerioElement): boolean {
+function isDefinitionTable(element: cheerio.Element): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
   }
@@ -94,7 +95,7 @@ function isDefinitionTable(element: CheerioElement): boolean {
 }
 
 // eslint-disable-next-line no-undef
-function getDirection(element: CheerioElement): string | null {
+function getDirection(element: cheerio.Element): string | null {
   if (element.type !== 'tag' || element.name !== 'p') {
     return null;
   }
@@ -107,12 +108,12 @@ function getDirection(element: CheerioElement): string | null {
 }
 
 // eslint-disable-next-line no-undef
-function isParagraph(element: CheerioElement): boolean {
+function isParagraph(element: cheerio.Element): boolean {
   return element.type === 'tag' && element.name === 'p';
 }
 
 // eslint-disable-next-line no-undef
-function isRangeTable(element: CheerioElement): boolean {
+function isRangeTable(element: cheerio.Element): boolean {
   if (element.type !== 'tag' || element.name !== 'table') {
     return false;
   }
@@ -121,7 +122,7 @@ function isRangeTable(element: CheerioElement): boolean {
 
 function getSectionInfo(
   // eslint-disable-next-line no-undef
-  element: CheerioElement,
+  element: cheerio.Element,
 ): { sectionNumber: string; title: string } | null {
   const sectionTagList = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
   if (element.type !== 'tag' || !sectionTagList.includes(element.name)) {
@@ -137,7 +138,7 @@ function getSectionInfo(
 }
 
 // eslint-disable-next-line no-undef
-function parseConditionTrList(trList: CheerioElement[]): ICondition[] {
+function parseConditionTrList(trList: cheerio.Element[]): ICondition[] {
   const conditionList: ICondition[] = [];
   trList.forEach((trElement) => {
     const tdList = $('td', trElement);
@@ -167,7 +168,7 @@ function parseConditionTrList(trList: CheerioElement[]): ICondition[] {
 }
 
 // eslint-disable-next-line no-undef
-function parseRangeTrList(trList: CheerioElement[]) {
+function parseRangeTrList(trList: cheerio.Element[]) {
   const rangeBoundList: IRangeBound[] = [];
   trList.forEach((trElement) => {
     const tdList = $('td', trElement);
@@ -197,7 +198,7 @@ function parseRangeTrList(trList: CheerioElement[]) {
 }
 
 // eslint-disable-next-line no-undef
-function parseDefinitionTable(element: CheerioElement): {
+function parseDefinitionTable(element: cheerio.Element): {
   ieList: IInformationElement[],
   conditionList: ICondition[],
   rangeBoundList: IRangeBound[],
@@ -277,14 +278,14 @@ function parseDefinitionTable(element: CheerioElement): {
 }
 
 // eslint-disable-next-line no-undef
-function parseRangeTable(element: CheerioElement): IRangeBound[] {
+function parseRangeTable(element: cheerio.Element): IRangeBound[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1).toArray();
   return parseRangeTrList(trBodyList);
 }
 
 // eslint-disable-next-line no-undef
-function parseConditionTable(element: CheerioElement): ICondition[] {
+function parseConditionTable(element: cheerio.Element): ICondition[] {
   const trList = $('tr', element);
   const trBodyList = trList.slice(1).toArray();
   return parseConditionTrList(trBodyList);
@@ -294,7 +295,7 @@ export function parse(html: string): Definitions {
   // Break down the document into elements and put them into the list
   // The last element shall be put into the list first and popped from it last
   // eslint-disable-next-line no-undef
-  const elementList: CheerioElement[] = $(normalize(html))
+  const elementList: cheerio.Element[] = $(normalize(html))
     .map((index, element) => element)
     .get()
     .reverse();

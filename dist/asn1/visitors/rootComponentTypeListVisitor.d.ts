@@ -1,7 +1,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { RootSequenceComponents } from '../classes/sequenceType';
 import { RootComponentTypeListContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { RootSequenceComponents } from '../types/rootSequenceComponents';
 /**
  * # Grammar
  * ```

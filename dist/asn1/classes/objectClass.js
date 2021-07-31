@@ -4,10 +4,11 @@ exports.ObjectClassDefinition = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const formatter_1 = require("../formatter");
 const spreadsheet_2 = require("../formatter/spreadsheet");
-// | VariableTypeFieldSpec // VariableTypeValue[Set]FieldSpec
-// | ObjectFieldSpec // Object[Set]FieldSpec
+const fieldSpec_1 = require("../types/fieldSpec");
+const syntax_1 = require("./syntax");
 /**
  * X.681 clause 9.3
  * ```
@@ -16,8 +17,29 @@ const spreadsheet_2 = require("../formatter/spreadsheet");
  */
 class ObjectClassDefinition {
     constructor(fieldSpecs, syntaxList) {
+        this.objectClassDefinitionTag = true;
         this.fieldSpecs = fieldSpecs;
         this.syntaxList = syntaxList;
+    }
+    static fromObject(obj) {
+        const { fieldSpecs: fieldSpecsObject, syntaxList: syntaxListObject, reference: referenceObject, objectClassDefinitionTag, } = obj;
+        if (!objectClassDefinitionTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(fieldSpecsObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(syntaxListObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const fieldSpecs = fieldSpecsObject.map((item) => fieldSpec_1.FieldSpecFromObject(item));
+        const syntaxList = syntaxListObject.map((item) => syntax_1.Syntax.fromObject(item));
+        const objectClassDefinition = new ObjectClassDefinition(fieldSpecs, syntaxList);
+        objectClassDefinition.reference = referenceObject;
+        return objectClassDefinition;
     }
     /**
      * Expand `fieldSpecs` property. This will mutate the object itself.

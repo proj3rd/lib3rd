@@ -2,7 +2,7 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { AssignmentListContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { Assignment } from '../types';
+import { Assignment } from '../types/assignment';
 import { AssignmentVisitor } from './assignmentVisitor';
 
 /**

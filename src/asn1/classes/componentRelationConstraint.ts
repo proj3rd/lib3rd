@@ -1,4 +1,5 @@
-import { DefinedObjectSet } from '../types';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
+import { DefinedObjectSet, DefinedObjectSetFromObject } from '../types/definedObjectSet';
 import { AtNotation } from './atNotation';
 
 /**
@@ -11,7 +12,7 @@ export class ComponentRelationConstraint {
   public definedObjectSet: DefinedObjectSet;
   public atNotations: AtNotation[];
 
-  private componentRelationConstraintTag: undefined;
+  public componentRelationConstraintTag = true;
 
   constructor(
     definedObjectSet: DefinedObjectSet,
@@ -20,6 +21,24 @@ export class ComponentRelationConstraint {
     this.definedObjectSet = definedObjectSet;
     this.atNotations = atNotations;
   }
+
+  public static fromObject(obj: unknown): ComponentRelationConstraint {
+    const {
+      definedObjectSet: definedObjectSetObj,
+      atNotations: atNotationsObj,
+      componentRelationConstraintTag,
+    } = obj as ComponentRelationConstraint;
+    if (!componentRelationConstraintTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const definedObjectSet = DefinedObjectSetFromObject(definedObjectSetObj);
+    if (!(atNotationsObj instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const atNotations = atNotationsObj.map((item) => AtNotation.fromObject(item));
+    return new ComponentRelationConstraint(definedObjectSet, atNotations);
+  }
+
   public toString(): string {
     if (this.atNotations.length === 0) {
       return `{${this.definedObjectSet.toString()}}`;

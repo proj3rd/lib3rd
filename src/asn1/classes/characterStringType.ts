@@ -1,6 +1,7 @@
 import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
@@ -39,10 +40,35 @@ export class CharacterStringType {
 
   public reference: string | undefined;
 
-  private characterStringTypeTag: undefined;
+  public characterStringTypeTag = true;
 
   constructor(characterStringTypeLiteral: CharacterStringTypeLiteral) {
     this.characterStringTypeLiteral = characterStringTypeLiteral;
+  }
+
+  public static fromObject(obj: unknown) {
+    const {
+      characterStringTypeLiteral: characterStringTypeLiteralObject,
+      constraint: constraintObject,
+      reference: referenceObject,
+      characterStringTypeTag,
+    } = obj as CharacterStringType;
+    if (!characterStringTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!characterStringTypeLiteralObject
+        || typeof characterStringTypeLiteralObject !== 'string'
+    ) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const constraint = constraintObject ? Constraint.fromObject(constraintObject) : undefined;
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const octetStringType = new CharacterStringType(characterStringTypeLiteralObject);
+    octetStringType.constraint = constraint;
+    octetStringType.reference = referenceObject;
+    return octetStringType;
   }
 
   public expand(

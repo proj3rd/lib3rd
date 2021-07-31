@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { ReferencedType } from '../classes/asnType';
 import { TypeReference } from '../classes/typeReference';
 import { ReferencedTypeContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { ReferencedType } from '../types/referencedType';
 import { DefinedTypeVisitor } from './definedTypeVisitor';
 
 /**

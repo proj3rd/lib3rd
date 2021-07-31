@@ -6,7 +6,7 @@ import { ExternalObjectSetReference } from '../classes/externalObjectSetReferenc
 import { ObjectSetReference } from '../classes/objectSetReference';
 import { ComponentRelationConstraintContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { DefinedObjectSet } from '../types';
+import { DefinedObjectSet } from '../types/definedObjectSet';
 import { AtNotationVisitor } from './atNotationVisitor';
 
 /**

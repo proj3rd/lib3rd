@@ -1,5 +1,5 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { BuiltinValue } from '../classes/value';
+import { BuiltinValue } from '../types/builtinValue';
 import { BuiltinValueContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 /**

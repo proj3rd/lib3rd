@@ -1,7 +1,8 @@
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { cloneDeep } from 'lodash';
 import { parse as parsePath } from 'path';
 import yargs from 'yargs';
+import { Definitions } from './classes/definitions';
 import { parse } from './parse';
 
 export { parse };
@@ -52,6 +53,30 @@ if (require.main === module) {
         const html = readFileSync(file, 'utf8');
         const parsed = parse(html);
         process.stdout.write(JSON.stringify(parsed, null, 2));
+      },
+    })
+    .command({
+      command: 'serialize <file>',
+      handler: (args) => {
+        const { file } = args;
+        if (typeof file !== 'string') {
+          throw Error();
+        }
+        const html = readFileSync(file, 'utf8');
+        const parsed = parse(html);
+        writeFileSync(`${file}.json`, JSON.stringify(parsed));
+      },
+    })
+    .command({
+      command: 'deserialize <file>',
+      handler: (args) => {
+        const { file } = args;
+        if (typeof file !== 'string') {
+          throw Error();
+        }
+        const serialized = readFileSync(file, 'utf8');
+        const obj = JSON.parse(serialized);
+        Definitions.fromObject(obj);
       },
     });
 }

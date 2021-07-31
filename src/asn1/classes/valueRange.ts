@@ -1,23 +1,34 @@
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
+import { Value, ValueFromObject } from '../types/value';
 import { BooleanValue } from './booleanValue';
 import { IntegerValue } from './integerValue';
 import { Modules } from './modules';
 import { ObjectIdentifierValue } from './objectIdentifierValue';
 import { TypeReference } from './typeReference';
-import { Value } from './value';
 import { ValueReference } from './valueReference';
 
 export class ValueRange {
   public lower: Value;
   public upper: Value;
 
-  private valueRangeTag: undefined;
+  public valueRangeTag = true;
 
   constructor(lower: Value, upper: Value) {
     this.lower = lower;
     this.upper = upper;
+  }
+
+  public static fromObject(obj: unknown): ValueRange {
+    const { lower: lowerObject, upper: upperObject, valueRangeTag } = obj as ValueRange;
+    if (!valueRangeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const lower = ValueFromObject(lowerObject);
+    const upper = ValueFromObject(upperObject);
+    return new ValueRange(lower, upper);
   }
 
   /**

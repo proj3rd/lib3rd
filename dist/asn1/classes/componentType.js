@@ -4,11 +4,16 @@ exports.ComponentType = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const asnType_1 = require("../types/asnType");
+const namedType_1 = require("./namedType");
 const objectSet_1 = require("./objectSet");
+const optionality_1 = require("./optionality");
 const sequenceType_1 = require("./sequenceType");
 class ComponentType {
     constructor(namedType, optionality, tag) {
+        this.componentTypeTag = true;
         const { name, asnType } = namedType;
         this.name = name;
         this.asnType = asnType;
@@ -17,6 +22,19 @@ class ComponentType {
         if (asnType instanceof objectSet_1.ObjectSet) {
             return unimpl_1.unimpl('ObjectSet cannot be used in instantiating but expanding ComponentType');
         }
+    }
+    static fromObject(obj) {
+        const { name, asnType: asnTypeObject, optionality: optionalityObject, tag, componentTypeTag, } = obj;
+        if (!name || typeof name !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (typeof tag !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const asnType = asnType_1.AsnTypeFromObject(asnTypeObject);
+        const namedType = new namedType_1.NamedType(name, asnType);
+        const optionality = optionalityObject ? optionality_1.Optionality.fromObject(optionalityObject) : undefined;
+        return new ComponentType(namedType, optionality, tag);
     }
     /**
      * Expand `asnType` property. This will mutate the object itself.

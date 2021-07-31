@@ -4,7 +4,7 @@ import { unimpl } from 'unimpl';
 import { BitStringType } from '../classes/bitStringType';
 import { BitStringTypeContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { INamedBit } from '../types';
+import { INamedBit } from '../types/namedBit';
 import { NamedBitListVisitor } from './namedBitListVisitor';
 
 /**

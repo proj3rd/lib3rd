@@ -14,6 +14,7 @@ export declare class Definition {
     rangeBounds: RangeBounds;
     conditions: Conditions;
     constructor(definition: IDefinition);
+    static fromObject(obj: unknown): Definition;
     /**
      * Expand `elementList`, `rangeBounds` and `condition`. This will mutate the object itself.
      */

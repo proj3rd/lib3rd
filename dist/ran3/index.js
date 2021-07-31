@@ -8,6 +8,7 @@ const fs_1 = require("fs");
 const lodash_1 = require("lodash");
 const path_1 = require("path");
 const yargs_1 = __importDefault(require("yargs"));
+const definitions_1 = require("./classes/definitions");
 const parse_1 = require("./parse");
 Object.defineProperty(exports, "parse", { enumerable: true, get: function () { return parse_1.parse; } });
 if (require.main === module) {
@@ -54,6 +55,30 @@ if (require.main === module) {
             const html = fs_1.readFileSync(file, 'utf8');
             const parsed = parse_1.parse(html);
             process.stdout.write(JSON.stringify(parsed, null, 2));
+        },
+    })
+        .command({
+        command: 'serialize <file>',
+        handler: (args) => {
+            const { file } = args;
+            if (typeof file !== 'string') {
+                throw Error();
+            }
+            const html = fs_1.readFileSync(file, 'utf8');
+            const parsed = parse_1.parse(html);
+            fs_1.writeFileSync(`${file}.json`, JSON.stringify(parsed));
+        },
+    })
+        .command({
+        command: 'deserialize <file>',
+        handler: (args) => {
+            const { file } = args;
+            if (typeof file !== 'string') {
+                throw Error();
+            }
+            const serialized = fs_1.readFileSync(file, 'utf8');
+            const obj = JSON.parse(serialized);
+            definitions_1.Definitions.fromObject(obj);
         },
     });
 }

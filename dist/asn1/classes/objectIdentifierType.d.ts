@@ -4,8 +4,9 @@ import { IParameterMapping } from '../expander';
 import { Constraint } from './constraint';
 import { Modules } from './modules';
 export declare class ObjectIdentifierType {
-    private objectIdentifierTypeTag;
+    objectIdentifierTypeTag: boolean;
     reference: string | undefined;
+    static fromObject(obj: unknown): ObjectIdentifierType;
     expand(modules: Modules, parameterMappings: IParameterMapping[]): ObjectIdentifierType;
     getDepth(): number;
     setConstraints(constraints: Constraint[]): void;

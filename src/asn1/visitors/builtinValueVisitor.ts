@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { BuiltinValue } from '../classes/value';
+import { BuiltinValue } from '../types/builtinValue';
 import {
   BooleanValueContext,
   BuiltinValueContext,

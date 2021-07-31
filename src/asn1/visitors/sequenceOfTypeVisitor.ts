@@ -1,13 +1,13 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { AsnType } from '../classes/asnType';
 import { Constraint } from '../classes/constraint';
 import { NamedType } from '../classes/namedType';
 import { NullType } from '../classes/nullType';
 import { SequenceOfType } from '../classes/sequenceOfType';
 import { SequenceOfTypeContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { AsnType } from '../types/asnType';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { NamedTypeVisitor } from './namedTypeVisitor';
 import { SizeConstraintVisitor } from './sizeConstraintVisitor';

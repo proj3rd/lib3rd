@@ -1,20 +1,20 @@
 import { Worksheet } from 'exceljs';
 import { IRowInput } from '../../common/spreadsheet';
 import { IParameterMapping } from '../expander';
-import { AsnType, DefinedObjectClass } from './asnType';
+import { ActualParameter } from '../types/actualParamter';
+import { AsnType } from '../types/asnType';
 import { Constraint } from './constraint';
 import { ExternalTypeReference } from './externalTypeReference';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
 import { TypeReference } from './typeReference';
-import { Value } from './value';
-export declare type ActualParameter = AsnType | Value | DefinedObjectClass | ObjectSet;
 export declare class ParameterizedType {
     simpleDefinedType: TypeReference | ExternalTypeReference;
     actualParameters: ActualParameter[];
     reference: string | undefined;
-    private paramterizedTypeTag;
+    paramterizedTypeTag: boolean;
     constructor(simpleDefinedType: TypeReference | ExternalTypeReference, actualParameters: ActualParameter[]);
+    static fromObject(obj: unknown): ParameterizedType;
     /**
      * Expand the parameterized type.
      * @param modules

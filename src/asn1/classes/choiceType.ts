@@ -2,29 +2,46 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
+import { RootChoiceComponents, RootChoiceComponentsFromObject } from '../types/rootChoiceComponents';
 import { Constraint } from './constraint';
 import { ExtensionAdditionAlternativeGroup } from './extensionAdditionAlternativeGroup';
-import { ExtensionMarker } from './extensionMarker';
 import { Modules } from './modules';
 import { NamedType } from './namedType';
-
-export type RootChoiceComponents =
-  | NamedType
-  | ExtensionMarker
-  | ExtensionAdditionAlternativeGroup;
 
 export class ChoiceType {
   public components: RootChoiceComponents[];
 
   public reference: string | undefined;
 
-  private choiceTypeTag: undefined;
+  public choiceTypeTag = true;
 
   constructor(components: RootChoiceComponents[]) {
     this.components = components;
+  }
+
+  public static fromObject(obj: unknown): ChoiceType {
+    const {
+      components: componentsObject,
+      reference: referenceObject,
+      choiceTypeTag,
+    } = obj as ChoiceType;
+    if (!choiceTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(componentsObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const components = componentsObject.map((item) => RootChoiceComponentsFromObject(item));
+    const choiceType = new ChoiceType(components);
+    choiceType.reference = referenceObject;
+    return choiceType;
   }
 
   /**

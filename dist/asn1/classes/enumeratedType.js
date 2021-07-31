@@ -3,11 +3,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EnumeratedType = void 0;
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const enumerationItem_1 = require("../types/enumerationItem");
 const extensionMarker_1 = require("./extensionMarker");
 class EnumeratedType {
     constructor(items) {
+        this.enumeratedTypeTag = true;
         this.items = items;
+    }
+    static fromObject(obj) {
+        const { items: itemsObject, reference: referenceObject, enumeratedTypeTag } = obj;
+        if (!enumeratedTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(itemsObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (referenceObject && typeof referenceObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const items = itemsObject.map((item) => enumerationItem_1.EnumerationItemFromObject(item));
+        const enumeratedType = new EnumeratedType(items);
+        enumeratedType.reference = referenceObject;
+        return enumeratedType;
     }
     // eslint-disable-next-line no-unused-vars
     expand(modules, parameterMappings) {

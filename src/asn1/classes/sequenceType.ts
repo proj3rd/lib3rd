@@ -3,9 +3,11 @@ import { cloneDeep, isEqual } from 'lodash';
 import { todo, unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { Logger } from '../../logger';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
+import { RootSequenceComponents, RootSequenceComponentsFromObject } from '../types/rootSequenceComponents';
 import { ComponentType } from './componentType';
 import { Constraint } from './constraint';
 import { ExtensionAdditionGroup } from './extensionAdditionGroup';
@@ -26,11 +28,6 @@ const logger = Logger.getLogger('asn1.class.SequenceType');
  * `toStringWithComma()`.
  */
 export const COMMA_PLACEHOLDER = '_COMMA_';
-
-export type RootSequenceComponents =
-  | ComponentType
-  | ExtensionMarker
-  | ExtensionAdditionGroup;
 
 export function toStringWithComma(
   component: RootSequenceComponents,
@@ -53,8 +50,31 @@ export class SequenceType {
 
   public reference: string | undefined;
 
+  public sequenceTypeTag = true;
+
   constructor(components: RootSequenceComponents[]) {
     this.components = components;
+  }
+
+  public static fromObject(obj: unknown): SequenceType{
+    const {
+      components: componentsObject,
+      reference: referenceObject,
+      sequenceTypeTag,
+    } = obj as SequenceType;
+    if (!sequenceTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(componentsObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const components = componentsObject.map((item) => RootSequenceComponentsFromObject(item));
+    const sequenceType = new SequenceType(components);
+    sequenceType.reference = referenceObject;
+    return sequenceType;
   }
 
   /**

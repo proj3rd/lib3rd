@@ -11,13 +11,33 @@ import { ExtensionMarker } from './extensionMarker';
 import { InnerTypeConstraints } from './innerTypeConstraints';
 import { Modules } from './modules';
 import { ObjectSet } from './objectSet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 
 export class OctetStringType {
   public constraint: Constraint | undefined;
 
   public reference: string | undefined;
 
-  private octetStringTypeTag: undefined;
+  public octetStringTypeTag = true;
+
+  public static fromObject(obj: unknown) {
+    const {
+      constraint: constraintObject,
+      reference: referenceObject,
+      octetStringTypeTag,
+    } = obj as OctetStringType;
+    if (!octetStringTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const constraint = constraintObject ? Constraint.fromObject(constraintObject) : undefined;
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const octetStringType = new OctetStringType();
+    octetStringType.constraint = constraint;
+    octetStringType.reference = referenceObject;
+    return octetStringType;
+  }
 
   public expand(
     modules: Modules,

@@ -1,9 +1,10 @@
 import { Worksheet } from 'exceljs';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
-import { INamedBit } from '../types';
+import { INamedBit, NamedBitFromObject } from '../types/namedBit';
 import { ComponentRelationConstraint } from './componentRelationConstraint';
 import { Constraint } from './constraint';
 import { ContentsConstraint } from './contentsConstraint';
@@ -19,10 +20,34 @@ export class BitStringType {
 
   public reference: string | undefined;
 
-  private bitStringTypeTag: undefined;
+  public bitStringTypeTag = true;
 
   constructor(namedBitList: INamedBit[] = []) {
     this.namedBitList = namedBitList;
+  }
+
+  public static fromObject(obj: unknown) {
+    const {
+      constraint: constraintObject,
+      namedBitList: namedBitListObject,
+      reference: referenceObject,
+      bitStringTypeTag,
+    } = obj as BitStringType;
+    if (!bitStringTypeTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const constraint = constraintObject ? Constraint.fromObject(constraintObject) : undefined;
+    if (!(namedBitListObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const namedBitList = namedBitListObject.map((item) => NamedBitFromObject(item));
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const bitStringType = new BitStringType(namedBitList);
+    bitStringType.constraint = constraint;
+    bitStringType.reference = referenceObject;
+    return bitStringType;
   }
 
   public expand(

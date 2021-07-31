@@ -3,7 +3,7 @@ import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor
 import { IntegerType } from '../classes/integerType';
 import { IntegerTypeContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { INamedNumber } from '../types';
+import { INamedNumber } from '../types/namedNumber';
 import { NamedNumberListVisitor } from './namedNumberListVisitor';
 
 /**

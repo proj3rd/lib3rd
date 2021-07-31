@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
-import { _SubtypeElements } from '../types';
 import { ValueRange } from '../classes/valueRange';
 import { SubtypeElementsContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { SubtypeElements } from '../types/subtypeElements';
 import { SizeConstraintVisitor } from './sizeConstraintVisitor';
 import { ValueVisitor } from './valueVisitor';
 
@@ -16,9 +16,9 @@ import { ValueVisitor } from './valueVisitor';
  *   | value
  */
 export class SubtypeElementsVisitor
-  extends AbstractParseTreeVisitor<_SubtypeElements>
-  implements grammar3rdVisitor<_SubtypeElements> {
-  public visitChildren(ctx: SubtypeElementsContext): _SubtypeElements {
+  extends AbstractParseTreeVisitor<SubtypeElements>
+  implements grammar3rdVisitor<SubtypeElements> {
+  public visitChildren(ctx: SubtypeElementsContext): SubtypeElements {
     const { childCount } = ctx;
     if (childCount === 1) {
       const sizeConstraintCtx = ctx.sizeConstraint();
@@ -48,7 +48,7 @@ export class SubtypeElementsVisitor
     throw Error();
   }
 
-  protected defaultResult(): _SubtypeElements {
+  protected defaultResult(): SubtypeElements {
     return unimpl();
   }
 }

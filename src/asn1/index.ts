@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { cloneDeep } from 'lodash';
 import { parse as parsePath } from 'path';
 import yargs from 'yargs';
+import { Modules } from './classes/modules';
 import { ValueAssignment } from './classes/valueAssignment';
 import { diff, renderDiff } from './diff';
 import { extract } from './extractor';
@@ -123,8 +124,9 @@ if (require.main === module) {
         ) {
           throw Error();
         }
+        const { ext } = parsePath(file);
         const text = readFileSync(file, 'utf8');
-        const parsed = parse(text);
+        const parsed = ext === '.json' ? Modules.fromObject(JSON.parse(text)) : parse(text);
         const assignment = parsed.findAssignment(name);
         if (assignment === undefined) {
           throw Error(`${name} not found in ${file}`);
@@ -162,5 +164,29 @@ if (require.main === module) {
         const text = readFileSync(file, 'utf8');
         parse(normalize(text));
       },
+    })
+    .command({
+      command: 'serialize <file>',
+      handler: (args) => {
+        const { file } = args;
+        if (typeof file !== 'string') {
+          throw Error();
+        }
+        const text = readFileSync(file, 'utf8');
+        const parsed = parse(normalize(text));
+        writeFileSync(`${file}.json`, JSON.stringify(parsed));
+      }
+    })
+    .command({
+      command: 'deserialize <file>',
+      handler: (args) => {
+        const { file } = args;
+        if (typeof file !== 'string') {
+          throw Error();
+        }
+        const serialized = readFileSync(file, 'utf8');
+        const modulesObj = JSON.parse(serialized);
+        Modules.fromObject(modulesObj);
+      }
     });
 }

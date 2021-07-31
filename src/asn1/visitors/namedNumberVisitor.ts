@@ -7,7 +7,7 @@ import {
   SignedNumberContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
-import { INamedNumber } from '../types';
+import { INamedNumber } from '../types/namedNumber';
 import { SignedNumberVisitor } from './signedNumberVisitor';
 
 /**

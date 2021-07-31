@@ -1,13 +1,12 @@
-import { ComponentPresence } from './componentPresence';
-import { ExtensionMarker } from './extensionMarker';
-export declare type TypeConstraintsComponent = ComponentPresence | ExtensionMarker;
+import { TypeConstraintsComponent } from '../types/typeConstraintsComponent';
 /**
  * Currently it supports only MultipleTypeConstraints
  */
 export declare class InnerTypeConstraints {
     components: TypeConstraintsComponent[];
-    private innerTypeConstraintsTag;
+    innerTypeConstraintsTag: boolean;
     constructor(components: TypeConstraintsComponent[]);
+    static fromObject(obj: unknown): InnerTypeConstraints;
     toString(): string;
 }
 //# sourceMappingURL=innerTypeConstraints.d.ts.map

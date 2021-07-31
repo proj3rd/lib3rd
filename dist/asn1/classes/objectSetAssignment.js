@@ -4,7 +4,10 @@ exports.ObjectSetAssignment = void 0;
 const lodash_1 = require("lodash");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const objectClassReference_1 = require("./objectClassReference");
+const objectSet_1 = require("./objectSet");
 /**
  * X.681 clause 12.1
  * ```
@@ -13,9 +16,22 @@ const spreadsheet_2 = require("../formatter/spreadsheet");
  */
 class ObjectSetAssignment {
     constructor(name, definedObjectClass, objectSet) {
+        this.objectSetAssignmentTag = true;
         this.name = name;
         this.definedObjectClass = definedObjectClass;
         this.objectSet = objectSet;
+    }
+    static fromObject(obj) {
+        const { name: nameObject, definedObjectClass: definedObjectClassObject, objectSet: objectSetObject, objectSetAssignmentTag, } = obj;
+        if (!objectSetAssignmentTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (typeof nameObject !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const definedObjectClass = objectClassReference_1.ObjectClassReference.fromObject(definedObjectClassObject);
+        const objectSet = objectSet_1.ObjectSet.fromObject(objectSetObject);
+        return new ObjectSetAssignment(nameObject, definedObjectClass, objectSet);
     }
     /**
      * Expand `objectSet` property. This will mutate the object itself.

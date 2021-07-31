@@ -2,12 +2,12 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { unimpl } from 'unimpl';
 import { FixedTypeValueFieldSpec } from '../classes/fixedTypeValueFieldSpec';
-import { FieldSpec } from '../classes/objectClass';
 import { Optionality } from '../classes/optionality';
 import { PrimitiveFieldName } from '../classes/primitiveFieldName';
 import { TypeFieldSpec } from '../classes/typeFieldSpec';
 import { FieldSpecContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { FieldSpec } from '../types/fieldSpec';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { TypeOptionalitySpecVisitor } from './typeOptionalitySpecVisitor';
 import { ValueOptionalitySpecVisitor } from './valueOptionalitySpecVisitor';

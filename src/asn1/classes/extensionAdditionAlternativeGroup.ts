@@ -3,6 +3,7 @@ import { cloneDeep, isEqual } from 'lodash';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { HEADER_NAME_BASE } from '../formatter/spreadsheet';
@@ -14,11 +15,30 @@ export class ExtensionAdditionAlternativeGroup {
   public version: number | undefined;
   public components: NamedType[];
 
-  private extensionAdditionAlternativeGroupTag: undefined;
+  public extensionAdditionAlternativeGroupTag = true;
 
   constructor(version: number | undefined, components: NamedType[]) {
     this.version = version;
     this.components = components;
+  }
+
+  public static fromObject(obj: unknown): ExtensionAdditionAlternativeGroup {
+    const {
+      version: versionObject,
+      components: componentsObject,
+      extensionAdditionAlternativeGroupTag,
+    } = obj as ExtensionAdditionAlternativeGroup;
+    if (!extensionAdditionAlternativeGroupTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (versionObject !== undefined && typeof versionObject !== 'number') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(componentsObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const components = componentsObject.map((item) => NamedType.fromObject(item));
+    return new ExtensionAdditionAlternativeGroup(versionObject, components);
   }
 
   /**

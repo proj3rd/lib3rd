@@ -2,7 +2,6 @@
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { ComponentType } from '../classes/componentType';
 import { ExtensionMarker } from '../classes/extensionMarker';
-import { RootSequenceComponents } from '../classes/sequenceType';
 import {
   ComponentTypeListsContext,
   ExtensionAdditionsContext,
@@ -12,6 +11,7 @@ import {
   TagContext,
 } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
+import { RootSequenceComponents } from '../types/rootSequenceComponents';
 import { ExtensionAdditionsVisitor } from './extensionAdditionsVisitor';
 import { ExtensionAndExceptionVisitor } from './extensionAndExceptionVisitor';
 import { OptionalExtensionMarkerVisitor } from './optionalExtensionMarkerVisitor';

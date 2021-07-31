@@ -1,0 +1,1 @@
+{"version":3,"file":"paramGovernor.js","sourceRoot":"","sources":["../../../src/asn1/types/paramGovernor.ts"],"names":[],"mappings":";;;AAAA,yCAA0D;AAI1D,SAAgB,uBAAuB,CAAC,GAAY;IAClD,IAAI,OAAO,GAAG,KAAK,QAAQ,EAAE;QAC3B,OAAO,GAAG,CAAC;KACZ;IACD,OAAO,6BAAkB,CAAC,GAAG,CAAC,CAAC;AACjC,CAAC;AALD,0DAKC"}

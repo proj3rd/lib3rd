@@ -2,17 +2,15 @@ import { Worksheet } from 'exceljs';
 import { cloneDeep } from 'lodash';
 import { unimpl } from 'unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
+import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
+import { FieldSpec, FieldSpecFromObject } from '../types/fieldSpec';
 import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { Modules } from './modules';
 import { Syntax } from './syntax';
 import { TypeFieldSpec } from './typeFieldSpec';
-
-export type FieldSpec = TypeFieldSpec | FixedTypeValueFieldSpec; // FixedTypeValue[Set]FieldSpec
-// | VariableTypeFieldSpec // VariableTypeValue[Set]FieldSpec
-// | ObjectFieldSpec // Object[Set]FieldSpec
 
 /**
  * X.681 clause 9.3
@@ -26,9 +24,37 @@ export class ObjectClassDefinition {
 
   public reference: string | undefined;
 
+  public objectClassDefinitionTag = true;
+
   constructor(fieldSpecs: FieldSpec[], syntaxList: Syntax[]) {
     this.fieldSpecs = fieldSpecs;
     this.syntaxList = syntaxList;
+  }
+
+  public static fromObject(obj: unknown): ObjectClassDefinition {
+    const {
+      fieldSpecs: fieldSpecsObject,
+      syntaxList: syntaxListObject,
+      reference: referenceObject,
+      objectClassDefinitionTag,
+    } = obj as ObjectClassDefinition;
+    if (!objectClassDefinitionTag) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(fieldSpecsObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (!(syntaxListObject instanceof Array)) {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    if (referenceObject && typeof referenceObject !== 'string') {
+      throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+    }
+    const fieldSpecs = fieldSpecsObject.map((item) => FieldSpecFromObject(item));
+    const syntaxList = syntaxListObject.map((item) => Syntax.fromObject(item));
+    const objectClassDefinition = new ObjectClassDefinition(fieldSpecs, syntaxList);
+    objectClassDefinition.reference = referenceObject;
+    return objectClassDefinition;
   }
 
   /**

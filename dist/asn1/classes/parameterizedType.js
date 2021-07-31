@@ -4,18 +4,44 @@ exports.ParameterizedType = void 0;
 const lodash_1 = require("lodash");
 const unimpl_1 = require("unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
+const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
+const actualParamter_1 = require("../types/actualParamter");
 const externalTypeReference_1 = require("./externalTypeReference");
 const objectClassAssignment_1 = require("./objectClassAssignment");
 const objectIdentifierValue_1 = require("./objectIdentifierValue");
 const objectSetAssignment_1 = require("./objectSetAssignment");
 const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
 const typeAssignment_1 = require("./typeAssignment");
+const typeReference_1 = require("./typeReference");
 const valueAssignment_1 = require("./valueAssignment");
 class ParameterizedType {
     constructor(simpleDefinedType, actualParameters) {
+        this.paramterizedTypeTag = true;
         this.simpleDefinedType = simpleDefinedType;
         this.actualParameters = actualParameters;
+    }
+    static fromObject(obj) {
+        const { simpleDefinedType: simpleDefinedTypeObj, actualParameters: actualParametersObj, reference: referenceObj, paramterizedTypeTag, } = obj;
+        if (!paramterizedTypeTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const { typeReferenceTag } = simpleDefinedTypeObj;
+        const { externalTypeReferenceTag } = simpleDefinedTypeObj;
+        if (typeReferenceTag === externalTypeReferenceTag) { // (true, true) OR (undefined, undefined)
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const simpleDefinedType = typeReferenceTag ? typeReference_1.TypeReference.fromObject(simpleDefinedTypeObj) : externalTypeReference_1.ExternalTypeReference.fromObject(simpleDefinedTypeObj);
+        if (!(actualParametersObj instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const actualParameters = actualParametersObj.map((item) => actualParamter_1.ActualParameterFromObject(item));
+        if (referenceObj && typeof referenceObj !== 'string') {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const parameterizedType = new ParameterizedType(simpleDefinedType, actualParameters);
+        parameterizedType.reference = referenceObj;
+        return parameterizedType;
     }
     /**
      * Expand the parameterized type.
@@ -34,7 +60,7 @@ class ParameterizedType {
             // A case that TypeReference shall be expanded
             const assignment = modules.findAssignment(this.simpleDefinedType.typeReference);
             if (assignment === undefined) {
-                return unimpl_1.unimpl();
+                return this;
             }
             if (assignment instanceof typeAssignment_1.TypeAssignment) {
                 return unimpl_1.unimpl();
@@ -79,10 +105,11 @@ class ParameterizedType {
                     // eslint-disable-next-line no-param-reassign
                     parameterMapping.actualParameter = actualParametersNew[index];
                 });
-                const expandedType = lodash_1.cloneDeep(assignment.asnType).expand(modules, parameterMappingsNew);
-                if (lodash_1.isEqual(expandedType, assignment.asnType)) {
-                    assignment.asnType.reference = this.toStringHelper(actualParametersNew);
-                    return assignment.asnType;
+                const asnType = lodash_1.cloneDeep(assignment.asnType);
+                const expandedType = lodash_1.cloneDeep(lodash_1.cloneDeep(asnType).expand(modules, parameterMappingsNew));
+                if (lodash_1.isEqual(expandedType, asnType)) {
+                    asnType.reference = this.toStringHelper(actualParametersNew);
+                    return asnType;
                 }
                 expandedType.reference = this.toStringHelper(actualParametersNew);
                 return expandedType;

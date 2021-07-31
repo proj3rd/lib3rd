@@ -2,11 +2,40 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SizeConstraint = void 0;
 const lodash_1 = require("lodash");
+const constants_1 = require("../constants");
 const formatter_1 = require("../formatter");
 const extensionMarker_1 = require("./extensionMarker");
+const integerValue_1 = require("./integerValue");
+const valueRange_1 = require("./valueRange");
 class SizeConstraint {
     constructor(constraint) {
+        this.sizeConstraintTag = true;
         this.constraint = constraint;
+    }
+    static fromObject(obj) {
+        const { constraint: constraintObject, sizeConstraintTag } = obj;
+        if (!sizeConstraintTag) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        if (!(constraintObject instanceof Array)) {
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        }
+        const constraint = constraintObject.map((item) => {
+            const { extensionMarkerTag } = item;
+            if (extensionMarkerTag) {
+                return extensionMarker_1.ExtensionMarker.getInstance();
+            }
+            const { integerValueTag } = item;
+            if (integerValueTag) {
+                return integerValue_1.IntegerValue.fromObject(item);
+            }
+            const { valueRangeTag } = item;
+            if (valueRangeTag) {
+                return valueRange_1.ValueRange.fromObject(item);
+            }
+            throw Error(constants_1.MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
+        });
+        return new SizeConstraint(constraint);
     }
     /**
      * Expand `constraint` property. This will mutate the object itself.
