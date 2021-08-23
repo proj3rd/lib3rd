@@ -23,7 +23,7 @@ export class ContentsConstraint {
     }
     const asnType = asnTypeObj ? AsnTypeFromObject(asnTypeObj) : undefined;
     const value = valueObj ? ValueFromObject(valueObj) : undefined;
-    return new ContentsConstraint(asnTypeObj, value);
+    return new ContentsConstraint(asnType, value);
   }
 
   public toString(): string {
