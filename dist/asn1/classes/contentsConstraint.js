@@ -20,7 +20,7 @@ class ContentsConstraint {
         }
         const asnType = asnTypeObj ? asnType_1.AsnTypeFromObject(asnTypeObj) : undefined;
         const value = valueObj ? value_1.ValueFromObject(valueObj) : undefined;
-        return new ContentsConstraint(asnTypeObj, value);
+        return new ContentsConstraint(asnType, value);
     }
     toString() {
         const arrToString = [];
