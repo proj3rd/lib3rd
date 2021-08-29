@@ -90,6 +90,7 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.13",
     "@types/pug": "^2.0.4",
+    "@types/readline-sync": "^1.4.4",
     "@types/yargs": "^15.0.5",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
@@ -109,6 +110,7 @@
     "lodash": "^4.17.19",
     "logform": "^2.2.0",
     "pug": "^3.0.0",
+    "readline-sync": "^1.4.10",
     "unimpl": "^1.2.4",
     "winston": "^3.3.3",
     "yargs": "^15.4.1"

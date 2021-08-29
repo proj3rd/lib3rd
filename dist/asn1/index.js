@@ -94,14 +94,21 @@ if (require.main === module) {
     })
         .command({
         command: 'extract <file>',
+        builder: (args) => args.options({
+            i: {
+                alias: 'interactive',
+                default: false,
+                type: 'boolean',
+            },
+        }),
         handler: (args) => {
-            const { file } = args;
-            if (typeof file !== 'string') {
+            const { file, interactive } = args;
+            if (typeof file !== 'string' || typeof interactive !== 'boolean') {
                 throw Error();
             }
             const { name: spec } = path_1.parse(file);
             const text = fs_1.readFileSync(file, 'utf8');
-            const extracted = extractor_1.extract(text);
+            const extracted = extractor_1.extract(text, interactive);
             const path = `${spec}.asn1`;
             fs_1.writeFileSync(path, extracted);
         },
