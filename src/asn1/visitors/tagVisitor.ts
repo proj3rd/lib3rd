@@ -7,8 +7,8 @@ import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 
 const logger = Logger.getLogger('asn1.parser.tagVisitor');
 
-const RE_COND = /--\s*?Cond\s+?.+?/;
-const RE_NEED = /--\s*?Need\s+?.+?/;
+export const RE_COND = /--\s*?Cond\s+?.+?/i;
+export const RE_NEED = /--\s*?Need\s+?.+?/i;
 
 /**
  * # Grammar
