@@ -1,3 +1,7 @@
+export function seriesFromSpecNumbering(specNumbering: string) {
+  return specNumbering.split('.')[0];
+}
+
 export function versionFromCharacters(chars: string) {
   const step = chars.length === 3 ? 1 : /* chars.length === 6 */ 2;
   const version = [];
