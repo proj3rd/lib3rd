@@ -34,21 +34,21 @@ const commander_1 = require("commander");
 const path_1 = require("path");
 const utils_1 = require("../utils");
 const numbering_1 = require("../utils/numbering");
+const host = 'ftp.3gpp.org';
 const basePath = '/Specs/archive';
 function getVersionList(specNumbering, options) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
+        const series = `/${numbering_1.seriesFromSpecNumbering(specNumbering)}_series`;
+        const path = path_1.join(basePath, series, specNumbering);
         const releaseList = (_a = options === null || options === void 0 ? void 0 : options.release) === null || _a === void 0 ? void 0 : _a.split(',').map((release) => Number.parseInt(release));
         const client = new ftp.Client();
         return client.access({
-            host: 'ftp.3gpp.org',
+            host,
             user: 'anonymous',
             password: 'anonymous',
         }).then(() => {
             // Get version list
-            const series = `/${numbering_1.seriesFromSpecNumbering(specNumbering)}_series`;
-            const path = path_1.join(basePath, series, specNumbering);
-            console.log(path);
             return client.list(path);
         }).then((fileInfoList) => {
             // Post process FileInfo
@@ -57,7 +57,8 @@ function getVersionList(specNumbering, options) {
                 .map((fileInfo) => {
                 const { name, rawModifiedAt } = fileInfo;
                 const modifiedAt = new Date(rawModifiedAt.split(' ')[0]);
-                return { name, modifiedAt };
+                const url = `ftp://${host}${path}`;
+                return { name, url, modifiedAt };
             });
             return versionList;
         }).then((versionList) => {

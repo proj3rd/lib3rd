@@ -14,19 +14,20 @@ type Options = {
   last?: number; // TODO
 };
 
+const host = 'ftp.3gpp.org';
 const basePath = '/Specs/archive';
 
 async function getVersionList(specNumbering: string, options?: Options) {
+  const series = `/${seriesFromSpecNumbering(specNumbering)}_series`;
+  const path = join(basePath, series, specNumbering);
   const releaseList = options?.release?.split(',').map((release) => Number.parseInt(release));
   const client = new ftp.Client();
   return client.access({
-    host: 'ftp.3gpp.org',
+    host,
     user: 'anonymous',
     password: 'anonymous',
   }).then(() => {
     // Get version list
-    const series = `/${seriesFromSpecNumbering(specNumbering)}_series`;
-    const path = join(basePath, series, specNumbering);
     return client.list(path);
   }).then((fileInfoList) => {
     // Post process FileInfo
@@ -35,7 +36,8 @@ async function getVersionList(specNumbering: string, options?: Options) {
       .map((fileInfo) => {
         const { name, rawModifiedAt } = fileInfo;
         const modifiedAt = new Date(rawModifiedAt.split(' ')[0]);
-        return { name, modifiedAt };
+        const url = `ftp://${host}${path}`;
+        return { name, url, modifiedAt };
       });
     return versionList;
   }).then((versionList) => {
