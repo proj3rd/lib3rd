@@ -1,5 +1,6 @@
 import { Workbook } from 'exceljs';
 import { getWorkbook } from '../../common/spreadsheet';
+import { MSG_ERR_L3_TABULAR_MALFORMED_SERIALIZATION } from '../constants';
 import { Definition } from './definition';
 
 export class Definitions {
@@ -12,10 +13,10 @@ export class Definitions {
   public static fromObject(obj: unknown) {
     const { definitionList: definitionListObj } = obj as Definitions;
     if (!definitionListObj) {
-      throw Error('Malformed serialization of RAN3 tabular form');
+      throw Error(MSG_ERR_L3_TABULAR_MALFORMED_SERIALIZATION);
     }
     if (!(definitionListObj instanceof Array)) {
-      throw Error('Malformed serialization of RAN3 tabular form');
+      throw Error(MSG_ERR_L3_TABULAR_MALFORMED_SERIALIZATION);
     }
     const definitionList = definitionListObj.map((definitionObj) => Definition.fromObject(definitionObj));
     return new Definitions(definitionList);
@@ -27,11 +28,5 @@ export class Definitions {
         || def.name === sectionNumberOrName
     ));
     return definition;
-  }
-
-  public toSpreadsheet(): Workbook {
-    const wb = getWorkbook();
-    this.definitionList.forEach((def) => def.toSpreadsheet(wb));
-    return wb;
   }
 }
