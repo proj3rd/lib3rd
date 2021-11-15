@@ -1,5 +1,3 @@
-import { Workbook } from 'exceljs';
-import { getWorkbook } from '../../common/spreadsheet';
 import { MSG_ERR_L3_TABULAR_MALFORMED_SERIALIZATION } from '../constants';
 import { Definition } from './definition';
 

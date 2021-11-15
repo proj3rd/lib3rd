@@ -1,35 +1,5 @@
-import { Workbook } from 'exceljs';
-import { HEADER_REFERENCE, HEADER_TYPE } from '../../asn1/formatter/spreadsheet';
-import {
-  addHeader,
-  addTitle,
-  addWorksheet,
-  drawBorder,
-  getWorkbook,
-  headerIndexed,
-  IRowInput,
-  setOutlineLevel,
-  uniqueSheetname,
-} from '../../common/spreadsheet';
-import { BorderTop } from '../../common/spreadsheet/style';
 import { MSG_ERR_L3_TABULAR_MALFORMED_SERIALIZATION } from '../constants';
 import { IDefinition, IInformationElement } from '../types';
-
-const HEADER_IEI = 'IEI';
-const HEADER_INFORMATION_ELEMENT = 'Information Element';
-const HEADER_TYPE_REFERENCE = 'Type / Reference';
-const HEADER_PRESENCE = 'Presence';
-const HEADER_FORMAT = 'Format';
-const HEADER_LENGTH = 'Length';
-
-const HEADER_LIST = [
-  HEADER_IEI,
-  HEADER_INFORMATION_ELEMENT,
-  HEADER_TYPE_REFERENCE,
-  HEADER_PRESENCE,
-  HEADER_FORMAT,
-  HEADER_LENGTH,
-];
 
 export class Definition {
   public sectionNumber: string;
