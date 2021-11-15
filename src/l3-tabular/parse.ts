@@ -148,16 +148,15 @@ function parseDefinitionTable(element: cheerio.Element): {
   const ieList: IInformationElement[] = [];
   trListDefinition.forEach((trElement) => {
     const tdList = $('td', trElement);
-    let i = 0;
-    for (; i < tdList.length; i += 1) {
-      const td = normalizeHtmlText($(tdList[i]).text());
+    let j = tdList.length - 1;
+    // Find the last non-empty cell, which corresponds to `length`
+    for (; j >= 0; j -= 1) {
+      const td = normalizeHtmlText($(tdList[j]).text());
       if (td !== '') {
         break;
       }
     }
-    if (i === tdList.length) {
-      return;
-    }
+    const i = j - 6 + 1;
     const iei = normalizeHtmlText($(tdList[i]).text());
     const name = normalizeHtmlText($(tdList[i + 1]).text());
     const typeReference = normalizeHtmlText($(tdList[i + 2]).text());
