@@ -10,6 +10,7 @@
     "asn1": "node --enable-source-maps dist/asn1",
     "class": "node --enable-source-maps dist/asn1/classes",
     "extract": "node --enable-source-maps dist/asn1/extractor",
+    "l3": "node --enable-source-maps dist/l3-tabular",
     "lint": "npx eslint -c .eslintrc.js --ext .ts src",
     "lint-fix": "npx eslint -c .eslintrc.js --ext .ts src --fix",
     "prettier": "npx prettier@2.0.5 src --write",
