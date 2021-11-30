@@ -5,6 +5,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "antlr4-csn1": "cd src/csn1/grammar && antlr4 csn3rd.g4 && javac *.java",
     "antlr4ts": "antlr4ts -visitor -no-listener src/asn1/grammar/grammar3rd.g4 -o src/asn1/grammar",
     "antlr4ts-help": "antlr4ts",
     "asn1": "node --enable-source-maps dist/asn1",
@@ -15,6 +16,7 @@
     "prettier": "npx prettier@2.0.5 src --write",
     "ran3": "node --enable-source-maps dist/ran3",
     "test": "mocha --enable-source-maps dist/tests",
+    "test-csn1-grammar": "cd src/csn1/grammar && grun csn3rd definitions -gui 44018-g00.csn1",
     "test-diff": "mocha --enable-source-maps dist/asn1/test_diff --grep diff_all",
     "test-diff-render": "mocha --enable-source-maps dist/asn1/test_diff --grep diff_render",
     "test-expander": "mocha --enable-source-maps dist/asn1/test_expander --grep expand_all",
