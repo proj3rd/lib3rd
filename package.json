@@ -7,6 +7,7 @@
   "scripts": {
     "antlr4-csn1": "cd src/csn1/grammar && antlr4 csn3rd.g4 && javac *.java",
     "antlr4ts": "antlr4ts -visitor -no-listener src/asn1/grammar/grammar3rd.g4 -o src/asn1/grammar",
+    "antlr4ts-csn1": "antlr4ts -visitor -no-listener src/csn1/grammar/csn3rd.g4 -o src/csn1/grammar",
     "antlr4ts-help": "antlr4ts",
     "asn1": "node --enable-source-maps dist/asn1",
     "class": "node --enable-source-maps dist/asn1/classes",

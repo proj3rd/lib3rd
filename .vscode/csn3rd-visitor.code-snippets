@@ -1,0 +1,28 @@
+{
+	"csn3rd visitor": {
+		"scope": "typescript",
+		"prefix": "visitor",
+		"body": [
+			"import {AbstractParseTreeVisitor} from 'antlr4ts/tree/AbstractParseTreeVisitor';",
+			"import { todo, unimpl } from 'unimpl';",
+			"import { ${1:RuleName}Context } from '../grammar/csn3rdParser';",
+			"import { csn3rdVisitor } from '../grammar/csn3rdVisitor';",
+			"",
+			"/**",
+			" * # Grammar",
+			" * ```",
+			" * ```",
+			" */",
+			"export class ${1:RuleName}Visitor extends AbstractParseTreeVisitor<${2:ReturnType}> implements csn3rdVisitor<${2:ReturnType}> {",
+			"	public visitChildren(ctx: ${1:RuleName}Context): ${2:ReturnType} {",
+			"		return todo();",
+			"	}",
+			"",
+			"	protected defaultResult(): ${2:ReturnType} {",
+			"		return unimpl();",
+			"	}",
+			"}",
+		],
+		"description": "ANTLR4 visitor skeleton"
+	}
+}
