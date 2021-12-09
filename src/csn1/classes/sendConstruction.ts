@@ -1,4 +1,12 @@
+import { MSG_ERR_CSN1_MALFORMED_SERIALIZATION } from "../constants";
 import { Reference } from "./reference";
+
+function SendConstructionFromObject(obj: unknown): string | Reference {
+  if (typeof obj === 'string') {
+    return obj;
+  }
+  return Reference.fromObject(obj);
+}
 
 export class SendConstruction {
   public sendConstruction: string | Reference;
@@ -7,5 +15,14 @@ export class SendConstruction {
 
   constructor(sendConstruction: string | Reference) {
     this.sendConstruction = sendConstruction;
+  }
+
+  public static fromObject(obj: unknown): SendConstruction {
+    const { sendConstruction: sendConstructionObj, csnTypeSendConstruction } = obj as SendConstruction;
+    if (!csnTypeSendConstruction) {
+      throw Error(MSG_ERR_CSN1_MALFORMED_SERIALIZATION);
+    }
+    const sendConstruction = SendConstructionFromObject(sendConstructionObj);
+    return new SendConstruction(sendConstruction);
   }
 }

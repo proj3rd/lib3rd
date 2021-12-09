@@ -1,13 +1,12 @@
 import {AbstractParseTreeVisitor} from 'antlr4ts/tree/AbstractParseTreeVisitor';
 import { todo, unimpl } from 'unimpl';
+import { Exponent } from '../classes/exponent';
 import { ExponentParenthesis } from '../classes/exponentParenthesis';
 import { ExponentStar } from '../classes/exponentStar';
 import { ExponentContext } from '../grammar/csn3rdParser';
 import { csn3rdVisitor } from '../grammar/csn3rdVisitor';
 import { ExponentParenthesisVisitor } from './exponentParenthesisVisitor';
 import { ExponentStarVisitor } from './exponentStarVisitor';
-
-export type Exponent = ExponentParenthesis | ExponentStar;
 
 /**
  * # Grammar
