@@ -1,7 +1,9 @@
 import { ANTLRInputStream, CommonTokenStream } from "antlr4ts";
 import { normalize } from ".";
+import { Definitions } from "./classes/definitions";
 import { csn3rdLexer } from "./grammar/csn3rdLexer";
 import { csn3rdParser } from "./grammar/csn3rdParser";
+import { DefinitionsVisitor } from "./visitors/definitionsVisitor";
 
 export function parse(csn1: string): Definitions {
   const normalized = normalize(csn1);
