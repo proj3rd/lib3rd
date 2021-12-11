@@ -1,4 +1,5 @@
 import { MSG_ERR_CSN1_MALFORMED_SERIALIZATION } from "../constants";
+import { Definitions } from "./definitions";
 import { Reference } from "./reference";
 
 function SendConstructionFromObject(obj: unknown): string | Reference {
@@ -15,6 +16,10 @@ export class SendConstruction {
 
   constructor(sendConstruction: string | Reference) {
     this.sendConstruction = sendConstruction;
+  }
+
+  public expand(definitions: Definitions, index: number = 0): SendConstruction {
+    return this;
   }
 
   public static fromObject(obj: unknown): SendConstruction {

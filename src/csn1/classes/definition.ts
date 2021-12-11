@@ -1,6 +1,8 @@
+import { cloneDeep, isEqual } from "lodash";
 import { MSG_ERR_CSN1_MALFORMED_SERIALIZATION } from "../constants";
 import { Choice } from "./choice";
 import { Concatenation } from "./concatenation";
+import { Definitions } from "./definitions";
 
 function DefinitionFromObject(obj: unknown): Choice | Concatenation {
   const { csnTypeChoice } = obj as Partial<Choice>;
@@ -23,6 +25,14 @@ export class Definition {
   constructor(name: string, definition: Choice | Concatenation) {
     this.name = name;
     this.definition = definition;
+  }
+
+  public expand(definitions: Definitions, index: number = 0): Definition {
+    const definitionExpanded = cloneDeep(this.definition).expand(definitions, index);
+    if (!isEqual(definitionExpanded, this.definition)) {
+      this.definition = definitionExpanded;
+    }
+    return this;
   }
 
   public static fromObject(obj: unknown): Definition {

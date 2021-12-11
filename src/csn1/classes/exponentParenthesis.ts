@@ -1,4 +1,5 @@
 import { MSG_ERR_CSN1_MALFORMED_SERIALIZATION } from "../constants";
+import { Definitions } from "./definitions";
 
 export class ExponentParenthesis {
   // `undefined` = indefinite
@@ -8,6 +9,10 @@ export class ExponentParenthesis {
 
   constructor(exponent?: string) {
     this.exponent = exponent;
+  }
+
+  public expand(definitions: Definitions, index: number = 0): ExponentParenthesis {
+    return this;
   }
 
   public static fromObject(obj: unknown): ExponentParenthesis {

@@ -1,6 +1,8 @@
+import { cloneDeep, isEqual } from "lodash";
 import { MSG_ERR_CSN1_MALFORMED_SERIALIZATION } from "../constants";
 import { Choice } from "./choice";
 import { Concatenation } from "./concatenation";
+import { Definitions } from "./definitions";
 import { ExponentStar } from "./exponentStar";
 import { Intersection } from "./intersection";
 import { Label } from "./label";
@@ -50,6 +52,14 @@ export class ConcatableExpression {
     this.expression = expression;
     this.intersection = intersection;
     this.exponentStar = exponentStar;
+  }
+
+  public expand(definitions: Definitions, index: number = 0): ConcatableExpression {
+    const expandedExpression = cloneDeep(this.expression).expand(definitions, index);
+    if (!isEqual(expandedExpression, this.expression)) {
+      this.expression = expandedExpression;
+    }
+    return this;
   }
 
   public static fromObject(obj: unknown): ConcatableExpression {

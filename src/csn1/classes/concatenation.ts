@@ -1,5 +1,7 @@
+import { cloneDeep, isEqual } from "lodash";
 import { MSG_ERR_CSN1_MALFORMED_SERIALIZATION } from "../constants";
 import { ConcatableExpression } from "./concatableExpression";
+import { Definitions } from "./definitions";
 import { Truncation } from "./truncation";
 
 export class Concatenation {
@@ -14,6 +16,17 @@ export class Concatenation {
   ) {
     this.concatableExpressionList = concatableExpressionList;
     this.truncation = truncation;
+  }
+
+  public expand(definitions: Definitions, index: number = 0): Concatenation {
+    this.concatableExpressionList = this.concatableExpressionList.map((concatableExpression) => {
+      const expandedChoice = cloneDeep(concatableExpression).expand(definitions, index);
+      if (isEqual(expandedChoice, concatableExpression)) {
+        return concatableExpression;
+      }
+      return expandedChoice;
+    });
+    return this;
   }
 
   public static fromObject(obj: unknown): Concatenation {

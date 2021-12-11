@@ -1,4 +1,5 @@
 import { MSG_ERR_CSN1_MALFORMED_SERIALIZATION } from "../constants";
+import { Definitions } from "./definitions";
 import { ExponentParenthesis } from "./exponentParenthesis";
 
 function ExponentFromObject(obj: unknown): string | ExponentParenthesis | undefined {
@@ -16,6 +17,10 @@ export class ExponentStar {
 
   constructor(exponent?: string | ExponentParenthesis) {
     this.exponent = exponent;
+  }
+
+  public expand(definitions: Definitions, index: number = 0): ExponentStar {
+    return this;
   }
 
   public static fromObject(obj: unknown): ExponentStar {

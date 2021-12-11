@@ -10,6 +10,12 @@ export class Definitions {
     this.definitions = definitions;
   }
 
+  public findDefinition(name: string, index: number = 0): Definition | undefined {
+    return this.definitions.slice(index).find(
+      (definition) => definition.name === name
+    );
+  }
+
   public static fromObject(obj: unknown): Definitions {
     const { definitions: definitionsObj, csnTypeDefinitions } = obj as Definitions;
     if (!(definitionsObj instanceof Array) || !csnTypeDefinitions) {
