@@ -8,6 +8,8 @@ export class Concatenation {
   public concatableExpressionList: ConcatableExpression[];
   public truncation: Truncation | undefined;
 
+  public reference: string | undefined;
+
   public csnTypeConcatenation = true;
 
   constructor(

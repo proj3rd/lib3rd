@@ -6,6 +6,8 @@ import { Definitions } from "./definitions";
 export class Choice {
   public choices: Concatenation[];
 
+  public reference: string | undefined;
+
   public csnTypeChoice = true;
 
   constructor(choices: Concatenation[]) {
