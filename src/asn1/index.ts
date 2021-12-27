@@ -105,7 +105,6 @@ if (require.main === module) {
           const wordExtractor = new WordExtractor();
           wordExtractor.extract(file).then((document) => {
             const text = document.getBody();
-            console.log('Extracted text:', text);
             const extracted = extract(text, interactive);
             const path = `${spec}.asn1`;
             writeFileSync(path, extracted);
