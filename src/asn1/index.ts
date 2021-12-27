@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { cloneDeep } from 'lodash';
 import { parse as parsePath } from 'path';
+import WordExtractor from 'word-extractor';
 import yargs from 'yargs';
 import { Modules } from './classes/modules';
 import { ValueAssignment } from './classes/valueAssignment';
@@ -98,11 +99,23 @@ if (require.main === module) {
         if (typeof file !== 'string' || typeof interactive !== 'boolean') {
           throw Error();
         }
-        const { name: spec } = parsePath(file);
-        const text = readFileSync(file, 'utf8');
-        const extracted = extract(text, interactive);
-        const path = `${spec}.asn1`;
-        writeFileSync(path, extracted);
+        const { name: spec, ext } = parsePath(file);
+        // TODO: Extract directly from doc/docx file
+        if (ext === '.doc' || ext === '.docx') {
+          const wordExtractor = new WordExtractor();
+          wordExtractor.extract(file).then((document) => {
+            const text = document.getBody();
+            console.log('Extracted text:', text);
+            const extracted = extract(text, interactive);
+            const path = `${spec}.asn1`;
+            writeFileSync(path, extracted);
+          });
+        } else {
+          const text = readFileSync(file, 'utf8');
+          const extracted = extract(text, interactive);
+          const path = `${spec}.asn1`;
+          writeFileSync(path, extracted);
+        }
       },
     })
     .command({

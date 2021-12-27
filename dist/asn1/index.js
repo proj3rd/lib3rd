@@ -7,6 +7,7 @@ exports.normalize = exports.parse = exports.extract = exports.renderDiff = expor
 const fs_1 = require("fs");
 const lodash_1 = require("lodash");
 const path_1 = require("path");
+const word_extractor_1 = __importDefault(require("word-extractor"));
 const yargs_1 = __importDefault(require("yargs"));
 const modules_1 = require("./classes/modules");
 const valueAssignment_1 = require("./classes/valueAssignment");
@@ -106,11 +107,24 @@ if (require.main === module) {
             if (typeof file !== 'string' || typeof interactive !== 'boolean') {
                 throw Error();
             }
-            const { name: spec } = path_1.parse(file);
-            const text = fs_1.readFileSync(file, 'utf8');
-            const extracted = extractor_1.extract(text, interactive);
-            const path = `${spec}.asn1`;
-            fs_1.writeFileSync(path, extracted);
+            const { name: spec, ext } = path_1.parse(file);
+            // TODO: Extract directly from doc/docx file
+            if (ext === '.doc' || ext === '.docx') {
+                const wordExtractor = new word_extractor_1.default();
+                wordExtractor.extract(file).then((document) => {
+                    const text = document.getBody();
+                    console.log('Extracted text:', text);
+                    const extracted = extractor_1.extract(text, interactive);
+                    const path = `${spec}.asn1`;
+                    fs_1.writeFileSync(path, extracted);
+                });
+            }
+            else {
+                const text = fs_1.readFileSync(file, 'utf8');
+                const extracted = extractor_1.extract(text, interactive);
+                const path = `${spec}.asn1`;
+                fs_1.writeFileSync(path, extracted);
+            }
         },
     })
         .command({
