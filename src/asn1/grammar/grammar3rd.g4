@@ -157,7 +157,7 @@ tag
   ;
 
 TAG
-	: '--' ~('\n'|'\r')*
+	: {getCharPositionInLine() != 0}? '--' (N E E D | C O N D) ~[\n\r]* '\r'? '\n'
 	;
 
 extensionAdditions  :  (COMMA  extensionAdditionList)?
@@ -987,10 +987,6 @@ ENCODED_LITERAL
 	:	'ENCODED'
 	;
 
-COMMENT
-    :	'--'
-    ;
-
 UNRESTRICTEDCHARACTERSTRINGTYPE
     : CHARACTER_LITERAL STRING_LITERAL
     ;
@@ -1023,8 +1019,8 @@ fragment Exponent
     : ('e'|'E') ('+'|'-')? NUMBER
     ;
 
-LINE_COMMENT
-    : {getCharPositionInLine() == 0}? (' ' | '\t')*? '--' ~('\n'|'\r')* '\r'? '\n' ->skip
+COMMENT
+    : '--' ~[\n\r]*? (('\r'? '\n') | '--') ->skip
     ;
 
 BSTRING
@@ -1102,3 +1098,9 @@ JavaIDDigit
 IDENTIFIER
     :   LETTER (LETTER|JavaIDDigit)*
     ;
+
+fragment C: [Cc];
+fragment D: [Dd];
+fragment E: [Ee];
+fragment N: [Nn];
+fragment O: [Oo];
