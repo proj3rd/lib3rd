@@ -21,14 +21,18 @@ class Optionality {
             const defaultValue = asnType_1.AsnTypeFromObject(defaultValueObject);
             return new Optionality(defaultValue);
         }
-        catch (e) { }
-        finally { }
+        catch (e) {
+        }
+        finally {
+        }
         try {
             const defaultValue = value_1.ValueFromObject(defaultValueObject);
             return new Optionality(defaultValueObject);
         }
-        catch (e) { }
-        finally { }
+        catch (e) {
+        }
+        finally {
+        }
         if (defaultValueObject === undefined) {
             return new Optionality();
         }
@@ -39,7 +43,12 @@ class Optionality {
     }
     toString() {
         if (this.defaultValue !== undefined) {
-            return `DEFAULT ${this.defaultValue.toString()}`;
+            const stringified = this.defaultValue.toString();
+            const defaultValue = stringified === '[object Object]' &&
+                'literal' in this.defaultValue
+                ? this.defaultValue.literal
+                : this.defaultValue.toString();
+            return `DEFAULT ${defaultValue}`;
         }
         return 'OPTIONAL';
     }
