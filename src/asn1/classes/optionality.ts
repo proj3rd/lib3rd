@@ -15,18 +15,23 @@ export class Optionality {
   }
 
   public static fromObject(obj: unknown): Optionality {
-    const { defaultValue: defaultValueObject, optionalityTag } = obj as Optionality;
+    const { defaultValue: defaultValueObject, optionalityTag } =
+      obj as Optionality;
     if (!optionalityTag) {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);
     }
     try {
       const defaultValue = AsnTypeFromObject(defaultValueObject);
       return new Optionality(defaultValue);
-    } catch (e) {} finally {}
+    } catch (e) {
+    } finally {
+    }
     try {
       const defaultValue = ValueFromObject(defaultValueObject);
       return new Optionality(defaultValueObject);
-    } catch (e) {} finally {}
+    } catch (e) {
+    } finally {
+    }
     if (defaultValueObject === undefined) {
       return new Optionality();
     }
@@ -39,7 +44,13 @@ export class Optionality {
 
   public toString(): string {
     if (this.defaultValue !== undefined) {
-      return `DEFAULT ${this.defaultValue.toString()}`;
+      const stringified = this.defaultValue.toString();
+      const defaultValue =
+        stringified === '[object Object]' &&
+        'literal' in (this.defaultValue as any)
+          ? (this.defaultValue as any).literal
+          : this.defaultValue.toString();
+      return `DEFAULT ${defaultValue}`;
     }
     return 'OPTIONAL';
   }
