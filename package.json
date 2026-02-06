@@ -111,7 +111,6 @@
     "logform": "^2.2.0",
     "pug": "^3.0.0",
     "readline-sync": "^1.4.10",
-    "unimpl": "^1.2.4",
     "winston": "^3.3.3",
     "yargs": "^15.4.1"
   }

@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { todo, unimpl, unreach } from 'unimpl';
+import { todo, unimpl } from '../../utils/unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
@@ -23,6 +23,7 @@ import { TypeAssignment } from './typeAssignment';
 import { TypeFieldSpec } from './typeFieldSpec';
 import { TypeReference } from './typeReference';
 import { ValueAssignment } from './valueAssignment';
+import { unreach } from '../../utils/unimpl';
 
 /**
  * X.681 clause 14

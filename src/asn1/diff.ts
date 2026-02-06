@@ -1,9 +1,9 @@
 import { createTwoFilesPatch } from 'diff';
 import { html, parse } from 'diff2html';
 import { render } from 'pug';
-import { unreach } from 'unimpl';
 import { Modules } from './classes/modules';
 import { Assignment } from './types/assignment';
+import { unreach } from '../utils/unimpl';
 
 interface IAssignmentFlattened {
   moduleName: string;

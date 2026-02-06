@@ -1,5 +1,5 @@
 import { Workbook } from 'exceljs';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { getWorkbook } from '../../common/spreadsheet';
 import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { indent } from '../formatter';

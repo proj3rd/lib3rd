@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { todo, unimpl } from 'unimpl';
+import { todo, unimpl } from '../../utils/unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { Logger } from '../../logger';
 import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
