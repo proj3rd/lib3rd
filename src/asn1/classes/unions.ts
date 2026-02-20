@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl, unreach } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';
@@ -17,6 +17,7 @@ import { ObjectSetReference } from './objectSetReference';
 import { SizeConstraint } from './sizeConstraint';
 import { ValueRange } from './valueRange';
 import { ValueReference } from './valueReference';
+import { unreach } from '../../utils/unimpl';
 
 export class Unions {
   public intersectionsList: Intersections[];

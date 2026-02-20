@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { todo, unimpl } from 'unimpl';
+import { todo, unimpl } from '../../utils/unimpl';
 import {
   BuiltinTypeContext,
   DefinedValueContext,

@@ -1,5 +1,5 @@
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl, unreach } from 'unimpl';
+import { unimpl, unreach } from '../../utils/unimpl';
 import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { ConstraintSpec, ConstraintSpecFromObject } from '../types/constraintSpec';

@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import {
   ContentsConstraintContext,
   GeneralConstraintContext,

@@ -1,6 +1,6 @@
 import { Workbook } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import {
   addHeader,
   addTitle,

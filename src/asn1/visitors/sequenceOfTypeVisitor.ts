@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { Constraint } from '../classes/constraint';
 import { NamedType } from '../classes/namedType';
 import { NullType } from '../classes/nullType';

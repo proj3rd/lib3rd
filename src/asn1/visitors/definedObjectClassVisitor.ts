@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { DefinedObjectClass } from '../classes/asnType';
 import { ObjectClassReference } from '../classes/objectClassReference';
 import { DefinedObjectClassContext } from '../grammar/grammar3rdParser';
