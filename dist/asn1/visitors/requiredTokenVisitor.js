@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RequiredTokenVisitor = void 0;
 /* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const grammar3rdParser_1 = require("../grammar/grammar3rdParser");
 const literalVisitor_1 = require("./literalVisitor");
 const primitiveFieldNameVisitor_1 = require("./primitiveFieldNameVisitor");

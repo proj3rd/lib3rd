@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExternalObjectSetReference = void 0;
 const lodash_1 = require("lodash");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const constants_1 = require("../constants");
 const objectClassAssignment_1 = require("./objectClassAssignment");
 const typeAssignment_1 = require("./typeAssignment");

@@ -4,7 +4,7 @@ exports.renderDiff = exports.diff = void 0;
 const diff_1 = require("diff");
 const diff2html_1 = require("diff2html");
 const pug_1 = require("pug");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../utils/unimpl");
 function flatten(modules) {
     const assignmentFlattenedList = [];
     modules.modules.forEach((mod) => {

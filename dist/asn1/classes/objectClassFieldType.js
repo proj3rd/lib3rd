@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ObjectClassFieldType = void 0;
 const lodash_1 = require("lodash");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
@@ -21,6 +21,7 @@ const typeAssignment_1 = require("./typeAssignment");
 const typeFieldSpec_1 = require("./typeFieldSpec");
 const typeReference_1 = require("./typeReference");
 const valueAssignment_1 = require("./valueAssignment");
+const unimpl_2 = require("../../utils/unimpl");
 /**
  * X.681 clause 14
  * ```
@@ -100,7 +101,7 @@ class ObjectClassFieldType {
         if (assignment instanceof valueAssignment_1.ValueAssignment) {
             return unimpl_1.unimpl();
         }
-        return unimpl_1.unreach();
+        return unimpl_2.unreach();
     }
     // eslint-disable-next-line class-methods-use-this
     getDepth() {

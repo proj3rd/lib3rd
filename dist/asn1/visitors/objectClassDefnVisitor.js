@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ObjectClassDefnVisitor = void 0;
 /* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const objectClass_1 = require("../classes/objectClass");
 const fieldSpecVisitor_1 = require("./fieldSpecVisitor");
 const withSyntaxSpecVisitor_1 = require("./withSyntaxSpecVisitor");

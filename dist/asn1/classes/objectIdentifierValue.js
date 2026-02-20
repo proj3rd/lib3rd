@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ObjectIdentifierValue = void 0;
 const lodash_1 = require("lodash");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const constants_1 = require("../constants");
 const formatter_1 = require("../formatter");
@@ -15,6 +15,7 @@ const objectSetAssignment_1 = require("./objectSetAssignment");
 const parameterizedTypeAssignment_1 = require("./parameterizedTypeAssignment");
 const typeAssignment_1 = require("./typeAssignment");
 const valueAssignment_1 = require("./valueAssignment");
+const unimpl_2 = require("../../utils/unimpl");
 /**
  * X.680 clause 32.3
  * ```
@@ -118,7 +119,7 @@ class ObjectIdentifierValue {
                 if (assignment instanceof valueAssignment_1.ValueAssignment) {
                     return objectIdComponents;
                 }
-                return unimpl_1.unreach();
+                return unimpl_2.unreach();
             }
             const expandedType = lodash_1.cloneDeep(objectIdComponents).expand(modules, parameterMappings);
             if (lodash_1.isEqual(expandedType, objectIdComponents)) {
@@ -139,7 +140,7 @@ class ObjectIdentifierValue {
     }
     toSpreadsheet(worksheet, row, depth) {
         if (this.objectIdComponentsList.length === 1) {
-            unimpl_1.unreach();
+            unimpl_2.unreach();
         }
         spreadsheet_2.appendInColumn(row, spreadsheet_1.headerIndexed(spreadsheet_2.HEADER_NAME_BASE, depth), '{');
         if (this.reference && !row[spreadsheet_2.HEADER_REFERENCE]) {
@@ -154,7 +155,7 @@ class ObjectIdentifierValue {
                 return;
             }
             if (typeof components !== 'string') {
-                unimpl_1.unreach(components);
+                unimpl_2.unreach(components);
                 return;
             }
             const rowComponents = {

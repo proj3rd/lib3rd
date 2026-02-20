@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Unions = void 0;
 const lodash_1 = require("lodash");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const constants_1 = require("../constants");
 const spreadsheet_2 = require("../formatter/spreadsheet");
@@ -15,6 +15,7 @@ const objectSetReference_1 = require("./objectSetReference");
 const sizeConstraint_1 = require("./sizeConstraint");
 const valueRange_1 = require("./valueRange");
 const valueReference_1 = require("./valueReference");
+const unimpl_2 = require("../../utils/unimpl");
 class Unions {
     constructor(intersections) {
         this.unionsTag = true;
@@ -74,25 +75,25 @@ class Unions {
                     spreadsheet_1.drawBorder(worksheet, r, depth);
                 }
                 else if (elements instanceof booleanValue_1.BooleanValue) {
-                    unimpl_1.unreach(elements);
+                    unimpl_2.unreach(elements);
                 }
                 else if (elements instanceof externalObjectSetReference_1.ExternalObjectSetReference) {
-                    unimpl_1.unreach(elements);
+                    unimpl_2.unreach(elements);
                 }
                 else if (elements instanceof integerValue_1.IntegerValue) {
-                    unimpl_1.unreach(elements);
+                    unimpl_2.unreach(elements);
                 }
                 else if (elements instanceof objectSetReference_1.ObjectSetReference) {
-                    unimpl_1.unreach(elements);
+                    unimpl_2.unreach(elements);
                 }
                 else if (elements instanceof sizeConstraint_1.SizeConstraint) {
-                    unimpl_1.unreach(elements);
+                    unimpl_2.unreach(elements);
                 }
                 else if (elements instanceof valueRange_1.ValueRange) {
-                    unimpl_1.unreach(elements);
+                    unimpl_2.unreach(elements);
                 }
                 else if (elements instanceof valueReference_1.ValueReference) {
-                    unimpl_1.unreach(elements);
+                    unimpl_2.unreach(elements);
                 }
                 else {
                     elements.toSpreadsheet(worksheet, {}, depth);

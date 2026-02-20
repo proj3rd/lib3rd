@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequenceType = exports.toStringWithComma = exports.COMMA_PLACEHOLDER = void 0;
 const lodash_1 = require("lodash");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const spreadsheet_1 = require("../../common/spreadsheet");
 const logger_1 = require("../../logger");
 const constants_1 = require("../constants");
