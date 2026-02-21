@@ -1,3 +1,2 @@
-import { parse } from './parse';
-export { parse };
+export {};
 //# sourceMappingURL=index.d.ts.map

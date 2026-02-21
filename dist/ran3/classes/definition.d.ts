@@ -1,10 +1,18 @@
-import { Workbook } from 'exceljs';
-import { IDefinition, IInformationElement } from '../types';
-import { Conditions } from './conditions';
-import { Definitions } from './definitions';
-import { RangeBounds } from './rangeBounds';
+import { Workbook } from "exceljs";
+import { IDefinition, IInformationElement } from "../types";
+import { Conditions } from "./conditions";
+import { Definitions } from "./definitions";
+import { RangeBounds } from "./rangeBounds";
 export declare const HEADER_NAME_BASE = "IE/Group Name";
 export declare const HEADER_DESCRIPTION = "Semantics description";
+/**
+ * Regular expression for section number. Following expressions are supported
+ * - 9.1.2.3
+ * - 9.1.2.3a
+ * - A.1.2.3
+ * - A.1.2.3a
+ */
+export declare const reSectionNumber: RegExp;
 export declare class Definition {
     sectionNumber: string;
     name: string;

@@ -1,20 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Definition = exports.HEADER_DESCRIPTION = exports.HEADER_NAME_BASE = void 0;
+exports.Definition = exports.reSectionNumber = exports.HEADER_DESCRIPTION = exports.HEADER_NAME_BASE = void 0;
 const lodash_1 = require("lodash");
 const spreadsheet_1 = require("../../asn1/formatter/spreadsheet");
 const spreadsheet_2 = require("../../common/spreadsheet");
 const style_1 = require("../../common/spreadsheet/style");
 const constants_1 = require("../constants");
-const parse_1 = require("../parse");
 const conditions_1 = require("./conditions");
 const rangeBounds_1 = require("./rangeBounds");
-exports.HEADER_NAME_BASE = 'IE/Group Name';
-const HEADER_PRESENCE = 'Presence';
-const HEADER_RANGE = 'Range';
-exports.HEADER_DESCRIPTION = 'Semantics description';
-const HEADER_CRITICALITY = 'Criticality';
-const HEADER_ASSIGNED_CRITICALITY = 'Assigned Criticality';
+exports.HEADER_NAME_BASE = "IE/Group Name";
+const HEADER_PRESENCE = "Presence";
+const HEADER_RANGE = "Range";
+exports.HEADER_DESCRIPTION = "Semantics description";
+const HEADER_CRITICALITY = "Criticality";
+const HEADER_ASSIGNED_CRITICALITY = "Assigned Criticality";
 const HEADER_LIST = [
     exports.HEADER_NAME_BASE,
     HEADER_PRESENCE,
@@ -25,6 +24,15 @@ const HEADER_LIST = [
     HEADER_CRITICALITY,
     HEADER_ASSIGNED_CRITICALITY,
 ];
+/**
+ * Regular expression for section number. Following expressions are supported
+ * - 9.1.2.3
+ * - 9.1.2.3a
+ * - A.1.2.3
+ * - A.1.2.3a
+ */
+exports.reSectionNumber = /\b[1-9A-Z]\d*?(\.[1-9]\d*?)*\.[1-9]\w*?\b/;
+//                         ^ Head      ^ Middle        ^ Tail
 // eslint-disable-next-line no-use-before-define
 function canMerge(parent, child) {
     if (!child.hasSingleRoot()) {
@@ -32,38 +40,44 @@ function canMerge(parent, child) {
     }
     const { elementList } = child;
     const firstElement = elementList[0];
-    if (parent.presence !== '' && parent.presence !== 'M' && parent.presence !== 'O'
-        && firstElement.presence !== '' && firstElement.presence !== 'M' && firstElement.presence !== 'O'
-        && parent.presence !== firstElement.presence) {
+    if (parent.presence !== "" &&
+        parent.presence !== "M" &&
+        parent.presence !== "O" &&
+        firstElement.presence !== "" &&
+        firstElement.presence !== "M" &&
+        firstElement.presence !== "O" &&
+        parent.presence !== firstElement.presence) {
         return false;
     }
-    if (parent.range !== '' || firstElement.range !== '') {
+    if (parent.range !== "" || firstElement.range !== "") {
         return false;
     }
-    if (parent.criticality !== '' && firstElement.criticality !== ''
-        && parent.criticality !== firstElement.criticality) {
+    if (parent.criticality !== "" &&
+        firstElement.criticality !== "" &&
+        parent.criticality !== firstElement.criticality) {
         return false;
     }
-    if (parent.assignedCriticality !== '' && firstElement.assignedCriticality !== ''
-        && parent.assignedCriticality !== firstElement.assignedCriticality) {
+    if (parent.assignedCriticality !== "" &&
+        firstElement.assignedCriticality !== "" &&
+        parent.assignedCriticality !== firstElement.assignedCriticality) {
         return false;
     }
     return true;
 }
 function merge(parent, child) {
-    if (child.name.toUpperCase().startsWith('CHOICE')) {
+    if (child.name.toUpperCase().startsWith("CHOICE")) {
         // eslint-disable-next-line no-param-reassign
         parent.name = `CHOICE ${parent.name}`;
     }
-    if (parent.presence === 'O' || child.presence === 'O') {
+    if (parent.presence === "O" || child.presence === "O") {
         // eslint-disable-next-line no-param-reassign
-        parent.presence = 'O';
+        parent.presence = "O";
     }
     else {
         // eslint-disable-next-line no-param-reassign
         parent.presence = parent.presence || child.presence;
     }
-    if (child.type !== '') {
+    if (child.type !== "") {
         // eslint-disable-next-line no-param-reassign
         parent.type = child.type;
     }
@@ -75,7 +89,7 @@ function merge(parent, child) {
         descriptionList.push(child.description);
     }
     // eslint-disable-next-line no-param-reassign
-    parent.description = descriptionList.join('\n\n');
+    parent.description = descriptionList.join("\n\n");
 }
 class Definition {
     constructor(definition) {
@@ -90,20 +104,19 @@ class Definition {
     }
     static fromObject(obj) {
         const { sectionNumber, name, descriptionList: descriptionListObj, direction, elementList: elementListObj, rangeBounds: rangeBoundsObj, conditions: conditionsObj, } = obj;
-        if (!sectionNumber || typeof sectionNumber !== 'string') {
+        if (!sectionNumber || typeof sectionNumber !== "string") {
             throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
         }
-        if (!name || typeof name !== 'string') {
+        if (!name || typeof name !== "string") {
             throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
         }
         const descriptionList = descriptionListObj.map((descriptionObj) => {
-            if (typeof descriptionObj !== 'string') {
+            if (typeof descriptionObj !== "string") {
                 throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
             }
-            ;
             return descriptionObj;
         });
-        if (typeof direction !== 'string') {
+        if (typeof direction !== "string") {
             throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
         }
         if (!(elementListObj instanceof Array)) {
@@ -117,7 +130,15 @@ class Definition {
         if (!conditionList) {
             throw Error(constants_1.MSG_ERR_RAN3_TABULAR_MALFORMED_SERIALIZATION);
         }
-        return new Definition({ sectionNumber, name, descriptionList, direction, elementList: elementListObj, rangeBoundList, conditionList });
+        return new Definition({
+            sectionNumber,
+            name,
+            descriptionList,
+            direction,
+            elementList: elementListObj,
+            rangeBoundList,
+            conditionList,
+        });
     }
     /**
      * Expand `elementList`, `rangeBounds` and `condition`. This will mutate the object itself.
@@ -130,7 +151,7 @@ class Definition {
         for (let i = elementListExpanded.length - 1; i >= 0; i -= 1) {
             const element = elementListExpanded[i];
             const { reference } = element;
-            const matchResult = reference.match(parse_1.reSectionNumber);
+            const matchResult = reference.match(exports.reSectionNumber);
             if (matchResult) {
                 const sectionNumber = matchResult[0];
                 const definitionReferenced = definitions.findDefinition(sectionNumber);
@@ -202,7 +223,7 @@ class Definition {
         const ws = spreadsheet_2.addWorksheet(wb, sheetname, 5);
         const depth = this.getDepth();
         spreadsheet_2.addTitle(ws, this.name);
-        ws.addRow([this.descriptionList.join('\n')]);
+        ws.addRow([this.descriptionList.join("\n")]);
         ws.addRow([this.direction]);
         ws.addRow([]);
         spreadsheet_2.addHeader(ws, HEADER_LIST, depth);
