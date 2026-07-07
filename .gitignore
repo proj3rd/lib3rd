@@ -3,3 +3,8 @@ node_modules/
 *.class
 *.java
 log
+
+
+# Added by cargo
+
+/target
