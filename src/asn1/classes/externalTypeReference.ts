@@ -52,7 +52,7 @@ export class ExternalTypeReference {
   // eslint-disable-next-line no-unused-vars
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    _parameterMappings: IParameterMapping[]
   ): AsnType {
     const referencedAssignment = modules.findAssignment(
       this.typeReference,

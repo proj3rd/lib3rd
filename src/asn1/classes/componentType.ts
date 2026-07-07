@@ -48,7 +48,6 @@ export class ComponentType {
       asnType: asnTypeObject,
       optionality: optionalityObject,
       tag,
-      componentTypeTag,
     } = obj as ComponentType;
     if (!name || typeof name !== 'string') {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);

@@ -41,7 +41,6 @@ export class FixedTypeValueFieldSpec {
       asnType: asnTypeObj,
       unique: uniqueObj,
       optionality: optionalityObj,
-      fixedTypeValueFieldSpecTag,
     } = obj as FixedTypeValueFieldSpec;
     const fieldReference = PrimitiveFieldName.fromObject(fieldReferenceObj);
     const asnType = AsnTypeFromObject(asnTypeObj);

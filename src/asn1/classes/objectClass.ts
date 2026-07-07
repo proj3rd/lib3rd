@@ -7,10 +7,8 @@ import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { FieldSpec, FieldSpecFromObject } from '../types/fieldSpec';
-import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { Modules } from './modules';
 import { Syntax } from './syntax';
-import { TypeFieldSpec } from './typeFieldSpec';
 
 /**
  * X.681 clause 9.3
