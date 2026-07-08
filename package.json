@@ -79,14 +79,11 @@
   },
   "homepage": "https://github.com/gsongsong/3gpp#readme",
   "devDependencies": {
-    "@types/cheerio": "^0.22.28",
     "@types/diff": "^4.0.2",
-    "@types/hogan.js": "^3.0.0",
     "@types/lodash": "^4.14.158",
     "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.13",
     "@types/pug": "^2.0.4",
-    "@types/readline-sync": "^1.4.4",
     "@types/yargs": "^15.0.5",
     "@typescript-eslint/eslint-plugin": "^8.63.0",
     "@typescript-eslint/parser": "^8.63.0",
@@ -94,7 +91,7 @@
     "eslint": "^10.6.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.22.1",
-    "mocha": "^10.3.0",
+    "mocha": "^8.1.3",
     "typescript": "^4.0.3"
   },
   "dependencies": {
@@ -102,11 +99,10 @@
     "cheerio": "^1.0.0-rc.6",
     "diff": "^4.0.2",
     "diff2html": "^3.1.11",
-    "exceljs": "^4.1.1",
+    "exceljs": "^3.4.0",
     "lodash": "^4.18.1",
     "logform": "^2.2.0",
     "pug": "^3.0.0",
-    "readline-sync": "^1.4.10",
     "winston": "^3.3.3",
     "yargs": "^15.4.1"
   }
