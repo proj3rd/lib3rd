@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Constraint = void 0;
 const lodash_1 = require("lodash");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const constants_1 = require("../constants");
 const constraintSpec_1 = require("../types/constraintSpec");
 const sizeConstraint_1 = require("./sizeConstraint");

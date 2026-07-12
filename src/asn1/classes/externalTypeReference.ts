@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
@@ -52,7 +52,7 @@ export class ExternalTypeReference {
   // eslint-disable-next-line no-unused-vars
   public expand(
     modules: Modules,
-    parameterMappings: IParameterMapping[]
+    _parameterMappings: IParameterMapping[]
   ): AsnType {
     const referencedAssignment = modules.findAssignment(
       this.typeReference,

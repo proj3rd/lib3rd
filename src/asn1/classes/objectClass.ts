@@ -1,16 +1,14 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep } from 'lodash';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
 import { indent } from '../formatter';
 import { appendInColumn, HEADER_REFERENCE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { FieldSpec, FieldSpecFromObject } from '../types/fieldSpec';
-import { FixedTypeValueFieldSpec } from './fixedTypeValueFieldSpec';
 import { Modules } from './modules';
 import { Syntax } from './syntax';
-import { TypeFieldSpec } from './typeFieldSpec';
 
 /**
  * X.681 clause 9.3

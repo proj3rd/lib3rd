@@ -1,11 +1,12 @@
 /* eslint-disable class-methods-use-this */
 import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { unimpl, unreach } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { GovernorContext } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 import { Governor } from '../types/governor';
 import { AsnTypeVisitor } from './asnTypeVisitor';
 import { DefinedObjectClassVisitor } from './definedObjectClassVisitor';
+import { unreach } from '../../utils/unimpl';
 
 /**
  * # Grammar

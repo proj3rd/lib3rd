@@ -19,7 +19,7 @@ function CreateVisitor(ruleName: string) {
   const contextName = getContextName(ruleName);
   const visitorName = getVisitorName(ruleName);
   const content = `import { AbstractParseTreeVisitor } from 'antlr4ts/tree/AbstractParseTreeVisitor';
-import { todo, unimpl } from 'unimpl';
+import { todo, unimpl } from '../../utils/unimpl';
 import { ${contextName} } from '../grammar/grammar3rdParser';
 import { grammar3rdVisitor } from '../grammar/grammar3rdVisitor';
 

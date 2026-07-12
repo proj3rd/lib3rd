@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { IParameterMapping } from '../expander';
 import { appendInColumn, HEADER_NAME_BASE, HEADER_TYPE } from '../formatter/spreadsheet';
 import { drawBorder, headerIndexed, IRowInput, setOutlineLevel } from '../../common/spreadsheet';

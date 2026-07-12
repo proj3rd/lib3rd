@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl, unreach } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';
@@ -22,6 +22,7 @@ import { ObjectSetAssignment } from './objectSetAssignment';
 import { ParameterizedTypeAssignment } from './parameterizedTypeAssignment';
 import { TypeAssignment } from './typeAssignment';
 import { ValueAssignment } from './valueAssignment';
+import { unreach } from '../../utils/unimpl';
 
 /**
  * X.680 clause 32.3

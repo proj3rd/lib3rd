@@ -2,21 +2,6 @@ import { Workbook } from 'exceljs';
 import { getWorkbook } from '../../common/spreadsheet';
 import { Definition } from './definition';
 
-function validateDefinition(item: unknown): boolean {
-  const { sectionNumber, name, elementList, rangeBounds, conditions } = item as Definition;
-  if (!sectionNumber || typeof sectionNumber !== 'string') {
-    return false;
-  }
-  if (!name || typeof name !== 'string') {
-    return false;
-  }
-  if (!(elementList instanceof Array)) {
-    return false;
-  }
-  // TODO: Need to validate elementList, rangeBounds and conditions?
-  return true;
-}
-
 export class Definitions {
   public definitionList: Definition[];
 

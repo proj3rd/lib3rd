@@ -24,7 +24,7 @@ export function addHeader(
   depth: number,
 ) {
   const columns = [
-    ...new Array(depth + 1).fill(undefined).map((_, index) => headerIndexed(headerList[0], index)),
+    ...Array.from({ length: depth + 1 }).fill(undefined).map((_, index) => headerIndexed(headerList[0], index)),
     ...headerList.slice(1),
   ].map((key, index) => {
     let width: number;
@@ -40,7 +40,7 @@ export function addHeader(
   // eslint-disable-next-line no-param-reassign
   worksheet.columns = columns;
   const headers = [
-    ...new Array(depth + 1).fill(undefined)
+    ...Array.from({ length: depth + 1 }).fill(undefined)
       .map((_, index) => (index === 0 ? headerList[0] : undefined)),
     ...headerList.slice(1),
   ];

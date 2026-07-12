@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubtypeConstraintVisitor = void 0;
 /* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const subtypeConstraint_1 = require("../classes/subtypeConstraint");
 const elementSetSpecsVisitor_1 = require("./elementSetSpecsVisitor");
 /**

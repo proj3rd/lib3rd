@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { headerIndexed, IRowInput } from '../../common/spreadsheet';
 import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
@@ -41,7 +41,6 @@ export class FixedTypeValueFieldSpec {
       asnType: asnTypeObj,
       unique: uniqueObj,
       optionality: optionalityObj,
-      fixedTypeValueFieldSpecTag,
     } = obj as FixedTypeValueFieldSpec;
     const fieldReference = PrimitiveFieldName.fromObject(fieldReferenceObj);
     const asnType = AsnTypeFromObject(asnTypeObj);

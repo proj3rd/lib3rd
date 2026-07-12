@@ -29,5 +29,5 @@ export declare class ParameterizedAssignmentVisitor extends AbstractParseTreeVis
     visitChildren(ctx: ParameterizedAssignmentContext): IParameterizedAssignmentElements;
     protected defaultResult(): IParameterizedAssignmentElements;
 }
-export {};
+
 //# sourceMappingURL=parameterizedAssignmentVisitor.d.ts.map

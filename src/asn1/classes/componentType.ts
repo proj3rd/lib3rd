@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { headerIndexed, IRowInput } from '../../common/spreadsheet';
 import { MSG_ERR_ASN1_MALFORMED_SERIALIZATION } from '../constants';
 import { IParameterMapping } from '../expander';
@@ -48,7 +48,6 @@ export class ComponentType {
       asnType: asnTypeObject,
       optionality: optionalityObject,
       tag,
-      componentTypeTag,
     } = obj as ComponentType;
     if (!name || typeof name !== 'string') {
       throw Error(MSG_ERR_ASN1_MALFORMED_SERIALIZATION);

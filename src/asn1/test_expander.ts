@@ -1,5 +1,4 @@
 import { readFileSync } from 'fs';
-import { cloneDeep } from 'lodash';
 import { parse } from './parser';
 
 describe('Expand ASN.1 [expand_all]', function () {

@@ -1,6 +1,6 @@
 import { Worksheet } from 'exceljs';
 import { cloneDeep, isEqual } from 'lodash';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import {
   headerIndexed, setOutlineLevel, IRowInput, drawBorder,
 } from '../../common/spreadsheet';

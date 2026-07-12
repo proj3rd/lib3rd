@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExtensionAdditionAlternativesGroupVisitor = void 0;
 /* eslint-disable class-methods-use-this */
 const AbstractParseTreeVisitor_1 = require("antlr4ts/tree/AbstractParseTreeVisitor");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const extensionAdditionAlternativeGroup_1 = require("../classes/extensionAdditionAlternativeGroup");
 const alternativeTypeListVisitor_1 = require("./alternativeTypeListVisitor");
 const versionNumberVisitor_1 = require("./versionNumberVisitor");

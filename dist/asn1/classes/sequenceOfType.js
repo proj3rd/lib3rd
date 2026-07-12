@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequenceOfType = void 0;
 const lodash_1 = require("lodash");
-const unimpl_1 = require("unimpl");
+const unimpl_1 = require("../../utils/unimpl");
 const spreadsheet_1 = require("../formatter/spreadsheet");
 const spreadsheet_2 = require("../../common/spreadsheet");
 const constraint_1 = require("./constraint");

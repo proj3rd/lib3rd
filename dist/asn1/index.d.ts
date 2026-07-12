@@ -1,6 +1,5 @@
-export { diff, renderDiff } from './diff';
-export { extract } from './extractor';
-export { parse } from './parser';
+export { diff, renderDiff } from "./diff";
+export { parse } from "./parser";
 /**
  * Normalize ASN.1 definition with the followings:
  * - Move a tag in a separate line to inline

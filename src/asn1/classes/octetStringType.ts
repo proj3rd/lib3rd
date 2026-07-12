@@ -1,5 +1,5 @@
 import { Worksheet } from 'exceljs';
-import { unimpl } from 'unimpl';
+import { unimpl } from '../../utils/unimpl';
 import { setOutlineLevel, IRowInput, drawBorder } from '../../common/spreadsheet';
 import { SizeConstraint } from './sizeConstraint';
 import { IParameterMapping } from '../expander';
